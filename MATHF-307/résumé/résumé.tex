@@ -1,0 +1,2018 @@
+\documentclass{article}
+
+\usepackage{times}  % times new roman police for document
+\usepackage[cm]{fullpage}  % Use full page and remove big margins
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}  % math package
+\usepackage{amsfonts}  % same
+\usepackage{commath}  % same
+\usepackage{mathtools}  % sale
+\usepackage[bottom]{footmisc}  % force footnotes to be on bottom of pages
+\usepackage[utf8]{inputenc}  % UTF-8 file
+\usepackage[parfill]{parskip}  % adjust lists
+\usepackage{titlesec}  % reduce space between paragraphs
+
+\newenvironment{lst}
+	{\begin{minipage}[t]{.9\linewidth}\begin{itemize}}
+	{\end{itemize}\end{minipage}}
+
+\title{Mathématique discrètes}
+\date{2015-16, premier quadrimèstre}
+\author{Robin P.}
+
+\titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
+\titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
+
+\DeclareMathOperator{\tq}{\text{ tq }}
+\DeclareMathOperator{\Z}{\mathbb Z}
+\DeclareMathOperator{\Imappl}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\modulo}{mod}
+\newcommand{\cmod}[1]{\, (\modulo #1)}
+\newcommand{\floor}[1]{{\left\lfloor#1\right\rfloor}}
+\newcommand{\ceil}[1]{{\left\lceil#1\right\rceil}}
+
+\begin{document}
+	\pagenumbering{Roman}
+	\maketitle
+	\tableofcontents
+	\pagebreak
+	\clearpage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+
+	\section{Théorie des graphes}
+
+		\subsection{Définitions}
+
+			\paragraph{Intro} Le problème des sept ponts de Königsberg est une des origines de la théorie des graphes : Au XVIIIe siècle, Leonhard
+			Euler fut réquisitionné pour résoudre le problème suivant. \textit{La ville de Königsberg est composée de sept ponts reliant quatre zones
+			habitables d'une manière précise. Est-il possible de passer par tous les ponts et de revenir au point de départ en n'empruntant qu'une et
+			une seule fois chaque pont ?} Euler a donc simplifié le problème en schématisant les zones habitables de manière ponctuelle et les ponts
+			par des segments. C'est ainsi qu'il a trouvé que c'était impossible.
+
+			\paragraph{Def}
+				\begin{lst}
+					\item Une graphe $\Gamma$ est un triplet $(V, E, \gamma)$ où $V$ est un ensemble fini dont les éléments sont appelés \textit{
+						  sommets} du graphe, $E$ est un ensemble fini dont les éléments sont appelés \textit{arêtes} du graphe ; et $\gamma$ est
+						  une fonction $\gamma : E \to \mathcal Paire(V)$ où $\mathcal Paire(V)$ est un ensemble non-ordonné. On note souvent
+						  $\Gamma = (V, E)$ en omettant volontairement l'expression de $\gamma$.
+
+					\item Soient $\gamma(e) = \{x, y\}, e \in E, x, y \in V$. On dit que $x$ et $y$ sont \textit{adjacents} et que $e$ est
+					\textit{incident} à $x$ et $y$.
+				\end{lst}
+
+			\paragraph{Def}
+				\begin{lst}
+					\item Soit $\Gamma = (V, E)$, un graphe. $\gamma(e) = \{x, x\}, e \in E, x\in V$ est appelé un lacet.
+					\item Si au moins deux arête sont incidentes à $x, y \in V$, on les appelle \textit{arêtes multiples}.
+					\item Un graphe est simple s'il n'a ni lacet ni arête multiple. Dans ce cas, on omet $\gamma$ et on note $\Gamma = (V, E)$
+						  avec $E \subseteq \mathcal Paire(V)$.
+				\end{lst}
+
+			\paragraph{Def} Soit $\Gamma = (V, E)$, un graphe. Le degré d'un sommet $v \in V$ est le nombre d'arêtes incidentes à $v$ tel que
+			les lacets comptent pour deux arêtes. Ce degré se note $\deg(v) \in \mathbb N \; \forall v \in V$.
+
+			\paragraph{Exemple} Dans le cas du graphe d'une molécule de chimie organique comme un alcane par exemple, on a :
+			\[\deg(C) = 4, \deg(H) = 1.\]
+
+			\paragraph{Théorème} Soit $\Gamma = (V, E)$, un graphe. Alors $\sum_{v \in V}\deg(v) = 2\#E$.
+
+			\paragraph{Corollaire} La somme des degrés d'un graphe est pair.
+
+			\paragraph{Def} Le graphe complet $\mathcal K_n$ est le graphe simple à $n$ sommets pour lequel chaque sommet est adjacent à tous
+			les autres. Autrement dit, $\forall x, y \in V, x \neq y, \exists e \in E \tq \gamma(e) = \{x, y\}$.
+
+			\paragraph{Def} Un graphe $\Gamma' = (U, F)$ est un sous-graphe de $\Gamma = (V, E)$ si $U \subseteq V$ \textbf{et} $F \subseteq E$.
+			On note alors $\Gamma' \leq \Gamma$. (Et pas $\Gamma' \subseteq \Gamma$ !!)
+
+		\subsection{Chemins dans les graphes}
+			\paragraph{Def}
+				\begin{lst}
+					\item Soit $\Gamma = (V, E), v, w \in V$. Un chemin de $v$ à $w$ de longueur $n$ est une séquence alternée de $(n+1)$ sommets
+						  $(v_0, \ldots, v_n)$ et $n$ arêtes $(e_1, \ldots, e_n)$ de la forme $(v = v_0, e_1, v_1, \ldots, e_{n-1}, v_{n-1}, e_n, v_n = w)$
+						  tel que $e_i$ est incident à $v_{i-1}$ et $v_i \; \forall i \in \{1, \ldots, n\}$ et $e_i \neq e_j \; \forall i \neq j$.
+
+					\item Un chemin ne possédant aucune répétition de sommet sauf peut-être $v_0 = v_n$ est dit \textit{simple}.
+				\end{lst}
+
+			\paragraph{Remarque} Dans les graphes simples, on ne note que les sommets et pas les arêtes.
+
+			\paragraph{Def}
+				\begin{lst}
+					\item Un graphe $\Gamma = (V, E)$ est connexe si $\forall x, y \in V$, il existe un chemin de $x$ à $y$.
+					\item Soit $\Gamma = (V, E)$, un graphe et $x \in V$, la \textit{composante connexe} de $\Gamma$ contenant $x$ est
+						  $\Gamma' \leq \Gamma$ dont les sommets et les arêtes sont ceux contenus dans un chemin de $\Gamma$ démarrant en $x$.
+				\end{lst}
+
+			\paragraph{Def} Soit $\Gamma = (V, E)$ et $v \in V$. Un cycle est un chemin de $v$ à $v$. Un cycle simple est un cycle de $v$ à $v$ dans
+			lequel seul $v$ est répété.
+
+		\subsection{Arbres}
+			\paragraph{Def} Un arbre est un graphe simple, connexe qui ne contient aucun cycle. Les sommets de degré $1$ sont appelés \textit{feuilles}.
+
+			\paragraph{Prop} Si $T$ est un arbre avec $p \geq 2$ sommets, alors $T$ contient au moins 2 feuilles.
+
+			\paragraph{Dém} Soit $T$ un arbre à $p$ sommets, alors considérons un chemin $(v_0, \ldots, v_k)$ de longueur maximale avec
+			$v_i \in V \; \forall i 1 \leq i \leq r$. Alors $v_0$ et $v_k$ sont de degré $1$. Effectivement, si $\deg(v_0) \geq 2$, alors
+			$\exists e \in E \tq \gamma(e) = \{x, v_0\}, x \neq v_1$. Par définition de $T$, il ne contient aucun cycle, donc
+			$x \neq v_i \; \forall i \in \{2, \ldots, k\}$ et $(x, v_0, \ldots, v_k)$ est de longueur supérieure à $(v_0, \ldots, v_k)$. Or $(v_0, \ldots, v_k)$ est de
+			longueur maximale. Pareil pour $v_k$.
+
+			\paragraph{Théorème} Soit $T$, un graphe simple à $p$ sommets. Les assertions suivantes sont équivalentes :
+				\begin{itemize}
+					\item[$(i)$] $T$ est un arbre ;
+					\item[$(ii$)] $T$ a $p-1$ arêtes et aucun cycle ;
+					\item[$(iii$)] $T$ a $p-1$ arêtes et est connexe.
+				\end{itemize}
+
+			\paragraph{Dém} En montrant que $(i) \Rightarrow (ii)$, que $(ii) \Rightarrow (iii)$, et que $(iii) \Rightarrow (i)$, le théorème est démontré.
+				\begin{itemize}
+					\item Montrons que $(i) \Rightarrow (ii)$ en montrant qu'un arbre à $p$ sommets a $p-1$ arêtes par récurrence.
+
+						  Pour $p = 1$, $T$ a $0$ arête. \\
+						  Pour $p \geq 2$, $T$ a au moins $2$ feuilles. Enlevons-en une et l'arête incidente à cette feuille. On obtient $T' \leq T$, un sous-arbre
+						  à $p-1$ sommets et $p-2$ arêtes en assumant que $T$ en avait $p-1$.
+
+					\item Montrons que $(ii) \Rightarrow (iii)$ en montrant qu'aucun cycle $\Rightarrow$ connexe.
+
+						  Supposons par l'absurdre que $T$ n'est pas connexe. Soient $T_i$, les $t$ composantes connexes de $T$ tel que $t \geq 2$. Chaque $T_i$
+						  est un arbre (pas de cycle), donc chaque $T_i$ a $p_i - 1$ arêtes pour $p_i$, le nombre de sommets de $T_i$. Par définition,
+						  $\sum_{i=1}^tp_i = p$, le nombre de sommets de $T$. Et $\sum_{i=1}^t(p_i-1) = (p-1)$, le nombre d'arêtes de $T$. Or
+						  $\sum_{i=1}^t(p_i - 1) = \sum_{i=1}^tp_i - t = p - t$. Cela implique $t = 1$, or par construction, nous avions $t \geq 2$. Il
+						  y a contradiction. $T$ est donc connexe.
+
+					\item Montrons que $(iii) \Rightarrow (i)$ en montrant que si $T$ a $p-1$ arêtes et est connexe, alors $T$ est un arbre.
+
+						  Supposons par l'absurde que $T$ n'est pas un arbre. Il existe donc un cycle car $T$ est simple par hypothèse et connexe par construction.
+						  On considère le sous-graphe $T'$ de $T$ obtenu en retirant une arête du cycle. Si $T'$ contient encore un cycle, réitérer le procédé.
+						  Si $T'$ ne contient plus de cycle, $T'$ est un arbre. Or $T'$ a toujours $p$ sommets (car aucun sommet de $T$ n'a été retiré) et un nombre
+						  strictement inférieur à $p-1$ arêtes. Or dans $(i) \Rightarrow (ii)$, il a été montré qu'un arbre à $p$ sommets $\Rightarrow (p-1)$ arêtes.
+						  Il y a donc contradiction et alors $T$ est un arbre.
+				\end{itemize}
+
+			\paragraph{Exemple} Les alcanes ($C_nH_{2(n+1)}$) sont des molécules représentables avec un graphe à $3n + 2$ sommets dont $n$ de degré 4 et $2n + 2$ de
+			degré 1. Donc, comme $\sum_{v \in V}\deg(v) = 2\#E$, $4n + 1(2n + 2) = 6n + 2 = 2(3n+1)$, alors $\#E = 3n+1$, on a bien $\#V - \#E = 1$.
+
+			\paragraph{Def}
+				\begin{lst}
+					\item Deux graphes $\Gamma_1 = (V_1, E_1, \gamma_1)$ et $\Gamma_2 = (V_2, E_2, \gamma_2)$ sont \textit{isomorphes} s'il existe une
+					bijection $f : V_1 \to V_2$ et une bijection $g : E_1 \to E_2$ telles que $\forall e \in E, e$ est incident à
+					$v, w \in V_1 \Leftrightarrow g(e) \in E_2 $ est incident à $f(v), f(w) \in V_2$.
+
+					\item Le couple $(f, g)$ est appelé un \textit{isomorphisme de graphe}, et on note $\Gamma_1 \sim \Gamma_2$.
+				\end{lst}
+
+			\paragraph{Remarques}
+				\begin{lst}
+					\item lorsque $\Gamma_1$ et $\Gamma_2$ sont simples, $E_i \subseteq \mathcal Paire(V_i)$ avec $i \in \{1, 2\}$, alors la bijection
+						  $g$ est induite par $f$, c'est à dire $e = \{v, w\} \in E_1 \Rightarrow g(e) := \{f(v), f(w)\} \in E_2$.
+
+					\item Deux graphes isomorphes ont les mêmes propriétés.
+
+					\item Le problème d'énumérer les alcanes non isomorphes fut résolu par Cayley.
+				\end{lst}
+
+
+		\subsection{Graphes hamiltoniens}
+			\paragraph{Exemple} En prenant l'exemple du dessin du dodécaèdre en perspective, on peut se demander s'il existe un moyen de parcourir
+			l'entièreté des sommets en un seul cycle. C'est la question que s'est posée Hamilton.
+
+			\paragraph{Def}
+				\begin{lst}
+					\item Un cycle hamiltonien dans un graphe $\Gamma$ est un cycle simple contenant tous les sommets de $\Gamma$.
+					\item Les graphes ayant un cycle hamiltonien sont dits \textit{graphes hamiltoniens}.
+				\end{lst}
+
+			\paragraph{Def} Un graphe $\Gamma = (V, E)$ est biparti si on peut écrire $V = B \cup W$ avec $B \cap W = \{\}$ ($B$ et $W$ sont des partitions)
+			et si toute arête de $\Gamma$ est incidente à $v \in B$ et à $w \in W$.
+
+			\paragraph{Remarque} Un graphe complet avec $p \geq 2$ sommets n'est pas biparti.
+
+			\paragraph{Lemme} Si $\Gamma$ est biparti, tous ses cycles simples sont de longueur paire.
+
+			\paragraph{Dém} Soit $\Gamma$, un graphe biparti. Par l'absurde, supposons qu'il existe un cycle simple $(v_0, e_1, \ldots, v_{2n}, e_{2n}, v_{2n+1})$
+			de longueur impaire. Par définition, $v_i \in B \; \forall i$ pair et $v_i \in W \; \forall i$  impair (ou inversement). Or, par définition du cycle,
+			on a $v_0 = v_{2n+1}$. Il y a donc contradiction, le cycle est alors de longueur paire.
+
+			\paragraph{Théorème} Un graphe biparti avec un nombre impair de sommets n'est pas hamiltonien.
+
+			\paragraph{Dém} Soit $\Gamma$, un graphe hamiltonien avec un nombre impair de sommets. Par définition, il contient un cycle simple passant
+			par tous ses sommets, à savoir contenir un cycle de longueur impaire, ce qui est impossible par le lemme précédent.
+
+			\paragraph{Théorème (de Dirac)} Soit $\Gamma = (V, E)$, un graphe simple avec $p \geq 3$ sommets et $\forall v \in V, \deg(v) \geq \frac p2$, alors
+			$\Gamma$ est hamiltonien.
+
+			\paragraph{Dém} Montrons d'abord que $\Gamma$ est connexe puis qu'il est cyclique. De là, il restera à prouver que ce cycle est hamiltonien.
+				\begin{itemize}
+					\item Montrons que $\Gamma$ est connexe. Supposons donc par l'absurde qu'il ne le soit pas. Alors la plus petite de ses composantes
+						  connexes $\Gamma' \leq \Gamma$ a moins de $\frac p2$ sommets. Or, $\forall v \in V, \deg(v) \geq \frac p2$. Il y a
+						  contradiction donc $\Gamma$ est connexe.
+					\item Montrons maintenant que $\Gamma$ est cyclique.
+
+						  Soit $C = (v_0, \ldots, v_k)$, un plus long chemin simple dans $\Gamma$ avec $v_0 \neq v_k$ et $k < p$. Par hypothèse,
+						  $\deg(v_0) \geq \frac p2$ et $\deg(v_k) \geq \frac p2$. Tous les sommets adjacents à $v_0$ sont dans
+						  $\{v_i \tq 1 \leq i \leq k\}$ et tous les sommets adjacents à $v_k$ sont dans $\{v_i \tq 0 \leq i \leq k-1\}$. Comme
+						  $k < p$ (donc $\frac k2 < \frac p2$), il doit exister $i \in \{0, \ldots, k-1\} \tq \{v_i, v_k\}, \{v_{i+1}, v_0\} \in E$.
+						  Il existe donc un cycle $\overline C = (v_0, v_1, \ldots v_i, v_k, v_{k-1}, \ldots, v_{i+1}, v_0)$.
+					\item Reste à prouver que $\overline C$ est hamiltonien.
+
+						  Supposons par l'absurde qu'il ne l'est pas. Il existe donc $y \not \in \overline C$. Comme $\Gamma$ est connexe, on peut supposer
+						  qu'$\exists \{v_j, y\} \in E$ avec $ \in \{0, \ldots, k\}$. On peut donc construire un chemin $\widetilde C = (y, v_j,
+						  \ldots v_0, v_{i+1}, v_k, v_i, \ldots, v_{j+1})$, or $C$ était un plus long chemin. Donc $\not \exists y$.
+				\end{itemize}
+
+			\paragraph{Illustration} Un code de Gray d'ordre $n$ est un arrangement cyclique de $2^n$ mots binaires de longueur $n$ tel que deux
+			mots adjacents ne diffèrent que d'un seul élément.
+
+			Un tel code peut être construit sur base d'un graphe hamiltonien. Pour construire un code de Gray d'ordre $(n+1)$ sur base d'un code
+			de Gray d'ordre $n$, il faut écrire le code de Gray d'ordre $n$ en le suffixant de $0$ à chaque élément, puis le faire suivre du même
+			code de Gray d'ordre $n$, à l'envers, suffixé de $1$ à chaque élément.
+
+		\subsection{Graphes eulériens}
+			\paragraph{Def}
+				\begin{lst}
+					\item Un cycle eulérien dans un graphe $\Gamma$ est un cycle simple contenant toutes les arêtes de $\Gamma$.
+					\item Un graphe $\Gamma$ est eulérien s'il contient un cycle eulérien.
+				\end{lst}
+
+			\paragraph{Proposition} Si un graphe est eulérien, alors tous ses sommets sont de degré pair.
+
+			\paragraph{Lemme} Soit $\Gamma$ un graphe $| \, \forall v \in V, \deg(v)$ est pair. Alors l'ensemble des arêtes se partitionne
+			en une union (arête-)disjointe de cycles.
+
+			\paragraph{Dém} Prouvons-le par récurrence sur $q$, le nombre d'arêtes.
+				\begin{itemize}
+					\item Le lemme est vrai pour $q = 2$.
+					\item Supposons qu'il soit vrai pour $q \leq k$ et prouvons qu'il l'est pour $q = k+1$.
+
+						  Soient $\Gamma = (V, E)$, un graphe de $k+1$ arêtes et $v_0 \in V$. On démarre un chemin en $v_0$ et on ajoute des sommets
+						  jusqu'à répétition d'un des sommets. On le note $v_j$. Soit $\Gamma' = (V', E') \leq \Gamma = (V, E)$ dont $V' = V$ et
+						  $E' = E \setminus C$ avec $C$ le chemin de $v_j$ à $v_k$. Donc $\#E' \leq k$. Par hypothèse de récurrence, les arêtes
+						  de $E'$ se partitionnent en une union arête-disjointe de cycles $C_1, \ldots, C_n$. Comme $E' = E \setminus C$ ne contient
+						  aucune arête de $C$ par définition, l'union $C, C_1, \ldots, C_n$ est une partition arête-disjointe de $E$.
+				\end{itemize}
+
+			\paragraph{Théorème (d'Euler-Hierholzer)} Soit $\Gamma$ un graphe connexe. $\Gamma$ est eulérien $\iff \forall v \in V, \deg(v)$ est pair.
+
+			\paragraph{Dém}
+				\begin{lst}
+					\item Par la proposition, $\Gamma$ eulérien $\Rightarrow$ degrés pairs.
+					\item Par le lemme, degrés pairs $\Rightarrow E$ se partitionne en une union arête-disjointe de cycles.
+				\end{lst}
+
+		\subsection{Application : le problème du voyageur de commerce (TSP) et arbres couvrants minimums (ACM)}
+			\paragraph{Énoncé} Un vendeur doit visiter un certain nombre de villes avant de rentrer chez lui (d'où il est parti).
+			Comment doit-il choisir sa route afin de minimiser les distances ?
+
+			\paragraph{Objectif} Déterminer un cycle hamiltonien de poids minimum dans $\Gamma = (V, E, \gamma, w)$ un graphe valué tel que $V$ est
+			l'ensemble des villes, $E$ l'ensemble des routes, $w : E \to \mathbb R$ une fonction associant à chaque arête un poids réel.
+
+			\paragraph{Remarque} Un graphe complet $\mathcal K_n$ a $\frac 12(n-1)!$ cycles hamiltoniens différents. On ne connait pas d'algorithme
+			efficace pour résoudre ce problème.
+
+			\paragraph{Def} Un arbre couvrant dans un graphe $\Gamma = (V, E)$ est un arbre $T = (V', E') \leq \Gamma$ tel que $V = V'$.
+
+			\paragraph{Algorithme de Kurska} Il existe un algorithme (celui de Kurska) qui permet de trouver des arbres couvrants de poids minimum
+			dans un graphe valué. La procédure est la suivante :
+
+			\begin{itemize}
+				\item[$(i)$] Choisir une arête de plus petit poids pas encore dans $V'$ de manière à ne pas créer de cycle ;
+				\item[$(ii)$] Réitérer tant que $\#V' \neq \#V$.
+			\end{itemize}
+
+			Comme dans un arbre, $\#E = \#V - 1$, cet algorithme s'exécute en $\#V - 1$ étapes. Il est donc en complexité $O(n)$ avec $n$ le nombre
+			de sommets.
+
+			\paragraph{Remarque} Si $C$ est un cycle hamiltonien dans $\Gamma$, alors $C \setminus \{e\}$ est un arbre couvrant. Une solution du TSP
+			est toujours plus grande ou égale au poids d'un arbre couvrant minimum.
+
+			De plus, soient $\Gamma = (V, E)$ et $v \in V$. Tout cycle hamiltonien $C_H \leq \Gamma$ contient deux arêtes incidentes à $v$. Le reste
+			du chemin est un autre arbre couvrant de $\Gamma \setminus \{v\}$. Une solution du TSP est donc toujours plus grande ou égale à la somme
+			des poids des 2 arêtes incidentes à $v$ + le poids d'un arbre couvrant de $\Gamma \setminus \{v\}$.
+
+		\subsection{Relations et ordres partiels}
+			\paragraph{Def} Soit $P$ un ensemble. Une ordre partiel sur $P$ est une relation sur $P$ (un ensemble de couples $(p_1, p_2) \in P^2$)
+			notée $p_1 \leq p_2$ suivant les propriétés suivantes $\forall p, q, r \in P$ :
+
+			\begin{itemize}
+				\item $p \leq p$ (réflexivité) ;
+				\item $(p \leq q) \land (q \leq r) \Rightarrow (p \leq r)$ (transitivité) ;
+				\item $(p \leq q) \land (q \leq p) \Rightarrow (p = q)$ (antisymétrie).
+			\end{itemize}
+
+			\paragraph{Remarque} On note $(P, \leq)$ un ensemble partiellement ordonné.
+
+			\paragraph{Def} $\mathcal P(E)$ est l'ensemble des parties de $E$, c'est-à-dire l'ensemble de tous les sous-ensembles de $E$.
+
+			\paragraph{Remarque} Un ordre partiel $(P, \leq)$ peut se représenter à l'aide d'un graphe dirigé que l'on simplifie en enlevant les lacets
+			(axiome de réflexivité) et en enlevant les arêtes que l'on peut obtenir par transitivité. De plus, par antisymétrie, il n'y a pas de
+			cycle. Par convention, on enlève les flèches et le dessine de bas en haut.
+
+			\paragraph{Def} Soit $(P, \leq)$, un ordre partiel. Son diagramme de Hasse est le graphe simple $\Gamma = (V, E)$ tel que :
+				\begin{itemize}
+					\item $e = \{x, y\} \in E \iff (x \leq y) \land (\not \exists z \in V \tq x \leq z \leq y)$.
+					\item $x \leq y \Rightarrow$ $x$ plus bas que $y$ dans sa représentation.
+				\end{itemize}
+
+			\paragraph{Def} Soit $(P, \leq)$ un ordre partiel.
+				\begin{itemize}
+					\item Une chaine dans $P$ est un sous-ensemble $C \subseteq P$ tel que $\forall c_1, c_2 \in C, (c_1 \leq c_2) \lor (c_2 \leq c_1)$.
+					\item Une antichaine dans $P$ est un sous-ensemble $A \subseteq P$ tel que $\forall a_1, a_2 \in A, \lnot ((a_1 \leq a_2) \lor (a_2 \leq a_1))$.
+				\end{itemize}
+
+			\paragraph{Théorème (de Dilworth)} Soit $(P, \leq)$ un ensemble fini partiellement ordonné. Il existe une antichaine $A$ et une partition
+			de $P$ par des chaines tel que $\#Q = \#A$ avec $Q$ l'ensemble des partitions de $P$.
+
+			\paragraph{Dém} Ce théorème se prouve par récurrence sur $\#P$ :
+				\begin{itemize}
+					\item si $\#P = 0$, alors $\#Q = \#A = \#P = 0$ car $Q = A = P = \emptyset$.
+					\item si $\#P > 0$, notons $a = \max P$. Pour un certain $k$ naturel, $\exists C_1, \ldots, C_k$, une partition de
+						  $P \setminus \{a\}$ et $A_0$ une antichaine de $P \setminus \{a\}$ telle que $\#A_0 = k$ par hypothèse de récurrence.
+
+						  Prouvons qu'il y a toujours une antichaine dans $P$. $\forall 1 \leq i \leq k, \exists x_i$ le plus grand élément dans
+						  $A_0 \cap C_i$. L'ensemble $A = \{x_i \tq 1 \leq i \leq k\}$ est une antichaine car
+						  $\forall i \neq j, \exists y \in (A \cap C_j)$ tel que $y \leq x_j$ (par définition de $x_j$) et comme
+						  $y \not \leq x_j$, $x_j \leq x_i$ (transitivité).
+
+						  Prouvons maintenant qu'il y a une antichaine de même cardinal que $Q$ :
+						  \begin{itemize}
+							\item Si $a$ majore l'un des $x_i$, soit $K = \{a\} \cup \{z \in C_i \tq z \leq x_i\}$, alors $P \setminus K$ n'a pas
+								  d'antichaine de cardinal $k$, donc $P \setminus K$ peut être, par hypothèse de récurrence, partitionné en $k-1$
+								  chaines et $A \setminus \{x_i\}$ est une antichaine de cardinal $\#A - 1 = k-1$. $P$ est donc partitionnable en $k$
+								  chaines (les $k-1$ de de $P \setminus K$ et $K$) et $\exists$ une antichaine $A$ de cardinal $k$.
+							\item Sinon, $A \cup \{a\}$ est une antichaine de cardinal $k+1$ et $P$ est partitionnable en $k+1$ chaines :
+								  $C_0 = \{a\}, C_1, \ldots, C_k$.
+						  \end{itemize}
+				\end{itemize}
+
+			\paragraph{Remarque}
+				\begin{lst}
+					\item Soit $(P, \leq)$ un ordre partiel fini avec une partition $Q$ de $P$ et une antichaine $A \subseteq P$. Alors $\#A < \#Q$
+						  car si $\#A > \#Q$, alors $\exists i, j, k \tq \exists C_i \ni \{a_j, a_k\}$. Ce qui veut dire que $a_j$ et $a_k$ sont
+						  comparables car dans une chaine, ce qui est impossible par définition de l'antichaine.
+					\item Soit $(P, <)$, une ordre total. Pour toute antichaine $A \subseteq P, \#A \in \{0, 1\}$.
+				\end{lst}
+
+			\paragraph{Def} Soit $\Gamma = (V, E)$ une graphe simple.
+				\begin{itemize}
+					\item Un couplage $M$ de $\Gamma$ est un sous-ensemble d'arêtes de $E$ deux à deux non adjacentes. Un sommet
+						  $v \in V$ incident à une arête $e \in M$ est dit couplé.
+					\item Un transversal $T$ de $\Gamma$ est un sous-ensemble de sommets de $T$ tel que $\forall e \in E, \exists v \in T \tq $
+						  $e$ est incidente à $v$.
+				\end{itemize}
+
+			\paragraph{Def} Soit $\Gamma = (V = B \sqcup W, E)$, un graphe biparti et $M$ un couplage. Un chemin alterné dans $\Gamma$ est un chemin
+			qui démarre en un sommet de $B$ non couplé et alterne une arête de $E \setminus M$ et une arête de $M$ et ainsi de suite.
+
+			\paragraph{Théorème (de König)} Soit $\Gamma = (V = B \sqcup W, E)$, un graphe biparti. La cardinalité maximale d'un couplage de $\Gamma$
+			est égale à la cardinalité minimale d'un transversal de $\Gamma$.
+
+			\paragraph{Dém} Soient $\Gamma = (V = B \sqcup W, E)$, un graphe biparti et $M$ un couplage de cardinalité maximale dans $\Gamma$.
+			$\forall m \in M$, choisissons un de ses sommets incidents comme suit :
+
+			\begin{itemize}
+				\item Le sommet $\in W$ s'il existe un chemin alterné arrivant à ce sommet,
+				\item le sommet $\in B$ sinon.
+			\end{itemize}
+
+			Notons $U$ l'ensemble des sommets obtenus. Montrons que $U$ est un transversal de $\Gamma$ (avec $\#U = \#M$). Si $\#U < \#M$,
+			alors $\exists e \in M \tq \not \exists v \in U | v \in \gamma(e)$.
+
+			Soit $e = \{b, w\} \in E$. Il faut montrer que soit $b \in U$, soit $w \in U$. On peut supposer $e \not \in M$ car si $e \in M$, alors
+			$(b \in U) \lor (w \in U)$ par définition. Comme $M$ est maximal, $\exists e' = \{b', w'\} \in M \tq (b = b') \lor (w = w')$.
+			On peut supposer $b = b'$ car sinon $w = w'$, donc $\{b, w\} = \{b, w'\}$ ou encore $\{b, w\}$ est un chemin alterné, ce qui implique
+			que $w \in U$ par définition de $U$. Toujours par définition de $U$, si $b = b' \in U$, alors $w' \in U$. $\exists$ donc $P$, un chemin
+			alterné dans $\Gamma$ terminant en $w'$.
+
+			\begin{itemize}
+				\item Soit $P' := P \setminus \{\{w, b\}, \{w', b\}\}$. $P'$ est un chemin alterné arrivant en $w$, donc $w \in U$ par définition de
+					  $U$.
+				\item Soit $P' := P \cup \{w, b\} \cup \{w', b\}$. Alors il existe un couplage de cardinalité $\#M$, il y a donc contradiction.
+			\end{itemize}
+
+			\paragraph{Lemme} Soient $(P, \leq)$, un ordre partiel, $\Gamma = (V = (B = P \times \{1\}) \sqcup (W = P \times \{2\}), E)$ un graphe
+			biparti et $T$ un transversal dans $\Gamma$. Le sous-ensemble $A \subseteq P$ défini comme suit :
+			$A := \{p \in P \tq (p, 1), (p, 2) \not \in T\}$ est une antichaine.
+
+			\paragraph{Dém} Supposons, par l'absurde, que $A$ n'est pas une antichaine (est une chaine). Alors $\exists a \neq b \in A$ tels que
+			$a \leq b$ (par définition de la chaine dans $\Gamma$). $\exists$ donc $\{(a, 1), (b, 2)\} \in E$, donc $a \in T$ ou $b \in T$. De là,
+			il faut déduire que soit $a$ soit $b$ $\not \in A$, il y a contradiction, $A$ est bien une antichaine.
+
+			\paragraph{Proposition} Les théorèmes de Dilwoth et de König sont équivalents.
+
+			\paragraph{Dém} Pour montrer que König $\iff$ Dilworth, montrons séparément les implications. Premièrement, montrons que König
+			$\Rightarrow$ Dilworth, nous montrerons Dilworth $\Rightarrow$ König par la suite.
+
+			Soit $(P, \leq)$, un ordre partiel. Construisons un graphe biparti $\Gamma = (V = B \sqcup W, E)$ avec $B = P \times \{1\}$ et avec
+			$W = P \times \{2\}$ tel que pour $p, q \in P, \{(p, 1), (q, 2)\} \in E \iff (p \leq q) \land (p \neq q)$.
+
+			Soient $M$ et $T$, respectivement un couplage et un transversal de cardinalité maximale et minimale dans $\Gamma$. Le théorème de König
+			dit que $\#M = \#T$. Définissons $A \subseteq P := \{p \in P \tq (p, 1), (p, 2) \not \in T\}$, par le lemme précédent, nous savons
+			que $A$ est une antichaine. De là découle $\#A = \#\{p \in P \tq (p, 1), (p, 2) \not \in T\} \leq \#P - \#T$.
+
+			Soit $Q$, un ensemble de $n$ partitions de $P$ : $Q = \{C_1, \ldots, C_n\}$.
+
+			\begin{itemize}
+				\item Soit $C_i = \{p_0, \ldots, p_l\}$ avec $l \geq 1$ si $\{(p_N, 1), (p_{N+1}, 2)\} \in E$ et $(p_l, 1), (p_l, 2)$ pas incidents
+					  à $M$.
+				\item Soit $C_i = \{p\}$ si $(p, 1), (p, 2)$ ne sont pas incidents à $M$.
+			\end{itemize}
+
+			De là, $Q$ est une partition de $P$. Nous pouvons exprimer $\#P = \sum_i \#C_i = \#M + \#Q$. Autrement dit, $\#Q = \#P - \#M = \#P - \#T
+			\leq \#A$. Or, comme $\#A \leq \#Q$ par la remarque ci-dessus, alors $\#Q = \#A$.
+
+			Reste à prouver que Dilworth $\Rightarrow$ König.
+
+			Soit $\Gamma = (V = B \sqcup W, E)$, un graphe biparti. On définit un ordre partiel $(P, \leq)$ tel que $P = V$ et $\forall (b, w) \in
+			B \times W, b \leq w \iff \exists e \in E \tq \{b, w\} = \gamma(e)$. Par le théorème de Dilworth, il existe $A$ une antichaine et
+			$Q$ un ensemble de partition en antichaines de $P$ tels que $\#A = \#Q$. Seules les arêtes $\{b, w\}$, les singletons $\{v\}$ peuvent
+			être des chaines (en omettant les chaines triviales $\{\}$). Comme $\forall q \in Q, q$ est une partition de $P$, l'ensemble $M = E \cap Q$
+			est un couplage car $\forall v \in V, \exists! q \in Q \tq v \in q$. De plus, comme $\Gamma$ est biparti, l'ensemble
+			$T := \{b \in P \setminus A \tq a \in A, \{a, b\} \in E\} = P \setminus A$ est un transversal de $\Gamma$.
+			Pour montrer König, il reste à prouver que $\#M = \#T$.
+
+			$(\forall v \in T, \exists e \in M \tq v \in \gamma(e)) \Rightarrow (\#M \geq \#T)$. De plus, $(\forall e = \{b, w\} \in M,
+			\exists v \in T \tq (v = b) \lor (v = w)) \Rightarrow (\#T \geq \#M)$. Donc $\#T = \#M$.
+
+	\section{Arithmétique modulaire}
+
+		\subsection{Les entiers et la division euclidienne}
+
+			\paragraph{Rappel} L'ensemble des entiers se note $\Z$ tel que $\mathbb N \subset \Z$. Plus précisément,
+			$\Z = \mathbb N_0 \cup -\mathbb N_0 \cup \{0\}$. Cet ensemble est défini par deux opérations :
+
+			\begin{itemize}
+				\item l'addition interne $+ : \Z \times \Z \to \Z : a, b \mapsto a+b$.
+
+					  Cette opération respecte les propriétés suivantes :
+
+					  \begin{itemize}
+						\item[$(i)$] associativité ;
+						\item[$(ii$)] existence du neutre ;
+						\item[$(iii$)] existence de l'opposé ;
+						\item[$(iv)$] commutativité.
+					  \end{itemize}
+
+					  $(\Z, +)$ est donc un groupe commutatif.
+				\item la multiplication interne $\cdot : \Z \times \Z \to \Z : a, b \mapsto ab$.
+
+					  Cette opération respecte les propriétés suivantes :
+
+					  \begin{itemize}
+						\item[$(i)$] associativité ;
+						\item[$(ii)$] double distributivité (gauche et droite) sur l'addition ;
+						\item[$(iii)$] commutativité ;
+						\item[$(iv)$] inexistence de diviseur de zéro ;
+						\item[$(v)$] existence du neutre.
+					  \end{itemize}
+
+					  $(\Z, +, \cdot)$ est donc un anneau ($(\Z, +)$ est un groupe et $\cdot$ respecte $(i)$ et $(ii)$) unital $(v)$
+					  commutatif $(iii)$ intègre $(iv)$.
+			\end{itemize}
+
+			\paragraph{Axiome} Il existe sur $\Z$ une relation d'ordre $\leq$ telle que :
+
+			\begin{itemize}
+				\item[$(i)$] $\leq$ est un ordre total ;
+				\item[$(ii)$] $\forall a, b, c \in \Z, a \leq b \iff a + c \leq b + c$ ;
+				\item[$(iii)$] $\forall a, b, c \in \Z, (c \geq 0) \land (a \leq b) \Rightarrow ac \leq bc$.
+			\end{itemize}
+
+			\paragraph{Def} On définit la valeur absolue d'un entier $a \in \Z$ telle que :
+
+			\[|a| = \left\{\begin{aligned}a &\text{ si $a \geq 0$} \\-a &\text{ sinon}\end{aligned}\right..\]
+
+			La valeur absolue est conçue telle que $\forall a, b \in \Z, (|a| = 0) \iff (a = 0), |ab| = |a||b|$.
+
+			\paragraph{Def} Soient $a, b \in \Z$. $a$ divise $b$ ($a|b$) $\iff \exists c \in \Z \tq ac = b$.
+
+			\paragraph{Remarque} La divisibilité est une relation car elle suit les propriétés de réflexivité, transitivité et d'antisymétrie.
+
+			\paragraph{Théorème (division euclidienne)} Soient $a, b \in \Z \tq b \neq 0$. $\exists! q, r \in \Z \tq a = bq + r$
+			avec $0 \leq r < b$.
+
+			\paragraph{Def} Un nombre $p \in \mathbb N$ est premier $\iff (p \not \in \{0, 1\}) \land (\not \exists q \in \mathbb N \setminus \{1, p\}
+			\tq q|p)$.
+
+			\paragraph{Def} Un entier $d$ est un GCD de $a$ et $b$ $\iff (d|a) \land (d|b) \land (c \in \Z, (c|a) \land (c|b) \Rightarrow c|d)$.
+			On le note $d = GCD(a, b)$. De plus, $\forall a \in \Z, GCD(a, 0) := |a|$.
+
+			\subsubsection{L'algorithme d'Euclide}
+
+			\paragraph{Proposition} Soient $a, b \in \Z, b \neq 0, q, r \in \Z \tq a = bq + r$. Alors $GCD(a, b) = GCD(b, r)$.
+
+			\paragraph{Dém} Soient $a, b, q, r \in \Z \tq a = bq + r$ et $c \in \Z$. Comme $a = bq +  r$, si $(c|b) \land (c|r)$,
+			alors $c|a$. Et comme $r = a - bq$, si $(c|a) \land (c|b)$, alors $c|r$.
+
+			\paragraph{Algorithme} Soient $a, b \in \Z, b \neq 0$. Pour déterminer $GCD(a, b)$, on suppose $a, b \geq 0$ car $GCD(a, b) =
+			GCD(-a, b) = GCD(a, -b) = GCD(-a, -b)$. Par le théorème de la division euclidienne, $\exists! q_1, r_1 \in \Z \tq a = bq_1 + r_1$
+			avec $0 \leq r_1 < |b|$. Si $r_1 = 0$, alors $GCD(a, b) = GCD(b, 0) = |b|$. Sinon, on itère en prenant $b$ et $r_1$. Par la
+			DE\footnote{Division euclidienne.}, $\exists! q_2, r_2 \tq b = r_1q_2 + r_2$ avec $0 \leq r_2 < r_1$. Si $r_2 = 0$, alors
+			$GCD(b, r_1) = GCD(r_1, 0) = r_1$. Sinon, on réitère sur la formule $r_i = r_{i+1}q_{i+2} + r_{i+2}$ avec $a, b = r_{-1}, r_0$. $\exists$
+			donc $N \tq r_N = 0$. On a donc $GCD(a, b) = GCD(b, r_1) = GCD(r_i, r_{i+1}) = GCD(r_{N-1}, r_N) = r_{N-1}$.
+
+			\paragraph{Proposition} Soient $a, b \in \Z, b \neq 0$. $\exists! s, t \in \Z \tq GCD(a, b) = sa + tb$.
+
+			\paragraph{Dém} Soient $a, b \in \Z$. Supposons $a, b \geq 0$. Soient $r_i, 1 \leq i \leq n$, les restes successifs de la DE
+			de l'algorithme d'Euclide avec $r_i = r_{i+1}q_{i+2} + r_{i+2}$, $0 \leq r_{i} < r_{i+1}$.
+
+			On construit $s$ et $t$ comme suit :
+
+			\[\begin{aligned}
+				GCD(a, b) = r_n &= r_{n-2} - q_nr_{n-1} \\
+								&= s_1t_{n-2} + t_1r_{n-1} \;\; \text{	où $s_1 = 1, t_1 = -q_n$} \\
+								&= s_1r_{n-2} + t_1(r_{n-3} - q_{n-1}r_{n-2}) \\
+								&= s_2r_{n-3} + t_2r_{n-2} \;\; \text{	où $s_2 = t_1, t_2 = (s_1 - t_1q_{n-1})$} \\
+								&= ...
+			\end{aligned}\]
+
+			On construit, inductivement, $s_k = t_{k-1}, t_k = (s_{k-1} - t_{k-1}q_{n-(k-1)}) \tq GCD(a, b) = s_kr_{n-(k+1)} + t_kr_{n-k}$.
+
+			De là, $s_nr_{n-1} + t_nr_0 = s_na + t_nb$.
+
+			\subsubsection{Décomposition en nombres premiers}
+
+			\paragraph{Def} Deux entiers $a, b \in \Z_0$ sont premiers entre eux $\iff GCD(a, b) = 1$.
+
+			\paragraph{Proposition (lemme de Bézout)} Soient $a, b \in \Z$. $a$ et $b$ sont premiers entre eux
+			$\iff \exists s, t \in \Z \tq sa + tb = 1$.
+
+			\paragraph{Lemme (de Gauss)} Soient $a, b \in \Z \tq a$ et $b$ sont premiers entre eux, $c \in \Z \tq b|ac$. Alors $b|c$.
+
+			\paragraph{Dém} Soient $a, b$ deux entiers premiers entre eux. Donc $GCD(a, b) = 1$, ou encore $\exists! s, t \in \Z \tq
+			1 = sa + tb$. De là, $c = sac + tbc$. Or, on sait que $b|ac$ et $b|b$, donc $b|sac + tbc = c$.
+
+			\paragraph{Corollaire} Soient $a, b, p \in \Z \tq p$ est premier. Si $p|ab$, alors $(p|a) \lor (p|b)$.
+
+			\paragraph{Dém} Soient $a, b, p \in \Z \tq p$ est premier. Si $p|a$, le corollaire est bon. Sinon, si $p\not|a$, comme $p$
+			est premier, $a$ et $p$ sont premiers entre eux. Donc par le lemme de Gauss, $p|b$.
+
+			\paragraph{Théorème (décomposition en facteurs premiers)} $\forall z \in \Z, \exists n \in \mathbb N, p_1 \ldots p_n$, n nombres
+			premiers différents deux à deux et $e_1 \ldots e_n \in \mathbb N_0 \tq z = (\pm 1)\prod_{i=1}^np_i^{e_i}$. Cette expression est unique
+			(à l'ordre d'expression des $i^e$ termes).
+
+		\subsection{Groupes, anneaux et entiers $\mod n$}
+
+			\subsubsection{Définitions}
+
+			\paragraph{Def} Un groupe $(G, *)$ est un ensemble non vide $G$ muni d'une loi de composition $* : G \times G \to G : g, h \mapsto g*h \tq$
+
+			\begin{itemize}
+				\item[$(i)$] $*$ est associative ;
+				\item[$(ii)$] $\exists$ un neutre $e \in G \tq \forall g \in G, g*e = e*g = g$ ;
+				\item[$(iii)$] $\forall g \in G, \exists$ un inverse $g^{-1} \in G \tq g^{-1} * g = g * g^{-1} = e$.
+			\end{itemize}
+
+			\paragraph{Def} Soient $(G, *)$ un groupe et un sous-ensemble $H \subseteq G$. Si $(H, *)$ est un groupe, on note $H \leq G$
+			ou $(H, *) \leq (G, *)$ le sous-groupe $H$.
+
+			\paragraph{Proposition} Soient $(G, *)$ un groupe et $H \subseteq G$. $H \leq G \iff$ :
+
+			\begin{itemize}
+				\item[$(1)$] $e \in H$ ;
+				\item[$(2)$] $\forall g, h \in G, g*h^{-1} \in H$.
+			\end{itemize}
+
+			\paragraph{Dém} Pour montrer la double implication il faut montrer les implications séparément. Montrons d'abord que $H \leq G \Rightarrow
+			(1) \land (2)$. Ensuite, montrons que $(1) \land (2) \Rightarrow H \leq G$.
+
+			Montrons d'abord la première implication. Comme $H \leq G$, $H$ est un groupe, donc $(1)$ et $(2)$ sont vérifiés naturellement.
+			Montrons ensuite la seconde implication. La propriété des groupes $(i)$ se montre par $(2)$ car $\forall g, h \in H, g*(h^{-1})^{-1}
+			\in H$ (il faut que $h^{-1}$ soit dans $H$, ce qui est prouvé dans $(iii)$). La propriété $(ii)$ se montre par la proposition $(1)$.
+			La propriété $(iii)$ se montre comme suit : soit $g = e \in H$. $\forall h \in H, e * h^{-1} = h^{-1} \in H$ par la proposition $(2)$.
+
+			\paragraph{Def} Soit $(G, *)$ un groupe. Si la loi de composition $*$ est commutative, $G$ est un groupe abélien (commutatif) et est noté
+			$(G, +)$\footnote{Le symbole $+$ précise que la composition est commutative.}.
+
+			\paragraph{Proposition} Soit $S \subseteq \Z \tq \#S > 0, (S, +) \leq \mathbb (Z, +)$. $\exists k \in \Z \tq S = k \Z$.
+
+			\paragraph{Dém}
+			\begin{lst}
+				\item Si $S = \{0\}$, alors $S = 0\Z$.
+				\item Si $\#S > 1$, on prend $k = \min\{s \in S \tq s > 0\}$ (le plus petit entier positif $\in S$). Reste à prouver que $S = k\Z$.
+					  Supposons par l'absurde qu'$\exists s \in S \tq s \not \in k\Z$. Par la division euclidienne, $\exists! q, r \in Z \tq s = kq + r$
+					  avec $0 \leq r < k$. Si $r \neq 0$, sinon $s \in k\Z$. $r = kq - s \in S$ car $(s \in S) \land (k \in S \Rightarrow kq \in S)$.
+					  Or $0 < r < k$ alors que $k$ est le plus petit entier positif de $S$. Donc il y a contradiction.
+			\end{lst}
+
+			\paragraph{Proposition} Soient $k, l \in \Z$. On définit $k\Z + l\Z := \{kz_1 + lz_2 \tq z_1, z_2 \in \Z\}$. $k\Z + l\Z = GCD(k, l)\Z$.
+
+			\paragraph{Dém}
+			\begin{lst}
+				\item Montrons que $GCD(k, l)\Z \subseteq k\Z + l\Z$.
+
+					  Par la proposition d'Euclide $\exists s, t \in \Z \tq sk + tl = GCD(k, l)$. Donc $\forall z \in \Z, GCD(k, l)z \in GCD(k, l)\Z =
+					  (sk + tl)z = k(sz) + l(tz) \in k\Z + l\Z$.
+				\item Montrons ensuite que $k\Z + l\Z \subseteq GCD(k, l)\Z$.
+
+					  Par définition, $\forall z_1, z_2 \in \Z, \exists y_1, y_2 \tq GCD(k, l)y_1 = z_1$ et $GCD(k, l)y_2 = z_2$.
+					  $\forall z_1, z_2 \in \Z, kz_1 + lz_2 \in k\Z + l\Z = GCD(k, l)(y_1k + ly_2) \in GCD(k, l)\Z$.
+			\end{lst}
+
+			\subsubsection{Groupes quotients}
+
+			\paragraph{Remarque} Ici, $(G, +)$ représente un groupe abélien, l'inverse de $g \in G$ n'est donc plus noté $g^{-1}$ mais $-g$ par convention.
+
+			\paragraph{Def} Une classe latérale d'un sous-groupe $H \leq G$ est un ensemble $g + H := \{g + h \tq h \in H\}$ pour $g \in G$ fixé.
+
+			\paragraph{Proposition} Soient $(G, +)$ un groupe abélien, $H$ un sous-groupe $\tq H \leq G$ et $g, g' \in G$. $g + H = g' + H \iff
+			\forall h \in H, \exists! h' \in H \tq g+h = g'+h'$.
+
+			\paragraph{Dém} Pour montrer ceci, il faut montrer les implications séparément. Commençons par montrer l'implication $\Rightarrow$.
+			$\forall h \in H, g + h \in g + H = g' + H \Rightarrow g' + h' = g + h$ avec $h' \in H$. Reste à prouver que $h'$ est unique.
+			Supposons donc $h', \widetilde{h} \in H \tq g' + h' = g' + \widetilde{h}$. En réorganisant, on obtient $e+h' = e+\widetilde{h}$ ou encore
+			$h' = \widetilde{h}$.
+
+			Montrons maintenant l'implication $\Leftarrow$. Comme $\forall f = g + h \in g + H, \exists! f' = g' + h' \in g' + H \tq f = f'$, alors
+			$g + H \subseteq g' + H$. De plus, comme $\forall h, h'$ est unique et que $h$ et $h'$ viennent du même ensemble, $\#(g + H) = \#(g' + H)$.
+			Donc $g + H = g' + H$.
+
+			\paragraph{Def} On note $G/H$ l'ensemble des classes latérales de $H$ avec $H \leq G$. $G/H := \{g + H \tq g \in G\}$. S'il n'y a pas
+			d'ambigüité sur le sous-groupe, on note $\overline{g} := g + H$.
+
+			\paragraph{Exemple} Soient $(\Z, +)$, un graphe abélien et $7 \in \Z$. $\Z/7\Z := \{7\Z, 1 + 7\Z, \ldots, 6 + 7\Z\} :=
+			\{\overline 0, \overline 1, \ldots, \overline 6\}$.
+
+			\paragraph{Proposition} Soient $(\Z, +)$ et $k \in \Z$. $\Z/k\Z$ est une partition de $\Z$.
+
+			\paragraph{Dém} Par définition, $\Z/k\Z$ est une partition de $\Z \iff (\forall i, j \in \{0, \ldots, k-1\}, c_i \cap c_j \neq \emptyset \iff i = j)
+			\land (\bigcup_{c \in \Z/k\Z} c = \Z)$. Pour montrer l'union totale, montrons que $\forall r_1, r_2 \in \Z, (r_1 + k\Z) \cap (r_2 + k\Z) \neq 0
+			\iff r_1 = r_2 + kz'$ avec $z' \in \Z$. Soit $z \in (r_1 + k\Z) \cap (r_2 + k\Z)$. Alors $\exists q_1, q_2 \in \Z$, par la DE, $\tq
+			r_1 + kq_1 = z = r_2 + kq_2$. Donc $r_1 = r_2 + k(q_2 - q_1)$. Pour démontrer l'intersection vide, également par la DE, $\forall z \in \Z
+			\exists q, r \in \Z \tq z = kq + r \in r \in k\Z$.
+
+			\paragraph{Théorème} Soient $(G, +)$ un groupe abélien et $H \leq G$. Alors $G/H$ est muni d'une loi $\overline + \tq (G/H, \overline +)$ est un
+			groupe abélien. Précisément, on définit $\forall g, g' \in G, \overline g \overline + \overline {g'} := \overline {g + g'}$.
+
+			\paragraph{Remarque} Une opération d'addition a été définie sur base d'une autre opération. Il faut cependant vérifier si elle est
+			\textit{bien définie}\footnote{Le terme \textit{bien défini} veut dire \textit{défini sans ambiguïté} sur une autre opération, à savoir,
+			si on définit $*'$ sur un ensemble E' sur base de $*$ défini sur un ensemble E, alors il faut que $a*b = a'*b' \Rightarrow f(a)*'f(b) = f(a')*f(b')$
+			où $f$ est une application définie par $f : E \to E'$.}, à savoir que si $\overline{\widetilde g} = \overline{g}$ et
+			$\overline{\widetilde{g}'} = \overline{g'}$, alors il faut que $\overline{\widetilde{g}} \overline{+} \overline{\widetilde{g}'} =
+			\overline{g} \overline{+} \overline{g'}$.
+
+			\paragraph{Dém} Soient $\widetilde{g}, g, \widetilde{g}', g' \in G$ tels que $\overline{g} = \overline{\widetilde{g}}, \overline{g'} = \overline{\widetilde{g}'}$.
+			Comme $\overline{g} = \overline{\widetilde{g}}$, on a $g - \widetilde{g} = h \in H$ et comme $\overline{\widetilde{g}'} = \overline{g'}$, on a
+			$\widetilde{g}' - g = h' \in H$. De plus, $\overline{\widetilde{g}} \overline{+} \overline{\widetilde{g}'} := \overline{\widetilde{g} + \widetilde{g}'}
+			= \overline{(g-h) + (g'-h')} = \overline{(g+g') - (h+h')} = \overline{g+g'} = \overline{g} \overline{+} \overline{g'}$.
+
+			Maintenant que nous savons que l'addition est bien définie, il faut prouver qu'elle confère à $G/H$ une structure de sous-groupe commutatif :
+
+			\begin{itemize}
+				\item[$(1)$] $e \in G$, alors $\overline{e}$ est le neutre pour $G/H$.
+				\item[$(2)$] Soit $g \in G$. $-g = -(g+H) := (-g) + H = \overline{-g}$.
+				\item[$(3)$] $\overline{+}$ est commutatif car cet opérateur est défini selon l'opérateur $+$ de $G$ qui, lui, est commutatif.
+			\end{itemize}
+
+			\paragraph{Def} Pour $n \in \mathbb N_0$, $n\Z \leq \Z$, on définit le groupe des entiers modulo $n$ comme le groupe quotient $(\Z/n\Z, \overline{+})$
+			où $\overline{a} \overline{+} \overline{b} = \overline{a+b}$.
+
+			\subsubsection{Isomorphismes de groupes}
+
+			\paragraph{Def} Soient $(G, *), (G', *')$, deux groupes. Un morphisme de groupes est une application $f : G \to G'$ telle que
+			$\forall g, h \in G, f(g*h) = f(g) *' f(h)$.
+
+			\paragraph{Def} Un morphisme de groupes $f : G \to G'$ est dit :
+
+			\begin{itemize}
+				\item injectif si $\forall g, h \in G, f(g) = f(h) \Rightarrow g = h$ ;
+				\item surjectif si $\forall g' \in G', \exists g \in G \tq f(g) = g'$ ;
+				\item bijectif s'il est injectif et surjectif.
+			\end{itemize}
+
+			\paragraph{Def} Soient $(G, *), (G, *')$ deux groupes et $f : G \to G'$ un morphisme de groupes.
+
+				\[\begin{aligned}
+					\Imappl(f) &:= \{f(g) \tq g \in G\} = f(G) \subseteq G', \\
+					\Ker(f)	&:= \{g \in G \tq f(g) = e' \in G'\} = f^{-1}(e') \subseteq G.
+				\end{aligned}\]
+
+			\paragraph{Proposition} $\Ker(f)$ est un sous-groupe de $G$ et $\Imappl(f)$ est un sous-groupe de $G'$.
+
+			\paragraph{Lemme} Soit $(G, *)$ un groupe. Si $x \in G = x * x$, alors $x = e$ où $e$ est le neutre de $G$.
+
+			\paragraph{Dém} Soient $(G, *), x \in G \tq x = x * x$. Par définition de $G$, $\exists x^{-1} \in G \tq x * x^{-1} = e$.
+			En ajoutant $x^{-1}$ de part et d'autre de l'équation, on obtient $x * x^{-1} = x * x * x^{-1} \iff e = x * e = x$.
+
+			\paragraph{Lemme} Soient $(G, *), (G', *')$ et $f : G \to G'$ un morphisme de groupes. $\forall x \in G, f(x)^{-1} = f(x^{-1})$.
+
+			\paragraph{Dém} Soient $f : G \to G'$ un morphisme de groupes. $e' \in G' = f(e) = f(x^{-1} * x) = f(x^{-1}) *' f(x) \iff
+			f(x)^{-1} = f(x^{-1})$.
+
+			\paragraph{Proposition} Soient $(G, *), (G', *')$, deux groupes et $f : G \to G'$, un morphisme de groupes. Alors :
+
+			\begin{itemize}
+				\item $f$ est injective $\iff$ $\Ker(f) = \{e\}$
+				\item $f$ est surjective $\iff$ $\Imappl(f) = G'$
+			\end{itemize}
+
+			\paragraph{Dém} Montrons d'abord la première équivalence (l'injectivité).
+
+			\begin{itemize}
+				\item Prouvons d'abord $f$ injective $\Rightarrow \Ker(f) = \{e\}$. Pour ce faire, montrons que $e \in \Ker(f)$ puis montrons qu'
+				$\not \exists x \neq e \in \Ker(f)$.
+				\begin{itemize}
+					\item $f(e) = f(e *e) = f(e) *' f(e)$. Or, par le lemme ci-dessus, $f(e) = e' \in G'$, donc $e \in \Ker(f)$.
+					\item Par définition d'une fonction injective, $\forall g, h \in G, f(g) = f(h) \Rightarrow g = h$. Donc $\forall g \in G \tq
+					f(g) = f(e) \Rightarrow g = e$. $e$ est donc le seul élément de $\Ker(f)$.
+				\end{itemize}
+
+				\item Prouvons ensuite $\Ker(f) = \{e\} \Rightarrow$ $f$ injective. Soient $g_1, g_2 \in G$. $f(g_1) = f(g_2) \Leftrightarrow
+				f(g_1) *' (f(g_2))^{-1} = f(g_2) *' (f(g_2 ))^{-1} = e'$. Comme par le lemme précédent, $f(x)^{-1} = f(x^{-1})$, alors
+				$f(g_1 * g_2^{-1}) = e'$. Donc $g_1 * g_2^{-1} \in \Ker(f)$. Cependant, par hypothèse, on peut dire que si $x \in \Ker(f)$, alors
+				$x = e$. Donc $g_1 * g_2^{-1} = e$, ou encore $g_1 = g_2$.
+			\end{itemize}
+
+			Il faut encore maintenant montrer la seconde équivalence (la surjectivité).
+
+			Cette preuve est cependant immédiate :
+			$\Imappl(f) = G' \iff \{f(g) \tq g \in G\} = G' \iff \forall g' \in G', \exists g \in G \tq f(g) = g' \iff$ $f$ est surjective.
+
+			\paragraph{Def} Soient $(G, *), (G', *')$ deux groupes.
+
+			\begin{itemize}
+				\item Un isomorphisme de groupe est un morphisme bijectif $f : G \to G'$.
+				\item $(G, *)$ et $(G', *')$ sont dits isomorphes s'$\exists f : G \to G'$ un isomorphisme. On note $G \sim G'$.
+			\end{itemize}
+
+			\paragraph{Exemple} $\exp : \mathbb R \to \mathbb R_0^+$ est un isomorphisme entre $(\mathbb R, +)$ et $(\mathbb R_0^+, \cdot)$
+
+			\subsubsection{Les anneaux}
+
+			\paragraph{Def} Un anneau $(A, +, \cdot)$ est un ensemble $A$ non vide muni d'une opération de deux opérations ($+ : A \times A \to A$
+			et $\cdot : A \times A \to A$) respectant les propriétés suivantes :
+
+			\begin{itemize}
+				\item $(A, +)$ est un groupe commutatif ;
+				\item $\cdot$ est une opération associative ;
+				\item $\cdot$ est une opération distributive sur $+$.
+			\end{itemize}
+
+			\paragraph{Def}
+			\begin{lst}
+				\item $(A, +, \cdot)$ est un anneau commutatif si l'opération multiplicative $\cdot$ est associative ;
+				\item $(A, +, \cdot)$ est un anneau unital s'$\exists 1 \in A \tq \forall a \in A, 1 \cdot a = a = a \cdot 1$.
+			\end{lst}
+
+			\paragraph{Exemples}
+			\begin{lst}
+				\item Mq $0 \cdot a = 0$.Par définition, $0 = 0 + 0$. Donc $\forall a \in A, 0 \cdot a = (0 + 0) \cdot a \iff 0a = 0a + 0a$.
+				Par le lemme précédent, $x = x + x \Rightarrow x = e$ où $e$ est le neutre. Ici, le neutre est $0$. Donc $\forall a \in A, 0a = 0$.
+				\item Mq dans un anneau unital $(A, +, \cdot)$, $\forall a \in A, (-1) \cdot a = -a$. Comme vu plus haut, $\forall a \in A, 0a = 0$.
+				Donc $\forall a \in A, (1 + (-1)) \cdot a = 0 \iff 1 \cdot a + (-1) \cdot a = 0 \iff (-1) \cdot a = -a$.
+			\end{lst}
+
+			\paragraph{Proposition} Soit $k \in \Z_0 \setminus \{1\}$. $(\Z/k\Z, \overline{+}, \overline{\cdot})$ où $\overline{.}$ est défini par
+			$\overline{.} : \Z/k\Z \times \Z/k\Z \to \Z/k\Z \tq \overline{l} \overline{\cdot} \overline{l'} := \overline{l \cdot l'}$ est un anneau commutatif.
+
+			\paragraph{Dém} À nouveau, il faut montrer que $\overline{\cdot}$ est bien défini.
+			Soient $l, l', \widetilde{l}, \widetilde{l}' \in \Z \tq \overline{l} = \overline{\widetilde{l}}, \overline{l'} = \overline{\widetilde{l'}}$.
+			Alors, $l - \widetilde{l} = kz_1 \in k\Z$ et $l' - \widetilde{l}' = kz_2 \in k\Z$ avec $z_1, z_2 \in \Z$. Donc, par définition :
+
+			\[\begin{aligned}
+				\overline{\widetilde{l}} \overline{\cdot} \overline{\widetilde{l}'} := \overline{\widetilde{l} \cdot \widetilde{l}'}
+				= \overline{(l - kz_1) \cdot (l' - kz_2)} &= \overline{l \cdot  l' - k \cdot (z_1 \cdot l' + z_2 \cdot l) + k \cdot k \cdot z_1 \cdot z_2} \\
+				&= \overline{(l \cdot l') + k \cdot ((k \cdot z_1 \cdot z_2 - z_1 \cdot l - z_2 \cdot l') \in \Z)} = \overline{l \cdot l'}.
+			\end{aligned}\]
+
+			Les propriétés de commutativité découlent directement des propriétés des entiers $\in \Z$.
+
+		\subsection{Interprétation des GCD, nombres premiers, nombres premiers entre eux}
+
+			\paragraph{Def} Soit $(A, +, \cdot)$, un anneau unital.
+			\begin{itemize}
+				\item $a \in A$ est inversible s'$\exists b \in A \tq a \cdot b = 1 = b \cdot a$ ;
+				\item $a \in A \neq 0$ est un diviseur de 0 s'$\exists b \in A \neq 0 \tq a \cdot b = 0$.
+			\end{itemize}
+
+			\paragraph{Exemple} Soient $0 < a \leq b < k \in \mathbb N_0 \tq a \cdot b = k$. Alors $\overline a$ et $\overline b$ sont des diviseurs
+			de 0 dans $\Z/k\Z$.
+
+			\paragraph{Proposition} Si $a \in A$ est un diviseur de 0, alors $a$ n'est pas inversible.
+
+			\paragraph{Dém} Soit $a \in A$. Par définition de $a$, $\exists b \in A \neq 0 \tq a \cdot b = 0$.
+			Supposons, par l'absurde, $a$ inversible. Donc $\exists c \in A \tq ac = 1 = ca$. De là, $b(ac) = b \iff (ba)c = b \iff 0c = b \iff b = 0$.
+			Or $b$ doit être non nul, il y a contradiction. $a$ n'est pas inversible.
+
+			\paragraph{Proposition} Soient $k \in \mathbb N_0 \setminus \{1\}$, $k \in \Z$. $\overline z$ est inversible dans $\Z/k\Z \iff GCD(k, z) = 1$.
+			
+			\paragraph{Dém} Montrons que si $k$ et $z$ sont premiers entre eux, alors $\overline z$ est inversible.
+			
+			$\overline{t} \overline{\cdot} \overline{z} = \overline{tz} = \overline{1-sk} \in\Z / k\Z = \overline 1$ car $sk$ est un multiple de $k$, avec $t, s \in \Z \tq
+			sk + tl = 1$ (par Euclide). On a donc $\overline t$, l'inverse de $\overline z$.
+			
+			Montrons ensuite que si $\overline z$ est inversible, alors $k$ et $z$ sont premiers entre eux.
+			
+			$\overline z$ est inversible $\Rightarrow \exists t \in \Z \tq \overline t \overline \cdot \overline z = \overline 1 = \overline{tl}$. Donc $\exists t, s \in \Z
+			\tq tl - 1 = sk$ avec $s \in \Z$. Ou encore $tl + (-s)k = 1$. Par le lemme de Bézout, $k$ et $z$ sont premiers entre eux.
+			
+			\paragraph{Remarque} Nous avons vu l'algorithme qui permet de déterminer $s, t \in\Z \tq sk + tl = GCD(k, l)$. Si $GCD(k, l) = 1$, alors $\overline t$ est
+			l'inverse de $\overline z$ dans $\Z / k\Z$.
+			
+			\paragraph{Def} $(\mathbb K, +, \cdot)$ est un champ si $(\mathbb K, +,\cdot)$ est un anneau unital commutatif tel que $\forall k \neq 0 \in \mathbb K,
+			\exists k^{-1}\tq kk^{-1} = 1$.
+			
+			\paragraph{Exemple} $\Z/4\Z$ possède des diviseurs de $0$ donc ce n'est pas un champ.
+			
+			\paragraph{Proposition} Soit $k \in \mathbb N \setminus \{1\}$. Alors $\Z/k\Z$ est un champ $\iff$ $k$ est un nombre premier.
+			
+			\paragraph{Dém} Corollaire de la proposition précédente.
+			
+			\paragraph{Remarque} $\forall p \in \Z \tq p$ est premier, $\Z/p\Z$ est un champ à $p$ éléments.
+			
+			\subsubsection{Relations de congruence}
+			
+			\paragraph{Def} Soient $a, b, k\in \Z \tq |k| > 1$. On dit que $a$ est \textit{congru à $b$ modulo $k$} et on note $a \equiv b \cmod k$ $\iff a-b \in k\Z \iff
+			\overline a = \overline b$ dans $\Z/k\Z$.
+			
+			\paragraph{Propriétés}
+				\begin{enumerate}
+					\item La congruence modulo $k$ est une relation d'équivalence (réflexive, transitive et symétrique) ;
+					\item $\forall a_1, b_1, a_2, b_2 \in \Z, |k| > 1$, si $a_1 \equiv a_2 \cmod k$ et $b_1 \equiv b_2 \cmod k$, alors :
+						\begin{itemize}
+							\item $a_1 + b_1 \equiv a_2 + b_2 \cmod k$ ;
+							\item $a_1b_1 \equiv a_2b_2 \cmod k$.
+						\end{itemize}
+					En conséquence, $\forall c \in \Z, a_1c \equiv a_2c \cmod k$.
+				\end{enumerate}
+
+		\subsection{La cryptologie : le système RSA (Rivest, Shamir, Adlerman)}
+		
+			\paragraph{Lemme} $\forall n \in \mathbb N, (n+1)^p \equiv n^p + 1 \cmod p$ si $p$ est premier.
+			
+			\paragraph{Dém} Par le binôme de Newton,$(n+1)^p = \sum_{i=0}^p n^i\binom pi = n^p + 1 + \sum_{i=1}^{p-1}n^i\binom pi$.
+			
+			Montrons maintenant par récurrence sur $i$ que $p \, | \, \binom pi \forall 0 < i < p$.
+			
+			Quand $i = 1$, $\binom pi = p$, or $p \, | \, p$, donc ok.
+			
+			Supposons maintenant que $p \, | \, \binom pi$ et démontrons que donc $p \, | \, \binom p{i+1}$. $\binom p{i} = \frac {p!}{i!(p-i)!} \Rightarrow \binom p{i+1} = 
+			\frac {p!}{(i+1)!(p-i-1)!} = \frac {p!(p-i)}{i!(i+1)(p-i-1)!(p-i)} = \binom pi \frac {p-i}{i+1}$. Or $p \, | \, \binom pi$, donc $\exists  \in \mathbb N \tq
+			\binom pi = pb$. De là, on a $\binom p{i+1} = pb\frac {p-i}{i+1}$. Et $\binom p{i+1} \in \mathbb N$ par définition. Donc comme $p$ est premier et $i < p$,
+			on sait $(i+1) \, \not | \, p$ et donc qu'il faut que $(i+1) \, | \, b(p-i)$. Donc $\exists t \in \mathbb N \tq b(p-i) = t(i+1)$, ou encore $\binom p{i+1} = pt$.
+			Et comme $p \, | \, pt$, on sait que $p \, | \, \binom p{i+1}$.
+			
+			Comme $p \, | \, \binom p{i+1} \Leftrightarrow \binom p{i+1} \equiv 0 \cmod p$. Donc $n^p + 1 + \sum_{i=1}^{p-1}\binom pi n^i \equiv n^p + 1 \cmod p$.
+		 
+			\paragraph{Théorème (Petit théorème de Fermat)} Soit $p \in \mathbb N$ un nombre premier. Et soit $a \in \mathbb N \tq p \, \not | \, a$.
+			Alors $a^p \equiv 1 \cmod p$.
+			
+			\paragraph{Dém} Montrons par récurrence sur $a$ que $a^p \equiv a \cmod p$.
+			
+			Pour $a = 1$, on a $a^p = 1^p \equiv 1 \cmod p$, donc ok.
+			
+			Supposons maintenant que $a^p \equiv a \cmod p$ et montrons que $(a+1)^p \equiv a+1 \cmod p$. Par le lemme précédent, nous avons
+			$(a+1)^p \equiv a^p + 1 \cmod p$.
+			Et par hypothèse de récurrence, nous avons $a^p \equiv a \cmod p$. Donc, en combinant les deux, nous obtenons $(a+1)^p \equiv (a+1) \cmod p$.
+			
+			Cela veut dire que dans $\Z/p\Z$, $\overline{a^p} = \overline a$. Mais comme $p \, \not | \, a$ et que $\Z/p\Z$ set un champ, $\exists \overline b$, un inverse
+			de $\overline a$. Donc en multipliant par $\overline b$ de part et d'autre, on obtient $\overline b \overline{a^p} = \overline b \overline{a}^p
+			= \overline b \overline a \overline a^{p-1} = \overline a^{p-1} = \overline b \overline a = \overline 1$. Autrement dit, $a^{p-1} \equiv 1 \cmod p$.
+			
+			\paragraph{Fonctionnement de RSA} deux personnes Alice et Bob veulent communiquer de manière sûre. Alice choisit deux nombres premiers $p, q \in \mathbb N$.
+			Ce couple est appelé la \textit{clef privée}. Ensuite Alice calcule $N := pq$ et $\phi(N) := (p-1)(q-1) = N - (p-q+1)$. Alice choisit également $e \in \Z \tq
+			GCD(\phi(N), e) = 1$. $e$ est appelé \textit{l'exposant de chiffrement}. Par le choix de $e$, $\exists 0 \leq s \leq \phi(N) \tq t\phi(N) + se = 1$.
+			Attention, $s$ doit rester secret pour la sécurité du fonctionnement ! Ensuite, Alice publie le couple $(N, e)$.
+			
+			Si Bob souhaite envoyer un message sûr à Alice, il doit transformer son message en un entier $M \in \Z \tq 0 < M < N$. Il utilise ensuite la clef publique de
+			pour publier à son tour $\widetilde M \equiv M^e \cmod N$.
+			
+			Pour déchiffrer ce message, Alice utilise $s$ (tel que $\overline s$ est l'inverse de $\overline e$ dans $\Z/\phi(N)\Z$) pour trouver
+			$(\widetilde M)^e \equiv M^{es} \cmod N \equiv M \cmod N$, par le théorème suivant.
+			
+			\paragraph{Théorème} $\forall 0 < M < N = pq \in \mathbb N \tq p, q$ sont premiers, soit $u \equiv 1 \cmod{\phi(N)}$. Alors $M^u \equiv M \cmod N$.
+			
+			\paragraph{Dém} $(0 < M < N = pq) \Rightarrow (p \not | \, M) \lor (q \not | \, M)$. Soit $u \tq u \equiv 1 \cmod{\phi(N)}$, donc
+			$u = 1 + t\phi(n) = 1 + t(p-1)(q-1)$.
+			
+				\subparagraph{cas 1 : $(p \not | \, M) \land (q \not | \, M)$} $M^u = M^{1 + t(p-1)(q-1)} = MM^{(p-1)(q-1)}$.
+				Comme $p \not | \, M$, par le PTF\footnote{Petit Théorème de Fermat.}, $(M^{t(q-1)})^{(p-1)} \equiv 1 \cmod p$, et comme $q \not | \, M$, par le PTF,
+				$(M^{t(p-1)})^{(q-1)} \equiv 1 \cmod q$.
+				Donc $(M^u \equiv M \cmod p) \land (M^u \equiv M \cmod q) \Rightarrow (p \, | \, (M^u - M)) \land (q \, | \, (M^u - M)) \Rightarrow (pq \, | \, (M^u - M))$.
+				Donc $\exists m \in \Z \tq M^u - M = mpq \iff M^u = M + mpq \equiv M \cmod{(pq=N)}$.
+				
+				\subparagraph{cas 2 : $(p \not | \, M) \land (q \, | \, M)$} $(q \not | \, M) \Rightarrow (M^{t(p-1)})^{(q-1)} \equiv 1 \cmod q \Rightarrow
+				M^{t(p-1)(q-1)} = 1 + lq$, pour $l \in \Z$. Donc $M^u = M(1 + lq) = M + Mlq$, et comme $p \, | M$, on a $M^u = M + pclq$ pour $c \in \Z$. En réorganisant,
+				on obtient $M^u = M + lcN$, ou encore $M^u \equiv M \cmod N$.
+								
+				\subparagraph{cas 3 : $(p \, | \, M) \land (q \not | \, M)$} Se prouve par symétrie du cas 2.
+	
+	\section{Combinatoire énumérative}
+	
+		\subsection{Comptage élémentaire}
+		
+			\subsubsection{Principes de base}
+			
+			\paragraph{Def} Une fonction $f : A \to B$ est dite :
+			\begin{itemize}
+				\item injective si $\forall a, a' \in A, f(a) = f(a') \iff a = a'$ ;
+				\item surjective si $\forall b \in B, \exists a \in A \tq f(a) = b$ ;
+				\item bijective si elle est injective et surjective.
+			\end{itemize}
+			
+			\paragraph{Remarque}
+			\begin{lst}
+				\item si $\#B < \#A, \not \exists f : A \to B$ injective ;
+				\item si $\#B > \#A, \not \exists f : A \to B$ surjective ;
+				\item si $\#B \neq \#A, \not \exists f : A \to B$ bijective.
+			\end{lst}
+			
+			\paragraph{Théorème} Soit $f : A \to B$. Alors $f$ est bijective $\iff \exists g : B \to A \tq ((g \circ f) = Id_A) \land ((f \circ g) = Id_B)$.
+			
+			\paragraph{Dém}
+			\begin{lst}
+
+				\item $(\Rightarrow)$ Si $f$ est bijective, elle admet un inverse $f^{-1} \tq (f \circ f^{-1}) = Id_B$ et $(f^{-1} \circ f) = Id_A$.
+			
+				\item $(\Leftarrow)$ S'$\exists $ une telle fonction $g$, prouvons que $f$ est bijective :
+				
+				\begin{itemize}
+					\item $\forall b \in B, \forall a, a' \in A, f(a) = f(a') \Rightarrow g(f(a)) = g(f(a')) \Rightarrow (g \circ f)(a) = (g \circ f)(a') \Rightarrow a = a'$
+					\item Posons $a = g(b)$. Donc $f(a) = f(g(b)) = (f \circ g)(b) = b$. 
+				\end{itemize}
+			\end{lst}
+			
+			La fonction $f$ est alors bien injective et surjective (donc bijective).
+			
+			\paragraph{Def} Soient deux ensembles $A$ et $B$. On note $B^A$ l'ensemble des fonctions allant de $A$ dans $B$. $B^A := \{f : A \to B\}$.
+			
+			\paragraph{Remarque} Le nombre d'éléments de cet ensemble (donc le nombre de fonctions allant de $A$ dans $B$ est $\#(B^A) = (\#B)^{\#A}$.
+			
+			\subsubsection{Cardinalité}
+			
+			\paragraph{Def} Pour $n \in \mathbb N_0$, on définit $[n] := \{k \in \mathbb N_0 \tq k \leq n\}$. On pose $[0] = \emptyset$.
+			
+			\paragraph{Def} Deux ensembles $A$ et $B$ sont de même cardinalité s'$\exists f : A \to B$ bijective. On note alors $\#A = \#B$ ou $|A| = |B|$.
+			
+			\paragraph{Def} Un ensemble $E$ est fini s'il est de même cardinalité que $[n]$ pour $n \in \mathbb N$. On note alors $\#E = n$.
+			
+			\paragraph{Théorème} Soient $A, B$ deux ensembles finis de même cardinalité, $f : A \to B$. Les conditions suivantes sont équivalentes :
+			
+			\begin{itemize}
+				\item[$(i)$]   $f$ est injective ;
+				\item[$(ii)$]  $f$ est surjective ;
+				\item[$(iii)$] $f$ est bijective.
+			\end{itemize}
+			
+			\paragraph{Dém} Soient $A$ et $B$ deux ensembles de cardinalité $n$, et soit $f : A \to B$. Montrons d'abord que $(i) \Rightarrow (ii)$. Montrons ensuite que
+			$(ii) \Rightarrow (i)$. Après avoir prouvé $(i) \iff (ii)$, il faut prouver que $(i) \land (ii) \iff (iii)$.
+			
+			\begin{itemize}
+				\item Par définition, $f$ injective $\Rightarrow \forall a, a' \in A, f(a) = f(a') \iff a = a'$. Donc $\forall a' \neq a \in A, f(a) \neq f(a')$.
+				Ce qui veut dire que le nombre d'éléments $b \in B$ n'admettant pas de préimage dans $A$ est $\#B - \#A$. Or $\#B = \#A$, donc
+				$\forall b \in B, \exists a \in A \tq f(a) = b$, ce qui est la définition d'une fonction surjective.
+				\item Par définition, $f$ surjective $\Rightarrow \forall b \in B, \exists a \in A \tq f(a) = b$. Donc le nombre d'éléments $b \in B$ admettant
+				strictement plus d'une préimage $a \in A$ est $\#A - \#B$. Or $\#B = \#A$, donc $\not \exists b \in B \tq \exists a \neq a' \in A \tq f(a) = f(a') = b$.
+				Autrement dit, $\forall a, a' \in A, f(a) = f(a') \iff a = a'$, ce qui est la définition d'une fonction injective.
+				\item Par définition, $f$ est bijective $\iff$ $f$ est injective $\land$ $f$ est surjective.
+			\end{itemize}
+			
+			\paragraph{Théorème (principe d'addition)} Soient $A_i, 0 < i \leq k$, des ensembles finis deux à deux disjoints. Alors $\#\left(\bigcup_{i=1}^kA_i\right) =
+			\sum_{i=1}^k\#A_i$.
+			
+			\paragraph{Dém} Démontrons cela par récurrence sur $k$, le nombre d'ensembles.
+			
+			Pour $i = 1$, $\#A_1 = \#A_1$, donc ok.
+			
+			Supposons que $\#\cup_{i=1}^kA_i = \sum_{i=1}^k\#A_i$ et prouvons que $\#\cup_{i=1}^{k+1} = \sum_{i=1}^{k+1}$.
+			
+			$\cup_{i=1}^{k+1} = \cup_{i=1}^kA_i \cup A_k$. Donc $\#\cup_{i=1}^{k+1} = \#(\cup_{i=1}^kA_i) + \#A_k - \#((\cup_{i=1}^kA_i) \cap A_{k+1})$.
+			Or, par définition, les $A_i$ sont disjoints deux à deux. Donc $((\cup_{i=1}^kA_i) \cap A_{k+1}) = \emptyset$. On a donc $\#(\cup_{i=1}^kA_i) + \#A_{k+1} - 0$.
+			Et par hypothèse de récurrence, $\#(\cup_{i=1}^kA_i) = \sum_{i=1}^k\#A_i$. Donc $\#(\cup_{i=1}^kA_i) + \#A_{k+1} = \sum_{i=1}^k\#A_i + \#A_{k+1} =
+			\sum_{i=1}^{k+1}\#A_i$.
+			
+			\paragraph{Def} Soient $A_i, 0 < i \leq k$, des ensembles. On définit leur produit cartésien par :
+			
+			\[\prod_{i=1}^kA_i := A_1 \times A_2 \times \ldots \times A_k = \{(a_i)_{i \in [k]} \tq a_i \in A_i\}.\]
+			
+			\paragraph{Théorème (principe de multiplication)} Soient $A_i, 0 < i \leq k$ des ensembles finis, pour $k \in \mathbb N_0$. Alors :
+			$\#\left(\prod_{i=1}^kA_i\right) = \prod_{i=1}^k\#A_i$.
+			
+			\subsubsection{Factorielle}
+			
+			\paragraph{Def} La factorielle de $n \in \mathbb N_0$ est le nombre $n! := \prod_{i=0}^ni$. On pose $0! := 1$.
+			
+			\paragraph{Théorème} Soient $A$ et $B$ deux ensembles tels que $\#A = \#B = n$. Il existe $n!$ bijections $f : A \to B$.
+			
+			\paragraph{Dém} Soit $A = \{a_1, \ldots, a_n\}$. Pour construire une bijection $f : A \to B$, on choisit les images des éléments de $A$ par $f$. Pour $a_1$,
+			on a $n$ choix ($\#B$). Pour $a_2$, on a $(n-1)$ choix ($\#(B \setminus \{a_1\})$). Pour $a_i$, le nombre de choix s'élève donc à $(n-i+1)$.
+			Le nombre de bijections est donc $\prod_{i=1}^ni = n!$.
+			
+			\paragraph{Proposition} Soient $A$ et $B$ deux ensembles finis de cardinalité respective $k$ et $n$ avec $k < n$. Alors le nombre de fonctions $f : A \to B$
+			injectives est $n(n-1)(n-2)\ldots(n-k+1) = \frac {n!}{(n-k)!}$.
+			
+			\paragraph{Dém} Soient $A = \{a_1, \ldots a_k\}$ et $B = \{b_1, \ldots a_n\}$ avec $k < n$. Pour construire une fonction $f : A \to B$, il faut
+			choisir $\forall a \in A$ une image $b \in B$. Pour que la fonction soit injective, lors du choix de $a_1$, on a $n$ choix, mais lors du choix de $a_2$,
+			on n'a plus que $(n-1)$ choix (pour garantir la propriété d'injection). Donc pour $a_k$, il restera $(n-k+1)$ choix. Le nombre total de fonctions injectives
+			est donc $n(n-1)(n-2)\ldots(n-k+1) = \frac {n!}{(n-k)!}$.
+			
+			\paragraph{Remarque} Une injection $f : [k] \to [n]$ revient à choisir $k$ éléments parmi $n$ (en tenant compte de l'ordre).
+			
+			\paragraph{Exemple} Soit $E$ un ensemble. Le nombre d'ordres totaux sur $E$ est $(\#E)!$.
+			
+			\subsubsection{Croissance de $n!$}
+			
+			\paragraph{Remarque} En regardant la fonction $n \mapsto (n!)^2 = n(n-1)\ldots 1n(n-1)\ldots 1 = \prod_{k=1}^nk(n-k+1)$.
+			Cette fonction est une fonction du second degré en $k$, donc une parabole. On sait donc déterminer son maximum (en $\frac {n+1}2$). De là, il est possible
+			de borner le carré de la factorielle de la sorte :
+			
+			\[\begin{aligned}
+				\forall k \in [n], n &\leq (n-k+1) &&\leq \left(\frac {n+1}2\right)^2 \\
+								   n^n &\leq \prod_{k=1}^nk(n-k+1) &&\leq \left(\frac {n+1}2\right)^{2n} \\
+								   n^n &\leq (n!)^2 &&\leq \left(\frac {n+1}2\right)^{2n} \\
+								   n^{\frac n2} &\leq n! &&\leq \left(\frac {n+1}2\right)^n.
+			\end{aligned}\]
+			
+			\subsubsection{Coefficients binomiaux}
+			
+			\paragraph{Def} Pour $n, k \in \mathbb N \tq k \leq n$, le coefficient binomial $\binom kn$ (se prononce $n$ choose $k$) est défini par
+			$\binom kn := \frac {n!}{k!(n-k)!}$ et représente le nombre de sous-ensembles à $k$ éléments dans $[n]$ (l'ordre n'a pas d'importance).
+			
+			\paragraph{Propriété (symétrie)} $\forall k \leq n \in \mathbb N, \binom kn = \binom n{n-k}$.
+			
+			\paragraph{Dém} Par définition, $\binom kn$ est le nombre de sous-ensembles de $[n]$ à $k$ éléments.
+			
+			Soit $S \subseteq [n] \tq \#S = k$. Alors $T := [n] \setminus S \subseteq [n] \tq \#T = n-k$. Soit $A := \{S \subseteq [n] \tq \#S = k\},
+			B := \{T \subseteq [n] \tq \#T = n-k\}$. On construit $f : A \to B : S \mapsto f(S)$, où $f(S) := [n] \setminus S$. En vérifiant que $f$ est bien une bijection,
+			on a $\#A = \#B$, donc, par définition du coefficient binomial, $\binom nk = \binom n{n-k}$.
+			
+			\paragraph{Propriété (induction)} Pour $n, k \in \mathbb N_0, k < n, \binom kn = \binom {n-1}{k-1} + \binom{n-1}{k}$.
+			
+			\paragraph{Dém} Soient $S \subseteq [n]$, $e \in [n]$. Il y a donc deux cas possibles : soit $e \in S$, soit $e \not \in S$.
+			
+			On a :
+			
+			\[\begin{aligned}
+				\{S \subseteq [n]\ \tq \#S = k\} &= \{S \subseteq [n] \tq (\#S = k) \land (e \in S)\} \cup \{S \subseteq [n] \tq (\#S = k) \land (e \not \in S)\} \\
+												 &= \{T \subseteq [n] \setminus \{e\} \tq \#T = k-1\} \cup \{S \subseteq [n] \setminus \{e\} \tq \#S = k\}.
+			\end{aligned}\]
+			
+			Si ces ensembles sont égaux, ils sont de même cardinalité. On a donc :
+			
+			\[\#\{S \subseteq [n]\ \tq \#S = k\} = \#(\{T \subseteq [n] \setminus \{e\} \tq \#T = k-1\} \cup \{S \subseteq [n] \setminus \{e\} \tq \#S = k\}).\]
+			
+			Comme les deux ensembles à droite de l'égalité sont d'intersection vide, on a :
+			
+			\[\begin{aligned}
+				\#\{S \subseteq [n]\ \tq \#S = k\} &= \#\{T \subseteq [n] \setminus \{e\} \tq \#T = k-1\} &&+ \#\{S \subseteq [n] \setminus \{e\} \tq \#S = k\} \\
+				\binom nk						  &= \binom {n-1}{k-1}								   &&+ \binom {n-1}k.
+			\end{aligned}\]
+			
+			\paragraph{Théorème (absorption)} Soient $k, n \in \mathbb N_0, k \leq n$.
+
+			\[k\binom nk = n\binom {n-1}{k-1}.\]
+
+			\paragraph{Dém} Le membre de gauche est la cardinalité d'un ensemble $A := \{(S \subseteq [n], e) \tq \#S = k, e \in S\}$ et le membre de droite est
+			la cardinalité d'un ensemble $B := \{(e, T) \tq e \in [n], T \subseteq [n] \setminus \{e\}, \#T = k-1\}$. Construisons $f : A \to B$, une bijection afin de prouver
+			l'égalité des cardinaux. Soit $f : A \to B : (S, e) \mapsto (e, S \setminus \{e\})$. Montrons maintenant que $f$ est bijective :
+
+			\begin{itemize}
+				\item injectivité : montrons que $\forall S, S' \subseteq [n], e, e' \in [n], f(S, e) = f(S', e') \Rightarrow (S, e) = (S', e')$.
+				Par définition de $f$, on sait $f(S, e) = (e, T := S \setminus \{e\})$ et $f(S', e') = (e', T' := S' \setminus \{e'\})$. Si $(e, T) = (e', T')$,
+				alors il faut $e = e'$ (égalité membre à membre). Dans ce cas, on a $T = S \setminus \{e\} = S \setminus \{e'\} = T' = S' \setminus \{e'\}$.
+				On a dès lors $S = S'$ en ajoutant $e$ dans les deux ensembles.
+
+				\item surjectivité : montrons que $\forall (e, T) \in B, \exists (S, e') \in A \tq f(S, e') = (e, T)$.
+				Soient $e \in [n]$ et $S \subseteq [n]$. Prenons $e' = e$ et $S = T \cup \{e\}$. On a dès lors $f(S, e') = (e', S \setminus \{e'\})
+				= (e, S \setminus \{e\}) = (e, T)$.
+			\end{itemize}
+
+			Nous avons montré que $f$ est bijective, donc $\#A = \#B$.
+
+			\paragraph{Théorème (somme parallèle)} Soient $m, k \in \mathbb N, k \leq n$.
+
+			\[\sum_{n=k}^m\binom nk = \binom {m+1}{k+1}.\]
+
+			\paragraph{Dém} Montrons ceci par récurrence sur $m$.
+
+			\begin{itemize}
+				\item $m = k$ : $\binom kk = 1 = \binom {k+1}{k+1}$, donc ok.
+				\item Supposons la propriété vraie pour $m$ et montrons la pour $m+1$ :
+
+				\[\sum_{n=k}^{m+1}\binom nk = \left(\sum_{n=k}^m\binom nk\right) + \binom {m+1}k.\]
+
+				Par hypothèse de récurrence, on a :
+
+				\[\sum_{n=k}^{m+1}\binom nk = \binom {m+1}{k+1} + \binom {m+1}{k} = \binom {m+2}{k+1}.\]
+			\end{itemize}
+
+			\paragraph{Théorème (binôme de Newton)} Soient $x, y \in \mathbb R, n \in \mathbb N$.
+
+			\[(x+y)^n = \sum_{i=0}^n\binom nix^iy^{n-i}.\]
+
+			\paragraph{Dém} $(x+y)^n = (x+y)(x+y)\ldots(x+y)$. Chaque terme $x^iy^{n-i}$ est donc un produit de $n$ éléments tel qu'il faut choisir $i$ fois l'élément $x$.
+			Ce facteur $x^iy^{n-i}$ est donc choisi $\binom ni$ fois.
+
+			\paragraph{Remarque} La preuve est également possible de manière plus algébrique par récurrence sur $n$.
+
+			\paragraph{Applications/interprétations du binôme de Newton}
+
+			\begin{enumerate}
+				\item Le nombre de mots de $n$ bits contenant $k$ symboles 1 et $n-k$ symboles 0 est $\binom nk$ ;
+				\item soit un réseau routier quadrillé de routes parallèles ou perpendiculaires deux à deux. Comme un chemin de $(0, 0)$ à $(a, b) \in \mathbb N^2$
+				peut être vu comme un mot binaire où le symbole 1 veut dire \textit{haut} et le symbole 0 veut dire \textit{droite}, on peut facilement se ramener au
+				cas précédent et dire que le nombre de plus courts chemins est $\binom {a+b}a = \binom {a+b}b$ ;
+				\item le nombre de solutions $(x_1, \ldots, x_d) \in \mathbb N^d, d \geq 1$ de l'équation suivante :
+
+				\[\sum_{i=1}^dx_i = s, s \in \mathbb N\]
+
+				est $\binom {s+d-1}s$ car on peut à nouveau se ramener au premier cas en remplaçant les symboles + par le symbole 1 et il reste $s$ symboles 0
+				à répartir dans les $d$ valeurs $x_i$. On cherche donc à faire un mot binaire avec $s$ symboles 0 et $d-1$ symboles 1.
+			\end{enumerate}
+
+			\subsubsection{Coefficients multinomiaux}
+
+			\paragraph{Def} Pour $n, t \in \mathbb N, (k_i)_{i \in [t]} \tq \sum_{i=1}^tk_i=n$, on définit le le coefficient multinomial comme suit :
+
+			\[\binom {n}{k_1, k_2, \ldots k_t} = \binom n{(k_i)_{i\in[t]}}.\]
+
+			Ce coefficient est le nombre de partitions ordonnées de l'ensemble $[n]$ en $t$ sous-ensembles $S_1, S_2, \ldots, S_t \subseteq [n]$ tels que
+			$\forall i \in [t], \#S_i = k_i$.
+
+			\paragraph{Remarque} la notion d'ordre des partitions veut dire que les sous-ensembles sont nommés et qu'échanger deux noms en laissant le contenu
+			intact est une autre partition que la partition initiale. Par exemple pour $[2]$, les partitions suivantes : $\{S_1 = \{1\}, S_2 = \{2\}\}$ et
+			$\{S_1 = \{2\}, S_2 = \{1\}\}$ ne sont pas équivalentes.
+
+			\paragraph{Remarque (bis)} Le coefficient multinomial $\binom n{n, n-k}$ correspond au coefficient binomial $\binom nk = \binom n{n-k}$.
+
+			\paragraph{Interprétations du coefficient multinomial}
+
+			\begin{itemize}
+				\item Le nombre de répartitions possibles de $n$ objets dans $t$ sacs distinguables en mettant $k_i$ objets dans le sac $S_i \forall i \in [t]$ est donné
+				par le coefficient multinomial $\binom n{(k_i)_{i\in[t]}}$ pour $n, t \in \mathbb N, k_1, \ldots, k_t \in \mathbb N$ ;
+				\item le nombre de fonctions $f : [n] \to [t]$ telles que $\#f^{-1}(\{i\}) = k_i \forall i \in [t]$ est donné par le même coefficient multinomial ;
+				\item le nombre de mots de longueur $n$ faits dans un alphabet $\Sigma = \{\sigma^{(1)}, \sigma^{(2)}, \ldots, \sigma^{(t)}\}$ tels que
+				le nombre d'occurrences du symbole $\sigma^{(i)}$ est $k_i \forall i \in [t]$.
+			\end{itemize}
+
+			\paragraph{Def} Pour $n, t \in \mathbb N, (k_i)_{i\in[t]} \tq \sum_{i=1}^tk_i=n$, on définit le coefficients multinomial comme suit :
+
+			\[\binom {n}{k_1, \ldots, k_t} = \binom {n}{(k_i)_{i\in[t]}} = \frac {n!}{\prod_{j=1}^t(k_j)!}.\]
+
+			\paragraph{Propriétés} $\forall n, t \in \mathbb N, (k_i)_{i\in[t]} \tq \sum_{i=1}^tk_i=n$ :
+
+			\begin{itemize}
+				\item Soit $\pi : [t] \to [t]$ bijective (une permutation de $[t]$).
+
+				\[\binom {n}{(k_i){i\in[t]}} = \binom {n}{(k_{\pi(i)})_{i\in[t]}}.\]
+
+				\item
+				
+				\[\forall i \in [t], k_i \neq 0 \Rightarrow \binom {n}{(k_i)_{i\in[t]}} = \frac k{k_i} \binom {n-1}{k_1, k_2, \ldots, k_{i-1}, k_i-1, k_{i+1}, \ldots, k_t}.\]
+
+				\item Si $\forall j \in [t], k_j \neq 0$, alors
+
+				\[\binom n{k_1, \ldots, k_t} = \sum_{j=1}^t\binom{n-1}{(k_i)_{i\in[t] \setminus \{j\}}, k_j-1}.\]
+			\end{itemize}
+
+			\paragraph{Théorème} Soient $n, t \in \mathbb N, (x_i)_{i\in[t]} \in \mathbb R^t$. Alors
+
+			\[\left(\sum_{i=1}^tx_i\right)^n
+			= \sum_{\underset {\tq \sum_ik_i=n}{(k_1, \ldots, k_t) \in \mathbb N^t}}\left[\binom {n}{(k_i)_{i \in [t]}} \prod_{j=1}^tx_j^{k_j}\right].\]
+
+		\subsection{Preuves bijectives}
+			
+			\paragraph{Intuition} Lorsque l'on a un ensemble fini $A$ d'objets mathématiques, et que l'on veut connaitre son cardinal, on peut trouver un autre
+			ensemble que l'on sait dénombrer, puis créer une bijection $f : A \to B$ afin de conclure $\#A = \#B$.
+
+			\subsubsection{Arbres étiquetés}
+
+			\paragraph{Def} Un arbre étiqueté à $n$ sommets est un arbre à $n$ sommets dont les sommets sont numérotés de $1$ à $n$.
+
+			\paragraph{Def} Un graphe orienté $\vec {\Gamma}= (V, E)$ est un ensemble de sommets $v \in V$ et d'\textit{arcs} $e \in E \subseteq V \times V$
+			où un arc est une arête orientée (pour $a, b \in V$, $\lnot((a, b) \in E \Rightarrow (b, a) \in E)$).
+
+			\paragraph{Théorème (de Cayley)} Le nombre d'arbres étiquetés à $n$ sommets est $n^{n-2}$.
+
+			\paragraph{Dém} Soient $a_n$, le nombre d'arbres étiquetés à $n$ sommets, $\mathcal A_n := \{$arbres étiquetés à $n$ sommets avec deux sommets spéciaux notés
+			$\bigcirc$ et $\square$ (possiblement les mêmes)$\} = \{\Gamma = ((V, E), \bigcirc, \square)\}$. Les sommets $\bigcirc$ et $\square$ sont appelés respectivement
+			extrémité gauche et droite.
+
+			On a de manière évidente $\#\mathcal A_N \geq a_n$ voire même $\#\mathcal A_n = n^2a_n$. En effet, chaque arbre étiqueté à $n$ sommet a $n^2$ possibilités pour
+			placer $\bigcirc$ et $\square$. Maintenant montrons qu'il existe une bijection $f : [n]^{[n]} \to \mathcal A_n$. Ainsi, on aura $\#\mathcal A_n = n^n$ ou encore
+			$a_n = n^{n-2}$. Il faut construire un arbre étiqueté à $n$ sommets dont deux spéciaux notés $\bigcirc$ et $\square$ $\in \mathcal A_n$ à partir d'une fonction
+			$F \in [n]^{[n]}$.
+
+			Construisons l'arbre en deux étapes  : d'abord construisons un graphe dirigé à partir de la fonction puis supprimons les cycles afin d'en faire un arbre.
+
+			\subparagraph{Étape 1 :} On pose $\vec{\Gamma_F} = ([n], \{(i, F(i)) \tq i \in [n]\})$, un graphe ayant pour sommets les naturels $\in [n]$
+			et pour arêtes les couples de la fonction $F$. Un tel graphe a les propriétés suivantes :
+
+				\begin{lst}
+					\item[$(i)$] $\vec {\Gamma_F}$ a exactement $n$ sommets ;
+					\item[$(ii)$] $\forall v \in V, \exists! e \in E \tq e = (v, x)$ pour $x \in V$ ;
+					\item[$(iii)$]  $\forall v \in V, \#\{(x, v) \in E \text{ pour $x \in V$}\} \leq n$ ;
+					\item[$(iv)$] Chaque composante a exactement un cycle dirigé. En effet, chaque sommet a exactement un arc sortant donc il n'y a pas de cycle non dirigé. 
+								  De plus, $\vec {\Gamma_F}$ a $n$ sommets et $n$ arêtes, il ne peut donc être un arbre ou acyclique.
+					\item[$(v)$] Si$\widetilde C$ est un cycle, alors $f_{\sVert[0]_{\{\text{sommets de $\widetilde C$}\}}}$ est une bijection.
+				\end{lst}
+
+			\subparagraph{Étape 2 : }On définit $\mathcal M := \{i_1, i_2, \ldots, i_t\}$ tel que $\forall j \in [m], i_j$ est un cycle dirigé dans $\vec {\Gamma_F}$ avec
+			$i_1 < i_2 < \ldots < i_m$. La restriction $F_{\sVert[0]_{\mathcal M}}: \mathcal M \to \mathcal M$ est une bijection définie par :
+			
+			\[F_{\sVert[0]_{\mathcal M}}= \begin{pmatrix}i_1 & i_2 & \ldots & i_m \\f(i_1) & f(i_2) & \ldots & f(i_m)\end{pmatrix}.\]
+
+			De là, on construit un graphe dirigé $\vec {\Gamma_F}$ :
+
+				\begin{itemize}
+					\item on enlève les arcs $\mathcal M \times F(\mathcal M)$ ;
+					\item on construit un chemin d'arcs $\{(F(i_j), F(i_{j+1})) \tq i_j \in [\#\mathcal M - 1]\}$ (cela permet de réduire de 1 le nombre 
+						  d'arêtes et de connecter le graphe) ;
+					\item on marque $F(i_1)$ par $\bigcirc$ et $F(i_m)$ par $\square$ ;
+						\item on supprime l'orientation des arcs.
+				\end{itemize}
+
+			$\vec {\Gamma_F}$ a donc $n-1$ arêtes, $n$ sommets et est simple (un arbre). Il est étiqueté (par la fonction $F$) et a 2 sommets particuliers
+			($\bigcirc$ et $\square$).
+			
+			Les deux étapes qui viennent d'être décrites donnent donc une fonction $f : [n]^{[n]} \to \mathcal A_n$. Il reste à montrer que cette fonction est bijective.
+			Pour cela, construisons $g : \mathcal A_n \to [n]^{[n]}$ telle que $(f \circ g) = Id_{\mathcal A_n}$ et $(g \circ f) = Id_{[n]^{[n]}}$.
+
+			\underline{construction de la fonction $g$ : } On prend $C$, l'unique chemin entre $\square$ et $\bigcirc$.On en construit la matrice $\Delta$ de dimension
+			$2 \times m$ où la première ligne est la permutation ordonnée de $C$ et la seconde est $C$ dans l'ordre de $\bigcirc$ à $\square$. On enlève tous les arcs de $C$.
+			On crée des arcs allant de $\Delta_{1j}$ à $\Delta_{2j} \forall j$. Il reste à orienter les arêtes restantes en direction des cycles. On a alors $\vec {\Gamma_F}$.
+			Définissons donc maintenant $G : [n] \to [n] : \Delta_{1j} \mapsto \Delta_{2j} \forall j$.
+			
+			On a donc bien construit $g : \mathcal A_n \to [n]^{[n]}$ respectant les bonnes propriétés d'identité. On en déduit $\#\mathcal A_n = \#[n]^{[n]} = n^n$,
+			ou encore $a_n = n^{n-2}$.
+
+			\subsubsection{Arbres binaires enracinés} %TODO
+
+			\paragraph{Def} Un arbre binaire enraciné est un arbre dont tous les sommets sont de degré 1, 2 ou 3 tel qu'un et un seul sommet soit de degré 2, chaque arête a un
+			label $l \in \{G, D\}$ et on peut représenter un tel arbre dans le plan en rangeant les sommets par étage :
+
+			\begin{itemize}
+				\item étage 1 : le sommet de degré 2 appelé racine ;
+				\item étage $k > 1$ :
+					\begin{lst}
+						\item un sommet n'est adjacent qu'à un et un seul sommet de l'étage $(k-1)$ ;
+						\item un sommet est adjacent à 0 ou 2 sommets de l'étage $(k+1)$ ;
+						\item il n'y a pas d'autre adjacence.
+					\end{lst}
+			\end{itemize}
+			
+			\paragraph{Def} Les sommets de degré 1 sont appelés feuilles et les sommets de degré 3 sont appelés sommets internes.
+
+			\paragraph{Def} Une triangulation d'un polygone à $(n+1)$ côtés est une découpe du polygone en triangles dont les sommets sont les sommets du polygone.
+
+			\paragraph{Théorème} Le nombre d'arbres binaires enracinés à $n$ sommets est égal au nombre de triangulations d'un polygone à $(n+1)$ côtés.
+
+			\paragraph{Dém} Soient $\mathcal A_n := \{$ arbres binaires enracinés à $n$ feuilles $\}$, $\mathcal T_n := \{$ triangulation d'un polygone à $(n+1)$ côtés $\}$.
+			Construisons $f : \mathcal T_n \to \mathcal A_n$ bijective.
+
+			\begin{itemize}
+				\item Nommons les côtés de $\tau \in \mathcal T_n$ par $c_0$ (sur le côté supérieur), $c_1, \ldots, c_n$ dans le sens anti-horlogique ;
+				\item plaçons la racine de $a \in \mathcal A_n$ dans le triangle adjacent à $c_0$ ;
+				\item plaçons un sommet interne ($\deg v = 3$) dans chaque autre triangle ;
+				\item plaçons les feuilles sur les côtés $c_1, \ldots, c_n$ ($(n+1)$ faces et $n$ feuilles) ;
+				\item les arêtes vont relier les sommets placés dans des triangles adjacents. Et les arêtes vont relier les sommets internes aux feuilles dans un même triangle.
+			\end{itemize}
+
+			Reste à montrer que $f$ est bijective.  % TODO
+
+			\paragraph{Remarque} $\mathcal T_n = \frac 1n\binom {2(n-1)}{n-1}$ (démonstration plus tard).
+
+		\subsection{Relations de récurrence}
+
+			\subsubsection{Le tri fusion}
+			
+			\paragraph{Intro} Le tri fusion applique la notion de \textit{Divide \& conquer}, à savoir diviser le set de données à traiter afin de traiter
+			séparément des cas plus petits et unifier la solution à la fin.
+
+			\paragraph{Rappel} Le principe du tri fusion (\textit{merge sort}) est de diviser le vecteur à trier en deux, trier les deux sous-vecteur et
+			unifier les deux sous-veceturs de manière à avoir l'union des deux triées. Pour trier chaque sous-vecteur, le principe est récursif jusqu'à obtenir
+			un sous-vecteur déjà trié (de taille unitaire).
+
+			\paragraph{Proposition} Le nombre de copies exécutées lors d'un merge sort sur un vecteur de taille $N = 2^n$ avec $m \in \mathbb N$ est $N\log_2N$.
+
+			\paragraph{Dém} Comptons $C_N$, le nombre de copies effectuées. On sait que si le vecteur est de taille unitaire, il est déjà trié, il n'y a donc aucune copie.
+			De plus, lors de la récursion, les sous-vecteurs sont de taille respective $\left \lceil \frac N2 \right \rceil$ et $\left \lfloor \frac N2 \right \rfloor$.
+			Cependant comme $N = 2^n$, on sait que $2 \, | \, N$. Dès lors, $\left \lceil \frac N2 \right \rceil = \frac N2 = \left \lfloor \frac N2 \right \rfloor$.
+			On trouve donc :
+
+			\[
+			  \left\{
+				\begin{aligned}
+				  C_N &= 2C_{\frac N2} + N \;\;\; \forall n \geq 2 \\
+				  C_1 &= 0
+				\end{aligned}
+			  \right.
+			\]
+
+			Si on pose $a_n := \frac {C_{2^n}}{2^n}$, on obtient :
+
+			\[
+			  \left\{
+				\begin{aligned}
+				  a_n &= a_{n-1} + 1 \\
+				  a_0 &= 0
+				\end{aligned}
+			  \right.
+			\]
+
+			Cette relation de récurrence peut être simplifiée en $a_n = n$, ou encore $C_{2^n} = 2^nn$. Et comme $N = 2^n$, on a $C_N = N\log_2N$.
+
+			\paragraph{Prop} Le nombre de copies effectuées par le tri fusion pour trier un vecteur $V$ de taille $2^n$ est $C_N = N\log_2N$.
+
+			\paragraph{Def} Un ensemble de droites du plan est en position générale si toute paire de droites s'intersecte en exactement un point et tout triplet de droites
+			a une intersection vide.
+
+			\paragraph{Def} $\Phi_2(n) : \mathbb N \to \mathbb N$ est le nombre de régions du plan délimitées par un ensemble de $n$ droites en position générale.
+
+			\paragraph{Exemple}
+
+
+				\begin{center}
+					\begin{tabular}{c | c}
+						$n$ & $\Phi_2(n)$ \\ \hline
+						$0$ & $1$ \\
+						$1$ & $2$ \\
+						$2$ & $4$ \\
+						$3$ & $7$ \\
+						$4$ & $11$
+					\end{tabular}
+				\end{center}
+
+			On "devine" $\Phi_2(n) = \Phi(n-1) + n$.
+
+			\paragraph{Remarque} Montrons que $\Phi_2(n)$ ne dépend pas de la position des $n$ droites.
+
+			\paragraph{Théorème} $\forall n \in \mathbb N$, le nombre de régions du plan délimitées par $n$ droites en position générale ne dépend pas du choix des droites.
+			$\Phi_2(n)$ est donc bien défini. De plus $\forall n \in \mathbb N$ :
+
+			\[\left\{\begin{aligned}
+				\Phi_2(n) &= \Phi_2(n-1)+n \;\;\;\;\text{ si $n \geq 1$}, \\
+				\Phi_2(n) &= 1.
+			\end{aligned}\right.\]
+
+			\paragraph{Dém} Montrons que $\Phi_2(n)$ est bien définie :
+
+			\begin{itemize}
+				\item $\Phi_2(0) = 1$ est bien défini car sans droite, le plan n'est pas séparé ;
+				\item $\Phi_2(1) = 2$ est bien défini car une droite coupe le plan en deux ;
+				\item Supposons $n \geq 2$ et que $\Phi_2(n-1)$ est bien défini et montrons que $\Phi_2(n)$ est bien définie.
+
+					  Soient $D_1, D_2, \ldots, D_{n-1}$ $(n-1)$ droites dans le plan en position générale. Le plan est donc subdivisé en $\Phi_2(n-1)$ régions (par hypothèse).
+					  Soit $D_n$ une droite du plan telle que $D_1, \ldots, D_n$ sont en position générale. La droite $D_n$ admet donc $(n-1)$ points d'intersection
+					  et est donc séparée en $n$ intervalles. Ces intervalles "coupent" chacun une région en 2 parties. Les $n$ droites $D_1, \ldots, D_n$ séparent
+					  donc le plan en $\Phi_2(n-1) + n$ régions.
+			\end{itemize}
+
+			\paragraph{Remarque} $\Phi_2(n) = \Phi_2(n-1) + n = \Phi_2(n-2) + (n-1) + n = \Phi_2(0) + 1 + 2 + \ldots + n = 1 + \sum_{k=1}^nk = 1 + \frac {n(n+1)}2 =
+			1 +\binom {n+1}2 = 1 + \binom n1 + \binom n2 = \sum_{k=0}^2\binom nk$.
+
+		\subsection{Récurrences linéaires}
+			\subsubsection{Récurrence linéaire de premier ordre}
+
+			\paragraph{Def}
+			\begin{lst}
+				\item Une récurrence linéaire de premier ordre est une récurrence de la forme :
+
+				\[\left\{\begin{aligned}
+					x_n &= c_n x_{n-1} + d_n \;\;\;\text{ si $x \geq 1$} \\
+					x_0 &= 0
+				\end{aligned}\right.\;\;\;\;(*).\]
+
+				\item Une solution d'une telle récurrence linéaire est une suite $(x_n)_{n \in \mathbb N}$.
+			\end{lst}
+
+			\paragraph{Théorème} La récurrence $(*)$ a pour solution explicite la suite $(x_n)_{n \in \mathbb N}$ où $x_n$ est définie ainsi :
+
+			\[x_n = \sum_{i=1}^nd_i\prod_{j=i+1}^nc_j = d_1c_2c_3 \ldots c_n + d_2c_3c_4 \ldots c_n + \ldots + d_{n-1}c_n + d_n.\]
+
+			\paragraph{Dém} Prouvons-le par récurrence sur $n$.
+
+			\begin{itemize}
+				\item $n  =  1$  : $x_1 = c_n x_0 + d_1$, ok.
+				\item $n \geq 2$ : supposons que ce soit vrai pour $x_{n-1}$ et démontrons pour $x_n$ :
+
+					  \[\begin{aligned}
+						x_n &= c_nx_{n-1} + d_n \\
+							&= c_n \left[\sum_{i=1}^{n-1}d_i\prod_{j=i+1}^{n-1}c_j\right] + d_n \\
+							&= \left[\sum_{i=1}^{n-1}d_ic_n\prod_{j=i+1}^{n-1}c_j\right] + d_n \\
+							&= \left[\sum_{i=1}^{n-1}d_i\prod_{j=i+1}^nc_j\right] + d_n \\
+							&= \sum_{i=1}^nd_i\prod_{j=i+1}^nc_j.\;\;\;\;\;\;\square
+					  \end{aligned}\]
+			\end{itemize}
+
+			\subsubsection{Récurrences linéaires à coefficients constants}
+			
+			\paragraph{Exemple} De combien de manières différentes peut-on paver un rectangle de dimensions $2 \times n$ avec des dominos (non-numérotés) ?
+
+			\paragraph{Def} Notons $P_n := $ le nombre de tels pavages d'un rectangle $2 \times n$. Dès lors :
+
+			\[\left\{\begin{aligned}
+				P_n &= P_{n-1} + P_{n-2} \;\;\;\;\; \text{ si $n \geq 3$}, \\
+				P_1 &= 1, P_2 = 2.
+			\end{aligned}\right.\]
+
+			On trouve :
+
+			\begin{center}\begin{tabular}{c|c}
+				$n$ & $P_n$ \\
+				\hline \\
+				$0$ & non défini \\
+				$1$ & $1$ \\
+				$2$ & $2$ \\
+				$3$ & $3$ \\
+				$4$ & $5$ \\
+				$5$ & $8$
+			\end{tabular}\end{center}
+
+			\paragraph{Def} La suite de Fibonacci est l'unique suite $(F_n)_{n \in \mathbb N}$ telle que :
+
+			\[\left\{\begin{aligned}
+				F_n &= F_{n-1} + F_{n-2} \;\;\;\;\text{ si $n \geq 3$}, \\
+				F_0 &= 0, F_1 = 1.
+			\end{aligned}\right.\]
+
+			\paragraph{Def}
+			
+			\begin{lst}
+				\item Une récurrence linéaire homogène à coefficient constants est un système d'équations de la forme :
+
+					  \begin{equation}\label{eq:RLCCH}
+					  	x_n = c_{d-1}x_{n-1} + c_{d-2}x_{d-2} + \ldots + c_0x_{n-d}
+					  \end{equation}
+
+					  où $c_i \in \mathbb C\;\;\forall i \in \{0, 1, \ldots, d-1\}$ ;
+				\item si $c_0 \neq 0$, l'ordre de récurrence est $d \in \mathbb N$ ;
+				\item une solution est une suite $(x_n) \in \mathbb C^{\mathbb N}$ qui satisfait l'équation $(1)$.
+			\end{lst}
+
+			\paragraph{Rappel} $\mathbb C^{\mathbb N}$ peut être muni d'une structure d'espace vectoriel :
+			\begin{itemize}
+				\item addition : $\forall (x_n), (y_n) \in \mathbb C^{\mathbb N}, (x_n) + (y_n) = (x_n + y_n)$ ;
+				\item multiplication : $\forall (x_n) \in \mathbb C^{\mathbb N}, \lambda \in \mathbb C, \lambda(x_n) = (\lambda x_n)$.
+			\end{itemize}
+
+			\paragraph{Remarque} $\dim \mathbb C^{\mathbb N} = +\infty$.
+
+			\paragraph{Def} Le polynôme caractéristique de la récurrence linéaire homogène à coefficients constants $(1)$ est un polynôme $P(t)$ de degré $d$ est défini par :
+
+			\[P(t) = -t^d + c_{d-1}t^{d-1} = c_{d-2}t^{d-2} + \ldots + c_0 = \sum_{i=0}^dc_it^i \text{ avec $c_d = -1$}.\]
+
+			\paragraph{Rappel} On cherche, pour Fibonacci, des solutions de la forme $F_n = \beta$ pour $\beta \in \mathbb C$. L'équation
+			$F_n = F_{n-1} + F_{n-2}$ devient donc $\beta^n = \beta^{n-1} + \beta^{n-2} \iff \beta^2 = \beta + 1 \iff \beta^2 - \beta - 1 = 0$.
+			Cette équation du second degré est de discriminant $\Delta = 5$ et a donc pour solutions $\beta_1 = \frac {1 + \sqrt 5}2$ et $\beta_2 = \frac {1 - \sqrt 5}2$.
+			Par construction, on sait donc que les suites $(\varphi^n)$ et $(\bar\varphi^n)$ sont des solutions de la RLCC des nombres de Fibonacci où $\varphi = \frac {1 + \sqrt 5}2$ est
+			le nombre d'or et où $\bar\varphi = \frac {1-\sqrt 5}2$ est son conjugué.
+
+			\paragraph{Remarque} Si $(\varphi)^n$ et $(\bar\varphi^n)$ sont des solutions de la RLCC de Fibonacci, alors $\forall \lambda, \mu \in \mathbb C, (\lambda\varphi^n + \mu\bar\varphi^n)$ est
+			également une solution.
+
+			\paragraph{Théorème} Notons $W$ l'ensemble des solutions de la RLCC (avec $c_0 \neq 0$). Alors :
+
+			\begin{itemize}
+				\item[$(i)$] $W$ est un sous-espace vectoriel de $\mathbb C^{\mathbb N}$ ;
+				\item[$(ii)$] $\dim W = d$.
+			\end{itemize}
+
+			\paragraph{Dém} Pour montrer le point $(i)$, il faut montrer que la somme et le produit par un scalaire sont stables et que $(0) \in W$.
+			\begin{itemize}
+				\item $(0) \in W$ est trivial (en insérant $0$ pour tous les $c_i$ dans la définition de la RLCC, on voit que $(0) \in W$) ;
+				\item $\lambda(x_n) + \mu(y_n) \coloneqq (\lambda x_n + \mu y_n)$. Donc soit $n \geq d$. On a :
+
+				\[\lambda x_n + \mu y_n = \lambda (c_{d-1}x_{n-1} + \ldots + c_0x_{n-d}) + \mu (c_{n-1}y_{n-1} + \ldots + c_0y_{n-d}) = \sum_{i=1}^dc_{d-i}(\lambda x_{n-i} + \mu y_{n-i}).\]
+
+				Or $(\lambda x_n + \mu y_n)$ est une racine du polynôme caractéristique et est onc une solution de $(1)$. Dès lors, $(\lambda x_n + \mu y_n) \in W$
+			\end{itemize}
+
+			Pour montrer le point $(ii)$, il faut trouver une bijection linéaire $f : \mathbb C^d \to W$ pour montrer que $W$ et $\mathbb C^d$ sont isomorphes.
+
+			Soit $f : W \to \mathbb C^d : (x_n)_n \mapsto(x_i)_{i\in[d-1]}$. Montrons que $f$ est un isomorphisme :
+
+			\begin{itemize}
+				\item montrons que $f$ est linéaire :
+				
+				\[f(\lambda (x_n) + \mu (y_n)) = f((\lambda x_n + \mu y_n)_n) = (\lambda x_i + \mu y_i)_{i\in[d-1]} = \lambda (x_i)_{i\in[d-1]} + \mu (y_i)_{i\in[d-1]} = \lambda f((x_n)) + \mu f((y_n)).\]
+
+				\item montrons que $f$ est bijective :
+
+				\begin{itemize}
+					\item surjectif : $\forall (x_0, \ldots, x_{d-1}) \in \mathbb C^d : \exists (\tilde x_n) \in W \tq f((x_n)) = (x_0, \ldots, x_{d-1})$.
+						  Construisons $(\tilde x_n)$ comme suit :
+
+						  \[\tilde x_i = \left\{\begin{aligned}&x_i &\text{ si $i < d$}\\&\sum_{i=j}^dc_{n-j}x_{i-j} &\text{ si $i \geq d$}\end{aligned}\right.\]
+
+					\item injectif : $\forall (x_n), (y_n) \in W : f((x_n)) = f((y_n)) \Rightarrow (x_n) = (y_n)$. On sait que deux suites $(x_n), (y_n)$ sont égales si et seulement si
+						  $x_i = y_i \forall i$. Ici, $f((x_n)) = f((y_n)) \iff x_i = y_i \forall i \in [d-1]$ car les termes suivants sont construits sur base des précédents. Dès lors :
+
+						  \begin{align*}
+						  	x_d &= c_{d-1}x_{d-1} + c_{d-2}x_{d-2} + \ldots + c_0x_0 = c_{d-1}y_{d-1} + c_{d-2}y_{d-2} + \ldots + c_0y_0 = y_d \\
+							x_t &= c_{d-1}x_{t-1} + c_{d-2}x_{t-2} + \ldots + c_0x_{t-d} = c_{d-1}y_{t-1} + c_{d-2}y_{t-2} + \ldots + c_0y_{t-d} = y_t.
+						  \end{align*}
+				\end{itemize}
+			\end{itemize}
+			
+			\begin{flushright}$\square$\end{flushright}
+
+			\paragraph{Def} Soient $P(t)$ un polynôme à coefficients complexes, $a \in \mathbb C$ une racine de $P$ est de multiplicité $m(a)$ si $P(t)$ est divisible par
+			$(t-a)^{m(a)}$ mais pas par $(t-a)^{m(a)+1}$.
+
+			\paragraph{Théorème} Construisons la RLCC homogène d'ordre $d > 1$ :
+
+			\[-x_n + c_{d-1}x_{n-1} + \ldots + c_0x_{n-d} = 0 \;\;\;\;\;\forall n \geq d\]
+
+			où $c_i \in \mathbb C \; \forall i \in [d-1]$ et $c_0 \neq 0$. Notons $P(t)$ son polynôme caractéristique. Toute solution de cette RLCC est une combinaison linéaire
+			des $d$ suites de la forme $(n^j\beta^n)$ où $\beta$ est une racine de $P(t)$ et $j \in [m(\beta)-1]$. Soient $\beta_1, \beta_2, \ldots, \beta_k \in \mathbb C$ les racines
+			de $P(t)$ deux à deux distinctes de multiplicité respective $m(\beta_1), m(\beta_2), \ldots, m(\beta_k)$. C'est-à-dire :
+
+			\[P(t) = -\prod_{i=1}^k(t-\beta_i)^{m(\beta_k)}.\]
+
+			Donc toute solution $(y_n)$ s'écrit :
+
+			\[y_n = \sum_{\delta=1}^k\sum_{j_\delta=0}^{m(\beta_\delta)-1}\lambda_{j_\delta}n^{j_\delta}\beta^n.\]
+
+			où les $\lambda_{j_i}$ sont des constantes ne dépendant pas de $n$.
+
+			\paragraph{Exemple}
+
+			\begin{enumerate}
+				\item $F_n = F_{n-1} + F_{n-2} \; \forall n \geq 2$. Donc $P(t) = -t^2 + t + 1$. Les racines sont $\varphi$ et $\bar\varphi$. Dès lors, les solutions de la RLCC sont
+					  $(\varphi^n)$ et $(\bar\varphi^n)$. L'ensemble des solutions est donc $\{(\lambda \varphi^n + \mu\bar\varphi^n) : \lambda, \mu \in \mathbb C\}$.
+					  Pour retomber sur les conditions initiales ($F_0 = 0, F_1 = 1$), on a :
+
+					  \[\left\{\begin{aligned}\lambda+\mu &= 0\\\lambda \varphi + \mu\bar\varphi &= 1\end{aligned}\right.\]
+
+					  La solution est donc $(\lambda, \mu) = (\frac {\sqrt 5}5, -\frac {\sqrt 5}5)$. Dès lors, on peut déterminer :
+
+					  \[F_n = \frac {\sqrt 5}5(\varphi^n-\bar\varphi^n).\]
+				\item Soit la relation suivante : $x_n = -(x_{n-1} + x_{n-2})$ où $x_0 = 0$ et $x_1 = 1$. Le polynôme caractéristique est $P(t) = t^2 + t + 1 $ et admet pour racines :
+					  $\frac {-1 \pm \sqrt 3i}2$. Dès lors les solutions sont sous la forme :
+
+					  \[\left(\lambda \left(\frac {-1+\sqrt 3i}2\right)^n + \mu \left(\frac {-1-\sqrt 3i}2\right)^n\right).\]
+
+					  Afin de retomber sur les conditions initiales, il faut $(\lambda, \mu) = \left(\frac {-i}{\sqrt 3}, \frac i{\sqrt 3}\right)$. La solution à cette RLCC est donc :
+
+					  \[\left(\frac i{\sqrt 3}\left(\left(\frac {-1-\sqrt 3i}2\right)^n - \left(\frac {-1+\sqrt 3i}2\right)^n\right)\right)_n.\]
+
+				\item $x_n = 2x_{n-1} - x_{n-2} \; \forall n \geq 2$. Le polynôme caractéristique est donc $P(t) = t^2 - 2t + 1 = (t-1)^2)$. Dès lors les solutions sont sous la forme
+					  $(x_n)$ où $x_n = \lambda 1^n + \mu(n \cdot 1^n)$ avec $\lambda, \mu \in \mathbb C$.
+			\end{enumerate}
+
+			\paragraph{Résolution générale d'une RLCC} Une RLCC non-homogène st un système d'équation sous la forme :
+			
+			\begin{equation}\label{eq:RLCCNH}
+				-x_n + c_{d-1}x_{n-1} + c_{d-2}x_{n-2} + \ldots + c_1x_{n-d+1} + c_0x_{n-d} = a_n
+			\end{equation}
+
+			où $(a_n) \in \mathbb C^{\mathbb N}$. Et se résout de la manière suivante :
+			\begin{enumerate}
+				\item déterminer $S^{EHA}$, l'ensemble des solutions de l'équation homogène associée \eqref{RLCCH};
+				\item trouver une solution particulière $(x^{SP}_n) \in \mathbb C^{\mathbb N}$ de la RLCC non-homogène \eqref{eq:RLCCNH} ;
+				\item exprimer l'ensemble des solutions de la RLCC non-homogène :
+					  
+					  \[S \coloneqq S^{EHA} + ((x^{SP}_n)).\]
+			\end{enumerate}
+
+			Donc toute suite $(z_n)$ est une solution de la RLCC non homogène si elle s'écrit demanière unique comme :
+
+			\[(z_n) = (y_n) + (x^{SP}_n) \;\text{ où } (y_n) \in S^{EHA}.\]
+
+			\subsubsection{Récurrences \textit{Divide and Conquer}}
+
+			\paragraph{Exemple} Le tri fusion : $C_N = C_\floor{\frac N2} + C_\ceil{\frac N2} + N$.
+
+			\underline{Recherche binaire}
+
+			\paragraph{Objectif} Localiser $x$ dans un vecteur trié de taille $N$.
+
+			\paragraph{Algorithme} Comparer $x$ au $\ceil{\frac N2}$ élément du vecteur (appelé \textit{pivot}). Si $x = $ pivot, ok. Si $x < $ pivot, l'algo s'appelle
+			récursivement sur le sous-vecteur des éléments 1 à $\ceil {\frac N2}-1$. Si $x > $ pivot, pareil mais sur $\ceil{\frac N2}+1$ à $N$.
+
+			\paragraph{Théorème} Le nombre de comparaisons , dans le pire des cas, effectuées par par la recherche binaire dans un vecteur de taille $N$ est $B_N$, solution de :
+
+			\[\left\{\begin{aligned}B_N &= B_\floor{\frac N2} + 1\\B_1 &= 1\end{aligned}\right.\]
+
+			On a $B_N = \floor{\log_2 N} + 1$, qui représente le nombre de bits nécessaires à l'encodage binaire du nombre $N$.
+
+			\paragraph{Dém} Soit $\widetilde B_N$, le nombre de bits dans la représentation binaire de $N$. Montrons que $\widetilde B_N = \widetilde B_\floor{\frac N2} + 1$. On sait :
+
+			\[N = \sum_{i=0}^{\widetilde B_N-1}a_i2^i \; \text{ où } a_i \in \{0, 1\}, a_{\widetilde B_N} = 1.\]
+
+			De plus, on sait que :
+
+			\[\floor{\frac N2} = \floor{\frac 12\sum_{i=1}^{\widetilde B_N-1}a_i2^i} = \floor{\sum_{i=1}^{\widetilde B_N-1}a_i2^{i-1} + \frac {a_0}2} = \sum_{i=0}^{\widetilde B_N-2}a_{i+1}2^i.\]
+
+			Donc $\floor{\frac N2}$ nécessite autant de bits que $\sum_{i=0}^{\widetilde B_N-2}a_{i+1}2^i$. Le nombre de bits dans le premier est $\widetilde B_\floor {\frac N2}$
+			et le nombre de bits du second est $B_N - 1$. Comme le nombre 1 s'écrit de la même manière en toute base, on sait $\widetilde B_1 = 1$.
+			Le nombre de bits nécessaires à l'encodage binaire du nombre $N$ est bien $\widetilde B_N$, une solution à la relation de récurrence précédente.
+
+			Montrons maintenant que $\widetilde B_N = \floor{\log_2 N} + 1$. Soit $N = 2^b + a_12^{b-1} + \ldots + a_b2^0$. On voit que $\widetilde B_N = b + 1$. De plus,
+			on sait que $\frac N{2^b} = 1 + \frac {a_1}2 + \ldots + \frac {a_b}{2^b}$. Si $1 < \frac N{2^b} < 2$, alors $0 < \log_2 N - b < 1$, ou encore $b < \log_2 N < b+1$.
+			De là, $\floor{\log_2 N} = b$. Dès lors, $\widetilde B_N = b + 1 = \floor{\log_2 N} + 1$. $\;\;\;\square$
+
+			\underline{Tri fusion}
+
+			\paragraph{Def} Soit un vecteur de taille $N$. On définit $C_N$ par le nombre de copies effectuée par le tri fusion sur ce vecteur. $C_N$ est une solution de la relation suivante :
+
+			\[\left\{\begin{aligned}C_1 &= 0\\C_N &= C_\floor{\frac N2} + C_\ceil{\frac N2} + N\end{aligned}\right.\]
+
+			\paragraph{Proposition} On peut déterminer $C_N = (N-1) + \sum_{i=1}^{N-1}\widetilde B_i$.
+
+			\paragraph{Dém} Soient $C_N, C_{N+1}$. On pose $D_N \coloneqq C_{N+1} - C_N$. On a donc :
+
+			\begin{align*}
+				D_N &= C_{N+1} - C_N = \left(C_\ceil{\frac {N+1}2} + C_\floor{\frac {N+1}2} + (N+1)\right) - \left(C_\ceil{\frac N2} + C_\floor{\frac N2} + N\right) \\
+					&= C_\ceil{\frac {N+1}2} - C_\ceil{\frac N2} + C_\floor{\frac {N+1}2} - C_\floor{\frac N2} + 1 = C_\ceil{\frac {N+1}2} - C_\floor{\frac N2} + 1 \\
+					&= C_{\floor{\frac N2}+1} - C_\floor{\frac N2} + 1 = D_\floor{\frac N2} + 1.
+			\end{align*}
+
+			Avec $D_1 = C_2 - C_1 = 2 - 0 = 2$. En posant $n \coloneqq \floor{\log_2 N}$, on peut définir $\alpha_n \coloneqq D_N$. De là, on sait que $\alpha_n = \alpha_{n-1} + 1$ qui peut
+			se simplifier en $\alpha_n = n + k$ où $k = 2$ selon les conditions initiales. On en déduit $D_N = \alpha_n = n + 2 = \floor{\log_2 N} + 2$. Maintenant, on sait :
+
+			\begin{align*}
+				C_N &= C_N - 0 = C_N - C_1 = C_N + \sum_{i=2}^{N-1}(-C_i+C_i) - C_1 = \sum_{i=2}^{N}(C_i-C_{i-1}) = \sum_{i=2}^{N}D_{i-1} = \sum_{i=1}^{N-1}D_i \\
+					&= \sum_{i=1}^{N-1}(\floor{\log_2 N} + 2) = \sum_{i=1}^{N-1}(\floor{\log_2 N + 1}) + \sum_{i=1}^{N-1}1 = (N-1) + \sum_{i=1}^{N-1}\widetilde B_i. \;\; \square
+			\end{align*}
+
+			\paragraph{Théorème} Le nombre de copies effectuées par le tri fusion pour un vecteur de taille $N$ est exactement :
+
+			\[C_N = N\floor{\log_2 N} + 2N - 2^{\floor{\log_2 N} + 1}.\]
+
+			\paragraph{Remarque} Ce nombre est également un majorant du nombre de comparaisons.
+
+			\paragraph{Dém} Premièrement, montrons que $\sum_{i=1}^N\widetilde B_i = \sum_{i=0}^{\floor{\log_2 N}}(N-2^i)$. En effet, dans l'ensemble des nombres de 1 à $N-1$,
+			ils contiennent tous un bit sur le bit de poids le plus faible ($= (N-1) = (N-2^0)$), tous sauf le premier contiennent le second bit ($= (N-1) = (N-2^1)$), tous sauf le premier
+			et les deux suivants contiennent le troisième bit ($= (N-4) = (N-2^2)$), etc. De manière plus générale, les $2^i-1$ premiers nombres ne contiennent pas le $i^e$ bit.
+			Le nombre de nombres contenant le $i^e$ bit est donc $((N-1)-(2^i-1)) = (N-2^i)$. Et le nombre de bits est $\widetilde B_i = \floor {\log_2 N} + 1$. On a donc
+			$\sum_{i=1}^{N-1}(\floor{\log_2 N} + 1) = \sum_{i=0}^{\floor{\log_2 N}}(N-2^i) = N(\floor{\log_2 N} + 1) - \sum_{i=0}^{\floor{\log_2 N}}2^i$.
+
+			Dès lors :
+			
+			\begin{align*}
+				C_N &= (N-1) + \sum_{i=1}^{N-1}(N-2^i) = (N-1) + N\floor{log_2 N} + N - (2^{\floor{\log_2 N} + 1} - 1) \\
+					&= 2N - 1 + N\floor{\log_2 N} - 2^{\floor{\log_2 N}+1} + 1 = 2N + N\floor{\log_2 N} + 2^{\floor{\log_2 N}+1}. \;\;\;\square
+			\end{align*}
+
+			\underline{Comportements asymptotiques}
+
+			Considérons deux fonctions $f, g : \mathbb N \to \mathbb R^+$ s'annulant en un nombre fini de valeurs.
+
+			\paragraph{Def}
+
+			\begin{enumerate}
+				\item Si $\lim_{n\to\infty}\frac {f(n)}{g(n)} = 1$, on dit que $f$ et $g$ sont \textit{asymptotiquement équivalents}, ce qui se note $f \sim g$ ;
+				\item si $\exists C > 0, n_0 \in \mathbb N \tq f(n) \leq Cg(n) \;\;\forall n \geq n_0$, on dit que $f$ est un grand O de $g$, ce qui se note $f = O(g)$ ;
+				\item si $\lim_{n\to\infty}\frac {f(n)}{g(n)} = 0$, on dit que $f$ est un petit o de $g$, ce qui se note $f = o(g)$ ;
+				\item si $f = O(g)$, alors $g = \Omega(f)$ ;
+				\item si $f = o(g)$, alors $g = \omega(f)$ ;
+				\item si $f = O(g)$ et $g = O(f)$, on dit que $f$ et $g$ ont un même comportement asymptotique, ce qui se note $f = \Theta(g)$.
+			\end{enumerate}
+
+			\paragraph{Remarque} Si $f = o(g)$, alors $f = O(g)$. De même, si $g = \omega(f)$, alors $g = \Omega(f)$.
+
+			\paragraph{Exemple} Chaque fonction ci-dessous est un $o(\cdot)$ de la précédente :
+
+			\[n^n, 2^n, n^2, n, \sqrt n, \log(n)^2, \log(n), \log(\log(n)).\]
+
+			\subsubsection{Récurrences \textit{Divide and Conquer} générales}
+
+			\paragraph{Objectif} Obtenir le comportement asymptotique de coût en temps (ou en espace) d'un algorithme qui résout un problème de taille $N$ en :
+
+			\begin{itemize}
+				\item produisant un certain nombre $\alpha$ de sous-problèmes de taille $\floor{\frac N\beta}$ ou $\ceil {\frac N\beta}$ ;
+				\item s'appliquant récursivement sur chaque problème ;
+				\item recombinant les solutions des $\alpha$ sous-problèmes pour trouver une solution du problème original.
+			\end{itemize}
+
+			Ce qui se note $a_N = \alpha a_{\frac N\beta} + f(N)\;\;\forall N \in \mathbb N$ avec $f : \mathbb N \to \mathbb R^+$et où $\frac N\beta$ est interprété
+			tantôt comme $\floor{\frac N\beta}$, tantôt comme $\ceil {\frac N\beta}$.
+
+			Commençons par étudier l'équation fonctionnelle suivante :
+
+			\begin{equation}\label{eq:EqFonctionnelle}
+				\left\{
+					\begin{aligned}
+						a(x) &= \alpha a\left(\frac N\beta\right) + x &\text{ si } x > 1\\
+						a(x) &= 0 &\text{ si } x \leq 1
+					\end{aligned}
+				\right.
+			\end{equation}
+
+			avec $\alpha, \beta \in \mathbb R$ tels que $\alpha > 0$ et $\beta > 1$.
+
+			\paragraph{Théorème} Si la fonction $a : \mathbb R^+ \to \mathbb R^+$ est une solution de de \eqref{eq:EqFonctionnelle}, alors :
+
+			\begin{enumerate}
+				\item si $\alpha > \beta$ :
+					  
+					  \[a(x) = \Theta\left(x^{\log_\beta\alpha}\right) ;\]
+				
+				\item si $\alpha = \beta$ :
+
+					  \[a(x) \sim x\log_\beta x = \Theta(x\log_2 x) ;\]
+
+				\item si $\alpha < \beta$ :
+
+					  \[a(x) \sim \frac \beta{\beta-\alpha}x = \Theta(x).\]
+			\end{enumerate}
+
+			\paragraph{Exemple} Soit un tri fusion sur un vecteur de taille $N = 2^n$, où $\alpha = \beta = 2$, alors $C_N = N\log_2 N$.
+
+			\paragraph{Dém} Soit une fonction $a : \mathbb R^+ \to \mathbb R^+$, solution de \eqref{eq:EqFonctionnelle}. Dès lors :
+
+			\begin{align*}
+				a(x) &= x + \alpha a\left(\frac x\beta\right) = x + \alpha\left[\frac x\beta + \alpha a\left(\frac x{\beta^2}\right)\right] = x + \frac \alpha\beta x + \alpha^2 a\left(\frac x{\beta^2}\right) = x + \frac \alpha\beta x + \frac {\alpha^2}{\beta^2}x + \alpha^3 a\left(\frac x{\beta^3}\right) \\
+					 &= \ldots = \left[1 + \frac \alpha\beta + \frac {\alpha^2}{\beta^2} + \ldots + \frac {\alpha^{t-1}}{\beta^{t-1}}\right]x = \left[\sum_{i=0}^{t-1}\frac {\alpha^i}{\beta^i}\right]x = \left[\frac {1 - \frac {a^t}{\beta^t}}{1 - \frac \alpha\beta}\right]x.
+			\end{align*}
+
+			Où $t \coloneqq \ceil{\log_\beta x}$ tel que $t \stackrel{x\to+\infty}{\longrightarrow}+\infty$.
+
+			\underline{cas 3 : } $\alpha < \beta$, on a :
+
+			\[a(x) = \left[\frac {1 - \frac {\alpha^t}{\beta^t}}{1 - \frac \alpha\beta}\right]x \stackrel{x\to+\infty}\longrightarrow \left[\frac {1 - 0}{1 - \frac \alpha\beta}\right]x = \frac \beta{\beta - \alpha}x.\]
+
+			À l'aide de cette convergence, on peut exprimer $a(x) = \Theta\left(\frac \beta{\beta-\alpha}x\right) = \Theta(x)$.
+
+			\underline{cas 2 : } $\alpha= \beta$, on a :
+
+			\[a(x) = x\sum_{i=0}^{t-1}\frac {\alpha^i}{\beta^i} = x\sum_{i=0}^{t-1}1 = xt =x\ceil{\log_\beta x} = \Theta(x\log_2 x).\]
+
+			\underline {cas 1 : } $\alpha > \beta$, on a :
+
+			\begin{align*}
+				a(x) &= \left[\frac {1 - \frac {\alpha^t}{\beta^t}}{1 - \frac \alpha\beta}\right]x = \frac {\alpha^t}{\beta^t}\left[\frac {\frac {\beta^t}{\alpha^t} - 1}{1 - \frac \alpha\beta}\right]x
+				= \left(\frac \alpha\beta\right)^\ceil{\log_\beta x}\left[\frac {\left(\frac \beta\alpha\right)^t - 1}{1 - \frac \alpha\beta}\right]x 
+				= \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} + \log_\beta x - \log_\beta x}\left[\frac {\left(\frac \beta\alpha\right) - 1}{1 - \frac \alpha\beta}\right]x \\
+					 &= \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}\frac {\alpha^{\log_\beta x}}{\beta^{\log_\beta x}}\left[\frac {\left(\frac \alpha\beta\right)^t - 1}{1 - \frac \alpha\beta}\right]x = \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}\frac {\alpha^{\log_\beta x}}x\left[\frac {\left(\frac \beta\alpha\right)^t - 1}{1-\frac \alpha\beta}\right]x.
+			\end{align*}
+
+			Comme $\left(\frac \beta\alpha\right)^t \to 0$ quand $t \to +\infty$ et que la formule de changement de base d'une puissance est $\alpha^{\psi(x)} = \left(\beta^{\psi(x)}\right)^{\log_\beta \alpha}$,
+			l'expression devient :
+
+			\begin{align*}
+				a(x) &\sim \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}\left(\beta^{\log_\beta x}\right)^{\log_\beta \alpha}\left[\frac {-1}{1-\frac \alpha\beta}\right]
+				= \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}x^{\log_\beta \alpha}\left[\frac \beta{\alpha-\beta}\right]
+			\end{align*}
+
+			De plus, $\left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}$ est toujours borné par $\frac \alpha\beta$. Dès lors, on peut dire que :
+
+			\[a(x) = \Theta\left(\frac \alpha\beta x^{\log_\beta \alpha}\frac \beta{\alpha-\beta}\right) = \Theta\left(x^{\log_\beta \alpha}\right).\]
+
+			\begin{flushright}$\square$\end{flushright}
+
+			\paragraph{Théorème (Master Thorem)} Soient $\alpha \geq 1, \beta > 1$ deux réels, $f : \mathbb N \to \mathbb R^+$ et $(a_N)_{N\in\mathbb N}$, une solution de la récurrence
+			\textit{Divide and Conquer} suivante :
+
+			\[a_N = \alpha a_{\frac N\beta} + f(N).\]
+
+			\underline{cas 1 : } si $f(N) = O\left(N^{\log_\beta(\alpha)-\epsilon}\right)$ pour $\epsilon > 0$, alors :
+
+			\[a_N = O\left(N^{\log_\beta\alpha}\right).\]
+
+			\underline{cas 2 : } si $f(N) = \Theta\left(N^{\log_\beta\alpha}\right)$, alors :
+
+			\[a_N = O\left(N^{\log_\beta\alpha}\log_2 N\right).\]
+
+			\underline{cas 3 : } si $f(N) = \Omega\left(N^{\log_\beta(\alpha) + \epsilon}\right)$ pour $\epsilon > 0$, et si $\alpha f\left(\frac N\beta\right) \leq C f(N)$ pour $C < 1$ et si
+			$N$ est \textit{suffisamment} grand, alors :
+
+			\[a_N = \Theta(f(N)).\]
+
+			\paragraph{Exemple} La recherche binaire (dichotomique) : $B_N = _{\floor{\frac N2}} + 1$. On a : $\alpha = 1, \beta = 2$ et $f(N) = 1 = \Theta\left(N^{\log_\beta\alpha}\right)$
+			(car $\log_2 1 = 0$). Dès lors, on sait par le M.T. que $O\left(N^{\log_\beta\alpha}\log_2 N\right) = O(\log_2 N)$. En effet, $B_N = \floor{\log_2 N} + 1$.
+
+			\paragraph{Application (algorithme de Strassen)}
+
+			\paragraph{Ojectif} Calculer le produit de deux matrices avec un comportement asymptotique meilleur que $O(n^3)$. Soient deux matrices carrées $A, B \in M_{n \times n}(\mathbb R)$.
+			Soit $C$ leur produit. Le nombre d'opérations pour déterminer les valeurs de $C$ est $2n^3 - n^2$.\\
+			En effet, vu que :
+
+			\[C_{ij} = \sum_{k=1}^nA_{ik}B_{kj},\]
+
+			pour chacun des $n^2$ coefficients, il y a $n$ produits et les $n$ termes doivent être additionnés ($(n-1)$ sommes). Le nombre d'opérations est donc
+			$n^2(n-1) + n^2 n = n^3-n^2+n^3 = 2n^3-n^2$.
+
+			\paragraph{L'algorithme de Strassen}
+
+			\subparagraph{Idée pour $n = 2$} l'algo \textit{usuel} de multiplication ferait donc $2 \cdot 2^3 - 2^2 = 12$ opérations (8 multiplications et 4 additions).
+			L'algo de Strassen calcule préalablement 7 valeurs :
+			
+			\begin{align*}
+				S_1 &= (A_{11} - A_{22})(B_{21} + B_{22}) \\
+				S_2 &= (A_{11} + A_{22})(B_{11} + B_{22}) \\
+				S_3 &= (A_{11} - A_{21})(B_{11} + B_{12}) \\
+				S_4 &= (A_{11} + A_{12})B_{22} \\
+				S_5 &= A_{11}(B_{12}-B_{22}) \\
+				S_6 &= A_{22}(B_{21} - B_{11}) \\
+				S_7 &= (A_{21} + A_{22})B_{11}
+			\end{align*}
+
+			Ensuite, on définit :
+
+			\begin{align*}
+				C_{11} &= S_1 + S_2 - S_4 + S_6 \\
+				C_{12} &= S_4 + S_5 \\
+				C_{21} &= S_6 + S_7 \\
+				C_{22} &= -S_3 + S_4 + S_5 - S_7
+			\end{align*}
+
+			\subparagraph{Principe général de l'algo} Soit un corps $\mathbb K$. Soit deux matrices $\in M_{n \times n}(\mathbb K)$ :
+
+			\[A = \begin{pmatrix}A_{11} & A_{12} \\ A_{21} & A_{22}\end{pmatrix}, B = \begin{pmatrix}B_{11} & B_{12} \\ B_{21} & B_{22}\end{pmatrix}.\]
+
+			On définit leur produit par une nouvelle matrice $C \in M_{n \times n}(\mathbb K)$ :
+
+			\[C = \begin{pmatrix}C_{11} & C_{12} \\ C_{21} & _{22}\end{pmatrix}.\]
+
+			Ici, $A_{ij}, B_{ij}$ et $C_{ij}$ sont les sous-matrices $\in M_{\frac n2 \times \frac n2}(\mathbb K)$. L'algo de Strassen s'applique exactement de la même manière que pour e cas où $n=2$
+			sauf que les additions et les produits ne se font plus sur de scalaires $\in \mathbb K$ mais bien des sous-matrices.
+
+			Dans le cas où $n=2^k$, on a la relation de récurrence suivante sur $T(n) \coloneqq $ le nombre total d'opérations arithmétiques pour multiplier deux matrices $\in M_{n \times n}(\mathbb K)$
+			à l'aide de l'algorithme de Strassen :
+
+			\[T(n) = 7T\left(\frac n2\right) + 18n^2.\]
+
+			Selon le M.T., on sait $f(n) = 18n^2 = \Theta(n^2), \alpha = 7, \beta = 2$. Soit $\epsilon = \log_\beta\alpha-2$. On a donc $f(n) = O(n^2) = O\left(n^{\log_\beta(\alpha) - \epsilon}\right)$.
+			On sait dès ors que $T(n) = \Theta\left(n^{\log_\beta\alpha}\right) \simeq \Theta(n^{2.81})$.
+
+			\paragraph{Remarque} Si $n \neq 2^k$, on rajoute des 0 de padding.
+
+			\paragraph{Remarque} L'algorithme de Strassen est \textbf{asymptotiquement} meilleur que l'algorithme usuel pour calculer le produit de deux matrices. Cependant, pour des petites valeurs
+			de $n$, il est bien pire. Il existe d'autres algorithmes (le plus \textit{intéressant asymptotiquement} actuellement est l'algorithme de Coppersmith-Winograd qui est en
+			$O(n^{2.376})$, mais ces algorithmes ne sont efficaces que sur des matrices de plus en plus grande au point qu'ils ne puissent être utilisés en pratique).
+
+			\paragraph{Conjecture} Il existe des algorithmes pour la multiplication de deux matrices $n \times n$ qui sont en $O(n^{2 +\epsilon})$ pour tout $\epsilon > 0$. En effet, l'exposant doit
+			être au moins égal à deux car tous les éléments de la matrices doivent se voir assigner une valeur et il y en a $n^2$.
+
+		\subsection{Fonctions génératrices}
+			
+			\paragraph{Idée} Transformer une suite $(a_n)$ en une fonction définie par une série.
+
+			\paragraph{Objectif} Trouver des formules pour les termes de la suite $(a_n)$.
+
+			\subsubsection{Exemple introductif}
+
+			La suite de Fibonacci est représentée par la RLCC suivante :
+
+			\[\left\{\begin{aligned}F_n &= F_{n-1} + F_{n-2} \;\;\forall n \geq 2\\F_0 &= 0, F_1 = 1\end{aligned}\right.\]
+
+			On associe une fonction à la suite de Fibonacci $(F_n)_n$ :
+
+			\[f(x) = \sum_{n=0}^{+\infty}F_nx^n.\]
+
+			Cette fonction est une \textit{série formelle}, à savoir une série dont on ne se soucie pas de la convergence.
+
+			On peut étendre cette fonction :
+
+			\[f(x) = \sum_{n=0}^{+\infty}F_nx^n = 0 + x + \sum_{n=2}^{+\infty}F_nx^n = x + \sum_{n=2}^{+\infty}(F_{n-1} + F_{n-2})x^n = x + x\sum_{n=0}^{+\infty}F_nx^n + x^2\sum_{n=0}^{+\infty}F_nx^n = x + xf(x) + x^2f(x).\]
+
+			Dès lors, on peut exprimer, en isolant $f(x)$ :
+
+			\[f(x)  - f(x)(x+x^2) = x \iff f(x) = \frac x{1-x-x^2}.\]
+
+			\paragraph{Remarque} Soit $\mathbb R[X]$ l'anneau des polynômes réels, soit $\mathbb R[X)$ l'anneau des séries formelles. Il existe des polynômes ($1-\lambda x$ par exemple) n'admettant
+			pas d'inverse multiplicatif dans $\mathbb R[X]$ mais qui admettent un inverse multiplicatif dans $\mathbb R[X)$. En effet, $(1-x)(1 + \lambda x + \lambda^2x^2 + \ldots) =
+			1 + \lambda x - \lambda x + \lambda^2 x^2 - \lambda^2 x^2 + \ldots = 1$.
+
+			Dès lors, on note $\frac 1{1-\lambda x} = 1+\lambda x+\lambda^2 x^2+\ldots$.
+
+			Trouvons maintenant un autre moyen d'exprimer $f(x)$ :
+
+			\[f(x) = \frac x{1-x-x^2} = \frac x{(1-\varphi x)(1 - \bar\varphi x)} = \frac A{1-\varphi x} + \frac B{1-\bar\varphi x}.\]
+
+			On trouve $A = \frac 1{\sqrt 5}$ et $B = \frac {-1}{\sqrt 5}$. Dès lors :
+
+			\[f(x) = \frac 1{\sqrt 5} \left(\frac 1{1-\varphi x} - \frac 1{1-\bar\varphi x}\right).\]
+
+			Or on sait que $\frac 1{1-\varphi x} = \sum_{n=0}^\infty (\varphi x)^n$ et $\frac 1{1-\bar\varphi x} = \sum_{n=0}^\infty(\bar\varphi x)^n$. Donc :
+
+			\[f(x) = \frac 1{\sqrt 5}\left(\sum_{n=0}^\infty(\varphi x)^n - \sum_{n=0}^\infty(\bar\varphi x)^n\right) = \frac 1{\sqrt 5}\sum_{n=0}^\infty(\varphi^n - \bar\varphi^n)x^n.\]
+			
+			Or on sait que $f(x) = \sum_{n=0}^\infty F_Nx^n$. Dès lors, on sait que $F_n = (\varphi^n - \bar\varphi^n)$.
+
+			\subsubsection{Fonctions génératrices ordinaires}
+
+			\paragraph{Def} La fonction génératrice ordinaire (FGO) de la suite $(a_n)_n$ est définie par $A(x) = \sum_{n=0}^\infty a_nx^n$. On note $[x^n]A(x)$ le coefficient de $A(x)$ devant $x^n$.
+
+			\paragraph{Remarque}
+			\begin{lst}
+				\item Dans les séries formelles, on ignore les question sur la convergence ;
+				\item on manipule les séries formellement (comme des polynômes) ;
+				\item certaines suites vont converger pour certaines valeurs de $x$.
+			\end{lst}
+
+			\paragraph{Théorème} Soient $A(x), B(x)$, les FGOs des suites $(a_n), (b_n)$. Alors :
+
+			\begin{itemize}
+				\item[$(i)$]    $A(x) + B(x)$ est la FGO de la suite $(a_n + b_n)$ ;
+				\item[$(ii)$]   $xA(x)$ est la FGO de la suite $(a_{n-1})_{n\in\mathbb N^*}$ ;
+				\item[$(iii)$]  $\int_0^xA(t)\dif t$ est la FGO de la suite $\left(\frac {a_{n-1}}n\right)_{n\in\mathbb N^*}$ ;
+				\item[$(iv)$]   $\frac {A(x) - a_0}x$ est la FGO de la suite $(a_{n+1})_n$ ;
+				\item[$(v)$]    $\pd xA(x)$ est la FGO de $(na_n)_{n\in\mathbb N^*}$ ;
+				\item[$(vi)$]   $A(x)B(x)$ est la FGO de la suite $\left(\sum_{k=0}^na_kb_{n-k}\right)_n$ ;
+				\item[$(vii)$]  $(1-x)A(x)$ est la FGO de la suite $\left(a_n - a_{n-1}\right)_{n\in\mathbb N^*}$ ;
+				\item[$(viii)$] $\frac {A(x)}{1-x}$ est la FGO de $\left(\sum_{k=0}^na_k\right)_n$.
+			\end{itemize}
+
+			\paragraph{Démonstration (partielle) du théorème}
+			
+			\begin{itemize}
+				\item[$(iii)$]  Étant donné que les séries sont traitées comme des séries formelles, les hypothèses de convergences ne sont pas considérées. Dès lors :
+
+				                \[\int_0^xA(t)\dif t = \int_0^x\sum_{n=0}^\infty a_nt^n\dif t = \sum_{n=0}^\infty\int_0^xa_nt^n\dif t = \sum_{n=0}^\infty\frac {a_n}{n+1}x^{n+1}.\]
+
+								La suite est donc $\left(0, a_0, \frac {a_1}2, \frac {a_2}3, \ldots\right) = \left(\frac {a_n}{n+1}\right)_{n\in\mathbb N^*}$.
+				\item[$(v)$]    $\pd xA(x) = \sum_{n=0}^\infty a_n\pd xx^n = \sum_{i=1}^\infty na_nx^{n-1}$. La suite est donc $(a_1, 2a_2, \ldots) = ((n+1)a_{n+1})_n$.
+				\item[$(vi)$]   \[A(x)B(x) = \left(\sum_{n=0}^\infty a_nx^n\right)\left(\sum_{n=0}^\infty b_nx^n\right) = \sum_{n=0}^\infty \left(\sum_{k=0}^na_kb_{n-k}\right)x^n.\]
+
+				                La suite est donc $\left(\sum_{k=0}^n a_kb_{n-k}\right)_n$.
+				\item[$(viii)$] En partant du fait que $\frac 1{1-x} = \sum_{n=0}^\infty x^n$ et que $A(x) = \sum_{n=0}^\infty a_n x^n$, par le point $(vi)$, on a la suite :
+
+				                \[\left(\sum_{k=0}^na_k\beta_{n-k}\right)_n = \left(\sum_{k=0}^na_k\right)_n.\]
+			\end{itemize}
+
+			\begin{flushright}$\square$\end{flushright}
+
+			\paragraph{Exemple} Déterminer la FGO de la suite $(n)_n$. On sait que $\frac 1{1-x}$ est la FGO de $(1)_n$. Par le point $(viii)$ du théorème, on sait que 
+			$\left(\frac 1{1-x}\right)^2$ est la FGO de $\left(\sum_{k=0}^n1\right)_n = (n)_n$.
+
+			\paragraph{Proposition} Soit $k \in \mathbb N$ fixé. La FGO de la suite $\left(\binom nk\right)_n$ où $\binom nk \coloneqq 0$ si $n < k$ est :
+
+			\[\frac {x^k}{(1-x)^{k+1}}.\]
+
+			\paragraph{Dém} Prouvons-le par récurrence sur $k$.
+
+			\underline{cas de base : } $k = 0$. Alors $\binom nk = 1 \; \forall n$. La FGO est donc $\frac 1{1-x} = \frac {x^0}{(1-x)^{0+1}}$.
+
+			\underline{Pas de récurrence : } supposons la propriété vraie pour $k$ et prouvons-la pour $(k+1)$.
+
+			\[\frac {x^{k+1}}{(1-x)^{k+2}} = \frac x{1-x}\frac {x^k}{(1-x)^{k+1}}.\]
+
+			Soient $A(x) = \frac x{1-x}$ et $B(x) = \frac {x^k}{(1-x)^{k+1}}$. Par hypothèse, $B(x) = \sum_{n=0}^\infty \binom nk x^n$. Et par le théorème précédent, on sait que
+			$A(x) = \sum_{n=1}^\infty x^n$. Dès lors, $C(x) = A(x)B(x)$ est donné par :
+
+			\[C(x) = \sum_{n=0}^\infty\left(\sum_{i=0}^n a_kb_{b-i}\right)x^n = \sum_{n=0}^\infty\left(\sum_{i=0}^n a_kb_{n-i}\right)x^n = \sum_{n=0}^\infty\left(\sum_{i=1}^n b_{n-i}\right)x^n
+			  = \sum_{n=0}^\infty\left(\sum_{i=0}^{n-1}\binom ik\right)x^n = \sum_{n=0}^\infty \binom n{k+1}x^n\]
+
+			La fonction $C(x) = \frac {x^{k+1}}{(1-x)^{k+2}}$ est donc bien la FGO de la suite $\left(\binom n{n+1}\right)_n$.
+
+			\begin{flushright}$\square$\end{flushright}
+
+			\underline{Les nombres harmoniques}
+
+			\paragraph{Def} Pour $n \in \mathbb N$, on définit :
+
+			\[H_n \coloneqq \left\{\begin{aligned}&0 &\text{ si } n=0\\&\sum_{k=1}^\infty\frac 1{x^k}&\text{ si } n>0\end{aligned}\right.\]
+
+			\paragraph{Proposition} La FGO de la suite $(H_n)_n$ est :
+
+			\[H(x) = \left(\frac 1{1-x}\right)\ln\left(\frac 1{1-x}\right).\]
+
+			\paragraph{Dém} Partons de la fonction $x \mapsto \frac 1{1-x}$, FGO de $(1)_n$. Par le point $(iii)$, on sait que :
+
+			\[\int_0^x\frac 1{1-t}\dif t = -\ln(1-x) = \ln\left(\frac 1{1-x}\right)\]
+
+			est la FGO de la suite $\left(0, 1, \frac 12, \frac 13, \ldots\right)$. On a tous les termes de la suite, il faut maintenant les sommer. Par le point $(viii)$, on sait que :
+
+			\[\frac 1{1-x}\ln\left(\frac 1{1-x}\right)\]
+
+			est la FGO de $\left(\sum_{k=1}^n \frac 1{x^k}\right)$, qui est ce que l'on voulait.
+
+			\begin{flushright}$\square$\end{flushright}
+
+			\underline{Les nombres de Catalan}
+
+			\paragraph{Def} Le $n^e$ nombre de Catalan, noté $C_n$ est le nombre de parenthésages possibles pour un produit de $n$ facteurs $x_1, x_2, \ldots, x_n$ (avec $C_0 = 0$).
+
+			\paragraph{Lien avec les arbres enracinés à $n$ feuilles} On construit l'arbre et on associe un facteur à chaque feuille. Chaque nœud interne correspond à un produit parenthésé.
+
+			\paragraph{Proposition} $\left(C_n\right)_n$ est la solution de la récurrence :
+
+			\[C_n = C_1C_{n-1} + C_2C_{n-2} + \ldots + C_{n-1}C_1 = \sum_{k=1}^{n-1}C_kC_{n-k}.\]
+
+			De plus, $C_n = \frac 1n\binom {2(n-1)}{n-1}$ pour tout $n \geq 1$.
+
+			\paragraph{Dém} Montrons que $C_n = \sum_{k=1}^{n-1}C_kC_{n-k}$.
+
+			Soit $C(x) \coloneqq \sum_{n=0}^\infty C_n x^n$, la FGO de la suite des nombres de Catalan. On a :
+
+			\[C(x) = C_1x + C_2x^2 + \ldots = x + (C_1C_1)x^2 + (C_1C_2 + C_2C_1)x^3 + \ldots = x + C(x)C(x).\]
+
+			On a donc $C(x) = x + C(x)^2$, ou encore $(C(x))^2 - C(x) + x = 0$. Cette équation du second degré a deux solutions possibles :
+			$C_1(x) = \frac {1+\sqrt {1-4x}}2$ et $C_2(x) = \frac {1-\sqrt {1-4x}}2$. Or il faut $C(0) = 0$, donc la solution est $C(x) = C_2(x)$.
+			Par la formule de Taylor de $C(x)$ autours du $x=0$, on a (en prenant $f(x) = \sqrt {1-4x}$) :
+
+			\[C(x) = \frac 12 - \frac 12\sum_{n=0}^\infty f^{(n)}(0)\frac {x^n}{n!} = \sum_{n=0}^\infty \frac 12(-1)^{n+1}\binom {\frac 12}n(-4x)^n.\]
+
+			Où $\binom {\frac 12}n$ est défini par :
+
+			\[\binom {\frac 12}n \coloneqq \left\{\begin{aligned}&1 &\text{ si } n=0\\&\frac 1{n!}\prod_{k=1}^{n-1}\left(\frac 12-k\right) &\text{ si } n > 0\end{aligned}\right.\]
+
+			Or $C(x) = \sum_{n=0}^\infty C_nx^n$. Dès lors, on sait que :
+
+			\[C_n = (-1)^{n+1}\binom {\frac 12}n\frac 124^n = (-1)^{n+1} 2^{2n}\frac 1{2n!}\prod_{k=0}^{n-1}\left(\frac 12 - k\right) = 2^{2n}(-1)^{n+1}\frac 1{4n!}\prod_{k=1}^{n-1}\left(\frac 12-k\right).\]
+
+			Or tous les termes du produit (il y en a $(n-1)$) sont négatifs. Dès lors, en rentrant le $(-1)^{n+1} = (-1)^{n-1}$ dans le produit, et en mettant $\frac 12$
+			en évidence à chaque terme, on obtient :
+
+			\[C(x) = \frac {2^{2n}}{4n!}\left(\frac 12\right)^{n-1}\prod_{k=1}^{n-1}(2k-1) = \frac {2^n}{2n!}\prod_{k=1}^{n-1}(2k-1).\]
+
+			En utilisant $\frac {n!}{n!}$ pour artifice de calcul, on obtient $n!2^n = 2\cdot4\cdot6\cdot\ldots\cdot2n$ au numérateur. Dès lors, on a :
+			
+			\[\frac {2n}{2n!n!}\prod_{k=1}^{2n-2}k = \frac 1{n}\frac {(2n-2)!}{(n-1)!(n-1)!} = \frac 1n\binom {2(n-1)}{n-1}.\]
+
+\end{document}
