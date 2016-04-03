@@ -1589,7 +1589,7 @@ Pour tout 0 < i < l+1
 			       &= \hat{\tau_1}\ldots\hat{\tau_{m'}} &= \hat{\tau'_1}\ldots\hat{\tau'_{n'}}.
 		\end{aligned}\]
 
-		Soient $\nu_1, \ldots, \nu_m$ et $\nu'_1, \ldots, \nu'_n$ le nombre de transpositions adjacentes de $\hat{tau_i}$ et $\hat{\tau'_i}$. On sait que $\sum_i\nu_i = m'$
+		Soient $\nu_1, \ldots, \nu_m$ et $\nu'_1, \ldots, \nu'_n$ le nombre de transpositions adjacentes de $\hat{\tau_i}$ et $\hat{\tau'_i}$. On sait que $\sum_i\nu_i = m'$
 		et $\sum_i\nu'_i = n'$. Dès lors, on sait calculer~:
 		\[m'-m = \sum_{i=1}^m\nu_i - m = \sum_{i=1}^m(\nu_i-1).\]
 		De plus, étant donné que $\nu_i$ est impair pour tout $i$, la valeur $(\nu_i-1)$ est paire. La quantité $m'-m$ est donc une somme de valeurs paires et est donc paire également.
@@ -1616,5 +1616,23 @@ Pour tout 0 < i < l+1
 			\item Supposons $\sigma = \tau_1\ldots\tau_n$. On sait $\sigma^{-1} = \tau_n\ldots\tau_1$. $\sigma$ et son inverse $\sigma^{-1}$ ont donc la même parité, et alors le même signe.
 		\end{enumerate}
 		\end{proof}
+
+		\begin{rmq} Si $\sigma$ est une permutation, alors $\sign(\sigma) = 1 \iff \sigma$ est paire. \end{rmq}
+
+		\begin{lem}\label{DécompositionCycleEnTranspositions} Soit $\sigma \in \Perm_n$ un cycle de longueur $k$. Si $\sigma = (n_1, n_2, \ldots, n_k)$ et $\tau_i = (n_i, n_{i+1})$
+		pour $1 \leq i < k$, alors $\sigma = \tau_1\tau_2\ldots\tau_{k-1}$. \end{lem}
+
+		\begin{proof} Soient $k-1$ transpositions $\tau_i = (n_i, n_{i+1})$. La composition s'évaluant de droite à gauche, on a:
+		\[\left(\tau_1\ldots\tau_{k-1}\right)(n_i) = \left(\tau_1\ldots\tau_{i-1}\right)\left(\tau_i\left[\left(\tau_{i+1}\ldots\tau_{k-1}\right)(n_i)\right]\right)
+		= \left(\tau1\ldots\tau_{i-1}\right)\left(\tau_i[n_i]\right) = \left(\tau_1\ldots\tau_{i-1}\right)(n_{i+1}) = n_{i+1}.\]
+
+		En prenant $m \not \in \{n_1, \ldots, n_{k-1}\}$, alors aucune des $k-1$ transpositions ne modifie $m$, donc $\left(\tau_1\ldots\tau_{k-1}\right)$ agit comme l'identité
+		$\Id_{\Perm_n}$. On a donc bien $\sigma = \tau_1\ldots\tau_{k-1}$. \end{proof}
+
+		\begin{cor} Soit $\sigma \in \Perm_n$ un cycle de longueur $k$. Alors $\sigma$ est pair si et seulement si $k$ est impair. \end{cor}
+
+		\begin{proof} On sait par le lemme~\ref{DécompositionCycleEnTranspositions} qu'il existe $k-1$ transpositions $\tau_i$ telles que $\sigma = \tau_1\ldots\tau_{k-1}$.
+		Dès lors, $\sign(\sigma) = (-1)^{k-1}$. Si $k$ est pair, alors $\sign(\sigma) = -1$ et donc $\sigma$ est impair, et si $k$ est impair, alors $\sign(\sigma) = 1$
+		et donc $\sigma$ est pair. \end{proof}
 
 \end{document}

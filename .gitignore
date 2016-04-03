@@ -1,0 +1,9 @@
+*.toc
+*.aux
+*.swp
+*.log
+*.out
+*.pdf
+*.py
+*.vimrc
+*.txt
