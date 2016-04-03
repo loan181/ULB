@@ -35,6 +35,7 @@
 \renewcommand{\interval}[2]{\left[#1, #2\right]}
 \newcommand{\M}[3]{M_{#1 \times #2}(#3)}
 \newcommand{\Perm}{\mathfrak{S}}
+\newcommand{\Aor}{A^{or}}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -1634,5 +1635,63 @@ Pour tout 0 < i < l+1
 		\begin{proof} On sait par le lemme~\ref{DécompositionCycleEnTranspositions} qu'il existe $k-1$ transpositions $\tau_i$ telles que $\sigma = \tau_1\ldots\tau_{k-1}$.
 		Dès lors, $\sign(\sigma) = (-1)^{k-1}$. Si $k$ est pair, alors $\sign(\sigma) = -1$ et donc $\sigma$ est impair, et si $k$ est impair, alors $\sign(\sigma) = 1$
 		et donc $\sigma$ est pair. \end{proof}
+	
+\section{Déterminants}
+	\subsection{Définitions}
+		\begin{déf} Soient $x, y, z \in \R^2$ des points du plan, $\lambda \in \R$. On définit \textbf{l'aire orientée} $A : \R^2 \times \R^2 \to \R$ par les propriétés suivantes~:
+
+		\begin{enumerate}
+			\item $\Aor(x, y+z) = \Aor(x, y) + \Aor(x, z)$~;
+			\item $\Aor(x+y, z) = \Aor(x, z) + \Aor(y, z)$~;
+			\item $\Aor(\lambda x, y) = \lambda\Aor(x, y) = \Aor(x, \lambda y)$~;
+			\item $\Aor(x, x) = 0$.
+		\end{enumerate}
+
+		Si $\{e_1, e_2\}$ est une base de $\R^2$, alors on définit l'unité d'aire par $A(e_1, e_2) = 1$. \end{déf}
+
+		\begin{rmq} L'aire est dite \textit{orientée} car $A(x, y) = -A(y, x)$. En effet~:
+		\[0 = \Aor(x+y, x+y) = \Aor(x, x) + \Aor(x, y) + \Aor(y, x) + \Aor(y, y) = \Aor(x, y) + \Aor(y, x).\] \end{rmq}
+
+		\begin{déf} Soit $V$ un espace réel. Soit $f : V^n \to \R$ une fonction à valeurs réelles. On dit que $f$ est une
+		\textbf{forme multilinéaire} si $f$ est linéaire pour toute composante $v_i$ de $(v_1, \ldots, v_n) \in V^n$. Si lorsque $a_i = a_j$ pour $i \neq j$,
+		alors on dit que $f$ est une \textbf{forme multilinéaire alternée}. \end{déf}
+
+		\begin{prp}\label{ChangementDeSigneSwapDeParams} Soient $V$ un espace réel, $f : V^n \to \R$ une forme multilinéaire variée et $1 \leq i < j \leq n$. Alors
+		$f(v_1, \ldots, v_i, \ldots, v_j, \ldots, n_n) = -f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n)$. \end{prp}
+
+		\begin{proof} Par définition dune forme multilinéaire variée, si deux paramètres $v_i$ et $v_j$ sont égaux pour $i \neq j$, alors
+		la fonction s'annule en ce point. Dès lors~:
+		\[\begin{aligned}
+			0 = f(v_1, \ldots, v_i+v_j, \ldots, v_i+v_j, \ldots, v_n) &= f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) + f(v_1, \ldots, v_i, \ldots, v_i, \ldots, v_n) \\
+			                                                          &+ f(v_1, \ldots, v_j, \ldots, v_j, \ldots, v_n) + f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n) \\
+																	  &= f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) + 0 + 0 + f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n).
+		\end{aligned}\] \end{proof}
+
+		\begin{prp} Soient $V$ un espace vectoriel réel de dimension $n$ et $E = \{e_1, \ldots, e_n\}$ une base de $V$. Alors il existe une et une seule forme
+		multilinéaire alternée $f : V \to \R$ telle que~:
+		\[f(e_1, \ldots, e_n) = 1.\] \end{prp}
+
+		\begin{proof} Supposons qu'une telle fonction existe, et montrons que~:
+		\[f(v_1, \ldots v_n) = \sum_{\sigma \in \Perm_n}\left(\prod_{j=1}^na_{j\,\sigma(j)}\right)f(e_{1\,\sigma(1)}, \ldots, e_{n\,\sigma(n)}).\]
+
+		En effet, en posant pour tout $1 \leq i \leq n$~:
+		\[v_i = \sum_{j=1}^nv_{i\,j}e_j,\]
+		on peut déterminer, par (multi)linéarité de $f$~:
+		\[\begin{aligned}
+			f(v_1, \ldots, v_n) &= f\left(\sum_{j=1}^nv_{1\,j}e_j, \ldots, \sum_{j=1}^nv_{n\,j}e_j\right) = \sum_{j=1}^nv_{1\,j}f\left(e_i, \ldots, \sum_{k=1}^nv_{n\,k}e_k\right) \\
+			                    &= \sum_{k_1}^n\sum_{k_2}^n\ldots\sum_{k_n}^nv_{1\,k_1}v_{2\,k_2}\ldots v_{n\,k_n}f\left(e_{k_1}, \ldots, e_{k_n}\right).
+		\end{aligned}\]
+
+		Or, si deux indices $k_\alpha$ sont égaux, la fonction s'annule. Dès lors, $k_2$ doit être différent de $k_1$, $k_3$ doit être différent de $k_1$ et de $k_2$, etc.
+		Dès lors, l'ensemble des $k_i$ forme l'ensemble $\{1, 2, \ldots, n\}$ et alors $i \mapsto k_i$ est une bijection. Comme une bijection d'un ensemble discret est une permutation,
+		on peut sommer sur l'ensemble des permutations~:
+		\[f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}v_{1\,\sigma(1)}\ldots v_{n\,\sigma(n)}f(e_{\sigma(1)}, \ldots, e_{\sigma(n)}).\]
+
+		Par la proposition~\ref{ChangementDeSigneSwapDeParams}, on sait que $f(e_{\sigma(1)}, \ldots, e_{\sigma(n)}) = \sign(\sigma)f(e_1, \ldots, e_n)$.
+		Dès lors, on a bien~:
+		\[f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right)f(e_1, \ldots, e_n).\]
+		
+		De plus, en imposant $f(e_1, \ldots, e_n) = 1$, on peut poser~:
+		\[\det(v_1, \ldots, v_n) \coloneqq f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right).\] \end{proof}
 
 \end{document}
