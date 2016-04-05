@@ -1602,7 +1602,7 @@ Pour tout 0 < i < l+1
 		De manière similaire, on trouve $N(\sigma) - n$ pair également. La quantité $\left(N(\sigma) - n\right) - \left(N(\sigma) - m\right) = m - n$ est une différence de valeurs
 		paires et est donc paire également. Or $m$ et $n$ sont de même parité si et seulement si $m - n$ est pair. \end{proof}
 
-		\begin{prp} Soient $\sigma, \tau \in \Perm_n$. L'opérateur $\sign$ respecte les propriétés suivantes~:
+		\begin{prp}\label{PropsSign} Soient $\sigma, \tau \in \Perm_n$. L'opérateur $\sign$ respecte les propriétés suivantes~:
 
 		\begin{enumerate}
 			\item $\sign(\sigma\tau) = \sign(\sigma)\sign(\tau)$~;
@@ -1668,7 +1668,7 @@ Pour tout 0 < i < l+1
 		\end{aligned}\] \end{proof}
 
 		\begin{prp} Soient $V$ un espace vectoriel réel de dimension $n$ et $E = \{e_1, \ldots, e_n\}$ une base de $V$. Alors il existe une et une seule forme
-		multilinéaire alternée $f : V \to \R$ telle que~:
+		multilinéaire alternée $f : V^n \to \R$ telle que~:
 		\[f(e_1, \ldots, e_n) = 1.\] \end{prp}
 
 		\begin{proof} Supposons qu'une telle fonction existe, et montrons que~:
@@ -1692,6 +1692,86 @@ Pour tout 0 < i < l+1
 		\[f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right)f(e_1, \ldots, e_n).\]
 		
 		De plus, en imposant $f(e_1, \ldots, e_n) = 1$, on peut poser~:
-		\[\det(v_1, \ldots, v_n) \coloneqq f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right).\] \end{proof}
+		\[\det(v_1, \ldots, v_n) \coloneqq f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right).\]
+		
+		Maintenant, montrons que $\det$ est une forme multilinéaire alternée. Soient $\lambda \in \R, a_1, \ldots, a_{i-1}, a_i^{(1)}, a_i^{(2)}, a_{i+1}, \ldots, a_n \in V$.
+		\[\begin{aligned}
+			\det&(a_1, \ldots, a_{i-1}, a_i^{(1)} + \lambda a_i^{(2)}, a_{i+1}, \ldots, a_n) \coloneqq
+				\sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{k=1, k \neq i}^na_{k\,\sigma(k)}\right)(a_{i\,\sigma(i)}^{(1)} + a_{i\,\sigma(i)}^{(2)}) \\
+			&= \sum_{\sigma \in \Perm_n}\left[\sign(\sigma)\left(\prod_{k=1, k \neq i}^na_{k\,\sigma(k)}\right)a_i^{(1)} + \sign(\sigma)\left(\prod_{k=1, k \neq i}^na_{k\,\sigma(k)}\right)\lambda a_i^{(2)}\right].
+		\end{aligned}\]
+
+		En posant~:
+		\[\begin{aligned}
+			&a_i \coloneqq a_i^{(1)} + \lambda a_i^{(2)}, \\
+			&b_\alpha \coloneqq \begin{dcases}a_\alpha \; &\text{ si } \alpha \neq i\\a_i^{(1)} \; &\text{ si } \alpha = i\end{dcases}, \\
+			&c_\beta  \coloneqq \begin{dcases}a_\beta  \; &\text{ si } \beta  \neq i\\a_i^{(2)} \; &\text{ si } \beta  = i\end{dcases},
+		\end{aligned}\]
+
+		on obtient~:
+		\[\begin{aligned}
+			\det(a_1, \ldots, a_n) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^nb_{k\,\sigma(k)} + \lambda\sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^nc_{k\,\sigma(k)} \\
+			                       &= \det(a_1, \ldots, a_{i-1}, a_i^{(1)}, a_{i+1}, \ldots, a_n) + \lambda\det(a_1, \ldots, a_{i-1}, a_i^{(2)}, a_{i+1}, \ldots, a_n).
+		\end{aligned}\]
+
+		$\det$ est donc bien une forme multilinéaire car linéaire en chacun de ses paramètres. Il reste à montrer que $\det$ est une forme multilinéaire \textit{alternée}.
+		Pour ce faire, supposons qu'il existe $1 \leq i < j \leq n$ tels que $a_i = a_j$. Dès lors, on sait~:
+		\[\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = \det(a_1, \ldots, a_j, \ldots, a_i, \ldots, a_n).\]
+		De plus, $\forall t \in \{1, 2, \ldots, n\} : a_{i\,t} = a_{j\,t}$. Soit $\tau_{ij}$ la transposition $(i, j)$. Intervertir les coordonnées $i$ et $j$ n'a pas d'influence
+		sur le résultat car $a_{\tau_{ij}(j)} = a_i = a_j = a_{\tau_{ij}(i)}$. Dès lors~:
+		\[\begin{aligned}
+			\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) &= \sum_{\sigma \in \Perm_n}\sign(\sigma\tau_{ij})\left(\prod_{k=1}^na_{k\,(\sigma\tau_{ij})(k)}\right) \\
+				&= \sum_{\sigma\in\Perm_n}\sign(\sigma\tau_{ij})\left(\prod_{k=1, k \not \in \{i, j\}}^na_{k\,(\sigma\tau_{ij})(k)}\right)a_{i\,(\sigma\tau_{ij})(i)}a_{j\,(\sigma\tau_{ij})(j)} \\
+				&= \sum_{\sigma\in\Perm_n}-\sign(\sigma)\left(\prod_{k=1, k\not\in\{i, j\}}^na_{k\,\sigma(k)}\right)a_{i\,\sigma(j)}a_{j\,\sigma(i)} \\
+				&= -\sum_{\sigma\in\Perm_n}\sign(\sigma)\left(\prod_{k=1, k\not\in\{i, j\}}^na_{k\,\sigma(k)}\right)a_{j\,\sigma(j)}a_{i\,\sigma(j)} \\
+				&= -\sum_{\sigma\in\Perm_n}\sign(\sigma)\left(\prod_{k=1}^na_{k\,\sigma(k)}\right) \\
+				&= -\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n).
+		\end{aligned}\]
+
+		Dès lors, on a $\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = -\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n)$, ce qui implique~:
+		\[\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = 0.\] \end{proof}
+
+		\begin{déf} Soit $a \in \M nn\R$ une matrice carrée à valeurs réelles. On appelle \textbf{le déterminant de la matrice $a$} la valeur~:
+		\[\det(a) = \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)}.\] \end{déf}
+
+		\begin{prp} Soit $a \in \M nn\R$ une matrice. Alors $\det(a) = \det(a^T)$. \end{prp}
+
+		\begin{proof} Soit $a = [a_{ij}] \in \M nn\R$. On sait que $a^T = [a_{ji}] \in \M nn\R$. Dès lors, le déterminant de la matrice transposée vaut~:
+		\[\begin{aligned}
+			\det(a^T) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^n(a^T)_{k\,\sigma(k)} = \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{\sigma(k)\,k} \\
+			          &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{(\sigma^{-1}\sigma)(k)\,\sigma^{-1}(k)}.
+		\end{aligned}\]
+
+		On peut permuter tous les indices car $\sigma^{-1}$ est également une permutation et donc une bijection. Les couples d'indices sont donc conservés. Dès lors~:
+		\[\det(a^T) = \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma^{-1}(k)}.\]
+
+		Or, par la proposition~\ref{PropsSign}, on sait que $\sign(\sigma) = \sign(\sigma^{-1})$. Dès lors~:
+		\[\det(a^T) = \sum_{\sigma\in\Perm_n}\sign(\sigma^{-1})\prod_{k=1}^na_{k\,\sigma^{-1}}(k).\]
+
+		De plus, $\Perm_n$ est un groupe, donc toute permutations $\sigma \in \Perm_n$ admet une permutation inverse $\sigma^{-1} \in \Perm_n$.
+		On peut donc conclure par~:
+		\[\det(a^T) = \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} = \det(a).\] \end{proof}
+
+		\begin{rmq} L'application $\det$ étant une forme multilinéaire, l'inversion de deux lignes (ou colonnes) d'une matrice change le signe de son déterminant
+		(par la proposition~\ref{ChangementDeSigneSwapDeParams}).
+		
+		De plus, on sait que si une matrice a deux lignes (ou colonnes) égales, alors le déterminant s'annule car c'est une forme multilinéaire \textbf{variée}. \end{rmq}
+
+		\begin{prp} Soit $a \in \M nn\R$ une matrice triangulaire. Alors~:
+		\[\det(a) = \prod_{i=1}^na_{ii}.\] \end{prp}
+
+		\begin{proof} Supposons que $a \in \M nn\R$ soit triangulaire. On sait donc que si $i < j$, alors $a_{ij} = 0$. Le déterminant est défini par la somme des produits
+		des \textit{diagonales} $a_{i\,\sigma(i)}$. Or, si $\sigma(i) > i$, on sait que $a_{i\,\sigma(i)} = 0$. Dès lors, la seule permutation telle que $\forall i : i \geq \sigma(i)$
+		est $\Id_{\Perm_n}$. Cela peut se construire comme suit~: il faut que $1 \leq \sigma(1)$, donc on impose $\sigma(1) = 1$. Il faut également $\sigma(2) \leq 2$, ce qui impose que
+		$\sigma(2) \in \{1, 2\}$, or $\sigma$ doit être une bijection, et $1$ est déjà l'image de $\sigma(1)$. En réitérant jusque $n$, on construit la permutation identité qui
+		est la seule à respecter cette propriété. On a donc~:
+		\[\begin{aligned}
+			\det(a) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} \\
+			&= \sign(\Id_{\Perm_n})\prod_{k=1}^na_{k\,\Id_{\Perm_n}(k)} + \sum_{\sigma \in \Perm_n \setminus \{\Id_{\Perm_n}\}}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} \\
+			&= \sign(\Id_{\Perm_n})\prod_{k=1}^na_{k\,\Id_{\Perm_n}(k)} + 0 = \sign(\Id_{\Perm_n})\prod_{k=1}^na_{k\,\Id_{\Perm_n}(k)} = 1 \times \prod_{k=1}^na_{kk}.
+		\end{aligned}\] \end{proof}
+
+		\begin{rmq} Afin de calculer le déterminant de la matrice, on peut utiliser la méthode de Gauss pour trianguler la matrice. De là, il ne rester plus qu'à
+		évaluer le produit de la diagonale~; les opérations élémentaires de Gauss ne modifiant pas le déterminant. \end{rmq}
 
 \end{document}
