@@ -9,6 +9,7 @@
 \usepackage[bottom]{footmisc}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{mathtools}
+\usepackage{mathdots}
 \usepackage{interval}
 \usepackage{commath}
 \usepackage{hyperref}
@@ -25,6 +26,7 @@
 \DeclareMathOperator{\rang}{rang}
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\adj}{adj}
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\Z}{\mathbb Z}
@@ -36,6 +38,7 @@
 \newcommand{\M}[3]{M_{#1 \times #2}(#3)}
 \newcommand{\Perm}{\mathfrak{S}}
 \newcommand{\Aor}{A^{or}}
+\newcommand{\Vor}{V^{or}}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -1667,6 +1670,16 @@ Pour tout 0 < i < l+1
 																	  &= f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) + 0 + 0 + f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n).
 		\end{aligned}\] \end{proof}
 
+		\begin{prp}\label{f(0,)=0} Soient $V$ un espace vectoriel réel de dimension $n$ et $f : V^n \to \R$ une forme multilinéaire alternée. Soient $v_1, \ldots, v_n \in V$ tels
+		qu'il existe $1 \leq i \leq n$ tel que $v_i = 0$. Alors \[f(v_1, \ldots, v_n) = 0.\] \end{prp}
+
+		\begin{proof} Soit un tel $i$ et soit $j \neq i$. On pose $v_i \coloneqq v_j - v_j$, ce qui est admissible car $v_i = 0$. Dès lors, par linéarité, on a~:
+		\[\begin{aligned}
+			f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) &= f(v_1, \ldots, v_j-v_j, \ldots, v_j, \ldots, v_n) \\
+				&= f(v_1, \ldots, v_j, \ldots, v_j, \ldots, v_n) - f(v_1, \ldots, v_j, \ldots, v_j, \ldots, v_n) = 0.
+		\end{aligned}\]
+		\end{proof}
+
 		\begin{prp} Soient $V$ un espace vectoriel réel de dimension $n$ et $E = \{e_1, \ldots, e_n\}$ une base de $V$. Alors il existe une et une seule forme
 		multilinéaire alternée $f : V^n \to \R$ telle que~:
 		\[f(e_1, \ldots, e_n) = 1.\] \end{prp}
@@ -1731,10 +1744,11 @@ Pour tout 0 < i < l+1
 		Dès lors, on a $\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = -\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n)$, ce qui implique~:
 		\[\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = 0.\] \end{proof}
 
+	\subsection{Matrices et applications linéaires}
 		\begin{déf} Soit $a \in \M nn\R$ une matrice carrée à valeurs réelles. On appelle \textbf{le déterminant de la matrice $a$} la valeur~:
 		\[\det(a) = \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)}.\] \end{déf}
 
-		\begin{prp} Soit $a \in \M nn\R$ une matrice. Alors $\det(a) = \det(a^T)$. \end{prp}
+		\begin{prp}\label{detTransposéeEstdetMatrice} Soit $a \in \M nn\R$ une matrice. Alors $\det(a) = \det(a^T)$. \end{prp}
 
 		\begin{proof} Soit $a = [a_{ij}] \in \M nn\R$. On sait que $a^T = [a_{ji}] \in \M nn\R$. Dès lors, le déterminant de la matrice transposée vaut~:
 		\[\begin{aligned}
@@ -1757,7 +1771,7 @@ Pour tout 0 < i < l+1
 		
 		De plus, on sait que si une matrice a deux lignes (ou colonnes) égales, alors le déterminant s'annule car c'est une forme multilinéaire \textbf{variée}. \end{rmq}
 
-		\begin{prp} Soit $a \in \M nn\R$ une matrice triangulaire. Alors~:
+		\begin{prp}\label{detMatriceTriangulaire} Soit $a \in \M nn\R$ une matrice triangulaire. Alors~:
 		\[\det(a) = \prod_{i=1}^na_{ii}.\] \end{prp}
 
 		\begin{proof} Supposons que $a \in \M nn\R$ soit triangulaire. On sait donc que si $i < j$, alors $a_{ij} = 0$. Le déterminant est défini par la somme des produits
@@ -1773,5 +1787,208 @@ Pour tout 0 < i < l+1
 
 		\begin{rmq} Afin de calculer le déterminant de la matrice, on peut utiliser la méthode de Gauss pour trianguler la matrice. De là, il ne rester plus qu'à
 		évaluer le produit de la diagonale~; les opérations élémentaires de Gauss ne modifiant pas le déterminant. \end{rmq}
+
+		\begin{prp}\label{Binet} Soient $a, b \in \M nn\R$ deux matrices carrées. Alors~:
+		\[\det(ab)= \det(a)\det(b).\] \end{prp}
+
+		\begin{proof} Soient $a, b \in \M nn\R$ et $A, B \in \Hom(V, V)$ les fonctions linéaires associées aux matrices. On sait que~:
+		\[\det(B(A(e_1)), \ldots, B(A(e_n))) = \det(a)\det(B(e_1), \ldots, B(e_n)) = \det(a)\det(b)\det(e_1, \ldots, e_n) = \det(a)\det(b).\]
+
+		Cependant, on sait également que~:
+		\[\det(B(A(e_1)), \ldots, B(A(e_n))) = \det((B \circ A)(e_1), \ldots, (B \circ A)(e_n)) = \det(ba)\det(e_1, \ldots, e_n) = \det(ba).\]
+
+		Dès lors, on a bien~: \[\det(ab) = \det(a)\det(b),\] ce qui veut dire que le déterminant d'un produit est égal au produit des déterminants. \end{proof}
+
+		\begin{prp} Soit $b \in \M nn\R$, une matrice carrée inversible. Alors $\det(b^{-1}) = \det(b)^{-1}$. \end{prp}
+
+		\begin{proof} On sait que l'identité est une matrice triangulaire. Dès lors, par la proposition~\ref{detMatriceTriangulaire}, on sait que son déterminant
+		est égal au produit des éléments de sa diagonale. Donc $\det(\Id_{\M nn\R}) = 1$.
+
+		Cependant, par hypothèse, $b$ est inversible. Dès lors, $\Id_{\M nn \R} = b^{-1}b = bb^{-1}$. Et par la proposition~\ref{Binet}, on sait que $\det(bb^{-1}) = \det(b)\det(b^{-1})$.
+		On a alors~:
+		\[1 = \det(\Id_{\M nn\R}) = \det(b^{-1}b) = \det(b^{-1})\det(b).\]
+		D'où on déduit $\det(b^{-1}) = \det(b)^{-1}$. \end{proof}
+
+		\begin{rmq} En ayant supposé $b$ inversible, on a obtenu $\det(b) \neq 0$. Dès lors, par contraposée, on a également $\det(b) = 0 \Rightarrow b$ pas inversible. \end{rmq}
+
+		\begin{cor} Soient $a, b \in \M nn\R$ deux matrices carrées inversibles. $\det(bab^{-1}) = \det(a)$. \end{cor}
+
+		\begin{proof} On sait que $\det(bab^{-1}) = \det(b)\det(a)\det(b^{-1})$, et donc on a~: \[\det(bab^{-1}) = \det(b)\det(a)\det(b)^{-1} = \det(a).\] \end{proof}
+
+		\begin{rmq} Ce corollaire veut dire que si $V$ est un espace vectoriel de dimension $n$, et $A \in \Hom(V, V)$, alors le déterminant de la matrice associée à
+		$A$ ne dépend pas de la base choisie.
+
+		Soient $E$ et $F$, deux bases de $V$. Si $m_{F, E}$ est la matrice de changement de base de $E$ vers $F$, alors~:
+		\[\det(m_{E, E}(A)) = \det(m_{E, F}(A)m_{F, F}(A)m_{F, E}(A)) = \det(m_{F, F}(A)).\] \end{rmq}
+
+		\begin{déf} On peut définir le \textbf{déterminant de l'opérateur linéaire} $A \in \Hom(V, V)$ par~: \[\det(A) \coloneqq \det(m_{E, E}(A))\] où $E$ est une base quelconque
+		de $V$. La valeur est bien définie car le déterminant ne dépend pas de la base. \end{déf}
+
+		\begin{thm} Soient $V$ un espace vectoriel réel de dimension $n$ et $A \in \Hom(V, V)$ un opérateur linéaire. Alors $\det(A) \neq 0$ si et seulement si $A$ est inversible. \end{thm}
+
+		\begin{proof} En supposant $A$ inversible, supposons également, par l'absurde, $\det(A) = 0$. On a alors~:
+		\[1 = \det(\Id_{\Hom(V, V)}) = \det(A \circ A^{-1}) = \det(A)\det(A^{-1}) = 0,\] ce qui est une contradiction. L'hypothèse est donc fausse et $\det(A) \neq 0$.
+
+		Supposons maintenant $A$ non inversible et montrons que $\det(A) = 0$. Soit $E$ une base de $V$. Si $A$ n'est pas inversible, alors il existe $i$ tel que $A(e_i) = 0$
+		où $e_i \neq 0$ car c'est un vecteur de la base. Soit $f$, la seule forme multilinéaire alternée telle que $f(e_1, \ldots, e_n) = 1$. On a donc~:
+		\[\det(A) = \det(A)f(e_1, \ldots, e_i, \ldots, e_n) = f(A(e_1), \ldots, A(e_i), \ldots, A(e_n)) = f(A(e_1), \ldots, 0, \ldots, A(e_n)) = 0,\]
+		par la proposition~\ref{f(0,)=0}. \end{proof}
+
+		\begin{rmq} Soient $A \in \Hom(\R^n, \R^n)$ et $a \coloneqq m_{E, E}(A) \in \M nn\R$ sa matrice associée dans la base canonique de $\R^n$. L'application $A$ envoie le cube unitaire de
+		dimension $n$ sur le parallélogramme de dimension $n$ dont les coordonnées des points $A(e_i)$ sont les colonnes de $a$. Le volume orienté de l'image de $P \subset \R^n$ par
+		$A$ est donné par~: \[\Vor(A(P)) = \det(A)\Vor(P).\]
+
+		Dès lors, si $P$ est le cube unitaire de dimension $n$ et $Q$ est un parallélogramme de dimension $n$, alors en construisant la matrice $a \in \M nn\R$ en y mettant colonne
+		par colonne les coordonnées des points de $Q$, alors $\Vor(Q) = \det(a)$.
+
+		Si le déterminant est négatif, c'est que le parallélogramme a été \textit{retourné} et donc son volume orienté change de signe.
+		De là, on voit bien que $\det(A) = 0$ si $\rang(A) \coloneqq \dim_\R\Im(A) < n$ car $A(P)$ n'est plus un parallélogramme à $n$ dimensions, et donc son volume en
+		dimension $n$ est nul également. \end{rmq}
+
+	\subsection{Cofacteurs, matrices adjointes et inverses}
+		\begin{déf} Soit $a \coloneqq [a_{i\,j}] \in \M nn\R$ une matrice. Le cofacteur $A_i^j$ est défini par~:
+		\[A_i^j \coloneqq (-1)^{i+j}\det_{(n-1)\times(n-1)}
+		\begin{pmatrix}
+			a_{1\,1}   & \ldots  & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
+			  \vdots   & \ddots  &    \vdots    &   \vdots     & \iddots & \vdots     \\
+			a_{i-1\,1} & \ldots  & a_{i-1\,j-1} & a_{i-1\,j+1} & \ldots  & a_{i-1\,n} \\
+			a_{i+1\,1} & \ldots  & a_{i+1\,j-1} & a_{i+1\,j+1} & \ldots  & a_{i+1\,n} \\
+			  \vdots   & \iddots &     \vdots   &    \vdots    & \ddots  & \vdots     \\
+			a_{n\,1}   & \ldots  & a_{n\,j-1}   & a_{n\,j+1}   & \ldots  & a_{n\,n}
+		\end{pmatrix}
+		\] \end{déf}
+
+		\begin{thm}[Théorème de Laplace]\label{thmLaplace} Soit $a \in \M nn\R$. Pour $1 \leq i, j \leq n$, on a~:
+		\[\det(a) = \sum_{k=1}^na_{ik}A_i^k = \sum_{k=1}^na_{kj}A_k^j.\] \end{thm}
+
+		\begin{proof} Prouvons d'abord la première égalité pour $i=n$~:
+		\[\begin{aligned}
+			\det(a) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} = \sum_{j=1}^n\sum_{\sigma\in\Perm_n, \sigma(n)=j}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} \\
+			        &= \sum_{j=1}^na_{n\,j}\sum_{\sigma\in\Perm_n, \sigma(n)=j}\sign(\sigma)\prod_{k=1}^{n-1}a_{k\,\sigma(k)} \\
+					&= \sum_{j=1}^na_{n\,j}\det
+						\begin{pmatrix}
+							a_{1\,1}   & \ldots  & a_{1\,j-1}   & a_{1\,j}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
+							  \vdots   & \ddots  &   \vdots     &   \vdots   &   \vdots     & \iddots &   \vdots   \\
+							a_{n-1\,1} & \ldots  & a_{n-1\,j-1} & a_{n-1\,j} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n} \\
+							    0      &     0   &      0       &     1      &     0        &    0    &    0
+						\end{pmatrix} \\
+					&= \sum_{j=1}^na_{n\,j}(-1)^{j-1}\det
+						\begin{pmatrix}
+							a_{1\,j}   & a_{1\,1}   & \ldots & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
+							  \vdots   &   \vdots   & \ddots &   \vdots     &   \vdots     & \iddots &   \vdots   \\
+							a_{n-1\,j} & a_{n-1\,1} & \ldots & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n} \\
+							     1     &     0      &     0  &     0        &      0       &    0    &       0
+						\end{pmatrix} \\
+					&= \sum_{j=1}^na_{n\,j}(-1)^{j-1}(-1)^{n-1}\det
+						\begin{pmatrix}
+							     1     &     0      &     0  &     0        &      0       &    0    &       0    \\
+							a_{1\,j}   & a_{1\,1}   & \ldots & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
+							  \vdots   &   \vdots   & \ddots &   \vdots     &   \vdots     & \iddots &   \vdots   \\
+							a_{n-1\,j} & a_{n-1\,1} & \ldots & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n}
+						\end{pmatrix} \\
+					&= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\gamma=1}^nb_{1\,\gamma}\sum_{\sigma\in\Perm_n, \sigma(1)=\gamma}\sign(\sigma)\prod_{k=2}^nb_{k\,\sigma(k)} \\
+					&= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\sigma\in\Perm_n, \sigma(1)=1}\sign(\sigma)\prod_{k=2}^nb_{k\,\sigma(k)}.
+		\end{aligned}\]
+
+		Ici, on a posé~:
+		\[b \coloneqq [b_{i\,j}] \coloneqq
+			\begin{pmatrix}
+				     1     &     0      &     0  &     0        &      0       &    0    &       0    \\
+				a_{1\,j}   & a_{1\,1}   & \ldots & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
+				  \vdots   &   \vdots   & \ddots &   \vdots     &   \vdots     & \iddots &   \vdots   \\
+				a_{n-1\,j} & a_{n-1\,1} & \ldots & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n}
+			\end{pmatrix}
+		\in \M nn\R.\]
+
+		De plus, en imposant $\sigma(1) = 1$, pour tout $n \geq i > 1$, on a $\sigma(i) > 1$ car $\sigma$ est une bijection. Donc avec cette contrainte, et en
+		itérant sur $k \in \{2, 3, \dotsc, n\}$, les éléments de la première ligne ou de la première colonne ne sont pas accédés. En posant~:
+		\[c \coloneqq [c_{i\,j}] \coloneqq
+			\begin{pmatrix}
+				a_{1\,1}   & \ldots  & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}  \\
+				  \vdots   & \ddots  &   \vdots     &   \vdots     & \iddots &   \vdots  \\
+				a_{n-1\,1} & \ldots  & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n} \\
+			\end{pmatrix}
+		\in \M {(n-1)}{(n-1)}\R,\]
+		à savoir $c$ est la matrice $b$ sans la première ligne et la première colonne, on a alors~:
+		\[\begin{aligned}
+			\det(a) &= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\sigma\in\Perm_n, \sigma(1)=1}\sign(\sigma)\prod_{k=2}^nb_{k\,\sigma(k)} \\
+			        &= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\sigma\in\Perm_n, \sigma(1)=1}\sign(\sigma)\prod_{k=2}^nc_{k-1\,\sigma(k-1)} \\
+					&= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\sigma \in \Perm_{n-1}}\sign(\sigma)\prod_{k=1}^{n-1}c_{k\,\sigma(k)} \\
+					&= \sum_{j=1}^na_{n\,j}A_n^j.
+		\end{aligned}\]
+
+		Afin de prouver le théorème pour tout $i$, il suffit de passer la proposition~\ref{ChangementDeSigneSwapDeParams} en échangeant les colonnes, ce qui change le signe (à cause
+		de l'échange de deux colonnes), mais qui change également les signes des cofacteurs. Afin de prouver également le théorème, on pose $\gamma \in \{1, \dotsc, n\}$, et on
+		part de la proposition~\ref{detTransposéeEstdetMatrice} qui dit que $\det(a) = \det(a^T)$ et on obtient~:
+		\[\det(a) = \det(A^T) = \sum_{j=1}^n(a^T)_{\gamma\,j}(A^T)_\gamma^j = \sum_{j=1}^na_{j\,\gamma}A_j^\gamma.\] \end{proof}
+
+		\begin{déf} Soit $a \coloneqq [a_{i\,j}] \in \M nn\R$ une matrice carrée. On définit sa matrice adjacente par~: \[\adj a = [A_j^i] \in \M nn\R.\] \end{déf}
+
+		\begin{prp} Soit $a = [a_{i\,j}] \in \M nn\R$. Le produit matriciel $a \adj(A)$ donne une matrice diagonale telle que $(a \adj(a))_{ii} = \det(a)$ pour tout $i$. \end{prp}
+
+		\begin{proof} En procédant au produit de $a$ et $\adj(a)$, on obtient~:
+		\[(a\adj(a))_{i\,j} \coloneqq \sum_{k=1}^na_{i\,k}(\adj(a))_{k\,j} = \sum_{k=1}^na_{i\,k}A_j^k = \det(a)\delta_{ij}.\]
+
+		Le facteur $\delta_{ij}$ impose que tout élément $(a\adj(a))_{i\,j}$ où $i \neq j$ soit nul. Il ne reste dès lors que la diagonale où chaque $(a\adj(a))_{i\,i}$ vaut
+		$\det(a)$. \end{proof}
+
+		\begin{cor} Soit $a \in \M nn\R$ une matrice carrée inversible. Son inverse $a^{-1}$ vaut~:
+		\[a^{-1} = \frac 1{\det(a)}\adj(a)\] \end{cor}
+
+		\begin{proof} On sait que $a\adj(a) = \det(a)\Id_{\M nn\R}$. Dès lors, en divisant de part et d'autre par $\det(a)$ (qui est non nul car $a$ est inversible), et en
+		multipliant par $a^{-1}$ à gauche, on obtient~:
+		\[\begin{aligned}
+			a^{-1}a\adj(a)\det(a)^{-1} &= a^{-1}\det(a)\Id_{\M nn\R}\det(a)^{-1} \\
+			\adj(a)\frac 1{\det(a)} &= a^{-1}.
+		\end{aligned}\]
+		\end{proof}
+
+		\begin{déf} Soient $a = [a_{i\,j}] \in \M nn\R$ et $b = [b_i], x = [x_i] \in \M n1\R$ tels que~: \[ax = b.\] On pose~:
+		\[S_j(a, b) \coloneqq
+		\begin{pmatrix}
+			a_{1\,1} & \ldots & a_{1\,j-1} &   b_1  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
+			  \vdots & \ddots &   \vdots   & \vdots &   \vdots   & \iddots &   \vdots \\
+			a_{n\,1} & \ldots & a_{n\,j-1} &   b_n  & a_{n\,j+1} & \ldots  & a_{n\,n}
+		\end{pmatrix}
+		\]
+
+		La valeur $S_j(a, b)$ est donc la matrice $a$ où la $j$ème colonne a été remplacée par $b$. \end{déf}
+
+		\begin{thm}[Règle de Cramer]\label{règleCramer} Soit $(S) : ax = b$ un système linéaire d'équations où $a \in \M nn\R, x, b \in \M n1\R$. Le système $(S)$
+		admet une et une seule solution si et seulement si $\det(a) \neq 0$. De plus, cette solution est donnée par~:
+		\[x_j = \frac {\det\left(S_j(a, b)\right)}{\det(a)}.\] \end{thm}
+
+		\begin{proof} Soient $a \in \M nn\R, b, x \in \M n1\R$ tels que $ax = b$. On peut déterminer~:
+		\[\begin{aligned}
+			\det(S_j(a, b)) &= \det
+				\begin{pmatrix}
+					a_{1\,1} & \ldots & a_{1\,j-1} &   b_1  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
+					  \vdots & \ddots &   \vdots   & \vdots &   \vdots   & \iddots &   \vdots \\
+					a_{n\,1} & \ldots & a_{n\,j-1} &   b_n  & a_{n\,j+1} & \ldots  & a_{n\,n}
+				\end{pmatrix} \\
+			&= \det
+				\begin{pmatrix}
+					a_{1\,1} & \ldots & a_{1\,j-1} &   \sum_{k=1}^na_{1\,k}x_k  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
+					  \vdots & \ddots &   \vdots   &           \vdots           &   \vdots   & \iddots &   \vdots \\
+					a_{n\,1} & \ldots & a_{n\,j-1} &   \sum_{k=1}^na_{n\,k}x_k  & a_{n\,j+1} & \ldots  & a_{n\,n}
+				\end{pmatrix} \\
+			&= \sum_{k=1}^n
+				\det
+					\begin{pmatrix}
+						a_{1\,1} & \ldots & a_{1\,j-1} &   a_{1\,k}x_k  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
+						  \vdots & \ddots &   \vdots   &     \vdots     &   \vdots   & \iddots &   \vdots \\
+						a_{n\,1} & \ldots & a_{n\,j-1} &   a_{n\,k}x_k  & a_{n\,j+1} & \ldots  & a_{n\,n}
+					\end{pmatrix} \\
+			&= \sum_{k=1}^n
+				x_k\det
+					\begin{pmatrix}
+						a_{1\,1} & \ldots & a_{1\,j-1} &   a_{1\,k}  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
+						  \vdots & \ddots &   \vdots   &   \vdots    &   \vdots   & \iddots &   \vdots \\
+						a_{n\,1} & \ldots & a_{n\,j-1} &   a_{n\,k}  & a_{n\,j+1} & \ldots  & a_{n\,n}
+					\end{pmatrix}
+		\end{aligned}\]
+
+		Ici, pour toute valeur de $k$ différente de $j$, la matrice aura deux colonnes identiques (à savoir la colonne $j$ et la colonne $k$). Dès lors, le déterminant s'annule, et il ne reste
+		plus que~: \[\det(S_j(a, b)) = x_j\det(a).\] On en déduit que~: \[x_j = \frac {\det(S_j(a, b))}{\det(a)}.\] \end{proof}
 
 \end{document}
