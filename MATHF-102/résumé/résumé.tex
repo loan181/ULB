@@ -30,8 +30,10 @@
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 \newcommand{\C}{\mathbb C}
+\newcommand{\K}{\mathbb K}
 \newcommand{\scpr}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\eng}[1]{\left\langle#1\right\rangle}
 \renewcommand{\interval}[2]{\left[#1, #2\right]}
@@ -192,6 +194,7 @@
 
 		On a donc effectivement $w_k^n-z = 0$. \end{proof}
 
+\newpage
 \section{Les polynômes}
 	\subsection{L'algorithme d'Euclide sur des entiers}
 		\begin{déf} Soient $(a, b) \in \Z \times \Z_0$. Il existe un unique $d \in \Z_0$ tel que $d$ est le plus grand nombre qui divise $a$ et $b$ simultanément. On note
@@ -335,6 +338,7 @@
 		On a donc bien prouvé l'égalité pour chaque coefficient, donc pour tout $i$ et en faisant la preuve par récurrence sur $n$.
 		\end{proof}
 
+\newpage
 \section{Géométrie analytique dans $\R^3$ : rappels}
 	\subsection{Vecteurs}
 		\begin{déf} Soit $\R^3$, l'espace à trois dimensions. Pour tout $v \in \R^3$, on définit (naïvement) le vecteur $v$ comme une flèche partant de l'origine
@@ -547,6 +551,7 @@
 		\begin{proof} On veut trouver $\lambda$ tel que $p = \lambda w$. Géométriquement, il faut que $v-p$ et $w$ soient orthogonaux :
 		\[0 = \scpr {v-p}w = \scpr {v-\lambda w}w = \scpr vw - \lambda \scpr ww.\] On a donc $\lambda = \frac {\scpr vw}{\scpr ww}$. \end{proof}
 
+\newpage
 \section{Systèmes d'équations linéaires et algèbre matricielle}
 	\subsection{Définitions}
 		\begin{déf} Soient $s, t \in \N_0$. Un système linéaires de $s$ équations à $t$ inconnues $x_j$ et à coefficients réels $a_{ij}, b_i \in \R$ est :
@@ -707,6 +712,7 @@ Pour tout 0 < i < l+1
 		sous sa forme échelonnée réduite). Géométriquement, cela correspond à une translation de l'espace des solutions de $(S')$ par le vecteur $\widetilde x$. C'est donc
 		un point, une droite, un plan, etc. comme pour $(S')$ mais ne devant pas contenir l'origine. \end{rmq}
 	
+\newpage
 \section{espaces vectoriels}
 	\subsection{Définitions}
 		\begin{déf} Soit $\mathbb K$ un corps. Un espace vectoriel $V$ sur $\mathbb K$\footnote{Il sera question ici presque exclusivement d'espaces vectoriels sur $\R$.}
@@ -1100,6 +1106,7 @@ Pour tout 0 < i < l+1
 		Supposons $X = \{x_1, \ldots, x_k\}$ une partie génératrice. Si $k < d$, alors Il existe $v \in V \setminus \eng X$ ce qui contredit le fait que $X$ est génératrice.
 		Si $\abs X = d$, alors $X$ est une partie génératrice minimale, donc une base par le théorème~\ref{equivBases}. \end{proof}
 	
+\newpage
 \section{Relations entre espaces vectoriels}
 	\subsection{Isomorphismes}
 		\begin{déf} Soient $V$, $W$ deux e.v. Soit $A : V \to W$ une application linéaire bijective. Alors $A$ est un isomorphisme. \end{déf}
@@ -1252,6 +1259,7 @@ Pour tout 0 < i < l+1
 		Montrons maintenant que si $A(E)$ est une base de $W$,a lors $A$ est un isomorphisme. Puisque $\dim_\R V = \dim_\R W$ et $\Imf(A) = W$, par la
 		proposition~\ref{condIsom}, $A$ est un isomorphisme. \end{proof}
 
+\newpage
 \section{Algèbre matricielle}
 	\subsection{Matrice associée à une transformation linéaire}
 		\begin{déf} Soient deux espaces vectoriels $V$ et $W$. On définit $\Hom(V, W) \coloneqq \{A : V \to W \tq A \text { transformation linéaire}\}$. \end{déf}
@@ -1470,7 +1478,8 @@ Pour tout 0 < i < l+1
 		au moins égal au rang de $A$. On a donc $\rang(A) \leq \rang(A^T)$. Par un raisonnement similaire, on trouve $\rang(A^T) \leq \rang\left(\left(A^T\right)^T\right)$.
 		Or on sait que $\left(A^T\right)^T = A$. Donc on a $\rang(A) \leq \rang(A^T) \leq \rang(A)$. Il faut alors $\rang(A) = \rang(A^T)$. \end{proof} 
 
-\section{Permutations}
+\newpage
+\section{Permutations et Déterminants}
 	\subsection{Définitions}
 		\begin{déf} Soit $n \in \mathbb N^*$. On note l'ensemble des permutations de $\{1, 2, \ldots, n\}$~:
 		
@@ -1639,8 +1648,7 @@ Pour tout 0 < i < l+1
 		Dès lors, $\sign(\sigma) = (-1)^{k-1}$. Si $k$ est pair, alors $\sign(\sigma) = -1$ et donc $\sigma$ est impair, et si $k$ est impair, alors $\sign(\sigma) = 1$
 		et donc $\sigma$ est pair. \end{proof}
 	
-\section{Déterminants}
-	\subsection{Définitions}
+	\subsection{Déterminants}
 		\begin{déf} Soient $x, y, z \in \R^2$ des points du plan, $\lambda \in \R$. On définit \textbf{l'aire orientée} $A : \R^2 \times \R^2 \to \R$ par les propriétés suivantes~:
 
 		\begin{enumerate}
@@ -1988,7 +1996,113 @@ Pour tout 0 < i < l+1
 					\end{pmatrix}
 		\end{aligned}\]
 
-		Ici, pour toute valeur de $k$ différente de $j$, la matrice aura deux colonnes identiques (à savoir la colonne $j$ et la colonne $k$). Dès lors, le déterminant s'annule, et il ne reste
-		plus que~: \[\det(S_j(a, b)) = x_j\det(a).\] On en déduit que~: \[x_j = \frac {\det(S_j(a, b))}{\det(a)}.\] \end{proof}
+		Ici, pour toute valeur de $k$ différente de $j$, la matrice aura deux colonnes identiques (à savoir la colonne $j$ et la colonne $k$). Dès lors, le déterminant
+		s'annule, et il ne reste plus que~: \[\det(S_j(a, b)) = x_j\det(a).\] On en déduit que~: \[x_j = \frac {\det(S_j(a, b))}{\det(a)}.\] \end{proof}
+
+\newpage
+\section{Algèbre d'ensembles}
+	\subsection{Définitions}
+		\begin{déf} Soit $\K$ un ensemble et soit $*$ une opération interne telle que $* : \K \times \K : (a, b) \mapsto a*b \eqqcolon ab$. Si $\K$ respecte les
+		trois propriétés suivantes~:
+
+		\begin{enumerate}
+			\item $\exists 0 \in \K$ tel que $\forall a \in \K : a * 0 = 0 * a = a$~;
+			\item $\forall a, b, c \in \K : a * (b*c) = (a*b) * c$~;
+			\item $\forall a \in \K : \exists b \in \K \tq a + b = b + a = 0$ (on note $b$ $-a$ et on l'appelle \textbf{l'inverse de $a$}),
+		\end{enumerate}
+		on appelle $(K, *)$ un \textbf{groupe}.\end{déf}
+
+		\begin{déf} Soit $(\K, *)$ un groupe. Si $*$ est une opération commutative ($\forall a, b \in \K : a * b = b * a$), on appelle $(\K, *)$ un
+		\textbf{groupe abélien}. \end{déf}
+
+		\begin{rmq} L'opération $*$ d'un groupe abélien est souvent notée $+$ pour montrer son caractère commutatif. \end{rmq}
+
+		\begin{déf} Soit $(\K, +)$ un groupe abélien. On définit une opération $\cdot : \K \times \K \to \K : (a, b) \mapsto a \cdot b \eqqcolon ab$.
+		Si $(\K, +, \cdot)$ respecte les propriétés suivantes~:
+
+		\begin{enumerate}
+			\item $\exists 1 \in \K \tq \forall a \in \K : a \cdot 1 = 1 \cdot a = a$~;
+			\item $\forall a, b, c \in \K : a \cdot (b \cdot c) = (a \cdot b) \cdot c$~;
+			\item $\forall a, b, c \in \K : (a \cdot (b + c) = a \cdot b + a \cdot c) \land ((a + b) \cdot c = a \cdot c + b \cdot c)$,
+		\end{enumerate}
+		on appelle $(\K, +, \cdot)$ un \textbf{anneau}. \end{déf}
+
+		\begin{déf} Soit $(K, +, \cdot)$ un anneau. Si $\forall a \neq 0 \in \K : \exists b \in \K \tq a \cdot b = b \cdot a = 1$ (où $b$ est noté $a^{-1}$), alors
+		on appelle $(K, +, \cdot)$ un corps. \end{déf}
+
+		\begin{déf} Soit $(\K, +, \cdot)$ un corps. Si l'opération $\cdot$ est commutative, alors on appelle $(\K, +, \cdot)$ un \textbf{corps commutatif}. \end{déf}
+
+		\begin{déf} Soient $\K$ un corps commutatif, $V$ un espace vectoriel sur $\K$, et $A \in \Hom(V, V)$ un opérateur linéaire.
+
+		\begin{itemize}
+			\item On appelle \textbf{vecteur propre} de $A$ tout vecteur $v \in V \tq \exists \lambda \in \K \tq A(v) = \lambda v$~;
+			\item on appelle \textbf{valeur propre } de $A$ toute valeur $\lambda \in \K \tq \exists v \neq 0 \in V$ et $v$ est une valeur propre de $A$~;
+			\item l'ensemble des valeurs propres de $A$ est appelé le \textbf{spectre} de $A$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf} Soit $V$ un espace vectoriel sur un corps $\K$. Soit $A \in \Hom(V, )$ un opérateur linéaire. Soit $\lambda \in \K$une valeur propre de $A$.
+		On appelle \textbf{sous-esapce propre} relatif à $\lambda$ l'ensemble~: \[V_\lambda \coloneqq \{v \in V \tq A(v) = \lambda v\}.\] \end{déf}
+
+		\begin{prp} Soit $V$ un espace vectoriel sur un corps $\K$ et $V_\lambda$ un sous-espace propre relatif à $\lambda$, une valeur propre de $A \in \Hom(V, V)$.
+		Alors $V_\lambda$ muni des opérateurs $+_V$ et $\cdot_V$ est un sous-espace vectoriel de $V$. \end{prp}
+
+		\begin{proof} Pour montrer que $V_\lambda$ est un sous-espace de $V$, il faut montrer que~:
+		\begin{enumerate}
+			\item $0_V \in V_\lambda$~;
+			\item $\forall w_1, w_2 \in V_\lambda : w_1 + w_2 \in V_\lambda$~;
+			\item $\forall \mu \in \K, w \in V_\lambda : \mu w \in V_\lambda$.
+		\end{enumerate}
+
+		Montrons donc chacune de ces trois propriétés~:
+		\begin{enumerate}
+			\item On sait que $A(0) = 0 = \lambda 0$ pour tout $\lambda \in \K$. Dès lors $0 \in V_\lambda$.
+			\item Soient $w_1, w_2 \in V_\lambda$. Alors $A(w_1 + w_2) = A(w_1) + A(w_2) = \lambda v_1 + \lambda v_2 = \lambda(v_1 + v_2)$. Dès lors $w_1+w_2 \in V_\lambda$.
+			\item Soient $\mu \in \K, w \in V_\lambda$. Alors $A(\mu w) = \mu A(w) = \mu (\lambda v) = \lambda(\mu v)$. Dès lors $\mu w \in V_\lambda$.
+		\end{enumerate}
+
+		On a donc bien $V_\lambda$ est un sous-espace de $V$ par la proposition~\ref{conditionsSousEspace}. \end{proof}
+
+		\begin{lem} Soit $\K$ un corps commutatif et $V$ un espace vectoriel sur $\K$. Si $A \in \Hom(V, V)$, alors $\Ker(A) = V_0$. \end{lem}
+
+		\begin{proof} On sait que $\Ker(A) \coloneqq \{v \in V \tq A(v) = 0\}$. Également, $V_0 \coloneqq \{v \in V \tq A(v) = 0 \cdot v = 0\} \eqqcolon \Ker(A)$. \end{proof}
+
+		\begin{prp} Soient $a \coloneqq [a_{i\,j}] \in \M nn\K$ un matrice diagonale et $A \in \Hom(\K^n, \K^n)$ son opérateur linéaire associé.
+		Soit $E \coloneqq \{e_1, \dotsc, e_n\}$ la base canonique de $\K^n$. Alors~: \[V_\lambda = \eng {\{e_i \in E \tq a_{i\,i} = \lambda\}}.\] \end{prp}
+
+		\begin{proof} Montrons que $V_\lambda \subseteq \eng {\{e_i \in E \tq a_{i\,i} = \lambda\}} \subseteq V_\lambda$.
+
+		Soit $v \in V_\lambda$. On sait que $A(v) = \lambda v$. Or, on sait également que $A(v) = av$. On a donc~:
+		\[A(v) = \left[\sum_{k=1}^na_{i\,k}v_k\right]_i= \sum_{i=1}^ne_i\sum_{k=1}^na_{i\,k}v_k.\]
+		Cependant, $a$ est une matrice diagonale. Donc $\forall i \neq k : a_{i\,k} = 0$. On trouve donc~:
+		\[A(v) = \sum_{i=1}^ne_ia_{i\,i}v_i.\]
+		En reprenant le fait que $A(v) = \lambda v$, on obtient~:
+		\[\sum_{i=1}^n\lambda v_ie_i = \lambda v = A(v) = \sum_{i=1}^na_{i\,i}v_ie_i.\]
+		Que l'on peut transformer en~:
+		\[0 = \sum_{i=1}^na_{i\,i}v_ie_i - \lambda v_ie_i = \sum_{i=1}^n(\lambda - a_{i\,i})v_ie_i.\]
+
+		Or, $e_i$ est un vecteur de la base. On sait donc que $\forall 1 \leq i \leq n : e_i \neq 0$. Ce qui laisse donc soit $v_i = 0$, soit $a_{i\,i} = \lambda$. On a alors~:
+		\[\begin{aligned}
+			A(v) &= \sum_{i=1}^na_{i\,i}v_ie_i = \sum_{i \tq a_{i\,i} = \lambda}a_{i\,i}v_ie_i + \sum_{i \tq a_{i\,i} \neq \lambda}a_{i\,i}v_ie_i \\
+			     &= \sum_{i \tq a_{i\,i} = \lambda}a_{i\,i}v_ie_i + \sum_{i \tq a_{i\,i} \neq \lambda}a_{i\,i} \cdot 0 \cdot e_i \\
+				 &= \sum_{i \tq a_{i\,i} = \lambda}a_{i\,i}v_ie_i \in \eng {\{e_i \in E \tq a_{i\,i} = \lambda\}}.
+		\end{aligned}\]
+
+		Soit $v \in \eng {\{e_i \in E \tq a_{i\,i} = \lambda\}}$. On sait donc que~:
+		\[v = \sum_{i \tq a_{i\,i} = \lambda}\mu_ie_i.\]
+		De plus, en évaluant l'image de $v$ par $A$, on obtient~:
+		\[\begin{aligned}
+			A(v) &= A\left(\sum{i \tq a_{i\,i} = \lambda}\mu_ie_i\right) = \sum_{i \tq a_{i\,i}=\lambda}\mu_iA(e_i)= \sum_{i \tq a_{i\,i}=\lambda}\mu_iae_i \\
+			     &= \sum_{i \tq a_{i\,i}=\lambda}\mu_i\sum_{j=1}^ne_j\sum_{k=1}^na_{j\,k}\left(e_i\right)_k.
+		\end{aligned}\]
+
+		Or, $e_i$ est un vecteur de la base canonique. Ce qui veut dire que $\left(e_i\right)_k = \delta_{jk}$. De plus, $a$ est une matrice diagonale, et donc
+		pour tout $i, j$, on a~: $a_{i\,j} = a_{i\,j}\delta_{ij}$. Dès lors~:
+		\[\begin{aligned}
+			A(v) &=\sum_{i \tq a_{i\,i}=\lambda}\mu_i\sum_{j=1}^ne_j\sum_{k=1}^n\left(a_{j\,k}\delta_{jk}\right)\left(\left(e_i\right)_k\delta_{ik}\right) \\
+			     &= \sum_{i \tq a_{i\,i}=\lambda}\mu_i\sum_{j=1}^ne_ja_{j\,j}\left(e_i\right)_j\delta_{ij} = \sum_{i \tq a_{i\,i}=\lambda}\mu_ie_ia_{i\,i} \\
+				 &= \sum_{i \tq a_{i\,i}=\lambda}\mu_ie_i\lambda = \lambda\sum_{i \tq a_{i\,i}=\lambda}\mu_ie_i = \lambda v \in V_\lambda.
+		\end{aligned}\]
+		\end{proof}
 
 \end{document}
