@@ -1829,25 +1829,26 @@ Pour tout 0 < i < l+1
 		Soient $E$ et $F$, deux bases de $V$. Si $m_{F, E}$ est la matrice de changement de base de $E$ vers $F$, alors~:
 		\[\det(m_{E, E}(A)) = \det(m_{E, F}(A)m_{F, F}(A)m_{F, E}(A)) = \det(m_{F, F}(A)).\] \end{rmq}
 
-		\begin{déf} On peut définir le \textbf{déterminant de l'opérateur linéaire} $A \in \Hom(V, V)$ par~: \[\det(A) \coloneqq \det(m_{E, E}(A))\] où $E$ est une base quelconque
-		de $V$. La valeur est bien définie car le déterminant ne dépend pas de la base. \end{déf}
+		\begin{déf} On peut définir le \textbf{déterminant de l'opérateur linéaire} $A \in \Hom(V, V)$ par~: \[\det(A) \coloneqq \det(m_{E, E}(A))\] où $E$ est
+		une base quelconque de $V$. La valeur est bien définie car le déterminant ne dépend pas de la base. \end{déf}
 
-		\begin{thm} Soient $V$ un espace vectoriel réel de dimension $n$ et $A \in \Hom(V, V)$ un opérateur linéaire. Alors $\det(A) \neq 0$ si et seulement si $A$ est inversible. \end{thm}
+		\begin{thm}\label{inversiblessidet=0} Soient $V$ un espace vectoriel réel de dimension $n$ et $A \in \Hom(V, V)$ un opérateur linéaire. Alors $\det(A) \neq 0$
+		si et seulement si $A$ est inversible. \end{thm}
 
 		\begin{proof} En supposant $A$ inversible, supposons également, par l'absurde, $\det(A) = 0$. On a alors~:
 		\[1 = \det(\Id_{\Hom(V, V)}) = \det(A \circ A^{-1}) = \det(A)\det(A^{-1}) = 0,\] ce qui est une contradiction. L'hypothèse est donc fausse et $\det(A) \neq 0$.
 
-		Supposons maintenant $A$ non inversible et montrons que $\det(A) = 0$. Soit $E$ une base de $V$. Si $A$ n'est pas inversible, alors il existe $i$ tel que $A(e_i) = 0$
-		où $e_i \neq 0$ car c'est un vecteur de la base. Soit $f$, la seule forme multilinéaire alternée telle que $f(e_1, \ldots, e_n) = 1$. On a donc~:
+		Supposons maintenant $A$ non inversible et montrons que $\det(A) = 0$. Soit $E$ une base de $V$. Si $A$ n'est pas inversible, alors il existe $i$ tel que
+		$A(e_i) = 0$ où $e_i \neq 0$ car c'est un vecteur de la base. Soit $f$, la seule forme multilinéaire alternée telle que $f(e_1, \ldots, e_n) = 1$. On a donc~:
 		\[\det(A) = \det(A)f(e_1, \ldots, e_i, \ldots, e_n) = f(A(e_1), \ldots, A(e_i), \ldots, A(e_n)) = f(A(e_1), \ldots, 0, \ldots, A(e_n)) = 0,\]
 		par la proposition~\ref{f(0,)=0}. \end{proof}
 
-		\begin{rmq} Soient $A \in \Hom(\R^n, \R^n)$ et $a \coloneqq m_{E, E}(A) \in \M nn\R$ sa matrice associée dans la base canonique de $\R^n$. L'application $A$ envoie le cube unitaire de
-		dimension $n$ sur le parallélogramme de dimension $n$ dont les coordonnées des points $A(e_i)$ sont les colonnes de $a$. Le volume orienté de l'image de $P \subset \R^n$ par
-		$A$ est donné par~: \[\Vor(A(P)) = \det(A)\Vor(P).\]
+		\begin{rmq} Soient $A \in \Hom(\R^n, \R^n)$ et $a \coloneqq m_{E, E}(A) \in \M nn\R$ sa matrice associée dans la base canonique de $\R^n$. L'application $A$
+		envoie le cube unitaire de dimension $n$ sur le parallélogramme de dimension $n$ dont les coordonnées des points $A(e_i)$ sont les colonnes de $a$.
+		Le volume orienté de l'image de $P \subset \R^n$ par $A$ est donné par~: \[\Vor(A(P)) = \det(A)\Vor(P).\]
 
-		Dès lors, si $P$ est le cube unitaire de dimension $n$ et $Q$ est un parallélogramme de dimension $n$, alors en construisant la matrice $a \in \M nn\R$ en y mettant colonne
-		par colonne les coordonnées des points de $Q$, alors $\Vor(Q) = \det(a)$.
+		Dès lors, si $P$ est le cube unitaire de dimension $n$ et $Q$ est un parallélogramme de dimension $n$, alors en construisant la matrice $a \in \M nn\R$ en
+		y mettant colonne par colonne les coordonnées des points de $Q$, alors $\Vor(Q) = \det(a)$.
 
 		Si le déterminant est négatif, c'est que le parallélogramme a été \textit{retourné} et donc son volume orienté change de signe.
 		De là, on voit bien que $\det(A) = 0$ si $\rang(A) \coloneqq \dim_\R\Im(A) < n$ car $A(P)$ n'est plus un parallélogramme à $n$ dimensions, et donc son volume en
@@ -1925,20 +1926,21 @@ Pour tout 0 < i < l+1
 					&= \sum_{j=1}^na_{n\,j}A_n^j.
 		\end{aligned}\]
 
-		Afin de prouver le théorème pour tout $i$, il suffit de passer la proposition~\ref{ChangementDeSigneSwapDeParams} en échangeant les colonnes, ce qui change le signe (à cause
-		de l'échange de deux colonnes), mais qui change également les signes des cofacteurs. Afin de prouver également le théorème, on pose $\gamma \in \{1, \dotsc, n\}$, et on
-		part de la proposition~\ref{detTransposéeEstdetMatrice} qui dit que $\det(a) = \det(a^T)$ et on obtient~:
+		Afin de prouver le théorème pour tout $i$, il suffit de passer la proposition~\ref{ChangementDeSigneSwapDeParams} en échangeant les colonnes, ce qui change
+		le signe (à cause de l'échange de deux colonnes), mais qui change également les signes des cofacteurs. Afin de prouver également le théorème,
+		on pose $\gamma \in \{1, \dotsc, n\}$, et on part de la proposition~\ref{detTransposéeEstdetMatrice} qui dit que $\det(a) = \det(a^T)$ et on obtient~:
 		\[\det(a) = \det(A^T) = \sum_{j=1}^n(a^T)_{\gamma\,j}(A^T)_\gamma^j = \sum_{j=1}^na_{j\,\gamma}A_j^\gamma.\] \end{proof}
 
 		\begin{déf} Soit $a \coloneqq [a_{i\,j}] \in \M nn\R$ une matrice carrée. On définit sa matrice adjacente par~: \[\adj a = [A_j^i] \in \M nn\R.\] \end{déf}
 
-		\begin{prp} Soit $a = [a_{i\,j}] \in \M nn\R$. Le produit matriciel $a \adj(A)$ donne une matrice diagonale telle que $(a \adj(a))_{ii} = \det(a)$ pour tout $i$. \end{prp}
+		\begin{prp} Soit $a = [a_{i\,j}] \in \M nn\R$. Le produit matriciel $a \adj(A)$ donne une matrice diagonale telle que $(a \adj(a))_{ii} = \det(a)$ pour tout $i$.
+		\end{prp}
 
 		\begin{proof} En procédant au produit de $a$ et $\adj(a)$, on obtient~:
 		\[(a\adj(a))_{i\,j} \coloneqq \sum_{k=1}^na_{i\,k}(\adj(a))_{k\,j} = \sum_{k=1}^na_{i\,k}A_j^k = \det(a)\delta_{ij}.\]
 
-		Le facteur $\delta_{ij}$ impose que tout élément $(a\adj(a))_{i\,j}$ où $i \neq j$ soit nul. Il ne reste dès lors que la diagonale où chaque $(a\adj(a))_{i\,i}$ vaut
-		$\det(a)$. \end{proof}
+		Le facteur $\delta_{ij}$ impose que tout élément $(a\adj(a))_{i\,j}$ où $i \neq j$ soit nul. Il ne reste dès lors que la diagonale où chaque $(a\adj(a))_{i\,i}$
+		vaut $\det(a)$. \end{proof}
 
 		\begin{cor} Soit $a \in \M nn\R$ une matrice carrée inversible. Son inverse $a^{-1}$ vaut~:
 		\[a^{-1} = \frac 1{\det(a)}\adj(a)\] \end{cor}
@@ -2032,6 +2034,7 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soit $(\K, +, \cdot)$ un corps. Si l'opération $\cdot$ est commutative, alors on appelle $(\K, +, \cdot)$ un \textbf{corps commutatif}. \end{déf}
 
+	\subsection{Sous-espaces propres}
 		\begin{déf} Soient $\K$ un corps commutatif, $V$ un espace vectoriel sur $\K$, et $A \in \Hom(V, V)$ un opérateur linéaire.
 
 		\begin{itemize}
@@ -2057,7 +2060,8 @@ Pour tout 0 < i < l+1
 		Montrons donc chacune de ces trois propriétés~:
 		\begin{enumerate}
 			\item On sait que $A(0) = 0 = \lambda 0$ pour tout $\lambda \in \K$. Dès lors $0 \in V_\lambda$.
-			\item Soient $w_1, w_2 \in V_\lambda$. Alors $A(w_1 + w_2) = A(w_1) + A(w_2) = \lambda v_1 + \lambda v_2 = \lambda(v_1 + v_2)$. Dès lors $w_1+w_2 \in V_\lambda$.
+			\item Soient $w_1, w_2 \in V_\lambda$. Alors $A(w_1 + w_2) = A(w_1) + A(w_2) = \lambda v_1 + \lambda v_2 = \lambda(v_1 + v_2)$.
+			      Dès lors $w_1+w_2 \in V_\lambda$.
 			\item Soient $\mu \in \K, w \in V_\lambda$. Alors $A(\mu w) = \mu A(w) = \mu (\lambda v) = \lambda(\mu v)$. Dès lors $\mu w \in V_\lambda$.
 		\end{enumerate}
 
@@ -2065,7 +2069,8 @@ Pour tout 0 < i < l+1
 
 		\begin{lem} Soit $\K$ un corps commutatif et $V$ un espace vectoriel sur $\K$. Si $A \in \Hom(V, V)$, alors $\Ker(A) = V_0$. \end{lem}
 
-		\begin{proof} On sait que $\Ker(A) \coloneqq \{v \in V \tq A(v) = 0\}$. Également, $V_0 \coloneqq \{v \in V \tq A(v) = 0 \cdot v = 0\} \eqqcolon \Ker(A)$. \end{proof}
+		\begin{proof} On sait que $\Ker(A) \coloneqq \{v \in V \tq A(v) = 0\}$. Également, $V_0 \coloneqq \{v \in V \tq A(v) = 0 \cdot v = 0\} \eqqcolon \Ker(A)$.
+		\end{proof}
 
 		\begin{prp} Soient $a \coloneqq [a_{i\,j}] \in \M nn\K$ un matrice diagonale et $A \in \Hom(\K^n, \K^n)$ son opérateur linéaire associé.
 		Soit $E \coloneqq \{e_1, \dotsc, e_n\}$ la base canonique de $\K^n$. Alors~: \[V_\lambda = \eng {\{e_i \in E \tq a_{i\,i} = \lambda\}}.\] \end{prp}
@@ -2081,7 +2086,8 @@ Pour tout 0 < i < l+1
 		Que l'on peut transformer en~:
 		\[0 = \sum_{i=1}^na_{i\,i}v_ie_i - \lambda v_ie_i = \sum_{i=1}^n(\lambda - a_{i\,i})v_ie_i.\]
 
-		Or, $e_i$ est un vecteur de la base. On sait donc que $\forall 1 \leq i \leq n : e_i \neq 0$. Ce qui laisse donc soit $v_i = 0$, soit $a_{i\,i} = \lambda$. On a alors~:
+		Or, $e_i$ est un vecteur de la base. On sait donc que $\forall 1 \leq i \leq n : e_i \neq 0$. Ce qui laisse donc soit $v_i = 0$, soit $a_{i\,i} = \lambda$.
+		On a alors~:
 		\[\begin{aligned}
 			A(v) &= \sum_{i=1}^na_{i\,i}v_ie_i = \sum_{i \tq a_{i\,i} = \lambda}a_{i\,i}v_ie_i + \sum_{i \tq a_{i\,i} \neq \lambda}a_{i\,i}v_ie_i \\
 			     &= \sum_{i \tq a_{i\,i} = \lambda}a_{i\,i}v_ie_i + \sum_{i \tq a_{i\,i} \neq \lambda}a_{i\,i} \cdot 0 \cdot e_i \\
@@ -2103,6 +2109,95 @@ Pour tout 0 < i < l+1
 			     &= \sum_{i \tq a_{i\,i}=\lambda}\mu_i\sum_{j=1}^ne_ja_{j\,j}\left(e_i\right)_j\delta_{ij} = \sum_{i \tq a_{i\,i}=\lambda}\mu_ie_ia_{i\,i} \\
 				 &= \sum_{i \tq a_{i\,i}=\lambda}\mu_ie_i\lambda = \lambda\sum_{i \tq a_{i\,i}=\lambda}\mu_ie_i = \lambda v \in V_\lambda.
 		\end{aligned}\]
+		\end{proof}
+
+		\begin{lem}\label{combiliSousEspacesPropresLibre} Soient $V$ un espace vectoriel sur un corps commutatif $\K$, $A \in \Hom(V, V)$ un opérateur linéaire,
+		$\lambda_1, \dotsc, \lambda_n$ des valeurs propres de $A$ deux à deux distinctes et
+		$(v_1, \dotsc, v_n) \in V_{\lambda_1} \times V_{\lambda_2} \times \dotsb \times V_{\lambda_n}$ tels que $\forall 1 \leq i \leq n : v_i \neq 0$. Alors
+		$\{v_1, \dotsc, v_m\}$ est une partie libre. \end{lem}
+
+		\begin{proof} Montrons cela par récurrence sur $n$.
+
+		\underline{Cas de base~:} $n = 1$. Soit $W \coloneqq \{v_1\} \in V_{\lambda_1}$. $W$ est libre car $v_1 \neq 0$ donc la seule combinaison linéaire nulle
+		possible est la combinaison linéaire nulle triviale.
+
+		\underline{Pas de récurrence~:} supposons que $\{v_1, \dotsc, v_n\}$ est une partie libre et montrons que $\{v_1, \dotsc, v_{n+1}\}$ est une partie libre,
+		où $v_{n+1} \in V_{\lambda_{n+1}}$. Soient $\mu_1, \dotsc, \mu_{n+1} \in \K$ tels que~: \[\omega \coloneqq \sum_{i=1}^{n+1}\mu_iv_i = 0.\]
+		On sait~: \[0 = A(0) = A\left(\sum_{i=1}^{n+1}\mu_iv_i\right) = \sum_{i=1}^{n+1}\mu_i A(v_i) = \sum_{i=1}^{n+1}\mu_i\lambda_iv_i.\]
+		De plus, on peut ajouter $\omega$ sans changer la valeur car $\omega = 0$. Dès lors~:
+		\[0 = \sum_{i=1}^{n+1}\mu_i\lambda_iv_i - \lambda_{n+1}\omega = \sum_{i=1}^{n+1}\mu_iv_i(\lambda_i - \lambda_{n+1}).\]
+		Pour $1 \leq i \leq n, (\lambda_i - \lambda_{n+1}) \neq 0$. De plus, par hypothèse de récurrence, $\{v_1, \dotsc, v_n\}$ forme une partie libre. La seule
+		combinaison linéaire nulle est formée par $\mu_i = 0 \forall 1 \leq i \leq n$. On a donc~: \[0 = \sum_{i=1}^{n}\mu_iv_i + \mu_{n+1}v_{n+1} = \mu_{n+1}v_{n+1}.\]
+		Or, par hypothèse, on sait $v_{n+1} \neq 0$. On a donc $\mu_{n+1} = 0$. Dès lors, $\{v_1, \dotsc, v_{n+1}\}$ est une partie libre. \end{proof}
+
+		\begin{prp} Soit $V$ un espace vectoriel sur un corps commutatif $\K$. Soient $A \in \Hom(V, V)$ un opérateur linéaire et $\lambda_1, \dotsc, \lambda_n$
+		des valeurs propres de $A$ deux à deux distinctes. Pour $1 \leq i \leq n$, on définit $B_i \subseteq V_{\lambda_i}$ des parties libres. Alors, l'ensemble~:
+		\[W \coloneqq \bigcup_{i=1}^nB_i\] est également une partie libre. \end{prp}
+
+		\begin{proof} Montrons à nouveau cela par récurrence sur $n$.
+
+		\underline{Cas de base~:} $n = 1$. Soit $W \coloneqq B_1 \subseteq V_{\lambda_1}$. $W$ est une partie libre car $B_1$ est libre par hypothèse.
+
+		\underline{Pas de récurrence~:} supposons que $B_1 \cup \dotsb \cup B_n$ soit une partie libre et montrons que $B_1 \cup \dotsb B_{n+1}$ est également
+		une partie libre. Pour tout $1 \leq i \leq n+1$, on définit $B_i \coloneqq \{x_1^{(i)}, \dotsc, x_{n_i}^{(i)}\} \subseteq V_{\lambda_i}$.
+
+		Prenons $\omega$ défini par~: \[\omega \coloneqq \sum_{i=1}^{n+1}\sum_{j=1}^{n_i}\mu_j^{(i)}x_j^{(i)} = 0.\]
+		On veut ensuite montrer que $\forall 1 \leq i \leq n : \forall 1 \leq j \leq n_i : \mu_j^{(i)} = 0$. On définit également~:
+		\[\forall 1 \leq i \leq n : \quad v_i \coloneqq \sum_{j=1}^{n_i}\mu_j^{(i)}x_j^{(i)}.\]
+		On sait que $v_i \in V_{\lambda_i}$. Dès lors, on sait~: \[\sum_{i=1}^nv_i = 0.\]
+		Par le lemme~\ref{combiliSousEspacesPropresLibre}, on sait que~: \[0 = v_{n+1} = \sum_{j=1}^{n_{n+1}}\mu_j^{(n+1)}x_j^{(n+1)}.\]
+		Cependant, on sait que $B_{n+1}$ est une partie libre. Dès lors, la seule combinaison linéaire nulle est $\mu_j^{(n+1)} = 0$ pour tout $j$.
+		Il reste~: \[0 = \sum_{i=1}^nv_i.\] Par hypothèse de récurrence, on sait que $B_1 \cup \dotsb \cup B_n$ est une partie libre. Dès lors, la seule
+		combinaison linéaire nulle possible pour $0 = \sum_iv_i$ est $\mu_j^{(i)} = 0$ pour tout $1 \leq i \leq n$ et $1 \leq j \leq n_i$.
+
+		La seule combinaison linéaire possible au final pour~: \[0 = \sum_{i=1}^{n+1}\sum_{j=1}^{n_i}\mu_j^{(i)}x_j^{(i)}\] est la combinaison linéaire nulle
+		triviale. L'ensemble $W \coloneqq B_1 \cup \dotsb \cup B_{n+1}$ est donc bien une partie libre. \end{proof}
+	
+	\subsection{Équation caractéristique}
+		\begin{déf} Soit $A$ un opérateur linéaire sur $V$, un $\K$-espace vectoriel où $\K$ est un corps commutatif. Alors~:
+		\[\pi_A(\lambda) \coloneqq \det(A - \lambda\Id_{Hom(V, V)})\] est appelé le \textbf{polynôme caractéristique} de $A$. \end{déf}
+
+		\begin{lem}\label{valeurPropreiffVlambda} Soit $A$ un opérateur linéaire sur un espace vectoriel $V$ sur un corps commutatif $\K$. Alors $\lambda \in \K$
+		est une valeur propre de $A$ si et seulement si $V_\lambda \neq \{0\}$. \end{lem}
+
+		\begin{proof} Supposons que $V_\lambda = \{0\}$. Alors seul $0$ est tel que $A(0) = \lambda 0 = 0$. Dès lors, $\lambda$ n'est pas une valeur propre.
+
+		Supposons maintenant que $\lambda$ est une valeur propre de $A$. Alors, il existe $v \in V$ tel que $A(v) = \lambda v$. Donc $v \in V_\lambda$. On
+		a alors bien $V_\lambda \neq \{0\}$. \end{proof}
+
+		\begin{thm} Soit $V$ un espace vectoriel de dimension finie $n$ sur un corps commutatif $\K$ et soit $A \in \Hom(V, V)$. Alors~:
+
+		\begin{enumerate}
+			\item $\lambda \in \K$ est une valeur propre de $A$ si et seulement si $\det(A - \lambda\Id_{Hom(V, V)}) = 0$~;
+			\item $V_\lambda = \Ker(A - \lambda\Id_{Hom(V, V)})$~;
+			\item $\pi_A(\lambda)$ est un polynôme de degré $n$ en $\lambda$~;
+			\item l'opérateur $A$ a au plus $n$ valeurs propres distinctes qui sont les racines de l'équation caractéristique.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{proof} Soient $\K$ un corps commutatif, $V$ un espace vectoriel sur $\K$, et $A \in \Hom(V, V)$, un opérateur linéaire sur $V$.
+
+		\begin{enumerate}
+			\item Par définition, $\lambda \in \K$ est une valeur propre de $A$ si et seulement si il existe $v \neq 0 \in V \tq A(v) = \lambda v$, donc
+			      $A(v) - \lambda v = 0$, ou encore $(A - \lambda\Id_{Hom(V, V)})(v) = 0$.
+			\item Par le point 1, on peut réécrire $\Ker(A - \lambda\Id_{Hom(V, V)}) \neq \{0\} \iff \det(A - \lambda \Id_{\Hom(V, V)}) = 0$, ce qui a déjà été montré
+			      par le théorème~\ref{inversiblessidet=0}.
+			\item Montrons cela par récurrence sur $n$.
+
+			      \underline{Cas de base~:} $n = 1$. On sait que
+				  $\det\left(\begin{pmatrix}a_{1\,1}\end{pmatrix} - \lambda\begin{pmatrix}1\end{pmatrix}\right) = a_11 - \lambda$, qui est effectivement un polynôme
+				  de degré 1 en $\lambda$.
+
+				  \underline{Pas de récurrence~:} supposons que pour $V$ de dimension $n$, $\det(a - \lambda \Id_{\Hom(V, V)})$ est un polynôme de degré $n$
+				  en $\lambda$, et montrons que pour $V$ de dimension $n+1$, le déterminant est un polynôme de degré $n+1$.
+
+				  Soient $a \in \M {(n+1)}{(n+1)}\K$ et $\gamma \in \N$ tel que $1 \leq \gamma \leq (n+1)$. Alors, par le théorème de Laplace~:
+				  \[\det(a - \lambda \Id_{\M {(n+1)}{(n+1)}\K}) = \sum_{i=1}^{n+1}(a_{i\,\gamma} - \lambda\delta_{i\gamma})A_i^\gamma
+				    = \sum_{i=1}^{n+1}a_{i\,\gamma}A_i^\gamma - \lambda A_\gamma^\gamma.\]
+				  Or, $A_i^\gamma$ est, par hypothèse de récurrence, un polynôme de degré $n$. On a donc la somme de $n$ polynômes de degré $n$ et un polynôme
+				  de degré $n+1$. Le degré étant la plus grande puissance à laquelle est montée une inconnue, le degré final du déterminant est $n+1$.
+			\item La démonstration du point 4 dépasse l'objectif de ce cours. La démonstration est donc omise.
+		\end{enumerate}
 		\end{proof}
 
 \end{document}
