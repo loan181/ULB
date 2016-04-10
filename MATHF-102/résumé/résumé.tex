@@ -85,19 +85,20 @@
 
 		\begin{déf} Soit $f : X \to Y$ une fonction bijective. On définit la fonction inverse $f^{-1}$ de $f$ par $f^{-1} : Y \to X : y \mapsto x \tq f(x) = y$. \end{déf}
 		
-		\begin{déf} Soient $X, Y, Z$ trois ensembles. Soient $f : X \to Y, g : Y \to Z$ deux fonctions. On définit la composée $g \circ f : X \to Z : x \mapsto g(f(x))$.\end{déf}
+		\begin{déf} Soient $X, Y, Z$ trois ensembles. Soient $f : X \to Y, g : Y \to Z$ deux fonctions. On définit la composée $g \circ f : X \to Z : x \mapsto g(f(x))$.
+		\end{déf}
 
 		\begin{lem} La composée $f \circ f^{-1} = \Id_Y$ et la composée $f^{-1} \circ f = \Id_X$. \end{lem}
 
-		\begin{déf} Soient $X, Y$ deux ensembles. On définit le produit cartésien : \[X \times Y \coloneqq \{(x, y) \tq x \in X,\;y\in Y\}.\] \end{déf}
+		\begin{déf} Soient $X, Y$ deux ensembles. On définit le produit cartésien~: \[X \times Y \coloneqq \{(x, y) \tq x \in X,\;y\in Y\}.\] \end{déf}
 
-		\begin{déf} Soit $\{X_i\}_{i \in I}$ une collection d'ensembles. On définit : \[\prod_{i \in I} X_i \coloneqq \{(x_i)_{i \in I} \tq x_i \in X_i\}.\] \end{déf}
+		\begin{déf} Soit $\{X_i\}_{i \in I}$ une collection d'ensembles. On définit~: \[\prod_{i \in I} X_i \coloneqq \{(x_i)_{i \in I} \tq x_i \in X_i\}.\] \end{déf}
 
-		\begin{déf} Soit $f : X \to Y$ une fonction. On définit le graphe de $f$ par : \[\Gamma_f \coloneqq \{(x, f(x)) \tq x \in X\} \subseteq X \times Y.\] \end{déf}
+		\begin{déf} Soit $f : X \to Y$ une fonction. On définit le graphe de $f$ par~: \[\Gamma_f \coloneqq \{(x, f(x)) \tq x \in X\} \subseteq X \times Y.\] \end{déf}
 
 	\subsection{Trigonométrie}
-		\begin{déf} Les fonctions $\cos, \sin : \R \to \R$ représentent respectivement l'abscisse et l'ordonnée d'un point dont les coordonnées polaires sont $(1, \theta)$.
-		\end{déf}
+		\begin{déf} Les fonctions $\cos, \sin : \R \to \R$ représentent respectivement l'abscisse et l'ordonnée d'un point dont les coordonnées polaires sont
+		$(1, \theta)$. \end{déf}
 
 		\begin{lem} Soit $\theta \in \R$. Il existe un unique $k \in \Z$ tel que $\theta + 2k\pi \in [0, 2\pi[.$\end{lem}
 
@@ -105,7 +106,8 @@
 
 		\begin{proof} Par Pythagore. \end{proof}
 
-		\begin{lem} Les fonctions $\cos, \sin$ peuvent être réduites à un domaine afin d'être bijectives (si ce domaine est continu, il doit être de longueur $\pi$). \end{lem}
+		\begin{lem} Les fonctions $\cos, \sin$ peuvent être réduites à un domaine afin d'être bijectives (si ce domaine est continu, il doit être de longueur $\pi$).
+		\end{lem}
 
 		\begin{déf}~
 		\begin{itemize}
@@ -118,33 +120,34 @@
 	\subsection{Nombres complexes}
 		\begin{déf} On définit l'ensemble des complexes $\C \coloneqq \{a + ib \tq (a, b) \in \R^2\}$. Où $i$ est l'unité imaginaire telle que $i^2 = -1$. \end{déf}
 		
-		\begin{déf} Soit $z = a + ib \in \C$ un complexe. On définit $\Re z \coloneqq a$ et $\Im z \coloneqq b$ respectivement la partie réelle et la partie imaginaire de $z$.
-		\end{déf}
+		\begin{déf} Soit $z = a + ib \in \C$ un complexe. On définit $\Re z \coloneqq a$ et $\Im z \coloneqq b$ respectivement la partie réelle et la partie
+		imaginaire de $z$. \end{déf}
 
-		\begin{déf} Soit $z \in \C$ un complexe. $z$ peut s'écrire soit sous sa forme cartésienne $a + ib$ soit sous sa forme polaire $\rho \exp(i\theta)$. $\rho$ est le module
-		de $z$ et $\theta$ est son argument. Il existe une relation entre $(a, b)$ et $(\rho, \theta)$ : $(a, b) = (\rho\cos\theta, \rho\sin\theta)$. \end{déf}
+		\begin{déf} Soit $z \in \C$ un complexe. $z$ peut s'écrire soit sous sa forme cartésienne $a + ib$ soit sous sa forme polaire $\rho \exp(i\theta)$. $\rho$
+		est le module de $z$ et $\theta$ est son argument. Il existe une relation entre $(a, b)$ et $(\rho, \theta)$ : $(a, b) = (\rho\cos\theta, \rho\sin\theta)$.
+		\end{déf}
 
 		\begin{rmq} On peut visualiser l'ensemble des réels par $\R \equiv \{z \in \C \tq \Im z = 0\} \subseteq \C$. \end{rmq}
 
-		\begin{déf} On définit la somme et le produit de deux complexes $z = a+ib, w = c + id \in \C$ comme suit :
+		\begin{déf} On définit la somme et le produit de deux complexes $z = a+ib, w = c + id \in \C$ comme suit~:
 		\begin{align*}
 			w+z &\coloneqq (a+ib) + (c+id) = (a+c) + (b+d)i &\in \C \\
 			w z &\coloneqq (a+ib)(c+id) = (ac - bd) + (ad+bc)i &\in \C
 		\end{align*}
 		On définit également le module d'un complexe $z = a+ib = \rho\exp(i\theta) \in \C$ par $\abs z = \sqrt {a^2+b^2} = \rho \in \R^+$. \end{déf}
 
-		\begin{prp}[Propriétés des opérations complexes] Soient $v, w, z \in \C$. Alors :
+		\begin{prp}[Propriétés des opérations complexes] Soient $v, w, z \in \C$. Alors~:
 		\begin{enumerate}
-			\item $z+w = w+z$ ;
-			\item $z+(w+v)=(z+w)+v$ ;
-			\item $z+0 = z$ ;
-			\item $z + (-1)z = z - z = 0$ ;
-			\item $zw = wz$ ;
-			\item $z(wv) = (zw)v$ ;
-			\item $z(w+v) = zw + zv$ ;
-			\item $1z = z$ ;
-			\item $\abs{z} \geq 0$ avec $\abs z = 0 \iff z = 0$ ;
-			\item $\abs{zw}  = \abs z\abs w$ ;
+			\item $z+w = w+z$~;
+			\item $z+(w+v)=(z+w)+v$~;
+			\item $z+0 = z$~;
+			\item $z + (-1)z = z - z = 0$~;
+			\item $zw = wz$~;
+			\item $z(wv) = (zw)v$~;
+			\item $z(w+v) = zw + zv$~;
+			\item $1z = z$~;
+			\item $\abs{z} \geq 0$ avec $\abs z = 0 \iff z = 0$~;
+			\item $\abs{zw}  = \abs z\abs w$~;
 			\item $\abs{z+w} \leq \abs z + \abs w$.
 		\end{enumerate}
 		\end{prp}
@@ -153,24 +156,23 @@
 		et $\sqrt {a^2+b^2} = 0 \iff a^2+b^2 = 0$. Le point 10 se montre par les propriétés de la racine carrée. Le point 11 vient de l'inégalité de Cauchy-Schwartz.
 		\end{proof}
 
-		\begin{rmq} La somme et le produit peuvent également être exprimés en coordonnées polaires. De plus, le produit est plus instinctif en coordonnées polaires :
+		\begin{rmq} La somme et le produit peuvent également être exprimés en coordonnées polaires. De plus, le produit est plus instinctif en coordonnées polaires~:
 		$\forall z = \rho_z\exp(i\theta_z), w = \rho_w\exp(i\theta_w) \in \C : zw = \rho_z\rho_w\exp(i(\theta_z+\theta_w))$. \end{rmq}
 
 		\begin{déf} Soit $z = a + ib = \rho\exp(i\theta) \in \C$ un complexe. On définit son conjugué $\overline z = a - ib = \rho\exp(-i\theta) \in \C$. \end{déf}
 
 		\begin{prp}[Propriétés du conjugué] Soient $z, w, \overline z, \overline w \in \C$ deux complexes et leur conjugué.
 		\begin{enumerate}
-			\item $\overline {z+w} = \overline z + \overline w$ ;
-			\item $\overline {zw} = \overline z\cdot\overline w$ ;
-			\item $z\overline z = \abs z^2$
+			\item $\overline {z+w} = \overline z + \overline w$~;
+			\item $\overline {zw} = \overline z\cdot\overline w$~;
+			\item $z\overline z = \abs z^2$.
 		\end{enumerate}
 		\end{prp}
 
 		\begin{proof} Trivial par la définition. \end{proof}
 
-		\begin{déf} Par la propriété 3 ci-dessus, on définit pour tout $z \in \C \setminus \{0\}$ un inverse multiplicatif :
-			\[z^{-1} \coloneqq \frac {\overline z}{\abs z^2}.\]
-		\end{déf}
+		\begin{déf} Par la propriété 3 ci-dessus, on définit pour tout $z \in \C \setminus \{0\}$ un inverse multiplicatif~:
+		\[z^{-1} \coloneqq \frac {\overline z}{\abs z^2}.\] \end{déf}
 
 		\begin{déf}[L'identité d'Euler] On définit l'exponentielle complexe par $\exp(i\theta) \coloneqq \cos\theta + i\sin\theta$. \end{déf}
 
@@ -181,15 +183,15 @@
 
 		\begin{thm}\label{thmFondamental} Tout polynôme à coefficients complexes de degré $n$ a $n$ racines complexes. \end{thm}
 
-		\begin{prp} Soit $z = \rho \exp(i\theta) \in \C$. Le polynôme $x^n - z$ admet $n$ racines complexes distinctes données par :
+		\begin{prp} Soit $z = \rho \exp(i\theta) \in \C$. Le polynôme $x^n - z$ admet $n$ racines complexes distinctes données par~:
 		\[w_k = \sqrt[n]\rho\exp\left(i\frac {\theta+2k\pi}n\right).\]\end{prp}
 
-		\begin{proof} On sait par le théorème~\ref{thmFondamental} que le polynôme admet $n$ racines. Montrons que $w_k$ est une racine de $x^n-z$. En étendant la définition
-		du produit vu ci-dessus, on sait que : \[\prod_{j=1}^nz_j = \prod_{j=1}^n(\rho_j)\exp\left(i\sum_{j=1}^n\theta_j\right).\]
+		\begin{proof} On sait par le théorème~\ref{thmFondamental} que le polynôme admet $n$ racines. Montrons que $w_k$ est une racine de $x^n-z$. En étendant la
+		définition du produit vu ci-dessus, on sait que~: \[\prod_{j=1}^nz_j = \prod_{j=1}^n(\rho_j)\exp\left(i\sum_{j=1}^n\theta_j\right).\]
 
-		On peut étendre cette formule pour la puissance : \[z^n = \rho^n\exp(ni\theta).\]
+		On peut étendre cette formule pour la puissance~: \[z^n = \rho^n\exp(ni\theta).\]
 
-		Dès lors, en prenant une racine $w_k$, on a:
+		Dès lors, en prenant une racine $w_k$, on a~:
 		\[w_k^n = \left(\sqrt[n]\rho\exp\left(i\frac {\theta+2k\pi}n\right)\right)^n = \sqrt[n]\rho^n\exp\left(in\frac {\theta+2k\pi}n\right) = \rho\exp(i(\theta+2k\pi)).\]
 
 		On a donc effectivement $w_k^n-z = 0$. \end{proof}
@@ -197,8 +199,8 @@
 \newpage
 \section{Les polynômes}
 	\subsection{L'algorithme d'Euclide sur des entiers}
-		\begin{déf} Soient $(a, b) \in \Z \times \Z_0$. Il existe un unique $d \in \Z_0$ tel que $d$ est le plus grand nombre qui divise $a$ et $b$ simultanément. On note
-		ce nombre $GCD(a, b)$.\end{déf}
+		\begin{déf} Soient $(a, b) \in \Z \times \Z_0$. Il existe un unique $d \in \Z_0$ tel que $d$ est le plus grand nombre qui divise $a$ et $b$ simultanément.
+		On note ce nombre $GCD(a, b)$.\end{déf}
 
 		\begin{rmq} Pour tout couple $(a, b)$, notons que $0 \leq GCD(a, b) < \max\{\abs a, \abs b\}$. \end{rmq}
 
@@ -206,7 +208,7 @@
 		respectivement le reste et le quotient de la division euclidienne de $a$ par $b$. \end{déf}
 
 		\begin{alg}[Algorithme d'Euclide]\label{algEuclide} L'algorithme d'Euclide est un moyen très efficace pour déterminer le GCD entre deux nombres entiers. En posant
-		$r_{-1} \coloneqq a$ et $r_0 \coloneqq b$. Ensuite pour $i > 0$, on trouve les uniques $q_i, r_i$ tels que : \[r_{i-2} = q_ir_{i-1} + r_i,\] où
+		$r_{-1} \coloneqq a$ et $r_0 \coloneqq b$. Ensuite pour $i > 0$, on trouve les uniques $q_i, r_i$ tels que~: \[r_{i-2} = q_ir_{i-1} + r_i,\] où
 		$0 \leq r_i < \abs{r_{i-1}}$. On s'arrête lorsque $r_i = 0$. \end{alg}
 
 		\begin{thm} Soient $a, b$ deux entiers avec $b$ non-nul. Prenons $(r_i)_i, (q_i)_i$ donnés par l'algorithme d'Euclide. Soit $k \geq 0$ le plus petit entier tel que
@@ -214,8 +216,8 @@
 
 		\begin{proof} Montrons d'abord que tout diviseur de $a$ et de $b$ divise $r_k$ et ensuite montrons que $r_k$ divise $a$ et $b$.
 
-		On sait pour tout $i$ que $r_{i-2} = q_ir_{i-1} + r_i$. Donc si $d$ divise $r_{i-1}$ et $r_{i-2}$, il doit diviser $r_i$. Dès lors les diviseurs (en particulier le GCD)
-		de $a$ et $b$ doivent diviser $r_1$ et donc $r_2$, etc. jusque $r_k$.
+		On sait pour tout $i$ que $r_{i-2} = q_ir_{i-1} + r_i$. Donc si $d$ divise $r_{i-1}$ et $r_{i-2}$, il doit diviser $r_i$. Dès lors les diviseurs (en particulier
+		le GCD) de $a$ et $b$ doivent diviser $r_1$ et donc $r_2$, etc. jusque $r_k$.
 
 		Montrons que $r_k$ divise $a$ et $b$. On sait que $r_{k+1} = 0$. Donc $r_{k-1} = q_{k+1}r_k + r_{k+1} = q_{k+1}r_k$. Donc $r_k$ divise $r_{k-1}$. De plus,
 		$r_{k-2} = q_kr_{k-1} + r_k$. $r_k$ divise donc $r_{k-2}$, etc. jusque $r_{-1}$.
@@ -232,7 +234,7 @@
 		\begin{déf} On définit l'anneau des polynômes à coefficients réels par $\R[x]$. \end{déf}
 
 		\begin{déf} Soit $f \in \R[x]$. $\displaystyle f(x) = \sum_{i=1}^na_ix^i$ où $a_i \in \R$ pour tout $i$ et $a_n \neq 0$. $n$ est le degré du polynôme.
-		On note :\[\deg f(x) \coloneqq n.\] \end{déf}
+		On note~: \[\deg f(x) \coloneqq n.\] \end{déf}
 
 		\begin{rmq} Par convention, le degré du polynôme $x \mapsto 0$ est $-\infty$. \end{rmq}
 
@@ -240,23 +242,24 @@
 
 		\begin{déf} Soient $f, g \in \R[x]$. On définit $\GCD(f(x), g(x))$ par l'unique polynôme monique de degré maximal qui divise $f(x)$ et $g(x)$. \end{déf}
 
-		\begin{déf} Soit $f \in \R[x]$ un polynôme de degré $n$. Pour tout $0 \leq k \leq n$, on définit $[x^k]f(x)$ par le coefficient du monôme de degré $k$ de $f$. \end{déf}
+		\begin{déf} Soit $f \in \R[x]$ un polynôme de degré $n$. Pour tout $0 \leq k \leq n$, on définit $[x^k]f(x)$ par le coefficient du monôme de degré $k$ de $f$.
+		\end{déf}
 
 		\begin{thm} Soient $f, g \in \R[x]$ tels que $g(x) \neq 0$. Il existe deux uniques polynômes $q, r \in \R[x]$ tels que $f(x) = q(x)g(x) + r(x)$ satisfaisant
 		$\deg r(x) < \deg g(x)$. $q$ est appelé le quotient et $r$ le reste de la division de $f$ par $g$. \end{thm}
 
 		\begin{alg}[Algorithme d'Euclide sur des polynômes] Soient $f, g \in \R[x]$ tels que $g(x) \neq 0$. Comme pour l'algorithme sur des entiers, posons
-		$r_{-1}(x) \coloneqq f(x)$ et $r_0(x) = g(x)$. Dès lors, pour tout $i > 0$, il existe des uniques $q_i, r_i$ tels que :\[r_{i-2}(x) = q_i(x)r_{i-1}(x) + r_i(x)\] où
-		$\deg r_i(x) < \deg r_{i-1}(x)$. On s'arrête lorsque $r_i(x) = 0$. \end{alg}
+		$r_{-1}(x) \coloneqq f(x)$ et $r_0(x) = g(x)$. Dès lors, pour tout $i > 0$, il existe des uniques $q_i, r_i$ tels que~:\[r_{i-2}(x) = q_i(x)r_{i-1}(x) + r_i(x)\]
+		où $\deg r_i(x) < \deg r_{i-1}(x)$. On s'arrête lorsque $r_i(x) = 0$. \end{alg}
 	
-		\begin{thm} Soient $f, g \in \R[x]$. Prenons $(r_i)_i, (q_i)_i \subset \R[x]$ donnés par l'algorithme de division de $f$ par $g$. Soit le plus petit $k \in \N$ tel
-		que $r_{k+1}(x) = 0$. $r_k(x)$ est le GCD non-normalisé de $f(x)$ et $g(x)$. Et on définit : \[\GCD(f(x), g(x)) \coloneqq \frac {r_k(x)}{[x^{\deg r_k(x)}]r_k(x)}.\]
-		\end{thm}
+		\begin{thm} Soient $f, g \in \R[x]$. Prenons $(r_i)_i, (q_i)_i \subset \R[x]$ donnés par l'algorithme de division de $f$ par $g$. Soit le plus petit $k \in \N$
+		tel que $r_{k+1}(x) = 0$. $r_k(x)$ est le GCD non-normalisé de $f(x)$ et $g(x)$. Et on définit~:
+		\[\GCD(f(x), g(x)) \coloneqq \frac {r_k(x)}{[x^{\deg r_k(x)}]r_k(x)}.\] \end{thm}
 
 		\begin{proof} Comme pour l'algorithme sur les nombres entiers, si un polynôme divise $f(x)$ et $g(x)$, alors il doit diviser $r_i(x)$ pour tout $i$. De plus,
-		comme par hypothèse $r_{k+1}(x) = 0$, $r_{k-1}(x) = q_{k+1}(x)r_k(x)$. Donc $r_k(x)$ divise $r_{k-1}(x)$. Et donc $r_k(x)$ divise également $r_{k-2}(x)$, etc. jusque
-		$f(x)$ et $g(x)$. On a donc bien que tout diviseur simultané de $f$ et $g$ divise $r_k$ et $r_k$ divise à la fois $f$ et $g$. Dès plus, en divisant $r_k$ par le
-		coefficient de son monôme dominant, on en fait un polynôme monique. \end{proof}
+		comme par hypothèse $r_{k+1}(x) = 0$, $r_{k-1}(x) = q_{k+1}(x)r_k(x)$. Donc $r_k(x)$ divise $r_{k-1}(x)$. Et donc $r_k(x)$ divise également $r_{k-2}(x)$, etc.
+		jusque $f(x)$ et $g(x)$. On a donc bien que tout diviseur simultané de $f$ et $g$ divise $r_k$ et $r_k$ divise à la fois $f$ et $g$. Dès plus, en divisant
+		$r_k$ par le coefficient de son monôme dominant, on en fait un polynôme monique. \end{proof}
 
 		\begin{cor} Soient $f, g \in \R[x]$. Il existe deux uniques polynômes $y(x), z(x)$ tels que $y(x)f(x)+z(x)g(x) = \GCD(f(x), g(x))$. \end{cor}
 
@@ -265,11 +268,11 @@
 	\subsection{Racines}
 		\begin{déf} Soit $P \in \C[x]$ un polynôme complexe. Une racine de $P$ est un complexe $z \in \C$ est une complexe tel que $P(z) = 0$. \end{déf}
 
-		\begin{rmq} Le théorème fondamental (théorème~\ref{thmFondamental}) dit qu'un polynôme complexe $f(x) \in \C[x]$ a exactement $\deg f(x)$ racines complexes en comptant
-		la multiplicité. On peut donc réécrire le polynôme $f$ comme : \[f(x) = c\prod_{i=1}^{\deg f(x)}(x-z_i)\] où $\{z_i \tq 1 \leq i \leq \deg(f(x))\}$ est l'ensemble des
-		racines (pas obligatoirement distinctes) de $f$.\end{rmq}
+		\begin{rmq} Le théorème fondamental (théorème~\ref{thmFondamental}) dit qu'un polynôme complexe $f(x) \in \C[x]$ a exactement $\deg f(x)$ racines complexes en
+		comptant la multiplicité. On peut donc réécrire le polynôme $f$ comme~: \[f(x) = c\prod_{i=1}^{\deg f(x)}(x-z_i)\] où $\{z_i \tq 1 \leq i \leq \deg(f(x))\}$ est
+		l'ensemble des racines (pas obligatoirement distinctes) de $f$.\end{rmq}
 
-		\begin{déf} Soit $f \in \C[x]$ un polynôme complexe définie par : \[f(x) = \sum_{i=1}^na_ix^i.\] On définit son polynôme conjugué par :
+		\begin{déf} Soit $f \in \C[x]$ un polynôme complexe définie par~: \[f(x) = \sum_{i=1}^na_ix^i.\] On définit son polynôme conjugué par~:
 		\[\overline f(x) = \sum_{i=1}^n\overline {a_i}x^i.\] \end{déf}
 
 		\begin{rmq} Si $f \in \R[x] \subset \C[x]$, alors son conjugué $\overline f(x) = f(x)$ car $\forall x \in \R : \overline x = x$. \end{rmq}
@@ -279,91 +282,91 @@
 		\begin{proof} \[\overline f(\overline z) = \sum_{i=1}^n\overline {a_i}\cdot\overline z = \sum_{i=1}^n\overline {a_iz} = \overline {\sum_{i=1}^na_iz} =
 		\overline {f(z)}.\] \end{proof}
 
-		\begin{prp} Soit $f \in \R[x]$ un polynôme à coefficients réels. Le théorème fondamental (théorème ~\ref{thmFondamental}) dit que $f$ a exactement $\deg(f(x))$ racines
-		complexes. Soit $z$ une telle racine. Alors le conjugué de $z$ est également une racine de $f$. \end{prp}
+		\begin{prp} Soit $f \in \R[x]$ un polynôme à coefficients réels. Le théorème fondamental (théorème~\ref{thmFondamental}) dit que $f$ a exactement $\deg(f(x))$
+		racines complexes. Soit $z$ une telle racine. Alors le conjugué de $z$ est également une racine de $f$. \end{prp}
 		
 		\begin{proof} Soient $f \in \R[x]$ et $z$ une racine de $f$. Alors $0 = f(z) = \overline {f(z)} = \overline f(\overline z) = f(\overline z)$. \end{proof}
 
-		\begin{prp} Soit $f \in \R[x]$ un polynôme complexe. Soit $z_0 \in \C$ une racine complexe de $f$ telle que $\Im z \neq 0$. Alors le polynôme suivant :
+		\begin{prp} Soit $f \in \R[x]$ un polynôme complexe. Soit $z_0 \in \C$ une racine complexe de $f$ telle que $\Im z \neq 0$. Alors le polynôme suivant~:
 		\[(x-z_0)(z-\overline {z_0})\] est un diviseur de $f(x)$. \end{prp}
 
-		\begin{proof} Par hypothèse, une telle racine $z_0$ existe. Dès lors le polynôme $(x-z_0)(x-\overline {z_0})$ est un polynôme réel. En effet :
-		$(x-z_0)(x-\overline {z_0}) = x^2 -z_0x - \overline {z_0}x + z_0\overline z_0 = x^2 - 2\Re z_0 - \abs{z_0}^2 \in \R$. Dès lors, on peut trouver les polynômes quotient
-		et reste tels que : \[f(x) = q(x)(x-z_0)(x-\overline {z_0}) + r(x).\]
+		\begin{proof} Par hypothèse, une telle racine $z_0$ existe. Dès lors le polynôme $(x-z_0)(x-\overline {z_0})$ est un polynôme réel. En effet~:
+		$(x-z_0)(x-\overline {z_0}) = x^2 -z_0x - \overline {z_0}x + z_0\overline z_0 = x^2 - 2\Re z_0 - \abs{z_0}^2 \in \R$. Dès lors, on peut trouver les polynômes
+		quotient et reste tels que~: \[f(x) = q(x)(x-z_0)(x-\overline {z_0}) + r(x).\]
 		
-		Ensuite, montrons que $\deg r(x) = 0$. En effet, $0 \leq \deg r(x) < 2$ car 2 est le degré du polynôme diviseur. Supposons par l'absurde que $\deg r(x) = 1$. Alors
-		$r(x) = ax+b$ pour $a, b \in \R$. L'évaluation en $z_0$ donne donc $0 = f(z_0) = r(z_0) = az_0+b$. Donc $\Im r(x) = \Im(az_0+b) = a\Im z_0 \neq 0$. Il y a donc
-		contradiction.
+		Ensuite, montrons que $\deg r(x) = 0$. En effet, $0 \leq \deg r(x) < 2$ car 2 est le degré du polynôme diviseur. Supposons par l'absurde que $\deg r(x) = 1$.
+		Alors $r(x) = ax+b$ pour $a, b \in \R$. L'évaluation en $z_0$ donne donc $0 = f(z_0) = r(z_0) = az_0+b$. Donc $\Im r(x) = \Im(az_0+b) = a\Im z_0 \neq 0$. Il y
+		a donc contradiction.
 		
 		Le reste étant constant (de degré nul), le polynôme $(x-z_0)(x-\overline{z_0})$ doit diviser $f(x)$. \end{proof}
 
-		\begin{cor} Tout polynôme $f(x) \in \R[x]$ se factorise en un produit de polynômes de degré 2 à racines purement complexes conjuguées et de polynômes de degré 1 à
-		racines réelles. \end{cor}
+		\begin{cor} Tout polynôme $f(x) \in \R[x]$ se factorise en un produit de polynômes de degré 2 à racines purement complexes conjuguées et de polynômes de
+		degré 1 à racines réelles. \end{cor}
 
 		\begin{rmq} Si $f(x) \in \R[x]$ est de degré impair, alors il doit avoir une racine réelle. \end{rmq}
 
 	\subsection{Fonctions symétriques}
-		\begin{déf} Soit $f \in \C[x]$ un polynôme monique de degré $n$. Soient $z_1, \ldots, z_n$ ses $n$ racines, multiplicité comptée. On définit, pour tout
-		$1 \leq k \leq n$, les fonctions symétriques élémentaires de $f$ par :\[e_k(z_1, \ldots, z_n) \coloneqq \sum_{1 \leq i_1 < \ldots < i_k \leq n}\prod_{j=1}^kz_{i_j}.\]
-		De plus, on définit $e_0(z_1, \ldots, z_n) \coloneqq 1$. \end{déf}
+		\begin{déf} Soit $f \in \C[x]$ un polynôme monique de degré $n$. Soient $z_1, \dotsc, z_n$ ses $n$ racines, multiplicité comptée. On définit, pour tout
+		$1 \leq k \leq n$, les fonctions symétriques élémentaires de $f$ par~:
+		\[e_k(z_1, \dotsc, z_n) \coloneqq \sum_{1 \leq i_1 < \ldots < i_k \leq n}\prod_{j=1}^kz_{i_j}.\]
+		De plus, on définit $e_0(z_1, \dotsc, z_n) \coloneqq 1$. \end{déf}
 
 		\begin{lem} Soit un polynôme complexe monique $f \in \C[x]$ de degré $n$ et ses fonctions symétriques élémentaires $e_k : \C^n \to \C$. Alors pour tout
-		$1 \leq k \leq n$, on a: \[e_k(z_1, \ldots, z_n) = e_k(z_1, \ldots, z_{n-1}) + z_ne_{k-1}(z_1, \ldots, z_{n-1}).\]\end{lem}
+		$1 \leq k \leq n$, on a: \[e_k(z_1, \dotsc, z_n) = e_k(z_1, \dotsc, z_{n-1}) + z_ne_{k-1}(z_1, \dotsc, z_{n-1}).\]\end{lem}
 
-		\begin{proof} Cette formule donne deux termes :
+		\begin{proof} Cette formule donne deux termes~:
 		\[\sum_{1 \leq i_1 < \ldots < i_k \leq n-1}\prod_{j=1}^kz_{i_j} + z_n\sum_{1 \leq i_1 < \ldots < i_{k-1} \leq n-1}\prod_{j=1}^{k-1}z_{i_j}.\]
-		En posant $i_k = n$ dans le terme de droite, on obtient :
-		\[e_k(z_1, \ldots, z_n) = \sum_{1 \leq i_1 < \ldots < i_k \leq n-1}\prod_{j=1}^kz_{i_j} + \sum_{1 \leq i_1 < \ldots < i_{k-1} \leq n-1}\prod_{j=1}^kz_{i_j}.\]
+		En posant $i_k = n$ dans le terme de droite, on obtient~:
+		\[e_k(z_1, \dotsc, z_n) = \sum_{1 \leq i_1 < \ldots < i_k \leq n-1}\prod_{j=1}^kz_{i_j} + \sum_{1 \leq i_1 < \ldots < i_{k-1} \leq n-1}\prod_{j=1}^kz_{i_j}.\]
 		On a, dans le terme de gauche les $\binom {n-1}k$ termes ne contenant pas $z_n$ et dans le terme de droite les $\binom {n-1}{k-1}$ termes contenant $z_n$.
 		On a donc bien les $\binom nk$ termes de $e_k$. \end{proof}
 
-		\begin{prp} Soit un polynôme monique $f \in \C[x]$ de degré $n$, soient $(z_i)_{1 \leq i \leq n}$ ses racines et soient $e_k : \C^n \to \C$ ses fonctions symétriques
-		élémentaires. Alors, si $f$ est défini par :\[f(x) = \sum_{i=1}^na_ix^i,\] avec $a_i \in \C$ et $a_n \neq 0$, alors, pour tout $0 \leq i \leq n$ :
-		\[e_{n-i}(z_1, \ldots, z_n) = (-1)^{n-i}a_i.\] \end{prp}
+		\begin{prp} Soit un polynôme monique $f \in \C[x]$ de degré $n$, soient $(z_i)_{1 \leq i \leq n}$ ses racines et soient $e_k : \C^n \to \C$ ses fonctions
+		symétriques élémentaires. Alors, si $f$ est défini par~: \[f(x) = \sum_{i=1}^na_ix^i,\] avec $a_i \in \C$ et $a_n \neq 0$, alors, pour tout $0 \leq i \leq n$~:
+		\[e_{n-i}(z_1, \dotsc, z_n) = (-1)^{n-i}a_i.\] \end{prp}
 
-		\begin{proof} Prouvons le par récurrence sur $n$. Montrons d'abord pour $n=1$ :\[f(x) = x-z_1 = a_1x + a_0.\] De plus :
+		\begin{proof} Prouvons le par récurrence sur $n$. Montrons d'abord pour $n=1$ :\[f(x) = x-z_1 = a_1x + a_0.\] De plus~:
 		\begin{align*}
 			&(-1)^{1-0}a_0 = e_{1-0}(z_1) \iff a_0 = -e_1(z_1) = z_1. \\
 			&(-1)^{1-1}a_1 = e_{1-1}(z_1) \iff a_1 = 1.
 		\end{align*}
-		Le cas initial est donc bon. Montrons maintenant le pas de récurrence. Supposons cela vrai pour $n-1$ et montrons-le pour $n$ :
+		Le cas initial est donc bon. Montrons maintenant le pas de récurrence. Supposons cela vrai pour $n-1$ et montrons-le pour $n$~:
 		\begin{align*}
 			f(x) &= \prod_{i=1}^n(x-z_i) = x\prod_{i=1}^{n-1}(x-z_i) - z_n\prod_{i=1}^{n-1}(x-z_i) = x\sum_{i=0}^{n-1}b_ix^i - z_n\sum_{i=0}^{n-1}b_ix^i \\
-			     &\stackrel{hyp. rec.}= x\sum_{i=0}^{n-1}(-1)^{n-1-i}e_{n-1-i}(z_1, \ldots, z_{n-1})x^i - z_n\sum_{i=0}^{n-1}(-1)^{n-1-i}e_{n-i-1}(z_1, \ldots, z_{n-1})x^i \\
-					 &= \sum_{i=1}^n(-1)^{n-i}e_{n-i}(z_1, \ldots, z_{n-1})x^i + z_n\sum_{i=0}^{n-1}(-1)^{n-i}e_{n-i-1}(z_1, \ldots, z_{n-1})x^i \\
-					 &= (-1)^ne_{n-1}(z_1, \ldots, z_{n-1})z_n + \sum_{i=1}^{n-1}(-1)^{n-i}(e_{n-i}(z_1, \ldots, z_{n-1}) + z_ne_{n-i-1}(z_1, \ldots, z_{n-1}))x^i + x^n \\
-					 &= \sum_{i=0}^n(-1)^{n-i}e_{n-i}(z_1, \ldots, z_n)x^i.
+			     &\stackrel{hyp. rec.}= x\sum_{i=0}^{n-1}(-1)^{n-1-i}e_{n-1-i}(z_1, \dotsc, z_{n-1})x^i - z_n\sum_{i=0}^{n-1}(-1)^{n-1-i}e_{n-i-1}(z_1, \dotsc, z_{n-1})x^i \\
+			     &= \sum_{i=1}^n(-1)^{n-i}e_{n-i}(z_1, \dotsc, z_{n-1})x^i + z_n\sum_{i=0}^{n-1}(-1)^{n-i}e_{n-i-1}(z_1, \dotsc, z_{n-1})x^i \\
+			     &= (-1)^ne_{n-1}(z_1, \dotsc, z_{n-1})z_n + \sum_{i=1}^{n-1}(-1)^{n-i}(e_{n-i}(z_1, \dotsc, z_{n-1}) + z_ne_{n-i-1}(z_1, \dotsc, z_{n-1}))x^i + x^n \\
+			     &= \sum_{i=0}^n(-1)^{n-i}e_{n-i}(z_1, \dotsc, z_n)x^i.
 		\end{align*}
 
-		On a donc bien prouvé l'égalité pour chaque coefficient, donc pour tout $i$ et en faisant la preuve par récurrence sur $n$.
-		\end{proof}
+		On a donc bien prouvé l'égalité pour chaque coefficient, donc pour tout $i$ et en faisant la preuve par récurrence sur $n$. \end{proof}
 
 \newpage
-\section{Géométrie analytique dans $\R^3$ : rappels}
+\section{Géométrie analytique dans $\R^3$~: rappels}
 	\subsection{Vecteurs}
 		\begin{déf} Soit $\R^3$, l'espace à trois dimensions. Pour tout $v \in \R^3$, on définit (naïvement) le vecteur $v$ comme une flèche partant de l'origine
 		$\mathcal O = (0, 0, 0)$ au point $v$. On définit donc les coordonnées de $v$ comme étant $v_1, v_2, v_3 \in \R$ tels que $v = (v_1, v_2, v_3)$. \end{déf}
 
-		\begin{déf} Soient $v, w \in \R^3$, deux vecteurs et $\lambda \in \R$ un scalaire . On définit la somme interne et le produit externe par :
+		\begin{déf} Soient $v, w \in \R^3$, deux vecteurs et $\lambda \in \R$ un scalaire . On définit la somme interne et le produit externe par~:
 		\begin{align*}
 			v+w &\coloneqq (v_1+w_1, v_2+w_2, v_3+w_3), \\
 			\lambda v &\coloneqq (\lambda v_1, \lambda v_2, \lambda v_3).
 		\end{align*}
 		\end{déf}
 
-		\begin{rmq} Pour tout $\lambda \in \R$ scalaire, le vecteur $\lambda v$ se trouve sur la droite engendrée par le vecteur $v$ (droite passant par $\mathcal O$ et $v$).
-		On parle alors de droite vectorielle $v\R$. \end{rmq}
+		\begin{rmq} Pour tout $\lambda \in \R$ scalaire, le vecteur $\lambda v$ se trouve sur la droite engendrée par le vecteur $v$ (droite passant par $\mathcal O$
+		et $v$). On parle alors de droite vectorielle $v\R$. \end{rmq}
 
-		\begin{prp} Ces définitions d'opérations ont les propriétés suivantes. Pour tout $u, v, w \in \R^3, \lambda, \mu \in \R$ :
+		\begin{prp} Ces définitions d'opérations ont les propriétés suivantes. Pour tout $u, v, w \in \R^3, \lambda, \mu \in \R$~:
 		\begin{enumerate}
-			\item $v+w = w+v$ ;
-			\item $(u+v)+w = u+(v+w)$ ;
-			\item $\lambda(\mu v) = (\lambda\mu)v$ ;
-			\item $0v = 0$ ;
-			\item $0 + v = v$ ;
-			\item $1v = v$ ;
-			\item $v - v \coloneqq v + (-v) = v + (-1)v = 0 = (0, 0, 0)$ ;
-			\item $\lambda (v+w) = \lambda v + \lambda w$ ;
+			\item $v+w = w+v$~;
+			\item $(u+v)+w = u+(v+w)$~;
+			\item $\lambda(\mu v) = (\lambda\mu)v$~;
+			\item $0v = 0$~;
+			\item $0 + v = v$~;
+			\item $1v = v$~;
+			\item $v - v \coloneqq v + (-v) = v + (-1)v = 0 = (0, 0, 0)$~;
+			\item $\lambda (v+w) = \lambda v + \lambda w$~;
 			\item $(\lambda + \mu) v = \lambda v + \mu v$.
 		\end{enumerate}
 		\end{prp}
@@ -371,18 +374,18 @@
 		\begin{proof} Trivial par ces mêmes opérations sur $\R$. \end{proof}
 
 	\subsection{Droites et plans}
-		\begin{déf} Soit $v \in \R^3$ un vecteur. Alors $v\R$ est la droite engendrée par le vecteur $v$. Son équation vectorielle est $D : \lambda v$. Soit $w \in \R^3$
-		un autre vecteur. L'équation vectorielle de la droite parallèle à $D$ et passant par $w$ est $D_2 : w + \lambda v$. $v$ est appelé le vecteur directeur de ces droites.
-		\end{déf}
+		\begin{déf} Soit $v \in \R^3$ un vecteur. Alors $v\R$ est la droite engendrée par le vecteur $v$. Son équation vectorielle est $D : \lambda v$.
+		Soit $w \in \R^3$ un autre vecteur. L'équation vectorielle de la droite parallèle à $D$ et passant par $w$ est $D_2 : w + \lambda v$. $v$ est appelé le
+		vecteur directeur de ces droites. \end{déf}
 
-		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs non colinéaires. L'équation vectorielle du plan regroupant tous les points de la droite $D : \lambda v$ et ses
-		translations par les vecteurs $\mu w$ est $\pi : \lambda v + \mu w$. Ce plan passe par l'origine car il contient tous les points de $\lambda v$. Soit $u$ un troisième
-		vecteur. L'équation vectorielle du plan parallèle à $\Pi$ et passant par $u$ est $\Pi_u : u + \lambda v + \mu w$. \end{déf}
+		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs non colinéaires. L'équation vectorielle du plan regroupant tous les points de la droite $D : \lambda v$
+		et ses translations par les vecteurs $\mu w$ est $\pi : \lambda v + \mu w$. Ce plan passe par l'origine car il contient tous les points de $\lambda v$.
+		Soit $u$ un troisième vecteur. L'équation vectorielle du plan parallèle à $\Pi$ et passant par $u$ est $\Pi_u : u + \lambda v + \mu w$. \end{déf}
 
 		\begin{déf} Les deux définitions précédentes concernent les équations dites vectorielles. Une droite ou un plan peuvent également être exprimés en coordonnées
 		paramétriques ou cartésiennes. Soit $P = (x, y, z) \in \R^3$. Soient $D : \lambda v + w$, $\Pi : \lambda v + \mu w + u$.
 		\begin{enumerate}
-			\item \[P \in D \iff \exists \lambda \in \R \tq \left\{\begin{aligned}x &= \lambda v_1 + w_1 \\y &= \lambda v_2 + w_2 \\z &= \lambda v_3 + w_3\end{aligned}\right. ;\]
+			\item \[P \in D \iff \exists \lambda \in \R \tq \left\{\begin{aligned}x &= \lambda v_1 + w_1 \\y &= \lambda v_2 + w_2 \\z &= \lambda v_3 + w_3\end{aligned}\right.~;\]
 			\item \[P \in \Pi \iff \exists (\lambda, \mu) \in \R^2 \tq
 			\left\{\begin{aligned}
 				x &= \lambda v_1 + \mu v_2 + u_1 \\y &= \lambda v_2 + \mu v_2 + u_2 \\z &= \lambda v_3 + \mu w_3 + u_3
@@ -390,27 +393,25 @@
 		\end{enumerate}
 
 		Ces équations sont les équation paramétriques. Pour trouver les équations cartésiennes, il faut résoudre le système (en $\lambda, \mu$ pour le plan et en $\lambda$
-		pour la droite). On a donc :
-		\[\Pi : ax + by + cz = d.\]
-		Et pour la droite $D$, on a:
+		pour la droite). On a donc~: \[\Pi : ax + by + cz = d.\] Et pour la droite $D$, on a:
 		\[D : \left\{\begin{aligned}a_1x + b_1y + c_1z &= d_1 \\a_2x + b_2y + c_2z &= d_2\end{aligned}\right..\] \end{déf}
 
-		\begin{rmq} L'équation cartésienne d'une droite est un couple de coordonnées cartésiennes de plan. Cela peut se comprendre comme suit : l'ensemble des points de
+		\begin{rmq} L'équation cartésienne d'une droite est un couple de coordonnées cartésiennes de plan. Cela peut se comprendre comme suit~: l'ensemble des points de
 		la droite sont les points satisfaisant simultanément la première équation et la seconde, ou encore tous les points étant dans l'intersection entre les deux plans.
 		En coordonnées cartésiennes, une droite est définie par deux plans et un point par trois plans (non-parallèles). \end{rmq}
 	
 	\subsection{Produit scalaire et orthogonalité}
 		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs. On définit le produit scalaire entre $v$ et $w$ par \[\scpr vw \coloneqq \sum_{i=1}^3v_iw_i.\] \end{déf}
 
-		\begin{prp} Soient $v, w \in \R^3$. Le produit scalaire $\scpr vw$ satisfait les propriétés suivantes pour tout $\lambda \in \R, u, v ,w \in \R^3$ :
+		\begin{prp} Soient $v, w \in \R^3$. Le produit scalaire $\scpr vw$ satisfait les propriétés suivantes pour tout $\lambda \in \R, u, v ,w \in \R^3$~:
 		\begin{enumerate}
-			\item $\scpr vw = \scpr wv$ ;
-			\item $\scpr {\lambda v+u}w = \lambda \scpr vw + \scpr uw$ ;
+			\item $\scpr vw = \scpr wv$~;
+			\item $\scpr {\lambda v+u}w = \lambda \scpr vw + \scpr uw$~;
 			\item $\scpr vv \geq 0$ avec égalité $\iff v = 0$.
 		\end{enumerate}
 		\end{prp}
 
-		\begin{proof} Le point 1 est trivial, le second se démontre par :
+		\begin{proof} Le point 1 est trivial, le second se démontre par~:
 		\[\scpr {\lambda v+u}w \equiv \sum_{i=1}^3(\lambda v_i + u_i)w_i = \lambda \sum_{i=1}^3v_iw_i + \sum_{i=1}^3u_iw_i = \lambda \scpr vw + \scpr uw,\]
 		et le dernier point découle du fait que $\scpr vv$ est une somme de carrés ne pouvant donc être nulle que quand tous les termes sont nuls. \end{proof}
 
@@ -440,29 +441,30 @@
 
 		\begin{déf} Soient $D$ une droite de vecteur directeur $v$ et $\pi$ un plan de vecteur normal $a$.
 		\begin{enumerate}
-			\item Si $\scpr av = 0$, alors le vecteur normal du plan et le vecteur directeur de la droite et le vecteur normal du plan sont orthogonaux, donc la droite et le
-			      plan sont parallèles.
-			\item Si $\exists k \in \R \tq a = kv$, alors le vecteur directeurs de la droite et le vecteur normal du plan sont colinéaires, donc la droite est orthogonale au plan.
+			\item Si $\scpr av = 0$, alors le vecteur normal du plan et le vecteur directeur de la droite et le vecteur normal du plan sont orthogonaux, donc la droite
+			      et le plan sont parallèles.
+			\item Si $\exists k \in \R \tq a = kv$, alors le vecteur directeurs de la droite et le vecteur normal du plan sont colinéaires, donc la droite est orthogonale
+			      au plan.
 		\end{enumerate}
 		\end{déf}
 
 	\subsection{Distances dans $\R^3$}
-		\begin{déf} Soit $v \in \R^3$ un vecteur. On définit sa norme (sa longueur) par : \[\norm v \coloneqq \sqrt {\scpr vv}.\] \end{déf}
+		\begin{déf} Soit $v \in \R^3$ un vecteur. On définit sa norme (sa longueur) par~: \[\norm v \coloneqq \sqrt {\scpr vv}.\] \end{déf}
 
-		\begin{rmq} Comme $\norm v$ représente la longueur de $v$, c'est également la distance entre $v$ et l'origine $\mathcal O$. Donc la distance entre deux points $p$ et
-		$q$est donnée par $\norm {p-q}$. \end{rmq}
+		\begin{rmq} Comme $\norm v$ représente la longueur de $v$, c'est également la distance entre $v$ et l'origine $\mathcal O$. Donc la distance entre deux points
+		$p$ et $q$est donnée par $\norm {p-q}$. \end{rmq}
 
-		\begin{prp}[Propriétés de la norme] Soit $v \in \R^3$ un vecteur. Alors :
+		\begin{prp}[Propriétés de la norme] Soit $v \in \R^3$ un vecteur. Alors~:
 		\begin{enumerate}
-			\item $\norm v \geq 0$ et $\norm v = 0 \iff v = 0$ ;
+			\item $\norm v \geq 0$ et $\norm v = 0 \iff v = 0$~;
 			\item $\norm {\lambda v} = \lambda \norm v$.
 		\end{enumerate}
 		\end{prp}
 
-		\begin{proof} La proposition 1 est directe par la définition de la norme et la proposition 2 se montre par :
+		\begin{proof} La proposition 1 est directe par la définition de la norme et la proposition 2 se montre par~:
 		\[\norm {\lambda v} = \sqrt {\scpr {\lambda v}{\lambda v}} = \sqrt {\lambda^2\scpr vv} = \lambda \sqrt {\scpr vv} = \lambda \norm v.\] \end{proof}
 
-		\begin{thm}[Inégalité de Cauchy-Schwartz] Soient deux vecteurs $v, w \in \R^3$. Alors :
+		\begin{thm}[Inégalité de Cauchy-Schwartz] Soient deux vecteurs $v, w \in \R^3$. Alors~:
 		\[\abs{\scpr vw} \leq \norm v\norm w,\]
 		avec égalité si et seulement si $v$ et $w$ sont colinéaires. \end{thm}
 
@@ -478,53 +480,53 @@
 		= (\norm v + \norm w)^2.\] \end{proof}
 
 	\subsection{Angles dans $\R^3$}
-		\begin{déf} Soient $v, w \in \R^3$. Alors On définit l'angle entre $v$ et $w$ par :
+		\begin{déf} Soient $v, w \in \R^3$. Alors On définit l'angle entre $v$ et $w$ par~:
 		\[\alpha \coloneqq \arccos\left(\frac {\scpr vw}{\norm v\norm w}\right).\] \end{déf}
 
-		\begin{rmq} Cette définition est bonne car deux vecteurs orthogonaux ont un produit scalaire nul, dès lors $\alpha = \arccos(0) = \frac \pi2$. De même, deux vecteurs
-		colinéaires ont un produit scalaire valant $\norm v\norm w$ (ou $-\norm v\norm w$ selon l'orientation des vecteurs). Dès lors, $\alpha = \arccos(\pm 1) = 0$ ou $\pi$.
-		\end{rmq}
+		\begin{rmq} Cette définition est bonne car deux vecteurs orthogonaux ont un produit scalaire nul, dès lors $\alpha = \arccos(0) = \frac \pi2$. De même, deux
+		vecteurs colinéaires ont un produit scalaire valant $\norm v\norm w$ (ou $-\norm v\norm w$ selon l'orientation des vecteurs). Dès lors,
+		$\alpha = \arccos(\pm 1) = 0$ ou $\pi$. \end{rmq}
 
 		\begin{rmq} On remarque que cette définition implique que $\scpr vw = \norm v\norm w \cos \alpha$. \end{rmq}
 
-		\begin{lem} Soient deux vecteurs $v, w \in \R^3$. Alors :\[\beta \coloneqq \arccos\left(\frac {\abs {\scpr vw}}{\norm v\norm w}\right) \in \interval 0{\frac \pi2}\]
+		\begin{lem} Soient deux vecteurs $v, w \in \R^3$. Alors~:\[\beta \coloneqq \arccos\left(\frac {\abs {\scpr vw}}{\norm v\norm w}\right) \in \interval 0{\frac \pi2}\]
 		\end{lem}
 
-		\begin{proof} Par la définition de la fonction $\arccos$ : pour tout $x \in \interval 0{\frac \pi2}$, on a $\arccos(x) \geq 0$ et c'est une bijection. \end{proof}
+		\begin{proof} Par la définition de la fonction $\arccos$, pour tout $x \in \interval 0{\frac \pi2}$, on a $\arccos(x) \geq 0$ et c'est une bijection. \end{proof}
 
 		\begin{prp}[Parallélisme et orthogonalité entre droites et plans]~
 		\begin{enumerate}
-			\item Soient deux droites $D_1, D_2$ de vecteurs directeurs $v_1, v_2 \in \R^3$. Si $\abs{D_1 \cap D_2} = 1$, alors l'angle entre ces deux droites est donné par :
-			      \[\alpha \coloneqq \arccos\left(\frac {\abs {\scpr {v_1}{v_2}}}{\norm {v_1}\norm {v_2}}\right) \in \left]0, \frac \pi2\right].\]
+			\item Soient deux droites $D_1, D_2$ de vecteurs directeurs $v_1, v_2 \in \R^3$. Si $\abs{D_1 \cap D_2} = 1$, alors l'angle entre ces deux droites est
+			      donné par~: \[\alpha \coloneqq \arccos\left(\frac {\abs {\scpr {v_1}{v_2}}}{\norm {v_1}\norm {v_2}}\right) \in \left]0, \frac \pi2\right].\]
 			\item Soient deux plans $\pi_1, \pi_2$ de vecteurs normaux $a_1, a_2 \in \R^3$. Si $\pi_1 \cap \pi_2$ est une droite, alors l'angle entre $\pi_1$ et $\pi_2$
-			      est donné par : \[\alpha \coloneqq \arccos\left(\frac {\abs {\scpr {a_1}{a_2}}}{\norm {a_1}\norm {a_2}}\right) \in \left]0, \frac \pi2\right].\]
+			      est donné par~: \[\alpha \coloneqq \arccos\left(\frac {\abs {\scpr {a_1}{a_2}}}{\norm {a_1}\norm {a_2}}\right) \in \left]0, \frac \pi2\right].\]
 			\item Soient une droite $D$ de vecteur directeur $v \in \R^3$ et un plan $\pi$ de vecteur normal $a \in \R^3$. Si $\abs{D \cap \pi} = 1$, alors l'angle entre
-			      $\pi$ et $D$ est donné par : \[\alpha \coloneqq \frac \pi2 - \arccos\left(\frac {\abs {\scpr av}}{\norm a\norm v}\right) \in \left]0, \frac \pi2\right].\]
+			      $\pi$ et $D$ est donné par~: \[\alpha \coloneqq \frac \pi2 - \arccos\left(\frac {\abs {\scpr av}}{\norm a\norm v}\right) \in \left]0, \frac \pi2\right].\]
 		\end{enumerate}
 		\end{prp}
 	
 	\subsection{Produit vectoriel}
-		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs. On définit le produit vectoriel entre $v$ et $w$ par :
+		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs. On définit le produit vectoriel entre $v$ et $w$ par~:
 		\[v \times w \coloneqq (v_2w_3 - v_3w_2, v_3w_1 - v_1w_3, v_1w_2 - v_2w_1).\] \end{déf}
 
 		\begin{prp}[Propriétés du produit vectoriel] Soient $u, v, w \in \R^3$ trois vecteurs et $\lambda \in \R$ un scalaire.
 		\begin{enumerate}
-			\item $(u+v) \times w = (u \times w) + (v \times w)$ ;
-			\item $(\lambda v) \times w = \lambda (v \times w)$ ;
-			\item $v \times w = - (w \times v)$ ;
+			\item $(u+v) \times w = (u \times w) + (v \times w)$~;
+			\item $(\lambda v) \times w = \lambda (v \times w)$~;
+			\item $v \times w = - (w \times v)$~;
 			\item $v \times (\lambda v) = 0$.
 		\end{enumerate}
 		\end{prp}
 
 		\begin{proof}~
 		\begin{enumerate}
-			\item Pour la proposition 1, notons que :
+			\item Pour la proposition 1, notons que~:
 			      \begin{align*}(u+v) \times w &= ((u_2+v_2)w_3 - w_2(u_3+v_3), (u_3+v_3)w_1 - w_3(u_1+v_1), (u_1+v_1)w_2 - w_1(u_2+v_2)) \\
 			      	&= (u_2w_3-w_2u_3 + v_2w_3-w_2v_3, u_3w_1-w_3u_1 + v_3w_1-w_3v_1, u_1w_2-w_1u_2 + v_1w_2-w_1v_2) \\
 			      	&= (u_2w_3-w_2u_3, u_3w_1-w_3u_1, u_1w_2-w_1u_2) + (v_2w_3-w_2v_3, v_3w_1-w_3v_1, v_1w_2-w_1v_2) \\
 			      	&= (u \times w) + (v \times w).
 			      \end{align*}
-			\item Pour la proposition 2, il suffit de mettre $\lambda$ en évidence :
+			\item Pour la proposition 2, il suffit de mettre $\lambda$ en évidence~:
 			      \[(\lambda v) \times w = (\lambda(v_2w_3-w_2v_3), \lambda(v_3w_1-w_3v_1), \lambda(v_1w_2-w_1v_2)) = \lambda(v \times w).\]
 			\item Pour la proposition 3, il suffit de regarder les indices pour s'en convaincre.
 			\item Pour la proposition 4, on a:
@@ -536,7 +538,7 @@
 
 		\begin{proof} Trivial par la définition (expansion de la formule du produit scalaire et arriver à 0). \end{proof}
 
-		\begin{lem}\label{prodsVecSc} Soient $v, w \in \R^3$ deux vecteurs. Alors :\[\norm v^2\norm w^2 - (\scpr vw)^2 = \norm{v \times w}^2.\] \end{lem}
+		\begin{lem}\label{prodsVecSc} Soient $v, w \in \R^3$ deux vecteurs. Alors~:\[\norm v^2\norm w^2 - (\scpr vw)^2 = \norm{v \times w}^2.\] \end{lem}
 		
 		\begin{proof} Trivial par expansion de la formule. \end{proof}
 
@@ -546,45 +548,45 @@
 		\[\norm{v \times w}^2 = (\norm v\norm w)^2 - (\scpr vw)^2 = (\norm v\norm w)^2\left(1 - \left(\frac {\scpr vw}{\norm v\norm w}\right)^2\right)
 		= (\norm v\norm w)^2(1-\cos(\alpha)^2) = \norm v^2\norm w^2 \sin(\alpha)^2.\] \end{proof}
 
-		\begin{prp} Soient $v, w \in \R^3$ deux vecteurs. La projection $p \in \R^3$ de $v$ sur $w$ est donnée par :\[p \coloneqq \frac {\scpr vw}{\scpr ww}w.\] \end{prp}
+		\begin{prp} Soient $v, w \in \R^3$ deux vecteurs. La projection $p \in \R^3$ de $v$ sur $w$ est donnée par~:\[p \coloneqq \frac {\scpr vw}{\scpr ww}w.\] \end{prp}
 
-		\begin{proof} On veut trouver $\lambda$ tel que $p = \lambda w$. Géométriquement, il faut que $v-p$ et $w$ soient orthogonaux :
+		\begin{proof} On veut trouver $\lambda$ tel que $p = \lambda w$. Géométriquement, il faut que $v-p$ et $w$ soient orthogonaux~:
 		\[0 = \scpr {v-p}w = \scpr {v-\lambda w}w = \scpr vw - \lambda \scpr ww.\] On a donc $\lambda = \frac {\scpr vw}{\scpr ww}$. \end{proof}
 
 \newpage
 \section{Systèmes d'équations linéaires et algèbre matricielle}
 	\subsection{Définitions}
-		\begin{déf} Soient $s, t \in \N_0$. Un système linéaires de $s$ équations à $t$ inconnues $x_j$ et à coefficients réels $a_{ij}, b_i \in \R$ est :
+		\begin{déf} Soient $s, t \in \N_0$. Un système linéaires de $s$ équations à $t$ inconnues $x_j$ et à coefficients réels $a_{ij}, b_i \in \R$ est~:
 		\[(S) : \left\{\begin{aligned}
 			a_{11}x_1 + a_{12}x_2 + &\ldots + a_{1t}x_t = b_1 \\
 			&\ldots \\
 			a_{s1}x_1 + a_{s2}x_2 + &\ldots + a_{st}x_t = b_t
 		\end{aligned}\right.\]
 
-		Que l'on peut également noter :
+		Que l'on peut également noter~:
 		\[(S) : \sum_{j=1}^ta_{ij}x_j = b_i\tag*{$i \in [s]$}.\]
 		\end{déf}
 
 		\begin{déf} Soit $(S)$ un système d'équations linéaire. Si $b_i = 0$, alors la $i$eme équation est dite homogène. Si toutes les équations sont homogènes ($b = 0$),
 		alors le système $(S)$ est dit homogène. \end{déf}
 
-		\begin{déf} L'ensemble $W$ des solutions de $(S)$ est l'ensemble des t-uples $(x_1, \ldots, x_t) \in \R^t$ qui satisfont toutes les équations de $(S)$. \end{déf}
+		\begin{déf} L'ensemble $W$ des solutions de $(S)$ est l'ensemble des t-uples $(x_1, \dotsc, x_t) \in \R^t$ qui satisfont toutes les équations de $(S)$. \end{déf}
 
 		\begin{déf} Deux systèmes linéaires sont dits équivalents s'ils ont le même ensemble de solutions \end{déf}
 
 	\subsection{La méthode de Gauss}
 		\begin{prp}\label{opérationsFondamentalesGauss}
-		Soit $(S)$ un système linéaires d'équations. Il existe trois opérations fondamentales applicables sur $(S)$ qui donnent un système équivalent :
+		Soit $(S)$ un système linéaires d'équations. Il existe trois opérations fondamentales applicables sur $(S)$ qui donnent un système équivalent~:
 		\begin{enumerate}
-			\item échanger deux équations du système ;
-			\item remplacer une équation par une combinaison linéaire d'équations du système ;
+			\item échanger deux équations du système~;
+			\item remplacer une équation par une combinaison linéaire d'équations du système~;
 			\item multiplier une équation par une constante $\lambda \neq 0$.
 		\end{enumerate}
 		\end{prp}
 
 		\begin{rmq} Les trois opérations fondamentales ci-dessus sont toutes inversibles et leur inverse restent fondamentales. \end{rmq}
 
-		\begin{déf} la matrice associée à un système linéaire d'équations $(S)$ est la matrice de dimensions $s \times (t+1)$ contenant tous les coefficients du système :
+		\begin{déf} la matrice associée à un système linéaire d'équations $(S)$ est la matrice de dimensions $s \times (t+1)$ contenant tous les coefficients du système~:
 		\[\begin{bmatrix}a_{11} & \ldots & a_{1t} & -b_1 \\
 		                 a_{21} & \ldots & a_{2t} & -b_2 \\
 										 \ldots & \ldots & \ldots & \ldots \\
@@ -592,10 +594,10 @@
 			\end{bmatrix}.\]
 		\end{déf}
 
-		\begin{déf} Soit $\mathcal M$ la matrice associée à un système linéaire d'équations $(S)$. Si :
+		\begin{déf} Soit $\mathcal M$ la matrice associée à un système linéaire d'équations $(S)$. Si~:
 		\begin{enumerate}
-			\item dans chaque ligne de $\mathcal M$, si le premier coefficient non-nul (s'il existe) est 1 (on l'appelle le pivot de la ligne) ;
-			\item dans la colonne de chaque pivot, tous les coefficients n'étant pas le pivot valent 0 ;
+			\item dans chaque ligne de $\mathcal M$, si le premier coefficient non-nul (s'il existe) est 1 (on l'appelle le pivot de la ligne)~;
+			\item dans la colonne de chaque pivot, tous les coefficients n'étant pas le pivot valent 0~;
 			\item Le pivot d'une ligne est à gauche des pivots des lignes suivantes (s'ils existent),
 		\end{enumerate}
 		alors on dit que $\mathcal M$ est sous sa forme échelonnée réduite.
@@ -603,8 +605,8 @@
 
 		\begin{alg}[Méthode de Gauss]\label{algoGauss} L'algorithme de Gauss permet de transformer une matrice en sa forme échelonnée réduite en utilisant les opérations
 		fondamentales de la proposition~\ref{opérationsFondamentalesGauss}. Le principe de cet algorithme est pour chaque ligne $\ell$, s'il existe un coefficient non-nul
-		dans la ligne, notons $r$ l'indice de ce coefficient. Ensuite, il faut diviser la ligne $\ell$ par ce même coefficient ($\mathcal M_{\ell r}$) puis, pour toutes ligne
-		$i$ différentes de $\ell$, soustraire à la ligne $i$ la ligne $\ell$ multipliée par le coefficient $\mathcal M_{i r}$.
+		dans la ligne, notons $r$ l'indice de ce coefficient. Ensuite, il faut diviser la ligne $\ell$ par ce même coefficient ($\mathcal M_{\ell r}$) puis, pour toutes
+		ligne $i$ différentes de $\ell$, soustraire à la ligne $i$ la ligne $\ell$ multipliée par le coefficient $\mathcal M_{i r}$.
 \begin{verbatim}
 Soit M une matrice de dimensions l fois r.
 Pour tout 0 < i < l+1
@@ -622,47 +624,48 @@ Pour tout 0 < i < l+1
 		\begin{thm}[Unicité de la forme échelonée réduite] Soient trois matrices $a, b, c \in \M st\R$. Si les matrices $b$ et $c$ sont toutes deux obtenues par une suite
 		d'opérations fondamentales sur $a$ et si $b$ et $c$ sont toutes deux sous leur forme échelonnée réduite, alors $b = c$. \end{thm}
 
-		\begin{proof} Les matrices $b$ et $c$ sont obtenues par combinaisons linéaires des lignes de la matrice $a$. Dès lors, les lignes de $b$ sont également des combinaisons
-		linéaires des lignes de $c$. Dès lors, les indices $1 \leq i_1 < i_2 < \ldots < i_k \leq t$ des pivots de la matrice $b$ doivent être les mêmes que les indices
-		des pivots de la matrice $c$. En effet : soient $1 \leq j_1 < j_2 < \ldots <  j_k \leq t$ les indices des pivots de la matrice $c$.
+		\begin{proof} Les matrices $b$ et $c$ sont obtenues par combinaisons linéaires des lignes de la matrice $a$. Dès lors, les lignes de $b$ sont également des
+		combinaisons linéaires des lignes de $c$. Dès lors, les indices $1 \leq i_1 < i_2 < \ldots < i_k \leq t$ des pivots de la matrice $b$ doivent être les mêmes que
+		les indices des pivots de la matrice $c$. En effet~: soient $1 \leq j_1 < j_2 < \ldots <  j_k \leq t$ les indices des pivots de la matrice $c$.
 
 		Prouvons-le par récurrence. 
 		
-		\underline{Cas de base :} supposons $i_1 < j_1$. Alors, il faudrait que la $i_1$eme colonne de $c$ soit vide. Or $b$ est une combinaison linéaire de $c$ et la première
-		ligne de $b$ contient à la $i_1$eme colonne le coefficient 1 ce qui est une contradiction avec le fait que $b$ et $c$ soient combinaisons linéaires l'un de l'autre.
-		En supposant $i_1 > j_1$, on obtient la même contradiction. Il faut donc $i_1 = j_1$.
+		\underline{Cas de base~:} supposons $i_1 < j_1$. Alors, il faudrait que la $i_1$eme colonne de $c$ soit vide. Or $b$ est une combinaison linéaire de $c$ et la
+		première ligne de $b$ contient à la $i_1$eme colonne le coefficient 1 ce qui est une contradiction avec le fait que $b$ et $c$ soient combinaisons linéaires
+		l'un de l'autre. En supposant $i_1 > j_1$, on obtient la même contradiction. Il faut donc $i_1 = j_1$.
 		
-		\underline{Pas de récurrence :} soit $\gamma \in \{1, \ldots, t\}$. Supposons $i_\gamma < j_\gamma$. Par le même argument, on montre que $i_\gamma = j_\gamma$.
+		\underline{Pas de récurrence~:} soit $\gamma \in \{1, \dotsc, t\}$. Supposons $i_\gamma < j_\gamma$. Par le même argument, on montre que $i_\gamma = j_\gamma$.
 		\end{proof}
 
 	\subsection{Calcul matriciel}
 		\begin{rmq} Soit $x \in \R^t$ un vecteur. $x \in \M t1\R$ donc $x$ est une matrice colonne. \end{rmq}
 
-		\begin{déf} Soient $v_1, \ldots, v_k \in \R^t$ $k$ vecteurs et $\lambda_1, \ldots, \lambda_k$ $k$ scalaires. Le vecteur \[w = \sum_{i=1}^k\lambda_iv_i\]
+		\begin{déf} Soient $v_1, \dotsc, v_k \in \R^t$ $k$ vecteurs et $\lambda_1, \dotsc, \lambda_k$ $k$ scalaires. Le vecteur \[w = \sum_{i=1}^k\lambda_iv_i\]
 		est une combinaison linéaire des vecteurs $v_i$. \end{déf}
 
-		\begin{déf} Soient $a \in \M st\R$ une matrice et $b \in \R^t$ un vecteur (une matrice colonne). On définit le produit entre $a$ et $b$ par :
+		\begin{déf} Soient $a \in \M st\R$ une matrice et $b \in \R^t$ un vecteur (une matrice colonne). On définit le produit entre $a$ et $b$ par~:
 		\[ab \coloneqq \left[\sum_{k=1}^sa_{ik}b_k\right] \in \R^s \simeq \M s1\R.\] \end{déf}
 
 		\begin{déf} À l'aide de cette notation, on peut maintenant noter le système d'équations linéaire $(S) : ax = b$ où $a \in \M st\R$, $x \in \R^t$ et $b \in \R^s$.
 		\end{déf}
 
-		\begin{déf} Soit $a = [a_{ij}] \in \M st\R$ une matrice. On définit la transformation linéaire qui lui est associée par : \[A : \R^t \to \R^s : v \mapsto av.\] \end{déf}
+		\begin{déf} Soit $a = [a_{ij}] \in \M st\R$ une matrice. On définit la transformation linéaire qui lui est associée par~:
+		\[A : \R^t \to \R^s : v \mapsto av.\] \end{déf}
 
 		\begin{lem} Soit $(S) : ax + b$ un système linéaire d'équations et soit $A : \R^t \to \R^s$ la transformation linéaire associée à $a$. Alors l'ensemble $W$ des
 		solutions du système correspond à la préimage du vecteur $b \in \R^s$. \end{lem}
 		
-		\begin{proof} On peut constater : \[A^{-1}(b) = \{x \in \R^t \tq A(x) = b\} = \{x \in \R^t \tq ax = b\} = W.\] \end{proof}
+		\begin{proof} On peut constater~: \[A^{-1}(b) = \{x \in \R^t \tq A(x) = b\} = \{x \in \R^t \tq ax = b\} = W.\] \end{proof}
 
 		\begin{prp}[Propriétés de la transformation linéaire associée] Soient $a = [a_{ij}] \in \M st\R$ une matrice et $A : \R^t \to \R^s$ sa transformation
-		linéaire associée (TLA). Soient $v = [v_i], w = [w_i] \in \R^t, \lambda \in \R$. On définit les propriétés de linéarité de $A$ par :
+		linéaire associée (TLA). Soient $v = [v_i], w = [w_i] \in \R^t, \lambda \in \R$. On définit les propriétés de linéarité de $A$ par~:
 		\begin{enumerate}
-			\item $A(v+w) = A(v) + A(w)$ ;
+			\item $A(v+w) = A(v) + A(w)$~;
 			\item $A(\lambda v) = \lambda A(v)$.
 		\end{enumerate}
 		\end{prp}
 
-		\begin{proof} En repartant de la définition de la TLA, on voit que :
+		\begin{proof} En repartant de la définition de la TLA, on voit que~:
 		\begin{align*}
 			A(v+w) &= a(v+w) = \left[\sum_{k=1}^ta_{ik}(v_k+w_k)\right] = \left[\sum_{k=1}^ta_{ik}v_k+\sum_{k=1}^ta_{ik}w_k\right] = A(v) + A(w), \\
 			A(\lambda v) &= a(\lambda v) = \left[\sum_{k=1}^ta_{ik}\lambda v_k\right] = \lambda \left[\sum_{k=1}^ta_{ik}v_k\right] = \lambda A(v).
@@ -681,67 +684,71 @@ Pour tout 0 < i < l+1
 
 		\begin{proof} Effectivement, si $x$ et $y$ sont deux solutions de $(S')$, on a $A(\lambda x + \mu y) = \lambda A(x) + \mu A(y) = \lambda 0 + \mu 0 = 0$. \end{proof}
 
-		\begin{lem} L'ensemble des solutions de $(S')$, le système homogène associé à $(S) : ax = b$ est \[W_0 = \left\{\sum_{i=1}^k\lambda_i v_i \tq \lambda_i \in \R\right\},\]
+		\begin{lem} L'ensemble des solutions de $(S')$, le système homogène associé à $(S) : ax = b$ est~:
+		\[W_0 = \left\{\sum_{i=1}^k\lambda_i v_i \tq \lambda_i \in \R\right\},\]
 		où les vecteurs $v_i$ sont les vecteurs donnés par l'algorithme de Gauss. \end{lem}
 
 		\begin{proof} On sait que les vecteurs $v_i$ sont les solutions de $(S')$ et donc sont dans $W_0$. Or, par la proposition~\ref{combiliW0}, on sait que toutes les
 		combinaisons linéaires de ces vecteurs sont toujours des solutions. \end{proof}
 
 		\begin{rmq} Géométriquement, selon le degré de liberté $k$ du système, l'ensemble des solutions est un espace de dimension $k$ passant par l'origine. En effet, si
-		$k=0$, alors l'ensemble des solutions $W_0$ est l'ensemble contenant uniquement l'origine, si $k=1$, l'ensemble est la droite contenant tous les multiples $\lambda v$
-		de $v$, solution donnée par Gauss, si $k=3$, $W_0$ est un plan ayant pour vecteurs directeurs $v_1, v_2$ donnés par Gauss et passant par l'origine. Etc. \end{rmq}
+		$k=0$, alors l'ensemble des solutions $W_0$ est l'ensemble contenant uniquement l'origine, si $k=1$, l'ensemble est la droite contenant tous les multiples
+		$\lambda v$ de $v$, solution donnée par Gauss, si $k=3$, $W_0$ est un plan ayant pour vecteurs directeurs $v_1, v_2$ donnés par Gauss et passant par l'origine.
+		Etc. \end{rmq}
 
 		\begin{lem}\label{W-W=W_0} Soit $(S)$ un système linéaire d'équations et $(S')$ son système homogène associé. Si $x, y \in \R^t$ sont des solutions de $(S)$,
 		alors $x-y$ est une solution de $(S')$. \end{lem}
 
-		\begin{proof} Soit $a$ la matrice associée à $(S)$ et $A$ la TLA à $a$. Si $x, y \in W$, alors $A(x) = A(y) = b$. Dès lors, $A(x-y) = A(x) - A(y) = b-b = 0$. \end{proof}
+		\begin{proof} Soit $a$ la matrice associée à $(S)$ et $A$ la TLA à $a$. Si $x, y \in W$, alors $A(x) = A(y) = b$. Dès lors, $A(x-y) = A(x) - A(y) = b-b = 0$.
+		\end{proof}
 
-		\begin{cor} Soit $\widetilde x \in \R^t$ une solution du système linéaire $(S)$. Alors toute solution $y \in W$ de $(S)$ est sous la forme suivante $\widetilde x + y$
-		où $y \in W_0$. Ou encore, l'ensemble des solutions de $(S)$ est l'ensemble : \[W = \widetilde x + W_0 \coloneqq \{\widetilde x + y \tq y \in W_0\}.\] \end{cor}
+		\begin{cor} Soit $\widetilde x \in \R^t$ une solution du système linéaire $(S)$. Alors toute solution $y \in W$ de $(S)$ est sous la forme suivante
+		$\widetilde x + y$ où $y \in W_0$. Ou encore, l'ensemble des solutions de $(S)$ est l'ensemble~:
+		\[W = \widetilde x + W_0 \coloneqq \{\widetilde x + y \tq y \in W_0\}.\] \end{cor}
 
 		\begin{proof} Montrons d'abord que $\widetilde x + W_0 \subseteq W$ et ensuite montrons que $W \subseteq \widetilde x + W_0$. Soit
-		$\widetilde x + y \in \widetilde x + W_0$. On sait que $A(\widetilde x + y) = A(\widetilde x) + A(y) = b + 0 = b$. Dès lors, $\widetilde x + y$ est une solution de $(S)$
-		et donc $\widetilde x + y \in W$.
+		$\widetilde x + y \in \widetilde x + W_0$. On sait que $A(\widetilde x + y) = A(\widetilde x) + A(y) = b + 0 = b$. Dès lors, $\widetilde x + y$ est une
+		solution de $(S)$ et donc $\widetilde x + y \in W$.
 
 		Soit $x \in W$. On sait que $A(x) = A(\widetilde x) = b$. Par le lemme~\ref{W-W=W_0}, on sait que le vecteur $x-\widetilde \in \R^t$ est une solution du système
 		homogène associé, donc $x-\widetilde \in W_0$. Dès lors, on peut réécrire $x = \widetilde x + (x-\widetilde x)$. On peut donc dire $x \in \widetilde x + W_0$, ou
 		encore $W \subseteq \widetilde x + W_0$. Donc $W = \widetilde x + W_0$. \end{proof}
 
 		\begin{rmq} L'ensemble des solutions de $(S)$ est donc l'ensemble \[W \coloneqq \left\{\sum_{i=1}^k\lambda_iv_i \tq \lambda_i \in \R\right\} + \widetilde x\] où
-		les vecteurs $\widetilde x, v_i$ sont donnés par l'algorithme de Gauss (le vecteur $\widetilde x$ est le vecteur correspondant à la $(t+1)$eme colonne de la matrice
-		sous sa forme échelonnée réduite). Géométriquement, cela correspond à une translation de l'espace des solutions de $(S')$ par le vecteur $\widetilde x$. C'est donc
-		un point, une droite, un plan, etc. comme pour $(S')$ mais ne devant pas contenir l'origine. \end{rmq}
+		les vecteurs $\widetilde x, v_i$ sont donnés par l'algorithme de Gauss (le vecteur $\widetilde x$ est le vecteur correspondant à la $(t+1)$eme colonne de
+		la matrice sous sa forme échelonnée réduite). Géométriquement, cela correspond à une translation de l'espace des solutions de $(S')$ par le vecteur
+		$\widetilde x$. C'est donc un point, une droite, un plan, etc. comme pour $(S')$ mais ne devant pas contenir l'origine. \end{rmq}
 	
 \newpage
 \section{espaces vectoriels}
 	\subsection{Définitions}
 		\begin{déf} Soit $\mathbb K$ un corps. Un espace vectoriel $V$ sur $\mathbb K$\footnote{Il sera question ici presque exclusivement d'espaces vectoriels sur $\R$.}
-		est un sous-ensemble de vecteurs muni d'une addition interne et d'un produit externe définis par :
+		est un sous-ensemble de vecteurs muni d'une addition interne et d'un produit externe définis par~:
 		\begin{enumerate}
-			\item $+ : V \times V \to V : (v, w) \mapsto v+w$ ;
+			\item $+ : V \times V \to V : (v, w) \mapsto v+w$~;
 			\item $\cdot : \mathbb K \times V \to V : (\lambda, v) \mapsto \lambda v$.
 		\end{enumerate}
-		telles que pour tout $u, v, w \in V, \lambda, \mu \in \mathbb K$ :
+		telles que pour tout $u, v, w \in V, \lambda, \mu \in \mathbb K$~:
 		\begin{enumerate}
-			\item $u + (v + w) = (u + v) + w$ ;
-			\item $\exists 0 \in V \tq v + 0 = v$ ;
-			\item $\exists (-v) \in V \tq v + (-v) = 0$ ;
-			\item $v + w = w + v$ ;
-			\item $\lambda(\mu v) = (\lambda\mu)v$ ;
-			\item $\lambda (v+w) = \lambda v + \lambda w$ ;
-			\item $(\lambda + \mu)v = \lambda v + \mu v$ ;
+			\item $u + (v + w) = (u + v) + w$~;
+			\item $\exists 0 \in V \tq v + 0 = v$~;
+			\item $\exists (-v) \in V \tq v + (-v) = 0$~;
+			\item $v + w = w + v$~;
+			\item $\lambda(\mu v) = (\lambda\mu)v$~;
+			\item $\lambda (v+w) = \lambda v + \lambda w$~;
+			\item $(\lambda + \mu)v = \lambda v + \mu v$~;
 			\item $1v = v$.
 		\end{enumerate}
 		\end{déf}
 
-		\begin{déf} Soit $W \subseteq V$ un sous-ensemble de $V$. $W$ est un sous-espace vectoriel de $V$ si $W$ est également un espace vectoriel muni des mêmes opérations
-		de somme et de produit. \end{déf}
+		\begin{déf} Soit $W \subseteq V$ un sous-ensemble de $V$. $W$ est un sous-espace vectoriel de $V$ si $W$ est également un espace vectoriel muni des mêmes
+		opérations de somme et de produit. \end{déf}
 
 		\begin{prp}\label{conditionsSousEspace} Soit $V$ un espace vectoriel réel. $W \subseteq V$ est un sous-espace vectoriel de $V$ si et seulement si pour tout
-		$v, w \in W, \lambda \in \R$ on a :
+		$v, w \in W, \lambda \in \R$ on a~:
 		\begin{enumerate}
-			\item $0 \in W$ ;
-			\item $v+w \in W$ ;
+			\item $0 \in W$~;
+			\item $v+w \in W$~;
 			\item $\lambda v \in W$.
 		\end{enumerate}
 		\end{prp}
@@ -749,46 +756,47 @@ Pour tout 0 < i < l+1
 		\begin{proof} Montrons d'abord que ces trois hypothèses font de $W$ un sous-espace vectoriel. Montrons ensuite que si $W$ est un sous-espace, alors ces trois
 		propositions sont vérifiées.
 
-		Soit $W \subseteq V$ tel que $\forall v, w \in W, \lambda \in \R : (v+w \in W) \land (\lambda v \in W) \land (0 \in W)$. Les propriétés 1, 4, 5, 6, 7, 8 viennent de
-		la définition des opérations et des hypothèses 2 et 3. La propriété 2 vient de l'hypothèse 0 et la propriété 3 vient de l'hypothèse 3 pour $\lambda = -1$.
+		Soit $W \subseteq V$ tel que $\forall v, w \in W, \lambda \in \R : (v+w \in W) \land (\lambda v \in W) \land (0 \in W)$. Les propriétés 1, 4, 5, 6, 7, 8
+		viennent de la définition des opérations et des hypothèses 2 et 3. La propriété 2 vient de l'hypothèse 0 et la propriété 3 vient de l'hypothèse 3 pour
+		$\lambda = -1$.
 
 		Soit $W \subseteq V$ un sous-espace de $V$. Les hypothèses sont vérifiées de manière triviale. \end{proof}
 
 		\begin{déf} Soient $V, W$ deux espaces vectoriels. La fonction $f : V \to W$ est une application linéaire si pour tout $v, w \in V, \lambda, \mu \in \R$, on a:
 		$f(\lambda x + \mu y) = \lambda f(x) + \mu f(y)$. \end{déf}
 
-		\begin{prp} Soit $V$ un espace vectoriel réel. Soient $v, v_1, \ldots, v_k \in V, \lambda, \lambda_1, \lambda_k \in \R$. Alors :
+		\begin{prp} Soit $V$ un espace vectoriel réel. Soient $v, v_1, \dotsc, v_k \in V, \lambda, \lambda_1, \lambda_k \in \R$. Alors~:
 		\begin{enumerate}
-			\item $\lambda 0 = 0$ ;
-			\item $0v = 0$ ;
-			\item $\lambda v = 0 \Rightarrow (\lambda = 0) \lor (v = 0)$ ;
-			\item $(-\lambda)v = \lambda(-v) = -\lambda v$ ;
-			\item $\displaystyle v\sum_{i=1}^k\lambda_i = \sum_{i=1}^k(\lambda_i v)$ ;
+			\item $\lambda 0 = 0$~;
+			\item $0v = 0$~;
+			\item $\lambda v = 0 \Rightarrow (\lambda = 0) \lor (v = 0)$~;
+			\item $(-\lambda)v = \lambda(-v) = -\lambda v$~;
+			\item $\displaystyle v\sum_{i=1}^k\lambda_i = \sum_{i=1}^k(\lambda_i v)$~;
 			\item $\lambda \displaystyle \sum_{i=1}^kv_i = \sum_{i=1}^k(\lambda v_i)$
 		\end{enumerate}
 		\end{prp}
 
 		\begin{proof}~
 			\begin{enumerate}
-				\item $0 + \lambda0 = \lambda0 = \lambda(0+0) = \lambda0 + \lambda0$. Dès lors, par l'existence de l'inverse additif, on a $0 = \lambda 0$ ;
-				\item $0 + 1v = 1v = v = v(1+0) = 1v + 0v$. Dès lors, par l'existence d'un inverse additif, on a $0 = 0v$ ;
-				\item Supposons $\lambda v = 0$ et $\lambda \neq 0$. Alors $0 = \lambda^{-1}0 = \lambda^{-1}(\lambda v) = 1v = v$ ;
-				\item $-\lambda v = (-1 \cdot \lambda)v = (-\lambda)v = (\lambda \cdot -1)v = \lambda(-v)$ ;
+				\item $0 + \lambda0 = \lambda0 = \lambda(0+0) = \lambda0 + \lambda0$. Dès lors, par l'existence de l'inverse additif, on a $0 = \lambda 0$~;
+				\item $0 + 1v = 1v = v = v(1+0) = 1v + 0v$. Dès lors, par l'existence d'un inverse additif, on a $0 = 0v$~;
+				\item Supposons $\lambda v = 0$ et $\lambda \neq 0$. Alors $0 = \lambda^{-1}0 = \lambda^{-1}(\lambda v) = 1v = v$~;
+				\item $-\lambda v = (-1 \cdot \lambda)v = (-\lambda)v = (\lambda \cdot -1)v = \lambda(-v)$~;
 				\item par les propriétés 6 et 7 d'un espace vectoriels, les propriétés 5 et 6 de la proposition sont vérifiées.
 			\end{enumerate}
 		\end{proof}
 
-		\begin{déf} Soient $V, W$ deux espaces vectoriels. Soit $A : V \to W$ une application linéaire. On définit :
+		\begin{déf} Soient $V, W$ deux espaces vectoriels. Soit $A : V \to W$ une application linéaire. On définit~:
 		\begin{enumerate}
-			\item $\Ker(A) \coloneqq \{v \in V \tq A(v) = 0 \in W\} \subseteq V = A^{-1}(0)$ ;
+			\item $\Ker(A) \coloneqq \{v \in V \tq A(v) = 0 \in W\} \subseteq V = A^{-1}(0)$~;
 			\item $\Imf(A) \coloneqq \{A(v) \tq v \in V\} \subseteq W = A(V)$.
 		\end{enumerate}
 		\end{déf}
 
 	\subsection{Sous-espaces}
-		\begin{thm}\label{sousEspacesApplicationLinéaire} Soient $V, W$ deux espaces vectoriels et $A : V \to W$ une application linéaire. Alors :
+		\begin{thm}\label{sousEspacesApplicationLinéaire} Soient $V, W$ deux espaces vectoriels et $A : V \to W$ une application linéaire. Alors~:
 		\begin{enumerate}
-			\item si $Y \subseteq W$ est un sous-espace vectoriel de $W$, alors $A^{-1}(Y)$ est un sous-espace vectoriel de $V$ ;
+			\item si $Y \subseteq W$ est un sous-espace vectoriel de $W$, alors $A^{-1}(Y)$ est un sous-espace vectoriel de $V$~;
 			\item si $Z \subseteq V$ est un sous-espace vectoriel de $V$, alors $A(Z)$ est un sous-espace vectoriel de $W$.
 		\end{enumerate}
 		\end{thm}
@@ -803,13 +811,13 @@ Pour tout 0 < i < l+1
 		\begin{rmq} La preuve ci-dessus utilise le fait que $0_V$ est envoyé sur $0_W$ par une application linéaire, ce qui garantit la présence de $0_W$ dans $A(Z)$
 		et la présence de $0_V$ dans $A^{-1}(Y)$. \end{rmq}
 
-		\begin{cor} Soient $V, W$ deux espaces vectoriels et $A : V \to W$ une application linéaire. Alors $\Ker(A)$ est un sous-espace de $W$ et $\Imf(A)$ est un sous-espace
-		de $V$. \end{cor}
+		\begin{cor} Soient $V, W$ deux espaces vectoriels et $A : V \to W$ une application linéaire. Alors $\Ker(A)$ est un sous-espace de $W$ et $\Imf(A)$ est un
+		sous-espace de $V$. \end{cor}
 
-		\begin{proof} $V$ est un sous-espace de lui-même et $\{0\}$ est un sous-espace de $W$. Donc $\Ker(A) = A^{-1}(\{0\})$ est un sous-espace de $V$ et $\Imf(A) = A(V)$
-		est un sous-espace de $W$ par le théorème~\ref{sousEspacesApplicationLinéaire}.\end{proof}
+		\begin{proof} $V$ est un sous-espace de lui-même et $\{0\}$ est un sous-espace de $W$. Donc $\Ker(A) = A^{-1}(\{0\})$ est un sous-espace de $V$ et
+		$\Imf(A) = A(V)$ est un sous-espace de $W$ par le théorème~\ref{sousEspacesApplicationLinéaire}.\end{proof}
 
-		\begin{déf} Soient $V$ un e.v. et $W_1, W_2$ deux sous-espaces de $V$. On définit la somme de ces sous-espaces par :
+		\begin{déf} Soient $V$ un e.v. et $W_1, W_2$ deux sous-espaces de $V$. On définit la somme de ces sous-espaces par~:
 		\[W = W_1 + W_2 \coloneqq \{w_1 + w_2 \tq w_1 \in W_1, w_2 \in W_2\} \subseteq V.\] \end{déf}
 
 		\begin{déf} Soit $V$ un e.v. et $W_1, W_2$ deux sous-espaces. La somme $W_1 + W_2$ est dite directe si $W_1 \cap W_2 = \emptyset$. \end{déf}
@@ -820,40 +828,42 @@ Pour tout 0 < i < l+1
 		$v_1 = x_1 + w_1, v_2 = x_2 + w_2 \in W_1+W_2$. De plus, $v_1 + \lambda v_2 = (x_1 + \lambda x_2) \in W_1 + (w_1 + \lambda w_2) \in W_2$. On a donc bien
 		$v_1 + \lambda v_2 \in W_1 + W_2$. \end{proof}
 
-		\begin{déf} Soit $V$ un e.v. Soit $\{W_i\}_{i \in I}$ une famille de sous-espaces. On définit l'intersection de ces sous-espaces par :
+		\begin{déf} Soit $V$ un e.v. Soit $\{W_i\}_{i \in I}$ une famille de sous-espaces. On définit l'intersection de ces sous-espaces par~:
 		\[\bigcap_{i \in I}W_i \coloneqq \left\{v \in V \tq \forall i \in I : v \in W_i\right\}.\]\end{déf}
 
-		\begin{prp} Soit $V$ un e.v. et $\{W_i\}_{i \in I}$ une famille de sous-espaces. Alors l'espace intersection $\cap_{i \in I}W_i$ est un sous-espace de $V$. \end{prp}
+		\begin{prp} Soit $V$ un e.v. et $\{W_i\}_{i \in I}$ une famille de sous-espaces. Alors l'espace intersection $\cap_{i \in I}W_i$ est un sous-espace de $V$.
+		\end{prp}
 
 		\begin{proof} Soient $V$ un e.v. et $\{W_i\}_{i \in I}$ une famille de sous-espaces. Soient $w_1, w_2 \in \cap_{i \in I}W_i$ deux vecteurs dans l'intersection.
 		On sait dès lors que $w_1, w_2 \in W_i$ pour tout $i \in I$. S'ils le sont, alors $w_1 + \lambda w_2 \in W_i$ pour tout $i \in I$ également. Dès lors,
 		$w_1 + \lambda w_2 \in \cap_{i \in I}W_i$. \end{proof}
 
 	\subsection{Parties libres et génératrices}
-		\begin{déf} Soient $V$ un espace vectoriel et $X \subseteq V$ un sous-ensemble de $V$. On définit le sous-espace engendré par $X$ par :
-		\[\eng X \coloneqq \left\{\sum_{i=1}^k\lambda_iv_i \tq k \in \N, \lambda_i \in \R, v_i \in X\right\}.\] Si $X = \emptyset$, on pose $\eng X \coloneqq \{0\}$. \end{déf}
+		\begin{déf} Soient $V$ un espace vectoriel et $X \subseteq V$ un sous-ensemble de $V$. On définit le sous-espace engendré par $X$ par~:
+		\[\eng X \coloneqq \left\{\sum_{i=1}^k\lambda_iv_i \tq k \in \N, \lambda_i \in \R, v_i \in X\right\}.\] Si $X = \emptyset$, on pose $\eng X \coloneqq \{0\}$.
+		\end{déf}
 
 		\begin{prp} Soient $V$ un e.v. et $X \subseteq V$ un sous-ensemble de $V$. Alors $\eng X$ est un sous-espace de $V$. \end{prp}
 
 		\begin{proof} Si $X$ est l'ensemble vide, alors $\eng X = \{0\}$ et est un sous-espace de $V$. Si $\abs X = n > 0$, alors prenons deux vecteurs $v_1, v_2$ dans
-		$\eng X$. On sait que $v_1$ et $v_2$ sont des combinaisons linéaires des vecteurs $x_i$ de $X$. On sait :
+		$\eng X$. On sait que $v_1$ et $v_2$ sont des combinaisons linéaires des vecteurs $x_i$ de $X$. On sait~:
 		\begin{align*}
 			v_1 &= \sum_{i=1}^n\lambda_ix_i, \\
 			v_2 &= \sum_{i=1}^n\mu_ix_i.
 		\end{align*}
-		Dès lors, on trouve que : \[v_1 + \beta v_2 = \sum_{i=1}^n\lambda_ix_i + \beta\sum_{i=1}^n\mu_ix_i = \sum_{i=1}^n(\lambda_i + \beta\mu_i)x_i \in \eng X.\] Effectivement,
-		$v_1 + \beta v_2$ est une combinaison linéaire des vecteurs de $X$, il fait donc partie de $\eng X$. \end{proof}
+		Dès lors, on trouve que~: \[v_1 + \beta v_2 = \sum_{i=1}^n\lambda_ix_i + \beta\sum_{i=1}^n\mu_ix_i = \sum_{i=1}^n(\lambda_i + \beta\mu_i)x_i \in \eng X.\]
+		Effectivement, $v_1 + \beta v_2$ est une combinaison linéaire des vecteurs de $X$, il fait donc partie de $\eng X$. \end{proof}
 
 		\begin{lem}\label{X<<X>} Soit $X \subseteq V$ un sous-ensemble d'un espace vectoriel. Alors $X \subseteq \eng X$ \end{lem}
 
-		\begin{proof} En prenant les $n$ vecteurs $x_i$ de $X$, on sait que pour tout $x_i \in X$, on a :\[x_i = \sum_{j=1}^n\delta_{ij}x_j \in \eng X.\] \end{proof}
+		\begin{proof} En prenant les $n$ vecteurs $x_i$ de $X$, on sait que pour tout $x_i \in X$, on a~:\[x_i = \sum_{j=1}^n\delta_{ij}x_j \in \eng X.\] \end{proof}
 
-		\begin{prp} Soit un espace vectoriel $V$, un sous-ensemble $X \subseteq V$ et $W$ l'intersection des sous-espaces de $V$ contenant $X$. Alors : \[W = \eng X.\]
+		\begin{prp} Soit un espace vectoriel $V$, un sous-ensemble $X \subseteq V$ et $W$ l'intersection des sous-espaces de $V$ contenant $X$. Alors~: \[W = \eng X.\]
 		\end{prp}
 
-		\begin{proof} Si $X = \emptyset$, alors tous les sous-espaces contiennent $X$. Donc l'intersection de tous ces sous-espaces est $\{0\}$. Si $X$ est non-vide, montrons
-		que $\eng X \subseteq W$ et puis montrons que $W \subseteq \eng X$. Soit $v = \sum_{i=1}^k\lambda_iv_i \in \eng X$. Puisque les $v_i \in X$, $v$ est dans tout
-		sous-espace contenant $X$ et est donc dans l'intersection de ceux-ci. On a donc $\eng X \subseteq W$.
+		\begin{proof} Si $X = \emptyset$, alors tous les sous-espaces contiennent $X$. Donc l'intersection de tous ces sous-espaces est $\{0\}$. Si $X$ est non-vide,
+		montrons que $\eng X \subseteq W$ et puis montrons que $W \subseteq \eng X$. Soit $v = \sum_{i=1}^k\lambda_iv_i \in \eng X$. Puisque les $v_i \in X$, $v$ est
+		dans tout sous-espace contenant $X$ et est donc dans l'intersection de ceux-ci. On a donc $\eng X \subseteq W$.
 
 		Par le lemme~\ref{X<<X>}, on sait que $\eng X$ est un sous-espace de $V$ contenant $X$. Dès lors, $W \subseteq \eng X$. On a alors montré l'égalité. \end{proof}
 
@@ -862,9 +872,9 @@ Pour tout 0 < i < l+1
 		\begin{prp}\label{engXDansEngY} Soient $V$ un e.v. et $X \subseteq Y \subseteq V$ deux sous-ensembles de $V$. Alors $\eng X \subseteq \eng Y$. \end{prp}
 
 		\begin{proof} Supposons $\abs X = n$ et $\abs Y = k$ avec $k \geq n$. Soit $v \in \eng X$. On sait que \[v = \sum_{i=1}^n\alpha_ix_i,\] où $x_i \in X$.
-		Soient $y_i$ pour $i \in \{1, \ldots, k\}$ les vecteurs de $Y$. On sait par hypothèse que pour $i \in \{1, \ldots, n\}$, on a $x_i = y_i$. Donc un vecteur de $\eng Y$
-		s'écrit sous la forme \[w = \sum_{i=1}^k\lambda_iy_i = \sum_{i=1}^n\lambda_ix_i + \sum_{i=1}^{k-n}\mu_iy_{i+n}.\] En prenant $\mu_i = 0$ pour tout
-		$i \in \{1, \ldots, k-n\}$, on sait écrire \[v = \sum_{i=1}^n\alpha_ix_i + \sum_{i=1}^{k-n}\mu_iy_{i+n} \in \eng Y.\] On a donc bien $\eng X \subseteq \eng Y$.
+		Soient $y_i$ pour $i \in \{1, \dotsc, k\}$ les vecteurs de $Y$. On sait par hypothèse que pour $i \in \{1, \dotsc, n\}$, on a $x_i = y_i$. Donc un vecteur de
+		$\eng Y$ s'écrit sous la forme \[w = \sum_{i=1}^k\lambda_iy_i = \sum_{i=1}^n\lambda_ix_i + \sum_{i=1}^{k-n}\mu_iy_{i+n}.\] En prenant $\mu_i = 0$ pour tout
+		$i \in \{1, \dotsc, k-n\}$, on sait écrire \[v = \sum_{i=1}^n\alpha_ix_i + \sum_{i=1}^{k-n}\mu_iy_{i+n} \in \eng Y.\] On a donc bien $\eng X \subseteq \eng Y$.
 		\end{proof}
 
 		\begin{prp} Soit $V$ un e.v. réel et $X \subseteq V$. Alors $\eng {\eng X} = \eng X$. \end{prp}
@@ -875,10 +885,11 @@ Pour tout 0 < i < l+1
 			&= \left\{\sum_{i=1}^k\left(\lambda_i\sum_{j=1}^\ell\mu_jw_j\right) \tq k, \ell \in \N, w_j \in X, \lambda_i, \mu_j \in \R\right\} \\
 			&= \left\{\sum_{j=1}^\ell\left(\mu_j\sum_{i=1}^k\lambda_i\right)w_j \tq k, \ell \in \N, w_j \in X, \lambda_i, \mu_j \in \R\right\}.
 		\end{align*}
-		En posant : \[\alpha_j \coloneqq \mu_j\sum_{i=1}^k\lambda_i,\] on peut réécrire :
+		En posant~: \[\alpha_j \coloneqq \mu_j\sum_{i=1}^k\lambda_i,\] on peut réécrire~:
 		\[\eng {\eng X} = \left\{\sum_{j=1}^\ell\alpha_jw_j \tq \ell \in \N, w_j \in X, \alpha_j \in \R\right\} = \eng X.\] \end{proof}
 
-		\begin{lem} Soit $V$ un e.v. et $X \subseteq Y \subseteq V$. Si $X$ est une partie génératrice de $V$, alors $Y$ est également une partie génératrice de $V$. \end{lem}
+		\begin{lem} Soit $V$ un e.v. et $X \subseteq Y \subseteq V$. Si $X$ est une partie génératrice de $V$, alors $Y$ est également une partie génératrice de $V$.
+		\end{lem}
 
 		\begin{proof} Par la proposition~\ref{engXDansEngY}, on sait que $\eng X \subseteq \eng Y$. Or $\eng X = V$. Donc $V \subseteq \eng Y$. Donc $Y$ est une partie
 		génératrice de $V$. \end{proof}
@@ -887,8 +898,8 @@ Pour tout 0 < i < l+1
 		$X \setminus \{x\}$ est une partie génératrice de $V$. \end{prp}
 
 		\begin{proof} Supposons qu'il existe un tel $x$. On peut donc réécrire \[x = \sum_{i=1}^k\lambda_iv_i\] où $v_i \in X \setminus \{x\}$. Un vecteur quelconque
-		$w \in V$ peut s'écrire comme une combinaison linéaire de vecteurs de $X$ (car $X$ est génératrice). On a donc : \[v = \sum_{i=1}^k\mu_iv_i + \mu x\] où
-		$v_i \in X \setminus \{x\}$. Or, comme $x$ est également une combinaison linéaire des vecteurs $v_i$, on peut réécrire :
+		$w \in V$ peut s'écrire comme une combinaison linéaire de vecteurs de $X$ (car $X$ est génératrice). On a donc~: \[v = \sum_{i=1}^k\mu_iv_i + \mu x\] où
+		$v_i \in X \setminus \{x\}$. Or, comme $x$ est également une combinaison linéaire des vecteurs $v_i$, on peut réécrire~:
 		\[v = \sum_{i=1}^k\mu_iv_i + \sum_{i=1}^k\lambda_iv_i = \sum_{i=1}^k(\lambda_i+\mu_i)v_i.\]
 		Et comme $v_i \in X \setminus \{x\}$, l'ensemble $X \setminus \{x\}$ est une partie génératrice de $V$. \end{proof}
 
@@ -899,50 +910,51 @@ Pour tout 0 < i < l+1
 		$x \in X : x \not \in \eng {X \setminus \{x\}}$. \end{prp}
 
 		\begin{proof} Montrons que si $X$ est une partie libre, alors $\forall x \in X : x \not \in \eng {X \setminus \{x\}}$. Soit $X$ une partie libre de $V$.
-		Supposons par l'absurde qu'il existe $x \in X$ tel que $x \not \in \eng {X \setminus \{x\}}$. Dès lors, il existe $v_1, \ldots, v_k \in X \setminus \{x\}$ et
-		$\lambda_1, \ldots, \lambda_k \in \R$ tels que $x = \lambda_1v_1 + \ldots + \lambda_kv_k$. La combinaison linéaire $x - \lambda_1v_1 - \ldots - \lambda_kv_k = 0$
+		Supposons par l'absurde qu'il existe $x \in X$ tel que $x \not \in \eng {X \setminus \{x\}}$. Dès lors, il existe $v_1, \dotsc, v_k \in X \setminus \{x\}$ et
+		$\lambda_1, \dotsc, \lambda_k \in \R$ tels que $x = \lambda_1v_1 + \ldots + \lambda_kv_k$. La combinaison linéaire $x - \lambda_1v_1 - \ldots - \lambda_kv_k = 0$
 		est donc une combinaison nulle non-triviale, ce qui contredit le fait que $X$ est libre.
 
 		Montrons maintenant que si $\forall x \in X : x \not \in \eng {X \setminus \{x\}}$, alors $X$ est libre. Supposons par l'absurde que $X$ n'est pas libre. Alors
-		il existe une combinaison linéaire $\lambda_1v_1 + \ldots + \lambda_kv_k = 0$ avec au moins un coefficient non-nul. Appelons-le $\lambda_i$. On a donc :
+		il existe une combinaison linéaire $\lambda_1v_1 + \ldots + \lambda_kv_k = 0$ avec au moins un coefficient non-nul. Appelons-le $\lambda_i$. On a donc~:
 		\[v_i = -\lambda_i^{-1}\left(\sum_{j=1, j \neq i}^k\lambda_jv_j\right) \in X \setminus \{v_i\},\] ce qui contredit l'hypothèse. \end{proof}
 
 		\begin{prp} Soit $V$ un e.v. et $X \subseteq Y \subseteq V$. Si $Y$ est une partie libre, alors $X$ est également une partie libre. \end{prp}
 
-		\begin{proof} Soit une combinaison linéaire des vecteurs de $Y$ : \[y = \sum_{i=1}^k\lambda_iv_i\] où $v_i \in Y$. Comme $Y$ est libre, la seule combinaison linéaire
-		nulle possible est $\lambda_1 = \lambda_2 = \ldots = 0$. Soit une combinaison linéaire des vecteurs de $X$ : \[x = \sum_{i=1}^n\mu_iv_i\] où $n \leq k$ et $v_i \in X$.
-		Si $x = 0$, on a déjà $\mu_t = 0$ pour $t \in \{n+1, \ldots, k\}$. Par hypothèse, il faut donc que les autres $\lambda_i$ valent $0$. \end{proof}
+		\begin{proof} Soit une combinaison linéaire des vecteurs de $Y$~: \[y = \sum_{i=1}^k\lambda_iv_i\] où $v_i \in Y$. Comme $Y$ est libre, la seule combinaison
+		linéaire nulle possible est $\lambda_1 = \lambda_2 = \ldots = 0$. Soit une combinaison linéaire des vecteurs de $X$~: \[x = \sum_{i=1}^n\mu_iv_i\] où
+		$n \leq k$ et $v_i \in X$. Si $x = 0$, on a déjà $\mu_t = 0$ pour $t \in \{n+1, \dotsc, k\}$. Par hypothèse, il faut donc que les autres $\lambda_i$ valent $0$.
+		\end{proof}
 
 		\begin{prp}\label{ajoutPartieLibre} Soit $V$ un e.v. et $X$ une partie libre de $V$. S'il existe $v \in V \setminus \eng X$, alors $X \cup \{v\}$ est
 		également une partie libre. \end{prp}
 
-		\begin{proof} Supposons que $X \cup \{v\}$ ne soit pas libre. Alors il existe $v_1, \ldots, v_k \in X, \lambda, \lambda_1, \ldots, \lambda_k \in \R$ tels que :
-		\[\lambda v + \sum_{i=1}^k\lambda_iv_i = 0.\] Si $\lambda = 0$, il y a contradiction car on a supposé $X \cup \{v\}$ non libre. Si $\lambda \neq 0$, alors $v$ est une
-		combinaison linéaire des vecteurs $v_i$ de $X$. Or par hypothèse, $v \in V \setminus \eng X$. Il y a donc à nouveau contradiction. Un tel $\lambda$ n'existe pas, et
-		donc $X \cup \{v\}$ est libre. \end{proof}
+		\begin{proof} Supposons que $X \cup \{v\}$ ne soit pas libre. Alors il existe $v_1, \dotsc, v_k \in X, \lambda, \lambda_1, \dotsc, \lambda_k \in \R$ tels que~:
+		\[\lambda v + \sum_{i=1}^k\lambda_iv_i = 0.\] Si $\lambda = 0$, il y a contradiction car on a supposé $X \cup \{v\}$ non libre. Si $\lambda \neq 0$, alors $v$
+		est une combinaison linéaire des vecteurs $v_i$ de $X$. Or par hypothèse, $v \in V \setminus \eng X$. Il y a donc à nouveau contradiction. Un tel $\lambda$
+		n'existe pas, et donc $X \cup \{v\}$ est libre. \end{proof}
 
 	\subsection{Bases et dimension}
-		\begin{thm}\label{equivBases} Soient $V$ un e.v. et $X \subseteq V$. Alors les trois propositions suivantes sont équivalentes :
+		\begin{thm}\label{equivBases} Soient $V$ un e.v. et $X \subseteq V$. Alors les trois propositions suivantes sont équivalentes~:
 		\begin{enumerate}
-			\item $X$ est une partie génératrice minimale (il n'existe pas de $x \in X$ tel que $x \in \eng {X \setminus \{x\}}$) ;
-			\item $X$ est une partie libre maximale (il n'existe pas de $v \in V$ tel que $X \cup \{v\}$ soit libre) ;
+			\item $X$ est une partie génératrice minimale (il n'existe pas de $x \in X$ tel que $x \in \eng {X \setminus \{x\}}$)~;
+			\item $X$ est une partie libre maximale (il n'existe pas de $v \in V$ tel que $X \cup \{v\}$ soit libre)~;
 			\item $X$ est une partie libre et génératrice.
 		\end{enumerate}
 		\end{thm}
 
-		\begin{proof} Montrons que $(1)$ implique $(3)$ : par la proposition~\ref{conditionsPartieLibre}, s'il n'existe pas de $x \in X$ tel que
+		\begin{proof} Montrons que $(1)$ implique $(3)$~: par la proposition~\ref{conditionsPartieLibre}, s'il n'existe pas de $x \in X$ tel que
 		$x \in \eng {X \setminus \{x\}}$ , alors $X$ est libre.
 
-		Montrons que $(3)$ implique $(2)$ : $X$ est libre et génératrice. Dès lors, si $v \in V$, alors $v \in \eng X$. Donc $X \cup \{v\}$ ne peut être libre.
+		Montrons que $(3)$ implique $(2)$~: $X$ est libre et génératrice. Dès lors, si $v \in V$, alors $v \in \eng X$. Donc $X \cup \{v\}$ ne peut être libre.
 
-		Montrons que $(2)$ implique $(1)$ : $X$ est libre maximale. Donc il n'existe pas de $v \in V$ tel que $v \not \in \eng X$. Donc $\eng X = V$ ou encore $X$ est
-		génératrice. Mais $X$ est génératrice minimale car s'il existait $x \in X$ tel que $x \in \eng {X \setminus \{x\}}$, alors cela voudrait dire que $X$ n'est pas libre
-		maximale. \end{proof}
+		Montrons que $(2)$ implique $(1)$~: $X$ est libre maximale. Donc il n'existe pas de $v \in V$ tel que $v \not \in \eng X$. Donc $\eng X = V$ ou encore $X$ est
+		génératrice. Mais $X$ est génératrice minimale car s'il existait $x \in X$ tel que $x \in \eng {X \setminus \{x\}}$, alors cela voudrait dire que $X$ n'est
+		pas libre maximale. \end{proof}
 
 		\begin{déf} Soit un espace vectoriel $V$ et $X \subseteq V$. Si $X$ est une une partie libre et génératrice, on appelle $X$ une base de $V$. \end{déf}
 
-		\begin{lem}[lemme de Zorn] Soit $(S, \leq)$ un ensemble partiellement ordonné. Si tout sous-ensemble totalement ordonné $X \subseteq S$ a une borne supérieure dans
-		$S$ (un $M \in S$ tel que $\forall x \in X : x \leq M$), alors il existe un élément maximal $m \in S$. \end{lem}
+		\begin{lem}[lemme de Zorn] Soit $(S, \leq)$ un ensemble partiellement ordonné. Si tout sous-ensemble totalement ordonné $X \subseteq S$ a une borne supérieure
+		dans $S$ (un $M \in S$ tel que $\forall x \in X : x \leq M$), alors il existe un élément maximal $m \in S$. \end{lem}
 
 		\begin{thm}\label{existenceBaseEspaceGénéré} Soient $V$ un espace vectoriel et $X \subseteq Y \subseteq V$ tels que $X$ est libre. Alors il existe une base
 		$B$ de $\eng Y$ telle que $X \subseteq B \subseteq \eng Y$. \end{thm}
@@ -951,26 +963,27 @@ Pour tout 0 < i < l+1
 		à $\mathcal S$ par l'inclusion. On sait $\mathcal S$ non vide car $X \in \mathcal S$.
 
 		Soient $\{Z_i\}_{i \in I}$ une famille totalement ordonnée de $\mathcal S$ et $Z \coloneqq \cup_{i \in I}Z_i$. On sait que $Z \in \mathcal S$ car
-		$X \subseteq Z \subseteq Y$ (en effet : comme $Z$ est défini par l'union, $X \subseteq Z$ et de plus, il n'existe aucun $z \in Z$ tel qu'il n'existe pas de $i$ pour
-		$z \in Z_i$ dès lors $Z \subseteq Y$) et $Z$ est libre car défini par l'inclusion de parties libres \textbf{incluses}. De plus $Z$ est une borne supérieure de
-		$\{Z_i\}_{i \in I}$. Dès lors, par le lemme de Zorn, on sait qu'il existe un élément maximal $B \in \mathcal S$.
+		$X \subseteq Z \subseteq Y$ (en effet~: comme $Z$ est défini par l'union, $X \subseteq Z$ et de plus, il n'existe aucun $z \in Z$ tel qu'il n'existe pas de
+		$i$ pour $z \in Z_i$ dès lors $Z \subseteq Y$) et $Z$ est libre car défini par l'inclusion de parties libres \textbf{incluses}. De plus $Z$ est une borne
+		supérieure de $\{Z_i\}_{i \in I}$. Dès lors, par le lemme de Zorn, on sait qu'il existe un élément maximal $B \in \mathcal S$.
 
-		On remarque que $B$ est une base de $\eng Y$ car sinon il existerait $v \in V \setminus \eng Y$ tel que $B \cup \{v\}$ serait dans $\mathcal S$, or $B$ est l'élément
-		maximal. Donc $\eng B = \eng Y$, ou encore $B$ est une base de $\eng Y$ telle que $X \subseteq B \subseteq Y$. \end{proof}
+		On remarque que $B$ est une base de $\eng Y$ car sinon il existerait $v \in V \setminus \eng Y$ tel que $B \cup \{v\}$ serait dans $\mathcal S$, or $B$
+		est l'élément maximal. Donc $\eng B = \eng Y$, ou encore $B$ est une base de $\eng Y$ telle que $X \subseteq B \subseteq Y$. \end{proof}
 
 		\begin{cor} Tout espace vectoriel $V$ admet une base. \end{cor}
 
 		\begin{proof} En posant $X = \emptyset$ et $Y = V$, par le théorème~\ref{existenceBaseEspaceGénéré}, il existe une base de $\eng V = V$. \end{proof}
 
 		\begin{lem}\label{identitéSousEspaceInclus} Soi $V$ un e.v. et $W$ un sous-espace de $V$. Soit $v \in V \setminus W$. Si $Z \subseteq V$ est un sous-espace de
-		$V$ tel que : \[W \subseteq Z \subseteq \eng {V \cup \{v\}},\] alors, $W = Z$ ou $Z = \eng {W \cup \{v\}}$. \end{lem}
+		$V$ tel que~: \[W \subseteq Z \subseteq \eng {V \cup \{v\}},\] alors, $W = Z$ ou $Z = \eng {W \cup \{v\}}$. \end{lem}
 
 		\begin{proof} Soit $B$ une base de $W$. Comme $v \not \in W$, alors $B \cup \{v\}$ est une base de $\eng {W \cup \{v\}}$ car $B \cup \{v\}$ est une partie libre
 		de $\eng {W \cup \{v\}}$ et est génératrice. 
 		
-		Si $Z = W$, alors la démonstration est faite. Supposons donc $Z \neq W$. Prenons $z \in Z \setminus W$. Puisque $z$ n'est pas dans $W$, on sait que $B \cup \{z\}$
-		est une partie libre de $\eng {W \cup \{v\}}$. Alors il faut $v \in \eng {B \cup \{z\}}$ sinon $B \cup \{z, v\}$ serait une partie libre de $\eng {W \cup \{v\}}$ ce qui
-		contredirait le fait que $B \cup \{v\}$ en soit une base. On a donc : \[\eng {W \cup \{v\}} = \eng {B \cup \{v\}} \subseteq \eng {B \cup \{z\}} \subseteq Z.\]
+		Si $Z = W$, alors la démonstration est faite. Supposons donc $Z \neq W$. Prenons $z \in Z \setminus W$. Puisque $z$ n'est pas dans $W$, on sait que
+		$B \cup \{z\}$ est une partie libre de $\eng {W \cup \{v\}}$. Alors il faut $v \in \eng {B \cup \{z\}}$ sinon $B \cup \{z, v\}$ serait une partie libre de
+		$\eng {W \cup \{v\}}$ ce qui contredirait le fait que $B \cup \{v\}$ en soit une base. On a donc~:
+		\[\eng {W \cup \{v\}} = \eng {B \cup \{v\}} \subseteq \eng {B \cup \{z\}} \subseteq Z.\]
 		Or par hypothèse, on avait $Z \subseteq \eng {W \cup \{v\}}$. Donc on sait $Z = \eng {W \cup \{v\}}$. \end{proof}
 	
 		\subsubsection{Cardinalité}
@@ -981,26 +994,26 @@ Pour tout 0 < i < l+1
 		alors $\abs X = \abs Y$. \end{thm}
 
 		\begin{proof} Soient $f : X \to Y, g : Y \to X$ deux fonctions injectives. Si $g$ est bijective, la preuve est finie. Posons $A_0 \coloneqq X \setminus g(Y)$.
-		On sait $A_0$ non-vide car $g$ n'est pas bijective. On pose ensuite : \[\forall i \in \N \setminus \{0\} : A_i \coloneqq (g \circ f)(A_{i-1}).\]
+		On sait $A_0$ non-vide car $g$ n'est pas bijective. On pose ensuite~: \[\forall i \in \N \setminus \{0\} : A_i \coloneqq (g \circ f)(A_{i-1}).\]
 		On définit $A \coloneqq \cup_{i\in\N}A_i$ et $A' \coloneqq X \setminus A$. L'ensemble $A$ est non-vide.
 
-		On sait : \[(g \circ f)(A) = \cup_{i \in I}(g \circ f)(A_i) = \cup_{i\in\N}A_{i+1} = X \setminus X_0\subset A.\]
-		Définissons ensuite : \[\varphi : X \to Y : x \mapsto \left\{\begin{aligned}&f(x) &\text{ si } x \in A, \\&g^{-1}(x) &\text{ si $x \in A'$}\end{aligned}\right..\]
+		On sait~: \[(g \circ f)(A) = \cup_{i \in I}(g \circ f)(A_i) = \cup_{i\in\N}A_{i+1} = X \setminus X_0\subset A.\]
+		Définissons ensuite~: \[\varphi : X \to Y : x \mapsto \left\{\begin{aligned}&f(x) &\text{ si } x \in A, \\&g^{-1}(x) &\text{ si $x \in A'$}\end{aligned}\right..\]
 		On sait que $g^{-1}(x)$ existe car $x \in A'$ et $A' \subseteq g(Y)$.
 
-		Montrons que $\varphi$ est bijective :
+		Montrons que $\varphi$ est bijective~:
 		\begin{enumerate}
-			\item montrons que $\varphi(A) \cap \varphi(A') = \emptyset$. Supposons qu'il existe $x \in \varphi(A) \cap \varphi(A')$. Puisque $x \in \varphi(A)$, on sait que
-			$x \in f(A) \subseteq Y$, donc il existe $y \in A$ tel que $f(y) = x$ donc $g(x) = g(f(y)) = (g \circ f)(y)$. On on a montré que l'image de $(g \circ f)$ est incluse
-			dans $A$. On a donc $g(x) \in A$.
+			\item montrons que $\varphi(A) \cap \varphi(A') = \emptyset$. Supposons qu'il existe $x \in \varphi(A) \cap \varphi(A')$. Puisque $x \in \varphi(A)$,
+			      on sait que $x \in f(A) \subseteq Y$, donc il existe $y \in A$ tel que $f(y) = x$ donc $g(x) = g(f(y)) = (g \circ f)(y)$. On on a montré que l'image
+				  de $(g \circ f)$ est incluse dans $A$. On a donc $g(x) \in A$.
 
-			Mais puisque $x \in \varphi(A')$, on sait qu'il existe $y' \in A'$ tel que $g(x) = y'$. Donc $g(x) \in A'$. Ce qui est une contradiction avec le fait que $g(x) \in A$
-			car $A$ et $A'$ sont disjoints.
+			      Mais puisque $x \in \varphi(A')$, on sait qu'il existe $y' \in A'$ tel que $g(x) = y'$. Donc $g(x) \in A'$. Ce qui est une contradiction avec le fait
+				  que $g(x) \in A$ car $A$ et $A'$ sont disjoints.
 
-			\item Montrons que $\varphi$ est injective. Soient $x, x' \in X$ tels que $\varphi(x) = \varphi(x')$. Les combinaisons possibles sont :
+			\item Montrons que $\varphi$ est injective. Soient $x, x' \in X$ tels que $\varphi(x) = \varphi(x')$. Les combinaisons possibles sont~:
 			\begin{enumerate}
-				\item $x \in A$ et $x \in A'$ ou inversement ce qui est impossible car $\varphi(x) \in \varphi(A)$ et $\varphi(x') \in \varphi(A')$ qui sont disjoints ;
-				\item $x, x' \in A$. Dès lors, $f(x) = \varphi(x) = \varphi(x') = f(x')$, et par injectivité de $f$, il faut $x=x'$ ;
+				\item $x \in A$ et $x \in A'$ ou inversement ce qui est impossible car $\varphi(x) \in \varphi(A)$ et $\varphi(x') \in \varphi(A')$ qui sont disjoints~;
+				\item $x, x' \in A$. Dès lors, $f(x) = \varphi(x) = \varphi(x') = f(x')$, et par injectivité de $f$, il faut $x=x'$~;
 				\item $x, x' \in A'$. On sait que $g$ est une bijection entre $Y$ et $B \coloneqq g(Y)$. Donc $g^{-1} : g(Y) \to Y$ est également bijective. Dès lors,
 				si $g^{-1}(x) = g^{-1}(x')$, alors$x = x'$.
 			\end{enumerate}
@@ -1022,29 +1035,30 @@ Pour tout 0 < i < l+1
 		\begin{thm}\label{cardPartiesFinies} Soit $X$ un ensemble infini. Soit $\mathcal F_X \coloneqq \{Y \subseteq X \tq Y \text {est une partie finie}\}$.
 		Alors $\abs {\mathcal F_X} = \abs X$. \end{thm}
 
-		\begin{thm}\label{unionEnsFinisIndicésInfini} Soient $I$ un ensemble d'indices infini et $\{X_i\}_{i \in I}$ une famille d'ensembles finis indicés par $I$. Alors :
-		\[\abs {\bigcup_{i \in I}X_i} \leq \abs I.\] \end{thm}
+		\begin{thm}\label{unionEnsFinisIndicésInfini} Soient $I$ un ensemble d'indices infini et $\{X_i\}_{i \in I}$ une famille d'ensembles finis indicés par $I$.
+		Alors~: \[\abs {\bigcup_{i \in I}X_i} \leq \abs I.\] \end{thm}
 		
 		\begin{thm} Soient $V$ un espace vectoriel et $E, E'$ deux bases quelconques de $V$. Alors $\abs E = \abs {E'}$. \end{thm}
 
-		\begin{proof} Supposons d'abord $\abs E = n \in \N$ donc $E$ fini. Posons $k \coloneqq \abs {E \cap E'}$. Montrons par récurrence sur $n-k$ que $\abs E = \abs {E'}$.
-		
-		\underline{cas de base :} si $n-k = 0$, alors $\abs {E \cap E'} = \abs {E}$ et il faut donc $E \subseteq E'$. Or $E$ et $E'$ sont tous deux des familles génératrices
-		minimales donc il faut $E = E'$.
+		\begin{proof} Supposons d'abord $\abs E = n \in \N$ donc $E$ fini. Posons $k \coloneqq \abs {E \cap E'}$. Montrons par récurrence sur $n-k$ que
+		$\abs E = \abs {E'}$.
 
-		\underline {pas de récurrence :} si $n-k = i > 0$, on sait que $E \cap E' \subseteq E$ et donc si $E = \{e_1, \ldots, e_n\}$, on a $E \cap E' = \{e_1, \ldots, e_k\}$.
-		De plus, on sait que $E$ est une partie génératrice minimale. Donc $E \setminus \{e_{k+1}\}$ n'est plus génératrice. Dès lors, on sait qu'il existe
-		$y \in E' \setminus \eng {E \setminus \{e_{k+1}\}}$. Soit $E'' \coloneqq \{y\} \cup E \setminus \{e_{k+1}\}$. On sait donc dire :
+		\underline{cas de base~:} si $n-k = 0$, alors $\abs {E \cap E'} = \abs {E}$ et il faut donc $E \subseteq E'$. Or $E$ et $E'$ sont tous deux des familles
+		génératrices minimales donc il faut $E = E'$.
+
+		\underline {pas de récurrence~:} si $n-k = i > 0$, on sait que $E \cap E' \subseteq E$ et donc si $E = \{e_1, \dotsc, e_n\}$, on a
+		$E \cap E' = \{e_1, \dotsc, e_k\}$. De plus, on sait que $E$ est une partie génératrice minimale. Donc $E \setminus \{e_{k+1}\}$ n'est plus génératrice.
+		Dès lors, on sait qu'il existe $y \in E' \setminus \eng {E \setminus \{e_{k+1}\}}$. Soit $E'' \coloneqq \{y\} \cup E \setminus \{e_{k+1}\}$. On sait donc dire~:
 		\[\eng {E \setminus \{e_{k+1}\}} \subset \eng {E''} \subseteq \eng E = V.\] Par le lemme~\ref{identitéSousEspaceInclus}, on sait $\eng {E''} = V$. De plus, $E''$
-		est libre. Donc $E''$ est une base de $V$. On a donc $\abs {E''} = \abs E = n$. De plus, puisque $E' \cap E'' = \{e_1, \ldots, e_{k+1}\}$, peut dire :
+		est libre. Donc $E''$ est une base de $V$. On a donc $\abs {E''} = \abs E = n$. De plus, puisque $E' \cap E'' = \{e_1, \dotsc, e_{k+1}\}$, peut dire~:
 		$\abs {E''} - \abs {E' \cap E''} = n - (k+1) = n-k-1$. Alors Par hypothèse de récurrence, $\abs {E'} = \abs {E''}$.
 
 		Supposons ensuite que $E$ est de cardinal infini (et donc $E'$ également). Posons $\mathcal F_E \coloneqq \{X \subseteq E \tq X \text{ partie finie}\}$ et
-		$\mathcal F_{E'} \coloneqq \{Y \subseteq E' \tq Y \text{ partie finie}\}$. Par le théorème~\ref{cardPartiesFinies} (admis), on sait que $\abs {\mathcal F_E} = \abs E$
-		et $\abs {\mathcal F_{E'}} = \abs {E'}$.
+		$\mathcal F_{E'} \coloneqq \{Y \subseteq E' \tq Y \text{ partie finie}\}$. Par le théorème~\ref{cardPartiesFinies} (admis), on sait que
+		$\abs {\mathcal F_E} = \abs E$ et $\abs {\mathcal F_{E'}} = \abs {E'}$.
 
-		Soit $Y \in \mathcal F_E$. Alors, par définition de $Y$, on sait que $E' \cap \eng Y$ est fini. Dès lors, on sait qu'il existe une base $B$ de $\eng Y$ telle que
-		$E' \cap \eng Y \subseteq B \subseteq \eng Y$. Or $Y$ est également une base de $\eng Y$. Donc $\abs Y = \abs B$ et donc $Y$ est fini.
+		Soit $Y \in \mathcal F_E$. Alors, par définition de $Y$, on sait que $E' \cap \eng Y$ est fini. Dès lors, on sait qu'il existe une base $B$ de $\eng Y$
+		telle que $E' \cap \eng Y \subseteq B \subseteq \eng Y$. Or $Y$ est également une base de $\eng Y$. Donc $\abs Y = \abs B$ et donc $Y$ est fini.
 
 		Posons $f : \mathcal F_E \to \mathcal F_{E'} : Y \mapsto E' \cap \eng Y$. Soit $b \in E'$. On sait qu'il existe $Y \in \mathcal F_E$ tel que $b \in \eng Y$.
 		Donc $b \in f(Y) = E' \cap \eng Y$. On peut déduire que $E'$ est égal à l'union de tous les éléments de $\mathcal F_E$ :
@@ -1052,28 +1066,28 @@ Pour tout 0 < i < l+1
 		De plus, on sait que $f(\mathcal F_E) \subseteq \mathcal F_{E'}$. Donc $\abs {E'} \leq \abs {f(\mathcal F_E)} \leq \abs {\mathcal F_{E'}} = \abs {E'}$.
 		Il faut donc nécessairement $\abs {f(\mathcal F_{E})} = \abs {\mathcal F_{E'}} = \abs {E'}$.
 
-		Et comme, de plus, on a $\abs {f(\mathcal F_E)} \leq \abs {\mathcal F_E}$. On sait donc dire $\abs {E'} = \abs {f(\mathcal F_E)} \leq \abs {\mathcal F_E} = \abs E$,
-		d'où $\abs {E'} \leq \abs E$.
+		Et comme, de plus, on a $\abs {f(\mathcal F_E)} \leq \abs {\mathcal F_E}$. On sait donc dire
+		$\abs {E'} = \abs {f(\mathcal F_E)} \leq \abs {\mathcal F_E} = \abs E$, d'où $\abs {E'} \leq \abs E$.
 
 		Par symétrie, on trouve la même chose pour $E$ : à savoir $\abs E \leq \abs {E'}$. Donc par le théorème de Cantor-Bernstein (théorème~\ref{Cantor-Bernstein}), on
 		sait que $\abs E = \abs {E'}$. \end{proof}
 
-		\begin{déf} Soit $V$ un e.v. On définit la dimension réelle de $V$ par le cardinal de ses bases : $\dim_\R V = \abs E$ avec $E$, base de $V$. \end{déf}
+		\begin{déf} Soit $V$ un e.v. On définit la dimension réelle de $V$ par le cardinal de ses bases~: $\dim_\R V = \abs E$ avec $E$, base de $V$. \end{déf}
 	
 		\subsubsection{Dépendance base et système de coordonnées}
 		\begin{déf} Soit $V$ un espace vectoriel réel. Tout vecteur $v \in V$ peut s'écrire comme une combinaison linéaire de $\lambda_ie_i$ où $e_i$ sont les vecteurs
-		de la base $E$ de $V$. On appelle le n-uple de $\lambda_i$ suivant $(\lambda_1, \ldots, \lambda_n) \in \R^n$ les coordonnées de $v$ dans la base $E$. \end{déf}
+		de la base $E$ de $V$. On appelle le n-uple de $\lambda_i$ suivant $(\lambda_1, \dotsc, \lambda_n) \in \R^n$ les coordonnées de $v$ dans la base $E$. \end{déf}
 
-		\begin{prp} Soit $V$ un espace vectoriel et $E$ une base de $V$. Alors chaque vecteur $v \in V$ s'écrit de manière unique comme une combinaison linéaire des vecteurs
-		de la base $E$. \end{prp}
+		\begin{prp} Soit $V$ un espace vectoriel et $E$ une base de $V$. Alors chaque vecteur $v \in V$ s'écrit de manière unique comme une combinaison linéaire des
+		vecteurs de la base $E$. \end{prp}
 
-		\begin{proof} Par hypothèse, $E$ est génératrice. Soit $v \in V$. Alors : \[v = \sum_{i=1}^n\lambda_ie_i = \sum_{i=1}^n\mu_ie_i.\] Alors, on peut écrire $v-v = 0$,
-		d'où : \[0 = v - v = \sum_{i=1}^n\lambda_ie_i - \sum_{i=1}^n\mu_ie_i = \sum_{i=1}^n(\lambda_i - \mu_i)e_i.\] Comme $E$ est libre, la seule combinaison nulle possible
-		est la combinaison linéaire nulle triviale avec $\lambda_i-\mu_i=0$ pour tout $i$, ou encore $\lambda_i = \mu_i$. \end{proof}
+		\begin{proof} Par hypothèse, $E$ est génératrice. Soit $v \in V$. Alors~: \[v = \sum_{i=1}^n\lambda_ie_i = \sum_{i=1}^n\mu_ie_i.\] Alors, on peut écrire
+		$v-v = 0$, d'où~: \[0 = v - v = \sum_{i=1}^n\lambda_ie_i - \sum_{i=1}^n\mu_ie_i = \sum_{i=1}^n(\lambda_i - \mu_i)e_i.\] Comme $E$ est libre, la seule combinaison
+		nulle possible est la combinaison linéaire nulle triviale avec $\lambda_i-\mu_i=0$ pour tout $i$, ou encore $\lambda_i = \mu_i$. \end{proof}
 
-		\begin{prp}\label{inclusionBases} Soient $V$ un e.v. et $W$ un sous-espace de $V$. Soient $E_V$ et $E_W$ des bases respectivement de $V$ et $W$. Alors on peut :
+		\begin{prp}\label{inclusionBases} Soient $V$ un e.v. et $W$ un sous-espace de $V$. Soient $E_V$ et $E_W$ des bases respectivement de $V$ et $W$. Alors on peut~:
 		\begin{enumerate}
-			\item compléter $E_W$ pour en faire une base de $V$ ;
+			\item compléter $E_W$ pour en faire une base de $V$~;
 			\item réduire $E_V$ pour en faire une base de $W$.
 		\end{enumerate}
 		\end{prp}
@@ -1081,30 +1095,31 @@ Pour tout 0 < i < l+1
 		\begin{proof} Montrons d'abord comment étendre $E_W$. Si $V=W$, $E_W$ est une base de $V$. Supposons $W \neq V$. Alors il existe $v_1 \in V \setminus W =
 		V \setminus \eng {E_W}$. De plus, $E_W \cup \{v_1\}$ est toujours libre. Si $\eng {E_W \cup \{v_1\}} = V$, alors c'est bon, sinon, il doit exister
 		$v_2 \in V \setminus \eng {E_W \cup \{v_1\}}$. Mais $E_W \cup \{v_1, v_2\}$ est toujours libre. Si $\eng {E_W \cup \{v_1, v_2\}}$, il existe $v_3$ etc.
-		Une fois $k = \dim_\R V - \dim_\R W$ vecteurs ajoutés, on obtient $\eng {E_W \cup \{v_1, \ldots, v_k\}} = V$ où $E_W \cup \{v_1, \ldots, v_k\}$ est libre.
+		Une fois $k = \dim_\R V - \dim_\R W$ vecteurs ajoutés, on obtient $\eng {E_W \cup \{v_1, \dotsc, v_k\}} = V$ où $E_W \cup \{v_1, \dotsc, v_k\}$ est libre.
 		Donc on a complété $E_W$ pour en faire une base de $V$.
 
 		Montrons maintenant comment réduire $E_V$ pour en faire une base de $W$. Si $V=W$, alors $E_V$ est une base de $W$. Supposons $W \neq V$. Alors il existe
 		$v_1 \in \eng {E_V} \setminus W$ tel que $v_1$ est une combinaison linéaire des des vecteurs de $E_V \setminus \{v_1\}$. $E_V \setminus \{v_1\}$ est toujours
 		génératrice. Si $E_V \setminus \{v_1\}$ n'est pas libre, c'est qu'il existe un vecteur $v_2 \in \eng {E_V \setminus \{v_1\}} \setminus W$ qui est une combinaison
-		linéaire des vecteurs de $E_V \setminus \{v_1\}$. $E_V \setminus \{v_1, v_2\}$ est toujours génératrice. Et si elle n'est pas libre, alors il existe $v_3$ etc. Une
-		fois $k=\dim_\R V-\dim_\R W$ vecteurs retirés, on obtient $E_V \setminus \{v_1, \ldots, v_k\}$ est libre dans $W$ et est restée génératrice. Donc on a réduit
-		$E_V$ pour en faire une base de $W$. \end{proof}
+		linéaire des vecteurs de $E_V \setminus \{v_1\}$. $E_V \setminus \{v_1, v_2\}$ est toujours génératrice. Et si elle n'est pas libre, alors il existe $v_3$ etc.
+		Une fois $k=\dim_\R V-\dim_\R W$ vecteurs retirés, on obtient $E_V \setminus \{v_1, \dotsc, v_k\}$ est libre dans $W$ et est restée génératrice. Donc on a
+		réduit $E_V$ pour en faire une base de $W$. \end{proof}
 
 		\begin{cor} Soit $W$ un sous-espace de l'e.v. $V$. Alors $\dim_\R W \leq \dim_\R V$. \end{cor}
 
-		\begin{proof} Par la proposition~\ref{inclusionBases}, on sait qu'il faut ajouter (ou retirer) un nombre positif de vecteurs pour passer d'une base du sous-espace (ou
-		de l'espace) à une base de l'espace (ou du sous-espace). \end{proof}
+		\begin{proof} Par la proposition~\ref{inclusionBases}, on sait qu'il faut ajouter (ou retirer) un nombre positif de vecteurs pour passer d'une base du
+		sous-espace (ou de l'espace) à une base de l'espace (ou du sous-espace). \end{proof}
 
-		\begin{prp} Soit $V$ un e.v. réel de dimension finie $d$. Si $X$ est une partie libre de $V$, alors $\abs X \leq d$ et si $\abs X = d$, alors $X$ est une base. Si $X$
-		est une partie génératrice, alors $\abs X \geq d$ et si $\abs X = d$, alors $X$ est une base de $V$. \end{prp}
+		\begin{prp} Soit $V$ un e.v. réel de dimension finie $d$. Si $X$ est une partie libre de $V$, alors $\abs X \leq d$ et si $\abs X = d$, alors $X$ est une base.
+		Si $X$ est une partie génératrice, alors $\abs X \geq d$ et si $\abs X = d$, alors $X$ est une base de $V$. \end{prp}
 
-		\begin{proof} Soit $E$ une base de $V$. Supposons $X = \{x_1, \ldots, x_k\}$ une partie libre. Si $k > d$, alors $x_i$ peut être écrit comme une combinaison linéaire
-		des vecteurs de $E$ pour $1 \leq i \leq d$. Alors $x_{d+1}$ sait s'écrire comme une combinaison linéaire des $x_i$ pour $1 \leq i \leq d$, ce qui contredit le fait
-		que $X$ est libre. Il faut donc $\abs X \leq d$ Si $\abs X = d$, $X$ est une partie libre maximale, donc une base par le théorème~\ref{equivBases}.
+		\begin{proof} Soit $E$ une base de $V$. Supposons $X = \{x_1, \dotsc, x_k\}$ une partie libre. Si $k > d$, alors $x_i$ peut être écrit comme une combinaison
+		linéaire des vecteurs de $E$ pour $1 \leq i \leq d$. Alors $x_{d+1}$ sait s'écrire comme une combinaison linéaire des $x_i$ pour $1 \leq i \leq d$, ce qui
+		contredit le fait que $X$ est libre. Il faut donc $\abs X \leq d$ Si $\abs X = d$, $X$ est une partie libre maximale, donc une base par le
+		théorème~\ref{equivBases}.
 
-		Supposons $X = \{x_1, \ldots, x_k\}$ une partie génératrice. Si $k < d$, alors Il existe $v \in V \setminus \eng X$ ce qui contredit le fait que $X$ est génératrice.
-		Si $\abs X = d$, alors $X$ est une partie génératrice minimale, donc une base par le théorème~\ref{equivBases}. \end{proof}
+		Supposons $X = \{x_1, \dotsc, x_k\}$ une partie génératrice. Si $k < d$, alors Il existe $v \in V \setminus \eng X$ ce qui contredit le fait que $X$ est
+		génératrice. Si $\abs X = d$, alors $X$ est une partie génératrice minimale, donc une base par le théorème~\ref{equivBases}. \end{proof}
 	
 \newpage
 \section{Relations entre espaces vectoriels}
@@ -1113,7 +1128,8 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Deux espaces vectoriels $V$ et $W$ sont dits isomorphes s'il existe un isomorphisme $I : V \to W$. \end{déf}
 
-		\begin{lem}\label{invIsom} Soit $A : V \to W$ un isomorphisme entre deux espaces vectoriels. Alors l'inverse $A^{-1}$ de $A$ est également un isomorphisme. \end{lem}
+		\begin{lem}\label{invIsom} Soit $A : V \to W$ un isomorphisme entre deux espaces vectoriels. Alors l'inverse $A^{-1}$ de $A$ est également un isomorphisme.
+		\end{lem}
 
 		\begin{proof} Si $A$ est bijective, alors $A^{-1}$ est également bijective. Soient $\lambda \in \R, v_1, v_2 \in V$ et $w_1, w_2 \in W$ tels que $A(v_1) = w_1$ et
 		$A(v_2) = w_2$. Alors, par la linéarité de $A$ : \[A^{-1}(w_1 + \lambda w_2) = A^{-1}(A(v_1) + \lambda A(v_2)) = A^{-1}(A(v_1 + \lambda v_2)) = v_1 + \lambda v_2
@@ -1121,12 +1137,15 @@ Pour tout 0 < i < l+1
 
 		\begin{prp}\label{dimDIsomorpheRd} Soit $V$ un espace vectoriel réel de dimension $d$. Alors $V$ est isomorphe à $\R^d$. \end{prp}
 
-		\begin{proof} Soient $E$ la base canonique de $\R^d$ et $F$ une base de $V$. Soit $\phi : V \to \R^d$ telle que si $v = \sum_{i=1}^d\lambda_if_i$, alors on définit :
-		\[f(v) \coloneqq (\lambda_i)_{i \in \{1, \ldots, d\}}.\] La fonction $f$ est linéaire car si $v = \sum_{i=1}^n\lambda_if_i$ et $w = \sum_{i=1}^n\mu_if_i$, alors :
-		\[f(v + \alpha w) = f\left(\sum_{i=1}^n(\lambda_i + \alpha\mu_i)f_i\right) = (\lambda_i + \alpha\mu_i)_{i \in \{1, \ldots, d\}}.\] De plus, $f$ est bijective car elle
-		est injective : \[(\lambda_1, \ldots, \lambda_d) = (\mu_1, \ldots, \mu_d) \Rightarrow \sum_{i=1}^d\lambda_if_i = \sum_{i=1}^d\mu_if_i,\] et elle est surjective :
-		\[\forall (\lambda_i)_{i \in \{1, \ldots, d\}} : \exists v \in V \tq f(v) = (\lambda_i)_{i \in \{1, \ldots, d\}}.\] Il suffit de prendre $v = \sum_{i=1}^n\lambda_if_i$.
-		\end{proof}
+		\begin{proof} Soient $E$ la base canonique de $\R^d$ et $F$ une base de $V$. Soit $\phi : V \to \R^d$ telle que si $v = \sum_{i=1}^d\lambda_if_i$, alors on
+		définit~: \[f(v) \coloneqq (\lambda_i)_{i \in \{1, \dotsc, d\}}.\] La fonction $f$ est linéaire car si
+		$v = \sum_{i=1}^n\lambda_if_i$ et $w = \sum_{i=1}^n\mu_if_i$, alors~:
+		\[f(v + \alpha w) = f\left(\sum_{i=1}^n(\lambda_i + \alpha\mu_i)f_i\right) = (\lambda_i + \alpha\mu_i)_{i \in \{1, \dotsc, d\}}.\]
+		De plus, $f$ est bijective car elle est injective~:
+		\[(\lambda_1, \dotsc, \lambda_d) = (\mu_1, \dotsc, \mu_d) \Rightarrow \sum_{i=1}^d\lambda_if_i = \sum_{i=1}^d\mu_if_i,\]
+		et elle est surjective~:
+		\[\forall (\lambda_i)_{i \in \{1, \dotsc, d\}} : \exists v \in V \tq f(v) = (\lambda_i)_{i \in \{1, \dotsc, d\}}.\]
+		Il suffit de prendre $v = \sum_{i=1}^n\lambda_if_i$. \end{proof}
 
 		\begin{prp}\label{dimDIso} Tous les espaces vectoriels réels de dimension $d$ sont isomorphes entre eux. \end{prp}
 		
@@ -1135,82 +1154,88 @@ Pour tout 0 < i < l+1
 		une bijection ainsi que la composée de transformations linéaires reste une transformation linéaire, la fonction $(g^{-1} \circ f) : V \to W$ est un isomorphisme
 		entre $V$ et $W$. \end{proof}
 
-		\begin{prp} Soient $V, W$ deux espaces vectoriels réels de dimension finie. Alors : \[\dim_\R(V+W) + \dim_\R(V \cap W) = \dim_\R V + \dim_\R W.\] \end{prp}
+		\begin{prp} Soient $V, W$ deux espaces vectoriels réels de dimension finie. Alors~: \[\dim_\R(V+W) + \dim_\R(V \cap W) = \dim_\R V + \dim_\R W.\] \end{prp}
 
-		\begin{proof} Soient $B_{V \cap W} = \{e_1, \ldots, e_r\}$  une base de $V \cap W$, $B_V = \{e_1, \ldots, e_r, x_1, \ldots, x_n\}$ une base de $V$,
-		$B_W = \{e_1, \ldots, e_r, y_1, \ldots, y_t\}$ une base de $W$. Soit $B \coloneqq B_V \cup B_W = \{e_1, \ldots, e_r, x_1, \ldots, x_n, y_1, \ldots, y_t\}$.
-		$B$ est une partie génératrice de $V+W$. Montrons que $B$ est également une partie libre de $V+W$. Supposons :
-		\[\sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i + \sum_{i=1}^t\gamma_iy_i = 0.\] Posons : \[v \coloneqq \sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i \in V
-		= - \sum_{i=1}^t\gamma_iy_i \in W.\] Si $v \in V$ et $v \in W$, alors $v \in V \cap W$. Donc il existe $(\lambda_1, \ldots, \lambda_r) \in \R^r$ tels que :
-		\[v = \sum_{i=1}^r\lambda_ie_i.\] On a donc : \[v \coloneqq \sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i = -\sum_{i=1}^t\gamma_iy_i = \sum_{i=1}^r\lambda_ie_i.\]
-		Donc : \[\sum_{i=1}^r\lambda_ie_i + \sum_{i=1}^t\gamma_iy_i = 0,\] ce qui implique $\lambda_i = \gamma_j = 0$ pour tout $i, j$ puisque $B_W$ est libre. Dès lors,
-		$v = 0$, ou encore : \[v = \sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i = 0.\] Mais puisque $B_V$ est libre, il faut $\alpha_i = \beta_j = 0$ pour tout $i, j$.
-		La seule combinaison linéaire nulle possible est donc la combinaison linéaire nulle triviale. Alors $B$ est libre.
+		\begin{proof} Soient $B_{V \cap W} = \{e_1, \dotsc, e_r\}$  une base de $V \cap W$, $B_V = \{e_1, \dotsc, e_r, x_1, \dotsc, x_n\}$ une base de $V$,
+		$B_W = \{e_1, \dotsc, e_r, y_1, \dotsc, y_t\}$ une base de $W$. Soit $B \coloneqq B_V \cup B_W = \{e_1, \dotsc, e_r, x_1, \dotsc, x_n, y_1, \dotsc, y_t\}$.
+		$B$ est une partie génératrice de $V+W$. Montrons que $B$ est également une partie libre de $V+W$. Supposons~:
+		\[\sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i + \sum_{i=1}^t\gamma_iy_i = 0.\] Posons~:
+		\[v \coloneqq \sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i \in V = - \sum_{i=1}^t\gamma_iy_i \in W.\]
+		Si $v \in V$ et $v \in W$, alors $v \in V \cap W$. Donc il existe $(\lambda_1, \dotsc, \lambda_r) \in \R^r$ tels que~:
+		\[v = \sum_{i=1}^r\lambda_ie_i.\]
+		On a donc~:
+		\[v \coloneqq \sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i = -\sum_{i=1}^t\gamma_iy_i = \sum_{i=1}^r\lambda_ie_i.\]
+		Donc~: \[\sum_{i=1}^r\lambda_ie_i + \sum_{i=1}^t\gamma_iy_i = 0,\] ce qui implique $\lambda_i = \gamma_j = 0$ pour tout $i, j$ puisque $B_W$ est libre. Dès lors,
+		$v = 0$, ou encore~: \[v = \sum_{i=1}^r\alpha_ie_i + \sum_{i=1}^n\beta_ix_i = 0.\] Mais puisque $B_V$ est libre, il faut $\alpha_i = \beta_j = 0$ pour tout
+		$i, j$. La seule combinaison linéaire nulle possible est donc la combinaison linéaire nulle triviale. Alors $B$ est libre.
 
 		Dès lors, on sait que $\dim_\R(V+W) + \dim_\R(V \cap W) = r+n+t + r = (r+n) + (r+t) = \dim_\R V + \dim_\R W$. \end{proof}
 
 		\begin{prp}\label{dim=dim+dim} Soient $V, W$ deux espaces vectoriels réels. Soit $A : V \to W$ une application linéaire.
 		Alors $\dim_\R V = \dim_\R \Ker(A) + \dim_\R\Imf(A)$. \end{prp}
 
-		\begin{proof} Soient $B_{\Ker}\{e_1, \ldots, e_m\}$ une base du $\Ker(A)$ et $B_{\Imf} = \{f_1, \ldots, f_n\}$ une base de $\Imf(A)$. Soient $v_1, \ldots, v_n \in V$
-		tels que $A(v_i) = f_i$ pour tout $1 \leq i \leq n$. Montrons que $B \coloneqq B_{\Ker} \cup \{v_, \ldots, v_n\}$ est une base de $V$. Montrons d'abord que $B$
-		est génératrice.
+		\begin{proof} Soient $B_{\Ker}\{e_1, \dotsc, e_m\}$ une base du $\Ker(A)$ et $B_{\Imf} = \{f_1, \dotsc, f_n\}$ une base de $\Imf(A)$. Soient
+		$v_1, \dotsc, v_n \in V$ tels que $A(v_i) = f_i$ pour tout $1 \leq i \leq n$. Montrons que $B \coloneqq B_{\Ker} \cup \{v_, \dotsc, v_n\}$ est une base de $V$.
+		Montrons d'abord que $B$ est génératrice.
 
-		Soit $v \in V$. Alors on a: \[A(v) = \sum_{i=1}^n\lambda_if_i = A\left(\sum_{i=1}^n\lambda_iv_i\right).\] Dès lors, on sait construire $0 \in V$ par :
+		Soit $v \in V$. Alors on a: \[A(v) = \sum_{i=1}^n\lambda_if_i = A\left(\sum_{i=1}^n\lambda_iv_i\right).\] Dès lors, on sait construire $0 \in V$ par~:
 		\[0 = A(v) - A\left(\sum_{i=1}^n\lambda_iv_i\right) = A\left(v-\sum_{i=1}^n\lambda_iv_i\right).\] Il en découle directement que le vecteur
-		$v - \sum_{i=1}\mu_iv_i \in \Ker(A)$. Or, tout vecteur de $\Ker(A)$ peut s'exprimer comme : \[\sum_{i=1}^m\mu_ie_i.\] On a donc :
+		$v - \sum_{i=1}\mu_iv_i \in \Ker(A)$. Or, tout vecteur de $\Ker(A)$ peut s'exprimer comme~: \[\sum_{i=1}^m\mu_ie_i.\] On a donc~:
 		\[v-\sum_{i=1}^n\lambda_iv_i = \sum_{i=1}^m\mu_ie_i \iff v = \sum_{i=1}^n\lambda_iv_i + \sum_{i=1}^m\mu_ie_i \in \eng B.\]
 
-		Maintenant, montrons que $B$ est libre. Soient $\alpha_1, \ldots, \alpha_m, \beta_1, \ldots, \beta_n$ tels que :
-		\[\sum_{i=1}^m\alpha_ie_i + \sum_{i=1}^n\beta_iv_i = 0.\] Alors, on peut écrire :
+		Maintenant, montrons que $B$ est libre. Soient $\alpha_1, \dotsc, \alpha_m, \beta_1, \dotsc, \beta_n$ tels que~:
+		\[\sum_{i=1}^m\alpha_ie_i + \sum_{i=1}^n\beta_iv_i = 0.\] Alors, on peut écrire~:
 		\[0 = A(0) = A\left(\sum_{i=1}^m\alpha_ie_i + \sum_{i=1}^n\beta_if_i\right) = A\left(\sum_{i=1}^m\alpha_ie_i\right) + \sum_{i=1}^n\beta_iA(v_i)
-		= A\left(\sum_{i=1}^m\alpha_ie_i\right) + \sum_{i=1}^n\beta_if_i = 0 + \sum_{i=1}^n\beta_if_i.\] Or $B_{\Imf}$ est libre, donc il faut $\beta_i = 0$ pour tout $i$.
-		Il reste donc : \[\sum_{i=1}^m\alpha_ie_i = 0,\] et comme $B_{\Ker}$ est libre, il faut $\alpha_i = 0$ pour tout $i$. On a donc $B$ libre. Puisque $B$ est libre
-		et génératrice de $V$, alors $B$ est une base de $V$. Donc $\dim_\R V = \abs B = n+m = \dim_\R\Imf(A) + \dim_\R\ker(A)$. \end{proof}
+		= A\left(\sum_{i=1}^m\alpha_ie_i\right) + \sum_{i=1}^n\beta_if_i = 0 + \sum_{i=1}^n\beta_if_i.\] Or $B_{\Imf}$ est libre, donc il faut $\beta_i = 0$ pour tout
+		$i$. Il reste donc~: \[\sum_{i=1}^m\alpha_ie_i = 0,\] et comme $B_{\Ker}$ est libre, il faut $\alpha_i = 0$ pour tout $i$. On a donc $B$ libre. Puisque $B$ est
+		libre et génératrice de $V$, alors $B$ est une base de $V$. Donc $\dim_\R V = \abs B = n+m = \dim_\R\Imf(A) + \dim_\R\ker(A)$. \end{proof}
 
-		\begin{prp}\label{condIsom} Soient $V, W$ deux espaces vectoriels et $A : V \to W$ une transformation linéaire. Alors :
+		\begin{prp}\label{condIsom} Soient $V, W$ deux espaces vectoriels et $A : V \to W$ une transformation linéaire. Alors~:
 		\begin{enumerate}
-			\item $A$ est injective si et seulement si $\dim_\R \Ker(A) = 0$ ;
-			\item $A$ est surjective si et seulement si $\dim_\R \Imf(A) = \dim_\R W$ ;
-			\item $A$ est un isomorphisme si et seulement si $\dim_\R\Ker(A) = 0$ et $\dim_\R\Imf(A) = \dim_\R W$ ;
-			\item $A$ est un isomorphisme si et seulement si $\dim_\R\Ker(A) = 0$ et $\dim_\R V = \dim_\R W$ ;
+			\item $A$ est injective si et seulement si $\dim_\R \Ker(A) = 0$~;
+			\item $A$ est surjective si et seulement si $\dim_\R \Imf(A) = \dim_\R W$~;
+			\item $A$ est un isomorphisme si et seulement si $\dim_\R\Ker(A) = 0$ et $\dim_\R\Imf(A) = \dim_\R W$~;
+			\item $A$ est un isomorphisme si et seulement si $\dim_\R\Ker(A) = 0$ et $\dim_\R V = \dim_\R W$~;
 			\item $A$ est un isomorphisme si et seulement si $\dim_\R \Imf(A) = \dim_\R W$ et $\dim_\R V = \dim_\R W$.
 		\end{enumerate}
 		\end{prp}
 		
 		\begin{proof}~
 		\begin{enumerate}
-			\item Montrons que si $\dim_\R\Ker(A) = 0$, alors $A$ est injective. Si $\dim_\R\Ker(A) = 0$, alors $\Ker(A) = \{0_V\}$. Donc soient $v_1, v_2 \in V$. Supposons que
-			$f(v_1) = f(v_2)$. Dès lors, $0 = f(v_1)-f(v_2) = f(v_1-v_2) = f(0_V)$. Comme $0_V$ est le seul élément du noyau, il faut $v_1-v_2 = 0$, ou encore $v_1 = v_2$.
+			\item Montrons que si $\dim_\R\Ker(A) = 0$, alors $A$ est injective. Si $\dim_\R\Ker(A) = 0$, alors $\Ker(A) = \{0_V\}$. Donc soient $v_1, v_2 \in V$.
+			      Supposons que $f(v_1) = f(v_2)$. Dès lors, $0 = f(v_1)-f(v_2) = f(v_1-v_2) = f(0_V)$. Comme $0_V$ est le seul élément du noyau, il faut $v_1-v_2 = 0$,
+				  ou encore $v_1 = v_2$.
 
-			Montrons maintenant que si $A$ est injective, alors $\dim_\R\Ker(A) = 0$. Soient $v_1, v_2 \in V$. On sait que $f(v_1)=f(v_2) \Rightarrow v_1=v_2$. On sait
-			également que $f(0_V) = 0_W$. Donc pour tout si $v \in V$, $f(v) = f(0) = 0$, alors $v=0$. Autrement dit, seul $0_V$ est envoyé sur $0_W$.
-			On a bien $\dim_\R\Ker(A)=0$.
+			      Montrons maintenant que si $A$ est injective, alors $\dim_\R\Ker(A) = 0$. Soient $v_1, v_2 \in V$. On sait que $f(v_1)=f(v_2) \Rightarrow v_1=v_2$.
+				  On sait également que $f(0_V) = 0_W$. Donc pour tout si $v \in V$, $f(v) = f(0) = 0$, alors $v=0$. Autrement dit, seul $0_V$ est envoyé sur $0_W$.
+				  On a bien $\dim_\R\Ker(A)=0$.
 
-			\item Montons que si $\dim_\R\Imf(A) = \dim_\R W$, alors $A$ est surjective. Soit $E \{e_1, \ldots, e_m\}$ une base de $W$. Soit $F = \{f_1, \ldots, f_n\}$ une base
-			de $\Imf(A)$. Soient $v_1, \ldots, v_m$ tels que $A(v_i) = f_i$. Par la proposition~\ref{dimDIso}, on sait que $\Imf(A)$ et $W$ sont isomorphes. Donc soit
-			$w \in W$, on peut écrire $w$ comme : \[w = \sum_{i=1}^m\lambda_ie_i = \sum_{i=1}^m\mu_if_i = \sum_{i=1}^m\mu_iA(v_i) = A\left(\sum_{i=1}^m\mu_iv_i\right).\]
-			Il existe donc un vecteur $v \in V$ tel que $A(v) = w$.
+			\item Montons que si $\dim_\R\Imf(A) = \dim_\R W$, alors $A$ est surjective. Soit $E \{e_1, \dotsc, e_m\}$ une base de $W$. Soit $F = \{f_1, \dotsc, f_n\}$
+			      une base de $\Imf(A)$. Soient $v_1, \dotsc, v_m$ tels que $A(v_i) = f_i$. Par la proposition~\ref{dimDIso}, on sait que $\Imf(A)$ et $W$ sont
+				  isomorphes. Donc soit $w \in W$, on peut écrire $w$ comme~:
+				  \[w = \sum_{i=1}^m\lambda_ie_i = \sum_{i=1}^m\mu_if_i = \sum_{i=1}^m\mu_iA(v_i) = A\left(\sum_{i=1}^m\mu_iv_i\right).\]
+				  Il existe donc un vecteur $v \in V$ tel que $A(v) = w$.
 
-			Montrons maintenant que si $A$ est surjective, alors $\dim_\R \Imf(A)=\dim_\R W$. Soit $w \in W$. On sait qu'il existe $v \in V$ tel que $A(v) = w$. Prenons
-			$E = \{e_1, \ldots, e_m\}$ une base de $W$. Prenons $v_1, \ldots, v_m \in V$ tels que $A(v_i) = e_i$. On a $\{A(v_1), \ldots, A(v_m)\}$ est une base de $\Imf(A)$ car
-			pour tout vecteur $w \in W$, il existe $v \in V$ tel que : \[w = \sum_{i=1}^m\lambda_ie_i = \sum_{i=1}^m\lambda_iA(v_i) = A\left(\sum_{i=1}^m\lambda_iv_i\right)
-			= A(v).\]
+			      Montrons maintenant que si $A$ est surjective, alors $\dim_\R \Imf(A)=\dim_\R W$. Soit $w \in W$. On sait qu'il existe $v \in V$ tel que $A(v) = w$.
+				  Prenons $E = \{e_1, \dotsc, e_m\}$ une base de $W$. Prenons $v_1, \dotsc, v_m \in V$ tels que $A(v_i) = e_i$. On a $\{A(v_1), \dotsc, A(v_m)\}$ est une
+				  base de $\Imf(A)$ car pour tout vecteur $w \in W$, il existe $v \in V$ tel que~:
+				  \[w = \sum_{i=1}^m\lambda_ie_i = \sum_{i=1}^m\lambda_iA(v_i) = A\left(\sum_{i=1}^m\lambda_iv_i\right) = A(v).\]
 
 			\item Par les propositions 1 et 2.
 
-			\item Montrons que si $A$ est un isomorphisme et $\dim_\R\Ker(A) = 0$ (par l'injectivité de $A$), alors $\dim_\R V = \dim_\R W$. Par la proposition~\ref{dim=dim+dim},
-			on sait $\dim_\R V = \dim_\R \Ker(A) + \dim_\R\Imf(A)$. Donc si $\dim_\R \Ker(A) = 0$, on a $\dim_\R V = \dim_\R W$.
+			\item Montrons que si $A$ est un isomorphisme et $\dim_\R\Ker(A) = 0$ (par l'injectivité de $A$), alors $\dim_\R V = \dim_\R W$.
+			      Par la proposition~\ref{dim=dim+dim}, on sait $\dim_\R V = \dim_\R \Ker(A) + \dim_\R\Imf(A)$. Donc si $\dim_\R \Ker(A) = 0$, on a
+				  $\dim_\R V = \dim_\R W$.
 
-			Montrons maintenant que si $\dim_\R V = \dim_\R W$ et $\dim_\R \Ker(A) = 0$, alors $A$ est un isomorphisme. Soient $E_V = \{e_1, \ldots, e_n\}$ une base de $V$
-			et $E_W = \{f_1, \ldots, f_n\}$ une base de $W$. En définissant $A$ par $A(e_i) = f_i$, on a bien un isomorphisme tel que $\dim_\R\Ker(A) = 0$ car seul $0_V$ est
-			envoyé sur $0_W$.
+			      Montrons maintenant que si $\dim_\R V = \dim_\R W$ et $\dim_\R \Ker(A) = 0$, alors $A$ est un isomorphisme. Soient $E_V = \{e_1, \dotsc, e_n\}$ une base
+				  de $V$ et $E_W = \{f_1, \dotsc, f_n\}$ une base de $W$. En définissant $A$ par $A(e_i) = f_i$, on a bien un isomorphisme tel que $\dim_\R\Ker(A) = 0$
+				  car seul $0_V$ est envoyé sur $0_W$.
 
 			\item Montrons d'abord que si $A$ est un isomorphisme, alors $\dim_\R \Imf(A) = \dim_\R W$ et $\dim_\R V = \dim_\R W$. À nouveau, en partant de la
-			proposition~\ref{dim=dim+dim}, on sait que $\dim_\R V = \dim_\R \Imf(A) + \dim_\R\Ker(A)$. Or on sait $A$ surjectif. Donc on sait que $\dim_\R W = \dim_\R\Imf(A)$.
-			Et puisque $A$ est injectif, on a $\dim_\R\Ker(A) = 0$ donc $\dim_\R V = \dim_\R\Imf(A) = \dim_\R W$.
+			      proposition~\ref{dim=dim+dim}, on sait que $\dim_\R V = \dim_\R \Imf(A) + \dim_\R\Ker(A)$. Or on sait $A$ surjectif. Donc on sait que
+				  $\dim_\R W = \dim_\R\Imf(A)$. Et puisque $A$ est injectif, on a $\dim_\R\Ker(A) = 0$ donc $\dim_\R V = \dim_\R\Imf(A) = \dim_\R W$.
 
-			Si $A$ n'est pas un isomorphisme, alors $\dim_\R\Imf(A) \neq \dim_\R W$.
+			      Si $A$ n'est pas un isomorphisme, alors $\dim_\R\Imf(A) \neq \dim_\R W$.
 		\end{enumerate}
 		\end{proof}
 	
@@ -1225,37 +1250,39 @@ Pour tout 0 < i < l+1
 		\begin{prp} Soit $V$ un espace vectoriel réel et soient $W_1, W_2$ deux sous-espaces de $V$. Si $W_1 \cap W_2 = \{0\}$, alors $W_1+W_2$ est isomorphe à
 		$W_1 \oplus W_2$. \end{prp}
 
-		\begin{proof} Soit $A : W_1 \oplus W_2 \to W_1 + W_2 : (v,w) \mapsto v+w$. $A$ est linéaire car pour tout $v_1, w_1 \in W_1, w_2, v_2 \in W_2, \lambda \in \R$, on a:
-		$A((w_1, w_2) + \lambda(v_1, v_2)) = A(w_1 + \lambda v_1, w_2 + \lambda v_2) = (w_1+\lambda v_1) + (w_2 + \lambda v_2) = (w_1 + w_2) + \lambda(v_1+v_2)
+		\begin{proof} Soit $A : W_1 \oplus W_2 \to W_1 + W_2 : (v,w) \mapsto v+w$. $A$ est linéaire car pour tout $v_1, w_1 \in W_1, w_2, v_2 \in W_2, \lambda \in \R$,
+		on a~: $A((w_1, w_2) + \lambda(v_1, v_2)) = A(w_1 + \lambda v_1, w_2 + \lambda v_2) = (w_1+\lambda v_1) + (w_2 + \lambda v_2) = (w_1 + w_2) + \lambda(v_1+v_2)
 		= A(w_1, w_2) + \lambda A(v_1, v_2)$.
 		
-		De plus, $\Ker(A) = \{(w_1, w_2) \in W_1 \oplus W_2 \tq w_1 + w_2 = 0\}$. Or, par hypothèse, $W_1 \cap W_2 = \{0\}$. Donc la seule possibilité pour avoir $w_1+w_2=0$
-		est d'avoir $w_1=w_2=0$. Donc $\dim_\R\Ker(A) = 0$. Soit $x \in W_1+W_2$. On sait qu'il existe $w_1 \in W_1, w_2 \in W_2$ tels que $x = w_1+w_2 = A(w_1, w_2)$. Donc
-		$A$ est surjective. Dès lors, par la proposition~\ref{condIsom}, $A$ est un isomorphisme. \end{proof}
+		De plus, $\Ker(A) = \{(w_1, w_2) \in W_1 \oplus W_2 \tq w_1 + w_2 = 0\}$. Or, par hypothèse, $W_1 \cap W_2 = \{0\}$. Donc la seule possibilité pour avoir
+		$w_1 + w_2 = 0$ est d'avoir $w_1=w_2=0$. Donc $\dim_\R\Ker(A) = 0$. Soit $x \in W_1+W_2$. On sait qu'il existe $w_1 \in W_1, w_2 \in W_2$ tels que
+		$x = w_1+w_2 = A(w_1, w_2)$. Donc $A$ est surjective. Dès lors, par la proposition~\ref{condIsom}, $A$ est un isomorphisme. \end{proof}
 
-		\begin{prp} Soit $V$ un e.v. et $E = \{e_1, \ldots, e_d\}$ une base de $V$. Soit $W$ un autre e.v. Soit $F =\{f_1, \ldots, f_d\} \subset W$. Alors il existe une unique
-		transformation linéaire $A : V \to W$ telle que $A(e_i) = f_i$ pour tout $1 \leq i \leq d$. \end{prp}
+		\begin{prp} Soit $V$ un e.v. et $E = \{e_1, \dotsc, e_d\}$ une base de $V$. Soit $W$ un autre e.v. Soit $F =\{f_1, \dotsc, f_d\} \subset W$. Alors il existe
+		une unique transformation linéaire $A : V \to W$ telle que $A(e_i) = f_i$ pour tout $1 \leq i \leq d$. \end{prp}
 
-		\begin{proof} Soit $g : E \to F : e_i \mapsto f_i$. On définit $A_g : V \to W : v = \sum_{i=1}^d\lambda_ie_i \mapsto w = \sum_{i=1}^d\lambda_ig(e_i)$. Puisque $g$
-		est bijective, $A_g$ est également bijective. De plus, $A_g$ est linéaire :
+		\begin{proof} Soit $g : E \to F : e_i \mapsto f_i$. On définit $A_g : V \to W : v = \sum_{i=1}^d\lambda_ie_i \mapsto w = \sum_{i=1}^d\lambda_ig(e_i)$.
+		Puisque $g$ est bijective, $A_g$ est également bijective. De plus, $A_g$ est linéaire~:
 		\[A_g\left(\sum_{i=1}^d\lambda_ie_i + \alpha\sum_{i=1}^d\mu_ie_i\right) = \sum_{i=1}^d(\lambda_i + \alpha\mu_i)g(e_i)
 		= A_g\left(\sum_{i=1}^d\lambda_ie_i\right) + \alpha A_g\left(\sum_{i=1}^d\mu_ie_i\right).\] \end{proof}
 
-		\begin{déf} Soient $V, W$ deux e.v. et $A : V \to W$ une application linéaire. Alors on appelle $\dim_\R\Imf(A)$ le rang de $A$ et on le note $\rang A$. \end{déf}
+		\begin{déf} Soient $V, W$ deux e.v. et $A : V \to W$ une application linéaire. Alors on appelle $\dim_\R\Imf(A)$ le rang de $A$ et on le note $\rang A$.
+		\end{déf}
 	
 	\subsection{Groupe linéaire}
 		\begin{déf} Soit $V$ un espace vectoriel réel. Le groupe linéaire (général) est l'ensemble des isomorphismes $\{A : V \to V \tq A \text{ est un automorphisme}\}$.
 		On le note $GL(V)$. Si $V = \R^d$, on note $GL_d(\R)$ ou $GL(d, \R)$. \end{déf}
 
-		\begin{rmq} La composée de deux automorphismes est toujours un automorphisme car la composée de bijections reste bijective et si $f : V \to V$ et $g : V \to V$, alors
-		$(f \circ g) : V \to V$ également. \end{rmq}
+		\begin{rmq} La composée de deux automorphismes est toujours un automorphisme car la composée de bijections reste bijective et si $f : V \to V$ et $g : V \to V$,
+		alors $(f \circ g) : V \to V$ également. \end{rmq}
 
-		\begin{prp} Soient deux espaces vectoriels $V$ et $W$. Soit $E = \{e_1, \ldots, e_d\}$. L'application linéaire $A : V \to W$ est un isomorphisme si et seulement si
-		$A(E) = \{A(e_1), A(e_2), \ldots, A(e_d)\}$ est une base de $W$. \end{prp}
+		\begin{prp} Soient deux espaces vectoriels $V$ et $W$. Soit $E = \{e_1, \dotsc, e_d\}$. L'application linéaire $A : V \to W$ est un isomorphisme si et
+		seulement si $A(E) = \{A(e_1), A(e_2), \dotsc, A(e_d)\}$ est une base de $W$. \end{prp}
 
-		\begin{proof} Montrons que si $A$ est un isomorphisme, alors $A(E)$ est une base de $W$. Les vecteurs de $A(E)$ sont des combinaisons linéaires des vecteurs de $E$.
-		Donc $A(E)$ est libre. De plus, soit $v \in W$, il existe $w \in W$ tel que $w = A(v) = \sum_{i=1}^d\lambda_iA(e_i)$. Donc $A(E)$ est une partie génératrice de $W$.
-
+		\begin{proof} Montrons que si $A$ est un isomorphisme, alors $A(E)$ est une base de $W$. Les vecteurs de $A(E)$ sont des combinaisons linéaires des vecteurs
+		de $E$. Donc $A(E)$ est libre. De plus, soit $v \in W$, il existe $w \in W$ tel que $w = A(v) = \sum_{i=1}^d\lambda_iA(e_i)$. Donc $A(E)$ est une partie
+		génératrice de $W$.
+		
 		Montrons maintenant que si $A(E)$ est une base de $W$,a lors $A$ est un isomorphisme. Puisque $\dim_\R V = \dim_\R W$ et $\Imf(A) = W$, par la
 		proposition~\ref{condIsom}, $A$ est un isomorphisme. \end{proof}
 
@@ -1271,12 +1298,12 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soit $W = \Hom(V, V)$ un espace vectoriel. Les éléments de $V$ sont appelés opérateurs linéaires (ou endomorphismes) de $V$. \end{déf}
 
-		\begin{déf} Soient $V, W$ deux espaces vectoriels de dimension finie, $A \in \Hom(V, W)$. Si $E = \{e_1, \ldots, e_t\}, F = \{f_1, \ldots, f_s\}$ sont une base de $V$
-		et $W$ respectivement, alors on définit $m_{F, E}(A) \coloneqq [A_{ij}] \in \M st\R$ telle que : \[A(e_j) = \sum_{i=1}^sA_{ij}f_i.\] \end{déf}
+		\begin{déf} Soient $V, W$ deux espaces vectoriels de dimension finie, $A \in \Hom(V, W)$. Si $E = \{e_1, \dotsc, e_t\}, F = \{f_1, \dotsc, f_s\}$ sont une
+		base de $V$ et $W$ respectivement, alors on définit $m_{F, E}(A) \coloneqq [A_{ij}] \in \M st\R$ telle que~: \[A(e_j) = \sum_{i=1}^sA_{ij}f_i.\] \end{déf}
 	
 	\subsection{Opérations sur les matrices}
 		\begin{prp}\label{linéaritéMatrices} Soient $V, W$ deux espaces vectoriels avec une base respective $E, F$, soient $A, B \in \Hom(V, W)$,
-		et $m_{F, E}(A), m_{F, E}(B)$ les matrices associées à $A$ et $B$. Alors :
+		et $m_{F, E}(A), m_{F, E}(B)$ les matrices associées à $A$ et $B$. Alors~:
 		\begin{align*}
 			m_{F, E}(\lambda A) &= \lambda m_{F, E}(A) \\
 			m_{F, E}(A + B) &= m_{F, E}(A) + m_{F, E}(B).
@@ -1284,22 +1311,24 @@ Pour tout 0 < i < l+1
 		\end{prp}
 
 		\begin{proof} On définit $m_{F, E}(A + \lambda B) = [(A+ \lambda B)_{ij}]$ comme étant la matrice associée la transformation linéaire $A+\lambda B$. Donc elle est
-		telle que : \[(A+\lambda B)(e_j) = \sum_{i=1}^s(A + \lambda B)_{ij}f_i.\] Cependant, on sait que $(A+\lambda B)(v) = A(v) + \lambda B(v)$. Donc on sait :
+		telle que~: \[(A+\lambda B)(e_j) = \sum_{i=1}^s(A + \lambda B)_{ij}f_i.\] Cependant, on sait que $(A+\lambda B)(v) = A(v) + \lambda B(v)$. Donc on sait~:
 		\[\sum_{i=1}^s(A + \lambda B)_{ij}f_i = (A+\lambda B)(e_j) = A(e_j) + \lambda B(e_j) = \sum_{i=1}^sA_{ij}f_i + \lambda\sum_{i=1}^sB_{ij}f_i
 		= \sum_{i=1}^s(A_{ij} + \lambda B_{ij})f_i.\] On a donc pour tout $i, j : (A+\lambda B)_{ij} = A_{ij} + \lambda B_{ij}$. \end{proof}
 
-		\begin{rmq} Une fois les bases $E$ et $F$ fixées, $m_{F, E}$ est une fonction telle que $m_{F, E} : \Hom(V, W) \to \M {\dim_\R W}{\dim_\R V}\R : A \mapsto m_{F, E}(A)$.
+		\begin{rmq} Une fois les bases $E$ et $F$ fixées, $m_{F, E}$ est une fonction telle que
+		$m_{F, E} : \Hom(V, W) \to \M {\dim_\R W}{\dim_\R V}\R : A \mapsto m_{F, E}(A)$.
 		Et la proposition~\ref{linéaritéMatrices} montre que cette fonction est linéaire. \end{rmq}
 
-		\begin{déf} Soient trois espaces vectoriels $U, V, W$ de base respective $D = \{d_1, \ldots, d_s\}, E = \{e_1, \ldots, e_t\}, F = \{f_1, \ldots, f_u\}$.
+		\begin{déf} Soient trois espaces vectoriels $U, V, W$ de base respective $D = \{d_1, \dotsc, d_s\}, E = \{e_1, \dotsc, e_t\}, F = \{f_1, \dotsc, f_u\}$.
 		Soient $A \in \Hom(U, V)$ et $B \in \Hom(V, W)$. La composée $(B \circ A) \in \Hom(U, W)$. Soient les matrices $m_{E, D}(A) = [A_{ij}] \in \M ts\R$ et
-		$m_{F, E}(B) = [B_{ij}] \in \M ut\R$. On définit le produit de ces deux matrices par $m_{F, E}(B \circ A) = [(BA)_{ij}] \in \M us\R$. Il faut que :
+		$m_{F, E}(B) = [B_{ij}] \in \M ut\R$. On définit le produit de ces deux matrices par $m_{F, E}(B \circ A) = [(BA)_{ij}] \in \M us\R$. Il faut que~:
 		\[(B \circ A)(d_j) = \sum_{i=1}^u(BA)_{ij}f_i. \]
 		
-		Or, par la définition de la composée, on sait : \[(B \circ A)(d_j) = B(A(d_j)) = B\left(\sum_{i=1}^tA_{ij}e_i\right) = \sum_{i=1}^tA_{ij}B(e_i)
-		= \sum_{i=1}^tA_{ij}\sum_{k=1}^uB_{ki}f_k = \sum_{k=1}^u\left(\sum_{i=1}^tB_{ki}A_{ij}\right)f_k.\]
+		Or, par la définition de la composée, on sait~:
+		\[(B \circ A)(d_j) = B(A(d_j)) = B\left(\sum_{i=1}^tA_{ij}e_i\right) = \sum_{i=1}^tA_{ij}B(e_i)
+		                   = \sum_{i=1}^tA_{ij}\sum_{k=1}^uB_{ki}f_k = \sum_{k=1}^u\left(\sum_{i=1}^tB_{ki}A_{ij}\right)f_k.\]
 		
-		On peut donc conclure pour tout $i, j$ : \[(BA)_{ij} = \sum_{k=1}^tB_{ik}A_{kj}.\] \end{déf}
+		On peut donc conclure pour tout $i, j$~: \[(BA)_{ij} = \sum_{k=1}^tB_{ik}A_{kj}.\] \end{déf}
 
 		\begin{rmq} Selon cette définition, pour $A = [A_{ij}] \in \M st\R, B = [B_{ij}] \in \M tu\R$, on a
 		$(AB) = [(AB)_{ij}] = \left[\sum_{k=1}^tA_{ik}B_{kj}\right] \in \M su\R$.
@@ -1308,8 +1337,8 @@ Pour tout 0 < i < l+1
 
 		\begin{prp} Si $V$ et $W$ sont deux espaces vectoriels. Soit $A : V \to W$ une transformation linéaire. Alors si $x \in V : A(x) = m_{F, E}(A)x$. \end{prp}
 
-		\begin{proof} Soient $x \in V$ et $E = \{e_1, \ldots, e_t\}$ une base de $V$. Soit $F = \{f_1, \ldots, f_u\}$ une base de $W$. Dès lors
-		$x = \sum_{i=1}^tx_ie_i$. On peut donc écrire :
+		\begin{proof} Soient $x \in V$ et $E = \{e_1, \dotsc, e_t\}$ une base de $V$. Soit $F = \{f_1, \dotsc, f_u\}$ une base de $W$. Dès lors
+		$x = \sum_{i=1}^tx_ie_i$. On peut donc écrire~:
 		\[A(x) = \sum_{i=1}^tx_iA(e_i) = \sum_{i=1}^tx_i\sum_{k=1}^uA_{ki}f_k = \sum_{k=1}^u\left(\sum_{i=1}^tA_{ki}x_i\right)f_k = m_{F, E}(A)x.\]
 		En posant $x \in \M t1\R$ le vecteur colonne contenant les coordonnées de $x$ dans la base $E$. \end{proof}
 
@@ -1318,8 +1347,8 @@ Pour tout 0 < i < l+1
 
 		\begin{proof} La proposition~\ref{linéaritéMatrices} montre la linéarité de cette transformation. Montrons maintenant qu'elle est bijective.
 
-		$m_{F, E}$ est injective car les matrices déterminent totalement les applications. Dès lors, deux matrices identiques donnent deux applications identiques également.
-		Et $m_{F, E}$ est surjective car pour toute matrice $[A_{ij}] \in \M st\R$, on définit $A \in \Hom(V, W)$ telle que
+		$m_{F, E}$ est injective car les matrices déterminent totalement les applications. Dès lors, deux matrices identiques donnent deux applications identiques
+		également. Et $m_{F, E}$ est surjective car pour toute matrice $[A_{ij}] \in \M st\R$, on définit $A \in \Hom(V, W)$ telle que
 		$A(x) \coloneqq \sum_{i=1}^s\sum_{j=1}^tA_{ij}x_j$. \end{proof}
 
 		\begin{déf} Soit $V$ un espace vectoriel de dimension finie $n$ et une base $E$ de $V$. Soit $A \in \Hom(V, V)$. Alors il existe $A^{-1} \in \Hom(V, V)$ l'inverse
@@ -1328,15 +1357,15 @@ Pour tout 0 < i < l+1
 	\subsection{Méthode de Gauss pour inverser une matrice}
 		\begin{déf} On définit la matrice $\Lambda_{k\ell} = [\lambda_{ij}]$ telle que $\lambda_{ij} = 1$ si $(i, j) = (k, \ell)$ et $\lambda_{ij} = 0$ sinon. \end{déf}
 
-		\begin{rmq} En partant de l'algorithme de Gauss (algorithme~\ref{algoGauss}), et en se concentrant sur les définitions des opérations matricielles, on remarque que
-		les opérations fondamentales de l'algorithme correspondent à des opérations algébriques sur les matrices.
+		\begin{rmq} En partant de l'algorithme de Gauss (algorithme~\ref{algoGauss}), et en se concentrant sur les définitions des opérations matricielles, on remarque
+		que les opérations fondamentales de l'algorithme correspondent à des opérations algébriques sur les matrices.
 		
-		Changer la $i$eme ligne de la matrice $A = [A_{ij}]$ par $L_i + \mu L_j$ revient à faire : \[(I + \mu \Lambda_{ij})A.\] De plus, multiplier à gauche par
-		$(I + \mu\Lambda_{ii})$ correspond à multiplier la $i$eme ligne par $\mu+1$. Donc multiplier une ligne par un facteur $\alpha$ revient à faire :
-		\[(I + (\alpha-1)\Lambda_{ii})A.\] Finalement, remplacer la $i$eme ligne par la $j$eme revient à faire :
+		Changer la $i$eme ligne de la matrice $A = [A_{ij}]$ par $L_i + \mu L_j$ revient à faire~: \[(I + \mu \Lambda_{ij})A.\] De plus, multiplier à gauche par
+		$(I + \mu\Lambda_{ii})$ correspond à multiplier la $i$eme ligne par $\mu+1$. Donc multiplier une ligne par un facteur $\alpha$ revient à faire~:
+		\[(I + (\alpha-1)\Lambda_{ii})A.\] Finalement, remplacer la $i$eme ligne par la $j$eme revient à faire~:
 		\[(I - (\Lambda_{ii} + \Lambda_{jj}) + \Lambda_{ij} + \Lambda_{ji})A.\] \end{rmq}
 
-		\begin{lem} Soit une matrice $A = [A_{ij}] \in \M nn\R$. En appliquant l'algorithme de Gauss, on obtient une suite de matrices $b_k, \ldots, b_1$ telles que :
+		\begin{lem} Soit une matrice $A = [A_{ij}] \in \M nn\R$. En appliquant l'algorithme de Gauss, on obtient une suite de matrices $b_k, \dotsc, b_1$ telles que~:
 		\[I = b_k\ldots b_1A.\] Alors $b_k \ldots b_1$ est l'inverse à gauche $A^{-1}$ de $A$. \end{lem}
 
 		\begin{proof} $A^{-1} \coloneqq b_k\ldots b_1$ est effectivement l'inverse à gauche car $A^{-1}A = b_k\ldots b_1A$ qui, par hypothèse, vaut $I$. \end{proof}
@@ -1345,45 +1374,46 @@ Pour tout 0 < i < l+1
 		(et donc l'inverse) de $a$. \end{prp}
 
 		\begin{proof} Soit $E$ une base de $V$. Soient $a \in \M nn\R$ une matrice et $a^{-1}$ son inverse à gauche. $a$ représente une application linéaire $\gamma$.
-		$\gamma$ est injective puisque son inverse sur $\gamma(\R^n)$ existe. Donc $\dim_\R\Ker(\gamma) = 0$. De plus, $\gamma : \R^n \to \R^n$. Son domaine et son codomaine
-		sont donc de même dimension. Alors par la proposition~\ref{condIsom}, $\gamma$ est un isomorphisme. Pareillement pour $a^{-1}$ qui est la matrice d'une application
-		linéaire $\gamma^{-1}$ qui est bijective pour les mêmes raisons. Dès lors on peut dire $(\gamma \circ \gamma^{-1}) = Id_{\R^n} = (\gamma^{-1} \circ \gamma)$. On peut
-		donc écrire : \[aa^{-1} = m_{E, E}(\gamma)m_{E, E}(\gamma^{-1}) = m_{E, E}(\gamma \circ \gamma^{-1}) = m_{E, E}(Id_{\R^n}) = I_n.\]
+		$\gamma$ est injective puisque son inverse sur $\gamma(\R^n)$ existe. Donc $\dim_\R\Ker(\gamma) = 0$. De plus, $\gamma : \R^n \to \R^n$. Son domaine et son
+		codomaine sont donc de même dimension. Alors par la proposition~\ref{condIsom}, $\gamma$ est un isomorphisme. Pareillement pour $a^{-1}$ qui est la matrice d'une
+		application linéaire $\gamma^{-1}$ qui est bijective pour les mêmes raisons. Dès lors on peut dire
+		$(\gamma \circ \gamma^{-1}) = Id_{\R^n} = (\gamma^{-1} \circ \gamma)$. On peut donc écrire~:
+		\[aa^{-1} = m_{E, E}(\gamma)m_{E, E}(\gamma^{-1}) = m_{E, E}(\gamma \circ \gamma^{-1}) = m_{E, E}(Id_{\R^n}) = I_n.\]
 		On vient donc de montrer que si $a^{-1}$ est l'inverse à gauche de $a$, alors $a^{-1}$ est l'inverse à droite de $a$. \end{proof}
 
-		\begin{rmq} L'existence d'un inverse à gauche (respectivement droite) n'implique pas toujours l'existence d'un inverse à droite (respectivement à gauche). Le cas des
-		matrices ou celui des réels est un exemple mais pas une généralité : soit $f : X \to Y$ une fonction injective mais pas surjective. On peut trouver $g : f(X) \to X$
-		telle que $(g \circ f)$ soit l'identité sur $X$ mais il n'existe pas d'inverse à droite pour $f$ car elle n'est pas surjective. \end{rmq}
+		\begin{rmq} L'existence d'un inverse à gauche (respectivement droite) n'implique pas toujours l'existence d'un inverse à droite (respectivement à gauche).
+		Le cas des matrices ou celui des réels est un exemple mais pas une généralité~: soit $f : X \to Y$ une fonction injective mais pas surjective. On peut trouver
+		$g : f(X) \to X$ telle que $(g \circ f)$ soit l'identité sur $X$ mais il n'existe pas d'inverse à droite pour $f$ car elle n'est pas surjective. \end{rmq}
 
 	\subsection{Changement de base}
-		\begin{déf} Soit $V$ un e.v. et $E = \{e_1, \ldots, e_n\}, F = \{f_1, \ldots, f_n\}$ deux bases de $V$ et soit $A \in \Hom(V, V)$ un automorphisme de $V$.
+		\begin{déf} Soit $V$ un e.v. et $E = \{e_1, \dotsc, e_n\}, F = \{f_1, \dotsc, f_n\}$ deux bases de $V$ et soit $A \in \Hom(V, V)$ un automorphisme de $V$.
 		On définit la matrice de changement de base de $E$ vers $F$ exprimée avec les coordonnées de $E$ par $b \coloneqq [B_{ij}] \in \M nn\R$, matrice associée à
 		l'application linéaire $B \in \Hom(V, V)$ où $B(e_j) = \sum_{i=1}^nB_{ij}f_i$. \end{déf}
 
 		\begin{lem} Soient $V$ un e.v. avec deux bases $E$ et $F$. Soit $b$ la matrice de changement de base de $E$ vers $F$ exprimée dans les coordonnées de $E$.
-		Alors si $\lambda_1, \ldots, \lambda_n$ représente les coordonnées de $x \in V$ dans la base $E$ et $\mu_1, \ldots, \mu_n$ représente ses coordonnées dans la base $F$,
-		on a : \[\begin{bmatrix}\mu_1 \\\vdots \\ \mu_n\end{bmatrix} = b\begin{bmatrix}\lambda_1 \\ \vdots \\ \lambda_n\end{bmatrix}.\]\end{lem}
+		Alors si $\lambda_1, \dotsc, \lambda_n$ représente les coordonnées de $x \in V$ dans la base $E$ et $\mu_1, \dotsc, \mu_n$ représente ses coordonnées dans la
+		base $F$, on a~: \[\begin{bmatrix}\mu_1 \\\vdots \\ \mu_n\end{bmatrix} = b\begin{bmatrix}\lambda_1 \\ \vdots \\ \lambda_n\end{bmatrix}.\]\end{lem}
 
-		\begin{proof} On sait : \[\sum_{j=1}^n\mu_jf_j = B(x) = \sum_{i=1}^n\lambda_iB(e_i) = \sum_{i=1}^n\lambda_i\sum_{j=1}^nB_{ji}f_j
-		= \sum_{j=1}^n\left(\sum_{i=1}^nB_{ji}\lambda_i\right)f_j.\] Il faut donc avoir, pour tout $j$ : \[\mu_j = \sum_{i=1}^nB_{ji}\lambda_i,\] ou encore :
+		\begin{proof} On sait~: \[\sum_{j=1}^n\mu_jf_j = B(x) = \sum_{i=1}^n\lambda_iB(e_i) = \sum_{i=1}^n\lambda_i\sum_{j=1}^nB_{ji}f_j
+		= \sum_{j=1}^n\left(\sum_{i=1}^nB_{ji}\lambda_i\right)f_j.\] Il faut donc avoir, pour tout $j$ : \[\mu_j = \sum_{i=1}^nB_{ji}\lambda_i,\] ou encore~:
 		\[\begin{bmatrix}\mu_1 \\ \vdots \\ \mu_n\end{bmatrix} = b\begin{bmatrix}\lambda_1 \\ \vdots \\ \lambda_n\end{bmatrix}.\] \end{proof}
 
-		\begin{prp} Soit $V$ un e.v., $E, F$ deux bases de $V$ et $b$ la matrice de changement de base de $E$ vers $F$ de $V$. Soit $A \in \Hom(V, V)$ un automorphisme de $V$.
-		Soient $m_{E, E}(A) = [A_{ij}]$ est la matrice e l'application $A$ dans les coordonnées de la base $E$ et $m_{F, F}(A) = [A'_{ij}]$ la matrice de $A$ dans la base $F$.
-		Alors : \[b \cdot m_{F, F}(A) = m_{E, E}(A) \cdot b.\] \end{prp}
+		\begin{prp} Soit $V$ un e.v., $E, F$ deux bases de $V$ et $b$ la matrice de changement de base de $E$ vers $F$ de $V$. Soit $A \in \Hom(V, V)$ un automorphisme
+		de $V$. Soient $m_{E, E}(A) = [A_{ij}]$ est la matrice e l'application $A$ dans les coordonnées de la base $E$ et $m_{F, F}(A) = [A'_{ij}]$ la matrice de $A$
+		dans la base $F$. Alors~: \[b \cdot m_{F, F}(A) = m_{E, E}(A) \cdot b.\] \end{prp}
 
-		\begin{proof} Par définition des matrices $[A_{ij}]$ et $[A'_{ij}]$, on sait que :
+		\begin{proof} Par définition des matrices $[A_{ij}]$ et $[A'_{ij}]$, on sait que~:
 		\[A(e_j) = \sum_{k=1}^nA_{kj}e_k \qquad\text{ et }\qquad A(f_j) = \sum_{k=1}^nA'_{kj}f_k.\]
 
-		Donc, en partant de $A(f_j)$, on obtient les égalités suivantes :
+		Donc, en partant de $A(f_j)$, on obtient les égalités suivantes~:
 		\begin{align*}
 			A(f_j) &= \sum_{k=1}^nA'_{kj}f_k = \sum_{k=1}^nA'_{kj}B(e_k) = \sum_{k=1}^nA'_{kj}\sum_{i=1}^nB_{ik}e_i = \sum_{i=1}^n\left(\sum_{k=1}^nB_{ik}A'_{kj}\right)e_i, \\
 			A(f_j) &= A(B(e_j)) = A\left(\sum_{k=1}^nB_{kj}e_k\right) = \sum_{k=1}^nB_{kj}A(e_k) = \sum_{k=1}^nB_{kj}\sum_{i=1}^nA_{ik}e_i
 			= \sum_{i=1}^n\left(\sum_{k=1}^nA_{ik}B_{kj}\right)e_i.
 		\end{align*}
 
-		On sait donc que pour tout $i, j$, l'égalité suivante est vérifiée : \[\sum_{k=1}^nB_{ik}A'_{kj} = \sum_{k=1}^nA_{ik}B_{kj},\] ce qui revient à faire l'égalité
-		suivante : \[b \cdot m_{F, F}(A) = [B_{ij}][A'_{ij}] = [A_{ij}][B_{ij}] = m_{E, E}(A) \cdot b.\] \end{proof}
+		On sait donc que pour tout $i, j$, l'égalité suivante est vérifiée~: \[\sum_{k=1}^nB_{ik}A'_{kj} = \sum_{k=1}^nA_{ik}B_{kj},\] ce qui revient à faire l'égalité
+		suivante~: \[b \cdot m_{F, F}(A) = [B_{ij}][A'_{ij}] = [A_{ij}][B_{ij}] = m_{E, E}(A) \cdot b.\] \end{proof}
 	
 	\subsection{Dualité}
 		\begin{déf}[Définition naïve de la dualité] Soient deux objets $X$ et $Y$ et une application $A$. Si $A(X) = Y$ et $A(Y) = X$, on dit que $X$ et $Y$ sont duals.
@@ -1397,22 +1427,23 @@ Pour tout 0 < i < l+1
 
 		\begin{prp}\label{dualIsoMRn} Soit $V$ un espace vectoriel de dimension finie $n$. Alors l'espace $V^*$ est isomorphe à $\R^n$. \end{prp}
 
-		\begin{proof} Soit $E = \{e_1, \ldots, e_n\}$ une base de $V$ et soit $F = \{1\}$ la base canonique de $\R$. Soit $f \in V^*$ une forme linéaire sur $V$. La forme $f$
-		est caractérisée par la matrice $m_{F, E}(f) = [f(e_i)_i]$. La transformation linéaire $m_{F, E} : V^* \to \M 1n\R \sim \R^n$ est donc un isomorphisme. \end{proof}
+		\begin{proof} Soit $E = \{e_1, \dotsc, e_n\}$ une base de $V$ et soit $F = \{1\}$ la base canonique de $\R$. Soit $f \in V^*$ une forme linéaire sur $V$.
+		La forme $f$ est caractérisée par la matrice $m_{F, E}(f) = [f(e_i)_i]$. La transformation linéaire $m_{F, E} : V^* \to \M 1n\R \sim \R^n$ est donc un
+		isomorphisme. \end{proof}
 
 		\begin{cor}\label{VisoMV*} Un espace vectoriel de dimension finie est isomorphe avec son dual. \end{cor}
 
-		\begin{proof} Soient $V$ et $V^*$ un espace vectoriel et son dual. Si $V$ est de dimension finie $n$, alors par la proposition~\ref{dualIsoMRn}, on sait que $V^*$ est
-		isomorphe à $\R^n$. Par la proposition~\ref{dimDIsomorpheRd}, on sait que $V$ est isomorphe à $\R^n$. Donc par composition des isomorphismes, il existe un isomorphisme
-		entre $V$ et $V^*$. \end{proof}
+		\begin{proof} Soient $V$ et $V^*$ un espace vectoriel et son dual. Si $V$ est de dimension finie $n$, alors par la proposition~\ref{dualIsoMRn}, on sait que
+		$V^*$ est isomorphe à $\R^n$. Par la proposition~\ref{dimDIsomorpheRd}, on sait que $V$ est isomorphe à $\R^n$. Donc par composition des isomorphismes, il
+		existe un isomorphisme entre $V$ et $V^*$. \end{proof}
 
-		\begin{déf} Soient un espace vectoriel $V$ et une base $E = \{e_1, \ldots, e_n\}$ de $V$ ainsi que $V^*$ le dual de $V$. On définit $E^*$ la base duale de $E$ par
-		$E^* = \{e_1^*, \ldots, e_n^*\}$ où pour tout $k, j$, on définit : \[e_k^*(e_j) \coloneqq \delta_{kj}.\] \end{déf}
+		\begin{déf} Soient un espace vectoriel $V$ et une base $E = \{e_1, \dotsc, e_n\}$ de $V$ ainsi que $V^*$ le dual de $V$. On définit $E^*$ la base duale de $E$ par
+		$E^* = \{e_1^*, \dotsc, e_n^*\}$ où pour tout $k, j$, on définit~: \[e_k^*(e_j) \coloneqq \delta_{kj}.\] \end{déf}
 
 		\begin{prp} Soient $V, V^*$ et $E$ un espace vectoriel et son dual avec une base de $E$. Alors la base duale $E^*$ de $E$ est une base de $V^*$. \end{prp}
 
-		\begin{proof} $E^*$ est libre car : \[0 = \left(\sum_{i=1}^n\lambda_ie_i^*\right)(e_j) = \sum_{i=1}^n\lambda_ie_i^*(e_j) = \sum_{i=1}^n\lambda_i\delta_{ij}
-		= \lambda_j.\] Montrons alors que $E^*$ est génératrice. Soit $f \in V^*$. En effet, $f = \sum_{i=1}^nf(e_i)e_i^*$ :
+		\begin{proof} $E^*$ est libre car~: \[0 = \left(\sum_{i=1}^n\lambda_ie_i^*\right)(e_j) = \sum_{i=1}^n\lambda_ie_i^*(e_j) = \sum_{i=1}^n\lambda_i\delta_{ij}
+		= \lambda_j.\] Montrons alors que $E^*$ est génératrice. Soit $f \in V^*$. En effet, $f = \sum_{i=1}^nf(e_i)e_i^*$~:
 		\[\left(\sum_{i=1}^nf(e_i)e_i^*\right)(e_j) = \sum_{i=1}^nf(e_i)e_i^*(e_j) = \sum_{i=1}^nf(e_i)\delta_{ij} = f(e_j).\] \end{proof}
 
 		\begin{rmq} Par rapport au corollaire~\ref{VisoMV*}, on a un isomorphisme $\phi : V \to V^*$ tel que $\phi(e_i) \coloneqq e_i^*$. \end{rmq}
@@ -1425,7 +1456,7 @@ Pour tout 0 < i < l+1
 
 		\begin{rmq} Le noyau de $f$ est donc un hyperplan passant par l'origine et si $\lambda \in \R$, $f^{-1}(\lambda)$ est un hyperplan parallèle à $\Ker(f)$. \end{rmq}
 
-		\begin{rmq} On sait que $f^{-1}(\lambda) = \{x \in V \tq f(x) = \lambda\}$. Soit $v \in V \setminus \Ker(f)$. Tout vecteur $w \in V$ peut s'écrire comme :
+		\begin{rmq} On sait que $f^{-1}(\lambda) = \{x \in V \tq f(x) = \lambda\}$. Soit $v \in V \setminus \Ker(f)$. Tout vecteur $w \in V$ peut s'écrire comme~:
 		$v = u + \mu v$ avec $u \in \Ker(f)$ et $\mu \in \R$. Dès lors $f(w) = f(u) + \mu f(v) = \mu f(v)$. On sait donc déterminer $f$ par son noyau et un vecteur dans
 		$V \setminus \Ker(f)$. 
 		
@@ -1437,28 +1468,29 @@ Pour tout 0 < i < l+1
 		\begin{prp} Si $V$ est un espace vectoriel de dimension finie, $V^{**}$ est isomorphe à $V$. \end{prp}
 		
 		\begin{proof} On définit une fonction $\alpha : V \to V^{**}$ telle que pour $v \in V$, $\alpha(v) \in \Hom(V^*, \R)$ est définie par $\alpha(v)(f) = f(v)$.
-		Il est évident que $\alpha$ est linéaire : \[\alpha(v+\lambda w)(f) = f(v+\lambda w) = f(v)+\lambda f(w) = \alpha(v)(f) + \lambda\alpha(w)(f).\]
-		De plus, si $E = \{e_1, \ldots, e_n\}$ est une base de $V$, on définit la base biduale de $E$ par $E^{**} = \{\alpha(e_1), \ldots, \alpha(e_n)\}$. On sait que $E^{**}$
-		est une base de $V^{**}$ car $E^{**}$ est la base duale de $E^*$. En effet : \[\alpha(e_i)(e_j^*) = e_j^*(e_i) = \delta_{ij}.\] \end{proof}
+		Il est évident que $\alpha$ est linéaire~: \[\alpha(v+\lambda w)(f) = f(v+\lambda w) = f(v)+\lambda f(w) = \alpha(v)(f) + \lambda\alpha(w)(f).\]
+		De plus, si $E = \{e_1, \dotsc, e_n\}$ est une base de $V$, on définit la base biduale de $E$ par $E^{**} = \{\alpha(e_1), \dotsc, \alpha(e_n)\}$.
+		On sait que $E^{**}$ est une base de $V^{**}$ car $E^{**}$ est la base duale de $E^*$. En effet~: \[\alpha(e_i)(e_j^*) = e_j^*(e_i) = \delta_{ij}.\] \end{proof}
 
 	\subsection{Matrices transposées}
 		\begin{déf} Soit $A : V \to W$ une application linéaire. On définit la transposée de $A$ par $A^T : W^* \to V^* : f \mapsto (f \circ A)$. \end{déf}
 
 		\begin{prp} L'application transposée est linéaire. \end{prp}
 		
-		\begin{proof} Montrons la linéarité : \[A^T(f+\lambda g)(v) = ((f+\lambda g) \circ A)(v) = (f \circ A)(v) + \lambda (g \circ A)(v) = A^T(f)(v) + \lambda A^T(g)(v).\]
+		\begin{proof} Montrons la linéarité~:
+		\[A^T(f+\lambda g)(v) = ((f+\lambda g) \circ A)(v) = (f \circ A)(v) + \lambda (g \circ A)(v) = A^T(f)(v) + \lambda A^T(g)(v).\]
 		\end{proof}
 
-		\begin{déf} Soient $V, W$ deux e.v. avec des bases $E, F$. On définit la matrice $A^T \coloneqq m_{E^*, F^*}(A^T)  = [A^T_{ij}]$ comme la matrice transposée de $A$.
-		\end{déf}
+		\begin{déf} Soient $V, W$ deux e.v. avec des bases $E, F$. On définit la matrice $A^T \coloneqq m_{E^*, F^*}(A^T)  = [A^T_{ij}]$ comme la matrice transposée
+		de $A$. \end{déf}
 
-		\begin{prp} Soit $A \in \Hom(V, W)$ une application linéaire et $A = [A_{ij}]$ sa matrice associée. Alors la matrice transposée $A^T$ est définie telle que pour tout
-		$i, j$, on a $A^T_{ij} = A_{ji}$. \end{prp}
+		\begin{prp} Soit $A \in \Hom(V, W)$ une application linéaire et $A = [A_{ij}]$ sa matrice associée. Alors la matrice transposée $A^T$ est définie telle que
+		pour tout $i, j$, on a $A^T_{ij} = A_{ji}$. \end{prp}
 
-		\begin{proof} Si $A^T = m_{E^*, F^*}(A^T)$ est la matrice de l'application transposée, alors : \[A^T(f_j^*)(e_i) = (f_j^* \circ A)(e_i) = f_j^*(A(e_i))
+		\begin{proof} Si $A^T = m_{E^*, F^*}(A^T)$ est la matrice de l'application transposée, alors~: \[A^T(f_j^*)(e_i) = (f_j^* \circ A)(e_i) = f_j^*(A(e_i))
 		= f_j\left(\sum_{k=1}^nA_{ki}f_k\right) = \sum_{k=1}^nA_{ki}f_j^*(f_k) = \sum_{k=1}^nA_{ki}\delta_{jk} = A_{ji}.\]
 
-		Mais par définition de la matrice, on a également : \[A^T(f_j^*)(e_i) = \left(\sum_{k=1}^nA^T_{kj}e_k^*\right)(e_i) = \sum_{k=1}^nA^T_{kj}e_k^*(e_i)
+		Mais par définition de la matrice, on a également~: \[A^T(f_j^*)(e_i) = \left(\sum_{k=1}^nA^T_{kj}e_k^*\right)(e_i) = \sum_{k=1}^nA^T_{kj}e_k^*(e_i)
 		= \sum_{k=1}^nA^T_{kj}\delta_{ki} = A^T_{ij}.\]
 
 		Il faut donc avoir $A^T_{ij} = A_{ji}$. \end{proof}
@@ -1467,50 +1499,51 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soit $a \in \M nn\R$ une matrice. Si $a=a^T$, on dit que $a$ est symétrique. Si $a=-a^T$, on dit que $a$ est antisymétrique. \end{déf}
 
-		\begin{déf} Soit $a = [a_{ij}] \in \M st\R$ une matrice. Soit $A : V \to W : v \mapsto av$ la transformation linéaire associée à $a$. On définit le rang de la matrice
-		$a$ comme le rang de l'application $A$. Donc $\rang(a) = \rang(A) = \dim_\R\Imf(A)$. \end{déf}
+		\begin{déf} Soit $a = [a_{ij}] \in \M st\R$ une matrice. Soit $A : V \to W : v \mapsto av$ la transformation linéaire associée à $a$. On définit le rang de
+		la matrice $a$ comme le rang de l'application $A$. Donc $\rang(a) = \rang(A) = \dim_\R\Imf(A)$. \end{déf}
 
 		\begin{prp} Soit $A : V \to W$ une transformation linéaire. Alors $\rang(A) = \rang(A^T)$. \end{prp}
 
-		\begin{proof} Soit $E = \{e_1, \ldots, e_n\}$ une base de $V$. Soit $A(E) = \{A(e_1), \ldots, A(e_r)\}$ une base de l'image de $A$. Soit
-		$F = \{A(e_1), \ldots, A(e_r), f_{r+1}, \ldots, f_s\}$ une base de $W$. Dès lors, la matrice $m_{F, E}$ correspond à la matrice identité sur
-		$[A_{ij}]_{1 \leq i, j \leq r}$. De plus, la matrice est nulle sur $[A_{ij}]_{r+1 \leq i \leq s, 1 \leq j \leq r}$. Donc forcément, le range de la transposée doit être
-		au moins égal au rang de $A$. On a donc $\rang(A) \leq \rang(A^T)$. Par un raisonnement similaire, on trouve $\rang(A^T) \leq \rang\left(\left(A^T\right)^T\right)$.
-		Or on sait que $\left(A^T\right)^T = A$. Donc on a $\rang(A) \leq \rang(A^T) \leq \rang(A)$. Il faut alors $\rang(A) = \rang(A^T)$. \end{proof} 
+		\begin{proof} Soit $E = \{e_1, \dotsc, e_n\}$ une base de $V$. Soit $A(E) = \{A(e_1), \dotsc, A(e_r)\}$ une base de l'image de $A$. Soit
+		$F = \{A(e_1), \dotsc, A(e_r), f_{r+1}, \dotsc, f_s\}$ une base de $W$. Dès lors, la matrice $m_{F, E}$ correspond à la matrice identité sur
+		$[A_{ij}]_{1 \leq i, j \leq r}$. De plus, la matrice est nulle sur $[A_{ij}]_{r+1 \leq i \leq s, 1 \leq j \leq r}$. Donc forcément, le range de la transposée
+		doit être au moins égal au rang de $A$. On a donc $\rang(A) \leq \rang(A^T)$. Par un raisonnement similaire, on trouve
+		$\rang(A^T) \leq \rang\left(\left(A^T\right)^T\right)$. Or on sait que $\left(A^T\right)^T = A$. Donc on a $\rang(A) \leq \rang(A^T) \leq \rang(A)$. Il faut
+		alors $\rang(A) = \rang(A^T)$. \end{proof}
 
 \newpage
 \section{Permutations et Déterminants}
 	\subsection{Définitions}
-		\begin{déf} Soit $n \in \mathbb N^*$. On note l'ensemble des permutations de $\{1, 2, \ldots, n\}$~:
+		\begin{déf} Soit $n \in \mathbb N^*$. On note l'ensemble des permutations de $\{1, 2, \dotsc, n\}$~:
 		
-		\[\mathfrak{S}_n \coloneqq \left\{f : \{1, 2, \ldots, n\} \to \{1, 2, \ldots, n\} \tq f \text{ est bijective}\right\}.\]
+		\[\mathfrak{S}_n \coloneqq \left\{f : \{1, 2, \dotsc, n\} \to \{1, 2, \dotsc, n\} \tq f \text{ est bijective}\right\}.\]
 		
 		On appelle cet ensemble le \textbf{groupe symétrique de degré $n$}. \end{déf}
 
 		\begin{déf} Soient $n$ un naturel non nul et $\mathfrak{S}_n$, le groupe symétrique de degré $n$. Soit $\sigma \in \mathfrak{S}_n$ une permutation de
-		$\{1, \ldots, n\}$. Il existe quatre notations pour $\sigma$~:
+		$\{1, \dotsc, n\}$. Il existe quatre notations pour $\sigma$~:
 		
 		\begin{enumerate}
 			\item le tableau double~: \[\sigma = \begin{pmatrix}1 & 2 & \ldots & n \\ \sigma(1) & \sigma(2) & \ldots & \sigma(n) \end{pmatrix}\text{~;}\]
 			\item la chaine~: \[\sigma = \sigma(1)\sigma(2)\ldots\sigma(n)\text{~;}\]
-			\item la tresse~: deux lignes comportant les points $\{1, 2, \ldots, n\}$ reliés par des arêtes $(i, \sigma(i))$~;
+			\item la tresse~: deux lignes comportant les points $\{1, 2, \dotsc, n\}$ reliés par des arêtes $(i, \sigma(i))$~;
 			\item le produit de cycles~: \[\sigma = \left(\sigma(k_{1, 1})\sigma(k_{1, 2})\ldots\sigma(k_{1, r})\right)\left(\sigma(k_{2, 1})\sigma(k_{2, 2})\ldots\sigma(k_{2, s})\right)\ldots\left(\sigma(k_{t, 1})\sigma(k_{t, 2})\ldots\sigma(k_{t, n})\right).\]
 		\end{enumerate}\end{déf}
 
-		\begin{rmq} Quand le degré du groupe symétrique $\mathfrak{S}_n$ n'est pas ambigu, lors d'une notation par produit de cycles, les points fixes sont omis. De plus, l'ordre d'expression
-		des cycles n'est pas important. \end{rmq}
+		\begin{rmq} Quand le degré du groupe symétrique $\mathfrak{S}_n$ n'est pas ambigu, lors d'une notation par produit de cycles, les points fixes sont omis. De plus,
+		l'ordre d'expression des cycles n'est pas important. \end{rmq}
 
-		\begin{déf} Soit $\sigma \in \mathfrak{S}_n$ une permutation. Si $\sigma$ ne comporte qu'un seul cycle de longueur $k \geq 2$, alors $\sigma$ est dit \textbf{cycle de longueur $k$}.
-		Un cycle de longueur deux est appelé \textbf{transposition}. \end{déf}
+		\begin{déf} Soit $\sigma \in \mathfrak{S}_n$ une permutation. Si $\sigma$ ne comporte qu'un seul cycle de longueur $k \geq 2$, alors $\sigma$ est dit
+		\textbf{cycle de longueur $k$}. Un cycle de longueur deux est appelé \textbf{transposition}. \end{déf}
 
 		\begin{thm} Le nombre de permutations possibles d'ordre $n$ est $n!$. \end{thm}
 
 		\begin{proof} Soit $\Perm_n$, le groupe symétrique de degré $n$. Soit $\sigma \in \Perm_n$. Déterminons $\sigma(i)$ pour $i \in \{1, 2, \ldots n\}$~:
 
 		\begin{itemize}
-			\item il y a $n$ choix pour $\sigma(1)$ (toute valeur dans $\{1, 2, 3, \ldots, n\}$)~;
-			\item il y a $(n-1)$ choix pour $\sigma(2)$ (toute valeur dans $\{1, 2, \ldots, n\} \setminus \{\sigma(1)\}$)~;
-			\item il y a $(n-2)$ choix pour $\sigma(3)$ (toute valeur dans $\{1, 2, \ldots, n\} \setminus \{\sigma(1), \sigma(2)\}$)~:
+			\item il y a $n$ choix pour $\sigma(1)$ (toute valeur dans $\{1, 2, 3, \dotsc, n\}$)~;
+			\item il y a $(n-1)$ choix pour $\sigma(2)$ (toute valeur dans $\{1, 2, \dotsc, n\} \setminus \{\sigma(1)\}$)~;
+			\item il y a $(n-2)$ choix pour $\sigma(3)$ (toute valeur dans $\{1, 2, \dotsc, n\} \setminus \{\sigma(1), \sigma(2)\}$)~:
 			\item $\ldots$~;
 			\item il y a 1 choix pour $\sigma(n)$.
 		\end{itemize}
@@ -1520,7 +1553,8 @@ Pour tout 0 < i < l+1
 		\begin{rmq} Les permutations sont des fonctions, on peut donc les composer. La composition $\sigma \circ \tau$ se note également $\sigma\tau$. La composition $k$
 		fois de la permutation $\sigma$ avec elle-même se note $\sigma^k$. \end{rmq}
 
-		\begin{déf} Soit $\sigma \in \Perm_n$. On appelle le \textbf{degré} de $\sigma$ le plus petit nombre naturel non nul $k$ tel que $\sigma^k = \Id_{\Perm_n}$. \end{déf}
+		\begin{déf} Soit $\sigma \in \Perm_n$. On appelle le \textbf{degré} de $\sigma$ le plus petit nombre naturel non nul $k$ tel que $\sigma^k = \Id_{\Perm_n}$.
+		\end{déf}
 
 		\begin{déf} Soit $\sigma \in \Perm_n$. Comme $\sigma$ est une bijection, elle admet un inverse noté $\sigma^{-1}$ tel que
 		$\sigma \circ \sigma^{-1} = \Id_{\Perm_n} = \sigma^{-1} \circ \sigma$. \end{déf}
@@ -1535,7 +1569,7 @@ Pour tout 0 < i < l+1
 		\begin{lem}\label{InverseProduitPermutations} Soient $\tau_1, \tau_2, \ldots \tau_n$, $n$ transpositions et $\sigma \in \Perm_n$ une permutation telle que
 		$\sigma = \tau_1\tau_2\ldots\tau_n$. Alors $\sigma^{-1} = \tau_n\tau_{n-1}\ldots\tau_1$. \end{lem}
 
-		\begin{proof} Soient $\sigma \in \Perm_n$ et $\tau_1, \ldots, \tau_n$ des transpositions telles que $\sigma = \tau_1\ldots\tau_n$.
+		\begin{proof} Soient $\sigma \in \Perm_n$ et $\tau_1, \dotsc, \tau_n$ des transpositions telles que $\sigma = \tau_1\ldots\tau_n$.
 		Montrons que $\sigma\sigma^{-1} = \sigma^{-1}\sigma = \Id_{\Perm_n}$.
 		
 		On sait par le lemme~\ref{TranspositionEstSonInverse} que $\tau_i\tau_i = \Id_{\Perm_n}$ pour tout $i$, et on calcule~:
@@ -1553,66 +1587,72 @@ Pour tout 0 < i < l+1
 
 		\begin{prp}\label{PermPuissanceId} Soit $\sigma \in \Perm_n$ un cycle de longueur $k$. Alors $\forall m \in \N^* : \sigma^{mk} = \Id_{\Perm_n}$. \end{prp}
 
-		\begin{proof} Montrons que $\sigma^k = \Id_{\Perm_n}$. Par définition, on sait qu'il existe $k$ nombres deux à deux distincts $n_1, \ldots, n_k \in \{1, \ldots, n\}$
-		tels que $\forall i \in \{1, \ldots, n\} : n_i = \sigma^{i-1}(n_1)$ et $n-k$ nombres restants $n_{k+i}$ (avec $i \in \{1, \ldots, n-k\}$) tels que $\sigma(n_{k+i}) = n_{k+i}$.
-		Dès lors, pour tout $j \in \{1, \ldots, k\}$, on a $\sigma^k(n_j) = \sigma^k\left(\sigma^{j-1}(n_1)\right) = \sigma^{k+j-1}(n_1) = \sigma^{j-1}\left(\sigma\left(\sigma^{k-1}(n_1)\right)\right)
+		\begin{proof} Montrons que $\sigma^k = \Id_{\Perm_n}$. Par définition, on sait qu'il existe $k$ nombres deux à deux distincts
+		$n_1, \dotsc, n_k \in \{1, \dotsc, n\}$ tels que $\forall i \in \{1, \dotsc, n\} : n_i = \sigma^{i-1}(n_1)$ et $n-k$ nombres restants $n_{k+i}$
+		(avec $i \in \{1, \dotsc, n-k\}$) tels que $\sigma(n_{k+i}) = n_{k+i}$. Dès lors, pour tout $j \in \{1, \dotsc, k\}$, on a
+		$\sigma^k(n_j) = \sigma^k\left(\sigma^{j-1}(n_1)\right) = \sigma^{k+j-1}(n_1) = \sigma^{j-1}\left(\sigma\left(\sigma^{k-1}(n_1)\right)\right)
 		= \sigma^{j-1}\left(\sigma(n_k)\right) = \sigma^{j-1}(n_1) \eqqcolon n_j$. On a donc bien $\sigma^k = \Id_{\Perm_n}$.
 
-		Maintenant montrons que $\forall m \geq 1 : \sigma^{mk} = \sigma^{(m-1)k}$. En effet, $\sigma^{mk}(n) = \sigma^{(m-1)k}\left(\sigma^k(n)\right) = \sigma^{(m-1)k}(n)$.
+		Maintenant montrons que $\forall m \geq 1 : \sigma^{mk} = \sigma^{(m-1)k}$. En effet,
+		$\sigma^{mk}(n) = \sigma^{(m-1)k}\left(\sigma^k(n)\right) = \sigma^{(m-1)k}(n)$.
 
 		Dès lors, on sait que $\sigma^{mk}(n) = \sigma^{(m-1)k}(n) = \sigma^{(m-2)k}(n) = \ldots = \sigma{2k}(n) = \sigma^k(n) = n$. \end{proof}
 
 		\begin{rmq} Le lemme~\ref{TranspositionEstSonInverse} est un cas particulier de cette proposition pour un cycle de longueur $k = 2$. \end{rmq}
 
-		\begin{cor} Soit $\sigma \in \Perm_n$ une permutation admettant $n$ cycles de longueur respective $k_1, k_2, \ldots, k_n$. Le degré de $\sigma$ est le plus petit
-		commun multiple des longueurs des cycles. Donc $\deg \sigma = LCM(k_1, k_2, \ldots, k_n)$. \end{cor}
+		\begin{cor} Soit $\sigma \in \Perm_n$ une permutation admettant $n$ cycles de longueur respective $k_1, k_2, \dotsc, k_n$. Le degré de $\sigma$ est le plus
+		petit commun multiple des longueurs des cycles. Donc $\deg \sigma = LCM(k_1, k_2, \dotsc, k_n)$. \end{cor}
 
-		\begin{proof} On sait par la proposition~\ref{PermPuissanceId} qu'un cycle mis à la puissance de sa longueur donne l'identité. Soit $K \coloneqq LCM(k_1, \ldots, k_n)$, le plus
-		petit commun multiple des longueurs des cycles de la permutation $\sigma$. Par définition, $K$ est un multiple de tous les nombres $k_i$ pour $i \in \{1, \ldots, n\}$, donc pour chaque
-		cycle individuel, la puissance $K$ donne l'identité. On a donc $\sigma^{K} = \Id_{\Perm_n}$ et on sait par définition que $K$ est le plus petit nombre naturel $\geq 1$ satisfaisant
-		cette propriété. $K$ est donc le degré de la permutation $\sigma$. \end{proof}
+		\begin{proof} On sait par la proposition~\ref{PermPuissanceId} qu'un cycle mis à la puissance de sa longueur donne l'identité. Soit
+		$K \coloneqq LCM(k_1, \dotsc, k_n)$, le plus petit commun multiple des longueurs des cycles de la permutation $\sigma$. Par définition, $K$ est un multiple de
+		tous les nombres $k_i$ pour $i \in \{1, \dotsc, n\}$, donc pour chaque cycle individuel, la puissance $K$ donne l'identité. On a donc
+		$\sigma^{K} = \Id_{\Perm_n}$ et on sait par définition que $K$ est le plus petit nombre naturel $\geq 1$ satisfaisant cette propriété. $K$ est donc le degré de
+		la permutation $\sigma$. \end{proof}
 
 		\begin{déf} Soient $\sigma, \tau \in \Perm_n$ deux permutations. La \textbf{permutation conjuguée} de $\sigma$ par $\tau^{-1}$ est la bijection donnée par~:
 		\[\tau\sigma\tau^{-1} \coloneqq \tau \circ \sigma \circ \tau{-1}.\] \end{déf}
 
-		\begin{thm} La permutation conjuguée conserve les cycles telle que si $\sigma = (a_1, a_2, \ldots, a_n)\ldots(b_1, b_2, \ldots, b_m)$, alors~:
-		\[\tau\sigma\tau^{-1} = (\tau(a_1), \tau(a_2), \ldots, \tau(a_n))\ldots(\tau(b_1), \tau(b_2), \ldots, \tau(b_m)).\] \end{thm}
+		\begin{thm} La permutation conjuguée conserve les cycles telle que si $\sigma = (a_1, a_2, \dotsc, a_n)\ldots(b_1, b_2, \dotsc, b_m)$, alors~:
+		\[\tau\sigma\tau^{-1} = (\tau(a_1), \tau(a_2), \dotsc, \tau(a_n))\ldots(\tau(b_1), \tau(b_2), \dotsc, \tau(b_m)).\] \end{thm}
 
-		\begin{proof} Montrons que $(\tau(a_1), \ldots, \tau(a_m))$ est une permutation de $\gamma \coloneqq \tau\sigma\tau^{-1}$. Soit $i \in \{1, \ldots, m\}$.
-		On sait $\gamma(\tau(a_i)) = (\gamma\tau)(a_i) = (\tau\sigma\tau^{-1}\tau)(a_i) = (\tau\sigma)(a_i) = \tau(\sigma(a_i))$. Si $i < m$, alors $\gamma(\tau(a_i)) = \tau(a_{i+1})$,
-		et si $i = m$, alors $\gamma(\tau(a_i)) = \tau(\sigma(a_m)) = \tau(a_1)$. En appliquant le même raisonnement à tous les cycles de $\sigma$, on montre que les cycles $c$ sont conservés
-		et qu'ils sont donnés par $\tau(c)$. \end{proof}
+		\begin{proof} Montrons que $(\tau(a_1), \dotsc, \tau(a_m))$ est une permutation de $\gamma \coloneqq \tau\sigma\tau^{-1}$. Soit $i \in \{1, \dotsc, m\}$.
+		On sait $\gamma(\tau(a_i)) = (\gamma\tau)(a_i) = (\tau\sigma\tau^{-1}\tau)(a_i) = (\tau\sigma)(a_i) = \tau(\sigma(a_i))$. Si $i < m$, alors
+		$\gamma(\tau(a_i)) = \tau(a_{i+1})$, et si $i = m$, alors $\gamma(\tau(a_i)) = \tau(\sigma(a_m)) = \tau(a_1)$. En appliquant le même raisonnement à tous les
+		cycles de $\sigma$, on montre que les cycles $c$ sont conservés et qu'ils sont donnés par $\tau(c)$. \end{proof}
 
 	\subsection{Signe d'une permutation}
-		\begin{déf} Soit $\sigma \in \Perm_n$, une permutation. Une inversion dans $\sigma$ est un couple $(i, j) \in \{1, 2, \ldots, n\}^2$ tel que $i < j$ et $\sigma(i) > \sigma(j)$. \end{déf}
+		\begin{déf} Soit $\sigma \in \Perm_n$, une permutation. Une inversion dans $\sigma$ est un couple $(i, j) \in \{1, 2, \dotsc, n\}^2$ tel que $i < j$ et
+		$\sigma(i) > \sigma(j)$. \end{déf}
 
-		\begin{déf} Soit $\sigma \in \Perm_n$ une permutation. On définit $\sign(\sigma)$ le signe de $\sigma$ par~: \[\sign(\sigma) = (-1)^{N(\sigma)},\] où $N(\sigma)$ est le plus
-		petit nombre d'inversions possible pour transformer $\Id_{\Perm_n}$ en $\sigma$. Si $\sign(\sigma) = -1$, on dit que $\sigma$ est impaire, sinon $\sigma$ est paire. \end{déf}
+		\begin{déf} Soit $\sigma \in \Perm_n$ une permutation. On définit $\sign(\sigma)$ le signe de $\sigma$ par~: \[\sign(\sigma) = (-1)^{N(\sigma)},\] où
+		$N(\sigma)$ est le plus petit nombre d'inversions possible pour transformer $\Id_{\Perm_n}$ en $\sigma$. Si $\sign(\sigma) = -1$, on dit que $\sigma$ est
+		impaire, sinon $\sigma$ est paire. \end{déf}
 
-		\begin{prp} Soit $\sigma \in \Perm_n$ une permutation. Supposons qu'il existe $m+n$ transpositions $\tau_1, \ldots, \tau_m, \tau'_1, \ldots, \tau'_n$ telles que~:
+		\begin{prp} Soit $\sigma \in \Perm_n$ une permutation. Supposons qu'il existe $m+n$ transpositions $\tau_1, \dotsc, \tau_m, \tau'_1, \dotsc, \tau'_n$ telles que~:
 		\[\sigma = \prod_{i=1}^m\tau_i = \prod_{j=1}^n\tau'_j.\] Alors $m$ et $n$ sont de même parité ($m \mod 2 = n \mod 2 = p \in \{0, 1\}$). \end{prp}
 		
 		\begin{proof} Toute inversion peut s'écrire comme un produit (une composition) de transpositions adjacentes~: soient $1 \leq i < j \leq n$. L'inversion $(i, j)$
 		peut s'écrire comme suit~: \[\tau = (j, j-1)(j-1, j-2)\ldots(i+1, i+2)(i, i+1)(i+1, i+2)\ldots(j-2, j-1)(j-1, j).\]
-		Le nombre de transpositions adjacentes est donc $2(j-i-2) + 1$ qui est impair. Dès lors, prenons $\hat{\tau_1}, \ldots, \hat{\tau_{m'}}$ l'ensemble des transpositions
-		adjacentes permettant de réécrire $\tau_1\ldots\tau_m$ et $\hat{\tau'_1}, \ldots \hat{\tau_{n'}}$ l'ensemble des transpositions adjacentes permettant de réécrire
-		$\tau'_1\ldots\tau'_n$. On a donc les égalités suivantes~:
+		Le nombre de transpositions adjacentes est donc $2(j-i-2) + 1$ qui est impair. Dès lors, prenons $\hat{\tau_1}, \dotsc, \hat{\tau_{m'}}$ l'ensemble des
+		transpositions adjacentes permettant de réécrire $\tau_1\ldots\tau_m$ et $\hat{\tau'_1}, \ldots \hat{\tau_{n'}}$ l'ensemble des transpositions adjacentes
+		permettant de réécrire $\tau'_1\ldots\tau'_n$. On a donc les égalités suivantes~:
 		\[\begin{aligned}
 			\sigma &= \tau_1\ldots\tau_m &= \tau'_1\ldots\tau'_n \\
 			       &= \hat{\tau_1}\ldots\hat{\tau_{m'}} &= \hat{\tau'_1}\ldots\hat{\tau'_{n'}}.
 		\end{aligned}\]
 
-		Soient $\nu_1, \ldots, \nu_m$ et $\nu'_1, \ldots, \nu'_n$ le nombre de transpositions adjacentes de $\hat{\tau_i}$ et $\hat{\tau'_i}$. On sait que $\sum_i\nu_i = m'$
-		et $\sum_i\nu'_i = n'$. Dès lors, on sait calculer~:
+		Soient $\nu_1, \dotsc, \nu_m$ et $\nu'_1, \dotsc, \nu'_n$ le nombre de transpositions adjacentes de $\hat{\tau_i}$ et $\hat{\tau'_i}$. On sait que
+		$\sum_i\nu_i = m'$ et $\sum_i\nu'_i = n'$. Dès lors, on sait calculer~:
 		\[m'-m = \sum_{i=1}^m\nu_i - m = \sum_{i=1}^m(\nu_i-1).\]
-		De plus, étant donné que $\nu_i$ est impair pour tout $i$, la valeur $(\nu_i-1)$ est paire. La quantité $m'-m$ est donc une somme de valeurs paires et est donc paire également.
-		Par un raisonnement similaire, on obtient $n'-n$ pair. Par le lemme~\ref{InverseProduitPermutations}, on sait que $\sigma^{-1} = \hat{\tau_m}\ldots\hat{\tau_1}$. En composant
-		$\sigma$ et son inverse $\sigma^{-1}$, on obtient l'identité $\Id_{\Perm_n}$.
+		De plus, étant donné que $\nu_i$ est impair pour tout $i$, la valeur $(\nu_i-1)$ est paire. La quantité $m'-m$ est donc une somme de valeurs paires et est
+		donc paire également. Par un raisonnement similaire, on obtient $n'-n$ pair. Par le lemme~\ref{InverseProduitPermutations}, on sait que
+		$\sigma^{-1} = \hat{\tau_m}\ldots\hat{\tau_1}$. En composant $\sigma$ et son inverse $\sigma^{-1}$, on obtient l'identité $\Id_{\Perm_n}$.
 
-		Soit $N(\sigma)$ le nombre d'inversions de $\sigma$. En évaluant $N(\sigma) - m' \mod 2 \equiv N(\sigma\hat{\tau_k}\ldots\hat{\tau_1}) \mod 2 = N(\Id_{\Perm_n}) \mod 2 = 0 \mod 2 = 0$,
+		Soit $N(\sigma)$ le nombre d'inversions de $\sigma$. En évaluant
+		$N(\sigma) - m' \mod 2 \equiv N(\sigma\hat{\tau_k}\ldots\hat{\tau_1}) \mod 2 = N(\Id_{\Perm_n}) \mod 2 = 0 \mod 2 = 0$,
 		on trouve que $N(\sigma) - m'$ est pair et donc $N(\sigma) - m' + (m' - m) = N(\sigma) - m$ est pair également car une somme de nombres pairs est paire.
-		De manière similaire, on trouve $N(\sigma) - n$ pair également. La quantité $\left(N(\sigma) - n\right) - \left(N(\sigma) - m\right) = m - n$ est une différence de valeurs
-		paires et est donc paire également. Or $m$ et $n$ sont de même parité si et seulement si $m - n$ est pair. \end{proof}
+		De manière similaire, on trouve $N(\sigma) - n$ pair également. La quantité $\left(N(\sigma) - n\right) - \left(N(\sigma) - m\right) = m - n$ est une
+		différence de valeurs paires et est donc paire également. Or $m$ et $n$ sont de même parité si et seulement si $m - n$ est pair. \end{proof}
 
 		\begin{prp}\label{PropsSign} Soient $\sigma, \tau \in \Perm_n$. L'opérateur $\sign$ respecte les propriétés suivantes~:
 
@@ -1625,31 +1665,34 @@ Pour tout 0 < i < l+1
 		\begin{proof} Soient $\sigma, \tau \in \Perm_n$.
 
 		\begin{enumerate}
-			\item Supposons $\sigma = \tau_1\ldots\tau_n$ et $\tau = \tau'_1\ldots\tau'_m$. On sait $\sign(\sigma\tau) = (-1)^{m+n} = (-1)^m(-1)^n = \sign(\tau)\sign(\sigma)$.
-			\item Supposons $\sigma = \tau_1\ldots\tau_n$. On sait $\sigma^{-1} = \tau_n\ldots\tau_1$. $\sigma$ et son inverse $\sigma^{-1}$ ont donc la même parité, et alors le même signe.
+			\item Supposons $\sigma = \tau_1\ldots\tau_n$ et $\tau = \tau'_1\ldots\tau'_m$. On sait
+			      $\sign(\sigma\tau) = (-1)^{m+n} = (-1)^m(-1)^n = \sign(\tau)\sign(\sigma)$.
+			\item Supposons $\sigma = \tau_1\ldots\tau_n$. On sait $\sigma^{-1} = \tau_n\ldots\tau_1$. $\sigma$ et son inverse $\sigma^{-1}$ ont donc la même parité,
+			      et alors le même signe.
 		\end{enumerate}
 		\end{proof}
 
 		\begin{rmq} Si $\sigma$ est une permutation, alors $\sign(\sigma) = 1 \iff \sigma$ est paire. \end{rmq}
 
-		\begin{lem}\label{DécompositionCycleEnTranspositions} Soit $\sigma \in \Perm_n$ un cycle de longueur $k$. Si $\sigma = (n_1, n_2, \ldots, n_k)$ et $\tau_i = (n_i, n_{i+1})$
-		pour $1 \leq i < k$, alors $\sigma = \tau_1\tau_2\ldots\tau_{k-1}$. \end{lem}
+		\begin{lem}\label{DécompositionCycleEnTranspositions} Soit $\sigma \in \Perm_n$ un cycle de longueur $k$. Si $\sigma = (n_1, n_2, \dotsc, n_k)$ et
+		$\tau_i = (n_i, n_{i+1})$ pour $1 \leq i < k$, alors $\sigma = \tau_1\tau_2\ldots\tau_{k-1}$. \end{lem}
 
 		\begin{proof} Soient $k-1$ transpositions $\tau_i = (n_i, n_{i+1})$. La composition s'évaluant de droite à gauche, on a:
 		\[\left(\tau_1\ldots\tau_{k-1}\right)(n_i) = \left(\tau_1\ldots\tau_{i-1}\right)\left(\tau_i\left[\left(\tau_{i+1}\ldots\tau_{k-1}\right)(n_i)\right]\right)
 		= \left(\tau1\ldots\tau_{i-1}\right)\left(\tau_i[n_i]\right) = \left(\tau_1\ldots\tau_{i-1}\right)(n_{i+1}) = n_{i+1}.\]
 
-		En prenant $m \not \in \{n_1, \ldots, n_{k-1}\}$, alors aucune des $k-1$ transpositions ne modifie $m$, donc $\left(\tau_1\ldots\tau_{k-1}\right)$ agit comme l'identité
-		$\Id_{\Perm_n}$. On a donc bien $\sigma = \tau_1\ldots\tau_{k-1}$. \end{proof}
+		En prenant $m \not \in \{n_1, \dotsc, n_{k-1}\}$, alors aucune des $k-1$ transpositions ne modifie $m$, donc $\left(\tau_1\ldots\tau_{k-1}\right)$ agit comme
+		l'identité $\Id_{\Perm_n}$. On a donc bien $\sigma = \tau_1\ldots\tau_{k-1}$. \end{proof}
 
 		\begin{cor} Soit $\sigma \in \Perm_n$ un cycle de longueur $k$. Alors $\sigma$ est pair si et seulement si $k$ est impair. \end{cor}
 
-		\begin{proof} On sait par le lemme~\ref{DécompositionCycleEnTranspositions} qu'il existe $k-1$ transpositions $\tau_i$ telles que $\sigma = \tau_1\ldots\tau_{k-1}$.
-		Dès lors, $\sign(\sigma) = (-1)^{k-1}$. Si $k$ est pair, alors $\sign(\sigma) = -1$ et donc $\sigma$ est impair, et si $k$ est impair, alors $\sign(\sigma) = 1$
-		et donc $\sigma$ est pair. \end{proof}
-	
+		\begin{proof} On sait par le lemme~\ref{DécompositionCycleEnTranspositions} qu'il existe $k-1$ transpositions $\tau_i$ telles que
+		$\sigma = \tau_1\ldots\tau_{k-1}$. Dès lors, $\sign(\sigma) = (-1)^{k-1}$. Si $k$ est pair, alors $\sign(\sigma) = -1$ et donc $\sigma$ est impair, et si $k$
+		est impair, alors $\sign(\sigma) = 1$ et donc $\sigma$ est pair. \end{proof}
+
 	\subsection{Déterminants}
-		\begin{déf} Soient $x, y, z \in \R^2$ des points du plan, $\lambda \in \R$. On définit \textbf{l'aire orientée} $A : \R^2 \times \R^2 \to \R$ par les propriétés suivantes~:
+		\begin{déf} Soient $x, y, z \in \R^2$ des points du plan, $\lambda \in \R$. On définit \textbf{l'aire orientée} $A : \R^2 \times \R^2 \to \R$ par les propriétés
+		suivantes~:
 
 		\begin{enumerate}
 			\item $\Aor(x, y+z) = \Aor(x, y) + \Aor(x, z)$~;
@@ -1664,60 +1707,60 @@ Pour tout 0 < i < l+1
 		\[0 = \Aor(x+y, x+y) = \Aor(x, x) + \Aor(x, y) + \Aor(y, x) + \Aor(y, y) = \Aor(x, y) + \Aor(y, x).\] \end{rmq}
 
 		\begin{déf} Soit $V$ un espace réel. Soit $f : V^n \to \R$ une fonction à valeurs réelles. On dit que $f$ est une
-		\textbf{forme multilinéaire} si $f$ est linéaire pour toute composante $v_i$ de $(v_1, \ldots, v_n) \in V^n$. Si lorsque $a_i = a_j$ pour $i \neq j$,
+		\textbf{forme multilinéaire} si $f$ est linéaire pour toute composante $v_i$ de $(v_1, \dotsc, v_n) \in V^n$. Si lorsque $a_i = a_j$ pour $i \neq j$,
 		alors on dit que $f$ est une \textbf{forme multilinéaire alternée}. \end{déf}
 
 		\begin{prp}\label{ChangementDeSigneSwapDeParams} Soient $V$ un espace réel, $f : V^n \to \R$ une forme multilinéaire variée et $1 \leq i < j \leq n$. Alors
-		$f(v_1, \ldots, v_i, \ldots, v_j, \ldots, n_n) = -f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n)$. \end{prp}
+		$f(v_1, \dotsc, v_i, \dotsc, v_j, \dotsc, n_n) = -f(v_1, \dotsc, v_j, \dotsc, v_i, \dotsc, v_n)$. \end{prp}
 
 		\begin{proof} Par définition dune forme multilinéaire variée, si deux paramètres $v_i$ et $v_j$ sont égaux pour $i \neq j$, alors
 		la fonction s'annule en ce point. Dès lors~:
 		\[\begin{aligned}
-			0 = f(v_1, \ldots, v_i+v_j, \ldots, v_i+v_j, \ldots, v_n) &= f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) + f(v_1, \ldots, v_i, \ldots, v_i, \ldots, v_n) \\
-			                                                          &+ f(v_1, \ldots, v_j, \ldots, v_j, \ldots, v_n) + f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n) \\
-																	  &= f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) + 0 + 0 + f(v_1, \ldots, v_j, \ldots, v_i, \ldots, v_n).
+			0 = f(v_1, \dotsc, v_i+v_j, \dotsc, v_i+v_j, \dotsc, v_n) &= f(v_1, \dotsc, v_i, \dotsc, v_j, \dotsc, v_n) + f(v_1, \dotsc, v_i, \dotsc, v_i, \dotsc, v_n) \\
+			                                                          &+ f(v_1, \dotsc, v_j, \dotsc, v_j, \dotsc, v_n) + f(v_1, \dotsc, v_j, \dotsc, v_i, \dotsc, v_n) \\
+																	  &= f(v_1, \dotsc, v_i, \dotsc, v_j, \dotsc, v_n) + 0 + 0 + f(v_1, \dotsc, v_j, \dotsc, v_i, \dotsc, v_n).
 		\end{aligned}\] \end{proof}
 
-		\begin{prp}\label{f(0,)=0} Soient $V$ un espace vectoriel réel de dimension $n$ et $f : V^n \to \R$ une forme multilinéaire alternée. Soient $v_1, \ldots, v_n \in V$ tels
-		qu'il existe $1 \leq i \leq n$ tel que $v_i = 0$. Alors \[f(v_1, \ldots, v_n) = 0.\] \end{prp}
+		\begin{prp}\label{f(0,)=0} Soient $V$ un espace vectoriel réel de dimension $n$ et $f : V^n \to \R$ une forme multilinéaire alternée. Soient
+		$v_1, \dotsc, v_n \in V$ tels qu'il existe $1 \leq i \leq n$ tel que $v_i = 0$. Alors \[f(v_1, \dotsc, v_n) = 0.\] \end{prp}
 
 		\begin{proof} Soit un tel $i$ et soit $j \neq i$. On pose $v_i \coloneqq v_j - v_j$, ce qui est admissible car $v_i = 0$. Dès lors, par linéarité, on a~:
 		\[\begin{aligned}
-			f(v_1, \ldots, v_i, \ldots, v_j, \ldots, v_n) &= f(v_1, \ldots, v_j-v_j, \ldots, v_j, \ldots, v_n) \\
-				&= f(v_1, \ldots, v_j, \ldots, v_j, \ldots, v_n) - f(v_1, \ldots, v_j, \ldots, v_j, \ldots, v_n) = 0.
+			f(v_1, \dotsc, v_i, \dotsc, v_j, \dotsc, v_n) &= f(v_1, \dotsc, v_j-v_j, \dotsc, v_j, \dotsc, v_n) \\
+				&= f(v_1, \dotsc, v_j, \dotsc, v_j, \dotsc, v_n) - f(v_1, \dotsc, v_j, \dotsc, v_j, \dotsc, v_n) = 0.
 		\end{aligned}\]
 		\end{proof}
 
-		\begin{prp} Soient $V$ un espace vectoriel réel de dimension $n$ et $E = \{e_1, \ldots, e_n\}$ une base de $V$. Alors il existe une et une seule forme
+		\begin{prp} Soient $V$ un espace vectoriel réel de dimension $n$ et $E = \{e_1, \dotsc, e_n\}$ une base de $V$. Alors il existe une et une seule forme
 		multilinéaire alternée $f : V^n \to \R$ telle que~:
-		\[f(e_1, \ldots, e_n) = 1.\] \end{prp}
+		\[f(e_1, \dotsc, e_n) = 1.\] \end{prp}
 
 		\begin{proof} Supposons qu'une telle fonction existe, et montrons que~:
-		\[f(v_1, \ldots v_n) = \sum_{\sigma \in \Perm_n}\left(\prod_{j=1}^na_{j\,\sigma(j)}\right)f(e_{1\,\sigma(1)}, \ldots, e_{n\,\sigma(n)}).\]
+		\[f(v_1, \ldots v_n) = \sum_{\sigma \in \Perm_n}\left(\prod_{j=1}^na_{j\,\sigma(j)}\right)f(e_{1\,\sigma(1)}, \dotsc, e_{n\,\sigma(n)}).\]
 
 		En effet, en posant pour tout $1 \leq i \leq n$~:
 		\[v_i = \sum_{j=1}^nv_{i\,j}e_j,\]
 		on peut déterminer, par (multi)linéarité de $f$~:
 		\[\begin{aligned}
-			f(v_1, \ldots, v_n) &= f\left(\sum_{j=1}^nv_{1\,j}e_j, \ldots, \sum_{j=1}^nv_{n\,j}e_j\right) = \sum_{j=1}^nv_{1\,j}f\left(e_i, \ldots, \sum_{k=1}^nv_{n\,k}e_k\right) \\
-			                    &= \sum_{k_1}^n\sum_{k_2}^n\ldots\sum_{k_n}^nv_{1\,k_1}v_{2\,k_2}\ldots v_{n\,k_n}f\left(e_{k_1}, \ldots, e_{k_n}\right).
+			f(v_1, \dotsc, v_n) &= f\left(\sum_{j=1}^nv_{1\,j}e_j, \dotsc, \sum_{j=1}^nv_{n\,j}e_j\right) = \sum_{j=1}^nv_{1\,j}f\left(e_i, \dotsc, \sum_{k=1}^nv_{n\,k}e_k\right) \\
+			                    &= \sum_{k_1}^n\sum_{k_2}^n\ldots\sum_{k_n}^nv_{1\,k_1}v_{2\,k_2}\ldots v_{n\,k_n}f\left(e_{k_1}, \dotsc, e_{k_n}\right).
 		\end{aligned}\]
 
-		Or, si deux indices $k_\alpha$ sont égaux, la fonction s'annule. Dès lors, $k_2$ doit être différent de $k_1$, $k_3$ doit être différent de $k_1$ et de $k_2$, etc.
-		Dès lors, l'ensemble des $k_i$ forme l'ensemble $\{1, 2, \ldots, n\}$ et alors $i \mapsto k_i$ est une bijection. Comme une bijection d'un ensemble discret est une permutation,
-		on peut sommer sur l'ensemble des permutations~:
-		\[f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}v_{1\,\sigma(1)}\ldots v_{n\,\sigma(n)}f(e_{\sigma(1)}, \ldots, e_{\sigma(n)}).\]
+		Or, si deux indices $k_\alpha$ sont égaux, la fonction s'annule. Dès lors, $k_2$ doit être différent de $k_1$, $k_3$ doit être différent de $k_1$ et de $k_2$,
+		etc. Dès lors, l'ensemble des $k_i$ forme l'ensemble $\{1, 2, \dotsc, n\}$ et alors $i \mapsto k_i$ est une bijection. Comme une bijection d'un ensemble discret
+		est une permutation, on peut sommer sur l'ensemble des permutations~:
+		\[f(v_1, \dotsc, v_n) = \sum_{\sigma \in \Perm_n}v_{1\,\sigma(1)}\ldots v_{n\,\sigma(n)}f(e_{\sigma(1)}, \dotsc, e_{\sigma(n)}).\]
 
-		Par la proposition~\ref{ChangementDeSigneSwapDeParams}, on sait que $f(e_{\sigma(1)}, \ldots, e_{\sigma(n)}) = \sign(\sigma)f(e_1, \ldots, e_n)$.
+		Par la proposition~\ref{ChangementDeSigneSwapDeParams}, on sait que $f(e_{\sigma(1)}, \dotsc, e_{\sigma(n)}) = \sign(\sigma)f(e_1, \dotsc, e_n)$.
 		Dès lors, on a bien~:
-		\[f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right)f(e_1, \ldots, e_n).\]
+		\[f(v_1, \dotsc, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right)f(e_1, \dotsc, e_n).\]
 		
-		De plus, en imposant $f(e_1, \ldots, e_n) = 1$, on peut poser~:
-		\[\det(v_1, \ldots, v_n) \coloneqq f(v_1, \ldots, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right).\]
+		De plus, en imposant $f(e_1, \dotsc, e_n) = 1$, on peut poser~:
+		\[\det(v_1, \dotsc, v_n) \coloneqq f(v_1, \dotsc, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right).\]
 		
-		Maintenant, montrons que $\det$ est une forme multilinéaire alternée. Soient $\lambda \in \R, a_1, \ldots, a_{i-1}, a_i^{(1)}, a_i^{(2)}, a_{i+1}, \ldots, a_n \in V$.
+		Maintenant, montrons que $\det$ est une forme multilinéaire alternée. Soient $\lambda \in \R, a_1, \dotsc, a_{i-1}, a_i^{(1)}, a_i^{(2)}, a_{i+1}, \dotsc, a_n \in V$.
 		\[\begin{aligned}
-			\det&(a_1, \ldots, a_{i-1}, a_i^{(1)} + \lambda a_i^{(2)}, a_{i+1}, \ldots, a_n) \coloneqq
+			\det&(a_1, \dotsc, a_{i-1}, a_i^{(1)} + \lambda a_i^{(2)}, a_{i+1}, \dotsc, a_n) \coloneqq
 				\sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{k=1, k \neq i}^na_{k\,\sigma(k)}\right)(a_{i\,\sigma(i)}^{(1)} + a_{i\,\sigma(i)}^{(2)}) \\
 			&= \sum_{\sigma \in \Perm_n}\left[\sign(\sigma)\left(\prod_{k=1, k \neq i}^na_{k\,\sigma(k)}\right)a_i^{(1)} + \sign(\sigma)\left(\prod_{k=1, k \neq i}^na_{k\,\sigma(k)}\right)\lambda a_i^{(2)}\right].
 		\end{aligned}\]
@@ -1731,26 +1774,26 @@ Pour tout 0 < i < l+1
 
 		on obtient~:
 		\[\begin{aligned}
-			\det(a_1, \ldots, a_n) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^nb_{k\,\sigma(k)} + \lambda\sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^nc_{k\,\sigma(k)} \\
-			                       &= \det(a_1, \ldots, a_{i-1}, a_i^{(1)}, a_{i+1}, \ldots, a_n) + \lambda\det(a_1, \ldots, a_{i-1}, a_i^{(2)}, a_{i+1}, \ldots, a_n).
+			\det(a_1, \dotsc, a_n) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^nb_{k\,\sigma(k)} + \lambda\sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^nc_{k\,\sigma(k)} \\
+			                       &= \det(a_1, \dotsc, a_{i-1}, a_i^{(1)}, a_{i+1}, \dotsc, a_n) + \lambda\det(a_1, \dotsc, a_{i-1}, a_i^{(2)}, a_{i+1}, \dotsc, a_n).
 		\end{aligned}\]
 
 		$\det$ est donc bien une forme multilinéaire car linéaire en chacun de ses paramètres. Il reste à montrer que $\det$ est une forme multilinéaire \textit{alternée}.
 		Pour ce faire, supposons qu'il existe $1 \leq i < j \leq n$ tels que $a_i = a_j$. Dès lors, on sait~:
-		\[\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = \det(a_1, \ldots, a_j, \ldots, a_i, \ldots, a_n).\]
-		De plus, $\forall t \in \{1, 2, \ldots, n\} : a_{i\,t} = a_{j\,t}$. Soit $\tau_{ij}$ la transposition $(i, j)$. Intervertir les coordonnées $i$ et $j$ n'a pas d'influence
-		sur le résultat car $a_{\tau_{ij}(j)} = a_i = a_j = a_{\tau_{ij}(i)}$. Dès lors~:
+		\[\det(a_1, \dotsc, a_i, \dotsc, a_j, \dotsc, a_n) = \det(a_1, \dotsc, a_j, \dotsc, a_i, \dotsc, a_n).\]
+		De plus, $\forall t \in \{1, 2, \dotsc, n\} : a_{i\,t} = a_{j\,t}$. Soit $\tau_{ij}$ la transposition $(i, j)$. Intervertir les coordonnées $i$ et $j$ n'a pas
+		d'influence sur le résultat car $a_{\tau_{ij}(j)} = a_i = a_j = a_{\tau_{ij}(i)}$. Dès lors~:
 		\[\begin{aligned}
-			\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) &= \sum_{\sigma \in \Perm_n}\sign(\sigma\tau_{ij})\left(\prod_{k=1}^na_{k\,(\sigma\tau_{ij})(k)}\right) \\
+			\det(a_1, \dotsc, a_i, \dotsc, a_j, \dotsc, a_n) &= \sum_{\sigma \in \Perm_n}\sign(\sigma\tau_{ij})\left(\prod_{k=1}^na_{k\,(\sigma\tau_{ij})(k)}\right) \\
 				&= \sum_{\sigma\in\Perm_n}\sign(\sigma\tau_{ij})\left(\prod_{k=1, k \not \in \{i, j\}}^na_{k\,(\sigma\tau_{ij})(k)}\right)a_{i\,(\sigma\tau_{ij})(i)}a_{j\,(\sigma\tau_{ij})(j)} \\
 				&= \sum_{\sigma\in\Perm_n}-\sign(\sigma)\left(\prod_{k=1, k\not\in\{i, j\}}^na_{k\,\sigma(k)}\right)a_{i\,\sigma(j)}a_{j\,\sigma(i)} \\
 				&= -\sum_{\sigma\in\Perm_n}\sign(\sigma)\left(\prod_{k=1, k\not\in\{i, j\}}^na_{k\,\sigma(k)}\right)a_{j\,\sigma(j)}a_{i\,\sigma(j)} \\
 				&= -\sum_{\sigma\in\Perm_n}\sign(\sigma)\left(\prod_{k=1}^na_{k\,\sigma(k)}\right) \\
-				&= -\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n).
+				&= -\det(a_1, \dotsc, a_i, \dotsc, a_j, \dotsc, a_n).
 		\end{aligned}\]
 
-		Dès lors, on a $\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = -\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n)$, ce qui implique~:
-		\[\det(a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n) = 0.\] \end{proof}
+		Dès lors, on a $\det(a_1, \dotsc, a_i, \dotsc, a_j, \dotsc, a_n) = -\det(a_1, \dotsc, a_i, \dotsc, a_j, \dotsc, a_n)$, ce qui implique~:
+		\[\det(a_1, \dotsc, a_i, \dotsc, a_j, \dotsc, a_n) = 0.\] \end{proof}
 
 	\subsection{Matrices et applications linéaires}
 		\begin{déf} Soit $a \in \M nn\R$ une matrice carrée à valeurs réelles. On appelle \textbf{le déterminant de la matrice $a$} la valeur~:
@@ -1777,16 +1820,17 @@ Pour tout 0 < i < l+1
 		\begin{rmq} L'application $\det$ étant une forme multilinéaire, l'inversion de deux lignes (ou colonnes) d'une matrice change le signe de son déterminant
 		(par la proposition~\ref{ChangementDeSigneSwapDeParams}).
 		
-		De plus, on sait que si une matrice a deux lignes (ou colonnes) égales, alors le déterminant s'annule car c'est une forme multilinéaire \textbf{variée}. \end{rmq}
+		De plus, on sait que si une matrice a deux lignes (ou colonnes) égales, alors le déterminant s'annule car c'est une forme multilinéaire \textbf{variée}.
+		\end{rmq}
 
 		\begin{prp}\label{detMatriceTriangulaire} Soit $a \in \M nn\R$ une matrice triangulaire. Alors~:
 		\[\det(a) = \prod_{i=1}^na_{ii}.\] \end{prp}
 
 		\begin{proof} Supposons que $a \in \M nn\R$ soit triangulaire. On sait donc que si $i < j$, alors $a_{ij} = 0$. Le déterminant est défini par la somme des produits
-		des \textit{diagonales} $a_{i\,\sigma(i)}$. Or, si $\sigma(i) > i$, on sait que $a_{i\,\sigma(i)} = 0$. Dès lors, la seule permutation telle que $\forall i : i \geq \sigma(i)$
-		est $\Id_{\Perm_n}$. Cela peut se construire comme suit~: il faut que $1 \leq \sigma(1)$, donc on impose $\sigma(1) = 1$. Il faut également $\sigma(2) \leq 2$, ce qui impose que
-		$\sigma(2) \in \{1, 2\}$, or $\sigma$ doit être une bijection, et $1$ est déjà l'image de $\sigma(1)$. En réitérant jusque $n$, on construit la permutation identité qui
-		est la seule à respecter cette propriété. On a donc~:
+		des \textit{diagonales} $a_{i\,\sigma(i)}$. Or, si $\sigma(i) > i$, on sait que $a_{i\,\sigma(i)} = 0$. Dès lors, la seule permutation telle que
+		$\forall i : i \geq \sigma(i)$ est $\Id_{\Perm_n}$. Cela peut se construire comme suit~: il faut que $1 \leq \sigma(1)$, donc on impose $\sigma(1) = 1$. Il faut
+		également $\sigma(2) \leq 2$, ce qui impose que $\sigma(2) \in \{1, 2\}$, or $\sigma$ doit être une bijection, et $1$ est déjà l'image de $\sigma(1)$. En
+		réitérant jusque $n$, on construit la permutation identité qui est la seule à respecter cette propriété. On a donc~:
 		\[\begin{aligned}
 			\det(a) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} \\
 			&= \sign(\Id_{\Perm_n})\prod_{k=1}^na_{k\,\Id_{\Perm_n}(k)} + \sum_{\sigma \in \Perm_n \setminus \{\Id_{\Perm_n}\}}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} \\
@@ -1800,10 +1844,10 @@ Pour tout 0 < i < l+1
 		\[\det(ab)= \det(a)\det(b).\] \end{prp}
 
 		\begin{proof} Soient $a, b \in \M nn\R$ et $A, B \in \Hom(V, V)$ les fonctions linéaires associées aux matrices. On sait que~:
-		\[\det(B(A(e_1)), \ldots, B(A(e_n))) = \det(a)\det(B(e_1), \ldots, B(e_n)) = \det(a)\det(b)\det(e_1, \ldots, e_n) = \det(a)\det(b).\]
+		\[\det(B(A(e_1)), \dotsc, B(A(e_n))) = \det(a)\det(B(e_1), \dotsc, B(e_n)) = \det(a)\det(b)\det(e_1, \dotsc, e_n) = \det(a)\det(b).\]
 
 		Cependant, on sait également que~:
-		\[\det(B(A(e_1)), \ldots, B(A(e_n))) = \det((B \circ A)(e_1), \ldots, (B \circ A)(e_n)) = \det(ba)\det(e_1, \ldots, e_n) = \det(ba).\]
+		\[\det(B(A(e_1)), \dotsc, B(A(e_n))) = \det((B \circ A)(e_1), \dotsc, (B \circ A)(e_n)) = \det(ba)\det(e_1, \dotsc, e_n) = \det(ba).\]
 
 		Dès lors, on a bien~: \[\det(ab) = \det(a)\det(b),\] ce qui veut dire que le déterminant d'un produit est égal au produit des déterminants. \end{proof}
 
@@ -1812,12 +1856,13 @@ Pour tout 0 < i < l+1
 		\begin{proof} On sait que l'identité est une matrice triangulaire. Dès lors, par la proposition~\ref{detMatriceTriangulaire}, on sait que son déterminant
 		est égal au produit des éléments de sa diagonale. Donc $\det(\Id_{\M nn\R}) = 1$.
 
-		Cependant, par hypothèse, $b$ est inversible. Dès lors, $\Id_{\M nn \R} = b^{-1}b = bb^{-1}$. Et par la proposition~\ref{Binet}, on sait que $\det(bb^{-1}) = \det(b)\det(b^{-1})$.
-		On a alors~:
+		Cependant, par hypothèse, $b$ est inversible. Dès lors, $\Id_{\M nn \R} = b^{-1}b = bb^{-1}$. Et par la proposition~\ref{Binet}, on sait que
+		$\det(bb^{-1}) = \det(b)\det(b^{-1})$. On a alors~:
 		\[1 = \det(\Id_{\M nn\R}) = \det(b^{-1}b) = \det(b^{-1})\det(b).\]
 		D'où on déduit $\det(b^{-1}) = \det(b)^{-1}$. \end{proof}
 
-		\begin{rmq} En ayant supposé $b$ inversible, on a obtenu $\det(b) \neq 0$. Dès lors, par contraposée, on a également $\det(b) = 0 \Rightarrow b$ pas inversible. \end{rmq}
+		\begin{rmq} En ayant supposé $b$ inversible, on a obtenu $\det(b) \neq 0$. Dès lors, par contraposée, on a également $\det(b) = 0 \Rightarrow b$ pas inversible.
+		\end{rmq}
 
 		\begin{cor} Soient $a, b \in \M nn\R$ deux matrices carrées inversibles. $\det(bab^{-1}) = \det(a)$. \end{cor}
 
@@ -1839,8 +1884,8 @@ Pour tout 0 < i < l+1
 		\[1 = \det(\Id_{\Hom(V, V)}) = \det(A \circ A^{-1}) = \det(A)\det(A^{-1}) = 0,\] ce qui est une contradiction. L'hypothèse est donc fausse et $\det(A) \neq 0$.
 
 		Supposons maintenant $A$ non inversible et montrons que $\det(A) = 0$. Soit $E$ une base de $V$. Si $A$ n'est pas inversible, alors il existe $i$ tel que
-		$A(e_i) = 0$ où $e_i \neq 0$ car c'est un vecteur de la base. Soit $f$, la seule forme multilinéaire alternée telle que $f(e_1, \ldots, e_n) = 1$. On a donc~:
-		\[\det(A) = \det(A)f(e_1, \ldots, e_i, \ldots, e_n) = f(A(e_1), \ldots, A(e_i), \ldots, A(e_n)) = f(A(e_1), \ldots, 0, \ldots, A(e_n)) = 0,\]
+		$A(e_i) = 0$ où $e_i \neq 0$ car c'est un vecteur de la base. Soit $f$, la seule forme multilinéaire alternée telle que $f(e_1, \dotsc, e_n) = 1$. On a donc~:
+		\[\det(A) = \det(A)f(e_1, \dotsc, e_i, \dotsc, e_n) = f(A(e_1), \dotsc, A(e_i), \dotsc, A(e_n)) = f(A(e_1), \dotsc, 0, \dotsc, A(e_n)) = 0,\]
 		par la proposition~\ref{f(0,)=0}. \end{proof}
 
 		\begin{rmq} Soient $A \in \Hom(\R^n, \R^n)$ et $a \coloneqq m_{E, E}(A) \in \M nn\R$ sa matrice associée dans la base canonique de $\R^n$. L'application $A$
@@ -1945,8 +1990,8 @@ Pour tout 0 < i < l+1
 		\begin{cor} Soit $a \in \M nn\R$ une matrice carrée inversible. Son inverse $a^{-1}$ vaut~:
 		\[a^{-1} = \frac 1{\det(a)}\adj(a)\] \end{cor}
 
-		\begin{proof} On sait que $a\adj(a) = \det(a)\Id_{\M nn\R}$. Dès lors, en divisant de part et d'autre par $\det(a)$ (qui est non nul car $a$ est inversible), et en
-		multipliant par $a^{-1}$ à gauche, on obtient~:
+		\begin{proof} On sait que $a\adj(a) = \det(a)\Id_{\M nn\R}$. Dès lors, en divisant de part et d'autre par $\det(a)$ (qui est non nul car $a$ est inversible),
+		et en multipliant par $a^{-1}$ à gauche, on obtient~:
 		\[\begin{aligned}
 			a^{-1}a\adj(a)\det(a)^{-1} &= a^{-1}\det(a)\Id_{\M nn\R}\det(a)^{-1} \\
 			\adj(a)\frac 1{\det(a)} &= a^{-1}.
