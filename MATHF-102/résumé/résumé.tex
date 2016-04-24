@@ -2414,7 +2414,7 @@ Pour tout 0 < i < l+1
 		$(x-\lambda)^{m+\beta} | \pi_A(x)$ mais $(x-\lambda)^{m+\beta+1} \not | \pi_A(x)$. On a bien $m \leq m + \beta$. Or $m + \beta$ représente la multiplicité
 		arithmétique de $\lambda$ par $A$. \end{proof}
 
-	\subsection{Polynôme minimal d'un opérateur}
+	\subsection{Polynôme minimal d'un opérateur et propriétés des polynômes}
 		\begin{déf} Soit $V$ un espace vectoriel de dimension $n$ sur un corps commutatif $\K$. Soit $A \in \Hom(V, V)$. Le \textbf{polynôme minimal de $A$}
 		est l'unique polynôme monique de degré minimal $\mu_A(x) \in \K[x]$ tel que $\mu_A(A) = 0_{V^V} \in \Hom(V, V)$. \end{déf}
 
@@ -2462,5 +2462,83 @@ Pour tout 0 < i < l+1
 		Il faut également $m_i \leq n_i$ si $n_i$ est la multiplicité de $\lambda_i$ dans $\pi_A$ car il faut que $\mu_A$ divise $\pi_A$. Pour cette même raison, on
 		ne peut avoir une racine de $\mu_A$ n'étant pas une racine de $\pi$. Et par définition, les racines de $\pi_A$ sont les valeurs propres.
 		On a donc bien $m_1 + m_2 + \dotsb + m_k = \deg(\mu_A(x))$. \end{proof}
+
+		\begin{déf} Soit $\K$ un corps commutatif. On dit que $f(x) \in \K[x]$ est un polynôme irréductible si $f$ n'est pas constant et si
+		$\exists a(x), b(x) \in \K[x] \Rightarrow a(x)$ est constant ou $b(x)$ est constant. \end{déf}
+
+		\begin{lem} Soient $p(x), q(x) \in \K[x]$ deux polynômes non nuls. Soient $k \in \N^*, w(x), f(x) \in \K$ tels que $q(x) = w(x)f(x)^k$ et $\GCD(w(x), f(x)) = 1$.
+		Alors il existe $s(x), t(x) \in \K[x]$ uniques  tels que $\deg(s(x)) < \deg(f(x))$ et~:
+		\[\frac {p(x)}{q(x)} = \frac {s(x)}{f(x)^k} + \frac {t(x)}{f(x)^{k-1}}.\] \end{lem}
+
+		\begin{proof} En multipliant par $q(x)$ de part et d'autre, on obtient~:
+		\begin{equation}\label{p(x)}
+			p(x) = s(x)w(x) + t(x)f(x).
+		\end{equation}
+		Par Euclide, on sait qu'il existe $y(x), z(x) \in \K[x]$ tels que~:
+		\begin{equation}\label{GCDwfEuclide}
+			1 = \GCD(w(x), f(x)) = y(x)w(x) + z(x)f(x).
+		\end{equation}
+		En multipliant \eqref{GCDwfEuclide} par $p(x)$, on obtient~:
+		\begin{equation}\label{p(x)Subst}
+			p(x) = \left(p(x)y(x)\right)w(x) + \left(p(x)z(x)\right)f(x).
+		\end{equation}
+		Soient $Q(x), R(x) \in \K[x]$ avec $\deg(r(x)) < \deg(f(x))$ tels que~:
+		\begin{equation}\label{euclide(py)(x)}
+			p(x)y(x) = Q(x)f(x) + R(x).
+		\end{equation}
+		En réinsufflant \eqref{euclide(py)(x)} dans \eqref{p(x)Subst}, on obtient~:
+		\begin{align*}
+			p(x) &= \left(p(x)y(x)\right)w(x) + \left(p(x)z(x)\right)f(x) \\
+			     &= \left(Q(x)f(x) + R(x)\right)w(x) + \left(p(x)z(x)\right)f(x) \\
+				 &= \left(Q(x)w(x)\right)f(x) + R(x)w(x) + \left(p(x)z(x)\right)f(x) \\
+				 &= R(x)w(x) + \left(Q(x)w(x) + p(x)z(x)\right)f(x),
+		\end{align*}
+		ce qui correspond bien à \eqref{p(x)}.
+
+		La démonstration d'unicité se fait par l'absurde en supposant qu'il existe $s_1(x), s_2(x), t_1(x), t_2(x) \in \K[x]$ et avec le fait que
+		$\GCD(f(x), w(x)) = 1$. \end{proof}
+
+		\begin{prp}[Décomposition en fractions partielles] Soit $\K$, un corps commutatif. Soient $\lambda_1, \dotsc, \lambda_k \in \K$ et
+		$p(x) \in \K[x]$ tels que~:
+		\[p(x) = \prod_{j=1}^k(x-\lambda_j)^{m_j}\]
+		pour $m_j \in \N^*$. Alors il existe $a \in \M n{m_i}\K$ tel que~:
+		\[\frac 1{p(x)} = \sum_{i=1}^k\sum_{j=1}^{m_i}\frac {a_{i\,j}}{(x-\lambda_i)^j}.\] \end{prp}
+
+		\begin{rmq} La démonstration est omise. \end{rmq}
+	
+	\subsection{Sous-espaces généralisés}
+		\begin{prp} Soit $V$ un espace vectoriel de dimension $n$ sur un corps $\K$ et soit $A \in \Hom(V, V)$. Soient $\lambda_1, \dotsc, \lambda_k \in \K$
+		les valeurs propres de $\mu_A$, le polynôme minimal de $A$ et $a = [a_{i\,j}] \in \M k{m_i}\K$ les coefficients de sa décomposition en fractions partielles.
+		En posant~:
+		\[h_i(x) \coloneqq \sum_{j=1}^{m_i}a_{i\,j}(x-\lambda_i)^{m_i-j},\]
+		et~:
+		\[\psi_i(x) \coloneqq \prod_{j \neq i}(x-\lambda_j)^{m_j},\]
+		on a~:
+		\begin{equation}
+			\frac 1{\mu_A(x)} = \sum_{i=1}^k\frac {h_i(x)\psi_i(x)}{\mu_A(x)}.
+		\end{equation}
+		\end{prp}
+
+		\begin{proof} En développant le calcul, on a~:
+		\[
+			\begin{aligned}
+			\frac 1{\mu_A(x)} &= \sum_{i=1}^k\sum_{j=1}^{m_i}\frac {a_{i\,j}}{(x-\lambda_i)^j} \\
+			                  &= \sum_{i=1}^k\sum_{j=1}^{m_i}\frac {a_{i\,j}(x-\lambda_i)^{m_i}}{(x-\lambda_i)^j(x-\lambda_i)^{m_i}} \\
+			                  &= \sum_{i=1}^k\frac 1{(x-\lambda_i)^{m_i}}\sum_{j=1}^{m_i}a_{i\,j}(x-\lambda_i)^{m_i-j} \\
+			                  &= \sum_{i=1}^k\frac 1{(x-\lambda_i)^{m_i}}h_i(x) \\
+			                  &= \sum_{i=1}^k\frac 1{(x-\lambda_i)^{m_i}}h_i(x)\frac {\prod_{j \neq i}(x-\lambda_j)^{m_j}}{\prod_{j \neq i}(x-\lambda_j)^{m_j}} \\
+			                  &= \sum_{i=1}^k\frac {h_i(x)\psi_i(x)}{\mu_A(x)}.
+			\end{aligned}
+		\]
+		\end{proof}
+
+		\begin{cor} En définissant $\C[x] \ni E_i \coloneqq h_i(x)\psi_i(x)$, on obtient~:
+		\begin{equation}
+			\sum_{i=1}^kE_i(A) = \Id_{\C[x]}.
+		\end{equation}
+		\end{cor}
+
+		\begin{proof}
+		\end{proof}
 		
 \end{document}
