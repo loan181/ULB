@@ -1,10 +1,9 @@
-\documentclass{article}
+\documentclass[]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[cm]{fullpage}
+\usepackage{fullpage}
 \usepackage{lmodern}
-\usepackage{xspace}
 \usepackage[parfill]{parskip}
 \usepackage[bottom]{footmisc}
 \usepackage{amsmath, amsthm, amssymb}
@@ -13,6 +12,13 @@
 \usepackage{interval}
 \usepackage{commath}
 \usepackage{hyperref}
+
+\makeatletter
+\def\thm@space@setup{%
+	\thm@preskip=.4cm
+	\thm@postskip=\thm@preskip%
+}
+\makeatother
 
 \title{Algèbre linéaire et géométrie}
 \author{R. Petit}
@@ -618,8 +624,10 @@ Pour tout 0 < i < l+1
 \end{verbatim}
 		\end{alg}
 
-		\begin{déf} L'ensemble des matrices réelles de dimensions $s \times t$ est donné par $M_{s \times t}(\R)$. On note $a \coloneqq [a_{ij}] \in M_{s \times t}(\R)$
+		\begin{déf} L'ensemble des matrices réelles de dimensions $s \times t$ est donné par $\M st\R$. On note $a \coloneqq [a_{ij}] \in M_{s \times t}(\R)$
 		une matrice quelconque de dimension $s \times t$. $a_{ij}$ représente le coefficient de la $i$eme ligne et de la $j$eme colonne. \end{déf}
+		
+		\begin{déf} Soit $a \in \M nn\R$ une matrice. $a$ est une matrice triangulaire si pour tout $i > j : a_{i\,j} = 0$. \end{déf}
 
 		\begin{thm}[Unicité de la forme échelonée réduite] Soient trois matrices $a, b, c \in \M st\R$. Si les matrices $b$ et $c$ sont toutes deux obtenues par une suite
 		d'opérations fondamentales sur $a$ et si $b$ et $c$ sont toutes deux sous leur forme échelonnée réduite, alors $b = c$. \end{thm}
@@ -2047,7 +2055,7 @@ Pour tout 0 < i < l+1
 		s'annule, et il ne reste plus que~: \[\det(S_j(a, b)) = x_j\det(a).\] On en déduit que~: \[x_j = \frac {\det(S_j(a, b))}{\det(a)}.\] \end{proof}
 
 \newpage
-\section{Algèbre d'ensembles}
+\section{Algèbre d'ensembles et résultats sur les espaces vectoriels}
 	\subsection{Définitions}
 		\begin{déf} Soit $\K$ un ensemble et soit $*$ une opération interne telle que $* : \K \times \K : (a, b) \mapsto a*b \eqqcolon ab$. Si $\K$ respecte les
 		trois propriétés suivantes~:
@@ -2175,9 +2183,9 @@ Pour tout 0 < i < l+1
 		combinaison linéaire nulle est formée par $\mu_i = 0 \forall 1 \leq i \leq n$. On a donc~: \[0 = \sum_{i=1}^{n}\mu_iv_i + \mu_{n+1}v_{n+1} = \mu_{n+1}v_{n+1}.\]
 		Or, par hypothèse, on sait $v_{n+1} \neq 0$. On a donc $\mu_{n+1} = 0$. Dès lors, $\{v_1, \dotsc, v_{n+1}\}$ est une partie libre. \end{proof}
 
-		\begin{prp} Soit $V$ un espace vectoriel sur un corps commutatif $\K$. Soient $A \in \Hom(V, V)$ un opérateur linéaire et $\lambda_1, \dotsc, \lambda_n$
-		des valeurs propres de $A$ deux à deux distinctes. Pour $1 \leq i \leq n$, on définit $B_i \subseteq V_{\lambda_i}$ des parties libres. Alors, l'ensemble~:
-		\[W \coloneqq \bigcup_{i=1}^nB_i\] est également une partie libre. \end{prp}
+		\begin{prp}\label{unionVlambdaLibre} Soit $V$ un espace vectoriel sur un corps commutatif $\K$. Soient $A \in \Hom(V, V)$ un opérateur linéaire et
+		$\lambda_1, \dotsc, \lambda_n$ des valeurs propres de $A$ deux à deux distinctes. Pour $1 \leq i \leq n$, on définit $B_i \subseteq V_{\lambda_i}$ des parties
+		libres. Alors, l'ensemble~: \[W \coloneqq \bigcup_{i=1}^nB_i\] est également une partie libre. \end{prp}
 
 		\begin{proof} Montrons à nouveau cela par récurrence sur $n$.
 
@@ -2245,4 +2253,214 @@ Pour tout 0 < i < l+1
 		\end{enumerate}
 		\end{proof}
 
+		\begin{lem}\label{polcarnorm} Soient $\K$ un corps commutatif, $V$ un espace vectoriel  de dimension finie $n$ sur $\K$ et $A \in \Hom(V, V)$. Alors
+		$(-1)^n\pi_A(\lambda) \in \K[\lambda]$ est un polynôme normalisé. À savoir, si~:
+		\[\pi_A(\lambda) = \sum_{i=0}^n\lambda^i\pi_i,\]
+		alors $\pi_n = (-1)^n$. \end{lem}
+
+		\begin{proof} Soit $a \coloneqq m_{E, E}(A)$, la matrice de $A$ dans une base $E$ de $V$. Alors, $\det(a - \lambda\Id_{\M nn\K})$ ne peut avoir comme seul
+		monôme de degré $n$ celui compris dans, en prenant $\sigma = \Id_{\Perm_n}$~:
+		\[\sign(\sigma)\prod_{i=1}^n(a_{i\,\sigma(i)} - \lambda) = \prod_{i=1}^n(a_{i\,i} - \lambda),\]
+		à savoir~: \[\prod_{i=1}^n(-\lambda) = (-1)^n\lambda^n.\] \end{proof}
+
+		\begin{thm}[Théorème de Cayley-Hamilton]\label{Cayley-Hamilton} Soit $V$ un espace vectoriel de dimension finie $n$ su un corps commutatif $\K$. Soit
+		$A \in \Hom(V, V)$. Alors $\pi_A(A) = 0$. \end{thm}
+
+		\begin{proof} Soit $\pi_A(\lambda) = \det(a - \lambda\Id_{\M nn\K})$, le polynôme caractéristique de l'opérateur linéaire $A$. On sait que $\pi_A$ est un
+		polynôme de degré $n$ en $\lambda$. Dès lors~:
+		\[\pi_A = \sum_{i=0}^n\pi_i\lambda^i,\]
+		où $\pi_i \in \K$ pour $i \in \{1, \dotsc, n\}$. Prenons $E$ une base de $V$, et $a \coloneqq m_{E, E}(A) \in \M nn\K$ la matrice associée à $A$.
+
+		Posons $b \coloneqq \adj(a - \lambda\Id_{\M nn\K})$. Soient $b_0, \dotsc, b_{n-1} \in \M nn\K$ tels que~: \[b = \sum_{i=0}^{n-1}\lambda^ib_i.\]
+		Alors~:
+		\[\begin{aligned}
+			\pi_A(\lambda)\Id_{\M nn\K} &= \det(a - \lambda\Id_{\M nn\K})\Id_{\M nn\K} = (a - \lambda\Id_{\M nn\K})\adj(a - \lambda\Id_{\M nn\K}) \\
+			                            &= (a - \lambda\Id_{\M nn\K})b = (a - \lambda\Id_{\M nn\K})\sum_{i=0}^{n-1}\lambda^ib_i \\
+			                            &= \sum_{i=0}^{n-1}a\lambda^ib_i - \sum_{i=0}^n\lambda\Id_{\M nn\K}\lambda^ib_i
+			                            = \sum_{i=0}^{n-1}a\lambda^ib_i - \sum_{i=0}^{n-1}\lambda^{i+1}b_i \\
+										&= ab_0 + \sum_{i=1}^{n-1}\lambda^i(ab_i - b_{i-1}) - \lambda^nb_{n-1}
+		\end{aligned}\]
+
+		On sait du lemme~\ref{polcarnorm} que~: \[\pi_A(\lambda) = (-1)^n\lambda^n + \sum_{i=0}^{n-1}c_i\lambda^i.\]
+		Dès lors, on doit avoir $b_{n-1} = (-1^n)\Id_{\M nn\K}$, $ab_0 = c_0$, et $ab_i - b_{i-1} = c_i\Id_{\M nn\K}$ pour $1 \leq i \leq n-1$. Dès lors, on a~:
+		\[\begin{aligned}
+			\pi_A(a) &= ab_0 + \sum_{i=1}^{n-1}a^i(ab_i-b_{i-1}) - a^nb_{b-1} = ab_0 + \sum_{i=1}^{n-1}a^{i+1}b_i - \sum_{i=1}^{n-1}a^ib_{i-1} \\
+			         &= ab_0 + \sum_{i=1}^{n-2}a^{i+1}b_i + a^{n}b_{n-1} - \sum_{i=2}^{n-1}a^ib_{i-1} - a^1b_0 - a^nb_{n-1} = 0.
+		\end{aligned}\]
+		\end{proof}
+	
+		\subsubsection{Opérateurs diagonalisables}
+		\begin{déf} Soient $V$ un espace vectoriel de dimension $n$ sur un corps commutatif $\K$ et $A \in \Hom(V, V)$. On dit que $A$ est diagonalisable
+		s'il existe une base $E$ de $V$ telle que $m_{E, E}(A) = [\delta_{i\,j}\lambda_i]$. Donc $A$ est diagonalisable si et seulement s'il existe une base $E$ de
+		$V$ composée de vecteurs propres de $A$. \end{déf}
+
+		\begin{prp}\label{nvalpropresdiagonalisable} Soient $V$ un espace vectoriel de dimension finie $n$ sur un corps commutatif $\K$ et $A \in \Hom(V, V)$. Si $A$
+		possède $n$ valeurs propres distinctes, alors $A$ est diagonalisable. \end{prp}
+
+		\begin{proof} Soient $\lambda_1, \dotsc, \lambda_n$ les valeurs propres de $A$ telles que pour tout $i \neq j$, on a $\lambda_i \neq \lambda_j$.
+		Soient $e_i \in V_{\lambda_i}$ pour $1 \leq i \leq n$. Par la proposition~\ref{unionVlambdaLibre}, on sait que $E \coloneqq \{e_1, \dotsc, e_n\}$ est une base de
+		$V$. On a donc~:
+		\[\forall 1 \leq i \leq n : \quad A(e_i) = \lambda_ie_i.\]
+		Dès lors~:
+		\[m_{E, E}(A) = [\lambda_i\delta_{i\,j}] \in \M nn\K.\] \end{proof}
+
+		\begin{prp}\label{diagonalisablepolcarprod} Soient $V$ un espace vectoriel de dimension finie $n$ sur un corps commutatif $\K$ et $A \in \Hom(V, V)$.
+		Si $A$ est diagonalisable, alors $\pi_A(\lambda)$ peut s'exprimer comme un produit de $n$ polynômes linéaires à coefficients dans $\K$. \end{prp}
+
+		\begin{proof} Le polynôme caractéristique est un polynôme de degré $n$ en $\lambda$ ayant pour zéros les valeurs propres de $A$. Dès lors~:
+		\[P(\lambda) \coloneqq (-1)^n\prod_{i=1}^n(\lambda - \lambda_i) = \prod_{i=1}^n(\lambda_i - \lambda)\]
+		est le polynôme caractéristique de $A$ dans une base de vecteurs propres. \end{proof}
+
+		\begin{rmq} Il y a deux raisons pour lesquelles un opérateur linéaire $A$ ne serait pas diagonalisable~:
+		\begin{enumerate}
+			\item un problème algébrique~: les racines de $\pi_A$ ne sont pas dans $\K$~;
+			\item un problème géométrique~: il n'y a pas suffisamment de vecteurs propres pour former une base de $V$.
+		\end{enumerate}
+		\end{rmq}
+
+		\subsubsection{Opérateurs triangulables}
+		\begin{déf} Soient $V$ un espace vectoriel de dimension finie $n$ sur un corps commutatif $\K$ et $A \in \Hom(V, V)$. On dit que $A$ est triangulable
+		s'il existe une base $E$ de $V$ telle que $m_{E, E}(A)$ est triangulaire. \end{déf}
+
+		\begin{déf} Soient $V$ un $\K$-espace vectoriel où $\K$ est un corps commutatif et ${W_i \tq 0 \leq i \leq n}$ un ensemble de sous-espaces de $V$.
+		Si les $W_i$ sont tels que~:
+		\[\{0\} = W_0 \subset W_2 \subset \dotsb \subset W_n = V,\]
+		et pour tout $i$, on a $A(W_i) \subseteq W_i$, alors on dit que $W_0, \dotsc, W_n$ forment un \textbf{drapeau maximal invariant par $A$}. \end{déf}
+
+		\begin{prp} Soient $V$ un espace vectoriel sur un corps commutatif $\K$ et $A \in \Hom(V, V)$. Alors $A$ est triangulable si et seulement si
+		$A$ possède un drapeau maximal invariant. \end{prp}
+
+		\begin{proof} Soit $\{W_i\}_{0 \leq i \leq n}$ un drapeau maximal invariant par $A$. Montrons que $A$ est triangulable. Pour tout $i \in \{1, \dotsc, n\}$,
+		on prend $e_i \in W_i \setminus W_{i-1}$. Posons $E \coloneqq \{e_1, \dotsc, e_n\}$. Montrons que $E$ est une base de $V$ et que $m_{E, E}(A)$ est une
+		matrice triangulaire.
+
+		Montrons que $E$ est libre. Soit $1 \leq i \leq n$. Posons $E_i \coloneqq \{e_1, \dotsc, e_i\}$. Supposons que $E_i$ n'est pas libre. Alors il
+		existe $\mu_1, \dots, \mu_{i-1} \in \K$ tels que $\mu_j \neq 0$ pour tout $j < i$ et~:
+		\[e_i = \sum_{j=1}^{i-1}\mu_je_j.\]
+		Puisque $W_i$ est un espace vectoriel pour tout $i$, on a $e_i \in W_{i-1}$. Or par définition, $e_i \in W_i \setminus W_{i-1}$. Il y a donc contradiction
+		et $E_i$ est libre. Dès lors, $E = E_n$ est libre.
+
+		Montrons que $E$ est génératrice. Pour cela, montrons par récurrence que $E_i$ est génératrice de $W_i$. Le cas de base est $i=1$ et $\{e_1\}$ est
+		une base de $W_1$.
+
+		Le pas de récurrence suppose que $E_{i-1}$ est génératrice de $W_{i-1}$. Montrons que $E_i$ est génératrice de $W_i$. Soit $v_i \in W_i$. On
+		distingue deux cas : soit $v_i \in W_i \setminus W_{i-1}$, soit $v_i \in W_{i-1}$. Dans le second cas, par hypothèse de récurrence, on prend
+		$\mu_1, \dotsc, \mu_{i-1} \in \K$ tels que $\mu_1e_1 + \dotsb + \mu_{i-1}e_{i-1} = v_i$ et prenons $\mu_i = 0$.
+
+		Dans le premier cas, prenons $F = \{f_1, \dotsc, f_{i-1}\}$ une base de $W_{i-1}$, $F \cup \{v_i\}$ une base de $W_i$. On a alors $\mu_j = 0$
+		pour $j \in \{1, \dotsc, i-1\}$ et $\mu_i = 1$.
+
+		On a donc bien $E_i$ est génératrice de $W_i$. En particulier $E_n$ est génératrice de $W_n = V$. Donc $E$ est une base de $V$.
+
+		Montrons maintenant que $m_{E, E}(A)$ est triangulaire.
+
+		Soit $a \coloneqq [a_{i\,j}] = m_{E, E}(A) \in \M nn\K$. Soit $w_i = \sum_j\alpha_je_j \in W_i$. On sait que $A(w_i) \in W_i$ et donc~:
+		\[W_i \ni \sum_{j=1}^i\alpha_iA(e_j).\]
+		Ce qui implique $A(e_j) \in W_i$ pour tout $j \leq i$. On peut donc écrire~:
+		\[W_i \ni A(e_j) = \sum_{k=1}^ia_{k\,j}e_k.\]
+		Or, on sait également que $A(e_j) \in V$. Donc~:
+		\[V \ni A(e_j) = \sum_{k=1}^na_{k\,j}e_k.\]
+		On a alors l'égalité~:
+		\[\begin{aligned}
+			\sum_{k=1}^ia_{k\,j}e_k &= \sum_{k=1}^na_{k\,j}e_k \\
+			\sum_{k=1}^ia_{k\,j}e_k &= \sum_{k=1}^ia_{k\,j}e_k + \sum_{k=i+1}^na_{k\,j}e_k \\
+			0 &= \sum_{k=i+1}a_{k\,j}e_k.
+		\end{aligned}\]
+
+		De plus, on sait que $E = \{e_1, \dotsc, e_n\}$ est libre, donc $\{e_{i+1}, e_{i+2}, \dotsc, e_n\}$ est libre également. Alors la seule combinaison linéaire
+		nulle possible est $a_{k\,j} = 0$ pour tout $j \in \{i+1, i+2, \ldots, n\}$. Dès lors, on sait que $m_{E, E}(A)_{i\,j} = 0$ pour tout $j > i$.
+		La matrice est bien triangulaire.
+
+		Maintenant soit $E = \{e_1, \dotsc, e_n\}$ une base de $V$ telle que $m_{E, E}(A) \eqqcolon [a_{i\,j}]$ est une matrice triangulaire. Montrons que
+		$\{0\}  \subset \eng {e_1} \subset \eng {\{e_1, e_2\}} \subset \dotsb \subset \eng {\{e_1, \dotsc, e_n\}} = V$ est un drapeau maximal invariant par $A$.
+
+		En posant $W_i \coloneqq \eng {\{e_1, \dotsc, e_i\}}$, on voit bien que $W_n = V$, et que $W_i \subset W_{i+1}$ pour tout $0 \leq i < n$. Et on sait que
+		$W_i$ est un espace vectoriel par définition de l'espace engendré $\eng X$.
+		\end{proof}
+
+		\begin{prp} Soit $V$ un espace vectoriel de dimension finie $n$ sur $\C$. Soit $A \in \Hom(V,V)$. Alors $A$ est triangulable. \end{prp}
+
+		\begin{rmq} La preuve est omise. \end{rmq}
+
+	\subsection{Formule canonique de Jordan}
+		\begin{thm}[Théorème de Jordan] Soit $V$ un espace vectoriel de dimension finie $n$ sur $\C$. Soit $A \in \Hom(V, V)$. Il existe $E$, une base de $V$
+		telle que $a \coloneqq m_{E, E}(A)$ soit donnée par~:
+		\[a = \begin{pmatrix}J_1 &  & 0 \\ & \ddots & \\0 & & J_k\end{pmatrix},\]
+		avec $k \in \N^*$, et où, pour $\gamma \in \{1, 2, \ldots, k\}$, on a~:
+		\[J_\gamma = \left[\begin{cases}\lambda_\gamma & \text{ si } i = j \\ 1 & \text{ si } j-i = 1 \\0 & \text{ sinon}\end{cases}\right] \in \M{n_\gamma}{n_\gamma}\C,\]
+		où $\lambda_\gamma \in \C$ est une valeur propre de $A$ et $n_\gamma \in \N^*$.
+		\end{thm}
+
+		\begin{rmq} Les blocs $J_i$ d'une telle matrice sont appelés ses \textit{blocs de Jordan}. Lorsque la matrice $m_{E, E}(A)$ est exprimée dans une telle
+		base, on dit qu'elle est dans sa \textit{forme (canonique) de Jordan}. \end{rmq}
+		
+		\begin{rmq}[bis] Le théorème de Jordan dit également que s'il existe une autre base $F \neq E$ respectant cette propriété, alors les blocs de Jordan de
+		$m_{F, F}(A)$ sont une permutation des blocs de Jordan de $m_{E, E}(A)$. \end{rmq}
+
+		\begin{cor} Soit $V$, un espace vectoriel de dimension finie $n$ sur $\C$. Soit $A \in \Hom(V, V)$. La matrice $A$ est inversible si et seulement si 
+		sa forme de Jordan ne contient que des blocs de Jordan de taille 1. \end{cor}
+
+		\begin{déf} Soit $V$ un espace vectoriel de dimension finie $n$ sur un corps commutatif $\K$. Soit $A \in \Hom(V, V)$. Une valeur propre $\lambda$
+		de $A$ est dite de \textbf{multiplicité algébrique} $m$ si $(x-\lambda)^m | \pi_A(x) = \det(A - x\Id_{V^V})$ et $(x-\lambda)^{m+1} \not | \pi_A(x)$
+		et est dit de \textbf{multiplicité géométrique} $m$ si $\dim_\K V_\lambda = m$. \end{déf}
+
+		\begin{prp} Soient $V$ un espace vectoriel de dimension $n$ sur $\K$ un corps commutatif et $A \in \Hom(V, V)$. Si $\lambda \in \K$ est une valeur propre
+		de $A$, alors la multiplicité géométrique de $\lambda$ est inférieure ou égale à sa multiplicité algébrique. \end{prp}
+
+		\begin{proof} Soit $m$, la dimension de $V_\lambda$, et spot $E$ une base de $V$ telle que les $m$ premiers vecteurs sont dans $V_\lambda$.
+		On sait alors que les $m$ première colonnes de $m_{E, E}(A)$ correspondent à $\lambda e_i$ pour $1 \leq i \leq m$ et qu'il existe deux matrices B, C
+		de dimensions respectives $m \times (n-m)$ et $(n-m) \times (n-m)$. On a alors $\pi_A(x) = (x-\lambda)^m\pi_C(x)$. On sait que $m$ est la multiplicité
+		géométrique de $\lambda$ par $A$. Soit $\beta$ la multiplicité arithmétique de $\lambda$ par $C$. On sait $\beta \in \N^*$. Donc on a bien que
+		$(x-\lambda)^{m+\beta} | \pi_A(x)$ mais $(x-\lambda)^{m+\beta+1} \not | \pi_A(x)$. On a bien $m \leq m + \beta$. Or $m + \beta$ représente la multiplicité
+		arithmétique de $\lambda$ par $A$. \end{proof}
+
+	\subsection{Polynôme minimal d'un opérateur}
+		\begin{déf} Soit $V$ un espace vectoriel de dimension $n$ sur un corps commutatif $\K$. Soit $A \in \Hom(V, V)$. Le \textbf{polynôme minimal de $A$}
+		est l'unique polynôme monique de degré minimal $\mu_A(x) \in \K[x]$ tel que $\mu_A(A) = 0_{V^V} \in \Hom(V, V)$. \end{déf}
+
+		\begin{prp} Tout endomorphisme sur un espace vectoriel admet un polynôme minimal. \end{prp}
+
+		\begin{proof} Par le théorème de Cayley-Hamilton (théorème~\ref{Cayley-Hamilton}), on sait que $\pi_A(A) = 0 \in \Hom(V, V)$. On en déduit donc l'existence
+		de $\mu_A(x)$. Son unicité se montre en supposant $m_1(x), m_2(x) \in \K[x]$ deux polynômes moniques distincts de degré minimal tels que
+		$m_1(A) = m_2(A) = 0_{V^V}$. On a alors $\deg((m_1-m_2)(x)) < \deg(m_1(x)) = \deg(m_2(x))$. On a également~:
+		\[m_1(A) - m_2(A) = 0_{V^V} - 0_{V^V} = 0_{V^V}.\]
+		Donc $(m_1-m_2)(x)$ est un polynôme minimal de $A$. Or $m_1$ et $m_2$ sont supposés de degré minimal. Il y a donc contradiction et $m_1(x) = m_2(x)$.
+		\end{proof}
+
+		\begin{prp} Le polynôme minimal d'un endomorphisme divise son polynôme caractéristique. \end{prp}
+
+		\begin{proof} Soit $A$, un endomorphisme sur un espace vectoriel $V$ de dimension $n$ sur un corps commutatif $\K$. Par Euclide, on sait qu'il existe
+		$q(x), r(x) \in \K[x]$ tels que $\pi_A(x) = q(x)\mu_A(x) + r(x)$. Or, on sait que~:
+		\[r(A) = \pi_A(A) q(A)\mu_A(A) = 0_{V^V} - q(A)0_{V^V} = 0_{V^V}.\]
+		On a donc le fait que le reste est nul, et donc $\mu_A(x) | \pi_A(x)$. \end{proof}
+
+		\begin{lem}\label{valPropreRacineMu} Les valeurs propres de $A \in \Hom(V, V)$ pour $V$ un espace vectoriel complexe de dimension $n$ sont les racines
+		de son polynôme minimal $\mu_A(x) \in \K[x]$. \end{lem}
+
+		\begin{proof} Supposons par l'absurde qu'il existe $\lambda$ une valeur propre de $A$ telle que $\mu_A(\lambda) \neq 0$. On prend $v \neq 0 \in V_\lambda$.
+		On a alors~:
+		\[0 \neq \mu_A(\lambda) = \sum_{i=0}^m\mu_i\lambda^i,\]
+		et donc également~:
+		\[\mu_A(A)(v) = \sum_{i=0}^m\mu_iA^i(v) = \sum_{i=0}^m\lambda^iv = \mu_A(\lambda)v \neq 0,\]
+		où $A^i(v)$ représente la composée de $A$ avec lui-même $i$ fois. Et comme $v$ est un vecteur propre de $A$ dans le sous-espace propre $V_\lambda$, on
+		sait que $A^i(v) = A^{i-1}(\lambda v) = A^{i-2}(\lambda^2v) = \ldots = \lambda^iv$. On a également~:
+		\[\mu_A(A) = 0_{V^V},\]
+		et donc~:
+		\[\mu_A(A)(v) = 0_{V^V}(v) = 0.\]
+
+		Donc on a une contradiction $0 \neq 0$. Il n'y a donc pas de tel $\lambda$. \end{proof}
+
+		\begin{prp} Soit $A \in \Hom(V, V)$ un endomorphisme sur un espace vectoriel $V$ complexe de dimension $n$. Alors le polynôme minimal $m_A(x)$ est donné par~:
+		\[m_A(x) = \prod_{i=1}^k(x-\lambda_i)^{m_i},\]
+		où $k$ est le nombre de valeurs propres de $A$, et pour $i \in \{1, \dotsc, k\}$, on a $m_i \leq n_i$, la multiplicité algébrique de la valeur propre
+		$\lambda_i$ dans $\mu_A$ telle que~: \[\sum_{i=1}^km_i = \deg(\mu_A(x)).\] \end{prp}
+
+		\begin{proof} On sait par le lemme~\ref{valPropreRacineMu} que toutes les valeurs propres de $A$ sont des racines de $\mu_A$. Si on note $m_i \geq 1$ la
+		multiplicité algébrique de la valeur propre $\lambda_i$ dans $\mu_A$, on a bien~:
+		\[\mu_A(x) = \prod_{i=1}^k(x-\lambda_i)^{m_i}.\]
+		
+		Il faut également $m_i \leq n_i$ si $n_i$ est la multiplicité de $\lambda_i$ dans $\pi_A$ car il faut que $\mu_A$ divise $\pi_A$. Pour cette même raison, on
+		ne peut avoir une racine de $\mu_A$ n'étant pas une racine de $\pi$. Et par définition, les racines de $\pi_A$ sont les valeurs propres.
+		On a donc bien $m_1 + m_2 + \dotsb + m_k = \deg(\mu_A(x))$. \end{proof}
+		
 \end{document}
