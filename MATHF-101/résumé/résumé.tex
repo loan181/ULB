@@ -2,17 +2,28 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[cm]{fullpage}
+\usepackage{fullpage}
+\usepackage{lmodern}
 \usepackage[bottom]{footmisc}
 \usepackage[parfill]{parskip}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
 \usepackage{titlesec}  % reduce space between paragraphs
-\usepackage{times}
-\usepackage{amsmath}
 \usepackage{mathtools}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\usepackage{mathdots}
 \usepackage{commath}
+\usepackage{hyperref}
 \usepackage{interval}
+
+\makeatletter
+\def\thm@space@setup{%
+	\thm@preskip=.4cm
+	\thm@postskip=\thm@preskip%
+}
+\makeatother
+
+\title{Calcul différentiel et intégral}
+\author{R. Petit}
+\date{année académique 2015 - 2016}
 
 \DeclareMathOperator{\arctanh}{arctanh}
 \DeclareMathOperator{\dom}{dom}
@@ -38,16 +49,23 @@
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
 
-\title{Calcul différentiel et intégral}
-\author{R. Petit}
+% amsthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{lem}[thm]{Lemme}
+\renewcommand{\proofname}{\it{Démonstration}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
 
 \begin{document}
 
 \pagenumbering{Roman}
 \maketitle
 \tableofcontents
-\pagebreak
-\clearpage
+\newpage
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
@@ -58,8 +76,7 @@
 		\subsubsection{Définition}
 			Alors que l'analyse nait au XVII$^e$ siècle, ce n'est que pendant le XIX$^e$ que les outils nécessaires à une
 			expression rigoureuse ont été à disposition des mathématiciens. L'analyse a pour notion centrale celle de \textit{variation}.
-			Intuitivement, la notion de variation instantanée d'une quantité $f(t)$ peut être décrite de la sorte :
-
+			Intuitivement, la notion de variation instantanée d'une quantité $f(t)$ peut être décrite de la sorte~:
 			\[V(t, \Delta t) = \frac {f(t + \Delta t) - f(t)}{\Delta t}\]
 
 			pour une valeur $\Delta t$ étant \textit{de plus en petite}. On dit donc que $\Delta t$ \textit{tend vers 0}. Attention
@@ -68,19 +85,16 @@
 
 			Selon la définition de variation vue ci-dessus, nous pouvons exprimer la dérivée comme étant la variation instantanée d'une
 			fonction $f : \R \to \R$ que nous notons $f'(t)$. Plus précisément, la variation \textit{instantanée} implique
-			que $\Delta t$ soit \textit{infiniment petit}, ce qui s'écrit ainsi :
-
+			que $\Delta t$ soit \textit{infiniment petit}, ce qui s'écrit ainsi~:
 			\[f'(x) = \lim_{\Delta t \to 0}\frac {f(t + \Delta t) - f(t)}{\Delta t}\]
 
-			\paragraph{Remarque}
-				Pour des \textit{petites valeurs} de $\Delta t$, l'approximation suivante est admissible :
-
-				\[f(t + \Delta t) \simeq f(t) + f'(t)\Delta t\]
+			\begin{rmq} Pour des \textit{petites valeurs} de $\Delta t$, l'approximation suivante est admissible~:
+			\[f(t + \Delta t) \simeq f(t) + f'(t)\Delta t\]
+			\end{rmq}
 
 		\subsubsection{Exemples}
 			\paragraph{Fonction affine}
-				Soit une fonction $f : \R \to \R : x \mapsto ax + b$. La dérivée de $f$ est l'expression suivante :
-
+				Soit une fonction $f : \R \to \R : x \mapsto ax + b$. La dérivée de $f$ est l'expression suivante~:
 				\[f'(x) = \lim_{h \to 0}\frac {f(x + h) - f(x)}{h} = \lim_{h \to 0}\frac {a(x + h) + b - (ax + b)}{h} =
 				  \lim_{h \to 0}\frac {ax + ah + b - ax - b}{h} = \lim_{h \to 0}\frac {ah}{h} = a\]
 
@@ -90,49 +104,45 @@
 
 				Plus spécifiquement, si $a = 0$, la fonction est une fonction \textit{constante} : $f : \R \to \R : x \mapsto b$.
 				De ce fait, sa dérivée doit être nulle car une fonction croissante n'a pas de variation (par définition). La quantification de
-				cette variation doit donc être représentée par 0. Cela peut se montrer également aisément depuis la définition de la dérivée :
-
+				cette variation doit donc être représentée par 0. Cela peut se montrer également aisément depuis la définition de la dérivée~:
 				\[f'(x) = \lim_{h \to 0}\frac {f(x+h) - f(x)}{h} = \lim_{h \to 0}\frac {b - b}{h} = 0\]
 
 			\paragraph{Fonction du second degré}
-				Soit une fonction $f : \R \to \R : x \mapsto ax^2 + bx + c$. Sa dérivée peut être calculée ainsi :
+				Soit une fonction $f : \R \to \R : x \mapsto ax^2 + bx + c$. Sa dérivée peut être calculée ainsi~:
 
-				\[\begin{aligned}
-					  f'(x) &= \lim_{h \to 0}\frac {f(x+h) - f(x)}{h} = \lim_{h \to 0}\frac {a(x+h)^2 + b(x+h) + c - (ax^2 + bx + c)}{h} \\ &=
-					  \lim_{h \to 0}\frac {ax^2 + 2axh + ah^2 + bx + bh + c- ax^2 - bx - c}{h} = \lim_{h \to 0}\frac {2axh + ah^2 + bh}{h} =
-					  \lim_{h \to 0} 2ax + ah + b = 2ax + b
-				\end{aligned}\]
+				\[
+					\begin{aligned}
+						  f'(x) &= \lim_{h \to 0}\frac {f(x+h) - f(x)}{h} = \lim_{h \to 0}\frac {a(x+h)^2 + b(x+h) + c - (ax^2 + bx + c)}{h} \\ &=
+						  \lim_{h \to 0}\frac {ax^2 + 2axh + ah^2 + bx + bh + c- ax^2 - bx - c}{h} = \lim_{h \to 0}\frac {2axh + ah^2 + bh}{h} =
+						  \lim_{h \to 0} 2ax + ah + b = 2ax + b
+					\end{aligned}
+				\]
 
 				Ici, la dérivée est une fonction de $x$, ce qui indique que selon la valeur de $x$ à laquelle nous voulons évaluer la
 				dérivée, la variation représentée est susceptible de différer.
 
 			\paragraph{Fonction valeur absolue}
 				Soit une fonction $f : \R \to \R : x \mapsto \left\{\begin{aligned}&\text{$+x$ si $x \ge 0$} \\&\text{$-x$ si $x < 0$}\end{aligned}\right.$.
-				Afin de déterminer l'accroissement instantané de $f$ au point d'abscisse $x=0$, il faut repasser par la définition :
-
+				Afin de déterminer l'accroissement instantané de $f$ au point d'abscisse $x=0$, il faut repasser par la définition~:
 				\[f'(a) = \lim_{h \to 0}V_f(a, h)\]
 
-				Donc $f'(0)$ peut être déterminé de la manière suivante :
-
+				Donc $f'(0)$ peut être déterminé de la manière suivante~:
 				\[f'(0) = \lim_{h \to 0}V_f(0, h) = \lim_{h \to 0}\frac {f(0+h) - f(0)}{h} = \lim_{h \to 0}\frac {f(h)}{h}\]
 
 				Les cas $h < 0$ et $h \ge 0$ doivent être traités séparément de par la définition de la fonction. Pour le premier cas,
-				la dérivée est :
-
+				la dérivée est~:
 				\[f'(0) = \lim_{h \to 0} \frac hh = 1\]
 
 				Et pour le second cas,
-
 				\[f'(0) = \lim_{h \to 0} \frac {-h}{h} = -1\]
 
 				Le résultat est tout à fait cohérent par rapport au graphique de la fonction $x \mapsto |x|$ car cette fonction a deux
-				accroissements différents : l'un à gauche de 0, l'autre à droite de 0. Cependant, il est impossible d'exprimer la valeur
+				accroissements différents~: l'un à gauche de 0, l'autre à droite de 0. Cependant, il est impossible d'exprimer la valeur
 				de la dérivée de $f$ au point 0. On dit de $f$ qu'elle n'est pas dérivable en 0.
 
 			\paragraph{Fonction exponentielle}
 				Soit une fonction $f : \R \to \R : x \mapsto a^x$ avec $a \in \R_0^+$. À nouveau, pour définir sa
-				dérivée, il nous faut repasser par la définition :
-
+				dérivée, il nous faut repasser par la définition~:
 				\[f'(x) = \lim_{h \to 0}\frac {a^{x+h} - a^x}{h} = \lim_{h \to 0}\frac {a^x(a^h - 1)}{h} = a^x\lim_{h \to 0}V(0, h) = a^xf'(0)\]
 
 				Ce développement nous indique que pour connaitre la dérivée de $f$ au point $x$, il nous faut connaitre la dérivée de $f$
@@ -145,25 +155,24 @@
 			Étant donné que la dérivée d'une fonction quelconque $f$ (en supposant qu'elle est dérivable) est également une fonction \\
 			($f' : \R \to \R : x \mapsto f'(x)$), nous pouvons à nouveau dériver cette fonction (en supposant que la dérivée
 			soit toujours dérivable). Il est alors question de \textit{dérivée seconde}, telle que $f''(x) = (f')'(x) = ((f)')'(x)$.
-			Pour noter la $k^e$ dérivée, il existe la notation suivante : $f^{(k)}$ (car répéter $k$ fois le symbole \textit{prime} (')
+			Pour noter la $k^e$ dérivée, il existe la notation suivante~: $f^{(k)}$ (car répéter $k$ fois le symbole \textit{prime} (')
 			est contre-productif en temps de lecture \textbf{et} d'écriture).
 
-			Ces mêmes dérivées d'ordre supérieur à 1 ont leur importance et leur cohérence : tant $f'(x)$ est la variation de la quantité
+			Ces mêmes dérivées d'ordre supérieur à 1 ont leur importance et leur cohérence~: tant $f'(x)$ est la variation de la quantité
 			$f(x)$, tant $f''(x)$ est la variation de $f'(x)$. La dérivée seconde représente donc l'accroissement de l'accroissement
 			(ou la variation de la variation). Elle nous donne donc une information sur comment la variation évolue (en dynamique,
 			si on représente la position d'un mobile par la fonction $x(t)$, $x'(t)$ représente la variation de la position, à savoir la
 			vitesse (donc $x'(t) = v(t)$). Cependant, $x''(t)$ représente la variation de la vitesse, à savoir l'accélération, d'où
 			$x''(t) = v'(t) = a(t)$).
 
-			De plus, la dérivée seconde a une autre interprétation graphique : si $f''(x) > 0$, nous savons que $f'(x)$ a une pente positive
+			De plus, la dérivée seconde a une autre interprétation graphique~: si $f''(x) > 0$, nous savons que $f'(x)$ a une pente positive
 			donc $f'(x)$ est croissante. Cela implique que $f(x)$ est croissante aussi mais de plus en plus croissante. Autrement dit,
 			le graphe de $f(x)$ est \textit{concave} aux alentours de $(x, f(x))$. De manière similaire, lorsque $f''(x) < 0$, $f(x)$ est
 			de moins en moins décroissante et donc le graphe de $f(x)$ est \textit{convexe} aux alentours de $(x, f(x))$.
 
 		\subsubsection{Notation de Leibniz}
 			En reprenant la définition de la variation donnée plus haut, nous pouvons définir $\delta f$ et $\delta x$ comme étant
-			respectivement la variation de la quantité $f(x)$ et la variation de la quantité $x$. Nous avons donc :
-
+			respectivement la variation de la quantité $f(x)$ et la variation de la quantité $x$. Nous avons donc~:
 			\[V(x, h) = \frac {f(x+h) - f(x)}{h} = \frac {\delta f}{\delta x}\]
 
 			Cela implique que nous ayons $\delta f = f(x + h) - f(x)$, ce qui est bien la variation de la quantité $f(x)$, et que nous
@@ -171,23 +180,22 @@
 
 			Or, nous avions défini la dérivée comme étant la variation instantanée, à savoir $f'(x) = \lim_{h \to 0}V(x, h)$, qui selon
 			la notation de Leibniz correspond à $f'(x) = \lim_{h \to 0}\frac {\delta f}{\delta x}$. Leibniz a cependant instauré une
-			seconde notation correspondant non plus à la variation comme la notation $\delta$ mais bien à la dérivée. Cette notation est :
-
+			seconde notation correspondant non plus à la variation comme la notation $\delta$ mais bien à la dérivée. Cette notation est~:
 			\[\od{f}{x} = \lim_{h \to 0}\frac {\delta f}{\delta x}\]
 
-			Attention cependant à ne pas utiliser cette valeur comme étant un quotient de nombres réels : la notation $\od fx$ n'a de sens
+			Attention cependant à ne pas utiliser cette valeur comme étant un quotient de nombres réels~: la notation $\od fx$ n'a de sens
 			que lorsque la limite a été faite. Et comme $\lim_0 \frac {F(h)}{G(h)} \neq \frac {\lim_0 F(h)}{\lim_0 G(h)}$, nous ne pouvons
 			pas séparer $\dif f$ et $\dif x$\footnote{Du moins pas dans le cas d'une dérivée.}.
 
 			Leibniz a également eu besoin d'une notation pour la $k^e$ dérivée. Ayant considéré $\frac {\dif{}}{\dif x}$ comme étant
-			une opération à réaliser $k$ fois, il a noté la $k^e$ dérivée de la sorte :
+			une opération à réaliser $k$ fois, il a noté la $k^e$ dérivée de la sorte~:
 
 			\[\od[k] fx\]
 
 	\subsection{Règles de dérivation}
 		\paragraph{Somme}
 			Soient $f, g : \R \to \R$, deux fonction dérivables en $a$. De manière intuitive, nous pouvons dire que
-			$(f+g)'(a) = f'(a) + g'(a)$ car l'accroissement de la fonction de somme est la somme des accroissements : au point $a$,
+			$(f+g)'(a) = f'(a) + g'(a)$ car l'accroissement de la fonction de somme est la somme des accroissements~: au point $a$,
 			la fonction $(f+g)$ \textit{subit} un accroissement égal à l'accroissement de $f$ plus l'accroissement de $g$.
 
 		\paragraph{Produit}
@@ -198,84 +206,79 @@
 			Si on passe de $a$ à $a+h$, nous obtenons un nouveau rectangle de dimensions $f(a+h)$ et $g(a+h)$. Selon l'approximation
 			vue au point 1.1.1., nous savons que $f(a+h) \simeq f(a) + f'(a)h$. L'aire du nouveau rectangle est donc $A = f(a+h)g(a+h)
 			\simeq (f(a) + f'(a)h)(g(a) + g'(a)h) = f(a)g(a) + f'(a)g(a)h + f(a)g'(a)h + f'(a)g'(a)h^2$.
-			Rappelons tout de même que la dérivée ici est égale à :
-
+			Rappelons tout de même que la dérivée ici est égale à~:
 			\[\begin{aligned}(fg)'(a) &= \lim_{h \to 0}\frac{(fg)(a+h) - (fg)(a)}{h} = \lim_{h \to 0}\frac {f'(a)g(a)h + f(a)g'(a)h + f'(a)g'(a)h^2}{h} \\
 									  &= \lim_{h \to 0}f'(a)g(a) + f(a)g'(a) + f'(a)g'(a)h = f'(a)g(a) + f(a)g'(a)\end{aligned}\]
 
-			Nous avons donc la variation instantanée de la fonction $(fg)$ au point $a$ : $(fg)'(a) = f'(a)g(a) + f(a)g'(a)$.
+			Nous avons donc la variation instantanée de la fonction $(fg)$ au point $a$~: $(fg)'(a) = f'(a)g(a) + f(a)g'(a)$.
 
 		\paragraph{Composition}
 			Soient $f, g : \R \to \R$, deux fonctions telles que $g$ est dérivable en $a$, et $f$ est dérivable en $g(a)$.
 			Il est toujours possible de trouver la dérivée de la fonction composée $(f \circ g)(x) = f(g(x))$ à l'aide de l'approximation
-			$f(a+h) \simeq f(a) + f'(a)h$ tant que $h$ est \textit{petit}. Notre dérivation devient donc :
-
-			\[\begin{aligned}
-				(f \circ g)'(a) &= \lim_{h \to 0}\frac {(f \circ g)(a+h) - (f \circ g)(a)}{h} = \lim_{h \to 0}\frac {f(g(a+h)) - f(g(a))}{h}
-				= \lim_{h \to 0}\frac {f(g(a) + g'(a)h) - f(g(a))}{h} \\
-								&= \lim_{h \to 0}\frac {f(g(a)) + f'(g(a))g'(a)h - f(g(a))}{h} = f'(g(a))g'(a)
-			\end{aligned}\]
+			$f(a+h) \simeq f(a) + f'(a)h$ tant que $h$ est \textit{petit}. Notre dérivation devient donc~:
+			\[
+				\begin{aligned}
+					(f \circ g)'(a) &= \lim_{h \to 0}\frac {(f \circ g)(a+h) - (f \circ g)(a)}{h} = \lim_{h \to 0}\frac {f(g(a+h)) - f(g(a))}{h}
+					= \lim_{h \to 0}\frac {f(g(a) + g'(a)h) - f(g(a))}{h} \\
+									&= \lim_{h \to 0}\frac {f(g(a)) + f'(g(a))g'(a)h - f(g(a))}{h} = f'(g(a))g'(a)
+				\end{aligned}
+			\]
 
 		\paragraph{Réciproque}
 			Soit $f : \R \to \R$. Si $f$ est bijective, nous pouvons définir sa fonction réciproque $f^{-1} : \R \to \R$.
 			Si en plus, nous supposons que $f'(x) \neq 0 \forall x \in \R$, nous pouvons exprimer la dérivée de la fonction
-			réciproque comme suit :
-
+			réciproque comme suit~:
 			\[(f^{-1})'(f(a)) = \frac {1}{f'(a)}\]
 
-			selon le développement suivant (nécessitant la dérivée d'une composée) : en sachant que la dérivée de la fonction identité
+			selon le développement suivant (nécessitant la dérivée d'une composée)~: en sachant que la dérivée de la fonction identité
 			est 1 ($(x \mapsto x)'(x) = 1$) et que la composée d'une fonction $f$ avec sa réciproque ($f^{-1}$) correspond à la
 			fonction identité, nous pouvons trouver la dérivée de la réciproque.
+			\[
+				\begin{aligned}
+					id'(x) &= 1 \\
+					(f^{-1} \circ f)'(x) &= 1 \\
+					(f^{-1})'(f(x))f'(x) &= 1 \\
+					(f^{-1})'(f(x)) &= \frac {1}{f'(x)}
+				\end{aligned}
+			\]
 
-			\[\begin{aligned}
-				id'(x) &= 1 \\
-				(f^{-1} \circ f)'(x) &= 1 \\
-				(f^{-1})'(f(x))f'(x) &= 1 \\
-				(f^{-1})'(f(x)) &= \frac {1}{f'(x)}
-			\end{aligned}\]
-
-			Ou encore :
+			Ou encore~:
 
 			\[(f^{-1})'(a) = \frac {1}{f'((f^{-1})(a))}\]
 
-		\paragraph{Remarque} De manière graphique, ce résultat peut s'interpréter de la manière suivante : la réciproque d'une
-			fonction bijective est son image par symétrie orthogonale d'axe $y = x$. En traçant cet axe de symétrie, on peut observer
-			qu'aux points $(a, f(a)) \in \Gamma_f$ et $(b, (f^{-1})(b)) \in \Gamma_{f^{-1}}$ tel que $b = f(a)$, nous avons un rapport
-			entre les pentes des tangentes. Plus précisément, nous pouvons observer que la pente de la tangente au second point
-			($(f^{-1})'(b) = (f^{-1})'(f(a))$) correspond à l'inverse de la pente de la tangente au second point. Donc nous avons bien
-			la même égalité : $(f^{-1})'(f(a)) = \frac {1}{f'(a)}$.
+		\begin{rmq} De manière graphique, ce résultat peut s'interpréter de la manière suivante~: la réciproque d'une fonction bijective est son image par
+		symétrie orthogonale d'axe $y = x$. En traçant cet axe de symétrie, on peut observer qu'aux points $(a, f(a)) \in \Gamma_f$ et
+		$(b, (f^{-1})(b)) \in \Gamma_{f^{-1}}$ tel que $b = f(a)$, nous avons un rapport entre les pentes des tangentes. Plus précisément, nous pouvons
+		observer que la pente de la tangente au second point ($(f^{-1})'(b) = (f^{-1})'(f(a))$) correspond à l'inverse de la pente de la tangente au second
+		point. Donc nous avons bien la même égalité~: $(f^{-1})'(f(a)) = \frac {1}{f'(a)}$. \end{rmq}
 
 		\paragraph{Exemple des fonctions exponentielles et logarithmiques} Il a été vu plus haut que la fonction $x \mapsto \exp(x)$
 		admettait pour dérivée elle-même. Nous avons également vu ci-dessus que $(f^{-1})'(a) = \frac {1}{f'((f^{-1})(a))}$.
 		En étant tenté de trouver $f(x)$ telle que $f'(x) = f(x) \, \forall x \in \dom f$, nous aurions donc $(f^{-1})'(a) = \frac {1}{f((f^{-1})(a))} = \frac 1a$.
-		Cependant, nous connaissons une fonction de ce genre : la fonction exponentielle de base $e$. Sa fonction inverse, la fonction
-		logarithmique de base $e$ a sa dérivée calculée de la sorte :
-
+		Cependant, nous connaissons une fonction de ce genre~: la fonction exponentielle de base $e$. Sa fonction inverse, la fonction
+		logarithmique de base $e$ a sa dérivée calculée de la sorte~:
 		\[\log'(x) = \frac {1}{\exp(\log(x))} = \frac 1x\]
 
 	\subsection{Les intégrales}
 		\subsubsection{Définition}
 			En analyse, il existe un outil permettant de calculer l'aire en dessous d'une courbe. Cet outil s'appelle \textit{intégrale}.
 			Soit une fonction $f : \R \to \R$, nous définissons l'aire entre la courbe de $f$ et l'axe horizontal $y = 0$
-			définie entre les droites $x = a$ et $x = b$ de la manière suivante :
-
+			définie entre les droites $x = a$ et $x = b$ de la manière suivante~:
 			\[A = \int_a^bf(x)\dif x\]
 
-			\paragraph{Attention} Cette aire est dite \textit{signée}. C'est à dire que les parties \textit{en dessous} de l'axe $y = 0$
-			sont représentés par une valeur réelle négative alors que les parties \textit{au dessus} de l'axe $y = 0$ sont représentés par
-			une valeur réelle positive.
+			\begin{rmq} Cette aire est dite \textit{signée}. C'est à dire que les parties \textit{en dessous} de l'axe $y = 0$ sont représentés par une valeur
+			réelle négative alors que les parties \textit{au dessus} de l'axe $y = 0$ sont représentés par une valeur réelle positive. \end{rmq}
 
 			Afin d'approximer l'aire que nous tentons de déterminer, nous découpons l'intervalle $[a, b]$ en $n$ \textit{morceaux} $[x_{i-1}, x_i] \, 1 \leq i \leq n$
 			avec $x_i = a + (b-a)\frac in$. Ces \textit{arrêtes} nous permettent d'obtenir des rectangles de hauteur respective $f(x_{i-1})$.
 			L'aire de chacun de ces rectangles est donc $b \times h = (x_i - x_{i-1})f(x_{i-1})$. L'approximation de l'aire recherchée (donc de
 			l'intégrale) est la somme des aires de ces rectangles.
-
 			\[\int_a^bf(x) \dif x \simeq \sum_{i=1}^n(x_i - x_{i-1})f(x_{i-1})\]
 
 			Pour obtenir l'aire exacte, il faut faire tendre $n$ vers $+\infty$.
 
 			\paragraph{Exemple de la fonction carrée}
-				Si nous désirons trouver l'aire sous la courbe de $x \mapsto x^2$ sur $[0, t]$, nous la déterminons ainsi :
+				Si nous désirons trouver l'aire sous la courbe de $x \mapsto x^2$ sur $[0, t]$, nous la déterminons ainsi~:
 
 				\[\begin{aligned}
 					\int_0^tx^2\dif x &= \lim_{n \to \infty}\sum_{i=1}^n(x_i-x_{i-1})(x_{i-1})^2 = \lim_{n \to \infty}\sum_{i=1}^n\frac tn\left(t\frac {i-1}{n}\right)^2 =
@@ -292,20 +295,17 @@
 				entre dérivation et intégration.
 
 				Soit $F(x)$, une fonction réelle définie par $F(x) = \int_a^xf(t)\dif t$ telle que $f$ est une fonction réelle continue. Admettons que
-				$F(x)$ est dérivable sur l'intégralité de son domaine. Nous pouvons donc déterminer sa dérivée comme étant l'accroissement instantané :
-
+				$F(x)$ est dérivable sur l'intégralité de son domaine. Nous pouvons donc déterminer sa dérivée comme étant l'accroissement instantané~:
 				\[F'(x) = \lim_{h \to 0}V_F(x, h) = \lim_{h \to 0}\frac {F(x+h) - F(x)}{h} = \lim_{h \to 0} \frac 1h\int_x^{x+h}f(t)\dif t\]
 
 				Ce que représente $\int_x^{x+h}f(t)\dif t$ est l'aire en dessous de la courbe de $f$ entre les points d'abscisse $x$ et $x+h$.
 				$h$ étant tout petit (tendant vers l'infini), nous pouvons approximer $f(t)$ constant entre $x$ et $x+h$. L'aire représentée par
-				l'intégrale est donc $\simeq hf(x)$. Nous pouvons donc poursuivre le calcul de la dérivée de $F$ :
-
+				l'intégrale est donc $\simeq hf(x)$. Nous pouvons donc poursuivre le calcul de la dérivée de $F$~:
 				\[F'(x) = \lim_{h \to 0} \frac 1h\int_x^{x+h}f(t)\dif t = \lim_{h \to 0} \frac 1hhf(x) = f(x)\]
 
-				Nous avons donc $F(x) = \int_a^xf(t)\dif t$ et $f = F'(x)$. Nous pouvons dès à présent énoncer une première version du théorème :
+				Nous avons donc $F(x) = \int_a^xf(t)\dif t$ et $f = F'(x)$. Nous pouvons dès à présent énoncer une première version du théorème~:
 
 				\textit{Soit $f : \R \to \R$, une fonction continue sur $\R$, alors la fonction $F(x)$ définie par}
-
 				\[F(x) = \int_a^xf(t)\dif t\]
 
 				\textit{est dérivable sur l'intégralité de son domaine tel que $F'(x) = f(x)$.}
@@ -315,25 +315,24 @@
 				$f : \R \to \R$ dérivable en tout point de son domaine, nous pouvons considérer l'intégrale de $a$ en $b$ de $f'(x)$
 				comme étant la somme des variations instantanées de $f$ sur l'intervalle $[a, b]$. Tentons maintenant de définir plus précisément
 				ce que vaut cette intégrale.
-
 				\[\int_a^bf'(t)\dif t = \lim_{n \to \infty}\sum_{i=1}^n\frac {b-a}{n}f'(x_{i-1})\]
 
-				\paragraph{Rappel} Au point 1.1.1., nous avons vu l'approximation suivante : $f(a+h) \simeq f(a) + f'(a)h$. En réorganisant cette
+				\paragraph{Rappel} Au point 1.1.1., nous avons vu l'approximation suivante~: $f(a+h) \simeq f(a) + f'(a)h$. En réorganisant cette
 				approximation, nous avons $f'(a)h \simeq f(a+h) - f(a)$. Dans notre cas, si nous posons $h = \frac {b-a}{n}$, nous pouvons poursuivre
 				notre intégrale.
-
-				\[\begin{aligned}
-					\int_a^bf'(t)\dif t &= \lim_{n \to \infty}\sum_{i=1}^nhf'(x_{i-1}) =  \lim_{n \to \infty}\sum_{i=1}^nf(x_{i-1} + h) - f(x_i) \\
-										&=  \lim_{n \to \infty}f(x_n) - f(x_0) = f(b) - f(a)
-				\end{aligned}\]
+				\[
+					\begin{aligned}
+						\int_a^bf'(t)\dif t &= \lim_{n \to \infty}\sum_{i=1}^nhf'(x_{i-1}) =  \lim_{n \to \infty}\sum_{i=1}^nf(x_{i-1} + h) - f(x_i) \\
+											&=  \lim_{n \to \infty}f(x_n) - f(x_0) = f(b) - f(a)
+					\end{aligned}
+				\]
 
 				Nous avons considéré cette intégrale comme étant la somme des variations instantanées de $f$ entre $a$ et $b$, et le résultat de
 				ce développement est que la somme des variations instantanées est égale à la variation totale pour aller de $a$ à $b$.
 
-				Le théorème peut donc être exprimé d'une deuxième manière :
+				Le théorème peut donc être exprimé d'une deuxième manière~:
 
 				\textit{Soit $f : \R \to \R$, une fonction réelle dérivable, alors}
-
 				\[\int_a^bf'(t)\dif t = f(b) - f(a).\]
 
 	\subsection{Primitives}
@@ -349,32 +348,30 @@
 
 			\paragraph{Produit}
 				Tout comme $(fg)'(x) \neq f'(x)g'(x)$, $\int (fg)(x)\dif x \neq \int f(x)\dif x \int g(x) \dif x$. Pour réussir à intégrer un
-				produit, il faut partir de la règle de Leibniz pour la dérivation :
-
-				\[\begin{aligned}
-					(fg)'(x) &= f'(x)g(x) + f(x)g'(x) \\
-					\int_a^b (fg)'(x) \dif x &= \int_a^b (f'(x)g(x) + f(x)g'(x)) \dif x \\
-					[(fg)(x)]_a^b &= \int_a^b (f'(x)g(x) + f(x)g'(x)) \dif x \\
-					[(fg)(x)]_a^b &= \int_a^b f'(x)g(x) \dif x + \int_a^b f(x)g'(x) \dif x \\
-					\int_a^b f'(x)g(x) \dif x &= [(fg)(x)]_a^b - \int_a^b f(x)g'(x) \dif x
-				\end{aligned}\]
+				produit, il faut partir de la règle de Leibniz pour la dérivation~:
+				\[
+					\begin{aligned}
+						(fg)'(x) &= f'(x)g(x) + f(x)g'(x) \\
+						\int_a^b (fg)'(x) \dif x &= \int_a^b (f'(x)g(x) + f(x)g'(x)) \dif x \\
+						[(fg)(x)]_a^b &= \int_a^b (f'(x)g(x) + f(x)g'(x)) \dif x \\
+						[(fg)(x)]_a^b &= \int_a^b f'(x)g(x) \dif x + \int_a^b f(x)g'(x) \dif x \\
+						\int_a^b f'(x)g(x) \dif x &= [(fg)(x)]_a^b - \int_a^b f(x)g'(x) \dif x
+					\end{aligned}
+				\]
 
 				Il faut donc, pour pouvoir intégrer un produit, considérer un des deux facteurs comme étant une dérivée (qu'il faudra donc
 				intégrer pour avancer).
 
 			\paragraph{Composition}
 				La règle \textit{d'intégration en chaine} est également appelée \textit{changement de variable}. Elle peut être exprimée comme
-				suit. Soient $f$ et $g$, deux fonctions continûment dérivables, $g(\alpha) = a$ et $g(\beta) = b$, alors :
-
+				suit. Soient $f$ et $g$, deux fonctions continûment dérivables, $g(\alpha) = a$ et $g(\beta) = b$, alors~:
 				\[\int_a^bf(x)\dif x = \int_\alpha^\beta f(g(t))g'(t)\dif t.\]
 
 				Cela veut dire qu'une intégration peut être résolue en \textit{transformant} l'intégrale de manière à faire apparaitre une
-				composition. La justification de cette formule peut être donnée comme suit :
-
+				composition. La justification de cette formule peut être donnée comme suit~:
 				\[(F(g(t)))'(x) = F'(g(t))g'(t) = f(g(t))g'(t)\]
 
-				Donc
-
+				Donc~:
 				\[\int_\alpha^\beta f(g(t))g'(t) \dif t = F(g(\beta)) - F(g(\alpha)) = F(b) - F(a) = \int_a^bf(t)\dif t.\]
 
 	\subsection{Les équation différentielles}
@@ -383,34 +380,29 @@
 		\subsubsection{équation différentielle linéaire d'ordre 1}
 			Comme le dit la pseudo-définition ci-dessus, une équadiff est une équation où l'inconnue est une fonction. Le cas de $F = \int_a^xf(t)\dif t$
 			est un cas particulier d'une grande famille d'équadiffs que l'on appelle \textit{équation différentielle linéaire d'ordre 1}.
-			Cette famille est caractérisée par la forme suivante :
-
+			Cette famille est caractérisée par la forme suivante~:
 			\[f'(x) + p(x)f(x) = q(x).\]
 
 			Une manière de résoudre une telle équation est de déterminer une fonction auxiliaire $a(x)$ que l'on va multiplier de part et d'autre
-			de l'égalité :
-
+			de l'égalité~:
 			\[a(x)f'(x) + a(x)p(x)f(x) = q(x)a(x)\]
 
 			Le but de cette manipulation est de pouvoir faire ressortir $a(x)f'(x) + a'(x)f(x)$, ce qui est égal à $(af)'(x)$. Cependant, pour cela,
-			il faut choisir $a(x)$ telle que $a'(x) = a(x)p(x)$. Il existe une solution :
-
+			il faut choisir $a(x)$ telle que $a'(x) = a(x)p(x)$. Il existe une solution~:
 			\[a(x) : x \mapsto e^{\int p(x)\dif x}\]
 
 			Maintenant que nous avons cette fonction, il suffit de résoudre $(af)'(x) = (aq)(x)$. Si $(aq)$ est continue, le théorème fondamental de
 			l'analyse assure l'existence d'une primitive $b(x) = \int a(x)q(x)\dif x$. À présent, nous savons que si $(af)'(x) = (aq)(x)$, alors
 			$(af)(x) = b(x)$, ou encore $f(x) = \frac {b(x)}{a(x)}$.
 
-			Nous avons donc une solution à l'équation de départ :
-
+			Nous avons donc une solution à l'équation de départ~:
 			\[f(x) = \frac {\int \left(e^{\int p(x)\dif x}\right)q(x)\dif x}{e^{\int p(x)\dif x}}.\]
 
 		\subsubsection{Unicité de la solution et problème de Cauchy}
 			Lorsque l'on \textit{transforme} le problème initial (équadiff linéaire d'ordre 1) en un problème conditionné (en précisant
 			$f(x_0) = y_0$), nous limitons le nombre de solutions à 1. Si nous avons deux fonctions $f_1$ et $f_2$, solutions d'une équadiff linéaire
 			d'ordre 1, et que nous définissons une autre fonction $g$ telle que $g(x) = (f_1 - f_2)(x)$, ladite fonction $g$ est une solution de
-			l'équation suivante :
-
+			l'équation suivante~:
 			\[g'(x) + p(x)g'(x) = 0\]
 
 			respectant, de plus $g(x_0) = 0$.
@@ -423,101 +415,94 @@
 			est la fonction nulle). Il existe donc \textbf{une et une seule} solution à l'équadiff linéaire d'ordre 1 conditionnée (problème de Cauchy).
 
 		\subsubsection{équadiffs linéaire d'ordre 2 à coefficients constants}
-			Une équadiff d'ordre 2 est sous la forme suivante :
-
+			Une équadiff d'ordre 2 est sous la forme suivante~:
 			\[\od[2]{}{x}f(x) + a\od{}{x}f(x) + bf(x) = 0\]
 
 			avec deux paramètres réels $a, b \in \R$. Le terme \textit{linéaire} vient du fait que si $f_1, f_2 \in \R^{\R}$ sont deux solutions de
 			cette équation, alors $c_1f_1 + c_2f_2$ en est également une (avec $C_1, C_2 \in \R$). Le fait que cette équation soit d'ordre 2 veut également
 			dire que l'ensemble des solutions est un espace vectoriel de dimension 2.
 
-			Pour résoudre une telle équation, il faut d'abord passer par ce que l'on appelle l'\textit{équation caractéristique}. Cette équation est la suivante :
-
+			Pour résoudre une telle équation, il faut d'abord passer par ce que l'on appelle l'\textit{équation caractéristique}. Cette équation est la suivante~:
 			\[\lambda^2 + a\lambda + c = 0.\]
 
-			Cette équation étant du second degré, il faut séparer trois cas possibles :
+			Cette équation étant du second degré, il faut séparer trois cas possibles~:
 			\begin{itemize}
-				\item l'équation admet deux solutions réelles distinctes $\lambda_1$ et $\lambda_2$ ;
-				\item l'équation admet une seule solution réelle $\lambda$ ;
+				\item l'équation admet deux solutions réelles distinctes $\lambda_1$ et $\lambda_2$~;
+				\item l'équation admet une seule solution réelle $\lambda$~;
 				\item l'équation n'admet aucune solution réelle.
 			\end{itemize}
 
-			Dans le premier cas (deux solutions distinctes), l'équation différentielle peut être réécrite sous la forme factorisée suivante :
-
+			Dans le premier cas (deux solutions distinctes), l'équation différentielle peut être réécrite sous la forme factorisée suivante~:
 			\[\left(\od{}{x} - \lambda_1\right)\left(\od{}{x} - \lambda_2\right)f = 0.\]
 
 			Les solutions $f_1(x) = e^{\lambda_1 x}$ et $f_2(x) = e^{\lambda_2 x}$ sont possible à \textit{deviner}. le principe de linéarité exprimé juste au-dessus
 			permet d'affirmer donc que $f(x) = C_1e^{\lambda_1 x} + C_2e^{\lambda_2 x}$ représente la famille des solutions paramétrées par $C_1$ et $C_2$.
 
-			Dans le second cas (solution unique), l'équadiff peut être réécrite sous la forme factorisée suivante :
-
+			Dans le second cas (solution unique), l'équadiff peut être réécrite sous la forme factorisée suivante~:
 			\[\left(\od{}{x} - \lambda\right)^2f = \od[2]{}{x}f + \lambda^2f - 2\lambda\od{}{x}f = 0.\]
 
 			En posant $g(x) = \od{}{x}f(x) - \lambda f(x)$, nous avons $\od{}{x}g(x) = \od[2]{}{x}f(x) - \lambda\od{}{x}f(x)$. Cela nous permet de réécrire (encore une
-			fois l'équadiff sous la forme suivante :
-
+			fois l'équadiff sous la forme suivante~:
 			\[\od[2]{}{x}f(x) - \lambda\od{}{x}f(x) - \lambda\left(\lambda\od{}{x}f(x) - \lambda f(x)\right) = \od{}{x}g(x) - \lambda(g(x)) = 0.\]
 
 			La solution est $g(x) = Ke^{\lambda x}$. Or $g(x) = \od{}{x}f(x) - \lambda f(x)$. Donc il faut encore résoudre l'équation à l'aide de la méthode vue ci-dessus
-			(ordre 1) afin de trouver la solution suivante. La solution finale est :
-
+			(ordre 1) afin de trouver la solution suivante. La solution finale est~:
 			\[f(x) = \frac {\int \left(e^{\int p(x) \dif x}\right) q(x) \dif x}{e^{\int p(x) \dif x}}\]
 
-			avec $p(x) = -\lambda$ et $q(x) = g(x) = K_1e^{\lambda x}$. D'où :
-
-			\[f(x) = \frac {\int \left(e^{\int -\lambda \dif x}\right) K_1e^{\lambda x} \dif x}{e^{\int -\lambda x \dif x}}
-			= \frac {\int K_2e^{-\lambda x}K_1e^{\lambda x} \dif x}{K_3e^{-\lambda x}} =
-					 \left(K\int\dif x\right)e^{\lambda x}K_3^{-1} = K_3^{-1}K(x + C)e^{\lambda x} = (C_1x + C_2)e^{\lambda x}.\]
+			avec $p(x) = -\lambda$ et $q(x) = g(x) = K_1e^{\lambda x}$. D'où~:
+			\[
+				f(x) = \frac {\int \left(e^{\int -\lambda \dif x}\right) K_1e^{\lambda x} \dif x}{e^{\int -\lambda x \dif x}}
+				     = \frac {\int K_2e^{-\lambda x}K_1e^{\lambda x} \dif x}{K_3e^{-\lambda x}}
+				     = \left(K\int\dif x\right)e^{\lambda x}K_3^{-1} = K_3^{-1}K(x + C)e^{\lambda x} = (C_1x + C_2)e^{\lambda x}.
+			\]
 
 			Dans le dernier cas, l'équation caractéristique n'a pas de solution réelle. Il faut donc aller chercher du côté des nombres complexes. Les coefficients
 			étant réels, les deux solutions complexes doivent être conjuguées l'une de l'autre (si $z = \alpha + \beta i$ et $\overline z = \alpha - \beta i$, alors
-			$z\overline z = \alpha^2 + \beta^2 \in \R$ et $z + \overline z = 2\beta \in \R$). L'équadiff devient donc :
-
+			$z\overline z = \alpha^2 + \beta^2 \in \R$ et $z + \overline z = 2\beta \in \R$). L'équadiff devient donc~:
 			\[\left(\od{}{x} - z\right)\left(\od{}{x} - \overline z\right)f = 0.\]
 
 			L'équation ressemble fortement à celle du premier cas, donc la solution générale est $f(x) = b_1e^{zx} + b_2e^{\overline z x}$ avec $b_1, b_2 \in \mathbb C$.
 			Cependant, comme $\exp(zx) = \exp(\alpha x + i\beta x) = e^{\alpha x} \exp(i\beta x) = e^{\alpha x}(\cos(\beta x) + i\sin(\beta x))$ (et donc
 			$\exp(\overline z) = e^{\alpha x}(\cos(\beta x) - i\sin(\beta x))$), en choisissant respectivement $b_1 = b_2 = \frac 12$ et $b_1 = -b_2 = -\frac i2$,
 			on obtient respectivement $f(x) = e^{\alpha x}\cos(\beta x)$ et $f(x) = e^{\alpha x}\sin(\beta x)$. Nous avons donc deux solutions, et à nouveau, par
-			linéarité, nous pouvons exprimer la famille des solutions paramétrée par $C_1, C_2 \in \R$ :
-
+			linéarité, nous pouvons exprimer la famille des solutions paramétrée par $C_1, C_2 \in \R$~:
 			\[f(x) = C_1e^{\alpha x}\cos(\beta x) + C_2e^{\alpha x}\sin(\beta x).\]
 
 			Ici, notre solution ne fait plus intervenir quoi que ce soit de complexe ($\in \mathbb C$), tous les coefficients sont réels ($\alpha$ et $\beta$ sont des
 			\textit{constantes} dépendantes de l'équation caractéristique).
 
 		\subsubsection{équations de Newton}
-			Après avoir étudié des équations linéaires, regardons une autre famille d'équations : les \textbf{équations de Newton}. Cette famille est représentée
-			par la forme suivante :
-
+			Après avoir étudié des équations linéaires, regardons une autre famille d'équations~: les \textbf{équations de Newton}. Cette famille est représentée
+			par la forme suivante~:
 			\[\od[2]{}{t}x(t) = f(x(t))\]
 
 			avec $x : \R \to \R : t \mapsto x(t)$, l'inconnue et $f$, la fonction \textbf{continue} de \textit{force}. Une telle équation représente
 			la position $x(t)$ en fonction du temps d'un mobile (de masse unitaire) soumis à une force $f$ dépendant de la position. Si on multiplie l'équation
 			de part et d'autre par la quantité $x'(t)$, on obtient
-
 			\[x^{(2)}(x)x'(t) - f(x(t))x'(t) = 0\]
 
 			Ce que l'on peut intégrer afin d'avoir
-
 			\[\frac 12(x'(t))^2 - F(x(t)) - K = 0,\]
 
 			avec $F$, une primitive de $f$, ou encore
-
 			\[(x'(t))^2 - 2F(x(t)) = E\]
 
 			avec $E$, la constante d'intégration. Si l'équation différentielle est conditionnée (problème de Cauchy) telle que $x(0) = x_0$ et $x'(0) = v_0$, alors
 			une solution pour cette équation est $x'(t) = \sqrt{E_0 + 2F(x(t))}$ avec $E_0 = v_0^2 - 2F(x_0)$.
 
-				\paragraph{Exemple : les équations de Fisher} Les équations de Fisher sont sous la forme suivante : $u''(t) = (u - u^3)(t)$. La fonction $f$ de force
+				\paragraph{Exemple~: les équations de Fisher} Les équations de Fisher sont sous la forme suivante~: $u''(t) = (u - u^3)(t)$. La fonction $f$ de force
 				est ici $f : \R \to \R : u(t) \mapsto u(t) - u^3(t)$, et a pour primitive $F : \R \to \R : \frac 12u^2(t) - \frac 14u^4(t) + C$.
 				Pour des raisons de simplicité, ici, $C$ se verra attribuer la valeur $-\frac 14$. Donc $F(u(t)) = -\frac 14(u^2(t) - 1)^2$.
 
-				Étant donné les solutions constantes à l'équation $u : t \mapsto K_u$ avec $K_u \in \{-1, 0, 1\}$, nous cherchons $u$ telle que \\
-				$\lim_{t \to \pm \infty}u(t) = \pm 1$ et $\lim_{t \to \pm\infty}u'(t) = 0$. L'intégration première nous donne $u'(t)^2 = \frac 12(u^2(t) - 1)^2$,
-				ou encore \\$u'(t) = \frac {\sqrt{2}}{2}(u^2(t) - 1)$.
+				Étant donné les solutions constantes à l'équation $u : t \mapsto K_u$ avec $K_u \in \{-1, 0, 1\}$, nous cherchons $u$ telle que~:
+				\[\lim_{t \to \pm \infty}u(t) = \pm 1,\]
+				et~:
+				\[\lim_{t \to \pm\infty}u'(t) = 0.\]
+				
+				L'intégration première nous donne $u'(t)^2 = \frac 12(u^2(t) - 1)^2$, ou encore~:
+				\[u'(t) = \frac {\sqrt{2}}{2}(u^2(t) - 1).\]
 
-				Dans les intervalles de temps tels que $u'(t) > 0$ et $-1 \neq u(t) \neq 1$, nous avons :
+				Dans les intervalles de temps tels que $u'(t) > 0$ et $-1 \neq u(t) \neq 1$, nous avons~:
 
 				\[\begin{aligned}
 					\int_{t_0}^t \frac {1}{u^2 - 1}\dif u &= \int_{t_0}^t \frac {\sqrt{2}}{2} = \frac{\sqrt{2}}{2} (t - t_0) \\
@@ -537,12 +522,13 @@
 		La longueur de l'escalier est donc $\frac {2N}{N}$, ou encore 2. Alors que le théorème de Pythagore nous dit que l'hypoténuse est de longueur
 		$\sqrt 2$.
 
+\newpage
 \section{Les nombres réels}
 	Le traitement de l'analyse peut être très puissant, cependant comme vu ci-dessus, un manque de rigueur peut amener à des contradictions voire à
 	des résultats insensés. C'est pour cette raison qu'il faut instaurer cette rigueur dès les notions élémentaires telles que les nombres.
 
 	\subsection{Axiomatique des nombres}
-		\paragraph{Rappel} Les nombres sont organisés de la sorte : $\N \subset \mathbb Z\subset \mathbb Q \subset \R$.
+		\paragraph{Rappel} Les nombres sont organisés de la sorte~: $\N \subset \mathbb Z\subset \mathbb Q \subset \R$.
 
 		Il faut savoir que chaque ensemble est défini selon des axiomes, et que c'est à partir de ces axiomes et de déductions logiques que sont
 		construits les ensembles \textit{plus gros}. Ici, les axiomes correspondant aux ensembles $\N, \mathbb Z$ et $\mathbb Q$ sont considérés
@@ -555,25 +541,25 @@
 
 			De manière similaire, on dit que $A$ est minoré $\iff \exists m \in \R | \forall a \in A, a \geq m$.
 
-			\paragraph{Remarque} Le minorant/majorant ne doit pas nécessairement appartenir à $A$.
+			\begin{rmq} Le minorant/majorant ne doit pas nécessairement appartenir à $A$. \end{rmq}
 
 			\begin{enumerate}
 				\item $\R$ est un \textit{corps}
 					\begin{itemize}
 						\item $(\R, +)$ est un \textit{groupe commutatif}, donc la loi d'addition satisfait les conditions
-							  suivantes : associativité, commutativité, existence d'un élément neutre et existence d'un inverse ;
-						\item $(\R \backslash \{0\}, .)$ est un \textit{groupe commutatif} ;
+							  suivantes~: associativité, commutativité, existence d'un élément neutre et existence d'un inverse~;
+						\item $(\R \backslash \{0\}, .)$ est un \textit{groupe commutatif}~;
 						\item La multiplication est distributive sur l'addition.
 					\end{itemize}
 				\item $(\R, \leq)$ est un corps entièrement ordonné
 					\begin{itemize}
-						\item la relation d'ordre $\leq$ satisfait les propriétés suivantes : réflexivité, transitivité, antisymétrie
-							  et ordre total ;
-						\item $a \leq b \Rightarrow a + z \leq b + z \, \forall z \in \R$ ;
+						\item la relation d'ordre $\leq$ satisfait les propriétés suivantes~: réflexivité, transitivité, antisymétrie
+							  et ordre total~;
+						\item $a \leq b \Rightarrow a + z \leq b + z \, \forall z \in \R$~;
 						\item $a, b \leq 0 \Rightarrow ab \geq 0$.
 					\end{itemize}
 				\item $\R$ satisfait l'axiome de complétude. C'est cet axiome qui différencie grandement $\R$ de
-					  $\mathbb Q$. Cet axiome de complétude dit ceci :
+					  $\mathbb Q$. Cet axiome de complétude dit ceci~:
 
 					  \begin{itemize}
 						\item $\forall A \subset \R$, si $A$ est non-vide et majoré, alors $A$ possède un majorant minimum appelé
@@ -585,7 +571,7 @@
 					  Et l'ensemble des rationnels $\mathbb Q$ ne respecte pas cet axiome.
 			\end{enumerate}
 
-		\subsubsection{Résultat de l'axiome : les racines}
+		\subsubsection{Résultat de l'axiome~: les racines}
 			Commençons par énoncer la propriété d'Archimède qui dit que $\forall y\in \R, \exists n \in \N \, | \, n > y$.
 			La preuve de ce principe fait intervenir la notion de majorant vue ci-dessus.
 
@@ -594,8 +580,8 @@
 			Comme $s \in S$, $s - 1$ n'est pas un majorant de $S$, $\Rightarrow \exists m \in S \, | \, s - 1 < m$, ou encore $m + 1 > s$. Or $s$
 			majore $S$ donc $m + 1 \not \in S$. Si $m + 1 \not \in S$, alors $m+1 > y$. Donc $n = m + 1$ est le nombre naturel recherché.
 
-			S'en suit le corollaire suivant : $\forall y \in \R^+, \exists n \in \N \, | \, y > \frac 1n$. La preuve repose sur le lemme
-			précédent : soient $y \in \R^+, x = \frac 1y$. Le lemme d'Archimède dit qu'$\exists n \in \N \, | \, x < n$. Donc
+			S'en suit le corollaire suivant~: $\forall y \in \R^+, \exists n \in \N \, | \, y > \frac 1n$. La preuve repose sur le lemme
+			précédent~: soient $y \in \R^+, x = \frac 1y$. Le lemme d'Archimède dit qu'$\exists n \in \N \, | \, x < n$. Donc
 			$\frac 1y < n$, ou encore $\frac 1n < y$. Il faut effectivement $y > 0$ car sinon lors de la dernière étape, nous avons $\frac 1n > y$,
 			ce qui n'est pas possible pour $n \in \N$.
 
@@ -616,17 +602,16 @@
 			ou encore $y^2 \geq x_n^2 > N$, ce qui n'est pas possible car $y \in S \Rightarrow y^2 \leq N$.
 
 			Donc si $x^2 \not < N$ et $x^2 \not > N$, alors $x^2 = N$. De plus, nous avons une définition d'une racine carrée (que l'on peut étendre à
-			la racine $n^e$) :
-
+			la racine $n^e$)~:
 			\[x^\frac 1n = \sqrt[n] x = \sup \{y \in \R^+ \, | \, y^n \leq x\}.\]
 
-			\paragraph{Lemme} Il s'en déduit que $\forall q = \frac mn \in \mathbb Q, x^q = (x^{\frac 1n})^m$.
+			\begin{lem} Il s'en déduit que $\forall q = \frac mn \in \mathbb Q, x^q = (x^{\frac 1n})^m$. \end{lem}
 
-			\paragraph{Remarque} Ici, les puissances irrationnelles ne sont pas définies. Une telle définition viendra par la suite.
+			\begin{rmq} Ici, les puissances irrationnelles ne sont pas définies. Une telle définition viendra par la suite. \end{rmq}
 
 	\subsection{Densité des rationnels}
 		Nous avons vu l'ensemble $\R$ et sa partie rationnelle ($\mathbb Q$). Cependant, quelle est la proportion de ces nombres rationnels
-		et donc quelle est la proportion de nombres irrationnels étant donné le résultat suivant : $\forall x < y \in \R, \exists q \in \mathbb Q \, | \, x < q < y$ ?
+		et donc quelle est la proportion de nombres irrationnels étant donné le résultat suivant~: $\forall x < y \in \R, \exists q \in \mathbb Q \, | \, x < q < y$ ?
 
 		Commençons par prouver ce résultat. Séparons le problème en deux: le cas où $y - x > 1$ et le cas où $x < y$ quelconque. Dans le premier cas,
 		$\exists n \in \N \, | \, n > x$ où $n$ est le plus petit entier plus grand que $x$. On en déduit que $n-1 \leq x$, ou encore
@@ -642,21 +627,22 @@
 		il faut $|x| \leq |y|$. Donc $|a + b| \leq ||a| + |b|| = |a| + |b|$.
 
 		De manière similaire, on peut dire que $\forall x, y \in \R, |x - y| \geq |x| - |y|$. Il suffit pour le prouver de poser $x = a - b$ et $y = b$.
-		De là, le lemme précédent s'applique de manière à ce que $|a| \leq |a - b| + |b|$, ce qui peut se réécrire comme suit : $|a - b| \geq |a| - |b|$.
+		De là, le lemme précédent s'applique de manière à ce que $|a| \leq |a - b| + |b|$, ce qui peut se réécrire comme suit~: $|a - b| \geq |a| - |b|$.
 
 	\subsection{Autres corps}
 		Avant tout, il faut définir ce qu'est un corps.
 
-		L'ensemble $\mathbb K$ est un corps si, muni des opérations d'addition et de produit, il respecte les trois propriétés suivantes :
+		L'ensemble $\mathbb K$ est un corps si, muni des opérations d'addition et de produit, il respecte les trois propriétés suivantes~:
 		\begin{itemize}
-			\item $(\mathbb K, +)$ est un groupe commutatif ;
-			\item $(\mathbb K \backslash \{0\}, .)$ est un groupe commutatif ;
+			\item $(\mathbb K, +)$ est un groupe commutatif~;
+			\item $(\mathbb K \backslash \{0\}, .)$ est un groupe commutatif~;
 			\item le produit est distributif sur l'addition.
 		\end{itemize}
 
 		C'est principalement le corps des nombres réels qui sera étudié dans ce cours, cependant il en existe plein d'autres.
 
-\section{Les séries}
+\newpage
+\section{Les suites}
 	Après avoir utilisé la notion de « limite » pour \textit{définir} les notions de dérivée et d'intégrale, il est nécessaire de définir précisément
 	cette notion de limite (ou de \textit{convergence}).
 
@@ -665,8 +651,7 @@
 
 	\subsection{Convergence et divergence}
 		On dit d'une suite $(x_n)$ qu'elle converge en $a \in \R \iff \forall \epsilon > 0, \exists N \in \N \, | \, n \geq N \Rightarrow |x_n - a| < \epsilon$.
-		Cela se note
-
+		Cela se note~:
 		\[\lim_{n \to \infty}x_n = a.\]
 
 		Il reste cependant à prouver qu'une suite convergente n'a qu'une seule limite. Pour ce faire, procédons par l'absurde. Supposons que
@@ -676,8 +661,8 @@
 		et $N = \max\{N_1, N_2\}$, l'inégalité triangulaire dit que $|a - x_N + x_N - b| \leq |a - x_N| + |x_N - b| < 2\epsilon$. Donc $|a - b| < |a - b|$.
 		L'hypothèse disant $\epsilon > 0$ est fausse, ce qui implique $\epsilon = 0$, ou encore $a = b$.
 
-		Pour définir une convergence en l'infini positif, on procède de la sorte : $\lim_{n\to\infty} x_n = \infty \iff \forall K \in \R^+, \exists N \in \N \, | \, n \geq N \Rightarrow x_n > K$.
-		De manière similaire, pour l'infini négatif : $\lim_{n\to\infty}x_n = -\infty \iff \forall K \in \R^+, \exists N \in \N \, | \, n \geq N \Rightarrow x_n < K$.
+		Pour définir une convergence en l'infini positif, on procède de la sorte~: $\lim_{n\to\infty} x_n = \infty \iff \forall K \in \R^+, \exists N \in \N \, | \, n \geq N \Rightarrow x_n > K$.
+		De manière similaire, pour l'infini négatif~: $\lim_{n\to\infty}x_n = -\infty \iff \forall K \in \R^+, \exists N \in \N \, | \, n \geq N \Rightarrow x_n < K$.
 
 		On dit d'une suite qui ne converge en aucun réel qu'elle est divergente ($\infty \not \in \R$ !).
 
@@ -688,11 +673,11 @@
 			Donc $|x_n| = |x_n - a + a| \leq |x_n - a| + |a| < \epsilon + |a|$. Autrement dit, à partir de $n = N$, $(x_n)$ est borné par $\epsilon + |a|$.
 			Il reste donc un nombre fini d'éléments à traiter. Donc $K = \max \{|x_0|, ..., |x_{N-1}|, \epsilon + |a|\}$ borne l'entièreté de $(x_n)$.
 
-			De plus, les opérations sur suites sont définies telles que, pour $(x_n)$ et $(y_n)$ convergentes respectivement en $a$ et $b$ :
+			De plus, les opérations sur suites sont définies telles que, pour $(x_n)$ et $(y_n)$ convergentes respectivement en $a$ et $b$~:
 
 			\begin{itemize}
-				\item $(x_n + y_n)$ est convergente en $a + b$ ;
-				\item $(x_ny_n)$ est convergente en $ab$ ;
+				\item $(x_n + y_n)$ est convergente en $a + b$~;
+				\item $(x_ny_n)$ est convergente en $ab$~;
 				\item $b \neq 0 \Rightarrow (\exists M \, | \, n \geq M \Rightarrow y_n \neq 0) \land (x_n/y_n)_{n \geq M}$ est convergente en $\frac ab$.
 			\end{itemize}
 
@@ -704,18 +689,17 @@
 			\paragraph{Produit de suites} La suite $(x_ny_n)$ est bornée, donc $\exists K \, | \, |x_n| \leq K$. Donc $|x_ny_n - ab| = |x_n(y_n - b) - b(x_n - a)|$.
 			Autrement dit, $|x_ny_n - ab| \leq |x_n||y_n - b| + |b||x_n - a| = K|y_n - b| + |b||y_n - b|$.
 			Avec $\epsilon > 0$, $\exists N_1 \, | \, \forall n \geq N_1, |y_n - b| < \frac {\epsilon}{2K}$ et $\exists N_2 \, | \, \forall n \geq N_2, |x_n - a| l \frac {\epsilon}{|b| + 1}$
-			(il faut mettre $|b| + 1$ dans le cas où $b = 0$. Avec $N = \max \{N_1, N_2\}$, $\forall n \geq N$, on a :
-
+			(il faut mettre $|b| + 1$ dans le cas où $b = 0$. Avec $N = \max \{N_1, N_2\}$, $\forall n \geq N$, on a~:
 			\[|x_ny_n - ab| \leq K|y_n - b| + |b||x_n - a| < \frac \epsilon2 + \frac \epsilon2 = \epsilon.\]
 
 			\paragraph{Quotient de suites} En prouvant que $(\frac {1}{y_n}) \to \frac 1b$, le quotient découle du produit.
 			Soit $\epsilon = \frac {|b|}{2} > 0$, $\exists M \, | \, n \geq M \Rightarrow |y_n - b| < \epsilon$. Donc, par l'inégalité triangulaire,
 			$|y_n| \geq |b| - |y_n - b| > |b| - \epsilon = \frac {|b|}{2}$. La suite $(y_n)_{n \geq M}$ est bien définie.Maintenant prouvons sa
-			convergence en $\frac 1b$ :
-
+			convergence en $\frac 1b$~:
 			\[\left|\frac {1}{y_n} - \frac 1b\right| = \left|\frac {b - y_n}{by_n}\right| \leq \frac {2}{|b|^2}|b - y_n|.\]
 
-			Pour $\epsilon > 0$ fixé, $\exists N \geq M \, | \, \forall n \geq N, |y_n - b| < \frac {|b|^2}{2}\epsilon$. Donc $|\frac {1}{y_n} - \frac 1b| < \frac {2}{|b|^2}\frac {|b|^2}{2}\epsilon = \epsilon$.
+			Pour $\epsilon > 0$ fixé, $\exists N \geq M \, | \, \forall n \geq N, |y_n - b| < \frac {|b|^2}{2}\epsilon$.
+			Donc $|\frac {1}{y_n} - \frac 1b| < \frac {2}{|b|^2}\frac {|b|^2}{2}\epsilon = \epsilon$.
 
 			\paragraph{Exemple du quotient de polynômes de degré $k$} Soient $a_i, b_i \in \R$ avec $0 \leq i \leq k$. La suite $(x_n)$ définie par
 			$x_n = \frac {\sum_{i = 0}^ka_in^i}{\sum_{i = 0}^kb_in^i}$ converge en $\frac {a_k}{b_k}$. Pour le prouver, il faut diviser le numérateur
@@ -725,7 +709,9 @@
 			\paragraph{Théorème du sandwich} Soient $(a_n)$ et $(b_n)$, deux suites réelles convergentes vers $l$. Si $(x_n)$ est une suite satisfaisant
 			$a_n \leq x_n \leq b_n \forall n \geq N_0$, alors $x_n \to l$.
 
-			Soit $\epsilon > 0$. Par définition, $\exists N_1, N_2 \, | \, (n \geq N_1 \Rightarrow |a_n - l| < \epsilon) \land (n \geq N_2 \Rightarrow |b_n - l| < \epsilon)$.
+			Soit $\epsilon > 0$. Par définition, on sait~:
+			\[\exists N_1, N_2 \, | \, (n \geq N_1 \Rightarrow |a_n - l| < \epsilon) \land (n \geq N_2 \Rightarrow |b_n - l| < \epsilon).\]
+			
 			Donc $\forall n \geq N = \max \{N_0, N_1, N_2\}, -\epsilon < a_n - l \leq x_n - l \leq b_n - l < \epsilon$. Autrement dit, $|x_n - l| < \epsilon$.
 
 			Il en découle un corollaire disant que si $(y_n)$ est une suite bornée (pas forcément convergente) et $z_n \to 0$, alors $y_nz_n \to 0$. Pour le prouver,
@@ -740,10 +726,10 @@
 			\paragraph{Suites convergentes en 0} Les suites suivantes convergent en 0, la plupart se démontrent avec le binôme de Newton et/ou le théorème du sandwich.
 
 			\begin{itemize}
-				\item $(\frac {1}{n^p})$ avec $p > 0$ ;
-				\item $(c_n$) avec $|c| < 1$ ;
-				\item $(n^pc^n)$ avec $p \in \R, |c| < 1$ ;
-				\item $(\frac {c^n}{n!})$ avec $p \in \R$ ;
+				\item $(\frac {1}{n^p})$ avec $p > 0$~;
+				\item $(c_n$) avec $|c| < 1$~;
+				\item $(n^pc^n)$ avec $p \in \R, |c| < 1$~;
+				\item $(\frac {c^n}{n!})$ avec $p \in \R$~;
 				\item $\frac {n^p}{n!}$ avec $p \in \R$.
 			\end{itemize}
 
@@ -755,7 +741,7 @@
 			limites de suite. Regardons maintenant du côté des suites divergentes.
 
 			Soit $x_n \to \infty$ et $(y_n) \subset \R$. S'il $\exists A \in \R \, | \, \forall n, y_n > A$, alors $x_n + y_n \to \infty$. Également, si $A > 0$,
-			alors $x_ny_n \to \infty$. La première affirmation se démontre comme suit : soit $K > 0$, $\exists N \, | \, \forall n \geq N, x_n > K - A$, donc
+			alors $x_ny_n \to \infty$. La première affirmation se démontre comme suit~: soit $K > 0$, $\exists N \, | \, \forall n \geq N, x_n > K - A$, donc
 			$x_n + y_n > K$. Pour le produit, $\exists N \, | \, \forall n \geq N, x_n > \frac KA$ donc $x_ny_n > K$.
 
 			\paragraph{Règle de la réciproque} Soit $(x_n)$ une suite réelle qui tend vers $\pm \infty$. Alors $\frac1{x_n} \to 0$. De plus, soit $(x_n)$, une
@@ -766,17 +752,17 @@
 
 			Soient $(x_n)$, une suite réelle et une suite strictement croissante $n_1 < n_2 < \ldots$. La suite $(x_{n_k})$ est une \textit{sous-suite} de $(x_n)$.
 
-			Il en découle le lemme suivant : Soit $(x_n)$, une suite réelle convergente en $a$. Alors toute sous-suite de $(x_n)$ converge également en $a$.
+			Il en découle le lemme suivant~: Soit $(x_n)$, une suite réelle convergente en $a$. Alors toute sous-suite de $(x_n)$ converge également en $a$.
 			Pour le démontrer, il faut repartir de la définition et donc, puisque $x_n \to a$, alors $\exists n \, | \, n \geq N \Rightarrow |x_n - a| < \epsilon$
 			avec $\epsilon \in \R^+_0$. Or, comme $(n_k)$ est une série naturelle, $n_k \geq k \; \forall k$ (preuve par récurrence). Si $k \geq N$,
 			alors $|x_{n_k} - a| < \epsilon$. Donc $x_{n_k} \to a$.
 
-			On peut en déduire le corollaire suivant : si $(x_n)$ a deux sous-suites convergentes mais ayant des limites différentes, alors $(x_n)$ ne converge pas.
+			On peut en déduire le corollaire suivant~: si $(x_n)$ a deux sous-suites convergentes mais ayant des limites différentes, alors $(x_n)$ ne converge pas.
 
 		\subsubsection{Les suites monotones}
 			Une suite est dite \textit{croissante} si $x_n \leq x_{n+1} \; \forall n$ et est dite \textit{décroissante} si $x_n \geq x_{n+1} \; \forall n$.
 			Si une suite est soit croissante, soit décroissante, elle est dite \textit{monotone}. Sur base de cette définition, il existe un théorème important,
-			celui de la convergence des suites monotones :
+			celui de la convergence des suites monotones~:
 
 			Soit $(x_n)$, une suite monotone bornée. $(x_n)$ est convergente telle que quand $(x_n)$ est croissante, $\lim x_n = \sup\{x_n \, | \, n \in \N\}$
 			et quand $(x_n)$ est décroissante, $\lim x_n = \inf\{x_n \, | \, n \in \N\}$.
@@ -791,26 +777,23 @@
 			$\inf\{x_n \, | \, n \in \N\}$.
 
 	\subsection{Théorème de Bolzano-Weierstrass}
-		Regardons comment construire deux suites monotones à partir d'une suite quelconque. Soit une suite $(x_n)$, commençons par définir
-
+		Regardons comment construire deux suites monotones à partir d'une suite quelconque. Soit une suite $(x_n)$, commençons par définir~:
 		\[S_m := \{x_n | m \leq n\}.\]
 
 		Si $(x_n)$ est majorée, alors $s_n = \sup S_n$ est fini pour tout $n$ et $(s_n)$ est une suite décroissante car $m \geq n \Rightarrow S_m \subseteq S_n \Rightarrow
 		\sup S_m \leq \sup S_n$. De même, si $(x_n)$ est minorée, alors $i_n = \inf S_n$ est fini pour tout $n$ et $(i_n)$ est une suite croissante.
 
-		\paragraph{Définition} Soit $(x_n) \subseteq \R$.
+		\begin{déf} Soit $(x_n) \subseteq \R$.
 
 		\begin{itemize}
-			\item Si $(x_n)$ est majorée, alors $(s_n)$ est bien définie, et on écrit :
-
+			\item Si $(x_n)$ est majorée, alors $(s_n)$ est bien définie, et on écrit~:
 			\[\limsup_{n\to\infty}x_n := \lim_{n\to\infty}s_n\]
 
 			que l'on appelle la \textit{limite supérieure} de $(x_n)$.
 
 			\item Si $(x_n)$ n'est pas majorée, alors on écrit $\limsup_{n\to\infty}x_n = \infty$.
 
-			\item Si $(x_n)$ est minorée, alors $(i_n)$ est bien définie, et on écrit :
-
+			\item Si $(x_n)$ est minorée, alors $(i_n)$ est bien définie, et on écrit~:
 			\[\liminf_{n\to\infty}x_n := \lim_{n\to\infty}i_n\]
 
 			que l'on appelle la \textit{limite inférieure} de $(x_n)$.
@@ -819,15 +802,17 @@
 
 			\item Constatons donc que pour une suite $(x_n)$ bornée, $\limsup_{n\to\infty}x_n$ et $\liminf_{n\to\infty}x_n$ sont tous les deux finis.
 		\end{itemize}
+		\end{déf}
 
-		\paragraph{Théorème (de Bolzano-Weierstrass)} Soit $(x_n)$ une suite bornée. Alors il existe une sous-suite de $(x_n)$ qui converge en
+		\begin{thm}[Bolzano-Weierstrass] Soit $(x_n)$ une suite bornée. Alors il existe une sous-suite de $(x_n)$ qui converge en
 		$\limsup_{n\to\infty}x_n$ et une autre qui converge en $\liminf_{n\to\infty}x_n$.
 
 		De plus, pour une sous-suite convergente $(x_{n_k})$ quelconque, $\liminf_{n \to \infty}x_n \leq \lim_{k\to\infty}x_{n_k} \leq \limsup_{n\to\infty}x_n$.
 
 		\[\liminf_{n\to\infty}x_n \leq \lim_{k\to\infty}x_{n_k} \leq \limsup_{n\to\infty}x_n.\]
+		\end{thm}
 
-		\paragraph{Démonstration} Soit $(x_n)$ une suite bornée. Montrons qu'il existe un sous-suite convergent en $\limsup_{n\to\infty}x_n$. La démonstration
+		\begin{proof} Soit $(x_n)$ une suite bornée. Montrons qu'il existe un sous-suite convergent en $\limsup_{n\to\infty}x_n$. La démonstration
 		pour la sous-suite convergent en $\liminf_{n\to\infty}x_n$ étant similaire. Définissons cette suite $(x_{n_k})$ terme à terme.
 
 		Prenons $n_0 = 0$. C'est à dire que la sous-suite $(x_{n_k})$ débute en $x_0$. Regardons maintenant l'ensemble $S_{0+1} = \{x_1, x_2, \ldots\}$.
@@ -837,55 +822,54 @@
 		Regardons maintenant l'ensemble $S_{1+n_1} = \{x_{1+n_1}, x_{2+n_1}, \ldots\}$. De manière similaire au point précédent, il est possible de trouver pour
 		$n_2$ un $m$ tel que $x_m \in S_{1+n_1}$ et $s_{1+n_1}-\frac 12 < x_m \leq s_{1+n_1}$. Il est tout aussi évident que $n_2 > n_1$.
 
-		En réitérant ce procédé $k$ fois, on obtient $n_0 < n_1 < n_2 <\ldots < n_k$ satisfaisant : $s_{1+n_i} - \frac 1{i+1} < x_{n_{i+1}} \leq s_{1+n_i}$.
+		En réitérant ce procédé $k$ fois, on obtient $n_0 < n_1 < n_2 <\ldots < n_k$ satisfaisant~: $s_{1+n_i} - \frac 1{i+1} < x_{n_{i+1}} \leq s_{1+n_i}$.
 
 		On obtient donc au final une sous-suite $(x_{n_k})$ de $(x_n)$ telle que $s_{1+n_k} - \frac 1{k+1} < x_{n_{k+1}} \leq s_{1+n_k}$. De plus, la suite
 		$(s_{1+k_k})$ est une sous-suite de $(s_n)$. On a donc $s_{1+n_k} \to \limsup_{n\to\infty}x_n$ et $s_{1+n_k} - \frac 1{k+1} \to \limsup_{n\to\infty}x_n$.
 		Par le théorème du sandwich, on peut déterminer que $x_{n_k} \to \limsup_{n\to\infty}x_n$ également.
 
-		De plus (en admettant l'existence de $(i_{n_k})$ car la preuve est similaire à celle de $(s_{n_k})$), on a :
-
+		De plus (en admettant l'existence de $(i_{n_k})$ car la preuve est similaire à celle de $(s_{n_k})$), on a~:
 		\[\forall k \in \N, i_{n_k} \leq x_{n_k} \leq s_{n_k}.\]
 
 		Et comme $(i_{n_k})$ et $(s_{n_k})$ sont des sous-suites d'une suite convergente, elles sont elles-mêmes convergentes. Donc par un résultat précédent,
 		$\lim_{k\to\infty}i_{n_k} \leq \lim_{k\to\infty}x_{n_k} \leq \lim_{k\to\infty}s_{n_k}$, ou encore
-		$\liminf_{n\to\infty}x_n \leq \lim_{k\to\infty}x_{n_k} \leq \limsup_{n\to\infty}x_n$. Ce qui prouve la deuxième partie du théorème. \QED
+		$\liminf_{n\to\infty}x_n \leq \lim_{k\to\infty}x_{n_k} \leq \limsup_{n\to\infty}x_n$. Ce qui prouve la deuxième partie du théorème. \end{proof}
 
-		\paragraph{Corollaire} On peut établir un corollaire de ce théorème : une suite $(x_n) \subseteq \R$ converge si et seulement si
-
+		\begin{cor} On peut établir un corollaire de ce théorème~: une suite $(x_n) \subseteq \R$ converge si et seulement si~:
 		\[\liminf_{n\to\infty}x_n = \limsup_{n\to\infty}x_n = L \in \R,\]
+		en quel cas, $x_n \to L$. \end{cor}
 
-		en quel cas, $x_n \to L$.
+		\begin{proof} La démonstration se fait par le théorème du sandwich dans un sens et par le théorème de Bolzano-Weierstrass dans l'autre sens. \end{proof}
 
-		\paragraph{Démonstration} La démonstration se fait par le théorème du sandwich dans un sens et par le théorème de Bolzano-Weierstrass dans l'autre sens.
-
-		\paragraph{Remarque} Nous avons donc maintenant trois résultats primordiaux sur la convergence des suites :
+		\begin{rmq} Nous avons donc maintenant trois résultats primordiaux sur la convergence des suites~:
 
 		\begin{enumerate}
-			\item Toute suite convergente est bornée ;
-			\item toute suite monotone et bornée est convergente ;
+			\item Toute suite convergente est bornée~;
+			\item toute suite monotone et bornée est convergente~;
 			\item Toute suite bornée possède une sous-suite convergente.
 		\end{enumerate}
+		\end{rmq}
 
 	\subsection{Le critère de Cauchy}
 
 		Jusqu'ici, la notion de convergence fait intervenir \textit{directement} la notion de limite, ce qui sous-entend qu'il faut connaitre la limite avent de
 		commencer la preuve de la convergence. Il existe donc une notion permettant de prouver la convergence sans expliciter la limite.
 
-		\paragraph{Définition} Une suite $(x_n)$ est dite \textit{de Cauchy} si $\forall \epsilon > 0, \exists N > 0 \ | \, m, n \geq N \Rightarrow |x_n - x_m| < \epsilon$.
+		\begin{déf} Une suite $(x_n)$ est dite \textit{de Cauchy} si $\forall \epsilon > 0, \exists N > 0 \ | \, m, n \geq N \Rightarrow |x_n - x_m| < \epsilon$.
+		\end{déf}
 
 		Cette définition n'implique pas uniquement qu'il faut que $|x_n - x_{n+1}|$ tende vers zéro mais bien qu'il faut que \textbf{pour tout} $m, n \geq N$,
 		ces deux éléments tendent vers zéro.
 
-		\paragraph{Lemme} Soit $(x_n) \subseteq \R$ une suite convergente. $(x_n)$ est de Cauchy.
+		\begin{lem} Soit $(x_n) \subseteq \R$ une suite convergente. $(x_n)$ est de Cauchy. \end{lem}
 
-		\paragraph{Démonstration} Soit une suite $(x_n)$ convergente en $a \in \R$. Par définition,
+		\begin{proof} Soit une suite $(x_n)$ convergente en $a \in \R$. Par définition,
 		$\forall \epsilon > 0, \exists N > 0 | n \geq N \Rightarrow | x_n - a| < \epsilon$. Soit $\epsilon' = \frac \epsilon2$. Soit ce $N$ découlant de la
-		définition de convergence. Prenons $m, n \geq N$. On a donc $|x_m - x_n| = |x_m - a + a - x_n| < |x_m - a | + |x_n - a| = \epsilon'$. \QED
+		définition de convergence. Prenons $m, n \geq N$. On a donc $|x_m - x_n| = |x_m - a + a - x_n| < |x_m - a | + |x_n - a| = \epsilon'$. \end{proof}
 
-		\paragraph{Théorème (critère de Cauchy)} Une suite $(x_n)$ converge si et seulement si elle est de Cauchy.
+		\begin{thm}[Critère de Cauchy] Une suite $(x_n)$ converge si et seulement si elle est de Cauchy. \end{thm}
 
-		\paragraph{Démonstration} L'implication $\Rightarrow$ est donnée par le lemme précédent. Il faut encore prouver l'implication $\Leftarrow$.
+		\begin{proof} L'implication $\Rightarrow$ est donnée par le lemme précédent. Il faut encore prouver l'implication $\Leftarrow$.
 
 		Commençons par montrer que $(x_n)$ est bornée et puis appliquons Bolzano-Weierstrass. Par hypothèse, $(x_n)$ est de Cauchy. Donc $\forall \epsilon > 0,
 		\exists N > 0 \, | \, m, n \geq N \Rightarrow |x_n - x_m| < \epsilon$. Soit $\epsilon$, prenons ce $N$ qui découle de la définition de suite de Cauchy.
@@ -897,12 +881,12 @@
 		il existe $N_2$ tel que $m, n \geq N_2 \Rightarrow |x_n - x_m| < \frac \epsilon2$. Soit $\delta$ tel que $\delta \geq N_1$ et $n_\delta \geq N_2$.
 		On a alors $\forall n \geq N_2, |x_n - a| = |x_n - x_\delta + x_\delta - a| \leq |x_n - x_\delta| + |x_\delta - a| < \epsilon$.
 
-		Il y a donc également convergence de la suite $(x_n)$ en $a \in \R$ quand $n \to \infty$. \QED
+		Il y a donc également convergence de la suite $(x_n)$ en $a \in \R$ quand $n \to \infty$. \end{proof}
 
+\newpage
 \section{Fonctions continues}
 	\subsection{Limite d'une fonction en un point}
-			\paragraph{Def} Soient $a, b \in \R$ tels que $a < b$. On note :
-
+			\begin{déf} Soient $a, b \in \R$ tels que $a < b$. On note~:
 				\[\begin{aligned}
 					\interval {a}{b} &:= \{x \in \R \, | \, a \leq x \leq b\} \\
 					]a, b] &:= \{y \in \R \, | \, a < x \leq b\} \\
@@ -915,116 +899,120 @@
 					]-\infty, \infty[ &:= \R.
 				\end{aligned}\]
 
-				Ces ensembles sont appelés \textit{intervalles}.
+				Ces ensembles sont appelés \textit{intervalles}. \end{déf}
 
-			\paragraph{Def} Soit $U \subseteq \R$. $U$ est dit ouvert $\iff \forall x \in U, \exists \epsilon > 0 \, | \, ]x-\epsilon, x+\epsilon[ \subseteq U$.
-			$U$ est dit fermé $\iff \R \setminus U$ est ouvert.
+			\begin{déf} Soit $U \subseteq \R$. $U$ est dit ouvert $\iff \forall x \in U, \exists \epsilon > 0 \, | \, ]x-\epsilon, x+\epsilon[ \subseteq U$.
+			$U$ est dit fermé $\iff \R \setminus U$ est ouvert. \end{déf}
 
-			\paragraph{Def} Soient $A \subseteq \R$ et $a \in A$. $a$ est dit intérieur à $A$ s'$\exists \delta > 0 \, | \, ]a-\delta, a+\delta[ \subseteq A$.
-			L'ensemble des points $a$ tels que $a$ est intérieur à $A$ est noté $\intr A$.
+			\begin{déf} Soient $A \subseteq \R$ et $a \in A$. $a$ est dit intérieur à $A$ s'$\exists \delta > 0 \, | \, ]a-\delta, a+\delta[ \subseteq A$.
+			L'ensemble des points $a$ tels que $a$ est intérieur à $A$ est noté $\intr A$. \end{déf}
 
-			\paragraph{Remarque} $\forall A \subseteq \R$, $\intr A \subseteq A$. De plus, un ensemble peut être simultanément ouvert et fermé : $]-\infty, \infty[$
+			\begin{rmq} $\forall A \subseteq \R$, $\intr A \subseteq A$. De plus, un ensemble peut être simultanément ouvert et fermé~: $]-\infty, \infty[$
 			est ouvert car $\forall x \in R, \exists \epsilon > 0 \, | \, ]x-\epsilon, x+\epsilon[ \in \R$ et est fermé car
-			$\R \setminus ]-\infty, \infty[ = \interval [open] 00$ est ouvert.
+			$\R \setminus ]-\infty, \infty[ = \interval [open] 00$ est ouvert. \end{rmq}
 
-			\paragraph{Def} Soit $a \in \R$. Un voisinage de $a$ est un ensemble contenant un intervalle de la forme $]c, d[$ avec $c < a < d$.
+			\begin{déf} Soit $a \in \R$. Un voisinage de $a$ est un ensemble contenant un intervalle de la forme $]c, d[$ avec $c < a < d$. \end{déf}
 
-			\paragraph{Def} Soient $A \subseteq \R$ et $a \in \R$. $a$ est adhérent à $A$ si $\forall \delta > 0, ]a-\delta, a+\delta[ \cap A \neq \emptyset$. On note $\adh A$
-			l'ensemble des points adhérents à $A$.
+			\begin{déf} Soient $A \subseteq \R$ et $a \in \R$. $a$ est adhérent à $A$ si $\forall \delta > 0, ]a-\delta, a+\delta[ \cap A \neq \emptyset$.
+			On note $\adh A$ l'ensemble des points adhérents à $A$. \end{déf}
 
-			\paragraph{Définition de la limite} Soient $f : U \subseteq \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ lorsque $x$ tend vers $a$
-			existe dans $\R$ et vaut $L \in \R$ si $\forall \epsilon > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| < \delta \Rightarrow |f(x)-L| < \epsilon$.
+			\begin{déf} Soient $f : U \subseteq \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ lorsque
+			$x$ tend vers $a$ existe dans $\R$ et vaut $L \in \R$ si~:
+			\[\forall \epsilon > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| < \delta \Rightarrow |f(x)-L| < \epsilon.\]
 
-			Cela se note $f(x) \to L$ lorsque $x \to a$ dans $B$ ou :
-
+			Cela se note $f(x) \to L$ lorsque $x \to a$ dans $B$ ou~:
 			\[\lim_{\underset{x \in B}{x \to a}} f(x) = L.\]
+			\end{déf}
 
-			\paragraph{Remarque} Ici, $\epsilon$ permet de déterminer un voisinage autour de $L$, la limite, alors que $\delta$ permet de déterminer un voisinage autour de $a$.
+			\begin{rmq} Ici, $\epsilon$ permet de déterminer un voisinage autour de $L$, la limite, alors que $\delta$ permet de déterminer un voisinage autour
+			de $a$. \end{rmq}
 
-			\paragraph{Théorème (unicité de la limite)} Soient $f : U \subseteq \R \to \R$, $B \subseteq \R$, $a \in \adh(B \cap U)$. Soient $L_1, L_2 \in \R$ tels que :
-
+			\begin{thm}[Unicité de la limite] Soient $f : U \subseteq \R \to \R$, $B \subseteq \R$, $a \in \adh(B \cap U)$. Soient $L_1, L_2 \in \R$ tels que~:
 			\[\begin{aligned}
 				\lim_{\underset{x \in B}{x \to a}} f(x) &= L_1 \\
 				\lim_{\underset{x \in B}{x \to a}} f(x) &= L_2.
 			\end{aligned}\]
 
-			Alors $L_1 = L_2$.
+			Alors $L_1 = L_2$. \end{thm}
 
-			\paragraph{Démonstration} Soient $f : U \subseteq \R \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. Prenons $\epsilon = \frac {|L_1 - L_2|}3$.
+			\begin{proof} Soient $f : U \subseteq \R \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. Prenons $\epsilon = \frac {|L_1 - L_2|}3$.
 			Par hypothèse, on sait qu'il existe $\delta_1 \, | \, \forall x \in U \cap B, |x-a| < \delta_1 \Rightarrow |f(x) - L_1| < \epsilon$ et
 			$\delta_2 \, | \, \forall x \in U \cap B, |x-a| < \delta_2 \Rightarrow |f(x) - L_2| < \epsilon$.
 
-			Soit $x_0 \in U \cap B$ tel que $|x_0 - a| < \min(\{L_1, L_2\})$. On sait alors que $f(x_0) \in ]L_1-\epsilon, L_1+\epsilon[$ et $f(x_0) \in ]L_2-\epsilon, L_2+\epsilon[$.
-			Or, par choix de $\epsilon$, ces deux ensembles sont d'intersection vide. Il y a donc contradiction et $L_1 = L_2$. \QED
+			Soit $x_0 \in U \cap B$ tel que $|x_0 - a| < \min(\{L_1, L_2\})$. On sait alors que
+			$f(x_0) \in ]L_1-\epsilon, L_1+\epsilon[$ et $f(x_0) \in ]L_2-\epsilon, L_2+\epsilon[$.
+			Or, par choix de $\epsilon$, ces deux ensembles sont d'intersection vide. Il y a donc contradiction et $L_1 = L_2$. \end{proof}
 
-			\paragraph{Def} La limite de $f : U \subseteq \R \to \R$ en $x \to a$ existe et vaut $L \in \R$ si la limite de $f$ en $x \to a$ dans $B = \R$ existe et vaut $L$.
-			On note cela :
-
+			\begin{déf} La limite de $f : U \subseteq \R \to \R$ en $x \to a$ existe et vaut $L \in \R$ si la limite de $f$ en $x \to a$ dans $B = \R$
+			existe et vaut $L$. On note cela~:
 			\[\lim_{x \to a} f(x) = L \in \R.\]
+			\end{déf}
 
 		\subsubsection{Limites pointées, gauches et droites}
 
 			Voyons dans quels contextes il est intéressant de manipuler le $B \subseteq \R$.
 
-			\paragraph{Def} Soit $a \in \R$. Un voisinage de $a$ est pointé s'il contient un intervalle $]c, d[ \setminus \{a\}$. Un voisinage de $a$ est
+			\begin{déf} Soit $a \in \R$. Un voisinage de $a$ est pointé s'il contient un intervalle $]c, d[ \setminus \{a\}$. Un voisinage de $a$ est
 			\textit{de droite} s'il contient un intervalle $[a, d[$ et peut être pointé si l'intervalle est sous la forme $]a, d[$. De manière similaire,
-			un voisinage est \textit{de gauche} si l'intervalle est sous la forme $]c, a]$ et peut également être pointé.
+			un voisinage est \textit{de gauche} si l'intervalle est sous la forme $]c, a]$ et peut également être pointé. \end{déf}
 
-			\paragraph{Définition des limites à gauche, à droite et pointées} Soit $f : U \to \R$ où $U$ est un intervalle contenant un voisinage pointé de $a$. La limite à
-			gauche, respectivement à droite, respectivement pointée de $f$ en $x \to a$ existe et vaut $L \in \R$ si la limite de $f$ dans $B = ]-\infty, a[$, respectivement
-			$]a, \infty[$, respectivement $\R \setminus \{a\}$ en $x \to a$ existe et vaut $L$.
+			\begin{déf}[Définition des limites à gauche, à droite et pointées] Soit $f : U \to \R$ où $U$ est un intervalle contenant un voisinage pointé de $a$.
+			La limite à gauche, respectivement à droite, respectivement pointée de $f$ en $x \to a$ existe et vaut $L \in \R$ si la limite de $f$ dans
+			$B = ]-\infty, a[$, respectivement $]a, \infty[$, respectivement $\R \setminus \{a\}$ en $x \to a$ existe et vaut $L$.
 
-			Cela se note respectivement :
-
+			Cela se note respectivement~:
 			\[\lim_{\underset{<}{x \to a}}f(x) = L, \;\;\lim_{\underset{>}{x \to a}} f(x) = L, \;\; \lim_{\underset{\neq}{x \to a}} f(x) = L.\]
+			\end{déf}
 
-			\paragraph{Remarque} Pour pouvoir parler de limites de $f$ soit à gauche, soit à droite, soit pointée, il faut impérativement que $f$ soit définie dans les
-			alentours de $a$. Plus précisément, il faut $a \in \adh(A \cap B)$ avec $B$ défini selon le cas.
+			\begin{rmq} Pour pouvoir parler de limites de $f$ soit à gauche, soit à droite, soit pointée, il faut impérativement que $f$ soit définie dans les
+			alentours de $a$. Plus précisément, il faut $a \in \adh(A \cap B)$ avec $B$ défini selon le cas. \end{rmq}
 
-			\paragraph{Lemme} Soient $a \in \R$ et $f : U \to \R$ tels que $U$ définit un voisinage pointé de $a$. Alors $f$ possède une limite pointée en $a$ si et
+			\begin{lem} Soient $a \in \R$ et $f : U \to \R$ tels que $U$ définit un voisinage pointé de $a$. Alors $f$ possède une limite pointée en $a$ si et
 			seulement si $f$ possède une limite à gauche en $a$ et une limite à droite en $a$ telles que $\lim_{x\to a^+}f(x) = \lim_{x \to a^-}f(x) = L \in \R$.
-			Dans ce cas, on a $\lim_{\underset{\neq}{x \to a}} f(x) = L$.
+			Dans ce cas, on a $\lim_{\underset{\neq}{x \to a}} f(x) = L$. \end{lem}
 
-			\paragraph{Proposition} Soient $f : U\to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $x \to a$ existe et vaut $L \in \R$ si et
-			seulement si $\forall A \subseteq B$, la limite de $f$ dans $A$ en $x \to a$ existe et vaut $L$.
+			\begin{prp} Soient $f : U\to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $x \to a$ existe et vaut
+			$L \in \R$ si et seulement si $\forall A \subseteq B$, la limite de $f$ dans $A$ en $x \to a$ existe et vaut $L$. \end{prp}
 
-			\paragraph{Démonstration} Pour la condition suffisante ($\Leftarrow$), on sait que pour \textbf{tout} $A \subseteq B$, la limite existe. En prenant $A = B$,
+			\begin{proof} Pour la condition suffisante ($\Leftarrow$), on sait que pour \textbf{tout} $A \subseteq B$, la limite existe. En prenant $A = B$,
 			on sait que la limite existe également dans $B$ et vaut $L \in \R$.
 
 			Pour la condition nécessaire ($\Rightarrow$), observons que
 			$\forall \epsilon > 0, \exists \delta > 0 \, | \, x \in (B \cap U) \land (|x-a| < \delta) \Rightarrow (|f(x)-L| < \epsilon)$.
-			On sait alors que pour $\epsilon \in \R_0^+$ fixé et pour $A \subseteq B$, il existe $\delta \in \R_0^+$ tel que $x \in A \Rightarrow |f(x) - L| < \epsilon$. \QED
+			On sait alors que pour $\epsilon \in \R_0^+$ fixé et pour $A \subseteq B$, il existe $\delta \in \R_0^+$ tel que $x \in A \Rightarrow |f(x) - L| < \epsilon$.
+			\end{proof}
 
-			\paragraph{Proposition} Soient $f : U \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $x \to a$ existe et vaut $L \in \R$
-			si et seulement si pour toute suite $(x_n)_{n \in \N} \subseteq B$ telle que $x_n \to a$, la suite $(f(x_n))_{n \in \mathbb N} \subseteq \R$ converge en $L$.
+			\begin{prp} Soient $f : U \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $x \to a$ existe et vaut
+			$L \in \R$ si et seulement si pour toute suite $(x_n)_{n \in \N} \subseteq B$ telle que $x_n \to a$, la suite
+			$(f(x_n))_{n \in \mathbb N} \subseteq \R$ converge en $L$. \end{prp}
 
-			\paragraph{Démonstration} Soit $\epsilon > 0$. On sait par hypothèse qu'$\exists \delta > 0$ tel que
-			$x \in (B\cap U) \land |x-a| < \delta \Rightarrow |f(x)-L| < \epsilon$. Soit $(x_n) \subseteq B$ telle que $x_n \to a$. On sait donc qu'$\exists N > 0$ tel que
-			$n > N \Rightarrow |x_n - a| < \epsilon$. Si ceci est vrai pour tout $\epsilon$, ça l'est plus précisément pour $\delta$ déterminé par l'hypothèse.
-			On a donc $\forall \epsilon > 0, \exists N > 0 \, | \, n > N \Rightarrow |f(x_n) - L| < \epsilon$ ou encore $f(x_n) \to L$ pour $n \to \infty$.
-
+			\begin{proof} Soit $\epsilon > 0$. On sait par hypothèse qu'$\exists \delta > 0$ tel que
+			$x \in (B\cap U) \land |x-a| < \delta \Rightarrow |f(x)-L| < \epsilon$. Soit $(x_n) \subseteq B$ telle que $x_n \to a$. On sait donc
+			qu'$\exists N > 0$ tel que $n > N \Rightarrow |x_n - a| < \epsilon$. Si ceci est vrai pour tout $\epsilon$, ça l'est plus précisément pour $\delta$
+			déterminé par l'hypothèse. On a donc $\forall \epsilon > 0, \exists N > 0 \, | \, n > N \Rightarrow |f(x_n) - L| < \epsilon$ ou encore
+			$f(x_n) \to L$ pour $n \to \infty$.
+			
 			Montrons maintenant que si toutes les suites de $B$ convergentes en $a$ implique $f(x_n) \to L$, alors la limite de $f$ en $a$ existe et vaut $L$.
-			Fonctionnons par l'absurde : soit $(x_n) \subseteq B$ une suite dans $B$ telle que $x_n \to a$ quand $n \to \infty$ et $(f(x_n)) \to L \in \R$ mais alors que
-			$f(x) \not \to L$ pour $x \to a$. On sait alors qu'$\exists \epsilon_0 > 0 \, | \, \forall \delta > 0$ il n'y a pas de convergence de $f(x)$ en $L$.
-			Soit $\epsilon_0$. Prenons $\delta = \frac 1n$. On en déduit que $\forall n \geq 1$, il existe $x_n \in U$ tel que $|x_n-a| < \frac 1n$ et
+			Fonctionnons par l'absurde~: soit $(x_n) \subseteq B$ une suite dans $B$ telle que $x_n \to a$ quand $n \to \infty$ et $(f(x_n)) \to L \in \R$ mais
+			alors que $f(x) \not \to L$ pour $x \to a$. On sait alors qu'$\exists \epsilon_0 > 0 \, | \, \forall \delta > 0$ il n'y a pas de convergence de
+			$f(x)$ en $L$. Soit $\epsilon_0$. Prenons $\delta = \frac 1n$. On en déduit que $\forall n \geq 1$, il existe $x_n \in U$ tel que $|x_n-a| < \frac 1n$ et
 			$|f(x_n) - L| \geq \epsilon_0$ donc tel que $x_n \to a$ mais $f(x_n) \not \to L$ lorsque $n \to \infty$. Or par hypothèse, on sait que
-			$(f(x_n)) \to L$. Ce qui est une contradiction avec $|f(x_n) - L| \geq \epsilon_0$. Donc $f(x) \to L$ pour $x \to a$. \QED
+			$(f(x_n)) \to L$. Ce qui est une contradiction avec $|f(x_n) - L| \geq \epsilon_0$. Donc $f(x) \to L$ pour $x \to a$. \end{proof}
 
 		\subsubsection{Règles de calcul de limite de fonctions}
 
-			\paragraph{Théorème} Soient $f, g : U \subseteq \R \to \R$ et $a \in \R$ tels que $f$ et $g$ sont définies dans le voisinage de $a$. Soient $L_f$ et $L_g$ tels
-			que $\lim_{x \to a}f(x) = L_f$ et $\lim_{x \to a}g(x) = L_g$. Alors :
-
+			\begin{thm} Soient $f, g : U \subseteq \R \to \R$ et $a \in \R$ tels que $f$ et $g$ sont définies dans le voisinage de $a$. Soient $L_f$ et $L_g$ tels
+			que $\lim_{x \to a}f(x) = L_f$ et $\lim_{x \to a}g(x) = L_g$. alors~:
 			\[\begin{aligned}
 				\lim_{x \to a}(f+g)(x) &= L_f + L_g \\
 				\lim_{x \to a}(fg)(x) &= L_fL_g.
 			\end{aligned}\]
 
-				Si $L_g \neq 0$, la fonction $\frac fg(x)$ existe dans le voisinage de $a$ telle que :
-
+			Si $L_g \neq 0$, la fonction $\frac fg(x)$ existe dans le voisinage de $a$ telle que~:
 			\[\begin{aligned}\lim_{x \to a}\frac fg(x) = \frac {L_f}{L_g}.\end{aligned}\]
+			\end{thm}
 
-			\paragraph{Démonstration} Soient $f, g : U \to \R$ convergents respectivement en $L_f$ et $L_g$ quand $x \to a$.
+			\begin{proof} Soient $f, g : U \to \R$ convergents respectivement en $L_f$ et $L_g$ quand $x \to a$.
 
 			\subparagraph{Addition} Montrons que la limite de la somme vaut la somme des limites.
 			Soit $\epsilon > 0$. On sait par la définition des limites de $f$ et $g$ qu'il existe $\delta_1$ tel que $\forall x \in U, |x-a| < \delta_1
@@ -1042,15 +1030,15 @@
 			Montrons ensuite que $\lim_{x \to a}(fg)(x) = L_fL_g$.
 
 			Soit $\epsilon \in \R_0^+$. On sait qu'il existe $\delta_2$ tel que $\forall x \in U, |x-a| < \delta_2 \Rightarrow |f(x)-L_f| < \frac {\epsilon}{2(|L_g|+1)}$
-			et $\delta_3$ tel que $\forall x \in U, |x-a| < \delta_3 \Rightarrow |g(x)-L_g| < \frac {\epsilon}{2|L_f|}$. Prenons alors $\delta = \min(\{\delta_i | i \in [3]\})$.
-			On a alors $\forall x \in U$ tel que $|x-a| < \delta$ :
-
+			et $\delta_3$ tel que $\forall x \in U, |x-a| < \delta_3 \Rightarrow |g(x)-L_g| < \frac {\epsilon}{2|L_f|}$. Prenons alors
+			$\delta = \min(\{\delta_i | i \in [3]\})$. On a alors $\forall x \in U$ tel que $|x-a| < \delta$~:
 			\[\begin{aligned}
 				|f(x)g(x) - L_fL_g| &= |f(x)(g(x) - L_g) + L_g(f(x) - L_f)| \leq |f(x)||g(x) - L_g| + |L_g||f(x) - L_f| \\
 									&< (|L_f| + 1)\frac {\epsilon}{2(|L_f|+1)} + |L_g|\frac {\epsilon}{2|L_g|} = 2\frac {\epsilon}{2} = \epsilon.
 			\end{aligned}\]
 
-			\subparagraph{Quotient} Montrons que la limite du quotient vaut le quotient des limites. Commençons par montrer qu'il existe un voisinage de $a$ où $g(x) \neq 0$.
+			\subparagraph{Quotient} Montrons que la limite du quotient vaut le quotient des limites. Commençons par montrer qu'il existe un voisinage de $a$ où
+			$g(x) \neq 0$.
 
 			Soit $\epsilon = \frac {|L_g|}2$. On sait alors qu'il existe $\delta_V$ tel que $\forall x \in U, |x-a| < \delta_V \Rightarrow |g(x)-L_g| < \frac {|L_g|}2$.
 			Ou encore pour ce même $\delta_V$, $|g(x)| > \frac {|L_g|}2$. Donc $|g(x)|$ est strictement positif. Définissons alors $V := U \cap ]a-\delta_V, a+\delta_V[$,
@@ -1059,51 +1047,51 @@
 			Prouvons maintenant que $\frac 1g(x) \to \frac 1{L_g}$ quand $x \to a$, et le résultat découlera de la proposition précédente.
 			
 			Soit $\epsilon > 0$. On sait qu'il existe $\delta > 0$ tel que $\forall x \in U, |x-a| < \delta \Rightarrow |g(x) - L_g| < \frac {|L_g|^2\epsilon}2$.
-			On sait dès lors :
-			
+			On sait dès lors~:
 			\[\left|\frac 1{g(x)} - \frac 1{L_g}\right| = \frac {|g(x)-L_g|}{|g(x)||L_g|} < \frac {|g(x)-L_g|}{\frac {|L_g|}{2}|L_g|}
-			  = \frac {2|g(x)-L_g|}{|L_g|^2} < \frac {2(\frac {|L_g|^2\epsilon}{2})}{|L_g|^2} = \epsilon.\] \QED
-			  
-			\paragraph{Théorème} le théorème du sandwich des suites a un homologue pour les fonctions : Soient $f, g, h : \R \to \R$ trois fonctions telles que
-			$\forall x \in \R, f(x) \leq g(x) \leq h(x)$ avec $\lim_{x \to a}f(x) = \lim_{x \to a}h(x) = L \in \R$. Alors $\lim_{x \to a}g(x) = L$.
+			  = \frac {2|g(x)-L_g|}{|L_g|^2} < \frac {2(\frac {|L_g|^2\epsilon}{2})}{|L_g|^2} = \epsilon.\]
 			
-			\paragraph{Démonstration} Définissons les suites $(f(x_n))_n, (g(x_n))_n$ et $(h(x_n))_n$. On sait que $\forall k \in {\R}^{\R}, \lim_{x \to a}k(x)$ existe
+			\end{proof}
+			  
+			\begin{thm} le théorème du sandwich des suites a un homologue pour les fonctions~: soient $f, g, h : \R \to \R$ trois fonctions telles que
+			$\forall x \in \R, f(x) \leq g(x) \leq h(x)$ avec $\lim_{x \to a}f(x) = \lim_{x \to a}h(x) = L \in \R$. Alors $\lim_{x \to a}g(x) = L$.
+			\end{thm}
+			
+			\begin{proof} Définissons les suites $(f(x_n))_n, (g(x_n))_n$ et $(h(x_n))_n$. On sait que $\forall k \in {\R}^{\R}, \lim_{x \to a}k(x)$ existe
 			et vaut $L_k$ si et seulement si pour toute suite $(x_n) \subseteq \R$ convergente en $a \in \R$, on a $k(x_n) \to L_k$ quand $n \to \infty$.
 			
-			On sait dès lors que $f(x_n) \to L$ et $h(x_n) \to L$. Par le théorème du sandwich, on sait que $g(x_n) \to L$ également. \QED
+			On sait dès lors que $f(x_n) \to L$ et $h(x_n) \to L$. Par le théorème du sandwich, on sait que $g(x_n) \to L$ également. \end{proof}
 			
-			\paragraph{Théorème (conservation des inégalités)} Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$.
+			\begin{thm}[Conservation des inégalités] Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$.
 			Si $\exists \delta > 0$ tel que $\forall x \in ]a-\delta, a+\delta[ \cap U \cap B, f(x) \leq g(x)$ et $\lim_{x \to a}f(x)$ et $\lim_{x \to a}g(x)$
-			existent dans $\R$, alors $\lim_{x \to a}f(x) \leq \lim{x \to a}g(x)$.
+			existent dans $\R$, alors $\lim_{x \to a}f(x) \leq \lim{x \to a}g(x)$. \end{thm}
 			
 		\subsubsection{Limites infinies et limites à l'infini}
 			
-			\paragraph{Définition} Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$, $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $a$ existe et vaut
-			$+\infty$ si $\forall K > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| < \delta \Rightarrow f(x) > K$. Cela se note :
-			
+			\begin{déf} Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$, $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $a$ existe et vaut
+			$+\infty$ si $\forall K > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| < \delta \Rightarrow f(x) > K$. Cela se note~:
 			\[\lim_{x \to a}f(x) = \infty.\]
 			
 			De manière similaire, la limite de $f$ dans $B$ en $a$ vaut $-\infty$ si $\forall K > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| <
 			\delta \Rightarrow f(x) < -K$.
-			Ce la se note :
-			
+			Ce la se note~:
 			\[\lim_{x \to a}f(x) = -\infty.\]
+			\end{déf}
 
-			\paragraph{Remarque} les cas particuliers où $B = \R, B = ]-\infty, a], B = [a, +\infty[, B = \R \setminus \{a\}$ donnent les définitions de limite
-			standard infinie, limite à gauche, limite à droite et limite pointée infinies.
+			\begin{rmq} les cas particuliers où $B = \R, B = ]-\infty, a], B = [a, +\infty[, B = \R \setminus \{a\}$ donnent les définitions de limite
+			standard infinie, limite à gauche, limite à droite et limite pointée infinies. \end{rmq}
 
-			\paragraph{Définition} Soit $f : U \subseteq \R \to \R$ où $U$ n'est pas majoré. La limite de $f$ en « l'infini » vaut $L \in \R$ si
-			$\forall \epsilon > 0, \exists M > 0 \, | \, \forall x \in U, x > M \Rightarrow |f(x) - L| < \epsilon$. Cela se note :
-
+			\begin{déf} Soit $f : U \subseteq \R \to \R$ où $U$ n'est pas majoré. La limite de $f$ en « l'infini » vaut $L \in \R$ si
+			$\forall \epsilon > 0, \exists M > 0 \, | \, \forall x \in U, x > M \Rightarrow |f(x) - L| < \epsilon$. Cela se note~:
 			\[\lim_{x \to \infty}f(x) = L.\]
 
 			De manière similaire, si $U$ n'est pas minoré, la limite de $f$ en « moins l'infini » vaut $L \in \R$ si
-			$\forall \epsilon > 0, \exists M > 0 \, | \, \forall x \in U, x < -M \Rightarrow |f(x) - L| < \epsilon$. Cela se note :
-
+			$\forall \epsilon > 0, \exists M > 0 \, | \, \forall x \in U, x < -M \Rightarrow |f(x) - L| < \epsilon$. Cela se note~:
 			\[\lim_{x \to -\infty}f(x) = L.\]
+			\end{déf}
 
 	\subsection{Définition de la continuité}
-		\paragraph{Définition} Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. La fonction $f$ est continue en $a$ si 
+		\begin{déf} Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. La fonction $f$ est continue en $a$ si 
 
 		\[\lim_{x \to a}f(x) = f(a).\]
 
@@ -1111,35 +1099,36 @@
 
 		\[\forall \epsilon > 0, \exists \delta > 0 \tq \abs{x-a} < \delta \Rightarrow \abs{f(x) - f(a)} < \epsilon.\]
 
-		Cette définition comporte trois points importants : il faut que la limite de $f$ en $a$ existe, que $f$ soit définie en $a$ et que la fonction prenne la valeur
+		Cette définition comporte trois points importants~: il faut que la limite de $f$ en $a$ existe, que $f$ soit définie en $a$ et que la fonction prenne la valeur
 		de sa limite en $a$.
+		\end{déf}
 
-		\paragraph{Proposition} Venant de la définition de limite de fonction sur base des suites, il est possible d'exprimer la continuité d'une fonction en terme
-		de suites. Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. Alors la fonction $f$ est continue en $a$ si et seulement
-		si pour toute suite $(x_n)$ convergente en $a$, la suite $(f(x_n))$ converge en $f(a)$.
+		\begin{prp} Venant de la définition de limite de fonction sur base des suites, il est possible d'exprimer la continuité d'une fonction en terme
+		de suites. Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. Alors la fonction $f$ est continue en
+		$a$ si et seulement si pour toute suite $(x_n)$ convergente en $a$, la suite $(f(x_n))$ converge en $f(a)$. \end{prp}
 
-		\paragraph{Proposition} Les règles de calcul concernant la continuité sont assez évidents. Soient $a \ni \R$, $f, g : I \subseteq \R \to \R$ deux fonctions
-		définies sur un voisinage de$a$ et continues en $a$. Alors $f+g$ est également continue en $a$, $fg$ est également continue en $a$ et si $g(a) \neq 0$, alors
-		$\frac fg$ est continue en $a$. De plus soit $h : V \subseteq \R \to \R$ une fonction définie sur un voisinage de $f(a)$ et contenant $f(I)$, l'image de $f$.
-		Si $h$ est continue en $f(a)$, alors $h \circ f : I \to \R$ est continue en $a$.
+		\begin{prp} Les règles de calcul concernant la continuité sont assez évidents. Soient $a \ni \R$, $f, g : I \subseteq \R \to \R$ deux fonctions
+		définies sur un voisinage de$a$ et continues en $a$. Alors $f+g$ est également continue en $a$, $fg$ est également continue en $a$ et si
+		$g(a) \neq 0$, alors $\frac fg$ est continue en $a$. De plus soit $h : V \subseteq \R \to \R$ une fonction définie sur un voisinage de $f(a)$
+		et contenant $f(I)$, l'image de $f$. Si $h$ est continue en $f(a)$, alors $h \circ f : I \to \R$ est continue en $a$. \end{prp}
 
-		\paragraph{Démonstration} Les premières propositions viennent directement des règles sur les limites. Pour la composée, prenons $(x_n)$ une suite convergent en $a$.
+		\begin{proof} Les premières propositions viennent directement des règles sur les limites. Pour la composée, prenons $(x_n)$ une suite convergent en $a$.
 		Par continuité de $f$, on sait que $f(x_n)$ converge en $f(a)$ et par continuité de $h$, on sait que $h(f(x_n))$ converge en $h(f(a))$. Dès lors, on sait que
-		$h \circ f$ est continue en $a$. \QED
+		$h \circ f$ est continue en $a$. \end{proof}
 
-		\paragraph{Définition} Tout comme pour les limites, on parle de continuité à gauche (respectivement à droite) si la limite de $x$ tendant vers $a$ à gauche
-		(respectivement à droite) vaut $f(a)$.
+		\begin{déf} Tout comme pour les limites, on parle de continuité à gauche (respectivement à droite) si la limite de $x$ tendant vers $a$ à gauche
+		(respectivement à droite) vaut $f(a)$. \end{déf}
 
-		\paragraph{Définition} Une fonction $\fabr f$ est \textit{continue} si elle est continue en tout point $c \in ]a, b[$, continue à droite en
-		$a$ et à gauche en $b$.
+		\begin{déf} Une fonction $\fabr f$ est \textit{continue} si elle est continue en tout point $c \in ]a, b[$, continue à droite en
+		$a$ et à gauche en $b$. \end{déf}
 	
 	\subsection{Théorème des bornes atteintes}
 
-		\paragraph{Théorème} Soit $\fabr f$ une fonction continue. Alors $f$ est bornée \textbf{et} $f$ atteint ses bornes. Dès lors :
-
+		\begin{thm} Soit $\fabr f$ une fonction continue. Alors $f$ est bornée \textbf{et} $f$ atteint ses bornes. Dès lors~:
 		\[\exists m, M \in \ab \tq \forall x \in \ab : f(m) \leq f(x) \leq f(M).\]
+		\end{thm}
 
-		\paragraph{Démonstration} Montrons d'abord que $f$ est bornée et puis montrons qu'elle atteint ses bornes.
+		\begin{proof} Montrons d'abord que $f$ est bornée et puis montrons qu'elle atteint ses bornes.
 
 		Supposons par l'absurde que $f$ n'est pas majorée. Dès lors, $\forall n \in \N : \exists x_n \in \ab \tq f(x_n) > n$. La suite $(x_n)$ est bornée car
 		$\forall n : x_n \in \ab$. Par le théorème de Bolzano-Weierstrass, on sait qu'il existe $(x_{n_k})_k$ une sous-suite de $(x_n)$ convergeant en
@@ -1147,23 +1136,21 @@
 		diverge vers $+\infty$. Il y a donc contradiction. Idem pour le minorant.
 
 		Montrons maintenant que $f$ atteint ses bornes. Par l'absurde, supposons que $f$ n'atteint pas ses bornes. Prenons
-		$M \coloneqq \sup\{f(x) \tq x \in \ab\}$ qui existe et est fini. Supposons que $\nexists c \in \ab \tq f(c) = M$. Posons alors :
-
+		$M \coloneqq \sup\{f(x) \tq x \in \ab\}$ qui existe et est fini. Supposons que $\nexists c \in \ab \tq f(c) = M$. Posons alors~:
 		\[g(x) \coloneqq \frac 1{M - f(x)}.\]
 
 		$g$ est continue et donc bornée par $K \in \R$. Dès lors,
-
 		\[\forall x \in \ab : \frac 1{M-f(x)} \leq K.\]
 
 		Ce qui implique (du fait que $f(x) < A$ et $K > 0$) que $M-f(x) \geq \frac 1K$ ou encore $f(x) \leq M - \frac 1K$. Ce qui contredit le fait que $M$ est le
-		majorant de $\{f(x) \tq x \in \ab\}$. Idem pour la borne inférieure. \QED
+		majorant de $\{f(x) \tq x \in \ab\}$. Idem pour la borne inférieure. \end{proof}
 	
 	\subsection{Théorème de la valeur intermédiaire}
 		
-		\paragraph{Théorème} Soit $\fabr f$ une fonction continue. Soit $\gamma$ strictement entre $f(a)$ et $f(b)$.
-		Alors $\exists c \in ]a, b[ \tq f(x) = \gamma$.
+		\begin{thm} Soit $\fabr f$ une fonction continue. Soit $\gamma$ strictement entre $f(a)$ et $f(b)$.
+		Alors $\exists c \in ]a, b[ \tq f(x) = \gamma$. \end{thm}
 
-		\paragraph{Démonstration} Supposons $f(a) < \gamma < f(b)$, le cas $f(b) < \gamma f(a)$ se montre de la même manière.
+		\begin{proof} Supposons $f(a) < \gamma < f(b)$, le cas $f(b) < \gamma f(a)$ se montre de la même manière.
 
 		Soit $S \coloneqq \{x \in \ab \tq f(x) < \gamma\} \subseteq \dom f$. Par définition de $S$, on sait que $a \in S$ et que $S$ est majoré par $b$.
 		Il existe une suite $(x_n)$ dans $S$ telle que $x_n \to \sup S$. Donc $\forall n \in \N : x_n \in S$ donc $f(x_n) < \gamma$. De plus,
@@ -1173,380 +1160,361 @@
 		qu'$\exists \delta > 0 \tq \abs{x-c} < \delta \Rightarrow \abs{f(x)-f(c)} < \epsilon = \gamma-f(c)$. On sait que $a < c < b$.
 
 		Prenons $x \coloneqq c + \frac {\min\{\delta, b-c\}}2$. Alors $x \in \ab$, $\abs{x -c} < \delta$ et $x > c$. Donc $\abs{f(x) - f(c)} < \epsilon$,
-		ou encore :
-
+		ou encore~:
 		\[f(c) - \gamma < f(x) - f(c) < \gamma - f(c).\]
 
-		On sait donc $f(x)-f(c) < \gamma-f(c)$ ce qui implique $f(x) < \gamma$. Ce qui veut dire que $x \in S$. Or, par construction de $x$, $x > c = \sup S$. Il y a une
-		contradiction. Donc l'hypothèse $f(c) < \gamma$ est fausse. Dès lors, $f(c) = \gamma$. \QED
+		On sait donc $f(x)-f(c) < \gamma-f(c)$ ce qui implique $f(x) < \gamma$. Ce qui veut dire que $x \in S$. Or, par construction de $x$, $x > c = \sup S$.
+		Il y a une contradiction. Donc l'hypothèse $f(c) < \gamma$ est fausse. Dès lors, $f(c) = \gamma$. \end{proof}
 
-		\paragraph{Exemple} On peut, par ce théorème, montrer que tout polynôme de degré $n$ impair admet au moins une racine réelle : soit
-		$P(x) \coloneqq \sum_{i=1}^{n}a_ix^i$. Prenons $Q(x) \coloneqq \frac {P(x)}{a_n}$. Dès lors, les limites en les infinis de $Q$ sont ces mêmes infinis :
+		\paragraph{Exemple} On peut, par ce théorème, montrer que tout polynôme de degré $n$ impair admet au moins une racine réelle~: soit
+		$P(x) \coloneqq \sum_{i=1}^{n}a_ix^i$. Prenons $Q(x) \coloneqq \frac {P(x)}{a_n}$. Dès lors, les limites en les infinis de $Q$ sont ces mêmes infinis~:
 		$\lim_{x\to\pm\infty}Q(x) = \pm\infty$. On sait dès lors qu'il existe deux réels $a$ et $b$ tels que $Q(a) < 0$ et $Q(b) > 0$. Par le théorème, on sait qu'il
 		existe un $c \in ]a, b[$ tel que $Q(c) = 0$. Si $Q(c) = 0$, alors $P(c) = 0$ par définition de $Q$.
 	
 	\subsection{Théorème de l'intervalle et de la réciproque}
 		
-		\paragraph{Prop} Soit $I \subseteq \R$. Alors $I$ est un intervalle si et seulement si $\forall \alpha, \beta \in I : \interval \alpha\beta \subset I$.
+		\begin{prp} Soit $I \subseteq \R$. Alors $I$ est un intervalle si et seulement si $\forall \alpha, \beta \in I : \interval \alpha\beta \subset I$.
+		\end{prp}
 
-		\paragraph{Théorème (de l'intervalle)} Si $f : I \to \R$ est continue et $I$ est un intervalle, alors $f(I)$ est un intervalle. De plus, si $I$ est fermé borné,
-		$f(I)$ l'est aussi.
+		\begin{thm}[de l'intervalle] Si $f : I \to \R$ est continue et $I$ est un intervalle, alors $f(I)$ est un intervalle. De plus, si $I$ est fermé borné,
+		$f(I)$ l'est aussi. \end{thm}
 
-		\paragraph{Définition} Soit $f : U \subseteq \R \to \R$ une fonction définie sur un ensemble $U$ $f$ est strictement croissante (respectivement strictement
+		\begin{déf} Soit $f : U \subseteq \R \to \R$ une fonction définie sur un ensemble $U$ $f$ est strictement croissante (respectivement strictement
 		décroissante) si pour tout $x, y \in U : x < y \Rightarrow f(x) < f(y)$ (respectivement $x < y \Rightarrow f(x) > f(y)$). $f$ est simplement croissante
 		(respectivement simplement décroissante) si pour tout $x, y \in U : x < y \Rightarrow f(x) \leq f(y)$ (respectivement $x < y \Rightarrow f(x) \geq f(y)$).
 		De plus, $f$ est strictement monotone si elle est strictement croissante ou strictement décroissante et est simplement monotone si elle est simplement
-		croissante ou simplement décroissante.
+		croissante ou simplement décroissante. \end{déf}
 
-		\paragraph{Théorème (de la réciproque)} Soit $f : I \subseteq \R \to \R$ une fonction continue et strictement monotone définie sur un intervalle $I$. Alors
-		$f$ est injective et sa réciproque $f^{-1} : f(I) \to I$ est aussi continue.
+		\begin{thm}[de la réciproque] Soit $f : I \subseteq \R \to \R$ une fonction continue et strictement monotone définie sur un intervalle $I$. Alors
+		$f$ est injective et sa réciproque $f^{-1} : f(I) \to I$ est aussi continue. \end{thm}
 
-		\paragraph{Démonstration} Soient $x, y \in I$ tels que $x \neq y$. Soit $f^{-1} : f(I) \to \R$ la réciproque de $f$. Supposons $f$ strictement croissante
-		(le cas strictement décroissant est similaire). Soit $p \in \intr f(I)$ (on sait que $f(I)$ est un intervalle). Montrons que $f^{-1}$ est continue en $p$.
-		Prenons $q \in I$ tel que $f(q) = p$. On sait que $q$ n'est pas une extrémité de $I$ car les extrémités de $I$ correspondent aux extrémités de $f(I)$ (par la
-		monotonie stricte de $f$) et que $p$ est dans l'intérieur de $f(I)$. Prenons $\epsilon > 0$ tel que $]q-\epsilon, q+\epsilon[ \subset I$. Posons
-		$c \coloneqq f(q-\epsilon)$ et $d \coloneqq f(q+\epsilon)$. On sait $c < p < d$ par la monotonie stricte de $f$. Soit $\delta \coloneqq \min(pc, d-p)$. Dès lors,
-		$\delta > 0$ et $\interval {p-\delta}{p+\delta} \subset f(\interval {q-\epsilon}{q+\epsilon})$, ou encore
+		\begin{proof} Soient $x, y \in I$ tels que $x \neq y$. Soit $f^{-1} : f(I) \to \R$ la réciproque de $f$. Supposons $f$ strictement croissante
+		(le cas strictement décroissant est similaire). Soit $p \in \intr f(I)$ (on sait que $f(I)$ est un intervalle). Montrons que $f^{-1}$ est continue en
+		$p$. Prenons $q \in I$ tel que $f(q) = p$. On sait que $q$ n'est pas une extrémité de $I$ car les extrémités de $I$ correspondent aux extrémités de
+		$f(I)$ (par la monotonie stricte de $f$) et que $p$ est dans l'intérieur de $f(I)$. Prenons $\epsilon > 0$ tel que $]q-\epsilon, q+\epsilon[ \subset I$.
+		Posons $c \coloneqq f(q-\epsilon)$ et $d \coloneqq f(q+\epsilon)$. On sait $c < p < d$ par la monotonie stricte de $f$. Soit
+		$\delta \coloneqq \min(pc, d-p)$. Dès lors, $\delta > 0$ et $\interval {p-\delta}{p+\delta} \subset f(\interval {q-\epsilon}{q+\epsilon})$, ou encore
 		$f^{-1}(\interval {p-\delta}{p+\delta}) \subset \interval {q-\epsilon}{q+\epsilon}$. Nous avons donc $\delta$ tel que
 		$\abs{x-p} < \delta \Rightarrow \abs{f^{-1}(x)-f^{-1}(p)} < \epsilon$. Ce qui montre que $f^{-1}$, la réciproque de $f$ est continue en $p$. La continuité
-		à droite et à gauche de $f^{-1}$ aux extrémités de $f(I)$ se montrent de la même manière. \QED
+		à droite et à gauche de $f^{-1}$ aux extrémités de $f(I)$ se montrent de la même manière. \end{proof}
 	
 	\subsection{Continuité uniforme}
-		La notion de continuité de $f$ en $a$ est une notion locale. Il en existe une version globale : la continuité uniforme.
+		La notion de continuité de $f$ en $a$ est une notion locale. Il en existe une version globale~: la continuité uniforme.
 
-		\paragraph{Définition} Soit $f : U \subseteq \R \to \R$ une fonction définie sur un ensemble réel $U$. $f$ est uniformément continue sur $U$ si
-
+		\begin{déf} Soit $f : U \subseteq \R \to \R$ une fonction définie sur un ensemble réel $U$. $f$ est uniformément continue sur $U$ si~:
 		\[\forall \epsilon > 0 : \exists \delta > 0 \tq \forall x, y \in U : \abs{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} < \epsilon.\]
 
-		Cette définition englobe la continuité simple mais requiert en plus que la valeur de $\delta$ trouvée ne dépende pas du point $a$ choisi. Comme cette définition
-		englobe l'autre, une fonction uniformément continue est également continue.
+		Cette définition englobe la continuité simple mais requiert en plus que la valeur de $\delta$ trouvée ne dépende pas du point $a$ choisi. Comme
+		cette définition englobe l'autre, une fonction uniformément continue est également continue. \end{déf}
 
-		\paragraph{Définition} Deux suites $(x_n), (y_n) \subset \R$ sont équivalentes si $\abs{x_n-y_n} \to 0$ pour $n \to +\infty$. Donc si l'une de des suites
-		converge en $L$, l'autre converge également en $L$.
+		\begin{déf} Deux suites $(x_n), (y_n) \subset \R$ sont équivalentes si $\abs{x_n-y_n} \to 0$ pour $n \to +\infty$. Donc si l'une de des suites
+		converge en $L$, l'autre converge également en $L$. \end{déf}
 
-		\paragraph{Proposition} Soit $f : U \subseteq \R \to \R$. La fonction $f$ est uniformément continue si et seulement si $\forall (x_n), (y_n) \subset U$
-		équivalentes, les suites $(f(x_n)), (f(y_n))$ sont équivalentes.
+		\begin{prp} Soit $f : U \subseteq \R \to \R$. La fonction $f$ est uniformément continue si et seulement si $\forall (x_n), (y_n) \subset U$
+		équivalentes, les suites $(f(x_n)), (f(y_n))$ sont équivalentes. \end{prp}
 
-		\paragraph{Démonstration} Soit $f : U \to \R$ uniformément continue. Soient $(x_n), (y_n) \subset \R$ deux suites équivalentes. Soit $\epsilon > 0$. On sait
-		qu'il existe $\delta$ tel que $\forall x, y \in U : \abs{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} < \epsilon$ par l'uniforme continuité de $f$. De plus, par
-		l'équivalence des suites, on sait qu'il existe $N \in \N$ tel que $\abs{x_n-y_n} < \delta$. On a donc
-		$\abs{x_n-y_n} < \delta \Rightarrow \abs{f(x_n)-f(y_n)} < \epsilon$. Les deux suites sont bien équivalentes. Montrons maintenant que l'équivalence de $(f(x_n))$
-		et $(f(y_n))$ implique l'uniforme continuité de $f$.
+		\begin{proof} Soit $f : U \to \R$ uniformément continue. Soient $(x_n), (y_n) \subset \R$ deux suites équivalentes. Soit $\epsilon > 0$. On sait
+		qu'il existe $\delta$ tel que $\forall x, y \in U : \abs{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} < \epsilon$ par l'uniforme continuité de $f$. De
+		plus, par l'équivalence des suites, on sait qu'il existe $N \in \N$ tel que $\abs{x_n-y_n} < \delta$. On a donc
+		$\abs{x_n-y_n} < \delta \Rightarrow \abs{f(x_n)-f(y_n)} < \epsilon$. Les deux suites sont bien équivalentes. Montrons maintenant que l'équivalence de
+		$(f(x_n))$ et $(f(y_n))$ implique l'uniforme continuité de $f$.
 		
 		Supposons par l'absurde qu'il existe $\epsilon_0 > 0$ tel qu'il n'existe pas de $\delta_0 > 0$. En particulier, $\delta_0 = \frac 1n$ ne convient pas,
 		quel que soit $n > 0$. Prenons donc $n > 0$. Alors il existe $x_n, y_n \in U$ tels que $\abs{x_n-y_n} < \frac 1n$ et $\abs{f(x_n)-f(y_n)} \geq \epsilon_0$.
-		On a donc les suites $(x_n), (y_n)$ équivalentes mais pas les suites $(f(x_n))$ et $(f(y_n))$ ce qui est une contradiction avec l'hypothèse. \QED
+		On a donc les suites $(x_n), (y_n)$ équivalentes mais pas les suites $(f(x_n))$ et $(f(y_n))$ ce qui est une contradiction avec l'hypothèse. \end{proof}
 
-		\paragraph{Théorème} Si $\fabr f$ est une fonction continue, alors $f$ est uniformément continue.
+		\begin{thm} Si $\fabr f$ est une fonction continue, alors $f$ est uniformément continue. \end{thm}
 
-		\paragraph{Démonstration (1)} Reprenons le format de démonstration précédente : supposons par l'absurde que $f$ n'est pas continue. Dès lors, on sait qu'il
+		\begin{proof}[version 1] Reprenons le format de démonstration précédente~: supposons par l'absurde que $f$ n'est pas continue. Dès lors, on sait qu'il
 		existe $\epsilon_0 > 0$ tel qu'il n'existe pas de $\delta$ satisfaisant la définition. Plus précisément, $\forall n > 0 : \exists x_n, y_n \in \ab$
 		tels que $\abs{x_n-y_n} < \frac 1n$ et $\abs{f(x_n) - f(y_n)} \geq \epsilon_0$. Maintenant, prenons deux sous-suites $(x_{n_k})$ et $(y_{n_k})$. Puisque
 		$(x_n)$ et $(y_n)$ sont des suites bornées, les sous-suites $(x_{n_k})$ et $(y_{n_k})$ sont convergentes par le théorème de Bolzano-Weierstrass. Comme
-		$\abs{x_n-y_n} \to 0$, on sait que les sous-suites convergentes convergent vers la même valeur : $\lim_{k\to+\infty}x_{n_k} = \lim_{k\to+\infty}y_{n_k}$.
+		$\abs{x_n-y_n} \to 0$, on sait que les sous-suites convergentes convergent vers la même valeur~: $\lim_{k\to+\infty}x_{n_k} = \lim_{k\to+\infty}y_{n_k}$.
 		Posons $p \coloneqq \lim_{k\to+\infty}x_{n_k}$. Comme les suites considérées sont dans $\ab$, on sait que $p \in \ab$
 		également. Or par la continuité de $f$, on sait que $f(x_{n_k}) \to f(p)$ et $f(y_{n_k}) \to f(p)$. Dès lors, $\abs{f(x_{n_k})-f(y_{n_k})} \to 0$.
-		Or $\abs{f(x_n) - f(y_n)} \geq \epsilon_0 \forall n$. Il y a donc contradiction. \QED
+		Or $\abs{f(x_n) - f(y_n)} \geq \epsilon_0 \forall n$. Il y a donc contradiction. \end{proof}
 
-		\paragraph{Lemme} Soit $(x_n)$ une suite bornée. Si $\forall (x_{n_k})$ sous-suite de $(x_n) : x_{n_k} \to L$, alors $x_n \to L$.
+		\begin{lem} Soit $(x_n)$ une suite bornée. Si $\forall (x_{n_k})$ sous-suite de $(x_n) : x_{n_k} \to L$, alors $x_n \to L$. \end{lem}
 
-		\paragraph{Preuve du lemme} Par Bolzano-Weierstrass, il existe une sous-suite $(x_{n_k})$ telle que $x_{n_k} \to \liminf (x_n) = L$ et une
-		sous-suite $(x_{m_k})$ telle que $x_{m_k} \to \limsup (x_n) = L$. Si $\liminf(x_n) = \limsup (x_n) = L$, alors $x_n \to L$. \QED
+		\begin{proof} Par Bolzano-Weierstrass, il existe une sous-suite $(x_{n_k})$ telle que $x_{n_k} \to \liminf (x_n) = L$ et une
+		sous-suite $(x_{m_k})$ telle que $x_{m_k} \to \limsup (x_n) = L$. Si $\liminf(x_n) = \limsup (x_n) = L$, alors $x_n \to L$. \end{proof}
 
-		\paragraph{Démonstration (2)} Montrons que si $x_n - y_n \to 0$, alors $f(x_n) - f(y_n) \to 0$. Comme $f(x_n)-f(y_n)$ est bornée, prenons
+		\begin{proof}[version 2] Montrons que si $x_n - y_n \to 0$, alors $f(x_n) - f(y_n) \to 0$. Comme $f(x_n)-f(y_n)$ est bornée, prenons
 		$f(x_{n_k})-f(y_{n_k})$, une sous-suite convergente et nommons la limite $L$. Par Bolzano-Weierstrass, on sait qu'il existe deux sous-suites
 		$(x_{n_{k_l}})$ et $(y_{n_{k_l}})$ qui convergent (respectivement en $u$ et $v$). Alors on peut dire que $f(x_{n_{k_l}}) - f(x_{n_{k_l}}) \to f(u) - f(v) = L$.
-		Or, comme $x_{n_{k_l}} - y_{n_{k_l}} \to 0$, on sait que $u = v$. Dès lors, on peut dire que $L = 0$. \QED
+		Or, comme $x_{n_{k_l}} - y_{n_{k_l}} \to 0$, on sait que $u = v$. Dès lors, on peut dire que $L = 0$. \end{proof}
 
-		\paragraph{Théorème} Soit $f : ]a, b[ \to \R$ une fonction uniformément continue. Alors il existe un \textit{prolongement continu} $\fabr {\bar f}$ de $f$.
+		\begin{thm} Soit $f : ]a, b[ \to \R$ une fonction uniformément continue. Alors il existe un \textit{prolongement continu} $\fabr {\bar f}$ de $f$.
+		\end{thm}
 
-		\paragraph{Démonstration} Prenons la fonction 
-		
+		\begin{proof} Prenons la fonction 
 		\[\fabr {\bar f} : x \mapsto \left\{\begin{aligned}&\lim_{x \to a^+}f(x) &\text{ si } x = a\\&f(x) &\text{ si } x \in ]a, b[\\&\lim_{x \to b^-}f(x) &\text{ si } x = b\end{aligned}\right.\]
 
-		Dès lors, la fonction $\bar f$ est uniformément continue. \QED
+		Dès lors, la fonction $\bar f$ est uniformément continue. \end{proof}
 
-		\paragraph{Remarque} Soit $f : A \to \R$ une fonction uniformément continue. $\forall E \subset A$, $f_{|_E}$ est également uniformément continue.
+		\begin{rmq} Soit $f : A \to \R$ une fonction uniformément continue. $\forall E \subset A$, $f_{|_E}$ est également uniformément continue. \end{rmq}
 	
 	\subsection{Fonctions à valeur vectorielle}
 
-		\paragraph{Définition} Soient $x = (x_1, \ldots, x_n), y = (y_1, \ldots, y_n) \in \R^n$. On définit la distance entre $x$ et $y$ par :
-
+		\begin{déf} Soient $x = (x_1, \ldots, x_n), y = (y_1, \ldots, y_n) \in \R^n$. On définit la distance entre $x$ et $y$ par~:
 		\[\norm{x-y} = \sum_{i=1}^n(x_i-y_i)^2.\]
 
-		De plus, la \textit{norme} d'un vecteur $x$ est la distance entre lui-même et l'origine. Donc $\norm x = \sum_{i=1}^nx_i^2$
+		De plus, la \textit{norme} d'un vecteur $x$ est la distance entre lui-même et l'origine. Donc $\norm x = \sum_{i=1}^nx_i^2$. \end{déf}
 
-		\paragraph{Définition} Soient $x, y \in \R^n$. On définit le produit scalaire de $x$ et $y$ par :
-
+		\begin{déf} Soient $x, y \in \R^n$. On définit le produit scalaire de $x$ et $y$ par~:
 		\[\scpr xy = \sum_{i=1}^nx_iy_i.\]
+		\end{déf}
 
-		\paragraph{Remarque} $\sqrt {\norm x} = \scpr xx$.
+		\begin{rmq} $\sqrt {\norm x} = \scpr xx$. \end{rmq}
 
-		\paragraph{Proposition} Soient $x, y, z \in \R^n, \lambda, \mu \in \R$. Alors :
+		\begin{prp} Soient $x, y, z \in \R^n, \lambda, \mu \in \R$. Alors~:
 
 		\begin{enumerate}
-			\item $\scpr {\lambda x + \mu y}z = \lambda \scpr xz + \mu \scpr yz$ ;
-			\item $\scpr xy = \scpr yx$ ;
+			\item $\scpr {\lambda x + \mu y}z = \lambda \scpr xz + \mu \scpr yz$~;
+			\item $\scpr xy = \scpr yx$~;
 			\item $\scpr xx \geq 0$ et $\scpr xx = 0 \Rightarrow x = 0$.
 		\end{enumerate}
+		\end{prp}
 
-		\paragraph{Théorème (Inégalité de Cauchy-Schwartz)} Soient $x, y \in \R^n$. Alors $\abs {\scpr xy} \leq \norm x\norm y$ avec égalité si et seulement si
-		$x$ et $y$ sont colinéaires.
+		\begin{thm}[Inégalité de Cauchy-Schwartz] Soient $x, y \in \R^n$. Alors $\abs {\scpr xy} \leq \norm x\norm y$ avec égalité si et seulement si $x$ et
+		$y$ sont colinéaires. \end{thm}
 
-		\paragraph{Théorème (inégalité triangulaire)} Soient $x, y \in \R^n$. Alors :
-
+		\begin{thm}[Inégalité triangulaire] Soient $x, y \in \R^n$. Alors~:
 		\[\norm {x+y} \leq \norm x + \norm y.\]
+		\end{thm}
 
-		\paragraph{Démonstration}
-		
+		\begin{proof}
 		\[\norm {x+y}^2 = \scpr {x+y}{x+y} = \scpr xx + 2\scpr xy + \scpr yy = \norm x^2 + 2\scpr xy + \norm y^2 \leq \norm x^2 + 2\norm x\norm y + \norm y^2 =
-		(\norm x + \norm y)^2.\] \QED
+		(\norm x + \norm y)^2.\]
+		\end{proof}
 
-		\paragraph{Définition} Soient $r > 0$ et $a \in \R^n$. On définit la boule ouverte en $a$ de rayon $r$ par :
+		\begin{déf} Soient $r > 0$ et $a \in \R^n$. On définit la boule ouverte en $a$ de rayon $r$ par~:
 
 		\[B(a, r) \coloneqq \{x \in \R^n : \norm {x-a} < r\}.\]
+		\end{déf}
 
-		\paragraph{Définition} Soient $A \subset \R^n$ et $a \in \R^n$. $a \in \adh A$ si et seulement si $\forall \epsilon > 0 : B(a, \epsilon) \cap A \neq \emptyset$.
+		\begin{déf} Soient $A \subset \R^n$ et $a \in \R^n$. $a \in \adh A$ si et seulement si $\forall \epsilon > 0 : B(a, \epsilon) \cap A \neq \emptyset$.
+		\end{déf}
 
-		\paragraph{Définition} Soient $f : A \subset \R^m \to \R^n$, $a \in \adh A$ et $L \in \R^n$. On définit la limite de $f$ pour $x \to a$ par :
-
+		\begin{déf} Soient $f : A \subset \R^m \to \R^n$, $a \in \adh A$ et $L \in \R^n$. On définit la limite de $f$ pour $x \to a$ par~:
 		\[\forall \epsilon > 0 : \exists \delta > 0 \tq \forall x \in A : \norm {x-a} < \delta \Rightarrow \norm {f(x)-L} < \epsilon.\]
+		\end{déf}
 
-		\paragraph{Remarque}
+		\begin{rmq} \[\lim_{x \to a}f(x) = l \in \R^n \iff \forall \epsilon > 0 : \exists \delta > 0 \tq f(A \cap B(a, \delta)) \subseteq B(L, \epsilon).\]
+		\end{rmq}
 
-		\[\lim_{x \to a}f(x) = l \in \R^n \iff \forall \epsilon > 0 : \exists \delta > 0 \tq f(A \cap B(a, \delta)) \subseteq B(L, \epsilon).\]
+		\begin{déf} Soient $f : A \subset \R^m \to \R^n$, $a \in A$. $f$ est continue en $a$ si $\lim_{x \to a}f(x) = f(a)$. \end{déf}
 
-		\paragraph{Définition} Soient $f : A \subset \R^m \to \R^n$, $a \in A$. $f$ est continue en $a$ si $\lim_{x \to a}f(x) = f(a)$.
+		\begin{déf} Soit $f : A \subset \R^m \to \R^n$. Les composantes de $f$ sont les fonctions $f_i : A \subset \R^m \to \R^n$ telles que
+		$f(x) = (f_1(x), f_2(x), \ldots, f_n(x))$. \end{déf}
 
-		\paragraph{Définition} Soit $f : A \subset \R^m \to \R^n$. Les composantes de $f$ sont les fonctions $f_i : A \subset \R^m \to \R^n$ telles que
-		$f(x) = (f_1(x), f_2(x), \ldots, f_n(x))$.
-
-		\paragraph{Lemme} Soit $f : A \subset \R \to \R^n$ une fonction définie sur un voisinage de $a \in \R$. La fonction $f$ possède une limite en $x \to a$ si
-		et seulement si toutes les composantes $f_i : A \to \R^n$ possèdent une limite en $x \to a$. Alors :
-		
+		\begin{lem} Soit $f : A \subset \R \to \R^n$ une fonction définie sur un voisinage de $a \in \R$. La fonction $f$ possède une limite en $x \to a$ si
+		et seulement si toutes les composantes $f_i : A \to \R^n$ possèdent une limite en $x \to a$. Alors~:
 		\[\lim_{x \to a}f(x) = \left(\lim_{x \to a}f_1(x), \lim_{x \to a}f_2(x), \ldots, \lim_{x \to a}f_n(x)\right).\]
+		\end{lem}
 
-		\paragraph{Démonstration} Montrons d'abord que $f(x) \to L \Rightarrow \forall i : f_i(x) \to L_i$. Montrons ensuite l'autre sens de l'implication.
+		\begin{proof} Montrons d'abord que $f(x) \to L \Rightarrow \forall i : f_i(x) \to L_i$. Montrons ensuite l'autre sens de l'implication.
 
 		Soit $f : A \subset \R \to \R^n$ une fonction convergent en $L = (L_1, \ldots, L_n) \in \R^n$ en $x \to a$. Soit $\epsilon > 0$. On sait qu'il existe
-		$\delta > 0$ tel que pour tout $x \in A$, $\abs{x-a} < \delta \Rightarrow \norm{f(x)-L} < \epsilon$. Dès lors :
-
+		$\delta > 0$ tel que pour tout $x \in A$, $\abs{x-a} < \delta \Rightarrow \norm{f(x)-L} < \epsilon$. Dès lors~:
 		\[\abs{f_i(x) - L_i} = \sqrt {(f_i(x) - L_i)^2} \leq \norm {f(x)-L} < \epsilon.\]
 
-		Pour montrer l'implication dans l'autre sens, prenons $\epsilon > 0$. $\forall i \in \{1, \ldots, n\} :
-		\exists \delta_i \tq \abs{x-a} < \delta_i \Rightarrow \abs{f_i(x)-L_i} < \frac \epsilon{\sqrt n}$. On définit $\delta \coloneqq \min\{\{\delta_i\}_i\}$. Dès lors,
-		si $\abs{x-a} < \delta$, on a :
-		
+		Pour montrer l'implication dans l'autre sens, prenons $\epsilon > 0$. $\forall i \in \{1, \ldots, n\}~:
+		\exists \delta_i \tq \abs{x-a} < \delta_i \Rightarrow \abs{f_i(x)-L_i} < \frac \epsilon{\sqrt n}$. On définit $\delta \coloneqq \min\{\{\delta_i\}_i\}$.
+		Dès lors, si $\abs{x-a} < \delta$, on a~:
 		\[\norm {f(x)-L} = \sqrt {\sum_{i=1}^n(f_i(x)-L_i)^2} < \sqrt {\sum_{i=1}^n\left(\frac \epsilon{\sqrt n}\right)^2} = \sqrt {n\frac {\epsilon^2}{n}} = \epsilon.\]
-		\QED
+		\end{proof}
 
-		\paragraph{Lemme} La fonction $f : A \subseteq \R \to \R^n$ est continue en $a$ si et seulement si toutes ses composantes sont continues en $a$.
+		\begin{lem} La fonction $f : A \subseteq \R \to \R^n$ est continue en $a$ si et seulement si toutes ses composantes sont continues en $a$. \end{lem}
 
-		\paragraph{Démonstration} Par le lemme précédent, la démonstration est triviale. \QED
+		\begin{proof} Par le lemme précédent, la démonstration est triviale. \end{proof}
 
-		\paragraph{Lemme} Soient $f, g : A \subseteq \R \to \R^n$ deux fonctions continues en $a \in A$. Alors les fonctions $\norm f, f+g$ et $fg$ sont également
-		continues en $a$.
+		\begin{lem} Soient $f, g : A \subseteq \R \to \R^n$ deux fonctions continues en $a \in A$. Alors les fonctions $\norm f, f+g$ et $fg$ sont également
+		continues en $a$. \end{lem}
 
-		\paragraph{Remarque} Étant donné que la continuité d'une fonction à valeur vectorielle est équivalente à la continuité de ses composantes, les théorèmes sur
-		les fonctions les fonctions réelles s'appliquent facilement aux fonctions à valeur vectorielle.
+		\begin{rmq} Étant donné que la continuité d'une fonction à valeur vectorielle est équivalente à la continuité de ses composantes, les théorèmes sur
+		les fonctions les fonctions réelles s'appliquent facilement aux fonctions à valeur vectorielle. \end{rmq}
 
-		\paragraph{Proposition} Soit $\fabr f^n$ continue. Alors il existe $p, q \in \ab$ tels que $\forall x \in \ab :
-		\norm {f(q)} \leq \norm {f(x)} \leq \norm {f(p)}$.
+		\begin{prp} Soit $\fabr f^n$ continue. Alors il existe $p, q \in \ab$ tels que $\forall x \in \ab~:
+		\norm {f(q)} \leq \norm {f(x)} \leq \norm {f(p)}$. \end{prp}
 
-		\paragraph{Démonstration} Par le le lemme précédent, on sait que $\norm f$ est continue. En appliquant le théorème des bornes atteintes sur chaque composante,
-		la proposition est démontrée. \QED
-	
+		\begin{proof} Par le le lemme précédent, on sait que $\norm f$ est continue. En appliquant le théorème des bornes atteintes sur chaque composante,
+		la proposition est démontrée. \end{proof}
+
+\newpage
 \section{Fonctions dérivables}
 	
 	\subsection{Définitions}
 	
-		\paragraph{Définition} Soit $f : I \to \R$ une fonction définie sur un intervalle ouvert $I$ contenant $a$. La focntion $f$ est dérivable en $a$ si la limite
-		suivante existe :
-
+		\begin{déf} Soit $f : I \to \R$ une fonction définie sur un intervalle ouvert $I$ contenant $a$. La focntion $f$ est dérivable en $a$ si la limite
+		suivante existe~:
 		\[\lim_{h \to 0}\frac {f(a+h)-f(a)}h.\]
 
 		Si la limite existe, on la note $f'(a)$. Si la fonction $f$ est dérivable sur tout point $a$ de son domaine, $f$ est dérivable. On définit la fonction dérivée de
-		$f$ par $f' : I \to \R : x \mapsto f'(x)$.
+		$f$ par $f' : I \to \R : x \mapsto f'(x)$. \end{déf}
 
-		\paragraph{Définition} Il existe des classes de dérivabilité notées $C^k$ pour $k \in \N$. Si $f$ est continue, alors $f \in C^0$. De plus, si $f$ est dérivable
-		et $f'$ est $C^k$, alors $f \in C^{k+1}$.  Et si $\forall k \in \N : f \in C^k$, alors on note $f \in C^\infty$.
+		\begin{déf} Il existe des classes de dérivabilité notées $C^k$ pour $k \in \N$. Si $f$ est continue, alors $f \in C^0$. De plus, si $f$ est dérivable
+		et $f'$ est $C^k$, alors $f \in C^{k+1}$.  Et si $\forall k \in \N : f \in C^k$, alors on note $f \in C^\infty$. \end{déf}
 
-		\paragraph{Proposition} Soit $f : A \subseteq \R \to \R$ dérivable en $a$. Alors $f$ est continue en $a$.
+		\begin{prp} Soit $f : A \subseteq \R \to \R$ dérivable en $a$. Alors $f$ est continue en $a$. \end{prp}
 
-		\paragraph{Démonstration}
+		\begin{proof}
+		\[\lim_{x \to a}f(x) = \lim_{x \to a}f(a) + \lim_{x \to a}\frac {f(x)-f(a)}{x-a}(x-a) = f(a) + f'(a) \cdot 0 = f(a).\]
+		\end{proof}
 
-		\[\lim_{x \to a}f(x) = \lim_{x \to a}f(a) + \lim_{x \to a}\frac {f(x)-f(a)}{x-a}(x-a) = f(a) + f'(a) \cdot 0 = f(a).\] \QED
-
-		\paragraph{Théorème (règles de calcul)} Soient $f, g : I \subseteq \R \to \R$ deux fonctions définies sur un intervalle ouvert $I$ et dérivables en $a \in I$.
-		Alors :
+		\begin{thm}[Règles de calcul] Soient $f, g : I \subseteq \R \to \R$ deux fonctions définies sur un intervalle ouvert $I$ et dérivables en $a \in I$. Alors~:
 
 		\begin{enumerate}
-			\item $(f+g)'(a) = f'(a) + g'(a)$ ;
-			\item $(fg)'(a) = f'(a)g(a) + f(a)g'(a)$ ;
+			\item $(f+g)'(a) = f'(a) + g'(a)$~;
+			\item $(fg)'(a) = f'(a)g(a) + f(a)g'(a)$~;
 			\item si $g(a) \neq 0$, alors $\left(\frac fg\right)'(a) = \frac {f'(a)g(a)-f(a)g'(a)}{g(a)^2}$.
 		\end{enumerate}
+		\end{thm}
 
-		\paragraph{Démonstration} Le premier point découle directement des règles de calcul sur la somme de limites. Le second point se montre en réécrivant la limite :
-
+		\begin{proof} Le premier point découle directement des règles de calcul sur la somme de limites. Le second point se montre en réécrivant la limite~:
 		\[\lim_{x\to a}\frac {(fg)(x) - (fg)(a)}{x-a} = \lim_{x \to a}f(x)\frac {g(x)-g(a)}{x-a} + \lim_{x \to a}g(x)\frac {f(x)-f(a)}{x-a} = f'(a)g(a) + f(a)g'(a).\]
 
-		Le dernier se montre d'abord par $\left(\frac 1g\right)'(a) = -\frac {g'(a)}{g(a)^2}$ :
-
+		Le dernier se montre d'abord par $\left(\frac 1g\right)'(a) = -\frac {g'(a)}{g(a)^2}$~:
 		\[\lim_{x \to a}\frac {\frac 1g(x) - \frac 1g(a)}{x-a} = \lim_{x \to a}\frac {g(a)-g(x)}{(x-a)g(a)g(x)} = -\frac {g'(a)}{g(a)^2}.\]
 
-		En utilisant le point 2 et cette propriété, le quotient est démontré. \QED
+		En utilisant le point 2 et cette propriété, le quotient est démontré. \end{proof}
 
-		\paragraph{Théorème} Soient $f, g$ deux fonctions telles que $f$ est dérivable en $a$ et $g$ est dérivable en $f(a)$. Alors la composée $g \circ f$ est dérivable
-		en $a$ et vaut :
+		\begin{thm} Soient $f, g$ deux fonctions telles que $f$ est dérivable en $a$ et $g$ est dérivable en $f(a)$. Alors la composée $g \circ f$ est dérivable
+		en $a$ et vaut~: \[g'(f(a))f'(a).\] \end{thm}
 
-		\[g'(f(a))f'(a).\]
-
-		\paragraph{Démonstration} Soient les fonctions suivantes :
-
-		\[F(x) \coloneqq \left\{\begin{aligned}&\frac {f(x)-f(a)}{x-a} &\text{ si } x \neq 0 \\ &f\prime(a) &\text{ si } x = a\end{aligned}\right.\]
-
-		Et
-
+		\begin{proof} Soient les fonctions suivantes~:
+		\[F(x) \coloneqq \left\{\begin{aligned}&\frac {f(x)-f(a)}{x-a} &\text{ si } x \neq 0 \\ &f\prime(a) &\text{ si } x = a\end{aligned}\right\},\]
+		et~:
 		\[G(x) \coloneqq \left\{\begin{aligned}&\frac {g(x)-g(f(a))}{x-f(a)} &\text{ si } x \neq f(a)\\&g\prime(f(a)) &\text{ si } x = f(a)\end{aligned}\right.\]
 
 		Les fonctions $F$ et $G$ sont respectivement continues en $a$ et $f(a)$. De plus, $\forall x \in \dom f : f(x) = f(a) + (x-a)F(x)$ et
-		$\forall x \in \dom g : g(x) = g(f(a)) + (x-f(a))G(x)$. Dès lors, on peut calculer $g \circ f$ :
+		$\forall x \in \dom g : g(x) = g(f(a)) + (x-f(a))G(x)$. Dès lors, on peut calculer $g \circ f$~:
 
 		\begin{align*}
 			(g \circ f)(x) &= g(f(x)) = g(f(a) + (x-a)F(x)) = g(f(a)) + (f(a) + (x-a)F(x) - f(a))G(f(a) + (x-a)F(x)) \\
 		                   &= (g \circ f)(a) + (x-a)F(x)G(f(x)).
 		\end{align*}
 
-		On peut dès lors calculer la dérivée en faisant :
-
+		On peut dès lors calculer la dérivée en faisant~:
 		\[(g \circ f)'(a) = \lim_{x \to a}\frac {(g \circ f)(x) - (g \circ f)(a)}{x-a} = \lim_{x \to a}\frac {(x-a)F(x)G(f(x))}{x-a} = \lim_{x \to a}F(x)G(f(x)).\]
 
-		Et puisque le produit de fonctions continues est toujours une fonction continue, par la continuité, cette valeur vaut $F(a)G(f(a)) = f'(a)g'(f(a))$. \QED
+		Et puisque le produit de fonctions continues est toujours une fonction continue, par la continuité, cette valeur vaut $F(a)G(f(a)) = f'(a)g'(f(a))$.
+		\end{proof}
 
-		\paragraph{Théorème (de la réciproque)} Soit $f : I \to J$ une bijection continue réelle entre deux intervalles ouverts. Si $f$ est dérivable en $a \in I$ telle
-		que $f'(a) \neq 0$, alors la réciproque $f^{-1}$ est dérivable en $f(a)$ et vaut :
-
+		\begin{thm}[de la réciproque] Soit $f : I \to J$ une bijection continue réelle entre deux intervalles ouverts. Si $f$ est dérivable en $a \in I$ telle
+		que $f'(a) \neq 0$, alors la réciproque $f^{-1}$ est dérivable en $f(a)$ et vaut~:
 		\[\left(f^{-1}\right)'(f(a)) = \frac 1{f'(a)}.\]
+		\end{thm}
 
-		\paragraph{Démonstration} Puisque $f$ est une bijection continue, elle est strictement monotone. Donc par un théorème précédent, on sait que $f^{-1} : J \to I$
-		est également continue. Posons
-		
+		\begin{proof} Puisque $f$ est une bijection continue, elle est strictement monotone. Donc par un théorème précédent, on sait que $f^{-1} : J \to I$
+		est également continue. Posons~:
 		\[G(y) \coloneqq \frac {f^{-1}(y) - a}{y - f(a)}.\]
 
-		Dès lors :
-
+		Dès lors~:
 		\[\lim_{y \to f(a)} G(y) = \lim_{y \to f(a))}G(f(f^{-1}(y))) = \lim_{x \to \lim_{y \to f(a)}f^{-1}(y)}\frac {x-a}{f(x)-f(a)} = \frac 1{f'(a)}.\]
+		\end{proof}
 	
 	\subsection{Extrema}
 		
-		\paragraph{Def} Soient $f : U \subseteq \R \to \R$ et $a \in U$. Le point $a$ est un minimum local de $f$ si
+		\begin{déf} Soient $f : U \subseteq \R \to \R$ et $a \in U$. Le point $a$ est un minimum local de $f$ si
 		$\exists \epsilon > 0 \tq \forall x \in U : \abs{x-a} < \epsilon \Rightarrow f(a) \leq f(x)$. De même, $a$ et un maximum local si
 		$\exists \epsilon > 0 \tq \forall x \in U : \abs{x-a} < \epsilon \Rightarrow f(a) \geq f(x)$. Si $a$ est un minimum local ou un maximum local, alors $a$ est
-		un extremum local.
+		un extremum local. \end{déf}
 
-		\paragraph{Proposition} Soit $f : U \subseteq \R \to \R$ une fonction dérivable. Soit $a \in \intr U$ un extremum de $f$. Alors $f'(a) = 0$.
+		\begin{prp} Soit $f : U \subseteq \R \to \R$ une fonction dérivable. Soit $a \in \intr U$ un extremum de $f$. Alors $f'(a) = 0$. \end{prp}
 
-		\paragraph{Démonstration} Montrons le cas où $a$ est un minimum local (le cas du maximum est identique). Par la définition du minimum, on sait qu'il existe
-		$\epsilon$ tel que $\forall x \in U : \abs{x-a} < \epsilon \Rightarrow f(a) \leq f(x)$. Dès lors :
+		\begin{proof} Montrons le cas où $a$ est un minimum local (le cas du maximum est identique). Par la définition du minimum, on sait qu'il existe
+		$\epsilon$ tel que $\forall x \in U : \abs{x-a} < \epsilon \Rightarrow f(a) \leq f(x)$. Dès lors~:
 
 		\begin{align*}
 			&\forall x \in U \tq x < a : \frac {f(x)-f(a)}{x-a} \leq 0, \\
 			&\forall x \in U \tq x > a : \frac {f(x)-f(a)}{x-a} \geq 0.
 		\end{align*}
 
-		Or, comme par hypothèse $f$ est dérivable en $a$, la limite pour $x \to a$ existe. Il faut donc $f'(a) = 0$. \QED
+		Or, comme par hypothèse $f$ est dérivable en $a$, la limite pour $x \to a$ existe. Il faut donc $f'(a) = 0$. \end{proof}
 
-		\paragraph{Définition} Soit $f$ une fonction dérivable. Un point $a \in \dom f$ tel que $f'(a) = 0$ est appelé point critique.
+		\begin{déf} Soit $f$ une fonction dérivable. Un point $a \in \dom f$ tel que $f'(a) = 0$ est appelé point critique. \end{déf}
 
 	\subsection{Théorème de la moyenne}
 
-		\paragraph{Lemme (Théorème de Rolle)} Soit $f : \ab \subseteq \R \to \R$ continue et dérivable sur $]a, b[$. Si $f(a) = f(b)$, alors
-		$\exists c \in ]a, b[ \tq f'(c) = 0$.
+		\begin{lem}[Théorème de Rolle] Soit $f : \ab \subseteq \R \to \R$ continue et dérivable sur $]a, b[$. Si $f(a) = f(b)$, alors
+		$\exists c \in ]a, b[ \tq f'(c) = 0$. \end{lem}
 
-		\paragraph{Démonstration} La fonction $f$ est définie sur un intervalle fermé borné. Donc par le théorème des bornes atteintes, on sait qu'il existe $m, M \in \R$
+		\begin{proof} La fonction $f$ est définie sur un intervalle fermé borné. Donc par le théorème des bornes atteintes, on sait qu'il existe $m, M \in \R$
 		tels que $f(m)$ est le minimum de $f$ et $f(M)$ est le maximum de $f$. Si $f(m) = f(M)$, alors la fonction est constante. Alors prenons $c = \frac {a+b}2$.
-		Sinon, si $m \neq a$ et $m \neq b$, prenons $c = m$ car $m$ est un extremum. Par la proposition précédente, $f'(c) = 0$. \QED
+		Sinon, si $m \neq a$ et $m \neq b$, prenons $c = m$ car $m$ est un extremum. Par la proposition précédente, $f'(c) = 0$. \end{proof}
 
-		\paragraph{Théorème (de la moyenne/des accroissements finis)} Soit $f : \ab \subseteq \R \to \R$ continue sur $\ab$ et dérivable sur $]a, b[$.
-		Alors il existe $c \in ]a, b[$ tel que :
-		
+		\begin{thm}[de la moyenne/eds accroissements finis] Soit $f : \ab \subseteq \R \to \R$ continue sur $\ab$ et dérivable sur $]a, b[$.
+		Alors il existe $c \in ]a, b[$ tel que~:
 		\[f'(c) = \frac {f(b)-f(a)}{b-a}.\]
+		\end{thm}
 
-		\paragraph{Démonstration} Soit $G(x)$ une fonction continue sur $\ab$ et dérivable sur $]a, b[$ définie par :
-
+		\begin{proof} Soit $G(x)$ une fonction continue sur $\ab$ et dérivable sur $]a, b[$ définie par~:
 		\[G(x) \coloneqq f(x) - \frac {f(b)-f(a)}{b-a}x.\]
 
 		Dès lors, $G(b)-G(a)=0$. Donc par le théorème de Rolle, on sait qu'il existe $c$ tel que $G'(c) = 0$. Or
-		
 		\[G'(x) = f'(x) - \frac {f(b)-f(a)}{b-a} = 0.\]
 
-		On a donc bien $f'(c) = \frac {f(b)-f(a)}{b-a}$. \QED
+		On a donc bien $f'(c) = \frac {f(b)-f(a)}{b-a}$. \end{proof}
 
-		\paragraph{Proposition} Soit $\fabr f$ continue sur $\ab$ et dérivable sur $]a, b[$.
+		\begin{prp} Soit $\fabr f$ continue sur $\ab$ et dérivable sur $]a, b[$.
 
 		\begin{itemize}
-			\item[$(i)$]   Si $\forall x \in ]a, b[ : f'(x) > 0$, alors $f$ est strictement croissante  sur $]a, b[$ ;
-			\item[$(ii)$]  Si $\forall x \in ]a, b[ : f'(x) < 0$, alors $f$ est strictement décroissante sur $]a, b[$ ;
+			\item[$(i)$]   Si $\forall x \in ]a, b[ : f'(x) > 0$, alors $f$ est strictement croissante  sur $]a, b[$~;
+			\item[$(ii)$]  Si $\forall x \in ]a, b[ : f'(x) < 0$, alors $f$ est strictement décroissante sur $]a, b[$~;
 			\item[$(iii)$] Si $\forall x \in ]a, b[ : f'(x) = 0$, alors $f$ est constante sur $]a, b[$.
 		\end{itemize}
+		\end{prp}
 
-		\paragraph{Démonstration} Puisque $f$ est définie et continue sur un intervalle borné fermé, pour tout $x_1 < x_2 \in ]a, b[$, on sait que :
-
+		\begin{proof} Puisque $f$ est définie et continue sur un intervalle borné fermé, pour tout $x_1 < x_2 \in ]a, b[$, on sait que~:
 		\[\exists c \in ]a, b[ \tq f'(c) = \frac {f(x_1)-f(x_2)}{x_1-x_2}.\]
 
 		Donc si $f'(c) > 0$ (premier cas), il faut $f(x_2) > f(x_1)$, si $f'(c) < 0$ (second cas), il faut $f(x_2) < f(x_1)$ et si $f'(c) = 0$ (dernier cas), il faut
-		$f(x_1 = f(x_2)$. On a donc $f$ soit strictement croissante, soit strictement décroissante soit constante. \QED
+		$f(x_1 = f(x_2)$. On a donc $f$ soit strictement croissante, soit strictement décroissante soit constante. \end{proof}
 
-		\paragraph{Théorème (comparatif de la moyenne)} Soient $\fabr {f, g}$ continues sur $\ab$ et dérivables sur $]a, b[$. Si pour tout
-		$x \in ]a, b[$, on a $g(x) \neq 0$, alors il existe $c \in ]a, b[$ tel que :
-
+		\begin{thm}[Comparatif de la moyenne] Soient $\fabr {f, g}$ continues sur $\ab$ et dérivables sur $]a, b[$. Si pour tout $x \in ]a, b[$, on a $g(x) \neq 0$,
+		alors il existe $c \in ]a, b[$ tel que~:
 		\[\frac {f'(c)}{g'(c)} = \frac {f(b)-f(a)}{g(b)-g(a)}.\]
+		\end{thm}
 	
 	\subsection{Règle de l'Hospital}
 		
-		\paragraph{Théorème} Soient $f, g : \interval cd \to \R$ deux fonctions continues sur $\interval cd$ et dérivables sur $]c, d[$. Soit $a \in ]c, d[$.
-		Si $f(a) = g(a) = 0$, alors :
-
+		\begin{thm} Soient $f, g : \interval cd \to \R$ deux fonctions continues sur $\interval cd$ et dérivables sur $]c, d[$. Soit $a \in ]c, d[$.
+		Si $f(a) = g(a) = 0$, alors~:
 		\[\lim_{x \to a}\frac {f(x)}{g(x)} = \lim_{x \to a}\frac {f'(x)}{g'(x)}\]
 
-		si cette limite existe.
+		si cette limite existe. \end{thm}
 
-		\paragraph{Démonstration} Calculons d'abord la limite à droite, puis la limite à gauche. Soit $x \in ]a, d]$. Dès lors, par le théorème comparatif de la moyenne
-		sur des fonctions $f$ et $g$ réduites au domaine $[a, x]$, on sait qu'il existe $\xi(x) \in ]a, x[$ tel que :
-
+		\begin{proof} Calculons d'abord la limite à droite, puis la limite à gauche. Soit $x \in ]a, d]$. Dès lors, par le théorème comparatif de la moyenne
+		sur des fonctions $f$ et $g$ réduites au domaine $[a, x]$, on sait qu'il existe $\xi(x) \in ]a, x[$ tel que~:
 		\[\frac {f'(\xi(x))}{g'(\xi(x))} = \frac {f(x)-f(a)}{g(x)-g(a)} = \frac {f(x)-0}{g(x)-0} = \frac {f(x)}{g(x)}.\]
 
-		De plus, quand $x \to a^+$, il faut $\xi(x) \to a^+$ car $a < \xi(x) < x$. On sait donc que :
-
+		De plus, quand $x \to a^+$, il faut $\xi(x) \to a^+$ car $a < \xi(x) < x$. On sait donc que~:
 		\[\lim_{x \to a^+}\frac {f(x)}{g(x)} = \lim_{\xi(x) \to a^+}\frac {f'(\xi(x))}{g'(\xi(x))}.\]
 
-		De manière similaire, en prenant $x \in [c, a[$, on trouve $\xi(x) \in ]x, a[$ tel que :
-
+		De manière similaire, en prenant $x \in [c, a[$, on trouve $\xi(x) \in ]x, a[$ tel que~:
 		\[\frac {f'(\xi(x))}{g'(\xi(x))} = \frac {f(x)-f(a)}{g(x)-g(a)} = \frac {f(x)}{g(x)}.\]
 
-		À nouveau, quand $x \to a^-$, il faut $\xi(x) \to a^-$. Dès lors :
-
+		À nouveau, quand $x \to a^-$, il faut $\xi(x) \to a^-$. Dès lors~:
 		\[\lim_{x \to a^-}\frac {f(x)}{g(x)} = \lim_{\xi(x) \to a^-}\frac {f'(\xi(x))}{g'(\xi(x))}.\]
 
-		Donc si les deux limites existent et sont égales, on a :
-
-		\[\lim_{x \to a}\frac {f(x)}{g(x)} = \lim_{x \to a}\frac {f'(x)}{g'(x)}.\] \QED
+		Donc si les deux limites existent et sont égales, on a~:
+		\[\lim_{x \to a}\frac {f(x)}{g(x)} = \lim_{x \to a}\frac {f'(x)}{g'(x)}.\]
+		\end{proof}
 		
-		\paragraph{Proposition} Soient $f, g : \interval cd \to \R$ continues sur $\interval cd$ et dérivables sur $]c, d[$. Si $\lim_{x \to a^+}g(x) = \pm\infty$,
-		$\forall x : x \in ]a, d[ \Rightarrow g'(x) \neq 0$, et si $\lim_{x \to a^+}\frac {f'(x)}{g'(x)} = L \in \overline \R$ alors :
+		\begin{prp} Soient $f, g : \interval cd \to \R$ continues sur $\interval cd$ et dérivables sur $]c, d[$. Si $\lim_{x \to a^+}g(x) = \pm\infty$,
+		$\forall x : x \in ]a, d[ \Rightarrow g'(x) \neq 0$, et si $\lim_{x \to a^+}\frac {f'(x)}{g'(x)} = L \in \overline \R$ alors~:
 
 		\[\lim_{x \to a^+}\frac {f(x)}{g(x)} = L.\]
+		\end{prp}
 
-		\paragraph{Démonstration} Soient $x < y \in ]a, d[$. Il existe $\xi \in ]x, y[$ tel que :
-
+		\begin{proof} Soient $x < y \in ]a, d[$. Il existe $\xi \in ]x, y[$ tel que~:
 		\[\frac {f(x)-f(y)}{g(x)-g(y)} = \frac {f'(\xi)}{g'(\xi)}.\]
 
-		Comme $g(x) \to \pm \infty$ quand $x \to a$, on sait qu'il existe un voisinage de $a$ où $g(x) \neq 0$. De plus, en réécrivant :
-
+		Comme $g(x) \to \pm \infty$ quand $x \to a$, on sait qu'il existe un voisinage de $a$ où $g(x) \neq 0$. De plus, en réécrivant~:
 		\[f(x) = f(y) + (f(x)-f(y)) = f(y) + (g(x)-g(y))\frac {f(x)-f(y)}{g(x)-g(y)} = f(y) + (g(x)-g(y))\frac {f'(\xi)}{g'(\xi)},\]
 
-		on peut trouver :
-
+		on peut trouver~:
 		\[\frac {f(x)}{g(x)} = \frac 1{g(x)}\left[f(y) + (g(x)-g(y))\frac {f'(\xi)}{g'(\xi)}\right] =
 		\frac {f(y)}{g(x)} + \left(1 - \frac {g(y)}{g(x)}\right)\frac {f'(\xi)}{g'(\xi)}.\]
 
@@ -1555,7 +1523,7 @@
 		Dès lors, il existe $\delta_2$ tel que $\forall x : x \in ]a, a+\delta_2[ \Rightarrow \abs{\frac {g(y)}{g(x)}} < \epsilon_2$ et
 		$\abs{\frac {f(y)}{g(x)}} < \epsilon_3$.
 		Prenons $(\epsilon_1, \epsilon_2, \epsilon_3) = \left(\frac \epsilon6, \min\left\{\frac \epsilon{3|L|+1}, \frac 12\right\}, \frac \epsilon3\right)$.
-		Prenons $\delta \coloneqq \min \{\delta_1, \delta_2\}$. On a donc :
+		Prenons $\delta \coloneqq \min \{\delta_1, \delta_2\}$. On a donc~:
 		
 		\begin{align*}
 			\forall x : x \in ]a, a+\delta[ : \abs{\frac {f(x)}{g(x)} - L}
@@ -1563,68 +1531,70 @@
 			&= \abs{\frac {f(y)}{g(x)} + \left(\frac {f'(\chi)}{g'(\chi)}-L\right)-\frac {g(y)}{g(x)}\left(\frac {f'(\chi)}{g'(\chi)}-L\right)+L-\frac {g(y)}{g(x)}L-L} \\
 			&< \epsilon_3 + \epsilon_1 + \epsilon_2\epsilon_1 + \abs L\epsilon_2 \\
 			&< \frac \epsilon3 + \frac \epsilon6 + \frac \epsilon6 + \frac \epsilon3 = \epsilon.
-		\end{align*} \QED
+		\end{align*}
+		\end{proof}
 	
 	\subsection{Dérivées de fonctions à valeur dans $\R^n$}
 		
-		\paragraph{Définition} Soit $\frrn fA$. Soit $a \in \intr A$. $f$ est dérivable en $a$ si :
-
+		\begin{déf} Soit $\frrn fA$. Soit $a \in \intr A$. $f$ est dérivable en $a$ si~:
 		\[\lim_{h \to 0}\frac {f(a+h)-f(a)}h\]
 
-		existe dans $\R^n$ cet élément.
+		existe dans $\R^n$ cet élément. \end{déf}
 
-		\paragraph{Lemme} La fonction $\frrn rA$ est dérivable en $a \in \intr A$ si et seulement si toutes ses composantes sont dérivables. En ce cas,
-		$f'(a) = (f_1'(a), \ldots, f_n'(a))$.
+		\begin{lem} La fonction $\frrn rA$ est dérivable en $a \in \intr A$ si et seulement si toutes ses composantes sont dérivables. En ce cas,
+		$f'(a) = (f_1'(a), \ldots, f_n'(a))$. \end{lem}
 
-		\paragraph{Théorème} Soient $f : \R \to \R$ dérivable en $a \in \R$ et $g : \R \to \R^n$ dérivable en $f(a)$. Alors $(g \circ f)'(a) = f'(a)g'(f(a))$.
+		\begin{thm} Soient $f : \R \to \R$ dérivable en $a \in \R$ et $g : \R \to \R^n$ dérivable en $f(a)$. Alors $(g \circ f)'(a) = f'(a)g'(f(a))$. \end{thm}
 
-		\paragraph{Démonstration} Par le lemme précédent et la règle de dérivation de composée pour les fonctions réelles. \QED
+		\begin{proof} Par le lemme précédent et la règle de dérivation de composée pour les fonctions réelles. \end{proof}
 
-		\paragraph{Théorème} Soient $f : \R \to \R, g : \R^n \to \R, h : \R \to \R^n$ et $a \in \R$ tels que $f, g, h$ sont dérivables en $a$. Alors :
+		\begin{thm} Soient $f : \R \to \R, g : \R^n \to \R, h : \R \to \R^n$ et $a \in \R$ tels que $f, g, h$ sont dérivables en $a$. Alors~:
 
 		\begin{enumerate}
-			\item $(fg)'(a) = f'(a)g(a) + f(a)g'(a)$ ;
-			\item $(\scpr gh)'(a) = \scpr {h'(a)}{g(a)} + \scpr {h(a)}{g'(a)}$ ;
-			\item $\left(\frac gf\right)'(a) = \frac {g'(a)f(a) - g(a)f'(a)}{f(a)^2}$ ;
+			\item $(fg)'(a) = f'(a)g(a) + f(a)g'(a)$~;
+			\item $(\scpr gh)'(a) = \scpr {h'(a)}{g(a)} + \scpr {h(a)}{g'(a)}$~;
+			\item $\left(\frac gf\right)'(a) = \frac {g'(a)f(a) - g(a)f'(a)}{f(a)^2}$~;
 			\item $(g+h)'(a) = g'(a) + h'(a)$.
 		\end{enumerate}
+		\end{thm}
 	
 	\subsection{Dérivées de fonctions vectorielles}
 		
-		\paragraph{Définition} Le graphe d'une fonction $\frmr fA$ est l'ensemble des couples :
-
+		\begin{déf} Le graphe d'une fonction $\frmr fA$ est l'ensemble des couples~:
 		\[\Gamma_f \coloneqq \{((x, f(x)) \in \R^n \times \R \cong \R^{n+1} \tq x \in A\}.\]
+		\end{déf}
 
-		\paragraph{Définition} Soit $\frmr fA$. Soit $a \in \intr A$. La $j$ème dérivée partielle de $f$ (pour $1 \leq j < m$) est  donnée par :
-
+		\begin{déf} Soit $\frmr fA$. Soit $a \in \intr A$. La $j$ème dérivée partielle de $f$ (pour $1 \leq j < m$) est  donnée par~:
 		\[\lim_{h \to 0}\frac {f(a_1, \ldots, a_j+h, \ldots, a_n) - f(a)}h = \lim_{h \to 0}\frac {f(a+he_j)-f(a)}h.\]
 
 		si cette limite existe et se note $\pd f{x_j}(a)$ ou $(\partial_jf)(a)$. Si la limite n'existe pas, alors $f$ n'est pas dérivable en $a$.
+		\end{déf}
 
-		\paragraph{Définition} On définit le gradient de $f : \R^m \to \R$ en $a$ par le vecteur des dérivées partielles :
-
+		\begin{déf} On définit le gradient de $f : \R^m \to \R$ en $a$ par le vecteur des dérivées partielles~:
 		\[(\nabla f)(a) = ((\partial_1 f)(a), \ldots, (\partial_m f)(a)) = ((\partial_i f)(a))_i \in \R^m.\]
+		\end{déf}
 
-		\paragraph{Définition} $e_j$ est le $j$ème vecteur de la base canonique de $\R^n$.
+		\begin{déf} $e_j$ est le $j$ème vecteur de la base canonique de $\R^n$. \end{déf}
 
-		\paragraph{Définition} Soit $f : \R^m \to \R$, $a \in \R^m$ et $v \in \R^m$. $f$ est dérivable en $a$ dans la direction $v$ si la limite suivante
-		existe dans $\R$ :
+		\begin{déf} Soit $f : \R^m \to \R$, $a \in \R^m$ et $v \in \R^m$. $f$ est dérivable en $a$ dans la direction $v$ si la limite suivante
+		existe dans $\R$~:
 
 		\[\lim_{h \to 0}\frac {f(a+hv)-f(a)}h.\]
 
-		On note $(\partial_v f)(a)$ ce réel et on l'appelle dérivée directionnelle de la fonction $f$ dans la direction $v$ au point $a$.
+		On note $(\partial_v f)(a)$ ce réel et on l'appelle dérivée directionnelle de la fonction $f$ dans la direction $v$ au point $a$. \end{déf}
 
-		\paragraph{Remarque} Comme $e_j$ est un vecteur de la base de $\R^m$, $(\partial_j f)(a) = (\partial_{e_j} f)(a)$ est une dérivée directionnelle.
+		\begin{rmq} Comme $e_j$ est un vecteur de la base de $\R^m$, $(\partial_j f)(a) = (\partial_{e_j} f)(a)$ est une dérivée directionnelle. \end{rmq}
 
-		\paragraph{Définition} Soient $f : \R^m \to \R$, $a \in \R^m$. La fonction $f$ est différentiable s'il existe $u \in \R^m$ tel que :
+		\begin{déf} Soient $f : \R^m \to \R$, $a \in \R^m$. La fonction $f$ est différentiable s'il existe $u \in \R^m$ tel que~:
 
 		\[\lim_{x \to a}\frac {f(x) - f(a) - \scpr u{x-a}}{\norm {x-a}} = 0 \in \R.\]
+		\end{déf}
 
-		\paragraph{Proposition} Soient $f : \R^m \to \R$, $a \in \R^m$. Si $f$ est différentiable en $a$, alors la fonction
+		\begin{prp} Soient $f : \R^m \to \R$, $a \in \R^m$. Si $f$ est différentiable en $a$, alors la fonction
 		$\partial_\cdot f : \R^m \to \R : v \mapsto (\partial_v f)(a)$ est définie pour tout vecteur $v$ et est linéaire. De plus,
-		$\forall v \in \R^m : (\partial_v f)(a) = \scpr {(\nabla f)(a)}v$.
+		$\forall v \in \R^m : (\partial_v f)(a) = \scpr {(\nabla f)(a)}v$. \end{prp}
 
-		\paragraph{Démonstration} Soit $x(t) \coloneqq a + tv$. Donc, $x(t) \to a$ si $t \to 0$. Dès lors :
+		\begin{proof} Soit $x(t) \coloneqq a + tv$. Donc, $x(t) \to a$ si $t \to 0$. Dès lors~:
 
 		\begin{align*}
 			\lim_{t \to 0} \frac {f(a+tv)-(f(a) + \scpr u{tv})}{\abs t} &= 0 \\
@@ -1634,258 +1604,257 @@
 		\end{align*}
 
 		Dès lors, pour $v = e_j$, on a $(\partial_{e_j} f)(a) = (\partial_j f)(a) = \scpr uv = \scpr u{e_j} = u_j$. Donc
-		$u = ((\partial_1 f)(a), \ldots, (\partial_m f)(a)) = (\nabla f)(a)$. \QED
+		$u = ((\partial_1 f)(a), \ldots, (\partial_m f)(a)) = (\nabla f)(a)$. \end{proof}
 
+\newpage
 \section{Intégrales de Riemann}
 		\subsection{Définitions}
 	
-		\paragraph{Définition} une partition de $\ab$ est la donnée $\{x_i \tq 0 \leq i \leq n\} \subset \ab$ telle que $a = x_0 < \ldots < x_n = b$.
+		\begin{déf} une partition de $\ab$ est la donnée $\{x_i \tq 0 \leq i \leq n\} \subset \ab$ telle que $a = x_0 < \ldots < x_n = b$. \end{déf}
 
-		\paragraph{Définition} Soit $\fabr f$ bornée. Soit $P = \{x_i\}_{i \in [n]}$  une partition de $\ab$. Pour tout $1 \leq i \leq n$, on définit :
+		\begin{déf} Soit $\fabr f$ bornée. Soit $P = \{x_i\}_{i \in [n]}$  une partition de $\ab$. Pour tout $1 \leq i \leq n$, on définit~:
 
 		\begin{align*}
 			m_i &\coloneqq \inf \{f(x) \tq x \in \interval {x_{i-1}}{x_i}\}, \\
 			M_i &\coloneqq \sup \{f(x) \tq x \in \interval {x_{i-1}}{x_i}\}.
 		\end{align*}
 
-		On définit ensuite :
+		On définit ensuite~:
 	
 		\begin{align*}
 			\mathcal L(f, P) &\coloneqq \sum_{i=1}^n(x_i-x_{i-1})m_i, \\
 			\mathcal U(f, P) &\coloneqq \sum_{i=1}^n(x_i-x_{i-1})M_i.
 		\end{align*}
 
-		Qui sont respectivement l'aire signée de la somme des rectangles inférieurs et supérieurs. À partir de cela, on définit :
+		Qui sont respectivement l'aire signée de la somme des rectangles inférieurs et supérieurs. À partir de cela, on définit~:
 	
 		\begin{align*}
 			\mathcal L(f) &\coloneqq \sup \{\mathcal L(f, P) \tq P \text{ est une partition de } \ab\}, \\
 			\mathcal U(f) &\coloneqq \inf \{\mathcal U(f, P) \tq P \text{ est une partition de } \ab\}.
 		\end{align*}
+		\end{déf}
 
-		\paragraph{Définition} une fonction $\fabr f$ bornée est intégrale si $\mathcal U(f) = \mathcal L(f)$. On note cette valeur $\int_a^bf(x)\dif x$ ou encore
-		$\int_a^b f$.
+		\begin{déf} une fonction $\fabr f$ bornée est intégrale si $\mathcal U(f) = \mathcal L(f)$. On note cette valeur $\int_a^bf(x)\dif x$ ou encore
+		$\int_a^b f$. \end{déf}
 
-		\paragraph{Lemme} Si $\fabr f$ est bornée et $P$ est une partition de $\ab$, $y \in \ab$. On définit $P' \coloneqq P \cup \{y\}$. Alors :
-
+		\begin{lem} Si $\fabr f$ est bornée et $P$ est une partition de $\ab$, $y \in \ab$. On définit $P' \coloneqq P \cup \{y\}$. Alors~:
 		\[\Larea(f, P) \leq \Larea(f, P) \leq \Uarea(f, P) \leq \Uarea(f, P').\]
+		\end{lem}
 
-		\paragraph{Démonstration} Soit $r \in \{1, \ldots, n\}$ tel que $x_{r-1} < y < x_r$. On sait que $\Larea(f, P) = m_1(x_1-x_0) + \ldots + m_n(x_n-x_{n-1})$ et on
+		\begin{proof} Soit $r \in \{1, \ldots, n\}$ tel que $x_{r-1} < y < x_r$. On sait que $\Larea(f, P) = m_1(x_1-x_0) + \ldots + m_n(x_n-x_{n-1})$ et on
 		sait que $\Larea(f, P') = m_1(x_1-x_0) + \ldots + \alpha(y-x_{r-1}) + \beta(x_r-y) + \ldots + m_n(x_n-x_{n-1})$ où
-		$\alpha = \inf \{f(x) \tq x \in \interval {x_{r-1}}y\}$ et $\beta = \inf \{f(x) \tq x \in \interval y{x_r}\}$. Dès lors :
+		$\alpha = \inf \{f(x) \tq x \in \interval {x_{r-1}}y\}$ et $\beta = \inf \{f(x) \tq x \in \interval y{x_r}\}$. Dès lors~:
 
 		\begin{align*}
 			\Larea(f, P')-\Larea(f, P) &= \alpha(y-x_{r-1}) + \beta(x_r-y) - m_r(x_r-x_{r-1}) = x_{r-1}(-\alpha+m_r)+ x_r(\beta-m_r) + \alpha y - \beta y + m_ry - m_ry \\
 			                           &= (\alpha-m_r)(y-x_{r-1}) + (\beta-m_r)(x_r-y).
 		\end{align*}
 
-		Étant donné que $x_{r-1} < y < x_r$, on sait que les secondes parenthèses sont positives. De plus, comme les intervalles dont $\alpha$ et $\beta$ sont les
-		minima sont inclus dans l'intervalle dont $m_r$ est le minimum, il est nécessaire que $\alpha \geq m_r$ et $\beta \geq m_r$. Les premières parenthèses sont dès
-		lors également positives. Si $\Larea(f, P')-\Larea(f, P) \geq 0$, alors $\Larea(f, P') \geq \Larea(f, P)$. La partie pour les aires supérieures est identique. \QED
+		Étant donné que $x_{r-1} < y < x_r$, on sait que les secondes parenthèses sont positives. De plus, comme les intervalles dont $\alpha$ et $\beta$ sont
+		les minima sont inclus dans l'intervalle dont $m_r$ est le minimum, il est nécessaire que $\alpha \geq m_r$ et $\beta \geq m_r$. Les premières
+		parenthèses sont dès lors également positives. Si $\Larea(f, P')-\Larea(f, P) \geq 0$, alors $\Larea(f, P') \geq \Larea(f, P)$. La partie pour les aires
+		supérieures est identique. \end{proof}
 
-		\paragraph{Corollaire} Soient $P, P'$ deux partitions de $\ab$ telles que $P \subset P'$, alors
-		$\Larea(f, P') \leq \Larea(f, P) \leq \Uarea(f, P) \leq \Uarea(f, P')$.
+		\begin{cor} Soient $P, P'$ deux partitions de $\ab$ telles que $P \subset P'$, alors $\Larea(f, P') \leq \Larea(f, P) \leq \Uarea(f, P) \leq \Uarea(f, P')$.
+		\end{cor}
 
-		\paragraph{Démonstration} En écrivant $P' = P \cup \{y_1, \ldots, y_k\}$ et en appliquant $k$ fois le lemme précédent. \QED
+		\begin{proof} En écrivant $P' = P \cup \{y_1, \ldots, y_k\}$ et en appliquant $k$ fois le lemme précédent. \end{proof}
 
-		\paragraph{Lemme} Soient $P$ et $P'$ deux partitions quelconques du même intervalle $\ab$. Alors :
-
+		\begin{lem} Soient $P$ et $P'$ deux partitions quelconques du même intervalle $\ab$. Alors~:
 		\[\Larea(f, P) \leq \Uarea(f, P').\]
+		\end{lem}
 
-		\paragraph{Démonstration} Soit $P'' = P \cup P'$. Dès lors, on sait $P'' \subset P'$ et $P'' \subset P$. Donc :
+		\begin{proof} Soit $P'' = P \cup P'$. Dès lors, on sait $P'' \subset P'$ et $P'' \subset P$. Donc~:
+		\[\Larea(f, P) \leq \Larea(f, P'') \leq \Uarea(f, P'') \leq \Uarea(f, P').\]
+		\end{proof}
 
-		\[\Larea(f, P) \leq \Larea(f, P'') \leq \Uarea(f, P'') \leq \Uarea(f, P').\] \QED
+		\begin{prp} Soit $\fabr f$ bornée. Alors $\Larea(f) \leq \Uarea(f)$. \end{prp}
 
-		\paragraph{Proposition} Soit $\fabr f$ bornée. Alors $\Larea(f) \leq \Uarea(f)$.
-
-		\paragraph{Démonstration} On sait que pour tout $P, P'$ partitions de $\ab$, $\Larea(f, P) \leq \Uarea(f, P')$. En particulier, en prenant le $\sup$
-		à gauche et l'$\inf$ à droite, l'inégalité reste vraie. Donc :
+		\begin{proof} On sait que pour tout $P, P'$ partitions de $\ab$, $\Larea(f, P) \leq \Uarea(f, P')$. En particulier, en prenant le $\sup$
+		à gauche et l'$\inf$ à droite, l'inégalité reste vraie. Donc~:
 	
 		\begin{align*}
 			\sup \{\Larea(f, P) \tq P \text{ est une partition de } \ab\} &\leq \inf \{\Uarea(f, P) \tq P \text{ est une partition de } \ab\} \\
 			\Larea(f) &\leq \Uarea(f)
 		\end{align*}
+		\end{proof}
 	
 	\subsection{Fonctions intégrables}
-		
-		\paragraph{Proposition (critère de Riemann)} Soit $\fabr f$ bornée. Alors $f$ est intégrable si et seulement $\forall \epsilon > 0 : \exists P$ une partition
-		de $\ab$ telle que $\Uarea(f, P) - \Larea(f, P) < \epsilon$.
+		\begin{prp}[Critère de Riemann] Soit $\fabr f$ bornée. Alors $f$ est intégrable si et seulement $\forall \epsilon > 0 : \exists P$ une partition
+		de $\ab$ telle que $\Uarea(f, P) - \Larea(f, P) < \epsilon$. \end{prp}
 
-		\paragraph{Démonstration} Montrons d'abord l'implication $\Rightarrow$. On sait par hypothèse que $\Larea(f) = \Uarea(f)$. Soit $\epsilon > 0$. On sait
+		\begin{proof} Montrons d'abord l'implication $\Rightarrow$. On sait par hypothèse que $\Larea(f) = \Uarea(f)$. Soit $\epsilon > 0$. On sait
 		qu'il existe $P_1, P_2$ partitions de $\ab$ tels que $\Uarea(f, P_1) < \Uarea(f)+\frac \epsilon2$ et $\Larea(f, P_2) > \Larea(f) + \frac \epsilon2$.
-		Posons $P \coloneqq P_1 \cup P_2$. Dès lors :
+		Posons $P \coloneqq P_1 \cup P_2$. Dès lors~:
+		\[
+			\Larea(f) - \frac \epsilon2 \leq \Larea(f, P_2) \leq \Larea(f, P) \leq \Larea(f)
+			  \stackrel{\text{par hypothèse}}=
+			\Uarea(f) \leq \Uarea(f, P) \leq \Uarea(f, P_1) \leq \Uarea(f) + \frac \epsilon2.
+		\]
 
-		\[\Larea(f) - \frac \epsilon2 \leq \Larea(f, P_2) \leq \Larea(f, P) \leq \Larea(f)
-		\stackrel{\text{par hypothèse}}=
-		\Uarea(f) \leq \Uarea(f, P) \leq \Uarea(f, P_1) \leq \Uarea(f) + \frac \epsilon2.\]
-
-		On sait donc $\Uarea(f, P) < \Uarea(f, P_1) < \Uarea(f)+\frac \epsilon2$ et $-\Larea(f, P) < -\Larea(f, P_2) < -\Larea(f)+\frac \epsilon2$. Donc :
-
+		On sait donc $\Uarea(f, P) < \Uarea(f, P_1) < \Uarea(f)+\frac \epsilon2$ et $-\Larea(f, P) < -\Larea(f, P_2) < -\Larea(f)+\frac \epsilon2$. Donc~:
 		\[\Uarea(f, P) - \Larea(f, P) < \Uarea(f)+\frac \epsilon2-\Larea(f)+\frac \epsilon2 = \epsilon.\]
 
 		Montrons maintenant l'autre sens de l'implication $\Leftarrow$. Soit $\epsilon > 0$. On sait qu'il existe $P$ une partition de $\ab$ telle que
-		$\Uarea(f, P) - \Larea(f, P) < \epsilon$. De plus, on sait $0 \leq \Uarea(f)-\Larea(f) \leq \Uarea(f, P)-\Larea(f, P) < \epsilon$. On a donc une quantité
-		$\Uarea(f)-\Larea(f)$ ne dépendant pas de $\epsilon$ mais étant plus petite qu'$\epsilon$ pour tout $\epsilon > 0$. Il faut dès lors $\Uarea(f)-\Larea(f) = 0$. \QED
+		$\Uarea(f, P) - \Larea(f, P) < \epsilon$. De plus, on sait $0 \leq \Uarea(f)-\Larea(f) \leq \Uarea(f, P)-\Larea(f, P) < \epsilon$. On a donc une
+		quantité $\Uarea(f)-\Larea(f)$ ne dépendant pas de $\epsilon$ mais étant plus petite qu'$\epsilon$ pour tout $\epsilon > 0$. Il faut dès lors
+		$\Uarea(f)-\Larea(f) = 0$. \end{proof}
 
-		\paragraph{Théorème} Si $\fabr f$ est continue, alors $f$ est intégrable.
+		\begin{thm} Si $\fabr f$ est continue, alors $f$ est intégrable. \end{thm}
 
-		\paragraph{Démonstration} Soit $\epsilon > 0$. Si $f$ est continue, alors elle est uniformément continue. Donc il existe $\delta$
-		tel que :
-		
+		\begin{proof} Soit $\epsilon > 0$. Si $f$ est continue, alors elle est uniformément continue. Donc il existe $\delta$ tel que~:
 		\[\forall x, y : \abs{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} < \frac \epsilon{b-a}.\]
 
 		On construit $P$ telle que $\forall 1 \leq 1 \leq n : x_i-x_{i-1} < \delta$. Pour tout $i$, on sait qu'il existe $x_*$ et $x^*$ tels que
-		$M_i = f(x^*)$ et $m_i = f(x_*)$ par le théorème des bornes atteintes. Donc :
-
+		$M_i = f(x^*)$ et $m_i = f(x_*)$ par le théorème des bornes atteintes. Donc~:
 		\[\Uarea(f, P)-\Larea(f, P) = \sum_{i=1}^n(M_i-m_i)(x_i-x_{i-1}) = \sum_{i=1}^n(f(x^*)-f(x_*))(x_i-x_{i-1}) \leq \frac \epsilon{b-a}\sum_{i=1}^n(x_i-x_{i-1})
-		= \frac \epsilon{b-a}(b-a) = \epsilon.\] \QED
+		= \frac \epsilon{b-a}(b-a) = \epsilon.\]
+		\end{proof}
 
 	\subsection{Propriétés des intégrales}
 		
-		\paragraph{Définition} Soit $\fabr f$ intégrable. On définit :
-
+		\begin{déf} Soit $\fabr f$ intégrable. On définit~:
 		\[\int_a^bf(x)\dif x = -\int_b^af(x)\dif x.\]
+		\end{déf}
 
-		\paragraph{Proposition} Soient $\fabr {f, g}$ intégrables. Soient $\alpha, \beta \in \R$ et $c \in \ab$. Alors :
+		\begin{prp} Soient $\fabr {f, g}$ intégrables. Soient $\alpha, \beta \in \R$ et $c \in \ab$. Alors~:
 
 		\begin{enumerate}
-			\item $\int_a^b\left(\alpha f(x) + \beta g(x)\right)\dif x = \alpha \int_a^bf(x)\dif x + \beta\int_a^bg(x)\dif x$ ;
-			\item $\int_a^bf(x)\dif x = \int_a^cf(x)\dif x + \int_c^bf(x)\dif x$ ;
-			\item Si $\forall x \in \ab : f(x) \leq g(x)$, alors $\int_a^bf(x)\dif x \leq \int_a^bg(x)\dif x$ ;
+			\item $\int_a^b\left(\alpha f(x) + \beta g(x)\right)\dif x = \alpha \int_a^bf(x)\dif x + \beta\int_a^bg(x)\dif x$~;
+			\item $\int_a^bf(x)\dif x = \int_a^cf(x)\dif x + \int_c^bf(x)\dif x$~;
+			\item Si $\forall x \in \ab : f(x) \leq g(x)$, alors $\int_a^bf(x)\dif x \leq \int_a^bg(x)\dif x$~;
 			\item $\abs f$ est intégrable et $\abs{\int_a^bf(x)\dif x} \leq \abs{\int_a^b\abs{f(x)}\dif x}$.
 		\end{enumerate}
+		\end{prp}
 	
 	\subsection{Théorème fondamental de l'analyse}
 
-		\paragraph{Théorème (fondamental du calcul différentiel et intégral)} Soit $\fabr f$ continue (donc intégrable). Alors la fonction $\fabr F : x \mapsto \int_a^xf$
-		est l'unique primitive de $f$ sur $\ab$ qui s'annule en $a$.
+		\begin{thm}[Théorème fondamental du calcul et intégral] Soit $\fabr f$ continue (donc intégrable). Alors la fonction $\fabr F : x \mapsto \int_a^xf$
+		est l'unique primitive de $f$ sur $\ab$ qui s'annule en $a$. \end{thm}
 
-		\paragraph{Démonstration} Soit $c \in \ab$. Soit $\epsilon > 0$. Par la continuité(uniforme) de $f$ en $c$, il existe $\delta$ tel que
-		$\abs{x-c}<\delta \Rightarrow \abs{f(x)-f(c)}  <\epsilon$. De plus, notons que :
+		\begin{proof} Soit $c \in \ab$. Soit $\epsilon > 0$. Par la continuité(uniforme) de $f$ en $c$, il existe $\delta$ tel que
+		$\abs{x-c}<\delta \Rightarrow \abs{f(x)-f(c)} < \epsilon$. De plus, notons que~:
 
 		\begin{align*}
 			\abs{\frac {F(x)-F(c)}{x-c}-f(c)} = \abs{\frac {\int_a^xf - \int_a^cf}{x-c}-f(x)} = \abs{\frac {\int_c^xf - f(c)(x-c)}{x-c}}
 			= \abs{\frac {\abs{\int_c^x(f(t)-f(c))\dif t}}{x-c}} \leq \frac 1{\abs{x-c}}\abs{\int_c^x\abs{f(t)-f(c)}\dif t}
 		\end{align*}
 
-		Et si $\abs{x-c} < \delta$, alors $\forall t \in \interval cx : \abs{t-c} < \delta $. Et donc $\abs{f(t)-f(c)} < \epsilon$. Donc :
-
+		Et si $\abs{x-c} < \delta$, alors $\forall t \in \interval cx : \abs{t-c} < \delta $. Et donc $\abs{f(t)-f(c)} < \epsilon$. Donc~:
 		\[\frac 1{\abs{x-c}}\abs{\int_c^x\abs{f(t)-f(c)}\dif t} < \frac 1{\abs{x-c}}\abs{\int_c^x\epsilon\dif t} = \epsilon.\]
 
-		On a donc montré que pour $x \to c$, on a $\frac {F(x)-F(c)}{x-c} = F'(c) \to f(c)$. \QED
+		On a donc montré que pour $x \to c$, on a $\frac {F(x)-F(c)}{x-c} = F'(c) \to f(c)$.
 
-		Montrons maintenant que $F$ est l'\textbf{unique} primitive s'annulant en $a$. Soit $\fabr G$ telle que $G' = f$ et $G(a) = 0$. Montrons que $G = F$ :
-
+		Montrons maintenant que $F$ est l'\textbf{unique} primitive s'annulant en $a$. Soit $\fabr G$ telle que $G' = f$ et $G(a) = 0$. Montrons que $G = F$~:
 		\[(G-F)'=(f-f)' = 0.\]
 
-		On sait donc que $G-F$ est une fonction constante. Et comme $G(a) = F(a) = 0$, on sait que $\forall x \in \ab : (G-F)(x) = 0$. \QED
+		On sait donc que $G-F$ est une fonction constante. Et comme $G(a) = F(a) = 0$, on sait que $\forall x \in \ab : (G-F)(x) = 0$. \end{proof}
 
-		\paragraph{Corollaire} Soit $\fabr f$ intégrable. Sois $F \coloneqq \int f$. On a :
-
+		\begin{cor} Soit $\fabr f$ intégrable. Sois $F \coloneqq \int f$. On a~:
 		\[\int_a^b f(x)\dif x = F(b) - F(a) = \evf Fxab.\]
+		\end{cor}
 
-		\paragraph{Démonstration} Les fonctions suivantes :
+		\begin{proof} Les fonctions suivantes~:
 
 		\begin{align*}
 			x \mapsto \int_a^xf(t)\dif t, \\
 			x \mapsto F(x) - F(a),
 		\end{align*}
 
-		sont deux primitives de $f$ s'annulant en $a$ et donc sont égales. \QED
+		sont deux primitives de $f$ s'annulant en $a$ et donc sont égales. \end{proof}
 
-		\paragraph{Proposition} Soient $\fabr {f, g} \in C^1$. Alors :
+		\begin{prp} Soient $\fabr {f, g} \in C^1$. Alors~:
 
 		\[\int_a^bf(x)g'(x)\dif x = \evf {(fg)}xab - \int_a^bf'(x)g(x)\dif x.\]
+		\end{prp}
 
-		\paragraph{Démonstration} Soit $h(x) \coloneqq (fg)'(x) = f'(x)g(x) + f(x)g'(x)$. Par le théorème fondamental, on sait :
-
+		\begin{proof} Soit $h(x) \coloneqq (fg)'(x) = f'(x)g(x) + f(x)g'(x)$. Par le théorème fondamental, on sait~:
 		\[\int_a^bh'(x)\dif x = \int_a^b(f'(x)g(x) + f(x)g'(x))\dif x = \evf hxab.\]
 
-		Ou encore :
+		Ou encore~:
+		\[\int_a^bf'(x)g(x)\dif x = \evf hxab - \int_a^bf(x)g'(x)\dif x.\]
+		\end{proof}
 
-		\[\int_a^bf'(x)g(x)\dif x = \evf hxab - \int_a^bf(x)g'(x)\dif x.\] \QED
-
-		\paragraph{Proposition} Soient $\fabr f$ continue et $\fabr g \in C^1$. Posons $\alpha \coloneqq g(a), \beta \coloneqq g(b)$. Alors :
-
+		\begin{prp} Soient $\fabr f$ continue et $\fabr g \in C^1$. Posons $\alpha \coloneqq g(a), \beta \coloneqq g(b)$. Alors~:
 		\[\int_a^bf(x)\dif x = \int_\alpha^\beta(f \circ g)(t)g'(t)\dif t.\]
+		\end{prp}
 
-		\paragraph{Démonstration} Soient $F(x) \coloneqq \int_a^xf(t)\dif t$ et $G(t) \coloneqq (F \circ g)(t)$. Dès lors, on sait que $G'(t) = (f \circ g)(t)g'(t)$.
-		De plus, l'intégration bornée donne :
-
+		\begin{proof} Soient $F(x) \coloneqq \int_a^xf(t)\dif t$ et $G(t) \coloneqq (F \circ g)(t)$. Dès lors, on sait que $G'(t) = (f \circ g)(t)g'(t)$.
+		De plus, l'intégration bornée donne~:
 		\[\int_\alpha^\beta (f \circ g)(t)g'(t)\dif t = \int_\alpha^\beta G'(t)\dif t = \evf Gt\alpha\beta = (F \circ g)(\beta)-(F \circ g)(\alpha) = \int_a^b f(x)\dif x.\]
-		\QED
+		\end{proof}
 
 	\subsection{Les intégrales impropres}
 
-		\paragraph{Définition} Soit $f : [a, +\infty[ \to \R$ une fonction bornée et intégrable sur tout $\interval ab$ pour $b > a$. Alors si la limite suivante existe :
-
+		\begin{déf} Soit $f : [a, +\infty[ \to \R$ une fonction bornée et intégrable sur tout $\interval ab$ pour $b > a$. Alors si la limite suivante existe~:
 		\[\lim_{b \to +\infty}\int_a^bf(x)\dif x,\]
 
 		on dit que $\int_a^{+\infty} f(x)\dif x$ converge. On appelle une telle limite une intégrale impropre. Si la limite n'existe pas, on dit que $\int_a^\infty$
 		diverge. De manière similaire, soit $f : ]-\infty, b] \to \R$ une fonction bornée et intégrable sur tout $\interval ab$ pour $a < b$.
-		Alors si la limite suivante existe :
-
+		Alors si la limite suivante existe~:
 		\[\lim_{a \to -\infty}\int_a^bf(x)\dif x,\]
 
-		on dit que $\int_{-\infty}^bf(x)\dif x$ converge. Pour une fonction $f : \R \to \R$, bornée, si les deux intégrales impropres suivantes existent :
+		on dit que $\int_{-\infty}^bf(x)\dif x$ converge. Pour une fonction $f : \R \to \R$, bornée, si les deux intégrales impropres suivantes existent~:
 
 		\[\int_{-\infty}^0f(x)\dif x, \\
 		\int_0^{+\infty}f(x)\dif x,\]
 
-		alors on définit l'intégrale suivante :
+		alors on définit l'intégrale suivante~:
 
 		\[\int_{-\infty}^{+\infty}f(x)\dif x = \int_{-\infty}^0f(x)\dif x + \int_0^{+\infty}f(x)\dif x.\]
+		\end{déf}
 
-		\paragraph{Définition} De manière similaire, pour des fonctions non bornées, on a les définitions suivantes. Soit $f : ]a, b] \to \R$. Si $f$ est intégrable
-		sur tout $\interval cb$ avec $c \in ]a, b]$, alors on définit :
-
+		\begin{déf} De manière similaire, pour des fonctions non bornées, on a les définitions suivantes. Soit $f : ]a, b] \to \R$. Si $f$ est intégrable
+		sur tout $\interval cb$ avec $c \in ]a, b]$, alors on définit~:
 		\[\int_a^bf(x)\dif x = \lim_{c \to a}\int_c^bf(x)\dif x.\]
 
-		De même, soit $f : [a, b[ \to \R$ intégrable sur tout $\interval ac$ pour $c \in [a, b[$. On définit alors :
-
+		De même, soit $f : [a, b[ \to \R$ intégrable sur tout $\interval ac$ pour $c \in [a, b[$. On définit alors~:
 		\[\int_a^bf(x)\dif x = \lim_{c \to b}\int_a^cf(x)\dif x.\]
 
-		Et finalement soit $f : ]a, b[ \to \R$. Si les deux intégrales impropres existent, on définit :
+		Et finalement soit $f : ]a, b[ \to \R$. Si les deux intégrales impropres existent, on définit~:
 
 		\[\int_a^bf(x)\dif x = \int_a^{\frac {a+b}2}f(x)\dif x + \int_{\frac {a+b}2}^bf(x)\dif x.\]
+		\end{déf}
 
-		\paragraph{Proposition (critère de comparaison)} Soient $f, g : [a, +\infty[ \to \R$ intégrables sur $\interval ab$ pour tout $b > a$.
-		Si $\forall x > a : 0 \leq f(x) \leq g(x)$ et $\int_a^{+\infty}g(x)\dif x$ converge, alors $\int_a^{+\infty}f(x)\dif x$ converge également telle que :
-		
+		\begin{prp}[Critère de comparaison] Soient $f, g : [a, +\infty[ \to \R$ intégrables sur $\interval ab$ pour tout $b > a$. Si
+		$\forall x > a : 0 \leq f(x) \leq g(x)$ et $\int_a^{+\infty}g(x)\dif x$ converge, alors $\int_a^{+\infty}f(x)\dif x$ converge également telle que~:
 		\[\int_a^{+\infty}f(x)\dif x \leq \int_a^{+\infty}g(x)\dif x.\]
+		\end{prp}
 
-		\paragraph{Démonstration} Comme $f(x) \leq g(x)$ pour tout $x > a$, on sait que pour tout $b > a$, on a :
-
+		\begin{proof} Comme $f(x) \leq g(x)$ pour tout $x > a$, on sait que pour tout $b > a$, on a~:
 		\[\int_a^bf(x)\dif x \leq \int_a^bg(x)\dif x.\]
 
-		De plus, les fonctions suivantes sont croissantes car $f$ et $g$ sont toujours positives :
+		De plus, les fonctions suivantes sont croissantes car $f$ et $g$ sont toujours positives~:
 
 		\begin{align*}
 			&F : b \mapsto \int_a^bf(x)\dif x, \\
 			&G : b \mapsto \int_a^bg(x)\dif x.
 		\end{align*}
 
-		Dès lors, $F$ est majorée et bornée par $\int_a^{+\infty}g(x)\dif x$. La limite de $F(b)$ pour $b \to +\infty$ existe. \QED
+		Dès lors, $F$ est majorée et bornée par $\int_a^{+\infty}g(x)\dif x$. La limite de $F(b)$ pour $b \to +\infty$ existe. \end{proof}
 
 	\subsection{Longueur de courbes}
 		
-		\paragraph{Définition} Une courbe différentiable est une application $\gamma \ab \subseteq \R \to \R^n$ de classe $C^1$ telle que
-		$\forall t : t \in \ab \Rightarrow \gamma'(t) \neq 0 \in \R^n$.
+		\begin{déf} Une courbe différentiable est une application $\gamma \ab \subseteq \R \to \R^n$ de classe $C^1$ telle que
+		$\forall t : t \in \ab \Rightarrow \gamma'(t) \neq 0 \in \R^n$. \end{déf}
 
-		\paragraph{Définition} L'ensemble $C \coloneqq \Imf \gamma$ est la courbe différentiable associée à $\gamma$.
+		\begin{déf} L'ensemble $C \coloneqq \Imf \gamma$ est la courbe différentiable associée à $\gamma$. \end{déf}
 
-		\paragraph{Définition} Soit $\gamma : \ab \to \R^n$ une courbe différentiable. Si $\gamma(a) = \gamma(b)$, alors $\gamma$ est un lacet. Et si $\gamma$
+		\begin{déf} Soit $\gamma : \ab \to \R^n$ une courbe différentiable. Si $\gamma(a) = \gamma(b)$, alors $\gamma$ est un lacet. Et si $\gamma$
 		est un lacet tel que $\gamma'(a) = \gamma'(b)$ (dérivées respectivement « à droite » et « à gauche »), alors $\gamma$ est un lacet différentiable.
+		\end{déf}
 
-		\paragraph{Définition} Si $\gamma$ est une courbe injective sur $]a, b[$, alors $\gamma$ est dite simple.
+		\begin{déf} Si $\gamma$ est une courbe injective sur $]a, b[$, alors $\gamma$ est dite simple. \end{déf}
 
-		\paragraph{Définition} Soit $\gamma$ une courbe paramétrée simple et différentiable. On définit sa longueur par :
-
+		\begin{déf} Soit $\gamma$ une courbe paramétrée simple et différentiable. On définit sa longueur par~:
 		\[L(\gamma) \coloneqq \int_a^b\norm{\gamma'(t)}\dif t.\]
+		\end{déf}
 
-		\paragraph{Proposition} Soient $f : \ab \to \interval cd \in C^1$ bijective, $\gamma : \ab \to \R^n$ et $\eta : \interval cd \to \R^n$ deux courbes paramétrées
-		différentiables. Supposons que $\gamma = (\eta \circ f)$ (que $\gamma$ est une reparamétrisation de $\eta$). Alors $L(\gamma) = L(\eta)$.
+		\begin{prp} Soient $f : \ab \to \interval cd \in C^1$ bijective, $\gamma : \ab \to \R^n$ et $\eta : \interval cd \to \R^n$ deux courbes
+		paramétrées différentiables. Supposons que $\gamma = (\eta \circ f)$ (que $\gamma$ est une reparamétrisation de $\eta$). Alors
+		$L(\gamma) = L(\eta)$. \end{prp}
 
-		\paragraph{Démonstration} Supposons $f$ croissante. Dès lors (en posant $u \coloneqq f(t)$) :
+		\begin{proof} Supposons $f$ croissante. Dès lors (en posant $u \coloneqq f(t)$)~:
 
 		\begin{align*}
 			L(\gamma) &= L(\eta \circ f) = \int_a^b\norm{(\eta \circ f)'(t)}\dif t = \int_a^b\norm{(\eta' \circ f)(t)f'(t)}\dif t =
@@ -1894,47 +1863,48 @@
 		\end{align*}
 		
 		Si $f$ était décroissant, il aurait fallu mettre un $-$ en sortant $f'(t)$ de la valeur absolue mais les bornes d'intégration $f(a)$ et $f(b)$ auraient
-		respectivement donné $d$ et $c$. Donc en rentrant le moins dans les bornes d'intégration, on obtient le même résultat. \QED
+		respectivement donné $d$ et $c$. Donc en rentrant le moins dans les bornes d'intégration, on obtient le même résultat. \end{proof}
 
-		\paragraph{Définition} Soit $\gamma : \ab \to \R^n$ une courbe paramétrée différentiable telle que $\forall t : \norm{\gamma'(t)} = 1$. Alors $\gamma$
-		est une paramétrisation par longueur.
+		\begin{déf} Soit $\gamma : \ab \to \R^n$ une courbe paramétrée différentiable telle que $\forall t : \norm{\gamma'(t)} = 1$. Alors $\gamma$
+		est une paramétrisation par longueur. \end{déf}
 
-		\paragraph{Remarque} La longueur d'une telle courbe est $b-a$ et la distance entre deux points $p, q$ quelconques est $\abs{p-q}$.
+		\begin{rmq} La longueur d'une telle courbe est $b-a$ et la distance entre deux points $p, q$ quelconques est $\abs{p-q}$. \end{rmq}
 
-		\paragraph{Lemme} Toute courbe paramétrée différentiable possède une paramétrisation par longueur.
+		\begin{lem} Toute courbe paramétrée différentiable possède une paramétrisation par longueur. \end{lem}
 
-		\paragraph{Démonstration} Soit $\gamma : \ab \to \R^n$ une courbe paramétrée différentiable. Définissons $\ell : \ab \to \R^+ : t \mapsto \int_a^t\gamma'(u)\dif u$.
-		$\ell$ est une fonction strictement croissante et une bijection $\in C^1$. Soit $\eta = (\gamma \circ \ell^{-1})$. On a :
-
+		\begin{proof} Soit $\gamma : \ab \to \R^n$ une courbe paramétrée différentiable. Définissons $\ell : \ab \to \R^+ : t \mapsto \int_a^t\gamma'(u)\dif u$.
+		$\ell$ est une fonction strictement croissante et une bijection $\in C^1$. Soit $\eta = (\gamma \circ \ell^{-1})$. On a~:
 		\[\norm{\eta'(t)} = \norm{\gamma((\ell^{-1})(t))(\ell^{-1})'(t)} = \norm {\gamma'((\ell^{-1})(t))} \frac 1{\abs{\ell'((\ell^{-1})(t))}}.\]
 
-		Et comme, par définition, $\ell'(t) = \norm{\gamma'(t)}$, on a $\norm{\eta'(t)} = 1$. \QED
+		Et comme, par définition, $\ell'(t) = \norm{\gamma'(t)}$, on a $\norm{\eta'(t)} = 1$. \end{proof}
 
 	\subsection{Intégrales curvilignes}
 		
-		\paragraph{Définition} Soient $f : E \subseteq \R^n \to \R$ et $\gamma : \ab \to \R^n$ avec $\Imf \gamma \subseteq E$. On définit l'intégrale de $f$ le
-		long de la courbe $\gamma$ par :
-		
+		\begin{déf} Soient $f : E \subseteq \R^n \to \R$ et $\gamma : \ab \to \R^n$ avec $\Imf \gamma \subseteq E$. On définit l'intégrale de $f$ le
+		long de la courbe $\gamma$ par~:
 		\[\in_\gamma f\dif s \coloneqq \int_a^bf(\gamma(t))\norm{f'(t)}\dif t.\]
+		\end{déf}
 
-		\paragraph{Définition} Un champ de vecteurs est une application $f : E \subseteq \R^n \to \R^n$.
+		\begin{déf} Un champ de vecteurs est une application $f : E \subseteq \R^n \to \R^n$. \end{déf}
 
-		\paragraph{Définition} Soient $f : E \subseteq \R^n \to \R^n$ un champ de vecteurs continu et $\gamma : \ab \to \R^n$ une courbe paramétrée différentiable.
-		On définit le travail de $f$ le long de $\gamma$ par :
-
+		\begin{déf} Soient $f : E \subseteq \R^n \to \R^n$ un champ de vecteurs continu et $\gamma : \ab \to \R^n$ une courbe paramétrée différentiable.
+		On définit le travail de $f$ le long de $\gamma$ par~:
 		\[\int_\gamma\scpr f{\dif s} \coloneqq \int_a^b\scpr {f(\gamma(t))}{\gamma'(t)}\dif t.\]
+		\end{déf}
 
-		\paragraph{Proposition} Soient $\gamma$ et $\eta$ deux paramétrisations d'une même courbe. Alors $\int_\gamma\scpr f{\dif s} = \pm\int_\eta\scpr f{\dif s}$.
-		Le signe moins peut apparaitre si $\gamma$ et $\eta$ dont d'orientation opposée.
+		\begin{prp} Soient $\gamma$ et $\eta$ deux paramétrisations d'une même courbe. Alors $\int_\gamma\scpr f{\dif s} = \pm\int_\eta\scpr f{\dif s}$.
+		Le signe moins peut apparaitre si $\gamma$ et $\eta$ dont d'orientation opposée. \end{prp}
 
 	\subsection{Champs conservatifs}
 		
-		\paragraph{Définition} Soit $f : E \subseteq \R^n \to \R^n$ un champ de vecteurs. $f$ est conservatif si il existe $F : E \to \R$ tel que $f = \nabla F$.
+		\begin{déf} Soit $f : E \subseteq \R^n \to \R^n$ un champ de vecteurs. $f$ est conservatif si il existe $F : E \to \R$ tel que $f = \nabla F$.
+		\end{déf}
 
-		\paragraph{Proposition} Soit $f : E \subseteq \R^n \to \R^n$ un champ conservatif. Alors $\int_\gamma\scpr f{\dif s}$ ne dépend que des extrémités de $\gamma$.
+		\begin{prp} Soit $f : E \subseteq \R^n \to \R^n$ un champ conservatif. Alors $\int_\gamma\scpr f{\dif s}$ ne dépend que des extrémités de
+		$\gamma$. \end{prp}
 
-		\paragraph{Démonstration} Soit $F = \nabla f$.
-
-		\[\int_\gamma\scpr f{\dif s} = \int_a^b\scpr {\nabla F(\gamma(t))}{\gamma'(t)}\dif t = \int_a^b(F(\gamma(t)))'(t)\dif t = F(\gamma(b))-F(\gamma(a)).\] \QED
+		\begin{proof} Soit $F = \nabla f$.
+		\[\int_\gamma\scpr f{\dif s} = \int_a^b\scpr {\nabla F(\gamma(t))}{\gamma'(t)}\dif t = \int_a^b(F(\gamma(t)))'(t)\dif t = F(\gamma(b))-F(\gamma(a)).\]
+		\end{proof}
 
 \end{document}
