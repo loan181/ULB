@@ -1,0 +1,244 @@
+\documentclass[10pt, mathserif]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools}
+\usepackage{mathdots}
+\usepackage{commath}
+
+\usepackage{helvet}
+
+\usetheme{JuanLesPins}
+
+\title{Aperçu de l'étude des nombres premiers}
+\author{Bodart Corentin %
+	\and Jonathan Dauwe %
+	\and Azalais Davin %
+	\and Thomas Lemaire %
+	\and Robin Petit %
+	\and Alex Ternes}
+\date{4 mai 2016}
+\institute{Université Libre de Bruxelles}
+
+\DeclareMathOperator{\ord}{ord}
+
+\newcommand{\tq}{\text{ t.q. }}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\eng}[1]{\left\langle#1\right\rangle}
+\renewcommand{\mod}{\mbox{ mod }}
+
+% amsmthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{lem}[thm]{Lemme}
+\renewcommand{\proofname}{\textit{Preuve}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem*{rap}{Rappel}
+
+\setbeamertemplate{navigation symbols}{\insertframenumber/\inserttotalframenumber}
+
+\begin{document}
+
+	\frame{\titlepage}
+
+	\begin{frame}
+		\frametitle{Plan de la présentation}
+		\tableofcontents
+	\end{frame}
+
+\section{Existence d'une infinité de nombres premiers}
+	\begin{frame}
+		Euclide
+	\end{frame}
+
+\section{Nombres de Wilson}  % ajouter Mersenne ?
+	\begin{frame}
+		les nbres de Wilson
+	\end{frame}
+	
+	%\subsection{Nombres premiers de Mersenne}
+	%\begin{frame}
+	%\end{frame}
+	
+\section{Théorèmes de Fermat et Euler}
+	\begin{frame}
+		\begin{block}{Objectif}
+			Prouver le théorème suivant grâce à la théorie des groupes~:
+		\end{block}
+
+		\begin{thm}[Petit théorème de Fermat (1640)]
+			Soient $a, p \in\Z$ tels que $p$ est premier et $a$ n'est pas divisible par $p$. Alors $a^{p-1} - 1$ est un multiple de $p$, c'est-à-dire~:
+			\[a^{p-1}-1 \equiv 0 (\mod p).\]
+		\end{thm}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Préliminaires à la preuve}
+		\begin{déf}
+			Soient $G$ un groupe et $a \in G$. L'\textbf{ordre} de $a$ est~:
+			\begin{itemize}
+				\item le plus petit $m \in \N^*$ tel que $a^m = e$, où $e$ est le neutre de $G$~;
+				\item le cardinal du sous-groupe engendré par $a$, c-à-d~: $\eng a \coloneqq \{e = a^0, a^1, \dotsc, a^{m-1}\}$.
+			\end{itemize}
+
+			L'ordre de $a$ est noté $\ord(a)$.
+		\end{déf}
+
+		\begin{thm}[Thorème de Lagrange]
+			Si $G$ est un groupe fini et $H \subseteq G$ un sous-groupe, alors $\abs H$ divise $\abs G$.
+		\end{thm}
+	\end{frame}
+
+	\begin{frame}
+		\begin{rap}[Petit théorème de Fermat]
+			$\forall a, p \in \Z : (p \text{ premier } \land p \not | a) \Rightarrow (a^{p-1} -1 \equiv 0 (\mod p))$
+		\end{rap}
+
+		\begin{block}{Preuve du petit théorème de Fermat - partie 1/2}
+			On considère le groupe $\left(\Z/p\Z^*, \cdot, 1\right)$. En effet, $\Z/p\Z^* = \{[1], [2], \dotsc, [p-1]\}$ car $p$ est premier. \\
+			Soit maintenant $[a] \in \Z/p\Z^*$. $a$ n'est pas divisible par $p$ car $[0] = [p] = [kp] \not \in \Z/p\Z^*$ pour $k \in \Z$. \\
+			Prenons $m \coloneqq \ord([a])$. Alors on sait~:
+			\begin{itemize}
+				\item $[a]^m = [1]$~;
+				\item $\abs{\eng a} = m$.
+			\end{itemize}
+
+			Puisque $\eng a$ est un sous-groupe de $\Z/p\Z^*$, on sait par Lagrange que $m = \abs{\eng a}$ divise $\abs{\Z/p\Z^*} = p-1$.
+		\end{block}
+	\end{frame}
+
+	\begin{frame}
+		\begin{rap}[Petit théorème de Fermat]
+			$\forall a, p \in \Z : (p \text{ premier } \land p \not | a) \Rightarrow (a^{p-1} -1 \equiv 0 (\mod p))$
+		\end{rap}
+
+		\begin{proof}[Preuve du petit théorème de fermat - partie 2/2]
+			On sait $m | p-1$, que l'on peut réécrire comme suit~:
+			\[\exists k \in \N \tq m \cdot k = p-1.\]
+
+			Finalement, on a~:
+			\[\left[a^{p-1}\right]\ = [a]^{p-1} = [a]^{mk} = \left([a]^m\right)^k = [1]^k = [1].\]
+			On a effectivement $\left[a^{p-1}\right] = [1]$, ce qui signifie~:
+			\[a^{p-1} \equiv 1 (\mod p).\]
+		\end{proof}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Généralisation du petit théorème de Fermat}
+
+		\begin{thm}[Théorème d'Euler (1761)]
+			Soient $n \in \N^*$ et $a \in \N$ tels que $a, n$ soient premiers entre eux. Alors~:
+			\[a^{\phi(n)} \equiv 1 (\mod n)\]
+		\end{thm}
+
+		\begin{proof}
+			La démonstration est assez similaire à celle du théorème de Fermat : on prend le groupe $(\Z/n\Z^*, \cdot, 1)$ qui correspond aux classes
+			d'entiers inversibles $\mod n$ et dont le cardinal vaut $\phi(n)$.
+		\end{proof}
+	\end{frame}
+
+\section{Nombres de Carmichaël}
+	\begin{frame}
+		Carmichaël
+	\end{frame}
+
+\section{Les racines primitives}
+	\begin{frame}
+		racines primitives.
+	\end{frame}
+
+\section{Test de Lucas-Lehmer}
+	\begin{frame}
+		\frametitle{Nombres de Mersenne}
+		\begin{déf}
+			Un nombre de Mersenne (nommé selon Marin Mersenne, 16-17e siècle) est nombre sous la forme $M_n = 2^n-1$.
+		\end{déf}
+
+		\begin{lem}
+			Soit $p \in \N^*$. Si $p$ est divisible par $m \in \N$, alors le nombre de Mersenne $M_m$ divise $M_p$.
+		\end{lem}
+
+		\begin{rmq}
+			Ce lemme veut dire qu'il n'est pas nécessaire de tester la primalité de $M_n$ pour $n$ non premier car si $n$ n'est pas premier, alors $M_n$ ne
+			l'est pas non plus. La réciproque n'est pas vraie. Exemple~: $p = 11$ est premier, or $M_p = 2^{11}-1 = 2047 = 23 \times 89$.
+		\end{rmq}
+	\end{frame}
+
+	\begin{frame}
+		\begin{proof}
+			La preuve est uniquement calculatoire. Supposons qu'il existe $m, t \in \N \setminus \{1, p\}$ tels que $p = mt$. On a alors~:
+			\[\begin{aligned}
+				M_n &= 2^n-1 = 2^{mt}-1 = \left(2^m\right)^t - 1 = \sum_{i=0}^{t-1}\left(2^m\right)^i = \sum_{i=1}^t\left(2^{mi} - 2^{m(i-1)}\right) \\
+				    &= 2^m\sum_{i=1}^t2^{m(i-1)}-\sum_{i=1}^t2^{m(i-1)} \\
+				    &= (2^m-1)\sum_{i=1}^t2^{m(i-1)} = M_m\sum_{i=1}^t2^{m(i-1)}.\end{aligned}\]
+		\end{proof}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Teste Lucas-Lehmer}
+		Le test de Lucas-Lehmer permet de déterminer si un nombre de Mersenne est premier ou non. Il est basé sur la suite naturelle~:
+		\[\begin{cases}
+			L_0 &= 4 \\
+			L_n &= (L_{n-1})^2 - 2 \;\text{ si } n \geq 1
+		\end{cases}\]
+		dont les premiers termes sont les suivants~:
+		\[4, 14, 194, 37\,634, 1\,416\,317\,954, \ldots\]
+	\end{frame}
+
+	\begin{frame}
+		\begin{thm}[Test de Lucas-Lehmer]
+			Soit $p \in \N^*$. $M_p$ est premier si et seulement si $M_p$ divise $L_{p-2}$.
+		\end{thm}
+
+		\begin{rmq}
+			Le théorème est une double implication. Il faut donc montrer les deux pour démontrer le théorème. Nous ne montrerons ici pas le fait que si $M_p$
+			est premier, alors $M_p$ divise $L_{p-2}$.
+		\end{rmq}
+
+		\begin{lem}[Lemme préliminaire]
+			Soit $G$ un groupe. Soit $a \in G$ un élément. Alors $\ord(a) \leq \abs G$.
+		\end{lem}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Preuve - partie 1/3}
+		Montrons que $L_{p-2} = kM_p \Rightarrow M_p$ premier. Une manière d'exprimer la divisibilité de $L_{p-2}$ par $M_p$ est de dire que
+		$L_{p-2} \equiv 0 (\mod M_p)$.
+
+		Premièrement, on remarque que l'on peut exprimer la suite $(L_n)$ définie récursivement comme une suite directe. Posons
+		$\omega = 2 + \sqrt 3, \bar \omega = 2 - \sqrt 3$. On trouve dès lors $L_n = \omega^{2^n} + \bar \omega^{2^n}$. \\
+
+		On suppose qu'il existe $k \in \N$ tel que~:
+		\[L_{p-2} = \omega^{2^{p-2}} + \bar \omega^{2^{p-2}} = kM_p.\]
+		En multipliant par $\omega^{2^{p-2}}$ des deux côtés et en réarrangeant les termes, on obtient~:
+		\[\left(\omega^{2^{p-2}}\right)^2 \omega^{2^{p-1}} = kM_p\omega^{2^{p-2}} - \bar \omega^{2^{p-2}}\omega^{2^{p-2}} = 1.\]
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Preuve - partie 2/3}
+		Supposons par l'absurde que $M_p$ est composite (n'est pas premier). On prend donc $2 < q < M_p$ le plus petit diviseur premier de $M_p$. On prend
+		alors $\Z_q \coloneqq \Z/q\Z$ l'ensemble des entiers modulo $q$, et on pose~:
+		\[X \coloneqq \{a + b\sqrt 3 \tq a, b \in \Z_q\},\]
+		où $\forall x = (a+b\sqrt 3), y = (c+d\sqrt 3) \in X : x \cdot y = (ac+3bd) + (ac+bd)\sqrt 3$. On pose $X^* = \{x \in X \tq \exists x^{-1} \in X\}$
+		le groupe des éléments de $X$ admettant un inverse (preuve que $X^*$ est un groupe est omise). On sait que $0 \not \in X^*$, donc $\abs {X^*} \leq \abs X -1=q^2 - 1$.
+
+		De plus, on sait $q > 2$, donc $\omega, \bar \omega \in X^*$. Également, $M_p \equiv 0 (\mod q)$, donc, dans $X$, on a~:
+		\[kM_p\omega^{2^{p-2}} = 0.\]
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Preuve - partie 3/3}
+		On a vu que $\omega^{2^{p-1}} = kM_p\omega^{2^{p-2}} - 1 = 0 - 1 = -1$ dans $X$. En mettant au carré l'équation, on obtient~:
+		\[\left(\omega^{2^{p-1}}\right)^2 = \omega^{2^p} = 1.\]
+		Dès lors, on sait que $\omega \in X^*$ et est d'un ordre qui divise $2^p$. Or, $\ord(\omega)$ ne divise pas $\omega^{2^{p-1}}$. Donc $\ord(\omega) = 2^p$.
+		Par le lemme préliminaire, on a~:
+		\[2^p \leq \abs {X^*} \leq q^2 - 1.\]
+		Et comme $q$ est un diviseur de $M_p$, on a $q^2 \leq M_p = 2^-1$. On a alors $2^p \leq 2^p - 1$, ce qui est une contradiction. Notre hypothèse disant que
+		$M_p$ est composite est donc fausse. $M_p$ est bien premier.
+	\end{frame}
+
+\end{document}
