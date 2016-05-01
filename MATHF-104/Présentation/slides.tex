@@ -192,7 +192,7 @@
 		\begin{block}{Preuve du lemme (2) - partie 1/2}
 			On travaille sur le corps $\Z/p\Z$. On rappelle que $A \cdot B = 0\Longleftrightarrow A = 0 \lor B=0$.
 
-			De plus, par le théorème fondamental de l'algèbre, on sait qu'un polynôme de degré $n$ a au plus $n$ racines.
+			De plus, par la division euclidienne des polynômes, on sait qu'un polynôme de degré $n$ a au plus $n$ racines.
 
 			Par le Petit Théorème de Fermat, on sait que~: \[X^{p-1}-1 = 0\] a exactement $p-1$ racines (les résidus inversibles/premier avec p). De plus,
 			\[X^{p-1} - 1 = \left(X^{d}-1\right) \cdot \left(X^{\frac{p-1}{d} \cdot (d-1)} + X^{\frac{p-1}{d} \cdot (d-2)} + \dotsb + X^{\frac{p-1}{d}}+1\right).\]
@@ -275,7 +275,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Teste Lucas-Lehmer}
+		\frametitle{Test Lucas-Lehmer}
 		Le test de Lucas-Lehmer permet de déterminer si un nombre de Mersenne est premier ou non. Il est basé sur la suite naturelle~:
 		\[\begin{cases}
 			L_0 &= 4 \\
@@ -312,7 +312,7 @@
 		On suppose qu'il existe $k \in \N$ tel que~:
 		\[L_{p-2} = \omega^{2^{p-2}} + \bar \omega^{2^{p-2}} = kM_p.\]
 		En multipliant par $\omega^{2^{p-2}}$ des deux côtés et en réarrangeant les termes, on obtient~:
-		\[\left(\omega^{2^{p-2}}\right)^2 \omega^{2^{p-1}} = kM_p\omega^{2^{p-2}} - \bar \omega^{2^{p-2}}\omega^{2^{p-2}} = 1.\]
+		\[\left(\omega^{2^{p-2}}\right)^2 = \omega^{2^{p-1}} = kM_p\omega^{2^{p-2}} - \bar \omega^{2^{p-2}}\omega^{2^{p-2}} = 1.\]
 	\end{frame}
 
 	\begin{frame}
@@ -333,7 +333,7 @@
 
 		On a vu que $\omega^{2^{p-1}} = kM_p\omega^{2^{p-2}} - 1 = 0 - 1 = -1$ dans $X$. En mettant au carré l'équation, on obtient~:
 		\[\left(\omega^{2^{p-1}}\right)^2 = \omega^{2^p} = 1.\]
-		Dès lors, on sait que $\omega \in X^*$ et est d'un ordre qui divise $2^p$. Or, $\ord(\omega)$ ne divise pas $\omega^{2^{p-1}}$. Donc $\ord(\omega) = 2^p$.
+		Dès lors, on sait que $\omega \in X^*$ et est d'un ordre qui divise $2^p$. Or, $\ord(\omega)$ ne divise pas $2^{p-1}$. Donc $\ord(\omega) = 2^p$.
 		Par le lemme préliminaire, on a~:
 		\[2^p \leq \abs {X^*} \leq q^2 - 1.\]
 		Et comme $q$ est un diviseur de $M_p$, on a $q^2 \leq M_p = 2^-1$. On a alors $2^p \leq 2^p - 2$, ce qui est une contradiction. Notre hypothèse disant que
