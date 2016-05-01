@@ -267,10 +267,18 @@
 		\begin{proof}
 			La preuve est uniquement calculatoire. Supposons qu'il existe $m, t \in \N \setminus \{1, p\}$ tels que $p = mt$. On a alors~:
 			\[\begin{aligned}
-				M_n &= 2^n-1 = 2^{mt}-1 = \left(2^m\right)^t - 1 = \sum_{i=0}^{t-1}\left(2^m\right)^i = \sum_{i=1}^t\left(2^{mi} - 2^{m(i-1)}\right) \\
-				    &= 2^m\sum_{i=1}^t2^{m(i-1)}-\sum_{i=1}^t2^{m(i-1)} \\
-				    &= (2^m-1)\sum_{i=1}^t2^{m(i-1)} = M_m\sum_{i=1}^t2^{m(i-1)}.
+				M_n &= 2^n-1
+				    = 2^{mt}-1
+				    = \left(2^m\right)^t - 1
+					= \frac {\left(2^m\right)^t - 1}{2^m - 1}\left(2^m - 1\right) \\
+					&= \sum_{i=0}^{t-1}\left(2^m - 1\right)\left(2^m\right)^k
+					= \left(2^m-1\right)\sum_{i=0}^{t-1}2^{mk}
+					= M_m\sum_{i=0}^{t-1}2^{mk}
 			\end{aligned}\]
+
+			Où, par la formule de la somme d'une suite géométrique, on a~:
+			\[\sum_{i=0}^{n}u_n = u_0\frac {q^{n+1}-1}{q-1},\]
+			avec $u_k = u_0q^k$.
 		\end{proof}
 	\end{frame}
 
@@ -318,7 +326,7 @@
 	\begin{frame}
 		\frametitle{Preuve - partie 2/3}
 
-		Supposons par l'absurde que $M_p$ est composite (n'est pas premier). On prend donc $2 < q < M_p$ le plus petit diviseur premier de $M_p$. On prend
+		Supposons par l'absurde que $M_p$ est composé (n'est pas premier). On prend donc $2 < q < M_p$ le plus petit diviseur premier de $M_p$. On prend
 		alors $\Z_q \coloneqq \Z/q\Z$ l'ensemble des entiers modulo $q$, et on pose~:
 		\[X \coloneqq \{a + b\sqrt 3 \tq a, b \in \Z_q\},\]
 		où $\forall x = (a+b\sqrt 3), y = (c+d\sqrt 3) \in X : x \cdot y = (ac+3bd) + (ac+bd)\sqrt 3$. On pose $X^* = \{x \in X \tq \exists x^{-1} \in X\}$
