@@ -1,4 +1,4 @@
-\documentclass[]{article}
+\documentclass{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -15,14 +15,14 @@
 
 \makeatletter
 \def\thm@space@setup{%
-	\thm@preskip=.4cm
+	\thm@preskip=.4cm%
 	\thm@postskip=\thm@preskip%
 }
 \makeatother
 
 \title{Algèbre linéaire et géométrie}
 \author{R. Petit}
-\date{année académique 2015-2016}
+\date{année académique 2015 - 2016}
 
 \DeclareMathOperator{\tq}{\text{ t.q. }}
 \DeclareMathOperator{\Id}{Id}
@@ -47,6 +47,12 @@
 \newcommand{\Perm}{\mathfrak{S}}
 \newcommand{\Aor}{A^{or}}
 \newcommand{\Vor}{V^{or}}
+\newcommand{\restr}[2]{ %
+	\left.\kern-\nulldelimiterspace %
+	#1 %
+	\vphantom{\big|} %
+	\right|_{#2} %
+}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -2508,13 +2514,13 @@ Pour tout 0 < i < l+1
 	
 	\subsection{Sous-espaces généralisés}
 		\begin{prp} Soit $V$ un espace vectoriel de dimension $n$ sur un corps $\K$ et soit $A \in \Hom(V, V)$. Soient $\lambda_1, \dotsc, \lambda_k \in \K$
-		les valeurs propres de $\mu_A$, le polynôme minimal de $A$ et $a = [a_{i\,j}] \in \M k{m_i}\K$ les coefficients de sa décomposition en fractions partielles.
-		En posant~:
+		les valeurs propres de $\mu_A$, le polynôme minimal de $A$ et $a_i] \in \K^{m_i}$ pour $i \in \{1, \dotsc, k\}$, les coefficients de sa décomposition en
+		fractions partielles. En posant~:
 		\[h_i(x) \coloneqq \sum_{j=1}^{m_i}a_{i\,j}(x-\lambda_i)^{m_i-j},\]
 		et~:
 		\[\psi_i(x) \coloneqq \prod_{j \neq i}(x-\lambda_j)^{m_j},\]
 		on a~:
-		\begin{equation}
+		\begin{equation}\label{1SurMu_A}
 			\frac 1{\mu_A(x)} = \sum_{i=1}^k\frac {h_i(x)\psi_i(x)}{\mu_A(x)}.
 		\end{equation}
 		\end{prp}
@@ -2532,13 +2538,80 @@ Pour tout 0 < i < l+1
 		\]
 		\end{proof}
 
+		\begin{rmq} En multipliant \eqref{1SurMu_A} par $\mu_A(x)$ de part et d'autre, on obtient~:
+		\begin{equation}\label{h_iPsi_i=1}
+			1 = \sum_{i=1}^kh_i(x)\psi_i(x).
+		\end{equation}
+		\end{rmq}
+
 		\begin{cor} En définissant $\C[x] \ni E_i \coloneqq h_i(x)\psi_i(x)$, on obtient~:
 		\begin{equation}
 			\sum_{i=1}^kE_i(A) = \Id_{\C[x]}.
 		\end{equation}
 		\end{cor}
 
-		\begin{proof}
+		\begin{proof} On remarque~:
+		\[
+			0 = h_i(A)0_{\C[x]}(v) = h_i(A)\mu_A(A)(v) = h_i(A)\left(A - \lambda_i\Id_{\C[x]}\right)^{m_i}\psi_i(A)(v)
+			  = \left(A - \lambda_i\Id_{\C[x]}\right)^{m_i}E_i(A)(v).
+		\]
+
+		Et donc, puisque $\left(A - \lambda_i\Id_{\C[x]}\right)^{m_i}$ divise $\psi_j(A)$ pour tout $j \neq i$, on sait également que
+		$\left(A-\lambda_i\Id_{\C[x]}\right)^{m_i}$ divise $E_j(A) \coloneqq h_j(A)\psi_j(A)$. Dès lors, pour tout $i \neq j$, on a~:
+		\begin{equation}
+			E_i(A)E_j(A)(v) = 0.
+		\end{equation}
+
+		Dès lors, on sait, par \eqref{h_iPsi_i=1}~:
+		\[E_i(A)(v) = E_i(A)(\Id_{\C[x]}(v)) = E_i(A)\sum_{j=1}^kE_j(A)(v) = E_i(A)^2(v).\]
+
+		On a donc bien~:
+		\[\Id_{\C[x]}(v) = \sum_{j=1}^kE_j(A)(v).\]
 		\end{proof}
+
+		\begin{prp} Soient $V$ un $\C$-espace vectoriel de dimension finie $n$ et $A \in \Hom(V, V)$. Alors~:
+		\begin{equation}\label{V=bigoplusE_i}
+			V = \bigoplus_{i=1}^kE_i(A)(V).
+		\end{equation}
+		\end{prp}
+
+		\begin{proof} On remarque que~: \[V = \sum_{i=1}^kE_i(A)(V).\]
+		Prenons $v \in E_i(A)(V) \cap \eng {\cup_{j \neq i}E_j(A)(V)}$. Alors pour $j \in \{1, \dotsc, k\}$, il existe $w_j \in V$ tels que~:
+		\[v = E_i(A)(w_i) = \sum_{j \neq i}E_j(A)(w_j).\]
+
+		Dès lors, pour $h \neq i$, on trouve~:
+		\[0 = E_h(A)E_i(A)(v) = E_h(A)\sum_{j \neq i}E_j(A)(w_j) = E_h(A)^2(w_h) = E_h(A)(w_h).\]
+		Par conséquent, on trouve également $v = E_i(A)(w_i) = 0$. \end{proof}
+
+		\begin{prp} Si $V$ est un $\C$-espace vectoriel de dimension finie $n$ et $A \in \Hom(V, V)$, alors pour tout $i \in \{1, \dotsc, k\} :
+		E_i(A)(V) \in \Ker\left((A-\lambda_i\Id_{\C[x]})^{m_i}\right)$. \end{prp}
+
+		\begin{proof} On prend $v \in V$. On calcule ensuite~:
+		\[0 = \mu_A(A)(v) = h_i\mu_A(A)(v) = h_i(A - \lambda_i)^{m_i}\psi_i(A)(v) = (A-\lambda_i)^{m_i}E_i(A)(v).\]
+
+		On a donc $E_i(A)(v) \in \Ker(A - \lambda_i)^{m_i}$.
+
+		Prenons maintenant $v \in \Ker(A - \lambda_i)^{m_i}$. On sait que $(x-\lambda_i)^{m_i}$ divise $E_j(x)$ pour $j \neq i$.
+		Et donc, on trouve~: \[v = \sum_{j=1}^kE_j(A)(v) = E_i(A)(v).\]
+		On trouve donc bien $E_i(A)(V) = \Ker(A-\lambda_i\Id_{\C[x]})^{m_i}$. \end{proof}
+
+		\begin{rmq} On observe alors que l'écriture~\eqref{V=bigoplusE_i} est équivalente à~:
+		\[V = \bigoplus_{i=1}^k\Ker(A - \lambda_i\Id_{\C[x]})^{m_i}.\]
+		\end{rmq}
+
+		\begin{déf} Soit $V$ un espace vectoriel complexe de dimension finie $n$. Soit $A \in \Hom(V, V)$ et $\lambda_1, \dotsc, \lambda_k$, les valeurs propres
+		distinctes de $A$. On appelle le \textbf{sous-espace propre généralisé de $A$ associé à la valeur propre $\lambda_i$} la valeur~:
+		\[V(\lambda_i) \coloneqq \Ker(A - \lambda_i \Id_{\C[x]})^{m_i}.\] \end{déf}
+
+		\begin{rmq} On remarque que $V(\lambda)$ est un sous-espace de $V$ qui contient le sous-espace propre $V_\lambda$ de $A$. \end{rmq}
+
+		\begin{prp} Soit $A \in \Hom(V, V)$ un opérateur linéaire sur un espace vectoriel complexe $V$ de dimension finie $n$. Soient $\{\lambda_i\}_{1 \leq i \leq k}$
+		les valeurs propres distinctes de $A$. Alors~:
+		\begin{equation}
+			V = \bigoplus_{i=1}^kV(\lambda_i),
+		\end{equation}
+		et pour tout $i \in \{1, \dotsc, k\} :$
+		\[\restr f{V(\lambda_i)} \in \Hom(V(\lambda_i), V(\lambda_i)).\]
+		\end{prp}
 		
 \end{document}
