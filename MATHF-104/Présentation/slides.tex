@@ -26,6 +26,7 @@
 \newcommand{\tq}{\text{ t.q. }}
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\N}{\mathbb N}
+\renewcommand{\P}{\mathbb P}
 \newcommand{\eng}[1]{\left\langle#1\right\rangle}
 
 % amsmthm
@@ -49,19 +50,132 @@
 		\tableofcontents
 	\end{frame}
 
-\section{Existence d'une infinité de nombres premiers}
+\section{Théorèmes fondamentaux d'Euclide, de Wilson, d'Euler}
+	\subsection{Existence d'une infinité de nombres premiers}
 	\begin{frame}
-		Euclide
+		\begin{déf}
+			Soient $a, b \in \N$. On dit que $a$ est divisible par $b$ si $\exists c \in \N$ tel que $a = b \cdot c$.
+		\end{déf}
+
+		\begin{block}{Propriétés}
+			\begin{enumerate}
+				\item si $n > 0$, il n'admet pas de diviseur supérieur à lui-même~;
+				\item tout nombre naturel admet au moins un diviseur~;
+				\item $2$ est le premier nombre premier.
+			\end{enumerate}
+		\end{block}
 	\end{frame}
 
-\section{Nombres de Wilson}  % ajouter Mersenne ?
 	\begin{frame}
-		les nbres de Wilson
+		\frametitle{Infinité de nombres premiers}
+		\begin{thm}[Théorème d'Euclide]
+			Il existe une infinité de nombres premiers distincts.
+		\end{thm}
+
+		\begin{proof}
+			Soit $\P \subset \N^*$ l'ensemble des nombres premiers. Supposons par l'absurde que $\P$ est fini et de cardinalité $n$.
+			On note $N = \prod_{p \in \P}$ le produit de tous les nombres de $\P$. Il y a dès lors deux cas distincts concernant $N+1$ :
+			soit $N+1$ est premier, soit $N+1$ est composé. Dans le premier cas, il y a contradiction car $N+1$ est un nombre premier n'appartenant pas à $\P$. \\
+			Dans le second cas, on prend $1 < Q < N+1$, un diviseur premier de $N+1$. Or, $Q \not \in \P$ car $\forall p \in \P : p | N$ et donc
+			$p \not | N+1$. Il y a contradiction car $Q$ est premier mais n'est pas dans $\P$.
+
+			Ces deux contradictions impliquent que la supposition est fausse, et donc $\P$ est infini.
+		\end{proof}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Bézout}
+		\begin{thm}[Théorème de Bachet-Bézout]
+			Soient $a, b, x, y \in \Z$. L'équation suivante (en $x, y$)~: \[ax + by = 1\]
+			admet des solutions si et seulement si $a$ et $b$ sont premiers entre eux.
+		\end{thm}
+
+		\begin{proof}
+			?
+		\end{proof}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Restes chinois}
+		\begin{thm}[Théorème des restes chinois]
+			Soient $m_1, \dotsc, m_k \in \N$ premiers deux à deux et $a_1, \dotsc, a_k \in \N$. Le système~:
+			\[x \equiv a_i \pmod {m_i}\hspace{2cm}\text{ pour } i = 1, 2,  \dotsc, k\]
+			possède une solution si et seulement $x$ possède une solution modulo $n \coloneqq \prod_{i=1}^km_i$.
+		\end{thm}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Preuve du théorème des restes chinois}
+		Preuve par récurrence. Commençons par le pas initial avec $k = 2$. \\
+		\underline{Sens direct~:} par Bézout, on sait qu'il existe $u_1, u_2 \in \Z \tq m_1u_1 + m_2u_2 = 1$. Donc il existe
+		\[k_1, k_2 \in \Z \tq :\begin{cases}(m_2u_2)x &= (m_2u_2)m_1k_1 + (m_2u_2)a_1 \\ (m_1u_1)x &= (m_1u_1)m_2k_2 + (m_1u_1)a_2\end{cases}.\]
+		Ce qui est équivalent à~:
+		\[\begin{aligned}
+			(m_1u_1 + m_2u_2)x &= m_1m_2(u_1k_2 + u_2k_1) + m_1u_1a_2 + m_2u_2a_1 \\
+			1 \cdot x &= m_1u_1a_2 + m_2u_2a_1 \pmod {m_1m_2}
+		\end{aligned}\]
+	\end{frame}
+
+	\begin{frame}
+		\underline{Sens indirect~:} supposons $x \equiv m_1u_1a_2 + m_2u_2a_1 \pmod {m_1m_2}$. Dès lors~:
+		\[\begin{aligned}
+			x &\equiv m_1u_1a_2 + m_2u_2a_1 \pmod {m_1} \\
+			  &\equiv m_2u_2a_1 \pmod {m_1} \\
+			  &\equiv (1 - m_1u_1)a_1 \pmod {m_1} \\
+			  &\equiv a_1 \pmod {m_1}.
+		\end{aligned}\]
+
+		Le cas $\mod m_2$ se déduit par symétrie. \\
+		Pour le pas de récurrence, prenons $k \gneqq 2$. Notons $M \coloneqq \prod_{i=1}^{k-1}m_i$. On sait que $M$ et $m_n$ sont premiers entre eux.
+		On peut donc dire $x \equiv a_n \pmod {m_n}$ et $x \equiv a_M \pmod {M}$ si et seulement si $x$ a une solution unique modulo $n \coloneqq m_nM$.
+	\end{frame}
+
+	\subsection{Nombres de Wilson}
+	\begin{frame}
+		\begin{thm}[Théorème de Wilson]
+			Soit $p > 1$ un nombre entier. $p$ est premier si et seulement si $(p-1)! + 1 \equiv 0 \pmod p$
+		\end{thm}
+
+		\begin{block}{Propriétés préparatoires}
+			\begin{enumerate}
+				\item si $p$ est un nombre premier et $a \in \{1, \dotsc, p-1\}$, alors il existe un unique $b$ (modulo $p$) tel que $a \cdot b \equiv 1 \pmod p$~;
+				\item si $p$ est premier,a lors $a \times a \equiv 1 \pmod d$ si et seulement si $a \equiv 1 \pmod 1$ ou $a \equiv p-1 \pmod p$
+			\end{enumerate}
+		\end{block}
+
+		\begin{block}{Preuve du sens direct du théorème}
+			Par les propriétés ci-dessus, on a immédiatement~:
+			\[(p-1)! \equiv (p-1) \pmod p \equiv -1 \pmod p.\]
+		\end{block}
+	\end{frame}
+
+	\begin{frame}
+		\begin{proof}[Preuve du sens indirect du théorème]
+			Faisons la preuve par contraposée~: montrons que si $p$ n'est pas premier, alors on a $(p-1)! \not \equiv -1 \pmod p$.
+
+			\underline{Un cas particulier~:} prenons $p = 4$. On trouve alors~:
+			\[(p-1)! = 3! = 6 \equiv 2 \pmod 4.\]
+
+			\underline{pas de récurrence~:} soit $p > 4$, un nombre composé. Soient $a, b \in \N^* \tq p = ab$. Deux cas sont à distinguer~:
+			\begin{itemize}
+				\item si $a \neq b$, en calculant $(p-1)!$, on peut regrouper $a$ et $b$ (en les mettant en évidence). On a alors~:
+				$(p-1)! = a \cdot b \cdot 1 \dotsm (p-1) \equiv 0 \pmod p$~;
+				\item si $a = b$, alors $p$ est un carré parfait tel que $p = a^2 > 2a$. Par conséquent, $a$ et $2a$ apparaissent tous deux dans $(p-1)!$
+				et on peut mettre en évidence~: $(p-1)! = a \cdot 2a \cdot 1 \dotsm (p-1) = 2(a \cdot b)1 \dotsm (p-1) \equiv 0 \pmod p$.
+			\end{itemize}
+		\end{proof}
 	\end{frame}
 	
-	%\subsection{Nombres premiers de Mersenne}
-	%\begin{frame}
-	%\end{frame}
+	\subsection{Fonction indicatrice d'Euler}
+	\begin{frame}
+		\begin{déf}
+			Soit $\varphi : \N \to \N^* : n \mapsto \varphi(n) = \abs {\{m \in \N \tq \gcd(m, n) = 1\}}$. On appelle $\varphi$ la fonction
+			indicatrice d'Euler.
+		\end{déf}
+
+		%\begin{lem}
+		%\end{lem}
+	\end{frame}
 	
 \section{Théorèmes de Fermat et Euler}
 	\begin{frame}
@@ -274,6 +388,7 @@
 	\end{frame}
 
 \section{Test de Lucas-Lehmer}
+	\subsection{Introduction aux nombres de Mersenne}
 	\begin{frame}
 		\frametitle{Nombres de Mersenne}
 		\begin{déf}
@@ -309,6 +424,7 @@
 		\end{proof}
 	\end{frame}
 
+	\subsection{Test de Lucas-Lehmer}
 	\begin{frame}
 		\frametitle{Test Lucas-Lehmer}
 		Le test de Lucas-Lehmer permet de déterminer si un nombre de Mersenne est premier ou non. Il est basé sur la suite naturelle~:
@@ -376,6 +492,10 @@
 		$M_p$ est composé est donc fausse. $M_p$ est bien premier.
 		
 		\begin{flushright}$\square$\end{flushright}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Remerciements et questions}
 	\end{frame}
 
 \end{document}
