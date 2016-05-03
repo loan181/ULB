@@ -12,7 +12,7 @@
 \usetheme{JuanLesPins}
 
 \title{Aperçu de l'étude des nombres premiers}
-\author{Bodart Corentin %
+\author{ Corentin Bodart%
 	\and Jonathan Dauwe %
 	\and Azalais Davin %
 	\and Thomas Lemaire %
@@ -40,6 +40,7 @@
 \newtheorem*{rap}{Rappel}
 
 \setbeamertemplate{navigation symbols}{\insertframenumber/\inserttotalframenumber}
+\AtBeginSection{\frame{\sectionpage}}
 
 \begin{document}
 
@@ -74,7 +75,7 @@
 
 		\begin{proof}
 			Soit $\P \subset \N^*$ l'ensemble des nombres premiers. Supposons par l'absurde que $\P$ est fini et de cardinalité $n$.
-			On note $N = \prod_{p \in \P}$ le produit de tous les nombres de $\P$. Il y a dès lors deux cas distincts concernant $N+1$ :
+			On note $N = \prod_{p \in \P}p$ le produit de tous les nombres de $\P$. Il y a dès lors deux cas distincts concernant $N+1$ :
 			soit $N+1$ est premier, soit $N+1$ est composé. Dans le premier cas, il y a contradiction car $N+1$ est un nombre premier n'appartenant pas à $\P$. \\
 			Dans le second cas, on prend $1 < Q < N+1$, un diviseur premier de $N+1$. Or, $Q \not \in \P$ car $\forall p \in \P : p | N$ et donc
 			$p \not | N+1$. Il y a contradiction car $Q$ est premier mais n'est pas dans $\P$.
@@ -84,48 +85,30 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Bézout}
+		\frametitle{Bézout et restes chinois}
 		\begin{thm}[Théorème de Bachet-Bézout]
 			Soient $a, b, x, y \in \Z$. L'équation suivante (en $x, y$)~: \[ax + by = 1\]
 			admet des solutions si et seulement si $a$ et $b$ sont premiers entre eux.
 		\end{thm}
 
-		\begin{proof}
-			?
-		\end{proof}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Restes chinois}
 		\begin{thm}[Théorème des restes chinois]
 			Soient $m_1, \dotsc, m_k \in \N$ premiers deux à deux et $a_1, \dotsc, a_k \in \N$. Le système~:
 			\[x \equiv a_i \pmod {m_i}\hspace{2cm}\text{ pour } i = 1, 2,  \dotsc, k\]
-			possède une solution si et seulement $x$ possède une solution modulo $n \coloneqq \prod_{i=1}^km_i$.
+			possède une solution unique modulo $n \coloneqq \prod_{i=1}^km_i$.
 		\end{thm}
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{Preuve du théorème des restes chinois}
 		Preuve par récurrence. Commençons par le pas initial avec $k = 2$. \\
-		\underline{Sens direct~:} par Bézout, on sait qu'il existe $u_1, u_2 \in \Z \tq m_1u_1 + m_2u_2 = 1$. Donc il existe
+		Par Bézout, on sait qu'il existe $u_1, u_2 \in \Z \tq m_1u_1 + m_2u_2 = 1$. Donc il existe
 		\[k_1, k_2 \in \Z \tq :\begin{cases}(m_2u_2)x &= (m_2u_2)m_1k_1 + (m_2u_2)a_1 \\ (m_1u_1)x &= (m_1u_1)m_2k_2 + (m_1u_1)a_2\end{cases}.\]
 		Ce qui est équivalent à~:
 		\[\begin{aligned}
 			(m_1u_1 + m_2u_2)x &= m_1m_2(u_1k_2 + u_2k_1) + m_1u_1a_2 + m_2u_2a_1 \\
-			1 \cdot x &= m_1u_1a_2 + m_2u_2a_1 \pmod {m_1m_2}
+			1 \cdot x &\equiv m_1u_1a_2 + m_2u_2a_1 \pmod {m_1m_2}
 		\end{aligned}\]
-	\end{frame}
-
-	\begin{frame}
-		\underline{Sens indirect~:} supposons $x \equiv m_1u_1a_2 + m_2u_2a_1 \pmod {m_1m_2}$. Dès lors~:
-		\[\begin{aligned}
-			x &\equiv m_1u_1a_2 + m_2u_2a_1 \pmod {m_1} \\
-			  &\equiv m_2u_2a_1 \pmod {m_1} \\
-			  &\equiv (1 - m_1u_1)a_1 \pmod {m_1} \\
-			  &\equiv a_1 \pmod {m_1}.
-		\end{aligned}\]
-
-		Le cas $\mod m_2$ se déduit par symétrie. \\
+		
 		Pour le pas de récurrence, prenons $k \gneqq 2$. Notons $M \coloneqq \prod_{i=1}^{k-1}m_i$. On sait que $M$ et $m_n$ sont premiers entre eux.
 		On peut donc dire $x \equiv a_n \pmod {m_n}$ et $x \equiv a_M \pmod {M}$ si et seulement si $x$ a une solution unique modulo $n \coloneqq m_nM$.
 	\end{frame}
@@ -139,7 +122,7 @@
 		\begin{block}{Propriétés préparatoires}
 			\begin{enumerate}
 				\item si $p$ est un nombre premier et $a \in \{1, \dotsc, p-1\}$, alors il existe un unique $b$ (modulo $p$) tel que $a \cdot b \equiv 1 \pmod p$~;
-				\item si $p$ est premier,a lors $a \times a \equiv 1 \pmod d$ si et seulement si $a \equiv 1 \pmod 1$ ou $a \equiv p-1 \pmod p$
+				\item si $p$ est premier, alors $a \times a \equiv 1 \pmod d$ si et seulement si $a \equiv 1 \pmod p$ ou $a \equiv p-1 \pmod p$
 			\end{enumerate}
 		\end{block}
 
@@ -169,7 +152,7 @@
 	\subsection{Fonction indicatrice d'Euler}
 	\begin{frame}
 		\begin{déf}
-			Soit $\varphi : \N \to \N^* : n \mapsto \varphi(n) = \abs {\{m \in \N \tq \gcd(m, n) = 1\}}$. On appelle $\varphi$ la fonction
+			Soit $\varphi : \N \to \N^* : n \mapsto \varphi(n) = \abs {\left\{m \in \N \tq (m < n) \land (\gcd(m, n) = 1)\right\}}$. On appelle $\varphi$ la fonction
 			indicatrice d'Euler.
 		\end{déf}
 
@@ -250,7 +233,7 @@
 
 		\begin{proof}
 			La démonstration est assez similaire à celle du théorème de Fermat : on prend le groupe $(\Z/n\Z^*, \cdot, 1)$ qui correspond aux classes
-			d'entiers inversibles $\pmod n$ et dont le cardinal vaut $\phi(n)$.
+			d'entiers inversibles $\pmod n$ et dont le cardinal vaut $\varphi(n)$.
 		\end{proof}
 	\end{frame}
 
@@ -387,7 +370,7 @@
 		\end{proof}
 	\end{frame}
 
-\section{Test de Lucas-Lehmer}
+\section{Mersenne et Lucas-Lehmer}
 	\subsection{Introduction aux nombres de Mersenne}
 	\begin{frame}
 		\frametitle{Nombres de Mersenne}
@@ -407,15 +390,15 @@
 
 	\begin{frame}
 		\begin{proof}
-			La preuve est uniquement calculatoire. Supposons qu'il existe $m, t \in \N \setminus \{1, p\}$ tels que $p = mt$. On a alors~:
+			La preuve est uniquement calculatoire. Supposons qu'il existe $m, t \in \N \setminus \{1, n\}$ tels que $n = mt$. On a alors~:
 			\[\begin{aligned}
 				M_n &= 2^n-1
 				    = 2^{mt}-1
 				    = \left(2^m\right)^t - 1
 					= \frac {\left(2^m\right)^t - 1}{2^m - 1}\left(2^m - 1\right) \\
-					&= \sum_{i=0}^{t-1}\left(2^m - 1\right)\left(2^m\right)^k
-					= \left(2^m-1\right)\sum_{i=0}^{t-1}2^{mk}
-					= M_m\sum_{i=0}^{t-1}2^{mk}
+					&= \sum_{k=0}^{t-1}\left(2^m - 1\right)\left(2^m\right)^k
+					= \left(2^m-1\right)\sum_{k=0}^{t-1}2^{mk}
+					= M_m\sum_{k=0}^{t-1}2^{mk}
 			\end{aligned}\]
 
 			Où, par la formule de la somme d'une suite géométrique, on a~:
@@ -472,9 +455,10 @@
 		Supposons par l'absurde que $M_p$ est composé (n'est pas premier). On prend donc $2 < q < M_p$ le plus petit diviseur premier de $M_p$. On prend
 		alors $\Z_q \coloneqq \Z/q\Z$ l'ensemble des entiers modulo $q$, et on pose~:
 		\[X \coloneqq \{a + b\sqrt 3 \tq a, b \in \Z_q\},\]
-		où $\forall x = (a+b\sqrt 3), y = (c+d\sqrt 3) \in X : x \cdot y = (ac+3bd) + (ac+bd)\sqrt 3$. On pose $X^* = \{x \in X \tq \exists x^{-1} \in X\}$
-		le groupe des éléments de $X$ admettant un inverse (preuve que $X^*$ est un groupe est omise). On sait que $0 \not \in X^*$, donc
-		$\abs {X^*} \leq \abs X -1=q^2 - 1$.
+		où $\forall x = (a+b\sqrt 3), y = (c+d\sqrt 3) \in X :$
+		\[x \cdot y = \left((ac+3bd) \mod q\right) + \left((ac+bd) \mod q\right)\sqrt 3.\]
+		On pose $X^* = \{x \in X \tq \exists x^{-1} \in X\}$ le groupe des éléments de $X$ admettant un inverse (preuve que $X^*$ est un groupe est omise).
+		On sait que $0 \not \in X^*$, donc $\abs {X^*} \leq \abs X -1=q^2 - 1$.
 
 		De plus, on sait $q > 2$, donc $\omega, \bar \omega \in X^*$. Également, $M_p \equiv 0 \pmod q$, donc, dans $X$, on a~:
 		\[kM_p\omega^{2^{p-2}} = 0.\]
