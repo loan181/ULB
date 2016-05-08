@@ -4,11 +4,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
 \usepackage[parfill]{parskip}
+\usepackage[bottom]{footmisc}
 % math packages
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{mathtools}
 \usepackage{mathdots}
 \usepackage{commath}
+\usepackage{stmaryrd}
 
 \usepackage{hyperref}
 
@@ -21,6 +23,11 @@
 
 \newcommand{\N}{\mathbb N}
 \renewcommand{\P}{\mathbb P}
+\newcommand{\R}{\mathbb R}
+
+\newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
+
+\DeclareMathOperator{\tq}{t.q.}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -44,6 +51,39 @@
 \pagenumbering{arabic}
 
 \section{Espaces de probabilités}
+	\subsection{Rappel sur les séries}
+		Les fonctions logarithmique et exponentielle ont un développement de Taylor exact. Pour la fonction logarithmique, on a, pour $x \in (-1, 1)$~:
+		\[\log(1-x) = -\sum_{k \geq 1}\frac {x^k}k.\]
+
+		Si on pose $S_n \coloneqq \sum_{k = 1}^nu_k$, on a $(S_n)_{n \in \N}$, la suite des sommes partielles, et $n \mapsto S_n$, une application croissante si
+		$(u_n)$ est une suite positive. Il y a donc deux situations distinctes possibles~:
+
+		\begin{itemize}
+			\item $(S_n)$ est une suite bornée ($\exists M \in \R \tq \forall n \in \N : S_n \leq M$) et donc converge vers $S \in \R$~;
+			\item $(S_n)$ n'est pas bornée ($\forall M \in \R : \exists n \in \N \tq S_n > M$) et donc diverge vers $+\infty$.
+		\end{itemize}
+
+		\subsubsection{Exemple sur les séries}
+		Prenons $u_n \coloneqq x^n$, avec $x > 0$.
+
+		\begin{itemize}
+			\item Si $x = 1$, on a $n \to +\infty \Rightarrow S_n \to +\infty$~;
+			\item si $x \neq 1$, on a $(1-x)S_n = x-x^{n+1}$, et donc~:
+			      \[S_n \coloneqq x\frac {1-x^n}{1-x}.\]
+
+			      \begin{itemize}
+			      	\item Si $x < 1$, alors $x^n \to 0$ pour $n \to +\infty$, et donc $S_n \to \frac x{1-x}$~;
+					\item si $x > 1$, alors $x^n \to +\infty$ pour $n \to +\infty$, et donc $S_n \to +\infty$.
+			      \end{itemize}
+		\end{itemize}
+
+		\subsubsection{Conclusion de la suite géométrique}
+		On voit alors~:
+		\[\sum_{n \geq 1}x^n = \begin{cases}\frac x{1-x} &\text{ si } x \in [0, 1) \\ +\infty & \text{ sinon }\end{cases}.\]
+
+		Si la suite commene à l'indice 0, on a~:
+		\[\sum_{n \geq 0}x^n = 1 + \sum_{n \geq 1}x^n = \begin{cases}1 + \frac x{1-x} = \frac 1{1-x} &\text { si } x \in [0, 1) \\ +\infty &\text{ sinon}\end{cases}.\]
+
 	\subsection{Définition}
 		\begin{déf} L'ensemble $\Omega$ est l'\textbf{espace des chances}, l'ensemble des résultats possibles d'un phénomène aléatoire. \end{déf}
 
@@ -77,5 +117,120 @@
 			\item[$(iii)$] $\forall A, B \in \mathcal F : A \cap B = \emptyset \Rightarrow \P(A \cup B) = \P(A) + \P(B)$.
 		\end{itemize}
 		\end{déf}
+
+		\begin{prp} Soient $A_1, \dotsc, A_n \in \mathcal F$. On a~:
+		\[\P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i=1}^n(-1)^{i-1}\sum_{1 \leq k_1 < \dotsb < k_i \leq n}\P\left(\bigcap_{\gamma=1}^iA_{k_\gamma}\right).\]
+		\end{prp}
+
+		\subsubsection{Loi uniforme sur un ensemble fini (ou dénombrable)}
+		\begin{déf} Soient $m < n \in \N$. On définit l'\textbf{intervalle entier} $\iintv mn$ par~:
+		\[\iintv mn : \{x \in \N \tq m \leq x \leq n\}.\] \end{déf}
+		
+		\begin{déf} Soit $\Omega = \iintv 1n$. Soit $A \subseteq \Omega$. La loi uniforme est donnée par~:
+		\[\P(A) = \frac {\abs A}{\abs \Omega} = \frac {\abs A}n.\] \end{déf}
+
+		\begin{rmq} Il arrive que $\abs A$ soit difficile à déterminer et qu'il faille aller chercher du côté de l'analyse combinatoire. \end{rmq}
+
+		\subsubsection{Loi uniforme sur un ensemble infini (intervalle)}
+
+		\begin{déf} Soit $\Omega = [0, 1]$ et soit $A = [a, b] \subseteq \Omega$. La loi uniforme est donnée par~:
+		\[\P(A) = (b-a).\] \end{déf}
+
+		\begin{rmq} La définition de loi uniforme sur un intervalle fait intervenir la notion de mesure et donc de mesurabilité. Or il existe des parties de
+		$\Omega$ sur lesquelles la mesure n'a pas de sens. En général, $\mathcal P(\Omega)$ est \textit{trop grand}, et il faut donc remplacer l'utilisation
+		de l'ensemble des parties par la notion de tribu. \end{rmq}
+
+		\begin{déf} Soit $\Omega$ un ensemble de chances et $\mathcal F \subseteq \mathcal P(\Omega)$ une famille de parties de $\Omega$. On dit que
+		$\mathcal F$ est une tribu s'il respecte les trois propriétés suivantes~:
+		\begin{itemize}
+			\item $\emptyset \in \mathcal F$~;
+			\item $\forall A : A \in \mathcal F \Rightarrow A^\complement \in \mathcal F$~;
+			\item $\forall A_1, \dotsc, A_n, \ldots : A_1, \dotsc, A_n, \ldots \in \mathcal F \Rightarrow \bigcup_{k \geq 1}A_k \in \mathcal F$.
+		\end{itemize}
+
+		Une autre appellation pour une tribu est une $\sigma$-algèbre.
+		\end{déf}
+
+		\begin{rmq}~
+		\begin{itemize}
+			\item On remarque que $\mathcal P(\Omega)$ est une tribu, mais une tribu trop grande pour être intéressante~;
+			\item Soit $A \in \mathcal P(\Omega)$. Alors $T \coloneqq \{\emptyset, A, A^\complement, \mathcal P(\Omega)\}$ est une tribu.
+			      $T$ est la plus petite tribu contenant $A$, et on l'appelle la \textbf{tribu engendrée par $A$}, que l'on note $\sigma(A)$.
+		\end{itemize}
+		\end{rmq}
+
+		\begin{déf} Soit $I$ une partie de $\mathcal P(\Omega)$. On appelle la \textit{tribu engendrée par $I$} la plus petite tribu contenant $I$ et on la
+		note $\sigma(I)$.
+		
+		En prenant $I \coloneqq \{$ intervalles ouverts de $[0, 1]\}$, on obtient $\sigma(I)$ que l'on appelle \textbf{tribu des boréliens}.
+		\footnote{Le nom de \textit{borélien} vient du mathématicien français Émile Borel suite à ses travaux sur la théorie de la mesure.} \end{déf}
+
+		\begin{déf} Soit $\Omega$ un ensemble de chances et $\mathcal F \subset \mathcal P(\Omega)$ une tribu sur $\Omega$. Une probabilité sur
+		$(\Omega, \mathcal F)$ est une fonction $\P$ définie par~:
+		\[\P : \mathcal F \to [0, 1] : A \mapsto \P(A),\]
+		où $\P$ satisfait~:
+
+		\begin{itemize}
+			\item[$(i)$] $\P(\emptyset) = 0$~;
+			\item[$(ii)$] $\forall A \in \mathcal F : \P(aA) + \P(A^\complement) = 1$~;
+			\item[$(iii)$] $\forall A_1, \dotsc, A_n, \ldots$ disjoints deux à deux, on a~:
+			               \[\P\left(\bigcup_{k \geq 1}A_k\right) = \sum_{k \geq 1}\P(A_k).\]
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf} On appelle $(\Omega, \mathcal F, \P)$ un espace de probabilités. \end{déf}
+
+		\begin{rmq} Probabiliser un expérience revient à déterminer~:
+		\begin{itemize}
+			\item $\Omega$, l'espace des chances~;
+			\item $\mathcal F$, la classe des événements~;
+			\item $\P$, la fonction d'ensembles sur $\mathcal F$.
+		\end{itemize}
+		\end{rmq}
+	
+	\subsection{Modèles}
+		\subsubsection{Modèles discrets}
+		\begin{rmq} On prend $\Omega$ un ensemble fini ou dénombrable. On prend également $\mathcal F = \mathcal P(\Omega)$.
+
+		Si $\Omega$ est fini, on parle de tirages, et si $\Omega$ est infini dénombrable, on parle de populations.
+
+		On pose~:
+		\[\P : \{k\} \mapsto p_k \in [0, 1],\]
+		où~:
+		\[\sum_{k \in \Omega}p_k = 1\]
+		et pour $A = \{k_1, \dotsc, k_n\} \in \mathcal F$~:
+		\[\P(A) = \sum_{\gamma=1}^np_{k_\gamma}.\]
+		\end{rmq}
+
+		\begin{déf}[Modèle de Bernoulli] On prend $\Omega = \{0, 1\}$ où~:
+		\[\begin{cases}p_0 &= 1-p \\p_1 &= p\end{cases}.\] \end{déf}
+
+		\begin{rmq} Il est évident que $p + (1-p) = 1 = P(\Omega)$. \end{rmq}
+
+		\begin{déf}[Modèle binomial] On prend $\Omega = \iintv 0N$ (et donc $\mathcal F = \mathcal P(\Omega)$) et $p \in [0, 1]$.
+		Le modèle binomial est défini par $p_k = \binom nkp^k(1-p)^{N-k}$ pour tout $k \in \iintv 0N$. \end{déf}
+
+		\begin{rmq} On remarque que $\sum_{k \geq 1}p_k = 1$ car les $p_k$ représentent les termes du binôme de Newton $(p + (1-p))^N = 1^N = 1$. \end{rmq}
+
+		\begin{déf}[Modèle géométrique] On prend $\Omega = \N$, $\mathcal F = \mathcal F(\Omega) \simeq \R$, et $p \in (0, 1)$. Le modèle géométrique
+		est défini par $p_k = (1-p)^{k-1}p$ pour tout $k \in \N$. \end{déf}
+
+		\begin{rmq} On remarque que~:
+		\[\sum_{k \geq 1}p_k = \sum_{k \geq 1}p(1-p)^{k-1} = p\sum_{k \geq 0}(1-p)^k = p\frac 1{1-(1-p)} = \frac pp = 1,\]
+		où on utilise la formule de la somme des termes d'une suite géométrique $u$ définie par $u_n = u_{n-1}q$ pour $n \geq 1$ (avec $0 < q < 1$) qui donne~:
+		\[\sum_{k=0}^Nu_k = u_0\frac {1 - q^{N+1}}{1-q},\]
+		et pour la série, il suffit de passer à la limite~:
+		\[\lim_{N \to +\infty}\sum_{k=0}^Nu_k = \lim_{N \to +\infty}u_0\frac {1 - q^{N+1}}{1-q} = u_0\frac 1{1-q}.\]
+		\end{rmq}
+
+		\begin{déf}[Modèle de Poisson] On prend $\Omega  =\N$, $\mathcal F = \mathcal P(\Omega)$, et un paramètre $\lambda \in \R_0^+$.
+		Le modèle poissonien est défini par $p_k = \exp(-\lambda)\frac {\lambda^k}{k!}$ pour tout $k \in \N$. \end{déf}
+
+		\begin{rmq} On remarque que $\P(\Omega) = 1$ en utilisant la formule de Taylor de l'exponentielle~:
+		\[\exp(x) = \sum_{k \geq 0}\frac {x^k}{k!}.\]
+
+		On a effectivement~:
+		\[\P(\Omega) = \sum_{k \geq 0}\P(\{k\}) = \sum_{k \geq 0}p_k = \sum_{k \geq 0}\exp(-\lambda)\frac {\lambda^k}{k!} = \exp(-\lambda)\exp(\lambda) = 1.\]
+		\end{rmq}
 
 \end{document}
