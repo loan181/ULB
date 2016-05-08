@@ -21,13 +21,15 @@
 }
 \makeatother
 
-\newcommand{\N}{\mathbb N}
+  \newcommand{\N}{\mathbb N}
 \renewcommand{\P}{\mathbb P}
-\newcommand{\R}{\mathbb R}
+  \newcommand{\Q}{\mathbb Q}
+  \newcommand{\R}{\mathbb R}
 
 \newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
 
 \DeclareMathOperator{\tq}{t.q.}
+\DeclareMathOperator{\Erf}{Erf}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -232,5 +234,96 @@
 		On a effectivement~:
 		\[\P(\Omega) = \sum_{k \geq 0}\P(\{k\}) = \sum_{k \geq 0}p_k = \sum_{k \geq 0}\exp(-\lambda)\frac {\lambda^k}{k!} = \exp(-\lambda)\exp(\lambda) = 1.\]
 		\end{rmq}
+
+		\subsubsection{Modèles continus (à densité)}
+		\begin{rmq} On prend $\Omega$ un intervalle (fini ou infini\footnote{On parle d'intervalle fini pour $[a, b]$, avec $a < b \in \R$ et d'intervalle
+		semi-infini pour $(-\infty, b]$ ou $[a, +\infty)$ et d'intervalle infini pour $(-\infty, +\infty) = \R$.}) sur $\R$, et $\mathcal F = \mathcal B(I)$,
+		la tribu des boréliens sur $I$\footnote{Ou encore la tribu engendrée par les intervalles de $I$.}. \end{rmq}
+
+		\begin{déf} Soit $f : I \to \R^+$ une fonction intégrable telle que $\int_\R f(x)\dif x = 1$. Soit $A \in \mathcal F$, on pose
+		$\P(A) = \int_Af(x)\dif x$. $f$ est appelée fonction de densité de modèle stochastique. \end{déf}
+
+		\begin{déf}[Loi uniforme continue] On prend $I = [a, b]$ avec $a < b \i \R$. Le modèle uniforme est défini par $f$ constante~:
+		\[f(x) = \begin{cases}0 &\text{ si }x \not \in [a, b] \\\frac 1{b-a} &\text{ si }x \in [a, b]\end{cases}.\] \end{déf}
+
+		\begin{rmq} On remarque effectivement $\int_\R f(x)\dif x = 1$~:
+		\[\int_\R f(x)\dif x = \int_{-\infty}^a f(x)\dif x + \int_a^b f(x)\dif x + \int_b^{+\infty} f(x)\dif x = 0 + \frac 1{b-a}\int_a^b\dif x + 0 = 1.\]
+		\end{rmq}
+
+		\begin{déf}[Modèle exponentiel]\footnote{Également appelé \textit{modèle des files d'attente}.}\label{modèleExponentiel} On prend $I = \R^+$ et
+		$\lambda > 0$. Le modèle exponentiel est défini par~:
+		\[f(x) = \begin{cases}\lambda\exp(-\lambda x) &\text{ si }x \geq 0 \\ 0 &\text{ sinon}\end{cases}.\]
+		\end{déf}
+
+		\begin{rmq} On peut calculer l'intégrale impropre comme suit~:
+		\[\begin{aligned}
+			\int_\R f(x)\dif x &= \int_{-\infty}^0f(x)\dif x + \int_0^{+\infty}f(x)\dif x = 0 + \lim_{M \to +\infty}\int_0^Mf(x)\dif x \\
+			&= \lim_{M \to +\infty}\left[-\exp(-\lambda x)\right]_0^M = \lim_{M \to +\infty}\left(1 - \exp(-\lambda M)\right) = 1.
+		\end{aligned}\]
+		\end{rmq}
+
+		\begin{déf}[Modèle gaussien]\footnote{Également appelé \textit{modèle des erreurs} ou encore \textit{modèle normal}.} On prend $I = \R$, et
+		$(\mu, \sigma) \in \R \times \R^+_0$. Le modèle gaussien est défini par~:
+		\[f(x) = \frac 1{\sigma\sqrt{2\pi}}\exp\left(-\frac {(x-\mu)^2}{2\sigma^2}\right).\]
+		\end{déf}
+
+		\begin{rmq} Pour que $\P$ soit une probabilité, il faut que $f$ soit définie positive. Or $f$ est une exponentielle multipliée par un coefficient
+		positif. Il faut également $\int_\R f(x)\dif x = 1$, ce qui peut se vérifier par~:
+		\[\int_\R f(x)\dif x,\]
+		en posant $y \coloneqq x-\mu$, et donc $\dif y = \dif x$~:
+		\[\int_\R \frac 1{\sigma \sqrt{2\pi}}\exp\left(-\frac {y^2}{2\sigma^2}\right) = \frac 1{\sigma\sqrt{2\pi}}\int_\R\exp\left(-\frac {y^2}{2\sigma^2}\right).\]
+		En posant $z \coloneqq \frac y\sigma$ (et donc $\dif z = \frac {\dif x}\sigma$), on obtient~:
+		\[\int_\R f(x)\dif x = \frac 1{\sqrt{2\pi}}\int_\R\exp\left(-\frac {z^2}2\right)\dif z.\]
+
+		Une primitive de $\exp\left(-\frac {z^2}2\right)$ est~:
+		\[\int_{-\infty}^z\exp\left(-\frac {x^2}2\right)\frac {\dif x}{\sqrt{2\pi}} = \Erf(z).\]
+
+		On écrit alors~:
+		\[\begin{aligned}
+			\P(\Omega)^2 &= \left(\int_\R\exp\left(-\frac {x^2}2\right)\frac {\dif x}{\sqrt{2\pi}}\right)
+			                \left(\int_\R\exp\left(-\frac {y^2}2\right)\frac {\dif y}{\sqrt{2\pi}}\right) \\
+			             &= \iint_{\R^2}\exp\left(-\frac {x^2+y^2}2\right)\frac {\dif x\dif y}{2\pi}.
+		\end{aligned}\]
+		
+		En passant en coordonnées polaires, on obtient~:
+		\[\P(\Omega)^2 = \int_{-\pi}^{+\pi}\int_\R\exp\left(-\frac {r^2}2\right)\frac {r\dif r\dif \theta}{2\pi}
+		= \int_{-\pi}^{+\pi}\frac {\dif \theta}{2\pi}\int_\R r\exp\left(-\frac {r^2}2\right)\dif r
+		= \left[-\exp\left(-\frac {r^2}2\right)\right]_0^{+\infty} = 1.\]
+
+		On en déduit alors $\P(\Omega) = 1$ également. $\P$ est donc bien une probabilité. \end{rmq}
+		
+		\begin{déf} On a défini une probabilité sur $\left(R^+, \mathcal(R^+)\right)$ via la fonction $f(r) = r\exp\left(-\frac {r^2}2\right)$.
+		On l'appelle la \textit{probabilité de Rayleigh}. \end{déf}
+
+		\subsubsection{Divergence sur la fonction Gamma d'Euler}
+
+		\begin{déf}[Fonction Gamma d'Euler] La fonction Gamma d'Euler est définie comme suit~:
+		\[\Gamma : \R_0^+ \to \R : x \mapsto \int_0^{+\infty}\exp(-x)x^{t-1}\dif x.\] \end{déf}
+		
+		\begin{rmq} On note $\gamma \coloneqq -\Gamma'(1) > 0$ la constante d'Euler-Mascheroni. La question $\gamma \stackrel{?}{\in} \Q$ est toujours ouverte.
+		\end{rmq}
+
+		\begin{prp}\label{GammaRecursif} $\forall t > 0 : \Gamma(t+1) = t\Gamma(t)$. \end{prp}
+
+		\begin{proof} Soit $t > 0$. Par l'intégration par parties, on a~:
+		\[\Gamma(t+1) = \int_0^{+\infty}\exp(-x)x^{t}\dif x = \left[-x^t\exp(-x)\right]_0^{+\infty} + t\int_0^{+\infty}\exp(-x)x^{t-1}\dif x = t\Gamma(t).\]
+		\end{proof}
+
+		\begin{rmq} Par la proposition~\ref{GammaRecursif}, on peut définir la factorielle de tout nombre naturel par~:
+		\[\forall n \in \N^* : n! = \Gamma(n+1)\]
+		\end{rmq}
+
+		\begin{prp}[Formule des compléments] Soit $t \in (0, 1)$. Alors~:
+		\[\Gamma(t)\Gamma(1-t) = \frac \pi{\sin(\pi t)}.\]
+		\end{prp}
+
+		\subsubsection{Retour aux modèles stochastiques}
+
+		\begin{déf}[Modèle Gamma]\footnote{Le modèle $\Gamma$ est une généralisation du modèle exponentiel (définition~\ref{modèleExponentiel}).}
+		On prend $\Omega = \R^+$. Le modèle Gamma est défini par~:
+		\[f_t(x) \frac {x^t-\exp(-x)}{\Gamma(t)}.\]
+		\end{déf}
+
+	\subsection{Notion de variables aléatoires}
 
 \end{document}

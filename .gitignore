@@ -7,6 +7,7 @@
 *.py
 *.vimrc
 *.txt
+*.600pk
 
 */*/
 !*/résumé/
