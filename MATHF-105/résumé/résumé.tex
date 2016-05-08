@@ -1,0 +1,82 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+% math packages
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools}
+\usepackage{mathdots}
+\usepackage{commath}
+
+\usepackage[french]{babel}
+\usepackage{hyperref}
+
+\makeatletter
+\def\thm@space@setup{%
+	\thm@preskip=.4cm%
+	\thm@postskip=\thm@preskip%
+}
+\makeatother
+
+\newcommand{\N}{\mathbb N}
+\renewcommand{\P}{\mathbb P}
+
+% amsthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\renewcommand{\proofname}{\it{Démonstration}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+
+\author{R. Petit}
+\title{MATHF-105 : Probabilités \\ Résumé}
+\date{Année académique 2015 - 2016}
+
+\begin{document}
+
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\section{Espaces de probabilités}
+	\subsection{Définition}
+		\begin{déf} L'ensemble $\Omega$ est l'\textbf{espace des chances}, l'ensemble des résultats possibles d'un phénomène aléatoire. \end{déf}
+
+		\begin{rmq}~
+		\begin{itemize}
+			\item $\Omega$ peut être fini (dénombrable) ou infini~;
+			\item $\Omega = \left\{0, 1\right\}^\N$ est l'ensemble des suites à valeur dans $\{0, 1\}$~;
+			\item $\Omega$ peut être un espace dit \textit{fonctionnel} quand le résultat d'une expérience est une fonction.
+		\end{itemize}
+		\end{rmq}
+
+		\begin{déf} Un événement $E$ est un ensemble de réalisations possibles à une expérience tel que $E \subseteq \Omega$. \end{déf}
+
+		\begin{rmq} L'ensemble $\mathcal P(\Omega)$ n'est pas toujours dénombrable. Et donc l'ensemble $\mathcal P(\Omega)$ est-il le bon ensemble pour décrire
+		les événements~?
+		
+		\begin{itemize}
+			\item Si $\abs \Omega \in \N$~: oui~;
+			\item si $\abs \Omega \not \in \N$~: non.
+		\end{itemize}
+		\end{rmq}
+
+		\begin{déf} $\mathcal F$ est la \textbf{classe des événements}. On mesure la \textit{probabilité d'occurrence} d'un événement $A \in \mathcal F$.
+		On introduit une fonction d'ensemble $\P$ où~:
+		\[\P : \mathcal F \to [0, 1] : A \mapsto \P(A).\]
+
+		On impose~:
+		\begin{itemize}
+			\item[$(i)$] $\P(\emptyset) = 0$~;
+			\item[$(ii)$] $\P(\Omega) = 1$~;
+			\item[$(iii)$] $\forall A, B \in \mathcal F : A \cap B = \emptyset \Rightarrow \P(A \cup B) = \P(A) + \P(B)$.
+		\end{itemize}
+		\end{déf}
+
+\end{document}
