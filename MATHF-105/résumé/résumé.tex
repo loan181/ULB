@@ -26,10 +26,14 @@
   \newcommand{\Q}{\mathbb Q}
   \newcommand{\R}{\mathbb R}
 
+\newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
+\newcommand{\Nzu}{\mathcal N(0, 1)}
+
 \newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
 
 \DeclareMathOperator{\tq}{t.q.}
 \DeclareMathOperator{\Erf}{Erf}
+\DeclareMathOperator{\Exp}{Exp}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -52,7 +56,7 @@
 \newpage
 \pagenumbering{arabic}
 
-\section{Espaces de probabilités}
+\section{Rappels}
 	\subsection{Rappel sur les séries}
 		Les fonctions logarithmique et exponentielle ont un développement de Taylor exact. Pour la fonction logarithmique, on a, pour $x \in (-1, 1)$~:
 		\[\log(1-x) = -\sum_{k \geq 1}\frac {x^k}k.\]
@@ -83,9 +87,15 @@
 		On voit alors~:
 		\[\sum_{n \geq 1}x^n = \begin{cases}\frac x{1-x} &\text{ si } x \in [0, 1) \\ +\infty & \text{ sinon }\end{cases}.\]
 
-		Si la suite commene à l'indice 0, on a~:
+		Si la suite commence à l'indice 0, on a~:
 		\[\sum_{n \geq 0}x^n = 1 + \sum_{n \geq 1}x^n = \begin{cases}1 + \frac x{1-x} = \frac 1{1-x} &\text { si } x \in [0, 1) \\ +\infty &\text{ sinon}\end{cases}.\]
+	
+	\subsection{Rappels d'analyse}
+		\begin{déf} Une fonction $f : X \to Y$ est dite mesurable si~:
+		\[\forall A \subset \mathcal B(Y) : \{\omega \in \Omega \tq X(\omega) \in A\} \in \mathcal F,\]
+		où $\mathcal B(Y)$ représente la tribu des boréliens (voir définition~\ref{boréliens}). \end{déf}
 
+\section{Espaces de probabilités}
 	\subsection{Définition}
 		\begin{déf} L'ensemble $\Omega$ est l'\textbf{espace des chances}, l'ensemble des résultats possibles d'un phénomène aléatoire. \end{déf}
 
@@ -161,8 +171,8 @@
 		\end{itemize}
 		\end{rmq}
 
-		\begin{déf} Soit $I$ une partie de $\mathcal P(\Omega)$. On appelle la \textit{tribu engendrée par $I$} la plus petite tribu contenant $I$ et on la
-		note $\sigma(I)$.
+		\begin{déf}\label{boréliens} Soit $I$ une partie de $\mathcal P(\Omega)$. On appelle la \textit{tribu engendrée par $I$} la plus petite tribu contenant
+		$I$ et on la note $\sigma(I)$.
 		
 		En prenant $I \coloneqq \{$ intervalles ouverts de $[0, 1]\}$, on obtient $\sigma(I)$ que l'on appelle \textbf{tribu des boréliens}.
 		\footnote{Le nom de \textit{borélien} vient du mathématicien français Émile Borel suite à ses travaux sur la théorie de la mesure.} \end{déf}
@@ -325,5 +335,107 @@
 		\end{déf}
 
 	\subsection{Notion de variables aléatoires}
+		\subsubsection{Cas discret}
+
+		\begin{déf} Soit $(\Omega, \mathcal F, \P)$ un espace de probabilité. Une variable aléatoire discrète\footnote{Souvent écrite v.a.d. ou V.A.-D.} est
+		une application $X : \Omega \to E$ où $E$ est un ensemble fini ou infini dénombrable. On demande à cette application d'être mesurable. \end{déf}
+
+		\begin{rmq}~
+		\begin{itemize}
+			\item Bien souvent, on a $E = \Omega$, et $X(\omega) = \omega$. Dans ce cas, on \textit{identifie} l'espace des chances avec l'espace d'arrivée.
+			      La probabilité $\P$ s'appelle alors la \textbf{loi} de la variable aléatoire $X$.
+			\item Il arrive parfois que l'espace de probabilités soit plus gros que l'espace d'état.
+		\end{itemize}
+		\end{rmq}
+
+		\begin{déf} Plus formellement, la \textbf{loi} d'une v.a.d. $X$ est l'ensemble~:
+		\[\{\P(X = x) \tq x \in E\}.\]
+		\end{déf}
+
+		\begin{déf} Pour toute valeur $k \in E$ que peut prendre la variable aléatoire $X$, on note $\P(X = k)$ la probabilité que la variable $X$ prenne la
+		valeur $k$. C'est équivalent à $\P\left(X(\omega) = k\right)$ pour $\omega \in \Omega$. \end{déf}
+
+		\begin{déf} Lorsqu'une v.a.d. $X$ suit une certaine loi $\mathcal L$, on note $X \sim \mathcal L$.
+		
+		Par exemple, une variable $Y$ suivant une poisson de paramètre $\lambda$ se note $Y \sim \mathcal P(\lambda)$. \end{déf}
+	
+		\subsubsection{Cas absolument continu}
+
+		\begin{déf} Soit $(\Omega, \mathcal F, \P)$ un espace de probabilité. Une variable aléatoire absolument continue\footnote{Souvent écrite v.a.c. ou V.A.-C.}
+		est une application $X : \Omega \to \R$ mesurable au sens où~:
+		\[\forall A \in \mathcal B(\R) : \{\omega \in \Omega \tq X(\omega) \in A\} \in \mathcal F,\]
+		et \textit{absolument continue} au sens où~:
+		\[\exists f_X : \R \to \R^+\]
+		mesurable et telle que~:
+		\[\int_\R f_X(x)\dif x = 1,\]
+		avec~:
+		\begin{equation}\label{eq:loivad}
+			\P(X \in A) = \int_A f_X(x)\dif x.
+		\end{equation}
+		\end{déf}
+
+		\begin{déf} On appelle $f_X$ la \textbf{densité} de $X$. \end{déf}
+
+		\begin{rmq} La \textit{loi} de $X$ est donnée par~\eqref{eq:loivad}. \end{rmq}
+
+		\begin{déf} On note $F_X(t) = \P(X \leq t)$, ou encore $F_X(t) = \int_{-\infty}^tf(x)\dif x$ (en prenant $A = (-\infty, t]$). \end{déf}
+
+		\begin{rmq} La fonction $t \mapsto F_X(t)$ est continue et est (presque) partout dérivable avec~:
+		\[\pd{F_X}t(t) = f_X(t) \geq 0.\]
+		Donc $F_X$ est croissante avec~:
+		\[\lim_{t \to -\infty}F_X(t) = 0,\]
+		et~:
+		\[\lim_{t \to +\infty}F_X(t) = 1.\]
+		\end{rmq}
+
+		\begin{rmq} On peut associer une fonction de répartition $F_X$ à toute variable aléatoire $X$, même si $X$ est une v.a.d. Dans ce cas, on construit $F_X$
+		constante par morceaux (et présente donc des points de discontinuité). \end{rmq}
+
+		\begin{déf} Si $F_X$ est continue, on dit que $X$ est continue. \end{déf}
+
+		\begin{rmq} Donc si $X$ est continue, alors $\P(X = x) = F_X(x) - \lim_{y \to x}F_X(y) = 0$. Ce résultat peut également être observé en utilisant le fait
+		que $\P(X = x) = \int_x^x f(x)\dif x$, et une intégration sur un point est nulle. \end{rmq}
+
+		\begin{rmq} Il existe des fonction continues nulle part dérivables. On peut donc avoir $F_X(t)$ continue mais pas sous la forme suivante~:
+		\begin{equation}\label{eq:abscontinue}
+			F_X(t) = \int_{-\infty}^tf(x)\dif x,
+		\end{equation}
+		pour une fonction $f_X$ donnée.
+		\end{rmq}
+
+		\begin{déf} On dit qu'une variable fonction $f : \R \to \R$ est \textbf{absolument continue} si elle admet une représentation intégrale de
+		type~\eqref{eq:abscontinue}. \end{déf}
+
+		\begin{déf} Soit $E$ un ensemble. La fonction $1_E$ est appelée \textbf{fonction indicatrice} est est définie telle que~:
+		\[\forall x : 1_E(x) = \begin{cases}1 &\text{ si }x \in E \\0 &\text{ sinon}\end{cases}.\]
+		\end{déf}
+
+		\paragraph{Exemples}
+
+		\begin{enumerate}
+			\item Si $X_1 \sim U_{[a, b]}$ est une v.a.c. uniforme sur $[a, b]$, alors~:
+			      \[F_{X_1}(t) = \begin{cases}0 &\text{ si }t \leq a \\t-a &\text{ si }a < t < b \\1 &\text{ si }t > b\end{cases}.\]
+
+			\item Si $X_2 \sim \Exp(\lambda)$ est une v.a.c. exponentielle de paramètre $\lambda$, alors~:
+			      \[F_{X_2}(t) = \int_{-\infty}^t\lambda\exp(-\lambda t)1_{(0, +\infty)}(t) = -\exp(-\lambda t)1_{(0, +\infty)}(t).\]
+
+			\item Si $x_3 \sim \Nms$ est une v.a.c. normale de moyenne $\mu$ est de variance $\sigma^2$, alors~:
+			      \[F_{X_3}(t) = \int_{-\infty}^tf(x)\dif x = \Erf\left(\frac {t-\mu}\sigma\right).\]
+
+			\item Si $X_4 \sim \mathcal C$ est une v.a.c. de Cauchy de densité donnée par~:
+			      \[f_{X_4}(x) = \frac 1{\pi(1+x^2)},\]
+				  alors~:
+				  \[F_{X_4}(t) = \frac 12 + \frac 1\pi\arctan(t).\]
+		\end{enumerate}
+	
+	\subsection{Théorème de de Moivre-Laplace}
+		Soient $p \in (0, 1)$ et $n \geq 1$. On pose $X_{n, p} \sim \mathcal B(n, p)$.
+
+		Soit $Y_{n, p}$ défini par~: \[Y_{n, p} \coloneqq \frac {X_{n, p} - np}{\sqrt{np(1-p)}}.\]
+		On remarque que $Y_{n, p}$ est une binomiale renormalisée.
+
+		\begin{thm}[Théorème de de Moivre-Laplace] Si $t \in \R$, alors~:
+		\[\P(Y_{n, p} \leq t) \stackrel{n \to +\infty}{\to}F_{\Nzu}(t).\]
+		\end{thm}
 
 \end{document}
