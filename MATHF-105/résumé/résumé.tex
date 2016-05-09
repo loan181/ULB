@@ -21,6 +21,7 @@
 }
 \makeatother
 
+  \newcommand{\E}{\mathbb E}
   \newcommand{\N}{\mathbb N}
 \renewcommand{\P}{\mathbb P}
   \newcommand{\Q}{\mathbb Q}
@@ -28,12 +29,17 @@
 
 \newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
 \newcommand{\Nzu}{\mathcal N(0, 1)}
+\newcommand{\convl}{\stackrel{\mathcal D}\to}
+\newcommand{\espproba}[3]{\left(#1, #2, #3\right)}
+\newcommand{\Ofp}{\espproba \Omega{\mathcal F}\P}
+\newcommand{\ofp}{\Ofp}
 
 \newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
 
 \DeclareMathOperator{\tq}{t.q.}
 \DeclareMathOperator{\Erf}{Erf}
 \DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Bale}{\textup{Bâle}}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -43,6 +49,7 @@
 \newtheorem{déf}[thm]{Définition}
 \theoremstyle{remark}
 \newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}
 
 \author{R. Petit}
 \title{MATHF-105 : Probabilités \\ Résumé}
@@ -178,7 +185,7 @@
 		\footnote{Le nom de \textit{borélien} vient du mathématicien français Émile Borel suite à ses travaux sur la théorie de la mesure.} \end{déf}
 
 		\begin{déf} Soit $\Omega$ un ensemble de chances et $\mathcal F \subset \mathcal P(\Omega)$ une tribu sur $\Omega$. Une probabilité sur
-		$(\Omega, \mathcal F)$ est une fonction $\P$ définie par~:
+		$\Ofp$ est une fonction $\P$ définie par~:
 		\[\P : \mathcal F \to [0, 1] : A \mapsto \P(A),\]
 		où $\P$ satisfait~:
 
@@ -190,7 +197,7 @@
 		\end{itemize}
 		\end{déf}
 
-		\begin{déf} On appelle $(\Omega, \mathcal F, \P)$ un espace de probabilités. \end{déf}
+		\begin{déf} On appelle $\Ofp$ un espace de probabilités. \end{déf}
 
 		\begin{rmq} Probabiliser un expérience revient à déterminer~:
 		\begin{itemize}
@@ -337,8 +344,8 @@
 	\subsection{Notion de variables aléatoires}
 		\subsubsection{Cas discret}
 
-		\begin{déf} Soit $(\Omega, \mathcal F, \P)$ un espace de probabilité. Une variable aléatoire discrète\footnote{Souvent écrite v.a.d. ou V.A.-D.} est
-		une application $X : \Omega \to E$ où $E$ est un ensemble fini ou infini dénombrable. On demande à cette application d'être mesurable. \end{déf}
+		\begin{déf} Soit $\Ofp$ un espace de probabilité. Une variable aléatoire discrète\footnote{Souvent écrite v.a.d. ou V.A.-D.} est une application
+		$X : \Omega \to E$ où $E$ est un ensemble fini ou infini dénombrable. On demande à cette application d'être mesurable. \end{déf}
 
 		\begin{rmq}~
 		\begin{itemize}
@@ -361,8 +368,8 @@
 	
 		\subsubsection{Cas absolument continu}
 
-		\begin{déf} Soit $(\Omega, \mathcal F, \P)$ un espace de probabilité. Une variable aléatoire absolument continue\footnote{Souvent écrite v.a.c. ou V.A.-C.}
-		est une application $X : \Omega \to \R$ mesurable au sens où~:
+		\begin{déf} Soit $\Ofp$ un espace de probabilité. Une variable aléatoire absolument continue\footnote{Souvent écrite v.a.c. ou V.A.-C.} est une
+		application $X : \Omega \to \R$ mesurable au sens où~:
 		\[\forall A \in \mathcal B(\R) : \{\omega \in \Omega \tq X(\omega) \in A\} \in \mathcal F,\]
 		et \textit{absolument continue} au sens où~:
 		\[\exists f_X : \R \to \R^+\]
@@ -437,5 +444,110 @@
 		\begin{thm}[Théorème de de Moivre-Laplace] Si $t \in \R$, alors~:
 		\[\P(Y_{n, p} \leq t) \stackrel{n \to +\infty}{\to}F_{\Nzu}(t).\]
 		\end{thm}
+
+		\begin{rmq} La signification de ce théorème est qu'une binomiale renormalisée se comporte comme une gaussienne $\Nzu$ lorsque $n \to +\infty$. \end{rmq}
+
+		\begin{prp}[Formule de Stirling] \[n! \stackrel{n \to +\infty}\sim \sqrt{2\pi n}\left(\frac ne\right)^n.\] \end{prp}
+	
+	\subsection{Convergence en loi}
+		\begin{déf}~
+		\begin{itemize}
+			\item Soit $Z$ une v.a.c. Soit $\{Z_n, n \geq 1\}$ une suite de v.a. quelconques. On dit que $Z_n$ \textit{converge en loi vers} $Z$ si~:
+			      \[\forall x : F_{Z_n}(x) = \P(Z_n \leq x) \stackrel{n \to +\infty}\to F_Z(x).\]
+			      On note cela~:
+			      \[Z_n \convl Z.\]
+
+			\item Soient $Z$ une v.a.d. et une $\{Z_n, n \geq 1\}$ une suite de variables aléatoires discrètes. On dit que $Z_n$ \textit{covnerge en loi vers}
+			      $Z$ si~:
+			      \[\forall x \in E : \P(Z_n = x) \stackrel{n \to +\infty}\to \P(Z = x).\]
+			      On note cela~:
+				  \[Z_n \convl Z.\]
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} Un exemple typique de convergence en loi de variables discrètes est~:
+		\[\mathcal B\left(n, \frac \lambda{n}\right) \convl \mathcal P(\lambda).\]
+		\end{rmq}
+
+\section{Espérance}
+	\subsection{Pari de pascal}
+		Le terme \textit{espérance} vient de Blaise Pascal et de son traitement de la question «~Faut-il croire en Dieu~?~». On pose la variable $X$ qui
+		décrit le résultat de l'existence de Dieu définie comme suit~:
+		\[X = \begin{cases}0 &\text{ si Dieu n'existe pas} \\+\infty &\text{ sinon}\end{cases}.\]
+
+		On a alors $\P(X = 0) = p$ et $\P(X = +\infty) = 1-p$. Prenons $p < 1$ (car si $p = 1$, on suppose que Dieu n'existe pas). Alors $\bar X$, la valeur
+		moyenne de $X$ est donnée par~:
+		\[\bar X = p \cdot 0 + (1-p) \cdot +\infty.\]
+
+		Blaise Pascal a appelé cette valeur \textbf{espérance} et l'a noté $\E(X)$.
+	
+	\subsection{Espérance et variables aléatoires}
+		\begin{rmq} Il existe plusieurs méthodes pour décrire le comportement d'une variable aléatoire. On s'intéresse ici aux \textbf{indicateurs de position}.
+		Il existe d'autres types d'indicateurs dont les \textbf{indicateurs de répartition} qui seront vus plus loin. \end{rmq}
+
+		\begin{déf} On considère $X$ une variable aléatoire sur un espace de probabilité $\ofp$.
+
+		\begin{enumerate}
+			\item \underline{Méthode de la médiane~:}
+
+			      On évalue le nombre $\widetilde x$ tel que $\P(X \leq \widetilde x) = \P(X \geq \widetilde x) = \frac 12$.
+
+			      Lorsque $X$ est continue, la médiane existe toujours. Si $X$ est discrète, la médiane n'existe pas obligatoirement et n'est pas forcément
+			      unique.
+			
+			\item \underline{Méthode de l'espérance~:}
+
+			      On évalue une \textit{moyenne pondérée} des valeurs que peut prendre $X$ par leur probabilité.
+		\end{enumerate}
+		\end{déf}
+
+	\subsection{Définition de l'espérance}
+		\subsubsection{Cas positif}
+			
+		\begin{déf}[Cas discret]\label{espposdisc} Soit $X$ une v.a.d. à valeurs positives. On note $p_k \coloneqq \P(X = x_k)$. On pose~:
+		\[\E(X) = \sum_{k \geq 0}p_kx_k.\]
+		\end{déf}
+
+		\begin{rmq} Dans ce cas, l'espérance fait toujours sens et existe toujours mais peut valoir $+\infty$. \end{rmq}
+
+		\begin{déf}[Cas absolument continu]\label{espposabscont} Soit $X$ une v.a.c. définie positive de densité $f_X$ et de répartition $F_X$. On note~:
+		\[\left\{\begin{aligned}
+			F_X(t) &= \P(X \leq t) \\
+			f_X(t) &= \pd {}tF_X(t)
+		\end{aligned}\right..\]
+
+		On définit alors~:
+		\[\E(X) = \int_0^{+\infty}xf(x)\dif x.\]
+		\end{déf}
+
+		\begin{rmq}~
+		\begin{itemize}
+			\item L'intégrale démarre en $0$ car la variable aléatoire $X$ est définie positive~;
+			\item à nouveau, l'espérance existe toujours mais peut valoir $+\infty$.
+		\end{itemize}
+		\end{rmq}
+
+	\subsection{Exemples d'espérance}
+		\begin{ex} (exemple de \ref{espposdisc}.) Soit $X \sim \mathcal B(n, p)$ une binomiale. Par définition, on évalue~:
+		\[\begin{aligned}
+			\E(X) &= \sum_{k=0}^n\binom nkp^k(1-p)^{n-k}k = \sum_{k=1}^n\binom nkp^k(1-p)^{n-k}k = np\sum_{k=1}^n\frac {(n-1)!}{(k-1)!(n-k)!}p^{k-1}(1-p)^{n-k} \\
+			      &= np\sum_{\gamma=0}^{n-1}\binom {n-1}\gamma p^\gamma(1-p)^{n-1-\gamma} = np(p + (1-p))^{n-1} = np.
+		\end{aligned}\]
+		\end{ex}
+
+		\begin{ex} (exemple de \ref{espposdisc}.) Soit $X \sim \mathcal P(\lambda)$ une poisson de paramètre $\lambda$. On évalue~:
+		\[\begin{aligned}
+			\E(X) &= \sum_{k \geq 0}\P(X = k)k = \sum_{k \geq 0}\exp(-\lambda)\frac {\lambda^k}{k!}k = \exp(-\lambda)\sum_{k \geq 1}\frac {\lambda^k}{k!}k \\
+			      &= \exp(-\lambda)\lambda\sum_{k \geq 1}\frac {\lambda^{k-1}}{(k-1)!} = \lambda\exp(-\lambda)\sum_{\gamma \geq 0}\frac {\lambda^\gamma}{\gamma!}
+				  = \lambda\exp(-\lambda)\exp(\lambda) = \lambda.
+		\end{aligned}\]
+		\end{ex}
+
+		\begin{ex} (exemple de \ref{espposdisc}.) Soit $X \sim \Bale$. La loi de $X$ est donnée par $\P(X = k) = \frac 6{(\pi k)^2}$ pour tout $k \geq 1$.
+		On évalue~:
+		\[\E(X) = \sum_{k \geq 1}\P(X = k)k  \sum_{k \geq 1}\frac 6{\pi^2}\sum_{k \geq 1}\frac 1{k^2}k = \frac 6{\pi^2}\sum_{k \geq 1}\frac 1k = +\infty.
+		\footnote{La série $\sum_{k \geq 1}\frac 1k = +\infty$ se démontre en utilisant le fait que $\sum_{i=2^\alpha}^{2^{\alpha+1}}\frac 1i \gneqq \frac 12
+		\forall \alpha \in \N$ et donc en faisant tendre $\alpha \to +\infty$, on obtient $+\infty$.}\]
+		\end{ex}
 
 \end{document}
