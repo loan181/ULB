@@ -34,6 +34,8 @@
 \newcommand{\espproba}[3]{\left(#1, #2, #3\right)}
 \newcommand{\Ofp}{\espproba \Omega{\mathcal F}\P}
 \newcommand{\ofp}{\Ofp}
+\newcommand{\Lu}{\mathcal L_1\Ofp}
+\newcommand{\Ld}{\mathcal L_2\Ofp}
 
 \newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
 
@@ -41,6 +43,7 @@
 \DeclareMathOperator{\Erf}{Erf}
 \DeclareMathOperator{\Exp}{Exp}
 \DeclareMathOperator{\Bale}{\textup{Bâle}}
+\DeclareMathOperator{\Var}{Var}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -107,6 +110,7 @@
 		
 		\begin{thm}\label{convabsintégrale} Dans $\R$, toute intégrale impropre absolument convergente est convergente. \end{thm}
 
+\newpage
 \section{Espaces de probabilités}
 	\subsection{Définition}
 		\begin{déf} L'ensemble $\Omega$ est l'\textbf{espace des chances}, l'ensemble des résultats possibles d'un phénomène aléatoire. \end{déf}
@@ -474,6 +478,7 @@
 		\[\mathcal B\left(n, \frac \lambda{n}\right) \convl \mathcal P(\lambda).\]
 		\end{rmq}
 
+\newpage
 \section{Espérance}
 	\subsection{Pari de pascal}
 		Le terme \textit{espérance} vient de Blaise Pascal et de son traitement de la question «~Faut-il croire en Dieu~?~». On pose la variable $X$ qui
@@ -550,7 +555,7 @@
 		\end{equation}
 		\end{déf}
 
-		\begin{déf}[Cas absolument continu (à densité)] Soit $X$ une v.a.c. de densité $f_X$ sur $\R$ telle que $\forall A \in \mathcal B(\R) :$
+		\begin{déf}[Cas absolument continu (à densité)]\label{espabscont} Soit $X$ une v.a.c. de densité $f_X$ sur $\R$ telle que $\forall A \in \mathcal B(\R) :$
 		\[\P(X \in A) = \int_Af(x)\dif x.\]
 
 		On considère~:
@@ -613,5 +618,98 @@
 		et donc, on calcule~:
 		\[\E(X) = \int_0^{+\infty}xf_X(x)\dif x = \int_0^{+\infty}\frac {2x}{(1+x^2)}\frac {\dif x}{\pi}= \frac 1\pi \left[\log(1+x^2)\right]_0^{+\infty} = +\infty\]
 		\end{ex}
+
+		\begin{ex} (exemple de \ref{espabscont}.) Soit $X \sim \mathcal C$ une Cauchy. On sait~:
+		\[f_X(t) = \frac 1{\pi(1+t^2)},\]
+		et donc, on calcule~:
+		\[\int_{-\infty}^{+\infty}xf_X(x)\dif x = 2\int_0^{+\infty}\abs xf_X(x)\dif x = 2\infty = +\infty.\]
+		\end{ex}
+
+		\begin{prp}[Critère de d'Alembert] Soit $f$ une fonction définie positive sur $[1, +\infty)$. On suppose $f(x) \sim \frac c{x^a}$ quand $x \to +\infty$
+		avec $a, c \in \R$.
+
+		Si $a < 1$, alors~:
+		\[\int_1^{+\infty}f(x)\dif x < +\infty,\]
+		et si $a \geq 1$, alors~:
+		\[\int_1^{+\infty}f(x)\dif x = +\infty.\]
+		\end{prp}
+
+		\begin{rmq} Dans les cas des Cauchy, on a $a=1$ et $c = \frac 1\pi$. Donc, par d'Alembert, on sait que l'intégrale est infinie. On n'a pas besoin de
+		primitive explicite. \end{rmq}
+
+		\begin{rmq} Pour les variables aléatoires continues n'ayant pas d'espérance, on peut s'intéresser à la médiane $m \in \R$ telle que~:
+		\[\int_{-\infty}^mf(x)\dif x = \int_m^{+\infty}f(x)\dif x = \frac 12.\]
+
+		Si $f$ s'annule en certaines $x$, il se peut que $m$ ne soit pas unique.
+
+		Une variable $X \sim \mathcal C$ Cauchy est paire, et donc $m = 0$.
+		\end{rmq}
+	
+	\subsection{Espérance de fonctions de variables aléatoires}
+		\begin{déf} Soit $X$ une v.a.c. réelle et $g : \R \to \R$ une fonction mesurable. La quantité $Y = g(X)$ est une variable aléatoire car c'est une
+		application~: $Y : \Omega \to \R : \omega \mapsto (g \circ X)(\omega)$. \end{déf}
+
+		\begin{thm}[Principe de transfert] Soient $X$ une v.a. et $Y \coloneqq g(X)$. On suppose $\E(\abs Y) < +\infty$\footnote{Ainsi, $\E(Y)$ a un sens.},
+		alors~:
+		\begin{equation}
+			\E(Y) =
+				\begin{cases}
+					\displaystyle \sum_{x_n \in E}g(x_n)\P(X = x_n) &\text{ si $X$ est discrète} \\
+					\displaystyle \int_\R g(x)f_X(x)\dif x &\text{si $X$ est absolument continue}
+				\end{cases}.
+		\end{equation}
+		\end{thm}
+
+		\begin{rmq} Ce théorème signifie que pour déterminer l'espérance de $g(X)$, on intègre $g(x)$ le long de la loi de $X$. \end{rmq}
+
+		\begin{ex}[Calcul du moment d'ordre 2] On prend $g : \R \to \R : x \mapsto x^2$.
+
+		\underline{Cas discret~:} soit $X$ à valeurs dans $E \coloneqq \{x_0, x_1, \ldots\}$. On prend $Y \coloneqq g(X)$. Alors, l'espérance est donnée par~:
+		\[\E(Y) = \E(g(Y)) = \sum_{x_n \in E}(x_n)^2\P(X = x_n).\]
+
+		Si $X \sim \mathcal P(\lambda)$ est une poisson de paramètre $\lambda$, on a $E = \N$. Dès lors, on considère $x_n = n$. L'espérance est alors~:
+		\begin{align*}
+			\E(Y) &= \E(X^2) = \sum_{n \geq 0} n^2\P(X = n) = \sum_{n \geq 1}n^2\exp(-\lambda)\frac {\lambda^n}{n!} = \exp(-\lambda)\sum_{n \geq 1}n\frac {\lambda^n}{(n+-1)!} \\
+			      &= \exp(-\lambda)\sum_{n \geq 1}\left((n-1) + 1\right)\frac {\lambda^n}{(n-1)!}
+				  = \exp(-\lambda)\left[\lambda\sum_{n \geq 1}\frac {\lambda^{n-1}}{(n-1)!} + \sum_{n \geq 1}(n-1)\frac {\lambda^n}{(n-1)!}\right] \\
+				  &= \lambda + \exp(-\lambda)\sum_{n \geq 2}\frac {\lambda^n}{(n-2)!} = \lambda + \lambda^2\exp(-\lambda)\sum_{n \geq 2}\frac {\lambda^{n-2}}{(n-2)!} \\
+				  &= \lambda + \lambda^2.
+		\end{align*}
+
+		\underline{Cas absolument continu~:} soit $X$ à valeurs dans $\R$ de densité $f_X$. On prend $Y \coloneqq g(X)$. Alors, l'espérance est donnée par~:
+		\[\E(Y) = \E(g(X)) = \int_\R x^2f_X(x)\dif x.\]
+
+		Si $X \sim \Exp(\lambda)$ est une exponentielle négative de paramètre $\lambda$, on a (en posant $y \coloneqq \lambda x$ et donc
+		$\dif y = \lambda \dif x$)~:
+		\begin{align*}
+			\E(Y) &= \E(X^2) = \int_\R x^2\lambda\exp(-\lambda x)\dif x = \frac 1{\lambda^2}\int_\R y^2\exp(-y)\dif y = \frac {\Gamma(3)}{\lambda^2}
+			      = \frac {2!}{\lambda^2}  = \frac 2{\lambda^2}.
+		\end{align*}
+		\end{ex}
+
+		\begin{déf} Soit $\Ofp$ un espace de probabilités. On note~:
+		\begin{equation}
+			\Lu \coloneqq \{X \text{ v.a.} \tq \E(\abs X) < +\infty\}.
+		\end{equation}
+		\end{déf}
+
+		\begin{thm}[Propriété fondamentale de l'espérance] L'espace $\Lu$ est un espace vectoriel réel de dimension infinie. Donc~:
+		\[\forall X, Y \in \Lu, \lambda, \mu \in \R : \lambda X + \mu Y \in \Lu.\]
+
+		De plus, $\E(\lambda X + \mu Y) = \lambda \E(X) + \mu \E(Y)$.
+		\end{thm}
+
+		\begin{rmq} On dit alors que l'espérance est un opérateur linéaire. \end{rmq}
+
+		\begin{thm} Si $X \geq 0$ est une v.a. définie positive, alors son espérance est positive. \end{thm}
+
+\newpage
+\section{Variance}
+	\subsection{Définitions}
+		\begin{déf} Soit $X \in \Lu$. On pose $Y \coloneqq (X - \E(X))^2$. Par définition, $Y$ est positive, et donc on peut définir son espérance. On pose~:
+		\begin{equation}
+			\Var(X) \coloneqq \E(Y).
+		\end{equation}
+		\end{déf}
 
 \end{document}
