@@ -45,6 +45,7 @@
 \newcommand{\ab}{\interval ab}
 \newcommand{\fabr}[1]{#1 : \ab \to \R}
 \newcommand{\evf}[4]{\left[#1\left(#2\right)\right]_{#2=#3}^{#2=#4}}
+\newcommand{\normfty}[1]{\norm {#1}_\infty}
 
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
@@ -1288,8 +1289,7 @@
 		(\norm x + \norm y)^2.\]
 		\end{proof}
 
-		\begin{déf} Soient $r > 0$ et $a \in \R^n$. On définit la boule ouverte en $a$ de rayon $r$ par~:
-
+		\begin{déf}\label{bouleOuverte} Soient $r > 0$ et $a \in \R^n$. On définit la boule ouverte en $a$ de rayon $r$ par~:
 		\[B(a, r) \coloneqq \{x \in \R^n : \norm {x-a} < r\}.\]
 		\end{déf}
 
@@ -1997,14 +1997,88 @@
 
 		\begin{lem}[Inégalité de Young] \[\forall a, b \in \R^+, p, q \in (0, +\infty) \tq p+q=pq : \frac {a^p}p + \frac {b^q}q \geq ab.\] \end{lem}
 
-		\begin{proof} Par les propriétés de la fonction $\log$, on a~:
+		\begin{proof} Par les propriétés de la fonction $\log$ (concavité), on a~:
 		\[\log(ab) = \log\left(a^{\frac pp}\right) + \log\left(b^{\frac qq}\right) = \frac 1p\log\left(a^p\right) + \frac 1q\log\left(b^q\right) \leq \log\left(\frac {a^p}p + \frac {b^q}q\right).\]
 		La fonction $\exp$ est croissante, donc on peut composer les deux membres de l'inégalité avec $\exp$, et on obtient bien l'inégalité de Young.
 		\end{proof}
+
+		\begin{déf} Soit $x \in \R^n$ un vecteur. On définit la norme $\norm \cdot_p : \R^n \to \R$ telle que~:
+		\[\norm x_p = \left(\sum_{k=1}^n\abs{x_k}^p\right)^{\frac 1p}.\]
+		\end{déf}
 
 		\begin{thm}[Inégalité de Minkowski\footnote{Généralisation de l'inégalité de Cauchy-Schwartz en dimension $n \geq 1$}]
 		Soient $p, q \in [1, +\infty)$ tels que $p+q = pq$. Alors $\forall x, y \in \R^n :$
 		\[\abs {\sum_{i=1}^nx_iy_i} \leq \sum_{i=1}^n\abs{x_iy_i} \leq \left(\sum_{i=1}^n\abs {x_i}^p\right)^{\frac 1p} \left(\sum_{i=1}^n\abs {y_i}^q\right)^{\frac 1q}.\]
 		\end{thm}
+
+		\begin{proof} Par Young, on a le cas où $\sum_{k = 1}^n\abs {x_k}^p = \sum_{k=1}^n\abs{y_k}^q = 1$~:
+		\[\abs{x_k}\abs{y_k} \leq \frac {\abs{x_k}^p}p + \frac {\abs {y_k}^q}q.\]
+		En sommant sur $k$ de $1$ à $n$, on obtient~:
+		\[\sum_{k = 1}^n\abs{x_k}\abs{y_k} \leq \frac 1p\sum_{k=1}^n\abs{x_k}^p + \frac 1q\sum_{k=1}^n\abs{y_k}^q = \frac 1p + \frac 1q = 1
+		= \left(\sum_{k=1}^n\abs {x_k}^p\right) \left(\sum_{k=1}^n\abs{y_k}^q\right).\]
+
+		Si $\norm x_p \neq 1$ ou $\norm y_q \neq 1$, alors on renormalise les vecteurs avec $x' \coloneqq \frac x{\norm x_p}$, $y' \coloneqq \frac y{\norm y_q}$.
+		On a alors~:
+		\[\frac 1{\norm x_p\norm y_q}\sum_{k=1}^n\abs{x_ky_k} = \sum_{k=1}^n\abs{x'_ky'_k} \leq 1,\]
+		ou encore~:
+		\[\sum_{k=1}^n\abs{x_ky_k} \leq \norm x_p\norm y_q.\]
+		\end{proof}
+
+		\begin{déf} On définit $\normfty \cdot \coloneqq \lim_{p \to +\infty} \norm \cdot_p$. Ce qui donne, pour $x \in \R^n$~:
+		\[\normfty x = \max_{k=1, \dotsc, n}\abs{x_k}.\]
+		\end{déf}
+
+		\begin{déf}\label{equivNormes} Les normes $\norm \cdot_a$ et $\norm \cdot_b$ sont dites équivalentes s'il existe deux constantes $C_1, C_2 \in \R_0^+$
+		telles que~:
+		\[\forall x \in \R^n : C_1\norm x_b \leq \norm x_a C_2\norm x_b.\]
+		\end{déf}
+
+		\begin{rmq} On observe alors que~:
+		\[(\norm x_p)^p = \sum_{k=1}^n\abs{x_k}^p \leq n(\max_k\abs{x_k})^p \leq n\sum_{k=1}^n\abs{x_k}^p.\]
+		En prenant la racine $p$ème des inégalités, on obtient~:
+		\[\norm x_p \leq \sqrt[p]n \normfty x \leq \sqrt[p]n \norm x_p.\]
+
+		Selon la définition~\ref{equivNormes}, on remarque que pour tout $p$, les normes $\norm \cdot_p$ et $\normfty \cdot$ sont équivalentes. On remarque
+		donc que la notion de convergence (définie par $\norm \cdot_2$, la norme euclidienne) aurait pu être définie selon une norme $\norm \cdot_p$
+		quelconque.\footnote{Pour être complet, toutes les normes sur $\R^n$ sont équivalentes, mais ce résultat dépasse le contenu de ce cours.}
+		\end{rmq}
+
+	\subsection{Limite d'une fonction en un point}
+		\begin{déf} Soit $f : \R^m \to \R^n$. Si $m > 1$, on dit que $f$ est une fonction à plusieurs variables réelles, et si $n > 1$, on dit que $f$ est à
+		valeurs vectorielles. \end{déf}
+
+		\begin{déf}[Adéhrence en dimension $n > 1$] Soit $A \subseteq \R^n$. Un point $a \in \R^n$ est dit \textbf{adhérent} à $A$ si
+		$\forall \delta > 0 : \exists x \in A \tq \norm {x-a} < \delta$.
+		
+		L'ensemble des points adhérents à $A$ s'appelle l'\emph{adhérence} de $A$ et se note $\adh A$. \end{déf}
+
+		\begin{lem} Soient $A \subseteq \R^n$ et $a \in \R^n$. $a \in \adh A$ si et seulement si $\exists (x_k) \subset A \tq x_k \to a$. \end{lem}
+
+		\begin{proof} Pour le sens indirect, soit $(x_k) \subset A$ une suite convergente en $a \in \R^n$.
+		Soit $\delta > 0$. On sait qu'il existe $N(\delta) \in \N^*$ tel que $\forall n \geq N(\delta) : \norm {x_n - a} < \delta$. Donc $a \in \adh A$.
+
+		Pour le sens direct, on prend $a \in \adh A$. On sait donc que pour tout $\delta > 0$, il existe $x(\delta) \in A \tq \norm {x(\delta) - a} < \delta$.
+		On construit alors une suite $(x_k) \subset A$ telle que $x_k \coloneqq x(1/k)$ pour tout $k \geq 1$. Dès lors, soit $\delta > 0$. On sait qu'il existe
+		$N = \left\lceil\frac 1\delta\right\rceil$ tel que $\forall n > N : \norm{x_n - a} < \delta$. Donc $(x_k) \subset A$ par définition, et on vient de
+		montrer que $x_k \to a$. \end{proof}
+
+		\begin{déf} La boule ouverte a été définie au~\ref{bouleOuverte}~; on définit également la boule fermée de centre $a$ et de rayon $r$ par~:
+		\[\bar B(a, r) \coloneqq \{x \in \R^n \tq \norm{x-a} \leq r\} = B(a, r) \cup \{x \in \R^n \tq \norm{x-a} = r\}.\]
+		\end{déf}
+
+		\begin{rmq} L'adhérence d'un ensemble $A$ peut également se définir à l'aide de la boule ouverte~:
+		\[\adh A = \{x \in \R^n \tq \forall r > 0 : B(x, r) \cup A \neq \emptyset\}.\]
+		\end{rmq}
+
+		\begin{rmq} La boule fermée $\bar B(a, r)$ est l'adhérence de la boule ouverte $B(a, r)$. \end{rmq}
+
+		\begin{déf}[Intérieur en dimension $n > 1$] Soit $A \subset \R^n$. Un élément $a \in \R^n$ est dit \emph{intérieur} à $A$ si
+		$\exists \delta > 0 \t q\forall x \in \R^n : \norm {x-a} < \delta \Rightarrow x \in A$. \end{déf}
+
+		\begin{rmq} Géométriquement, on dit que l'intérieur $\intr A$ est l'ensemble~:
+		\[\intr A \coloneqq \{x \in \R^n \tq \exists r > 0 \tq B(x, r) \subseteq A\}.\]
+		\end{rmq}
+
+		\begin{déf} La frontière de $A$ est l'ensemble $\adh A \setminus \intr A$. On le note $\partial A$. \end{déf}
 
 \end{document}
