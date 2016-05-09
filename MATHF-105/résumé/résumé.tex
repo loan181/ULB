@@ -1,5 +1,6 @@
 \documentclass{article}
 
+\usepackage{palatino,eulervm}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
@@ -711,5 +712,83 @@
 			\Var(X) \coloneqq \E(Y).
 		\end{equation}
 		\end{déf}
+
+		\begin{rmq} Il est possible que $\Var(X) = \E(Y) = +\infty$. Dans ce cas, on dit que $X$ est de variance infinie. \end{rmq}
+
+		\begin{rmq} La variance est un indicateur de répartition par rapport à la moyenne. Dans le cas où la variance est infinie, on regarde les quantités
+		$\P(\abs{X - \E(X)} \geq x)$ pour $x > 0$ par analogie à la médiane. \end{rmq}
+
+		\begin{prp}\label{var=e-e} Soit $X$ une v.a. de variance $\Var(X) < +\infty$. Alors~:
+		\begin{equation}\label{eq:var=e-e}
+			\Var(X) = \E(X^2) - \E(X)^2.
+		\end{equation}
+		\end{prp}
+
+		\begin{proof} On observe que~:
+		\[\Var(X) = \E\left[(X-\E(X))^2\right] = \E\left[X^2 + \E(X)^2 - 2X\E(X)\right] = \E(X^2) + \E(X)^2 - 2\E(X)\E(X) = \E(X^2) - \E(X)^2.\]
+		\end{proof}
+
+		\begin{rmq} La variance est une valeur positive. Donc on a $\E(X^2) - \E(X)^2 \geq 0$, et donc $\E(X^2) \geq \E(X)^2$. \end{rmq}
+
+		\begin{prp} La proposition~\ref{var=e-e} peut se retrouver à l'aide de l'inégalité de Cauchy-Schwartz. \end{prp}
+
+		\begin{proof} \underline{Dans le cas discret}, on pose $y_n \coloneqq x_n\sqrt{\P(X=x_n)}$, et $z_n \coloneqq \sqrt{\P(X=x_n)}$. L'inégalité de
+		Cauchy-Schwartz implique~:
+		\[\abs {\sum_{n=1}^Ny_nz_n} \leq \sqrt{\left(\sum_{n=1}^Ny_n^2\right) \left(\sum_{n=1}^Nz_n^2\right)}.\]
+		Les valeurs étant positives, on peut passer au carré. En faisant tendre $N \to +\infty$, on obtient~:
+		\[\left(\sum_{n \geq 1}y_nz_n\right)^2 \leq \left(\sum_{n \geq 1}y_n^2\right) \left(\sum_{n \geq 1}z_n^2\right).\]
+		On sait que~:
+		\[
+			\left\{\begin{aligned}
+				\sum_{n \geq 1}z_n^2 &= \sum_{n \geq 1}\P(X = x_n) = 1, \\
+				\sum_{n \geq 1}y_n^2 &= \sum_{n \geq 1}(x_n)^2\P(X = x_n) = \E(X^2), \\
+				\sum_{n \geq 1}y_nz_n &= \sum_{n \geq 1}y_nz_n = \sum_{n \geq 1}x_n\P(X = x_n) = \E(X).
+			\end{aligned}\right.
+		\]
+
+		On a bien~:
+		\[\E(X)^2 \leq \E(X^2),\]
+		qui est l'inégalité~\eqref{eq:var=e-e}.
+
+		\underline{Dans le cas absolument continu}, on a $X$ une v.a. de densité $f_X$ sur $\R$. On pose $g(x) = \sqrt{f_X(x)}$ et $h(x) = x\sqrt{f_X(x)}$.
+		L'inégalité de Cauchy-Scwhartz implique~:
+		\[\abs{\int_\R h(x)g(x)\dif x} \leq \sqrt {\left(\int_\R h(x)^2 \dif x\right) \left(\int_\R g(x)^2 \dif x\right)}.\]
+		À nouveau, en mettant au carré, on obtient~:
+		\begin{align*}
+			\left(\int_\R xf_X(x)\dif x\right)^2 &\leq \left(\int_\R \left(x\sqrt{f_X(x)}\right)^2\dif x\right) \left(\int_\R\left(\sqrt{f_X(x)}\right)\dif x\right) \\
+			&= \left(\int_\R x^2f_X(x)\dif x\right) \left(\int_\R f_X(x)\dif x\right).
+		\end{align*}
+
+		On sait que~:
+		\[
+			\left\{\begin{aligned}
+				\left(\int_\R xf_X(x)\dif x\right)^2 &= \E(X)^2 \\
+				\int_\R x^2f_X(x)\dif x &= \E(X^2) \\
+				\int_\R f_X(x)\dif x &= 1.
+			\end{aligned}\right.
+		\]
+
+		On a bien~:
+		\[\E(X)^2 \leq \E(X)^2,\]
+		qui est l'inégalité~\eqref{eq:var=e-e}.
+		\end{proof}
+
+		\begin{déf} Soit $\Ofp$ un espace de probabilités. On pose~:
+		\[\Ld \coloneqq \{V \text{ v.a.} \tq \E(X^2) < +\infty\}.\]
+		\end{déf}
+
+		\begin{thm} L'espace $\Ld$ est un espace vectoriel réel de dimension infinie. Donc~:
+		\[\forall X, Y \in \Ld, \lambda, \mu \in \R : \lambda X + \mu Y \in \Ld.\]
+		\end{thm}
+
+		\begin{rmq} L'application $X \mapsto \E(X^2)$ est une forme quadratique et donc n'est pas linéaire. \end{rmq}
+
+		\begin{thm} L'espace $\Ld$ est inclus dans l'espace $\Lu$. Donc si $\E(X^2) < +\infty$, alors $\E(\abs X) < +\infty$. \end{thm}
+
+		\begin{thm}[Inégalité de Cauchy-Schwartz sur les espaces $\mathcal L_i$] Soient $X, Y \in \Ld$. Alors~:
+		\begin{equation}\label{eq:C-SL2}
+			\abs {\E(XY)} \leq \E\left(\abs {XY}\right) \leq \sqrt{\E(X^2)\E(Y^2)}.
+		\end{equation}
+		\end{thm}
 
 \end{document}
