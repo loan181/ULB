@@ -1907,4 +1907,104 @@
 		\[\int_\gamma\scpr f{\dif s} = \int_a^b\scpr {\nabla F(\gamma(t))}{\gamma'(t)}\dif t = \int_a^b(F(\gamma(t)))'(t)\dif t = F(\gamma(b))-F(\gamma(a)).\]
 		\end{proof}
 
+\newpage
+\section{Fonctions continues à plusieurs variables}
+	\subsection{Introduction}
+		\begin{rmq} C'est d'abord l'espace euclidien $\R^n$ qui sera étudié ici. \end{rmq}
+
+		\begin{déf} Soit $f : \R^m \to \R^n$ une fonction. On dit que $f$ est une fonction à $m$ variables et à valeur vectorielle. \end{déf}
+
+		\paragraph{Rappel} Soit $U \subseteq \R^m$. On dit que $U$ est un voisinage de $a \in \R^m$ s'il existe $\delta > 0$ tel que pour tout $x \in \R^m$,
+		si $\norm{x-a} < \delta$, alors $x \in U$.
+
+	\subsection{Norme et distance dans $\R^n$}
+		Le choix de la norme euclidienne pour exprimer la distance dans $\R^n$ est arbitraire. Mais une fonction de distance $d : \R^n \times \R^n \to \R$ doit
+		respecter certaines propriétés.
+
+		\begin{déf} Soit $X$ un ensemble. Une \textbf{distance} sur $X$ est une application $d : X \times X \to \R$ qui respecte les propriétés suivantes
+		$\forall x, y \in \R^n$~:
+
+		\begin{enumerate}
+			\item $d(x, y) \geq 0$~;
+			\item $d(x, y) = 0 \iff x = y$~;
+			\item $d(x, y) = d(y, x)$~;
+			\item $\forall z \in \R^n : d(x, z) \leq d(x, y) + d(y, z)$.
+		\end{enumerate}
+		\end{déf}
+
+		\begin{déf} Une \textbf{norme} sur $\R^n$ est une application $\norm \cdot : \R^n \to \R$ respectant les propriétés suivantes
+		$\forall x, y \in \R^n, \lambda \in \R$~:
+
+		\begin{enumerate}
+			\item $\norm x \geq 0$~;
+			\item $\norm {\lambda x} = \abs \lambda \norm x$~;
+			\item $\norm x = 0 \iff x = 0$~;
+			\item $\norm {x+y} \leq \norm x + \norm y$.
+		\end{enumerate}
+		\end{déf}
+
+		\begin{prp} La définition d'une norme sur $\R^n$ implique l'existence d'une distance $d : \R^n \times \R^n \to \R : (x, y) \mapsto \norm {x-y}$.
+		\end{prp}
+
+		\begin{proof} Soient $x, y, z \in \R^n$. Montrons les propriétés nécessaires pour une distance~:
+		
+		\begin{enumerate}
+			\item $d(x, y) = \norm {x-y} \geq 0$~;
+			\item $0 = d(x, y) = \norm {x-y} \iff x-y = 0 \iff x = y$~;
+			\item $d(x, y) = \norm {x-y} = \norm{(-1)(y-x)} = \abs {-1}\norm {y-x} = \norm {y-x} = d(y, x)$~;
+			\item $d(x, z) = \norm {x-z} = \norm {(x-y)+(y-z)} \leq \norm {x-y} + \norm {y-z} = d(x, y) + d(y, z)$.
+		\end{enumerate}
+		\end{proof}
+
+		\begin{lem} Soient $x, y \in \R^n$. Alors $\abs {\scpr xy} \leq \sqrt {\scpr xx}\sqrt {\scpr yy}$. \end{lem}
+
+		\begin{proof} Tout d'abord, supposons $y = 0$. On a alors~:
+		\[\abs {\scpr x0} = 0 = \sqrt{\scpr xx}\sqrt {\scpr 00}.\]
+		L'inégalité large est donc vérifiée puisque les deux membres sont égaux.
+
+		On sait que $\forall \lambda \in \R : 0 \leq \scpr {x - \lambda y}{x - \lambda y} = \scpr xx - \lambda \scpr yx - \lambda(\scpr xy - \lambda \scpr yy)$.
+		Supposons maintenant $y \neq 0$. Prenons $\lambda$ tel que $\scpr xy - \lambda \scpr yy = 0$ (c.-à-d. $\lambda = \frac {\scpr xy}{\scpr yy}$).
+		On a donc~:
+		\[0 \leq \scpr xx - \lambda yx = \scpr xx - \frac {\scpr xy}{\scpr yy}\scpr yx = \scpr xx - \frac {\scpr xy^2}{\scpr yy}.\]
+		\end{proof}
+
+	\subsection{Convergence des suites dans $\R^n$}
+		\begin{déf}[Convergence de suite dans $\R^n$] Soit $(x_n)_n \subset \R^n$. $(x_n)_n$ converge en $x \in \R^n$ si~:
+		\[\forall \epsilon > 0 : \exists K(\epsilon) \in \N \tq \forall k > K(\epsilon) : \norm {x_k - x} < \epsilon,\]
+		ce que l'on écrit~:
+		\[\lim_{k \to +\infty}\norm{x_k - x} = 0.\]
+		\end{déf}
+
+		\begin{déf} Soit $(x_k) \subset \R^n$ une suite. $(x_{k\,i})_k$ désigne la suite de la $i$ème composante de $(x_k)$. \end{déf}
+
+		\begin{prp}\label{convergenceRnComposantes} La suite $(x_n)_n \subset \R^n$ converge en $x \in \R^n$ si et seulement si chaque suite de composante
+		$(x_{k\,i})_k \subset \R$ converge en $x_i$. \end{prp}
+
+		\begin{proof} Dans le sens direct, on suppose $x_k \to x \in \R^n$. Prenons $1 \leq i \leq n$, alors~:
+		\[\abs {x_{k\,i} - x_i} \leq \norm {x_k - x} \to 0.\]
+		Dans le sens indirect, on suppose que $\forall i \in \{1, \dotsc, n\} : x_{k\,i}$. Alors~:
+		\[\norm {x_k - x}^2 \coloneqq \sum_{i=1}^n(x_{k\,i} - x_i)^2 \to 0.\]
+		\end{proof}
+
+		\begin{cor} Soit $(x_k)_k \subset \R^n$. Pour tout $1 \leq p, q \leq n-1$, la suite $(x_k)_k \coloneqq (y_k, z_k)_k \subset \R^p \times \R^q$
+		converge si et seulement si $(y_k)$ converge dans $\R^p$ et $qz_k)$ converge dans $\R^q$. \end{cor}
+
+		\begin{proof} Trivial par la proposition~\ref{convergenceRnComposantes}. \end{proof}
+
+		\begin{déf} Une suite $(x_k)_k \subset \R^n$ est dite de Cauchy si $\forall 1 \leq i \leq n$, la suite $(x_{k\,i})_k \subset \R$ est de Cauchy. \end{déf}
+
+		\begin{thm} La suite $(x_k)_k \subset \R^n$ converge si et seulement si elle est de Cauchy. \end{thm}
+
+		\begin{lem}[Inégalité de Young] \[\forall a, b \in \R^+, p, q \in (0, +\infty) \tq p+q=pq : \frac {a^p}p + \frac {b^q}q \geq ab.\] \end{lem}
+
+		\begin{proof} Par les propriétés de la fonction $\log$, on a~:
+		\[\log(ab) = \log\left(a^{\frac pp}\right) + \log\left(b^{\frac qq}\right) = \frac 1p\log\left(a^p\right) + \frac 1q\log\left(b^q\right) \leq \log\left(\frac {a^p}p + \frac {b^q}q\right).\]
+		La fonction $\exp$ est croissante, donc on peut composer les deux membres de l'inégalité avec $\exp$, et on obtient bien l'inégalité de Young.
+		\end{proof}
+
+		\begin{thm}[Inégalité de Minkowski\footnote{Généralisation de l'inégalité de Cauchy-Schwartz en dimension $n \geq 1$}]
+		Soient $p, q \in [1, +\infty)$ tels que $p+q = pq$. Alors $\forall x, y \in \R^n :$
+		\[\abs {\sum_{i=1}^nx_iy_i} \leq \sum_{i=1}^n\abs{x_iy_i} \leq \left(\sum_{i=1}^n\abs {x_i}^p\right)^{\frac 1p} \left(\sum_{i=1}^n\abs {y_i}^q\right)^{\frac 1q}.\]
+		\end{thm}
+
 \end{document}
