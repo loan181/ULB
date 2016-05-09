@@ -26,6 +26,7 @@
 \renewcommand{\P}{\mathbb P}
   \newcommand{\Q}{\mathbb Q}
   \newcommand{\R}{\mathbb R}
+  \newcommand{\Z}{\mathbb Z}
 
 \newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
 \newcommand{\Nzu}{\mathcal N(0, 1)}
@@ -101,6 +102,10 @@
 		\begin{déf} Une fonction $f : X \to Y$ est dite mesurable si~:
 		\[\forall A \subset \mathcal B(Y) : \{\omega \in \Omega \tq X(\omega) \in A\} \in \mathcal F,\]
 		où $\mathcal B(Y)$ représente la tribu des boréliens (voir définition~\ref{boréliens}). \end{déf}
+
+		\begin{thm}\label{convabssérie} Dans $\R$, toute série absolument convergente est convergente. \end{thm}
+		
+		\begin{thm}\label{convabsintégrale} Dans $\R$, toute intégrale impropre absolument convergente est convergente. \end{thm}
 
 \section{Espaces de probabilités}
 	\subsection{Définition}
@@ -527,6 +532,44 @@
 		\end{itemize}
 		\end{rmq}
 
+		\subsubsection{Cas général}
+		
+		\begin{déf}[Cas discret] Soit $X$ une v.a.d. à valeurs dans $E = \{x_0, \dotsc, x_n\} \subset \R$ fini ou infini dénombrable (typiquement $E = \Z$).
+		On pose $p_n \coloneqq \P(X = x_n)$. On considère la série à termes positifs~:
+		\[\sum_{x_n \in E}\abs {x_n}p_n.\]
+
+		Si la série vaut $+\infty$, on dit que $X$ \textit{n'est pas intégrable} et on ne peut pas définir son espérance.
+
+		Si la série est finie, alors le théorème~\ref{convabssérie} entraine que la série~:
+		\[\sum_{x_n \in E}x_np_n\]
+		converge également.
+
+		On définit alors~:
+		\begin{equation}
+			\E(X) = \sum_{x_n \in E}x_np_n.
+		\end{equation}
+		\end{déf}
+
+		\begin{déf}[Cas absolument continu (à densité)] Soit $X$ une v.a.c. de densité $f_X$ sur $\R$ telle que $\forall A \in \mathcal B(\R) :$
+		\[\P(X \in A) = \int_Af(x)\dif x.\]
+
+		On considère~:
+		\begin{equation}
+			I = \int_{-\infty}^{+\infty}\abs xf(x)\dif x.
+		\end{equation}
+
+		Si $I = +\infty$, on dit que $N$ \textit{n'est pas intégrable} et on ne peut pas définir son espérance.
+
+		Si $E < +\infty$, le théorème~\ref{convabsintégrale} entraine que l'intégrale~:
+		\[\int_{-\infty}^{+\infty}xf_X(x)\dif x\]
+		converge également.
+
+		On définit alors~:
+		\begin{equation}
+			\E(X) = \int_{-\infty}^{+\infty}xf(x)\dif x.
+		\end{equation}
+		\end{déf}
+
 	\subsection{Exemples d'espérance}
 		\begin{ex} (exemple de \ref{espposdisc}.) Soit $X \sim \mathcal B(n, p)$ une binomiale. Par définition, on évalue~:
 		\[\begin{aligned}
@@ -548,6 +591,27 @@
 		\[\E(X) = \sum_{k \geq 1}\P(X = k)k  \sum_{k \geq 1}\frac 6{\pi^2}\sum_{k \geq 1}\frac 1{k^2}k = \frac 6{\pi^2}\sum_{k \geq 1}\frac 1k = +\infty.
 		\footnote{La série $\sum_{k \geq 1}\frac 1k = +\infty$ se démontre en utilisant le fait que $\sum_{i=2^\alpha}^{2^{\alpha+1}}\frac 1i \gneqq \frac 12
 		\forall \alpha \in \N$ et donc en faisant tendre $\alpha \to +\infty$, on obtient $+\infty$.}\]
+		\end{ex}
+
+		\begin{ex} (exemple de \ref{espposabscont}.) Soit $X \sim \Exp(\lambda)$ une exponentielle négative\footnote{la notion d'exponentielle \textit{négative}
+		vient du fait que le paramètre de la fonction exponentielle est négatif, mais la fonction exponentielle est définie positive.}. On sait~:
+		\[f_X(t) = \lambda\exp(-\lambda t),\]
+		et donc on calcule~:
+		\[\E(X) = \int_0^{+\infty}xf_X(x)\dif x = \int_0^{+\infty}x\lambda\exp(-\lambda x)\dif x.\]
+		On pose $y \coloneqq \lambda x$ (et donc $\dif y = \lambda \dif x$), et on obtient~:
+		\[E(X) = \frac 1\lambda\int_0^{+\infty}y\exp(-y)\dif y = \frac 1\lambda.\]
+		\end{ex}
+
+		\begin{ex} (exemple de \ref{espposabscont}.) Soit $X \sim U_{(a, b)}$ une uniforme sur $(a, b)$ où $0 \leq a < b \in \R$. On sait~:
+		\[f_X(t) = \frac 1{b-a}1_{(a, b)}(t),\]
+		et donc, on calcule~:
+		\[\E(X) = \int_0^{+\infty}x f_X(x)\dif x = \int_a^b\frac x{b-a} = \left[\frac {x^2}{2(b-a)}\right]_a^b = \frac {b^2 - a^2}{2(b-a)} = \frac {a+b}2.\]
+		\end{ex}
+
+		\begin{ex} (exemple de \ref{espposabscont}.) Soit $X \sim \frac 12\mathcal C$ une demi-Cauchy. On sait (pour $t \in [0, +\infty)$)~:
+		\[f_X(t) = \frac 2{\pi(1+t^2)},\]
+		et donc, on calcule~:
+		\[\E(X) = \int_0^{+\infty}xf_X(x)\dif x = \int_0^{+\infty}\frac {2x}{(1+x^2)}\frac {\dif x}{\pi}= \frac 1\pi \left[\log(1+x^2)\right]_0^{+\infty} = +\infty\]
 		\end{ex}
 
 \end{document}
