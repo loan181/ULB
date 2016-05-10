@@ -45,6 +45,7 @@
 \DeclareMathOperator{\Exp}{Exp}
 \DeclareMathOperator{\Bale}{\textup{Bâle}}
 \DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Leb}{Leb}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -120,7 +121,7 @@
 		\begin{itemize}
 			\item $\Omega$ peut être fini (dénombrable) ou infini~;
 			\item $\Omega = \left\{0, 1\right\}^\N$ est l'ensemble des suites à valeur dans $\{0, 1\}$~;
-			\item $\Omega$ peut être un espace dit \textit{fonctionnel} quand le résultat d'une expérience est une fonction.
+			\item $\Omega$ peut être un espace dit \emph{fonctionnel} quand le résultat d'une expérience est une fonction.
 		\end{itemize}
 		\end{rmq}
 
@@ -135,7 +136,7 @@
 		\end{itemize}
 		\end{rmq}
 
-		\begin{déf} $\mathcal F$ est la \textbf{classe des événements}. On mesure la \textit{probabilité d'occurrence} d'un événement $A \in \mathcal F$.
+		\begin{déf} $\mathcal F$ est la \textbf{classe des événements}. On mesure la \emph{probabilité d'occurrence} d'un événement $A \in \mathcal F$.
 		On introduit une fonction d'ensemble $\P$ où~:
 		\[\P : \mathcal F \to [0, 1] : A \mapsto \P(A).\]
 
@@ -166,7 +167,7 @@
 		\[\P(A) = (b-a).\] \end{déf}
 
 		\begin{rmq} La définition de loi uniforme sur un intervalle fait intervenir la notion de mesure et donc de mesurabilité. Or il existe des parties de
-		$\Omega$ sur lesquelles la mesure n'a pas de sens. En général, $\mathcal P(\Omega)$ est \textit{trop grand}, et il faut donc remplacer l'utilisation
+		$\Omega$ sur lesquelles la mesure n'a pas de sens. En général, $\mathcal P(\Omega)$ est \emph{trop grand}, et il faut donc remplacer l'utilisation
 		de l'ensemble des parties par la notion de tribu. \end{rmq}
 
 		\begin{déf} Soit $\Omega$ un ensemble de chances et $\mathcal F \subseteq \mathcal P(\Omega)$ une famille de parties de $\Omega$. On dit que
@@ -188,11 +189,11 @@
 		\end{itemize}
 		\end{rmq}
 
-		\begin{déf}\label{boréliens} Soit $I$ une partie de $\mathcal P(\Omega)$. On appelle la \textit{tribu engendrée par $I$} la plus petite tribu contenant
+		\begin{déf}\label{boréliens} Soit $I$ une partie de $\mathcal P(\Omega)$. On appelle la \emph{tribu engendrée par $I$} la plus petite tribu contenant
 		$I$ et on la note $\sigma(I)$.
 		
 		En prenant $I \coloneqq \{$ intervalles ouverts de $[0, 1]\}$, on obtient $\sigma(I)$ que l'on appelle \textbf{tribu des boréliens}.
-		\footnote{Le nom de \textit{borélien} vient du mathématicien français Émile Borel suite à ses travaux sur la théorie de la mesure.} \end{déf}
+		\footnote{Le nom de \emph{borélien} vient du mathématicien français Émile Borel suite à ses travaux sur la théorie de la mesure.} \end{déf}
 
 		\begin{déf} Soit $\Omega$ un ensemble de chances et $\mathcal F \subset \mathcal P(\Omega)$ une tribu sur $\Omega$. Une probabilité sur
 		$\Ofp$ est une fonction $\P$ définie par~:
@@ -277,7 +278,7 @@
 		\[\int_\R f(x)\dif x = \int_{-\infty}^a f(x)\dif x + \int_a^b f(x)\dif x + \int_b^{+\infty} f(x)\dif x = 0 + \frac 1{b-a}\int_a^b\dif x + 0 = 1.\]
 		\end{rmq}
 
-		\begin{déf}[Modèle exponentiel]\footnote{Également appelé \textit{modèle des files d'attente}.}\label{modèleExponentiel} On prend $I = \R^+$ et
+		\begin{déf}[Modèle exponentiel]\footnote{Également appelé \emph{modèle des files d'attente}.}\label{modèleExponentiel} On prend $I = \R^+$ et
 		$\lambda > 0$. Le modèle exponentiel est défini par~:
 		\[f(x) = \begin{cases}\lambda\exp(-\lambda x) &\text{ si }x \geq 0 \\ 0 &\text{ sinon}\end{cases}.\]
 		\end{déf}
@@ -289,7 +290,7 @@
 		\end{aligned}\]
 		\end{rmq}
 
-		\begin{déf}[Modèle gaussien]\footnote{Également appelé \textit{modèle des erreurs} ou encore \textit{modèle normal}.} On prend $I = \R$, et
+		\begin{déf}[Modèle gaussien]\footnote{Également appelé \emph{modèle des erreurs} ou encore \textit{modèle normal}.} On prend $I = \R$, et
 		$(\mu, \sigma) \in \R \times \R^+_0$. Le modèle gaussien est défini par~:
 		\[f(x) = \frac 1{\sigma\sqrt{2\pi}}\exp\left(-\frac {(x-\mu)^2}{2\sigma^2}\right).\]
 		\end{déf}
@@ -320,7 +321,7 @@
 		On en déduit alors $\P(\Omega) = 1$ également. $\P$ est donc bien une probabilité. \end{rmq}
 		
 		\begin{déf} On a défini une probabilité sur $\left(R^+, \mathcal(R^+)\right)$ via la fonction $f(r) = r\exp\left(-\frac {r^2}2\right)$.
-		On l'appelle la \textit{probabilité de Rayleigh}. \end{déf}
+		On l'appelle la \emph{probabilité de Rayleigh}. \end{déf}
 
 		\subsubsection{Divergence sur la fonction Gamma d'Euler}
 
@@ -348,7 +349,7 @@
 
 		\begin{déf}[Modèle Gamma]\footnote{Le modèle $\Gamma$ est une généralisation du modèle exponentiel (définition~\ref{modèleExponentiel}).}
 		On prend $\Omega = \R^+$. Le modèle Gamma est défini par~:
-		\[f_t(x) \frac {x^t-\exp(-x)}{\Gamma(t)}.\]
+		\[f_t(x) = \frac {x^t-\exp(-x)}{\Gamma(t)}.\]
 		\end{déf}
 
 	\subsection{Notion de variables aléatoires}
@@ -359,7 +360,7 @@
 
 		\begin{rmq}~
 		\begin{itemize}
-			\item Bien souvent, on a $E = \Omega$, et $X(\omega) = \omega$. Dans ce cas, on \textit{identifie} l'espace des chances avec l'espace d'arrivée.
+			\item Bien souvent, on a $E = \Omega$, et $X(\omega) = \omega$. Dans ce cas, on \emph{identifie} l'espace des chances avec l'espace d'arrivée.
 			      La probabilité $\P$ s'appelle alors la \textbf{loi} de la variable aléatoire $X$.
 			\item Il arrive parfois que l'espace de probabilités soit plus gros que l'espace d'état.
 		\end{itemize}
@@ -381,7 +382,7 @@
 		\begin{déf} Soit $\Ofp$ un espace de probabilité. Une variable aléatoire absolument continue\footnote{Souvent écrite v.a.c. ou V.A.-C.} est une
 		application $X : \Omega \to \R$ mesurable au sens où~:
 		\[\forall A \in \mathcal B(\R) : \{\omega \in \Omega \tq X(\omega) \in A\} \in \mathcal F,\]
-		et \textit{absolument continue} au sens où~:
+		et \emph{absolument continue} au sens où~:
 		\[\exists f_X : \R \to \R^+\]
 		mesurable et telle que~:
 		\[\int_\R f_X(x)\dif x = 1,\]
@@ -393,7 +394,7 @@
 
 		\begin{déf} On appelle $f_X$ la \textbf{densité} de $X$. \end{déf}
 
-		\begin{rmq} La \textit{loi} de $X$ est donnée par~\eqref{eq:loivad}. \end{rmq}
+		\begin{rmq} La \emph{loi} de $X$ est donnée par~\eqref{eq:loivad}. \end{rmq}
 
 		\begin{déf} On note $F_X(t) = \P(X \leq t)$, ou encore $F_X(t) = \int_{-\infty}^tf(x)\dif x$ (en prenant $A = (-\infty, t]$). \end{déf}
 
@@ -462,12 +463,12 @@
 	\subsection{Convergence en loi}
 		\begin{déf}~
 		\begin{itemize}
-			\item Soit $Z$ une v.a.c. Soit $\{Z_n, n \geq 1\}$ une suite de v.a. quelconques. On dit que $Z_n$ \textit{converge en loi vers} $Z$ si~:
+			\item Soit $Z$ une v.a.c. Soit $\{Z_n, n \geq 1\}$ une suite de v.a. quelconques. On dit que $Z_n$ \emph{converge en loi vers} $Z$ si~:
 			      \[\forall x : F_{Z_n}(x) = \P(Z_n \leq x) \stackrel{n \to +\infty}\to F_Z(x).\]
 			      On note cela~:
 			      \[Z_n \convl Z.\]
 
-			\item Soient $Z$ une v.a.d. et une $\{Z_n, n \geq 1\}$ une suite de variables aléatoires discrètes. On dit que $Z_n$ \textit{covnerge en loi vers}
+			\item Soient $Z$ une v.a.d. et une $\{Z_n, n \geq 1\}$ une suite de variables aléatoires discrètes. On dit que $Z_n$ \emph{covnerge en loi vers}
 			      $Z$ si~:
 			      \[\forall x \in E : \P(Z_n = x) \stackrel{n \to +\infty}\to \P(Z = x).\]
 			      On note cela~:
@@ -482,7 +483,7 @@
 \newpage
 \section{Espérance}
 	\subsection{Pari de pascal}
-		Le terme \textit{espérance} vient de Blaise Pascal et de son traitement de la question «~Faut-il croire en Dieu~?~». On pose la variable $X$ qui
+		Le terme \emph{espérance} vient de Blaise Pascal et de son traitement de la question «~Faut-il croire en Dieu~?~». On pose la variable $X$ qui
 		décrit le résultat de l'existence de Dieu définie comme suit~:
 		\[X = \begin{cases}0 &\text{ si Dieu n'existe pas} \\+\infty &\text{ sinon}\end{cases}.\]
 
@@ -508,7 +509,7 @@
 			
 			\item \underline{Méthode de l'espérance~:}
 
-			      On évalue une \textit{moyenne pondérée} des valeurs que peut prendre $X$ par leur probabilité.
+			      On évalue une \emph{moyenne pondérée} des valeurs que peut prendre $X$ par leur probabilité.
 		\end{enumerate}
 		\end{déf}
 
@@ -544,7 +545,7 @@
 		On pose $p_n \coloneqq \P(X = x_n)$. On considère la série à termes positifs~:
 		\[\sum_{x_n \in E}\abs {x_n}p_n.\]
 
-		Si la série vaut $+\infty$, on dit que $X$ \textit{n'est pas intégrable} et on ne peut pas définir son espérance.
+		Si la série vaut $+\infty$, on dit que $X$ \emph{n'est pas intégrable} et on ne peut pas définir son espérance.
 
 		Si la série est finie, alors le théorème~\ref{convabssérie} entraine que la série~:
 		\[\sum_{x_n \in E}x_np_n\]
@@ -564,7 +565,7 @@
 			I = \int_{-\infty}^{+\infty}\abs xf(x)\dif x.
 		\end{equation}
 
-		Si $I = +\infty$, on dit que $N$ \textit{n'est pas intégrable} et on ne peut pas définir son espérance.
+		Si $I = +\infty$, on dit que $N$ \emph{n'est pas intégrable} et on ne peut pas définir son espérance.
 
 		Si $E < +\infty$, le théorème~\ref{convabsintégrale} entraine que l'intégrale~:
 		\[\int_{-\infty}^{+\infty}xf_X(x)\dif x\]
@@ -599,7 +600,7 @@
 		\forall \alpha \in \N$ et donc en faisant tendre $\alpha \to +\infty$, on obtient $+\infty$.}\]
 		\end{ex}
 
-		\begin{ex} (exemple de \ref{espposabscont}.) Soit $X \sim \Exp(\lambda)$ une exponentielle négative\footnote{la notion d'exponentielle \textit{négative}
+		\begin{ex} (exemple de \ref{espposabscont}.) Soit $X \sim \Exp(\lambda)$ une exponentielle négative\footnote{la notion d'exponentielle \emph{négative}
 		vient du fait que le paramètre de la fonction exponentielle est négatif, mais la fonction exponentielle est définie positive.}. On sait~:
 		\[f_X(t) = \lambda\exp(-\lambda t),\]
 		et donc on calcule~:
@@ -704,9 +705,8 @@
 
 		\begin{thm} Si $X \geq 0$ est une v.a. définie positive, alors son espérance est positive. \end{thm}
 
-\newpage
-\section{Variance}
-	\subsection{Définitions}
+	\subsection{Variance}
+		\subsubsection{Définitions}
 		\begin{déf} Soit $X \in \Lu$. On pose $Y \coloneqq (X - \E(X))^2$. Par définition, $Y$ est positive, et donc on peut définir son espérance. On pose~:
 		\begin{equation}
 			\Var(X) \coloneqq \E(Y).
@@ -790,5 +790,41 @@
 			\abs {\E(XY)} \leq \E\left(\abs {XY}\right) \leq \sqrt{\E(X^2)\E(Y^2)}.
 		\end{equation}
 		\end{thm}
+
+	\subsection{Moments de variables aléatoires}
+		\subsubsection{Cas discret}
+		\begin{déf} Soit $E = {x_i}_{i \in \N}$ un espace d'état fini ou infini dénombrable. Si $X$ est une variable aléatoire à valeurs dans $E$, alors sa 
+		\emph{loi} est donnée par $\{p_i = \P(X = x_i)\}_{i \in \N}$. Les moments de $X$ sont les valeurs moyennes de $F(X)$ où $F : E \to \R$ est une fonction
+		donnée. \end{déf}
+
+		\begin{déf} On considère la suite de terme général $\abs {F(x_i)}p_i$.
+
+		\begin{itemize}
+			\item[$(i)$] Si $\sum_{i \in \N}\abs{F(x_i)}p_i$ converge, alors le $F$-moment de $X$ existe et vaut~:
+			             \[\E(F(X)) = \sum_{i \in \N}F(x_i)\P(X=x_i)\,;\]
+			\item[$(ii)$] si $\sum_{i \in \N}\abs{F(x_i)}p_i$ diverge, alors le $F$-moment de $X$ n'a pas de sens et donc n'est pas défini.
+		\end{itemize}
+		\end{déf}
+
+		\subsubsection{Cas absolument continu}
+		\begin{déf} Soient $E = \R$ et $f_X : \R \to \R^+$ mesurable telle que $\int_\R f_X(x)\dif x$. $f_X$ est appelée \emph{densité de probabilité sur $\R$}.
+		La variable aléatoire $X$ associée est telle que~:
+		\[\forall A \in \mathcal B(\R) : \P(X \in A) = \int_A f_X(x)\dif x = \int_\R f_X(x)1_A(x)\dif x.\]
+		\end{déf}
+
+		\begin{rmq} Soit $A \in \mathcal B(\R)$. Si $\int_A\dif x \eqqcolon \Leb(A) = 0$, alors $\P(X \in A) = 0$. \end{rmq}
+
+		\begin{déf} Soit $F : \R \to \R$ mesurable.
+
+		\begin{itemize}
+			\item[$(i)$] Si $\int_\R \abs{F(x)}f_X(x)\dif x$ converge, alors le $F$-moment de $X$ existe et vaut~:
+			             \[\E(F(X)) = \int_\R F(x)f_X(fx)\dif x\,;\]
+			\item[$(ii)$] si $\int_\R \abs{F(x)}f_X(x)\dif x$ diverge, alors le $F$-moment de $X$ n'a pas de sens et donc n'est pas défini.
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} Le calcul \emph{effectif} de $\E(F(X))$ est une intégrale impropre qui peut s'avérer compliquée. \end{rmq}
+	
+	\subsection{Fonctions génératrices}
 
 \end{document}
