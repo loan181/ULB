@@ -1049,5 +1049,28 @@
 
 \newpage
 \section{Conditionnement et indépendance}
+		\begin{déf} Soir $\Ofp$ un espace de probabilités. Soit $A \in \mathcal F$ un événement de probabilité non-nulle. On note~:
+		\[\P_A : \mathcal F \to [0, 1] : B \mapsto \frac {\P(A \cap B)}{\P(A)}\]
+		la \emph{probabilité conditionnelle selon $A$}. \end{déf}
+
+		\begin{rmq} Les deux notations suivantes~: $\P(B | A)$ et $\P_A(B)$ sont strictement équivalentes. \end{rmq}
+
+		\begin{prp} La fonction $\P_A$ définit une probabilité sur $(\Omega, \mathcal F)$. \end{prp}
+
+		\begin{thm}[Formule de Bayes] Soit $\Ofp$ un espace de probabilité, et soient $A, B \in \mathcal F$ deux événements de probabilité non nulle. Alors~:
+		\[\P(B | A) = \frac {\P(B)}{\P(A)}\P(A | B).\]
+		\end{thm}
+
+		\begin{thm}[Formule des probabilités totales] Soit $A \in \mathcal F$ un événement tel que $0 < \P(A) < 1$. Alors, pour tout $B \in \mathcal F$, on a~:
+		\[\P(B) = \P(A)\P(B|A) + \P(A^\complement)\P(B|A^\complement).\]
+		\end{thm}
+
+		\begin{déf} Soient $A, B \in \mathcal F$ deux événements tels que $\P(A), \P(B) \in (0, 1)$. On dit que $A$ et $B$ sont indépendants si~:
+		\[\P(B|A) = \P(B)\qquad\qquad\text{et}\qquad\qquad\P(A|B)=\P(A).\]
+		\end{déf}
+
+		\begin{rmq} Deux événements $A$ et $B$ sont indépendants si et seulement si~:
+		\[\P(A \cap B) = \P(A)\P(B).\]
+		Cela permet d'étendre la notion d'indépendance à tout $\mathcal F$. \end{rmq}
 
 \end{document}
