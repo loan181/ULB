@@ -932,4 +932,30 @@
 		\[X_k \convl X.\footnote{Le $\mathcal D$ vient du terme \emph{distribution}.}\]
 		\end{déf}
 
+		\begin{thm} Soit $\{X_k\}_{k \geq 1}$ une suite de variables aléatoires et $X$ une v.a. On pose $G_{X_k} \coloneqq \E\left(t^{X_k}\right)$.Alors
+		les assertions suivantes sont équivalentes~:
+		\begin{enumerate}
+			\item $X_k \convl X$~;
+			\item $\forall n \geq 0 : p_n^{(k)} \coloneqq \P(X_k = n) \to \P(X = n) \eqqcolon p_n$ quand $k \to +\infty$~;
+			\item $\forall n \geq 0, t \in [0, 1] : p_n^{(k)}t^n \to p_nt^n$ quand $k \to +\infty$.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{rmq} Par convergence normale, on déduit $\forall t \in [0, 1]$~:
+		\begin{equation}
+			G_{X_k}(t) \stackrel{k \to +\infty}\to G_X(t).
+		\end{equation}
+		\end{rmq}
+
+		\begin{déf}[Convergence simple] Soit $(F_n)_{n \in \N}$ une suite de fonctions telles que $F_n : X \to Y$. On dit que la suite $(F_n)$ converge
+		simplement en l'application $F$ si~:
+		\[\forall x \in X : (F_n(x))_n \to F(x) \in Y.\]
+		\end{déf}
+
+		\begin{rmq} On remarque que $F_{X_k} \to F_X$ simplement quand $k \to +\infty$. Dans ce cas, les dérivées convergent également simplement~:
+		\[\forall n \in \N^* : \pd[n] {}tG_{X_k} \to \pd[n] {}tG_X \text{ simplement}.\]
+		Et par $\P(X=i) = \frac 1{i!}\evipd t0F_X(t)$, on déduit~:
+		\[X_k \convl X \iff G_{X_k} \to G_X \text{ simplement}.\]
+		\end{rmq}
+
 \end{document}
