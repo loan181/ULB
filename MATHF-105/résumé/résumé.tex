@@ -22,6 +22,7 @@
 }
 \makeatother
 
+  \newcommand{\C}{\mathbb C}
   \newcommand{\E}{\mathbb E}
   \newcommand{\N}{\mathbb N}
 \renewcommand{\P}{\mathbb P}
@@ -29,14 +30,17 @@
   \newcommand{\R}{\mathbb R}
   \newcommand{\Z}{\mathbb Z}
 
-\newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
-\newcommand{\Nzu}{\mathcal N(0, 1)}
-\newcommand{\convl}{\stackrel{\mathcal D}\to}
-\newcommand{\espproba}[3]{\left(#1, #2, #3\right)}
-\newcommand{\Ofp}{\espproba \Omega{\mathcal F}\P}
+\newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}  % normale \mu, \sigma
+\newcommand{\Nzu}{\mathcal N(0, 1)}  % normale 0, 1
+\newcommand{\convl}{\stackrel{\mathcal D}\to}  % convergence en loi
+\newcommand{\eql}{\stackrel{\mathcal D}=}  % égalité en loi
+\newcommand{\espproba}[3]{\left(#1, #2, #3\right)}  % espace de probabilité
+\newcommand{\Ofp}{\espproba \Omega{\mathcal F}\P}  % espace \Omega, F, P
 \newcommand{\ofp}{\Ofp}
-\newcommand{\Lu}{\mathcal L_1\Ofp}
-\newcommand{\Ld}{\mathcal L_2\Ofp}
+\newcommand{\Lu}{\mathcal L_1\Ofp}  % espace L_1 (espérance finie)
+\newcommand{\Ld}{\mathcal L_2\Ofp}  % espace L_2 (variance finie)
+\newcommand{\evpd}[2]{\pd {}{#1}\sVert[2]_{#1=#2}}  % évaluation de dérivée partielle
+\newcommand{\evipd}[3][i]{\pd[i] {}{#2}\sVert[2]_{#2=#3}}  % évaluation de la i ème dérivée partielle
 
 \newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
 
@@ -826,5 +830,106 @@
 		\begin{rmq} Le calcul \emph{effectif} de $\E(F(X))$ est une intégrale impropre qui peut s'avérer compliquée. \end{rmq}
 	
 	\subsection{Fonctions génératrices}
+		L'objectif est de trouver un certain type de fonctions qui permet de retrouver la loi d'une variable aléatoire $X$.
+
+		\subsubsection{Cas discret}
+		\begin{déf} Soit $X$ une variable aléatoire à valeurs dans $\N$. On pose $p_i \coloneqq \P(X = i)$ pour tout $i \geq 1$.
+		On regarde~:
+		\[F : \R \to \R : x \mapsto t^x\qquad\qquad\text{avec }t \in [0, 1].\]
+		Pour tout $x$, on sait $F(x) \in [0, 1]$, et donc la fonction $F$ est définie positive. Dès lors, la série~:
+		\[\sum_{i \geq 1}t^ip_i\]
+		est majorée par~:
+		\[\sum_{i \geq 1}1^ip_i = \sum_{i \geq 1}p_i = 1.\]
+		La série étant convergente, on peut définir pour tout $t \in [0, 1]$ l'espérance suivante~:
+		\[\E(t^X) \coloneqq \sum_{k \geq 1}t^kp_k.\]
+
+		On pose $G_X$ telle que~:
+		\[G_X : [0, 1] \to [0, 1] : t \mapsto \E(t^X).\]
+		Donc $G_X$ envoie $t$ sur le $F$-moment de $X$. On appelle $G_X$ la \emph{fonction génératrice de $X$}.
+		\end{déf}
+
+		\begin{prp} Soient $X$ une variable aléatoire à valeurs dans $\N$ et $G_X$ sa fonction génératrice. Alors pour tout $i \in \N^*$~:
+		\begin{equation}\label{eq:partialG_X=p_i}
+			\evipd t0G_X(t) = i! \cdot \P(X = i).
+		\end{equation}
+		\end{prp}
+
+		\begin{proof} On sait que $G_X(t)$ s'écrit sous la forme suivante~:
+		\[G_X(t) = \sum_{k \geq 1}\P(X = k)t^k.\]
+		Soit $i \in \N^*$. On peut «~découper~» la somme en~:
+		\[G_X(t) = \sum_{k=1}^{i-1}\P(X = k)t^k + \P(X=i)t^i + \sum_{k \gneqq i}\P(X = k)t^k.\]
+
+		En prenant la dérivée $i$ème selon $t$, on obtient~:
+		\[\pd[i] {}tG_X(t) = \sum_{k=1}^{i-1}\pd[i] {}tt^k\P(X=k) + \pd[i] {}tt^i\P(X=k) + \sum_{k \gneqq i}\pd[i] {}tt^k\P(X=k)
+		= 0 + i!\P(X=i) + \sum_{k \gneqq i}\frac {k!}{(k-i)!}t^{k-i}\P(X=k).\]
+		En évaluant tout cela en $t=0$, on obtient bien~:
+		\[\evipd t0G_x(t) = 0 + i! \cdot \P(X = i) + 0,\]
+		qui est bien l'égalité~\eqref{eq:partialG_X=p_i}
+		\end{proof}
+
+		\begin{ex} Soit $X \sim \mathcal G(p)$, une géométrique de paramètre $p \in (0, 1)$. On pose $q \coloneqq 1-p$ et $p_i \coloneqq q^{i-1}p$ pour tout
+		$i \geq 1$. On calcule sa fonction génératrice $G_X$~:
+		\[G_X(t) = \E(t^X) = \sum_{k \geq 1}t^k\P(X=k) = \sum_{k \geq 1}t^kq^{k-1}p = p\sum_{k \geq 1}t^kq^{k-1} = pt \sum_{k \geq 1}(tq)^{k-1} = pt \sum_{k \geq 0}(qt)^k
+		= \frac {pt}{1-qt},\]
+		par la formule de somme d'une suite géométrique.
+		On peut réorganiser la formule afin d'obtenir~:
+		\[G_X(t) = \frac qq\frac {pt}{1-qt} = \frac pq\frac {qt}{1-qt} = \frac pq\left(-1 + \frac 1{1-qt}\right).\]
+		En dérivant et en instanciant en $t=0$, on a bien~:
+		\[\evipd t0G_X(t) = \frac pq\evipd t0\frac {1}{1-qt} = \frac pqi!\left(\frac {q^i}{(1-qt)^{i+1}}\right) = \frac {i!\,pq^{i-1}}{(1-qt)^{i+1}} = i!\,pq^{i-1}
+		= i! \cdot \P(X = i).\]
+		\end{ex}
+
+		\subsubsection{Lien entre moments entiers et fonctions génératrices}
+		En prenant une dérivée formelle (terme à terme) de $G_X(t) = \E(t^X)$, on obtient~:
+		\[\pd {}tG_X(t) = \sum_{k \geq 1}kt^{k-1}\P(X=k) = \E(Xt^{X-1}).\]
+
+		Le théorème de convergence monotone affirme que si $t$ croît vers $1$, alors $Xt^{X-1}$ croît vers $X$ \textbf{et} $\E(Xt^{X-1})$ croît vers $\E(X)$.
+		On a alors~:
+		\[\pd[n] {}tG_X(t) = \E\left[t^{X-n}\prod_{i=0}^{n-1}(X-i)\right],\]
+		qui croît vers~:
+		\[\E\left[\prod_{i=0}^{n-1}(X-i)\right],\]
+		quand $t$ croît vers $1$.
+
+		\begin{rmq} On remarque que $\{\E(X^n)\}_{n \in \N^*}$ se retrouve par linéarité à partir de $\{\E\left(\prod_{i=0}^{n-1}(X-i)\right)\}$.
+		
+		Les moments entiers peuvent donc s'écrire comme une combinaison linéaire d'instanciations de dérivées de fonction génératrices en $t=1$. \end{rmq}
+
+		\begin{ex} Prenons par exemple $\E(X^2)$. Par linéarité de l'opérateur $\E$, on sait que~:
+		\[\E(X^2) = \E(X^2 - X + X) = \E(X^2-X) + \E(X) = \E((X-0)(x-1)) + \E(X) = \evipd[2] t1G_X(t) + \evpd t1G_X(t).\]
+		\end{ex}
+
+		\subsubsection{Cas absolument continu}
+		\begin{déf} On considère la fonction $F : x \mapsto \exp(itx)$. Par définition de l'exponentielle complexe, on sait que $\abs {F(x)} = 1$.
+		Donc l'intégrale~:
+		\[\int_\R \abs{F(x)}f_X(x)\dif x = \int_\R f_X(x)\dif x = 1.\]
+		On peut donc définir~:
+		\[\E(F(X)) = \E(\exp(itX)).\]
+
+		On définit alors la fonction génératrice de $X$ par~:
+		\[G_X(t) : \R \to \C : t \mapsto \E(\exp(itX)).\]
+		\end{déf}
+
+		\begin{rmq} On appelle également $G_X$ la \emph{fonction caractéristique de $X$}. \end{rmq}
+
+		\begin{thm}[Théorème de Lévy] La fonction caractéristique $G_X$ de la variable aléatoire $X$ caractérise la loi de $X$. \end{thm}
+
+		\begin{thm}[Formule d'inversion de Fourier] Soit $X$ une variable aléatoire de densité $f_X$. On suppose $\int_\R \abs {G_X(t)}\dif t < +\infty$. Alors~:
+		\[f_X(x) = \frac 1{2\pi}\int_\R\exp(-itx)G_X(t)\dif t.\]
+		\end{thm}
+
+		\begin{rmq} Il existe également une formule générale d'inversion due à Lévy qui permet de retrouver $x \mapsto \P(X \leq x)$ en
+		connaissant $G_X(t)$. Dès lors, on déduit que deux variables aléatoires $X$ et $Y$ sont égales en loi si et seulement si leur fonction caractéristique
+		respective est identique.  % si si, 'est' identique, tout au singulier, c'est correct.
+
+		\[X \eql Y \iff G_X \equiv G_Y.\]
+		\end{rmq}
+
+		\subsubsection{Aperçu de la convergence en loi}
+		\begin{déf} Soit $\{X_k\}_{k \geq 1}$ une famille de variables aléatoires à valeurs dans $\N$. On dit que $\{X_k\}$ converge en loi si~:
+		\[\forall n \geq 0 : (k \to +\infty) \Rightarrow (\P(X_k = n) \to \P(X = n)).\]
+
+		La convergence en loi se note~:
+		\[X_k \convl X.\footnote{Le $\mathcal D$ vient du terme \emph{distribution}.}\]
+		\end{déf}
 
 \end{document}
