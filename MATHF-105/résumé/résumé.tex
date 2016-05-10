@@ -1049,6 +1049,7 @@
 
 \newpage
 \section{Conditionnement et indépendance}
+	\subsection{Événements indépendants}
 		\begin{déf} Soir $\Ofp$ un espace de probabilités. Soit $A \in \mathcal F$ un événement de probabilité non-nulle. On note~:
 		\[\P_A : \mathcal F \to [0, 1] : B \mapsto \frac {\P(A \cap B)}{\P(A)}\]
 		la \emph{probabilité conditionnelle selon $A$}. \end{déf}
@@ -1067,10 +1068,166 @@
 
 		\begin{déf} Soient $A, B \in \mathcal F$ deux événements tels que $\P(A), \P(B) \in (0, 1)$. On dit que $A$ et $B$ sont indépendants si~:
 		\[\P(B|A) = \P(B)\qquad\qquad\text{et}\qquad\qquad\P(A|B)=\P(A).\]
+		La notation usuelle est $A \sqcup B$.
 		\end{déf}
 
 		\begin{rmq} Deux événements $A$ et $B$ sont indépendants si et seulement si~:
 		\[\P(A \cap B) = \P(A)\P(B).\]
 		Cela permet d'étendre la notion d'indépendance à tout $\mathcal F$. \end{rmq}
+
+		\begin{déf} Soit $\{A_i\}_{1 \leq i \leq n} \subset \mathcal F$ une famille d'événements. On dit que les $A_i$ sont \emph{mutuellement indépendants} si~:
+		\[\forall k \in \N, 1 \leq i_1 < \dotsb < i_k \leq n : \P\left(\bigcap_{j=1}^kA_{i_j}\right) = \prod_{j=1}^k\P(A_{i_j}).\]
+		\end{déf}
+
+		\begin{ex} Pour $n=3$, on a $A, B, C \in \mathcal F$. Si~:
+		\begin{itemize}
+			\item[$(i)$] $\P(A \cap B) = \P(A)\P(B)$~;
+			\item[$(ii)$] $\P(A \cap C) = \P(A)\P(C)$~;
+			\item[$(iii)$] $\P(B \cap C) = \P(B)\P(C)$~;
+			\item[$(iv)$] $\P(A \cap B \cap C) = \P(A)\P(B)\P(C)$,
+		\end{itemize}
+		alors $A$, $B$, et $C$ sont mutuellement indépendantes.
+		\end{ex}
+
+		\begin{déf} Soit $\{A_i\} \subset \mathcal F$ une famille d'événements. On dit que les $A_i$ sont indépendants deux à deux si~:
+		\[\forall i \neq j : \P(A_i \cap A_j) = \P(A_i)\P(A_j).\]
+		\end{déf}
+
+		\begin{rmq} On remarque que l'indépendance mutuelle implique l'indépendance deux à deux, mais que la réciproque est fausse. \end{rmq}
+
+	\subsection{Variables aléatoires indépendantes}
+		\begin{déf} Soient $X, Y$ deux variables aléatoires. On dit que $X$ et $Y$ sont indépendantes si~:
+		\[\forall A, B \in \mathcal B(\R) : \P\left[(X \in A) \cap (Y \in B)\right] = \P(X \in A)\P(Y \in B).\]
+		\end{déf}
+
+		\begin{déf} Soient $\{X_i\}_{1 \leq i \leq n}$ des variables aléatoires réelles. On dit que les $X_i$ sont mutuellement indépendants si les événements
+		$\{X_i \in A_i\}$ sont mutuellement indépendants $\forall \{A_i\}_{i \in I} \subset \mathcal B(\R)$. \end{déf}
+
+	\subsection{Formules de convolution}
+		\subsubsection{Cas discret}
+		Soient $X, Y$ deux variables aléatoires à valeurs dans $\N$. On suppose $X \sqcup Y$. On a donc~:
+		\[\forall \omega \in \Omega : X(\omega) \in \N \ni Y(\omega),\]
+		ce qui implique~:
+		\[(X+Y)(\omega) \in \N.\]
+
+		On doit calculer $\P(X+Y = n)$ avec $n \in \N$. On remarque que~:
+		\[\{X+Y = n\} = \bigcup_{k=0}^n\left(\{X = k\} \cap \{Y = n-k\}\right),\]
+		qui est une union disjointe. On peut donc y appliquer l'axiomatique des probabilités~:
+		\[\P(X+Y = n) = \P\left(\bigcup_{k=0}^n\left(\{X=k\} \cap \{Y = n-k\}\right)\right) = \sum_{k=0}^n\P(\{X = k\} \cap \{Y = n-k\}).\]
+		Or, par indépendance (supposée par hypothèse) de $X$ et $Y$, on peut encore séparer la probabilité~:
+		\[\P(X+Y = n) = \sum_{k=0}^n\P(X=k)\P(Y=n-k).\]
+
+		\begin{prp}[Formule de convolution discrète] Soient $X, Y$ deux v.a.d. indépendantes, alors~:
+		\begin{equation}\label{eq:convdisc}
+			\forall n \in \N : \P(X+Y=n) = \sum_{k=0}^n\P(X=k)\P(Y=n-k).
+		\end{equation}
+		\end{prp}
+
+		\begin{ex}[Somme indépendante de poissons] Soient $X_1, X_2$ deux variables aléatoires de loi respective $\mathcal P(\lambda_1)$ et $\mathcal P(\lambda_2)$.
+		On calcule, par la formule~\eqref{eq:convdisc}~:
+		\begin{align*}
+			\P(X_1+X_2 = n) &= \sum_{k=0}^n\P(X_1=k)\P(X_2=n-k) = \sum_{k=0}^n\exp(-\lambda_1)\frac {\lambda_1^k}{k!}\exp(-\lambda_2)\frac {\lambda_2^{n-k}}{(n-k)!} \\
+			                &= \exp(-\lambda_1-\lambda_2)\sum_{k=0}^n\frac {n!}{n!}\frac {\lambda_1^k\lambda_2^{n-k}}{k!(n-k)!} \\
+							&= \exp\left(-(\lambda_1+\lambda_2)\right)\frac 1{n!}\sum_{k=0}^n\binom nk\lambda_1^k\lambda_2^{n-k} \\
+							&= \exp\left(-(\lambda_1+\lambda_2)\right)\frac 1{n!}(\lambda_1 + \lambda_2)^n.
+		\end{align*}
+
+		On a donc $X+y \sim \mathcal P(\lambda_1 + \lambda_2)$. Cela se note~:
+		\[\mathcal P(\lambda_1) + \mathcal P(\lambda_2) = \mathcal P(\lambda_1+\lambda_2).\]
+		\end{ex}
+
+		\begin{déf} Soient $X_1, X_2$ deux variables aléatoires de même loi, paramétrisés respectivement par le vecteur $\theta_1$ et $\theta_2$. Donc
+		$X_1 \sim \mathcal L(\theta_1)$, et $X_2 \sim \mathcal L(\theta_2)$. Si $X_1 + X_2$ est de même loi, paramétrisé par une transformation de $\theta_1$
+		et $\theta_2$, on dit que la somme est \emph{interne}~:
+		\[(X_1 \sim \mathcal L(\theta_1)) \land (X_2 \sim \mathcal L(\theta_2)) \Rightarrow (X_1 + X_2) \sim \mathcal L(F(\theta_1, \theta_2)) \iff + \text{ interne},\]
+		où $F$ est une fonction quelconque. \end{déf}
+
+		\begin{rmq} Une réciproque a été montrée dans les années 1930 par Raïkov~: Soit $X \sim \mathcal P(\lambda)$. Supposons qu'il existe $Y, Z$ indépendantes
+		telles que $X = Y+Z$. Alors il existe $\mu \in (0, \lambda)$ tel que $Y = \mathcal P(\mu)$ et $Z = \mathcal P(\lambda-\mu)$. \end{rmq}
+
+		\begin{thm}[Formule de Chu-Vanermonde] Soient $\alpha, \beta, n \in \N$ tels que $\alpha + \beta \geq n$. Alors~:
+		\begin{equation}\label{eq:chu-vdm}
+			\sum_{k=0}^n\binom \alpha k\binom \beta{n-k} = \binom {\alpha+\beta}n.
+		\end{equation}
+		\end{thm}
+
+		\begin{ex}[Somme indépendante de binomiales]\label{ex:sommeindébinom} Soient $X \sim \mathcal B(\alpha, p)$, et $Y \sim \mathcal B(\beta, p)$ deux
+		binomiales de paramètre $p$. On calcule $\P(X+Y = n)$ :
+		\[\P(X+Y = n) = \sum_{k=0}^n\binom \alpha kp^k(1-p)^{\alpha-k}\binom \beta{n-k}p^{n-k}(1-p)^{\beta-n+k}
+		= p^n(1-p)^{\alpha+\beta-n}\sum_{k=0}^n\binom \alpha k\binom \beta{n-k},\]
+		où par la formule de Vandermonde (\eqref{eq:chu-vdm}), la somme de coefficients binomiaux est le coefficient binomial suivante~: $\binom {\alpha+\beta}n$.
+		On a donc~:
+		\[\P(X+Y = n) = \binom {\alpha+\beta}np^n(1-p)^{\alpha+\beta-n},\]
+		ou encore~:
+		\[\mathcal B(\alpha, p) + \mathcal B(\beta, p) = \mathcal B(\alpha+\beta, p).\]
+		\end{ex}
+
+		\begin{rmq} L'exemple~\ref{ex:sommeindébinom} peut également se montrer par une somme de $N$ variables indépendantes de Bernoulli $\mathcal B(p)$.
+		\end{rmq}
+
+		\subsubsection{Cas absolument continu}
+		Soient $X, Y$ deux v.a. réelle de densité respective $f_X$ et $f_Y$. On a donc~:
+		\[\P(X+Y \leq x) = \P(X \leq x - Y).\]
+		En intégrant cette valeur selon les valeurs prises par $y$, on obtient~:
+		\[\P(X+Y \leq x) = \int_\R \P(X \leq x - Y)f_Y(y)\dif y.\]
+		On dérive ensuite (formellement, sous l'intégrale) afin d'obtenir~:
+		\[\pd {}x\P(X+Y \leq x) = \pd {}x\int_\R \P(X \leq x - y)f_Y(y)\dif y = \int_\R f_X(x-y)f_Y(y)\dif y.\]
+
+		\begin{prp}[Formule de convolution absolument continue] Soient $X, Y$ deux variables aléatoires réelles à densité respective $f_X$ et $f_Y$. Alors~:
+		\begin{equation}\label{eq:convabscont}
+			f_{X+Y}(x) = \int_\R f_X(x-y)f_Y(y)\dif y.
+		\end{equation}
+		\end{prp}
+
+		\begin{ex}[Somme indépendante de normales] Soient $X_1 \sim \mathcal N(0, \sigma_1^2)$ et $X_2 \sim \mathcal N(0, \sigma_2^2)$. Par la
+		formule~\eqref{eq:convabscont}, on obtient~:
+		\begin{align*}
+			f_{X+Y}(x) &= \int_\R f_X(x-y)f_Y(y)\dif y
+			= \int_\R\frac 1{\sqrt{2\pi}\sigma_1}\exp\left(-\frac {(x-y)^2}{2\sigma_1^2}\right)\frac 1{\sqrt {2\pi}\sigma_2^2}\exp\left(-\frac {y^2}{2\sigma_2^2}\right)\dif y \\
+			&= \frac 1{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac {x^2+y^2-2xy}{2\sigma_1^2}\right)\exp\left(-\frac {y^2}{2\sigma_2^2}\right)\dif y \\
+			&= \frac {\exp\left(-\frac {x^2}{2\sigma_1^2}\right)}{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac {y^2}2\left(\frac 1{\sigma_1^2} + \frac 1{\sigma_2^2}\right)+ \frac {xy}{\sigma_1^2}\right)\dif y \\
+			&= \frac {\exp\left(-\frac {x^2}{2\sigma_1^2}\right)}{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac 1{2\sigma_1^2\sigma_2^2}\left(y^2(\sigma_1^2 + \sigma_2^2) - 2xy\sigma_2^2\right)\right)\dif y.
+		\end{align*}
+
+		On cherche ensuite à faire apparaître un carré parfait dans l'exponentielle dans l'intégrale. Pour cela, on cherche $\alpha, \beta \in \N$ tels que
+		\[\alpha^2 - 2\alpha\beta = y^2(\sigma_1^2 + \sigma_2^2) - 2xy\sigma_2^2.\]
+		Pour cela, on trouve~:
+		\[\alpha = y\sqrt{\sigma_1^2 + \sigma_2^2}.\]
+		Dès lors, on sait~:
+		\[-2xy\sigma_2^2 = -2\alpha\beta = -2y\sqrt{\sigma_1^2 + \sigma_2^2}\beta,\]
+		ou encore~:
+		\[\beta = \frac {x\sigma_2^2}{\sqrt{\sigma_1^2 + \sigma_2^2}}.\]
+		Dès lors, on peut réécrire la densité de $X+Y$ comme~:
+		\begin{align*}
+			f_{X+Y}(x) &= \frac {\exp\left(-\frac {x^2}{2\sigma_1^2}\right)}{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac 1{2\sigma_1^2\sigma_2^2}(\alpha-\beta)^2 + \frac {\beta^2}{2\sigma_1^2\sigma_2^2}\right) \\
+			           &= \frac {\exp\left(-\frac {x^2}{2\sigma_1^2}\right)}{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac 1{2\sigma_1^2\sigma_2^2}(\alpha-\beta)^2 + \frac {x^2\sigma_2^4}{2\sigma_1^2\sigma_2^2(\sigma_1^2 + \sigma_2^2)}\right) \\
+			           &= \frac {\exp\left(-\frac {x^2}{2\sigma_1^2}\right)}{2\pi\sigma_1\sigma_2}\exp\left(\frac {x^2\sigma_2^2}{2\sigma_1^2(\sigma_1^2 + \sigma_2^2)}\right)\int_\R\exp\left(-\frac {(\alpha-\beta)^2}{2\sigma_1^2\sigma_2^2}\right)\dif y.
+		\end{align*}
+
+		On remarque~:
+		\begin{align*}
+			\Delta &\coloneqq \exp\left(-\frac {x^2}{2\sigma_1^2}\right)\exp\left(\frac {x^2\sigma_2^2}{2\sigma_1^2(\sigma_1^2 + \sigma_2^2)}\right) \\
+			       &= \exp\left(-\frac {x^2}{2\sigma_1^2}\left(1 - \frac {\sigma_2^2}{\sigma_1^2 + \sigma_2^2}\right)\right) \\
+			       &= \exp\left(-\frac {x^2}{2\sigma_1^2}\left(\frac {\sigma_1^2 + \sigma_2^2 - \sigma_2^2}{\sigma_1^2 + \sigma_2^2}\right)\right) \\
+			       &= \exp\left(-\frac {x^2}{2\sigma_1^2}\frac {\sigma_1^2}{\sigma_1^2 + \sigma_2^2}\right) \\
+			       &= \exp\left(-\frac {x^2}{2(\sigma_1^2 + \sigma_2^2)}\right).
+		\end{align*}
+
+		Dès lors, on peut réécrire~:
+		\[f_{X+Y}(x) = \frac {\exp\left(-\frac {x^2}{2(\sigma_1^2 + \sigma_2^2)}\right)}{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac {(\alpha-\beta)^2}{2\sigma_1^2\sigma_2^2}\right)\dif y.\]
+
+		En posant~:
+		\[\xi \coloneqq \frac {\alpha-\beta}{\sigma_1\sigma_2},\]
+		on a également~:
+		\[\dif\xi \coloneqq \frac {\sqrt {\sigma_1^2 + \sigma_2^2}}{\sigma_1\sigma_2}\dif y,\]
+		et on peut intégrer~:
+		\begin{align*}
+			f_{X+Y}(x) &= \frac {\exp\left(\frac {x^2}{2(\sigma_1^2 + \sigma_2^2)}\right)}{2\pi\sigma_1\sigma_2}\int_\R\exp\left(-\frac {\xi^2}2\right)\dif \xi\frac {\sigma_1\sigma_2}{\sqrt{\sigma_1^2 + \sigma_2^2}} \\
+			           &= \frac 1{\sqrt {2\pi}\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left(-\frac {x^2}{2(\sigma_1^2 + \sigma_2^2)}\right).
+		\end{align*}
+
+		On retrouve finalement $f_{X+Y}(x) = \mathcal N(0, \sqrt{\sigma_1^2+\sigma_2^2})$. On peut en conclure que la gaussienne est stable par l'addition~:
+		\[\mathcal N(0, \sigma_1) + \mathcal N(0, \sigma_2) = \mathcal N(0, \sqrt{\sigma_1^2+\sigma_2^2}).\]
+		\end{ex}
 
 \end{document}
