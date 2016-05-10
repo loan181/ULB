@@ -942,7 +942,7 @@
 		\end{thm}
 
 		\begin{rmq} Par convergence normale, on déduit $\forall t \in [0, 1]$~:
-		\begin{equation}
+		\begin{equation}\label{eq:convkinf}
 			G_{X_k}(t) \stackrel{k \to +\infty}\to G_X(t).
 		\end{equation}
 		\end{rmq}
@@ -957,5 +957,97 @@
 		Et par $\P(X=i) = \frac 1{i!}\evipd t0F_X(t)$, on déduit~:
 		\[X_k \convl X \iff G_{X_k} \to G_X \text{ simplement}.\]
 		\end{rmq}
+
+		\begin{ex}[Loi des événements rares\footnote{Distribution de Poisson.}] Soit $X_k \sim \mathcal B(k, p(k))$ où $p(k) \coloneqq \lambda k$ pour
+		$\lambda > 0$ fixé. Par définition, on sait pour tout $n \leq k$~:
+		\[\P(X_k = n) = \binom knp(k)^n(1-p(k))^{k-n},\]
+		et donc~:
+		\begin{align*}
+			\E\left(t^{X_k}\right) &= \sum_{n=0}^k\binom knp(k)^q(1-p(k))^{k-n}t^n = \sum_{n=0}^k\binom kn\left(p(k)t\right)^n\left(1-p(k)\right)^{k-n} \\
+			&= (1-p(k) + p(k)t)^k = \left(1 + \frac {\lambda(t-1)}k\right)^k = \exp\left[k\log\left(1 + \frac {\lambda(t-1)}k\right)\right].
+		\end{align*}
+
+		On sait cependant que le développement de Taylor d'ordre 1 de $x \mapsto \log(1+x)$ autour de $x=0$ est~:
+		\[T_1(x \mapsto \log(1+x), 0) = x + o(x).\]
+		Et donc~:
+		\[\E\left(t^{X_k}\right) = \exp\left[k\left(\frac {\lambda(t-1)}k + o\left(\frac 1k\right)\right)\right].\]
+		En faisant tendre $k \to +\infty$, on sait que $k o\left(\frac 1k\right) \to 0$, et donc on trouve~:
+		\[\E\left(t^{X_k}\right) \stackrel{k \to +\infty}\to\exp\left(\lambda(t-1)\right).\]
+
+		Soit $X \sim \mathcal P(\lambda)$ une poisson de ce même paramètre $\lambda$. On calcule également sa fonction génératrice~:
+		\[\E\left(t^X\right) = \sum_{k \geq 1}\P(X=k)t^k = \exp(-\lambda)\sum_{k \geq 1}\frac {\lambda^k}{k!}t^k = \exp(-\lambda)\exp(\lambda t)
+		= \exp\left(\lambda(t-1)\right).\]
+
+		On en déduit alors que $\forall t \in [0, 1] : G_{X_k}(t) \stackrel {k \to +\infty}\to G_X(t)$. Et par~\eqref{convkinf}, on a~:
+		\[X_k \stackrel {k \to +\infty}\to X,\]
+		ce qui est équivalent à~:
+		\[\mathcal B\left(k, \frac \lambda k\right) \stackrel {k \to +\infty}\to \mathcal P(\lambda).\]
+		\end{ex}
+
+		\begin{thm}[Théorème de Lévy] Soient $X$ une variable aléatoire réelle de fonction caractéristique $G_X$ et une suite de v.a. réelles $\{X_k\}_{k \in \N}$
+		de fonction caractéristique respective $G_{X_k}$. Alors~:
+		\[X_k \convl X \iff G_{X_k} \to G_X\quad\text{simplement}.\]
+		\end{thm}
+
+		\begin{ex}[Démontrer De Moivre-Laplace grâce à Lévy] Soient $p \in (0, 1)$ et $X_n \sim \mathcal B(n, p)$. On pose~:
+		\[Z_n \coloneqq \frac {X_n - np}{\sqrt{np(1-p)}}.\]
+		La fonction caractéristique de $Z_n$ est donnée par~:
+		\begin{align*}
+			G_{Z_n}(t) &= \E\left[\exp(itZ_n)\right] = \E\left[\exp\left(it\frac {X_n}{\sqrt{np(1-p}}\right)\right]\exp\left(-it \sqrt{\frac {np}{1-p}}\right) \\
+			           &= \left[(1-p) + p\exp\left(\frac {it}{\sqrt{np(1-p)}}\right)\right]^n\exp\left(-it\sqrt {\frac {np}{1-p}}\right) \\
+					   &= \left[1+p\left(\exp\left(\frac {it}{\sqrt{np(1-p)}}\right)-1\right)\right]^n\exp\left(-it\sqrt{\frac {np}{1-p}}\right).
+		\end{align*}
+
+		On regarde maintenant l'approximation de Taylor de $x \mapsto \exp(ix)$ autour de $x = 0$ qui vaut~:
+		\[T_1(x \mapsto \exp(ix), 0) = 1 - \frac {x^2}2 + o(x^2) + i\left(x + o(x^2)\right) = 1 + ix - \frac {x^2}2 + o(x^2).\]
+		On peut donc ré-écire la fonction caractéristique comme~:
+		\begin{align*}
+			G_{Z_n} &= \left[1+p\left(\left(1 + i\frac t{\sqrt{np(1-p)}} - \frac {t^2}{2np(1-p)} + o(n^{-1})\right) - 1\right)\right]^n\exp\left(-it\sqrt{\frac {np}{1-p}}\right) \\
+			        &= \left[1+\left(i\frac {t\sqrt p}{\sqrt{n(1-p)}} - \frac {t^2}{2n(1-p)} + o(n^{-1})\right)\right]^n\exp\left(-it\sqrt {\frac {np}{1-p}}\right).
+		\end{align*}
+
+		En posant~:
+		\[\alpha \coloneqq i\frac {t\sqrt p}{\sqrt{n(1-p)}} - \frac {t^2}{2n(1-p)} + o(n^{-1}),\]
+		on peut approximer $G_{Z_n}(t)$ par~:
+		\begin{align*}
+			G_{Z_n}(t) &= \left[1 + \alpha\right]^n\exp\left(-it\sqrt{\frac{np}{1-p}}\right) \\
+			           &= \exp\left(\log\left(\left[1 + \alpha\right]^n\right)\right)\exp\left(-it\sqrt{\frac {np}{1-p}}\right) \\
+			           &= \exp\left(n\log(1+\alpha)\right)\exp\left(-it\sqrt{\frac{np}{1-p}}\right) \\
+			           &= \exp\left(\alpha - \frac {\alpha^2}{2} + o(\alpha^3)\right)\exp\left(-it\sqrt{\frac{np}{1-p}}\right)
+		\end{align*}
+
+		On calcule donc $\alpha - \frac {\alpha^2}2$~:
+		\begin{align*}
+			\alpha - \frac {\alpha^2}2 = i\frac {t\sqrt p}{\sqrt {n(1-p)}} - \frac {t^2}{2n(1-p)} + o(n^{-1})
+			                           - \frac 12\left(\frac {i^2t^2p}{n(1-p)} + \frac {t^4}{4n^2(1-p)^2} + o(n^{-2}) - 2\frac {it^3\sqrt p}{2n(1-p)\sqrt {n(1-p)}}\right).
+		\end{align*}
+
+		Or,
+		\[\frac {t^4}{4n^2(1-p)^2} + o(n^{-2}) - 2\frac {it^3\sqrt p}{2n(1-)\sqrt {n(1-p)}} = o(n^{-1}).\]
+		Donc, on peut simplifier en~:
+		\begin{align*}
+			\alpha - \frac {\alpha^2}2 &= i\frac {t\sqrt p}{\sqrt{n(1-p)}} - \frac {t^2}{2n(1-p)} + o(n^{-1}) - \frac {i^2t^2p}{2n(1-p)} + o(n^{-1}) \\
+			                           &= it\frac {\sqrt p}{\sqrt{n(1-p)}} - \frac {t^2}{2n}\left(\frac 1{1-p} - \frac p{1-p}\right) + o(n^{-1}) \\
+			                           &= it\frac {\sqrt p}{\sqrt{n(1-p)}} - \frac {t^2}{2n} + o(n^{-1}).
+		\end{align*}
+
+		En remettant cela dans la formule précédente, on obtient~:
+		\begin{align*}
+			G_{Z_n}(t) &= \exp\left[n\left(it\frac {\sqrt p}{\sqrt{n(1-p)}} - \frac {t^2}{2n} + o(n^{-1})\right)\right]\exp\left(-it\sqrt{\frac {np}{1-p}}\right) \\
+			           &= \exp\left[it\sqrt{\frac {np}{1-p}} - \frac {t^2}2 + no(n^{-1})\right]\exp\left(-it\sqrt {\frac {np}{1-p}}\right) \\
+			           &= \exp\left(it\sqrt{\frac {np}{1-p}}\right)\exp\left(-\frac {t^2}2\right)\exp(no(n^{-1}))\exp\left(-it\sqrt {\frac {np}{1-p}}\right) \\
+					   &= \exp\left(-\frac {t^2}2 + no(n^{-1})\right).
+		\end{align*}
+
+		Or, on a~:
+		\[\exp\left(-\frac {t^2}2 + no(n^{-1})\right) \stackrel{n \to +\infty}\to \exp\left(-\frac {t^2}2\right) = G_{\Nzu}.\]
+
+		De là, par Lévy, on sait que $\E(\exp(itZ_n)) \stackrel{n \to +\infty}\to \E(\exp(it\Nzu))$, ce qui implique $Z_n \convl \Nzu$.
+
+		\begin{flushright} $\square$ \end{flushright}
+		\end{ex}
+
+\newpage
+\section{Conditionnement et indépendance}
 
 \end{document}
