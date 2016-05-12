@@ -1230,4 +1230,116 @@
 		\[\mathcal N(0, \sigma_1) + \mathcal N(0, \sigma_2) = \mathcal N(0, \sqrt{\sigma_1^2+\sigma_2^2}).\]
 		\end{ex}
 
+		\subsubsection{Application de la formule de convolution}
+		On suppose $X \sim \Gamma_t$ et $Y \sim \Gamma_s$ deux v.a. réelles indépendantes. On sait~:
+		\[\displaystyle \begin{cases}f_X(x) &= \frac 1{\Gamma(t)}x^{t-1}\exp(-x)1_{\{x > 0\}}, \\f_Y(x) &= \frac 1{\Gamma(s)}x^{s-1}\exp(-x)1_{\{x > 0\}}.\end{cases}\]
+		Montrons que la somme de Gamma est interne.
+
+		\begin{déf} On définit l'intégrale abélienne de seconde espèce $B(t, s)$ par~:
+		\[B(t, s) \coloneqq \int_0^1(1-z)^{t-1}z^{s-1}\dif z.\]
+		\end{déf}
+
+		\begin{rmq} L'intégrale abélienne $B(t, s)$ est une généralisation de~:
+		\[\int_0^1(1-z)^{t-1}\dif z = \frac 1t\qquad\qquad\text{ et }\qquad\qquad\int_0^1z^{s-1}\dif z = \frac 1s.\]
+		\end{rmq}
+
+		\begin{prp} La somme indépendante de $X \sim \Gamma_t$ et $Y \sim \Gamma_s$ est une $\Gamma_{t+s}$. \end{prp}
+
+		\begin{proof} Par la formule de convolution continue~\eqref{eq:convabscont}, on a~:
+		\[f_{X+Y}(x) = \int_0^x\left(\frac {(x-y)^{t-1}}{\Gamma(t)}\exp(y-x)\right) \left(\frac {x^{s-1}}{\Gamma(s)}\exp(-y)\right)\dif y
+		= \frac {\exp(-x)}{\Gamma(s)\Gamma(t)}\int_0^x(x-y)^{t-1}y^{s-1}\dif y.\]
+
+		On pose ensuite $y \coloneqq xz$, et donc $\dif y = x \dif z$. En substituant, on obtient~:
+		\[f_{X+Y}(x) = \frac {\exp(-x)}{\Gamma(t)\Gamma(s)}\int_0^1(x-xz)^{t-1}(xz)^{s-1}x\dif z = \frac {\exp(-x)}{\Gamma(t)\Gamma(s)}x^{(t-1)+(s-1)+1}\int_0^1(1-z)^{t-1}z^{s-1}\dif z.\]
+
+		On pose~:
+		\[\Psi \coloneqq \frac 1{\Gamma(t)\Gamma(s)}B(t, s).\]
+		On a donc~:
+		\[f_{X+Y}(x) = \Psi x^{t+s-1}\exp(-x).\]
+		Étant donné que $f_{X+Y}$ est une fonction de densité, on peut imposer~
+		\[1 = \int_\R f_{X+Y}(x)\dif x = \Psi \int_0^{+\infty}x^{t+s-1}\exp(-x) = \Psi \Gamma(t+s).\]
+		On en déduit alors~:
+		\[\Psi = \frac 1{\Gamma(t+s)}.\]
+		En replaçant $\Psi$ dans l'équation de $f_{X+Y}$, on obtient~:
+		\[f_{X+Y}(x) = \frac 1{\Gamma(t+s)}\exp(-x)x^{t+s-1}.\]
+		Ce qui prouve que $f_{X+Y} = f_{\Gamma(t+s)}$.
+		\end{proof}
+
+		\begin{rmq} On peut trouver une valeur pour $B(t, s)$ étant donné que~:
+		\[\frac {B(t, s)}{\Gamma(t)\Gamma(s)} = \Psi = \frac 1{\Gamma(t+s)},\]
+		on détermine~:
+		\[B(t, s) = \frac {\Gamma(t)\Gamma(s)}{\Gamma(t+s)}.\]
+
+		On a donné une \emph{preuve probabiliste} du calcul exact de $B(t, s)$. La preuve \emph{classique} repose sur de l'intégration curviligne complexe
+		(c.f. cours d'analyse de Dieudonné) et est beaucoup plus longue.
+		\end{rmq}
+
+		\begin{rmq} Il a été mentionné plus haut que $B(t, s)$ est une généralisation de deux intégrales abéliennes séparées. On observe en réalité~:
+		\begin{itemize}
+			\item $B(1, s) = \frac {\Gamma(1)\Gamma(s)}{\Gamma(s+1)} = \frac {\Gamma(s)}{s\Gamma(s)} = \frac 1s$~;
+			\item $B(t, 1) = \frac {\Gamma(t)\Gamma(1)}{\Gamma(t+1)} = \frac {\Gamma(t)}{t\Gamma(t)} = \frac 1t$~;
+			\item $B(0.5, 0.5) = \frac {\Gamma(0.5)^2}{\Gamma(1)} = \frac {\sqrt \pi^2}1 = \pi$ (intégrale de Gauss pour $\Gamma(0.5) = \sqrt \pi$).
+		\end{itemize}
+
+		On sait cependant que~:
+		\[\int_\R f_{\Gamma_t+\Gamma_s}(x) = \frac 1{\Gamma(t+s)}\int_0^1(1-z)^{t-1}z^{s-1}\dif z.\]
+		En prenant $t = s = \frac 12$, on peut déterminer~:
+		\[1 = \frac 1{\Gamma\left(\frac 12 + \frac 12\right)}\int_0^1(1-z)^{\frac 12}z^{\frac 12}\dif z = \frac 1\pi\int_0^1\frac {\dif z}{\sqrt {z(1-z)}}.\]
+
+		On peut donc définir une nouvelle densité de probabilité~:
+		\[z \mapsto \frac {1}{\pi\sqrt{z(1-z)}}1_{(0, 1)}(z).\]
+
+		Effectivement, on peut poser $u^2 = z$ (et donc $\dif z = 2u\dif u$), ce qui permet d'écrire~:
+		\[\frac 1\pi\int_0^1\frac {2u\dif u}{\sqrt {u^2(1-u^2)}} = \frac 2\pi\int_0^1\frac {\dif u}{\sqrt {1-u^2}} = \frac 2\pi\left[\arcsin(u)\right]_0^1
+		= \frac 2\pi\frac \pi 2 = 1,\]
+		qui donne donc bien une probabilité.
+		\end{rmq}
+	
+	\subsection{Indépendance et fonctions caractéristiques}
+		\begin{prp} Soit $X$ une variable aléatoire à valeurs dans un ensemble $E$. Soit $A \subseteq E$. Alors $\E(1_A(X)) = \P(X \in A)$. \end{prp}
+
+		\begin{proof} Commençons par le cas discret. Soient $E = \{x_n\}_{n \in I}$ et $X$ une v.a.d. à valeurs dans $E$. On sait alors~:
+		\[\P(X \in A) = \sum_{x_n \in A}\P(X = x_n) = \sum_{x_n \in A}1 \cdot \P(X = x_n) + \sum_{x_n \not \in A}0 \cdot \P(X=x_n)
+		= \sum_{x \in E}1_A(x)\P(X=x_n) = \E(1_A(X)).\]
+
+		Intéressons-nous maintenant au cas absolument continu. Soient $E \subset \R$ et $X$ une v.a.c. de densité $f_X(x)$. On sait alors~:
+		\[\P(X \in A) = \int_Af_X(x)\dif x = \int_\R 1_A(x)f_X(x)\dif x = \E(1_A(X)).\]
+		\end{proof}
+
+		\begin{thm} Soient $X, Y$ deux variables aléatoires à valeurs respectivement dans $A$ et $B$. Alors~:
+		\[X \sqcup Y \iff \E\left(1_A(X)1_B(Y)\right) = \E(1_A(X))\E(1_B(Y)).\]
+		\end{thm}
+
+		\begin{rmq} Prenons $A_1, \dotsc, A_n, B_1, \dotsb, B_m \in \mathcal B(\R)$ et $\lambda_1, \dotsb, \lambda_n, \mu_1, \dotsb, \mu_m \in \R$.
+		On pose ensuite~:
+		\begin{align*}
+			f_n(x) &= \sum_{i=1}^n\lambda_i1_{A_i}(x), \\
+			g_m(y) &= \sum_{j=1}^m\mu_j1_{B_j}(y).
+		\end{align*}
+		Par linéarité, on trouve alors~:
+		\begin{equation}\label{eq:esp(fg)=esp(f)esp(g)}
+			\E\left(f_n(X)g_m(Y)\right) = \E(f_n(X))\E(g_m(Y)).
+		\end{equation}
+		\end{rmq}
+
+		\begin{thm} Toute fonction $f$ mesurable (au sens où $\forall A \in \mathcal B(\R) : f^{-1}(A) \in \mathcal B(\R)$) et bornée est limite monotone de
+		fonctions étagées, c'est-à-dire des fonctions du type~:
+		\[\sum_{i=1}^n\lambda_i1_{A_i}(x).\]
+		\end{thm}
+
+		\begin{thm}[Principe de convergence monotone] En passant à la limite pour $n, m \to +\infty$ dans~\eqref{eq:esp(fg)=esp(f)esp(g)}, on a~:
+		\begin{equation}\label{eq:caractfonctind}
+			\forall f, g \text{ mesurables bornées }, X, Y \text{ v.a. } : X \sqcup Y \iff \E(f(X)g(Y)) = \E(f(X))\E(g(Y)).
+		\end{equation}
+		\end{thm}
+
+		\begin{rmq} On dit que~\eqref{eq:caractfonctind} est la \emph{caractérisation fonctionnelle de l'indépendance}. \end{rmq}
+
+		\begin{thm}[Théorème de Lévy]\label{thm:Lévyindé} Soient $X, Y$ deux v.a. réelles. Alors~:
+		\[\forall t \in \R : X \sqcup Y \iff \E(\exp(itX+Y)) = \E(\exp(itX))\E(\exp(itY)).\]
+		\end{thm}
+
+		\begin{rmq} Le théorème~\ref{thm:Lévyindé} est un cas particulier du principe de convergence monotone où la classe des fonctions mesurables bornées
+		a été réduite à $f(x) = g(x) = \exp(itx)$. \end{rmq}
+
 \end{document}
