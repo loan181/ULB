@@ -56,6 +56,7 @@
 % amsthm
 \newtheorem{thm}{Théorème}[section]
 \newtheorem{prp}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemme}
 \renewcommand{\proofname}{\it{Démonstration}}
 \theoremstyle{definition}
 \newtheorem{déf}[thm]{Définition}
@@ -1495,11 +1496,57 @@
 		en prenant $X_1 = X$ et $X_2 = -X$, on a $X_1+X_2 = 0$, et donc $\Var(X_1+X_2) = 0$, alors que $\Var(X_1) + \Var(X_2) = 2\Var(X) \gneqq 0$. \end{rmq}
 
 		\begin{thm}[Loi faible des grands nombres] Soient $X_1, \dotsb, X_n \in \Ld$ des variables miid. Alors~:
-		\[X_n \convp \E(X).\]
+		\[\Ces {X_n} \convp \E(X).\]
 		\end{thm}
 
-		\begin{proof}
-			% TODO
+		\begin{proof} On regarde $\P\left(\abs {\Ces {X_n} - \E(X)} > \epsilon\right)$. On remarque que~:
+		\[\Ces {X_n} - \E(X) = \frac 1n\sum_{k=1}^n(X_k - \E(X_k)) = \frac 1n\sum_{k=1}^nY_k.\]
+		Dès lors, par Bienaymé-Tchebychev, on trouve~:
+		\[\P\left(\abs {\Ces {X_n} - \E(X)} > \epsilon\right) = \P\left(\abs {\sum_{k=1}^nY_k} > n\epsilon\right) \leq \frac {\Var\left(\sum_{k=1}^nY_k\right)}{(n\epsilon)^2}.\]
+		Par la proposition~\ref{prp:varsomme=sommevar}, on trouve~:
+		\[\P\left(\abs {\Ces {X_n} - \E(X)} > \epsilon\right) \leq \frac {\displaystyle \sum_{k=1}^n\Var(Y_k)}{(n\epsilon)^2}.\]
+		Or, les $Y_k$ suivent la même loi, ils ont donc la même variance (qui d'ailleurs est $\Var(X)$). On trouve alors~:
+		\[\P\left(\abs {\Ces {X_n} - \E(X)} > \epsilon\right) \leq \frac {n\Var(X)}{(n\epsilon)^2} = \frac {\Var(X)}{n\epsilon^2} \stackrel {n \to +\infty}\to 0.\]
+
+		Ce qui signifie $\Ces {X_n} - \E(X) \convp 0$, ou encore $\Ces {X_n} \convp \E(X)$.
 		\end{proof}
+
+		Si on peut majorer la variance (ce qui n'est pas toujours applicable), on peut établir un \emph{intervalle de confiance} sur $\E(X)$.
+
+		\begin{déf} Soit $X$ une v.a. Un \emph{intervalle de confiance} sur $\E(X)$ est un intervalle sous la forme $I = [\E(X) \pm \beta(\sigma, n)]$ où
+		$\beta : \R \to \R$ est une fonction tel que $\P(\Ces {X_n} \in I)$ soit suffisamment élevé. \end{déf}
+
+		\begin{ex} Soit $X \sim \mathcal B(p)$ une Bernoulli de paramètre $p$ et $X_n \sim \mathcal B(n, p)$ une binomiale de même paramètre $p$ et de $n$ tirages.
+		On peut borner la variance d'une Bernoulli par~:
+		\[\Var(X) = p(1-p) \leq \frac 14.\]
+		Dès lors, on sait que $\P\left(\abs {\Ces {X_n} - p} > \epsilon\right) \leq \frac 1{4n\epsilon^2}$. On peut alors fixer un petit $\epsilon$
+		pour borner notre approximation (par exemple $\epsilon = 10^2$), ce qui nous permet de déterminer un nombre de tirages $n$ tel que la probabilité
+		que l'écart entre l'estimation $\Ces {X_n}$ et le paramètre effectif $p$ soit supérieure à $\epsilon$ soit $\frac 1{4n\epsilon^2}$. Par exemple, bornons
+		la probabilité par $5\%$. On a alors~:
+		\[\frac 1{4n\epsilon^2} = 5\% \iff n = 50\,000.\]
+		L'intervalle de confiance nous dit donc qu'en réalisant 50 mille tirages, la probabilité que l'estimation $\Ces {X_n}$ s'écarte de $p$ de plus de $0.01$
+		est inférieure à $5\%$.
+		\end{ex}
+
+	\subsection{Lien entre le TCL et la loi faible des grands nombres}
+		Soit $(X_i)_{1 \leq i \leq n}$ un échantillon de variables aléatoires réelles d'une même loi dans $\Ld$. Le TCL dit~:
+		\[\frac {S_n - n\E(X_1)}{\sqrt {n\Var(X_1)}} \convl \Nzu,\]
+		que l'on peut réécrire en~:
+		\[\sqrt n\left(\Ces {X_n} - \E(X_1)\right) \convl \sqrt {\Var(X_1)}\Nzu \stackrel {\mathcal D}= \mathcal N(0, \Var(X_1)).\]
+
+		Donc~:
+		\[\Ces {X_n} - \E(X) = \frac 1{\sqrt n}\left[\sqrt n\left(\Ces {X_n} - \E(X_1)\right)\right] \convl \frac 1{\sqrt n}\mathcal N(0, \Var(X_1)) \convl 0.\]
+
+		On a donc un résultat proche qui dit~:
+		\begin{equation}\label{X_nconvl0}
+			\Ces {X_n} - \E(X_1) \convl 0.
+		\end{equation}
+
+		\begin{lem} Soit $\{X_n\}_{n \geq 1}$ une famille de v.a. réelles, et soit $c \in \R$ une constante déterministe. On a~:
+		\[X_n \convl c \iff X_n \convp c.\]
+		\end{lem}
+
+		\begin{rmq} Une conséquence de ce lemme que la formule~\eqref{X_nconvl0} devient $X_n \convp 0$, qui est la loi faible. On a donc retrouvé la loi
+		faible à partir du TCL. \end{rmq}
 
 \end{document}
