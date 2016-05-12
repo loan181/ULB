@@ -1342,4 +1342,82 @@
 		\begin{rmq} Le théorème~\ref{thm:Lévyindé} est un cas particulier du principe de convergence monotone où la classe des fonctions mesurables bornées
 		a été réduite à $f(x) = g(x) = \exp(itx)$. \end{rmq}
 
+		\begin{ex}[Application de Lévy à deux Gamma] Soient $X \sqcup Y$ telles que $X \sim \Gamma_t$ et $Y \sim \Gamma_s$. Soit $z \in \R$, on calcule~:
+		\[\E(\exp(iz\Gamma_t)) = \int_0^{+\infty}\exp(izu)\exp(-u)u^{t-1}\frac {\dif u}{\Gamma(t)} = \int_0^{+\infty}\exp(u(1-iz))u^{t-1}\frac {\dif u}{\Gamma(t)}.\]
+
+		On pose ensuite $v \coloneqq u(1-iz)$, et donc $\dif v = (1-it)\dif u$. Ce qui amène~:
+		\[\E(\exp(it\Gamma_t)) = \int_0^{+\infty}\exp(-v)\frac {v^{t-1}}{(1-iz)^{t-1}}\frac {\dif v}{\Gamma(t)}
+		= \frac 1{(1-iz)^t}\int_0^{+\infty}\exp(-v)\frac {v^{t-1}\dif v}{\Gamma(t)} = \frac 1{(1-iz)^t}.\]
+
+		De manière similaire, on obtient~:
+		\[\E(\exp(iz\Gamma_s)) = \frac 1{(1-iz)^s}.\]
+		Et également~:
+		\[\E(\exp(iz\Gamma_{t+s})) = \frac 1{(1-iz)^{t+s}} = \frac 1{(1-iz)^t}\frac 1{(1-iz)^s} = \E(\exp(iz\Gamma_t))\E(\exp(iz\Gamma_s)).\]
+
+		Les fonctions caractéristiques caractérisent les lois, on a donc~:
+		\[\Gamma_t + \Gamma_s \stackrel {\mathcal D}= \Gamma_{t+s}.\footnote{Ce qui est un résultat déjà obtenu plus haut.}\]
+		\end{ex}
+
+	\subsection{Lien entre indépendance et De Moivre-Laplace}
+		\paragraph{Rappel et topo} Si $X_{n, p} \sim \mathcal B(n, p)$, on a vu que De Moivre-Laplace implique pour $n \to +\infty$~:
+		\[\frac {X_{n, p} - np}{\sqrt{np(1-p)}} \stackrel {\mathcal D}\leftrightarrow \Nzu.\]
+
+		On sait également que~:
+		\[X_{n, p} = \sum_{i=1}^nX_p^{(i)},\]
+		où les $X_p^{(i)} \sim \mathcal B(p)$ sont des Bernoulli de paramètre $p$. L'espérance et la variance peuvent être aisément déterminées~:
+		\[\begin{cases}\E(X_p^{(i)}) &= p, \\\Var(X_p^{(i)}) &= p(1-p).\end{cases}\]
+		On a donc~:
+		\[\frac {\sum_{i=1}^nX_p^{(i)}-n\E(X_p^{(1)})}{\sqrt {n\Var(X_p^{(1)})}} \convl \Nzu.\]
+
+		Le but est donc de généraliser ce résultat.
+
+		\begin{thm}[Théorème central limite (TCL)] Soit $X \in \Ld$ une v.a. réelle. On pose $\mu \coloneqq \E(X)$ et $\sigma^2 \coloneqq \Var(X)$.
+		Soient $\{X_i\}_{1 \leq i \leq n}$ des variables aléatoires mutuellement indépendantes de même loi. Alors~:
+		\[\frac {S_n - n\mu}{\sigma\sqrt n} \stackrel{n \to +\infty}\to \Nzu,\]
+		où $S_n = X_1 + X_2 + \dotsb X_n$.
+		\end{thm}
+
+		\begin{proof} On pose~:
+		\[\varphi_n(t) \coloneqq \E\left(\exp\left(it\frac {S_n - n\mu}{\sigma\sqrt n}\right)\right).\]
+		On sait que $\E(it\Nzu) = \exp\left(-\frac {t^2}2\right)$. Par linéarité de l'espérance, on a~:
+		\[\varphi_n(t) = \exp\left(\frac {-it\mu\sqrt n}\sigma\right)\E\left(\frac {itS_n}{\sigma\sqrt n}\right)
+		= \exp\left(\frac {-it\mu\sqrt n}\sigma\right)\prod_{j=1}^n\E\left(\exp\left(\frac {it}{\sigma\sqrt n}X_j\right)\right).\]
+		Or, tous les $X_j$ ont la même loi. Dès lors~:
+		\[\varphi_n(t) = \exp\left(\frac {-it\mu\sqrt n}\sigma\right)\left(\exp\left(\frac {it}{\sigma\sqrt n}X_1\right)\right)^n.\]
+
+		On observe que~:
+		\[\forall u \in \R : \abs{\exp(iu) - 1 + iu - \frac {u^2}2} \leq u^2\min\{u, 1\}.\]
+		Donc en posant $\psi(u) \leq u^2\min\{u, 1\}$, on peut trouver $\psi$ tel que~:
+		\[\exp(iu) = 1 + iu - \frac {u^2}2 + \psi(u).\]
+		Et donc~:
+		\begin{align*}\E\left(\exp\left(it\frac {X_1}{\sigma \sqrt n}\right)\right)
+		 &= \left[1 + \frac {it\mu}{\sigma\sqrt n} - \frac {t^2\E(X_1^2)}{2\sigma^2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right]^n \\
+		 &= \left[1 + \frac {it\mu}{\sigma\sqrt n} - \frac {t^2(\E(X_1)^2 + \Var(X_1))}{2\sigma^2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right]^n \\
+		 &= \left[1 + \frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right]^n
+		\end{align*}
+		
+		En posant~:
+		\[\alpha \coloneqq \frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right),\]
+		on peut déterminer~:
+		\[\E\left(\exp\left(it\frac {X_1}{\sigma\sqrt n}\right)\right) = \exp\left(n\log(1 + \alpha)\right).\]
+		On détermine~:
+		\[n\log(1 + \alpha) = n\alpha - \frac {n\alpha^2}2 + no(\alpha^3).\]
+		En regroupant tous les termes en $o(n^{-\frac 12})$, on trouve~:
+		\begin{align*}
+			n\log(1 + \alpha) &= n\left[\frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} - \frac {(it\mu)^2}{2\sigma^2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right) + o(n^{-\frac 12})\right] \\
+			&= \left[\frac {it\mu\sqrt n}\sigma - \frac {t^2}2 + n\psi\left(\frac {tX_1}{\sigma\sqrt n} + no(n^{-\frac 12})\right)\right].
+		\end{align*}
+
+		On retrouve alors~:
+		\[\varphi_n(t) = \exp(n\log(1 + \alpha)) = \exp\left(-\frac {t^2}2 + o(n^{-\frac 12})\right)\E\left(\exp\left(in\psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right)\right).\]
+
+		Et on sait que~:
+		\[\beta \coloneqq \abs{n\psi\left(\frac {tX_1}{\sigma\sqrt n}\right)} \leq \frac {t^2X_1^2}{\sigma^2}\min\left\{1, \frac {tX_1}{\sigma\sqrt n}\right\} \stackrel {n \to +\infty}\to 0,\]
+		ce qui fait tendre l'espérance de $\exp(\beta)$ vers 1, il reste donc~:
+		\[\varphi_n(t) = \exp\left(-\frac {t^2}2 + o(n^{-\frac 12})\right) \stackrel {n \to +\infty}\to \exp\left(-\frac {t^2}2\right).\]
+
+		On voit bien que $\varphi_n(t)$ tend vers la fonction caractéristique d'une $\Nzu$ et donc, par Lévy (théorème de convergence), on a bien~:
+		\[\frac {S_n - n\E(X_1)}{\sqrt {n\Var(X_1)}} \convl \Nzu.\]
+		\end{proof}
+
 \end{document}
