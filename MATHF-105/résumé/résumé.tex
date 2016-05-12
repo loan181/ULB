@@ -41,6 +41,8 @@
 \newcommand{\Ld}{\mathcal L_2\Ofp}  % espace L_2 (variance finie)
 \newcommand{\evpd}[2]{\pd {}{#1}\sVert[2]_{#1=#2}}  % évaluation de dérivée partielle
 \newcommand{\evipd}[3][i]{\pd[i] {}{#2}\sVert[2]_{#2=#3}}  % évaluation de la i ème dérivée partielle
+\newcommand{\Ces}{\overline}  % Somme de Césaro
+\newcommand{\convp}{\stackrel {(p)}\to}  % convergence en probabilités
 
 \newcommand{\iintv}[2]{\left\llbracket#1, #2\right\rrbracket}
 
@@ -1404,7 +1406,8 @@
 		\[n\log(1 + \alpha) = n\alpha - \frac {n\alpha^2}2 + no(\alpha^3).\]
 		En regroupant tous les termes en $o(n^{-\frac 12})$, on trouve~:
 		\begin{align*}
-			n\log(1 + \alpha) &= n\left[\frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} - \frac {(it\mu)^2}{2\sigma^2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right) + o(n^{-\frac 12})\right] \\
+			n\log(1 + \alpha) &= n\left[\frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} - \frac {(it\mu)^2}{2\sigma^2n} +
+				\psi\left(\frac {tX_1}{\sigma \sqrt n}\right) + o(n^{-\frac 12})\right] \\
 			&= \left[\frac {it\mu\sqrt n}\sigma - \frac {t^2}2 + n\psi\left(\frac {tX_1}{\sigma\sqrt n} + no(n^{-\frac 12})\right)\right].
 		\end{align*}
 
@@ -1412,12 +1415,91 @@
 		\[\varphi_n(t) = \exp(n\log(1 + \alpha)) = \exp\left(-\frac {t^2}2 + o(n^{-\frac 12})\right)\E\left(\exp\left(in\psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right)\right).\]
 
 		Et on sait que~:
-		\[\beta \coloneqq \abs{n\psi\left(\frac {tX_1}{\sigma\sqrt n}\right)} \leq \frac {t^2X_1^2}{\sigma^2}\min\left\{1, \frac {tX_1}{\sigma\sqrt n}\right\} \stackrel {n \to +\infty}\to 0,\]
+		\[\beta \coloneqq \abs{n\psi\left(\frac {tX_1}{\sigma\sqrt n}\right)} \leq \frac {t^2X_1^2}{\sigma^2}\min\left\{1, \frac {tX_1}{\sigma\sqrt n}\right\}
+			\stackrel {n \to +\infty}\to 0,\]
 		ce qui fait tendre l'espérance de $\exp(\beta)$ vers 1, il reste donc~:
 		\[\varphi_n(t) = \exp\left(-\frac {t^2}2 + o(n^{-\frac 12})\right) \stackrel {n \to +\infty}\to \exp\left(-\frac {t^2}2\right).\]
 
 		On voit bien que $\varphi_n(t)$ tend vers la fonction caractéristique d'une $\Nzu$ et donc, par Lévy (théorème de convergence), on a bien~:
 		\[\frac {S_n - n\E(X_1)}{\sqrt {n\Var(X_1)}} \convl \Nzu.\]
+		\end{proof}
+
+\newpage
+\section{Loi des grands nombres}
+	\subsection{Énoncé du résultat faible}
+		\begin{déf} Soit $(X_1, \dotsc, X_n)$ une suite de v.a. réelles. On dit que les $X_i$ sont identiquement distribuées si elles suivent toutes une même
+		loi $\mathfrak L$.
+
+		Si les $X_i$ sont également indépendantes, on dit qu'elles sont iid (indépendantes et identiquement distribuées), et si elles sont \emph{mutuellement}
+		indépendantes, on dit qu'elles sont miid (\textbf{mutuellement} iid).
+		\end{déf}
+
+		\begin{déf} Soient $X_1, \dotsc, X_n$ es variables aléatoires. On appelle la \emph{somme de Césaro} la quantité~:
+		\[\Ces{X_n} \coloneqq \frac 1n \sum_{k=1}^nX_k,\]
+		qui représente une moyenne \emph{empirique}.
+		\end{déf}
+
+		\begin{déf}[Convergence en probabilités] Soit $\{Z_n\}_n$ une famille de variables aléatoires à valeur dans $E$. Soit $Z \in E$. On dit que \emph{$Z_n$
+		converge en probabilités vers $Z$} si~:
+		\[\forall \epsilon > 0 : \P\left(\abs {Z_n  E} > \epsilon\right) \stackrel {n \to +\infty}\to 0.\]
+		On note cela~:
+		\[Z_n \convp Z.\]
+		\end{déf}
+
+		\begin{thm}[Théorème de Bieaymé-Tchebychev\footnote{L'adaptation orthographique en alphabet latin est assez hasardeuse et variable\dots}] Soit $Z \in \Ld$.
+		Alors~:
+		\[\forall x : \P\left(\abs {Z-\E(Z)} > x\right) \leq \frac {\Var(Z)}{x^2}.\]
+		\end{thm}
+
+		\begin{proof} On pose~:
+		\[\begin{cases}A_x &\coloneqq \{\omega \in \Omega \tq \abs {Z(\omega) - \E(Z)} > x\} \\
+		A_x^\complement &\coloneqq \{\omega \in \Omega \tq \abs{Z(\omega) - \E(Z)} \leq x\}.\end{cases}\]
+		On peut donc exprimer la variance de $Z$ comme~:
+		\[\Var(Z) = \E\left((Z-\E(Z))^2\right) = \E\left(\abs {Z-\E(X)}^21_{A_x}(Z)\right) + \E\left(\abs{Z-\E(Z)}^21_{A_x^\complement}(Z)\right).\]
+
+		Par positivité, on peut déduire~:
+		\[\Var(Z) \geq \E\left(\abs{Z-\E(Z)}^21_{A_x}(x)\right).\]
+
+		Soit $\omega \in \Omega$. Si $\omega \in A_x$, alors~:
+		\[\abs {Z(\omega)-\E(Z)} > x,\]
+		par définition. On peut donc exprimer~:
+		\[\Var(Z) \geq \E\left(x^21_{A_x}(Z)\right) = x^2\E(1_{A_x}(Z)) = x^2\P(X \in A_x) = x^2\P\left(\abs {Z-\E(Z)} > x\right).\]
+		En réarrangeant, on obtient~:
+		\[\P\left(\abs {Z-\E(Z)} > x\right) \leq \frac {\Var(Z)}{x^2}.\]
+		\end{proof}
+
+		\begin{prp}\label{prp:varsomme=sommevar} Soit $\{X_i\}_{1 \leq i \leq n} \subset \Ld$ une famille de variables aléatoires mutuellement indépendantes.
+		Alors la variance de la somme des $X_i$ est égale à la somme des variances~:
+		\[\Var\left(\sum_{k=1}^nX_k\right) = \sum_{k=1}^n\Var(X_k).\]
+		\end{prp}
+
+		\begin{proof} On pose~:
+		\[\Delta \coloneqq \sum_{k=1}^nX_k.\]
+		Par définition, on calcule~:
+		\[\Var(\Delta) = \E\left[\left(\Delta - \E(\Delta)\right)^2\right] = \E\left[\left(\left(\sum_{k=1}^nX_k\right) - \E\left(\sum_{k=1}^nX_k\right)\right)^2\right]
+		= \E\left[\left(\sum_{k=1}^n\left(X_k - \E(X_k)\right)\right)^2\right].\]
+
+		On pose $Y_k \coloneqq X_k - \E(X_k)$. Ce qui nous donne~:
+		\[\Var(\Delta) = \E\left[\left(\sum_{k=1}^nY_k\right)^2\right].\]
+		Le carré d'une somme donne~:
+		\[\left(\sum_{k=1}^nY_k\right)^2 = \sum_{k=1}^n(Y_k)^2 + 2\sum_{i = 1}^n\sum_{j = i+1}^nY_iY_j.\]
+		On peut donc utiliser la linéarité de l'espérance pour réécrire~:
+		\[\Var(\Delta) = \E\left[\sum_{k=1}^n(Y_k)^2 + 2\sum_{i=1}^n\sum_{j=i+1}^nY_iY_j\right] = \sum_{k=1}^n\E\left((Y_k)^2\right) + 2\sum_{i=1}^n\sum_{j=i+1}^n\E(Y_iY_j).\]
+		Par l'indépendance des $Y_i$, on sait que pour tout $i \neq j$, on a~:
+		\[\E(Y_iY_j) = \E(Y_i)\E(Y_j) = \E(X_i-\E(X_i))\E(X_j-\E(X_j)) = \left(\E(X_i)-\E(X_i)\right)\left(\E(X_j)-\E(X_j)\right) = 0.\]
+		On trouve donc~:
+		\[\Var(\Delta) = \sum_{k=1}^n\E\left((Y_k)^2\right) = \sum_{k=1}^n\E\left((X_k-\E(k))^2\right) = \sum_{k=1}^n\Var(X_k).\]
+		\end{proof}
+
+		\begin{rmq} La proposition~\ref{prp:varsomme=sommevar} n'est pas vraie sans l'hypothèse d'indépendance (indépendance deux à deux suffit). Par exemple,
+		en prenant $X_1 = X$ et $X_2 = -X$, on a $X_1+X_2 = 0$, et donc $\Var(X_1+X_2) = 0$, alors que $\Var(X_1) + \Var(X_2) = 2\Var(X) \gneqq 0$. \end{rmq}
+
+		\begin{thm}[Loi faible des grands nombres] Soient $X_1, \dotsb, X_n \in \Ld$ des variables miid. Alors~:
+		\[X_n \convp \E(X).\]
+		\end{thm}
+
+		\begin{proof}
+			% TODO
 		\end{proof}
 
 \end{document}
