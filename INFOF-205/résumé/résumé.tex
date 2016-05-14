@@ -12,6 +12,32 @@
 \usepackage{commath}
 \usepackage{hyperref}
 
+\makeatletter
+\def\thm@space@setup{
+	\thm@preskip=.4cm%
+	\thm@postskip=\thm@preskip%
+}
+\makeatother
+
+%amsthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{cor}[thm]{Corollaire}
+\renewcommand{\proofname}{\it{Preuve}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}
+
+\DeclareMathOperator{\Jac}{Jac}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+
+\newcommand{\kappaabs}{\kappa_{\text{abs}}}
+
 \author{R. Petit}
 \date{Année académique 2015 - 2016}
 \title{INFOF-205 : Calcul formel et numérique}
@@ -24,5 +50,151 @@
 \pagenumbering{arabic}
 
 \section{Introduction}
+	\begin{déf} Le \emph{calcul numérique} est une discipline qui traite de la définition, l'analyse, et l'implémentation d'algorithmes pour la résolution
+	numérique des problèmes mathématiques qui proviennent de la modélisation des phénomènes réels.\footnote{Nick Trefehen, Oxford.}
+	\end{déf}
+
+	Le calcul numérique représente donc le triplet (modèle analytique, solution théorique, résolution algorithmique).
+
+	\begin{rmq} Le calcul numérique étant une application informatique pour la résolution de problèmes mathématiques continus, plusieurs types de problèmes
+	peuvent arriver (section suivante). Afin de limiter les problèmes de précision sur des fonctions continues compliquées à évaluer précisément informatiquement,
+	plusieurs outils d'approximation peuvent être utilisés. Le théorème de Taylor permet d'approcher certaines fonctions de manière plus facilement calculatoires
+	de manière informatique.
+	\end{rmq}
+
+	\begin{thm}[Théorème de Taylor] Soient $f : I \to \R$ où $I$ est un intervalle, $a \in I$ et $k \geq 1$. Alors $T(f, a, k)(x)$ est le seul polynôme de
+	degré inférieur ou égal à $k$ tel que~:
+	\[\lim_{x \to a}\frac {f(x)-T(f, a, k)}{(x-a)^k} = 0,\]
+	où $T(f, a, k)(x)$, appelé \emph{polynôme de Taylor} est défini par~:
+	\[T(f, a, k)(x) = \sum_{i=0}^k\frac {f^{(i)}(a)(x-a)^i}{i!}.\]
+	\end{thm}
+
+	Le calcul numérique est défini comme étant une application informatique à des problèmes relatifs à des phénomènes réels. Bien souvent, ces phénomènes
+	sont modélisés de manière \emph{continue}. Les ordinateurs quant à eux sont \emph{discrets}. Cette différence majeure force des approximations par le matériel
+	informatique. Les transformations discrètes (\emph{discrétisations}) des phénomènes réels doivent alors être rigoureusement analysés afin de déterminer leur
+	robustesse et leur fiabilité.
+
+	Les problèmes peuvent être classifiés de plusieurs manières selon leurs propriétés et ce qui en est attendu.
+
+	\begin{déf} Un problème est dit~:
+	\begin{itemize}
+		\item \emph{qualitatif} lorsque le comportement des solutions est étudié afin d'en déterminer sa stabilité, son comportement asymptotique~;
+		\item \emph{quantitatif} lorsque la solution (numérique) précise est étudiée afin de tirer des conclusions spécifiques.
+	\end{itemize}
+	\end{déf}
+
+	Un problème qualitatif cherche des conclusions globales à un problème (étude d'une famille de problèmes) et un problème quantitatif est une application
+	précise appliquée à un problème donné.
+
+	\begin{déf} Un problème est dit sous forme~:
+	\begin{itemize}
+		\item \emph{explicite} quand la solution $x$ d'un problème est une fonction donnée des données $d$~;
+		\item \emph{implicite} quand la solution ne peut être extraite explicitement des données.
+	\end{itemize}
+	\end{déf}
+
+	\begin{ex} \emph{Trouver la racine carrée d'un nombre $d \in \R$} est un problème explicite que l'on peut écrire $x = f(d) = \sqrt d$.
+
+	\emph{Déterminer l'ensemble des solutions $x$ à l'équation $ax^2 + bx + c$} est un problème implicite car la solution n'est pas séparée explicitement des
+	données. On peut tout de même exprimer ce problème implicite comme~:
+	\[X = \left\{\frac {-b \pm \sqrt {b^2-4ac}}{2a}\right\},\]
+	qui est un problème explicite.
+	\end{ex}
+
+	\begin{rmq} La forme générale d'un problème explicite est $x = F(d)$, alors que la forme générale d'un problème implicite est $F(x, d) = 0$. \end{rmq}
+
+	\begin{déf} Le problème explicite $x = F(d)$ est dit \emph{bien posé} si la solution $x$~:
+	\begin{enumerate}
+		\item existe~;
+		\item est unique~;
+		\item dépend \textbf{continument} de $d$.
+	\end{enumerate}
+
+	Si un problème n'est pas bien posé, on dit qu'il est \emph{mal posé}.
+	\end{déf}
+
+	\begin{déf} Un problème est dit \emph{problème inverse} s'il correspond à la détermination des données d'entrée $x$ d'une application $G$ en connaissant
+	les données de sortie $G(x) \eqqcolon d$.
+	\end{déf}
+
+	\begin{rmq} Les problèmes inverses sont de manière générale mal posés, entre autre parce qu'il est fréquent que l'application $G$ ne soit pas injective
+	et donc que plusieurs données $x$ peuvent donner la même donnée $d = G(x)$.
+	\end{rmq}
+
+	\begin{rmq} Ce cours ne traitera que de problèmes bien posés. \end{rmq}
+
+	\begin{déf}~
+	\begin{itemize}
+		\item Le \emph{conditionnement} d'un problème $x = F(d)$ bien posé est la mesure de la \emph{sensibilité} de $x$ à des petits changements sur $d$.
+		\item On définit par $\delta d$ une faible perturbation (également dite \emph{perturbation admissible}) sur la donnée $d$. On définit alors la
+		      perturbation induite sur $x$ par $\delta x = F(d + \delta d) - F(d)$.
+		\item Le \emph{conditionnement relatif} du problème est la quantité~:
+		      \[\kappa(d) \coloneqq \lim_{\abs D \to 0}\sup_{\delta d \in D} \frac {\norm {\delta x}\norm d}{\norm x\norm{\delta d}}
+			  = \lim_{\abs D \to 0}\sup_{\delta \in D}\frac {\norm {F(d + \delta d) - F(d)}\norm d}{\norm {F(d)}\norm {\delta d}},\]
+		      où $D$ est un voisinage de l'origine, et $\sup$ désigne la borne supérieure.
+	\end{itemize}
+	\end{déf}
+
+	\begin{rmq}~
+	\begin{itemize}
+		\item si $x = 0$, alors le conditionnement relatif est forcément infini~;
+		\item si $d = 0$, alors le conditionnement relatif est forcément nul~;
+		\item quand $0 \in \{x, d\}$, il faut définir une autre notion, le conditionnement absolu~:
+		      \[\kappaabs(d) \coloneqq \lim_{\abs D \to 0}\sup_{\delta d \in D}\frac {\norm {\delta x}}{\norm {\delta d}}.\]
+	\end{itemize}
+	\end{rmq}
+
+	\begin{prp} Si $x = F(d)$ est un problème explicite, et $F$ est une fonction différentiable en $d$, alors, par définition~:
+	\[\lim_{\delta \to 0}\frac {\delta x}{\delta d}\]
+	ne dépend pas de la trajectoire de $\delta d$ vers $0$. On note alors~:
+	\[F'(d) = \lim_{\delta d \to 0}\frac {\delta x}{\delta d},\]
+	et on réécrit le conditionnement par~:
+	\[\kappa(d) = \lim_{\delta d \to 0}\frac {\norm {\delta x}d}{\norm {\delta d}x}
+	= \frac {\norm d}{\norm x}\lim_{\delta d \to 0}\frac {\norm {\delta x}}{\norm {\delta d}} = \norm {F'(d)}\frac {\norm  d}{\norm x}.\]
+	\end{prp}
+
+	\begin{rmq} Si $d \in \R^m$, et $x \in \R^n$, alors $F'(d)$ est la matrice jacobienne $(\Jac F)(d)$. Et si $q = 1$, la matrice jacobienne n'a qu'une seule
+	ligne et on parle du gradient $(\nabla F)(d)$
+	\end{rmq}
+
+	\begin{ex}[Conditionnement d'une différence] Soit le problème $x = F(d) = d-a$. La fonction $F$ est différentiable, on peut donc déterminer le
+	conditionnement~:
+	\[\kappa(d) = \norm {F'(d)}\frac {\norm d}{\norm x} = 1\frac {\norm d}{\norm {d-a}}.\]
+	On voit alors que le conditionnement est petit pour $\norm {d-a} >> 0$. Cependant, pour $d$ proche de $a$, le conditionnement devient très grand.
+	Le problème est donc \emph{mal conditionné} pour $d$ proche de $a$.
+	\end{ex}
+
+	\begin{ex}[Conditionnement d'une exponentiation] Soit le problème $x = F(d) = d^r$ avec $r \in \R$. À nouveau, $F$ est différentiable, et donc on peut
+	exprimer le conditionnement comme~:
+	\[\kappa(d) = \norm {F'(d)}\frac {\norm d}{\norm x} = \norm r\norm {d^{r-1}}\frac {\norm d}{\norm {d^r}} = \norm r.\]
+	Le conditionnement dépend donc de l'exposant $r$. Si $r$ est grand, le problème est mal conditionné, peu importe la valeur de $d$.
+	\end{ex}
+
+	Le conditionnement d'un problème est une caractéristique qui lui est intrinsèque. Si un problème est mal conditionné, peu importe l'algorithme utilisé pour
+	le résoudre, la solution restera fortement influencé par des perturbations sur les données $d$. De plus, plus un problème a un grand conditionnement, plus
+	il sera difficile à résoudre numériquement.
+
+	\begin{rmq} les exemples ci-dessus montrent qu'un problème peut avoir un conditionnement faible pour certaines valeurs de $d$ et un conditionnement élevé
+	pour d'autres valeurs.
+	\end{rmq}
+
+	Soit $F(x, d) = g(x) - d = 0$, un problème implicite. Prenons $g : \R \to \R$ une fonction réelle différentiable. On peut alors exprimer $x = g^{-1}(d)$.
+	Donc le conditionnement vaut~:
+	\[\kappa(d) = \abs {\frac {(g^{-1})'(d)d}{g^{-1}(d)}} = \abs {\frac 1{g'(g^{-1}(d))}}\abs{\frac d{g^{-1}(d)}} = \abs {\frac 1{g'(x)}}\abs{\frac dx}.\]
+	On remarque donc que pour $g'(x)$ petit le conditionnement devient grand. C'est intuitivement lié au fait qu'une fonction à faible dérivée (pente) en $d$
+	va croitre lentement et donc pour une faible perturbation sur $d$ (axe vertical), une grande perturbation sur $x$ (axe horizontal) va être induite.
+
+	\begin{déf} Soit $F(x, d) = 0$ un problème bien posé. On définit l'\emph{algorithme numérique} pour la résolution du problème $F$ par la suite de problèmes
+	approchés $F_1(x^{(1)}, d^{(1)}), F_2(x^{(2)}, d^{(2)}), \dotsc, F_n(x^{(n)}, d^{(n)})$ dépendant d'un paramètre $n$.
+	\end{déf}
+
+	L'idée derrière la division en sous-problèmes est d'avoir des $F_k$ plus simples à résoudre que $F$, ce qui permet une résolution numérique.
+
+	\begin{déf} Un algorithme numérique est dit~:
+	\begin{itemize}
+		\item \emph{direct} si le nombre $n$ de sous-problèmes est fixé (du moins majoré), habituellement par une fonction de la taille du problème~;
+		\item \emph{itératif} si $n$ n'est pas borné et s'il existe une routine $f(u)$ admissible, indépendante de $n$ telle que $x^{(n)} = f(x^{(n-1)})$.
+	\end{itemize}
+	\end{déf}
 
 \end{document}
