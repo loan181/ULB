@@ -2114,10 +2114,93 @@
 		$L$ si et seulement si $\forall A \subseteq B : $ la limite de $f$ dans $A$ de $x \to a$ existe et vaut $L$.
 		\end{prp}
 
-		\begin{prp} Soient $f : \R^m \to \R^n$, et $a \in \adh(\dom f)$. Alors~:
+		\begin{prp}\label{prp:limssisuitesconvergent} Soient $f : \R^m \to \R^n$, et $a \in \adh(\dom f)$. Alors~:
 		\[\lim_{x \to a}f(x) = L \iff \forall (x_n)_n \subset \dom f : x_n \to a \Rightarrow (f(x_n))_n \to L.\]
 		\end{prp}
 
+		\begin{proof} Supposons d'abord que $f(x) \to L$ quand $x \to a$.
+
+		Soit $\epsilon > 0$. On sait qu'il existe $\delta > 0$ tel que~:
+		\[\forall x \in \R^m : \norm{x-a} < \delta \Rightarrow \norm{f(x)-L} < \epsilon.\]
+		Soit $(x_k) \subset \R^m$ une suite convergente en $a$. On sait qu'il existe $N > 0$ tel que~:
+		\[\forall n > N : \norm{x_n-a} < \delta.\]
+		Dès lors~:
+		\[\norm{x_n-a} < \delta \Rightarrow \norm{f(x_n)-L} < \epsilon.\]
+
+		Supposons ensuite que pour toute suite $(x_k) \subset \R^m$ convergente en $a$, on ait $(f(x_k))_k \subseteq \R^n$ convergente en $L$.
+		Supposons par l'absurde que $f(x) \not \to L$ pour $x \to a$. On sait alors qu'il existe $\epsilon_0$ tel que~:
+		\[\forall \delta_0 > 0 : \exists x \in \R^m \tq \norm{x_n-a} < \delta \land \norm{f(x_n)-L} \geq \epsilon_0.\]
+		En particulier, pour $\delta_0 = \frac 1n$, on trouve~:
+		\[\forall n \geq 1 : \exists x_n \in \R^m \tq \norm{x_n-a} < \delta_0 = \frac 1n \land \norm{f(x_n)-L} \geq \epsilon_0.\]
+		Or, par hypothèse, o na supposé que pour toute suite $(x_k) \subset \R^m \tq x_k \to a$, la suite $(f(x_k))_k$ convergeait en $L$.
+		Ce qui est une contradiction, et donc $f(x) \to L$.
+		\end{proof}
+
 	\subsection{Continuité d'une fonction}
+		\begin{déf} Soient $f : \R^m \to \R^n$, et $a \in \dom f$. On dit que $f$ est continue en $a$ si~:
+		\[\lim_{x \to a}f(x) = f(a),\]
+		c'est-à-dire~:
+		\[\forall \epsilon > 0 : \exists \delta >0 \tq \forall x \in \dom f : \norm {x-a} < \delta \Rightarrow \norm {f(x)-f(a)} < \epsilon.\]
+		\end{déf}
+
+		\begin{déf} Une fonction $f : \R^m \to \R^n$ est dite continue si elle est continue en tout point de son domaine. \end{déf}
+
+		\begin{prp} Soient $f : \R^m \to \R^p$ et $g : \R^p \to \R^n$ deux fonctions continues. Alors $(g \circ f)$ est également continue. \end{prp}
+
+		\begin{proof} Soit $\epsilon > 0$. On sait (par la continuité de $g$) qu'il existe $\delta_g > 0$ tel que~:
+		\[\forall y \in \R^p : \norm{y - f(a)} < \delta_g \Rightarrow \norm{g(y) - g(f(a))} < \epsilon.\]
+		On sait également, par continuité de $f$ qu'il existe $\delta_f > 0$ tel que~:
+		\[\forall x \in \R^m : \norm{x - a} < \delta_f \Rightarrow \norm{f(x)-f(a)} < \delta_g.\]
+		Dès lors, on trouve~:
+		\[\forall x \in \R^m : \norm{x-a} < \delta_f \Rightarrow \norm{f(x)-f(a)} < \delta_g \Rightarrow \norm{g(f(x)) - g(f(a))} < \epsilon.\]
+		\end{proof}
+
+		\subsubsection{Fonctions à valeur réelle}
+		\begin{déf} On appelle la fonction $\pi_j : \R^m \to \R$ définie par~:
+		\[\pi_j((x_1, \dotsc, x_m)) = x_j\]
+		la $j$ème fonction de projection.
+		\end{déf}
+
+		\begin{lem} La fonction de projection $\pi_j$ est une fonction continue. \end{lem}
+
+		\begin{proof} Soient $\epsilon > 0$, et $a \in \R^m$. Prenons $\delta = \epsilon$. En supposant $\norm{x-a} < \delta$, on trouve~:
+		\[\epsilon = \delta > \norm{x-a} = \sqrt {(x_j-a_j)^2 + \sum_{j \neq i}(x_i-a_i)^2} \geq \sqrt {(x_j-a_j)^2} = \abs {\pi_j(x)-\pi_j(a)}.\]
+		On a bien $\abs {\pi_j(x)-\pi_j(a)} < \epsilon$.
+		\end{proof}
+
+		\begin{prp}\label{prp:continuitérmparsuites} Soient $f : \R^m \to \R$, et $a \in \R^m$. Alors $f$ est continue en $a$ si et seulement si~:
+		\[\forall (x_k)_k \subset \R : x_k \to a \Rightarrow (f(x_k))_k \to f(a).\]
+		\end{prp}
+
+		\begin{proof} Corollaire direct de la proposition~\ref{prp:limssisuitesconvergent}. \end{proof}
+
+		\begin{rmq} Ce résultat nous permet d'écrire~:
+		\[\lim_{k \to +\infty}f(x_k) = f\left(\lim_{k \to +\infty}x_k\right)\]
+		pour $f$ continue, ce qui est assez pratique pour les règles de calcul.
+		\end{rmq}
+
+		\begin{cor} Soit $f : \R^m \to \R$. S'il existe deux suites $(x_k), (y_k) \subset \R^m$ convergentes en $a$ telles que~:
+		\[\lim_{k \to +\infty}f(x_k) \neq \lim_{k \to +\infty}f(y_k),\]
+		alors $f$ n'est pas continue. \end{cor}
+
+		\begin{rmq} Ce corollaire est en réalité la contraposée de la proposition~\ref{prp:continuitérmparsuites}. \end{rmq}
+
+		\subsubsection{Fonctions à valeur vectorielle}
+		\begin{thm} Une fonction $f = (f_1, \dotsc, f_n) : \R^m \to \R^n$ est continue en $a \in \R^m$ si et seulement si les $n$ fonctions $f_i$ sont
+		continues en $a$.
+		\end{thm}
+
+		\begin{proof} Si $f$ est continue, alors $\forall i \in \{1, \dotsc, n\} : f_i \coloneqq (\pi_i \circ f)$ est continue par composée de fonctions continues.
+
+		Si $f_i$ est continue pour tout $i$, on calcule~:
+		\[\lim_{x \to a}\norm{f(x)-f(a)} \coloneqq \lim_{x \to a}\sqrt{\sum_{i=1}^n\abs{f_i(x)-f_i(a)}^2} = \sqrt {\sum_{i=1}^n\lim_{x \to a}\abs{f_i(x)-f_i(a)}^2} = 0,\]
+		ce qui est équivalent à $\lim_{x \to a}f(x) = f(a)$.
+		\end{proof}
+
+		\begin{rmq} Pour déterminer la continuité de $f$, on peut déterminer la continuité de ses composantes. On ne peut cependant pas déterminer la continuité des
+		restrictions de la fonction selon les différents arguments !
+		\end{rmq}
+	
+	\subsection{Valeur intermédiaire et ensembles connexes par arcs}
 
 \end{document}
