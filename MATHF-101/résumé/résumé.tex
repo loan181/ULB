@@ -1,9 +1,9 @@
 \documentclass{article}
 
+\usepackage{palatino, eulervm}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{fullpage}
-\usepackage{lmodern}
 \usepackage[bottom]{footmisc}
 \usepackage[parfill]{parskip}
 \usepackage{amsmath, amsthm, amsfonts, amssymb}
@@ -2030,7 +2030,7 @@
 
 		\begin{déf}\label{equivNormes} Les normes $\norm \cdot_a$ et $\norm \cdot_b$ sont dites équivalentes s'il existe deux constantes $C_1, C_2 \in \R_0^+$
 		telles que~:
-		\[\forall x \in \R^n : C_1\norm x_b \leq \norm x_a C_2\norm x_b.\]
+		\[\forall x \in \R^n : C_1\norm x_b \leq \norm x_a \leq C_2\norm x_b.\]
 		\end{déf}
 
 		\begin{rmq} On observe alors que~:
@@ -2073,12 +2073,51 @@
 		\begin{rmq} La boule fermée $\bar B(a, r)$ est l'adhérence de la boule ouverte $B(a, r)$. \end{rmq}
 
 		\begin{déf}[Intérieur en dimension $n > 1$] Soit $A \subset \R^n$. Un élément $a \in \R^n$ est dit \emph{intérieur} à $A$ si
-		$\exists \delta > 0 \t q\forall x \in \R^n : \norm {x-a} < \delta \Rightarrow x \in A$. \end{déf}
+		$\exists \delta > 0 \tq \forall x \in \R^n : \norm {x-a} < \delta \Rightarrow x \in A$. \end{déf}
 
 		\begin{rmq} Géométriquement, on dit que l'intérieur $\intr A$ est l'ensemble~:
 		\[\intr A \coloneqq \{x \in \R^n \tq \exists r > 0 \tq B(x, r) \subseteq A\}.\]
 		\end{rmq}
 
 		\begin{déf} La frontière de $A$ est l'ensemble $\adh A \setminus \intr A$. On le note $\partial A$. \end{déf}
+
+		\begin{déf} Un ensemble $A \subseteq \R^n$ est~:
+		\begin{itemize}
+			\item \emph{ouvert} si et seulement si $A = \intr A$~;
+			\item \emph{fermé} si et seulement si $A = \adh A$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf}[Limite d'une fonction multivariée à valeur vectorielle]\label{def:limfrmrn} Soient $f : U \subseteq \R^m \to \R^n$, $B \subset \R^m$, et
+		$a \in \adh(U \cap B)$. La limite de $f$ dans $B$ pour $x$ tendant vers $a$ existe et vaut $L \in \R^n$ si~:
+		\[\forall \epsilon > 0 : \exists \delta > 0 \tq \forall x \in \adh(U \cap B) : \norm{x-a} < \delta \Rightarrow \norm{f(x)-L} < \epsilon.\]
+		On écrit cela~:
+		\[\lim_{\stackrel B{x \to a}}f(x) = L\qquad\qquad\text{ ou }\qquad\qquad\lim_{\stackrel {x \to a}{x \in B}}f(x) = L.\]
+		\end{déf}
+
+		\begin{rmq} Dans la définition~\ref{def:limfrmrn}, $\epsilon$ sert à déterminer une boule ouverte $B(L, \epsilon)$ et $\delta$ sert à déterminer une
+		boule ouverte $B(a, \delta)$ tels que~:
+		\[f\left(B(a, \delta) \cap (B \cap U)\right) \subset B(L, \epsilon).\]
+		\end{rmq}
+
+		\begin{déf} La limite de $f : \R^m \to \R^n$ en $x$ tendant vers $a \in \R^m$ existe et vaut $L \in \R^n$ si et seulement si la limite de $f$ dans
+		$B = \R^m$ existe et vaut $L$ pour $x$ tendant vers $a$. On note cela~:
+		\[\lim_{x \to a}f(x) = L.\]
+		\end{déf}
+
+		\begin{déf} Soient $f : \R^m \to \R^n$, et $a \in \adh\left(\dom f \setminus \{a\}\right)$. Alors la limite pointée~:
+		\[\lim_{\stackrel {x \to a}{x \neq a}}f(x) = L\]
+		est vérifiée si la limite de $f$ dans $B = \R^m \setminus \{a\}$ existe et vaut $L$.
+		\end{déf}
+
+		\begin{prp} Soient $f : U \subset \R^m \to \R^n$, $B \subset \R^m$, et $a \in \adh (B \cap U)$. La limite de $f$ dans $B$ pour $x \to a$ existe et vaut
+		$L$ si et seulement si $\forall A \subseteq B : $ la limite de $f$ dans $A$ de $x \to a$ existe et vaut $L$.
+		\end{prp}
+
+		\begin{prp} Soient $f : \R^m \to \R^n$, et $a \in \adh(\dom f)$. Alors~:
+		\[\lim_{x \to a}f(x) = L \iff \forall (x_n)_n \subset \dom f : x_n \to a \Rightarrow (f(x_n))_n \to L.\]
+		\end{prp}
+
+	\subsection{Continuité d'une fonction}
 
 \end{document}
