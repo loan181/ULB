@@ -2190,17 +2190,58 @@
 		continues en $a$.
 		\end{thm}
 
-		\begin{proof} Si $f$ est continue, alors $\forall i \in \{1, \dotsc, n\} : f_i \coloneqq (\pi_i \circ f)$ est continue par composée de fonctions continues.
+		\begin{proof} Si $f$ est continue, alors $\forall i \in \{1, \dotsc, n\} : f_i \coloneqq (\pi_i \circ f)$ est continue par composée de fonctions
+		continues.
 
 		Si $f_i$ est continue pour tout $i$, on calcule~:
-		\[\lim_{x \to a}\norm{f(x)-f(a)} \coloneqq \lim_{x \to a}\sqrt{\sum_{i=1}^n\abs{f_i(x)-f_i(a)}^2} = \sqrt {\sum_{i=1}^n\lim_{x \to a}\abs{f_i(x)-f_i(a)}^2} = 0,\]
+		\[\lim_{x \to a}\norm{f(x)-f(a)} \coloneqq \lim_{x \to a}\sqrt{\sum_{i=1}^n\abs{f_i(x)-f_i(a)}^2}
+		= \sqrt {\sum_{i=1}^n\lim_{x \to a}\abs{f_i(x)-f_i(a)}^2} = 0,\]
 		ce qui est équivalent à $\lim_{x \to a}f(x) = f(a)$.
 		\end{proof}
 
-		\begin{rmq} Pour déterminer la continuité de $f$, on peut déterminer la continuité de ses composantes. On ne peut cependant pas déterminer la continuité des
-		restrictions de la fonction selon les différents arguments !
+		\begin{rmq} Pour déterminer la continuité de $f$, on peut déterminer la continuité de ses composantes. On ne peut cependant pas déterminer la continuité
+		des restrictions de la fonction selon les différents arguments !
 		\end{rmq}
 	
 	\subsection{Valeur intermédiaire et ensembles connexes par arcs}
+		\begin{déf} Soit $E \subset \R^n$. On dit que l'ensemble $E$ est \emph{connexe par arcs} s'il existe $\gamma : [0, 1] \to E$ une application continue
+		telle que $\gamma(0) = p$ et $\gamma(1) = q$ pour tout $p, q \in E$.
+
+		$\gamma$ est appelé un \emph{chemine de $p$ à $q$}.
+		\end{déf}
+
+		\begin{prp} L'ensemble des ensembles connexes par arcs de $\R$ sont les intervalles. \end{prp}
+
+		\begin{proof} Montrons que les intervalles sont des ensembles connexes. Soit $I = [p, q]$ un intervalle. Alors $\gamma : t \mapsto tq + (1-t)p$ est
+		un chemin de $p$ à $q$.
+
+		Soit $I$ un ensemble connexe par arcs. S'il y a un chemin de $p$ à $q$ dans $I$, alors $\forall r \in \R \tq p < r < q$, il faut $r \ni I$.
+		\end{proof}
+
+		\begin{thm}[Image continue d'un ensemble connexe par arcs]\label{thm:imageconnexepararcs} Soit $f : E \subset \R^m \to \R^n$ où $E$ est un ensemble
+		connexe par arcs. Si $f$ est continue sur $E$, alors $f(E)$ est connexe par arcs.
+		\end{thm}
+
+		\begin{proof} Prenons $p, q \in f(E)$. Par définition, on sait qu'il existe $a, b \in E$ tels que $f(a) = p$ et $f(b) = q$. Soit $\gamma$ un chemin
+		de $a$ à $b$ dans $E$. Par continuité de $\gamma$ on sait que $(f \circ \gamma)$ est continue et représente un chemin de $p$ à $q$.
+		\end{proof}
+
+		\begin{cor} Soit $f : E \subset \R^m \to \R$ une fonction continue où $E$ est un ensemble connexe par arcs. Si $\alpha < \beta$ sont deux valeurs
+		prises par $f$, alors $\forall c \in (\alpha, \beta) : \exists m \in E \tq f(m) = c$.
+		\end{cor}
+
+		\begin{proof} Corollaire direct du théorème~\ref{thm:imageconnexepararcs} : $f(E)$ est un intervalle. \end{proof}
+
+		\begin{prp} Il n'existe pas de bijection continue $f : \R^m \to \R$ pour $m > 1$. \end{prp}
+
+		\begin{proof} Supposons par l'absurde qu'il existe $f : \R^n \to \R$ continue et bijective. Prenons $g : \R^m \setminus \{0\} \to \R \setminus \{x\}$,
+		la restriction de $f$ à $\R \setminus \{x\}$ où $x = f(0) \in \R^m$. On observe que $\R^m \setminus \{0\}$ est un ensemble connexe par arcs alors
+		que $\R \setminus \{x\}$ n'est pas un intervalle, ce qui contredit le théorème~\ref{thm:imageconnexepararcs}.
+		\end{proof}
+
+		\begin{rmq} Pour être complet, il est possible de déterminer une bijection de $\R^n$ dans $\R$ mais elle ne peut être continue. Ces ensembles ont donc
+		la même cardinalité. Il existe un résultat similaire disant qu'il n'existe pas de bijection continue $\R^m \to \R^n$ pour $n \neq m$, mais qui dépasse
+		le contenu de ce cours.
+		\end{rmq}
 
 \end{document}
