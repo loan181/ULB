@@ -805,7 +805,7 @@
 		\end{itemize}
 		\end{déf}
 
-		\begin{thm}[Bolzano-Weierstrass] Soit $(x_n)$ une suite bornée. Alors il existe une sous-suite de $(x_n)$ qui converge en
+		\begin{thm}[Bolzano-Weierstrass]\label{thm:BolzWeieR} Soit $(x_n)$ une suite bornée. Alors il existe une sous-suite de $(x_n)$ qui converge en
 		$\limsup_{n\to\infty}x_n$ et une autre qui converge en $\liminf_{n\to\infty}x_n$.
 
 		De plus, pour une sous-suite convergente $(x_{n_k})$ quelconque, $\liminf_{n \to \infty}x_n \leq \lim_{k\to\infty}x_{n_k} \leq \limsup_{n\to\infty}x_n$.
@@ -817,7 +817,7 @@
 		pour la sous-suite convergent en $\liminf_{n\to\infty}x_n$ étant similaire. Définissons cette suite $(x_{n_k})$ terme à terme.
 
 		Prenons $n_0 = 0$. C'est à dire que la sous-suite $(x_{n_k})$ débute en $x_0$. Regardons maintenant l'ensemble $S_{0+1} = \{x_1, x_2, \ldots\}$.
-		Comme $s_1$ est le suprémum de $S_1$, il doit exister $x_m \in S_1$ tel que $s_1-1 < x_m \leq s_1$. Prenons alors pour $n_1$ le plus petit $m$
+		Comme $s_1$ est le supremum de $S_1$, il doit exister $x_m \in S_1$ tel que $s_1-1 < x_m \leq s_1$. Prenons alors pour $n_1$ le plus petit $m$
 		satisfaisant cette condition. Comme $\forall \alpha \in S_1, \alpha > x_0 = n_0$, il est évident que $n_1 > n_0$.
 
 		Regardons maintenant l'ensemble $S_{1+n_1} = \{x_{1+n_1}, x_{2+n_1}, \ldots\}$. De manière similaire au point précédent, il est possible de trouver pour
@@ -1346,7 +1346,7 @@
 	
 	\subsection{Définitions}
 	
-		\begin{déf} Soit $f : I \to \R$ une fonction définie sur un intervalle ouvert $I$ contenant $a$. La focntion $f$ est dérivable en $a$ si la limite
+		\begin{déf} Soit $f : I \to \R$ une fonction définie sur un intervalle ouvert $I$ contenant $a$. La fonction $f$ est dérivable en $a$ si la limite
 		suivante existe~:
 		\[\lim_{h \to 0}\frac {f(a+h)-f(a)}h.\]
 
@@ -2243,5 +2243,36 @@
 		la même cardinalité. Il existe un résultat similaire disant qu'il n'existe pas de bijection continue $\R^m \to \R^n$ pour $n \neq m$, mais qui dépasse
 		le contenu de ce cours.
 		\end{rmq}
+
+	\subsection{Bornes atteintes et ensembles compacts}
+		\begin{thm}[Théorème de Bolzano-Weierstrass dans $\R^n$]\label{thm:BolzWeierRn} Dans $\R^m$, toute suite bornée $(x_k)_k$ contient une sous-suite
+		convergente.
+		\end{thm}
+
+		\begin{proof} On note $x_{k\,i}$ la $i$ème composante du vecteur $x_k$. Comme $x_k$ est bornée par hypothèse, on sait que pour tout $i$, la suite
+		$(x_{k_i})_k$ est également bornée. Par le théorème~\ref{thm:BolzWeieR} de Bolzano-Weierstrass, on sait que chaque composante de la suite contient
+		une sous-suite convergente.
+
+		On nomme $(x_{k_{l^{(1)}}\,1})_k$ une sous-suite convergente de $(x_{k\,1})_k$. On s'intéresse à la suite $(x_{k_{l^{(1)}}})_k$. On prend également une
+		sous-suite convergente de $(x_{k\,2})_k$ que l'on appelle $(x_{k_{m^{(2)}}\,2})_k$. On prend alors les éléments communs entre $(x_{k_{l^{(1)}}})_k$
+		et $(x_{m^{(2)}})_k$ et on appelle cette suite $(x_{k_{l^{(2)}}})$. On répète cet argument au total $m$ fois afin d'obtenir une suite
+		$(x_{k_{l^{(m)}}})$ qui est l'intersection entre tous les $(x_{k_{m^{(i)}}})$. Cette suite est une sous-suite de $(x_k)_k$ est est convergente en
+		toutes ses composantes par construction.
+		\end{proof}
+
+		\begin{prp} Un ensemble $E \subset \R^m$ est fermé et borné si et seulement si~:
+		\[\forall (x_k)_k \subset E : \exists (x_{k_l})_l \text{ convergente en }e \in E.\]
+		\end{prp}
+
+		\begin{proof} Supposons d'abord que $E$ est fermé et borné. Par Bolzano-Weierstrass, on sait que toute suite admet une sous-suite convergente en une
+		valeur $e$ adhérente à $E$. Or puisque $E$ est fermé, on sait que $e \in E$.
+
+		Supposons maintenant que toute suite dans $E$ admet une sous-suite convergente. Prenons $x \in \adh E$. Soit $(x_k)_k \subset E$, une suite convergente
+		en $x$. On sait donc qu'il existe une sous-suite de $(x_k)$ qui converge dans $E$ par hypothèse, et par unicité de la limite, on sait que la sous-suite
+		converge en $x$. Donc $x \in E$, et donc $\adh E \subset E$, ou encore, $E$ est fermé.
+
+		On montre que $E$ est borné par l'absurde en trouvant $y_i \in E \setminus B(y_{i-1}, R_i)$, qui montre que la suite $(y_i)_i$ n'admet pas de sous-suite
+		convergente, ce qui est une contradiction.
+		\end{proof}
 
 \end{document}
