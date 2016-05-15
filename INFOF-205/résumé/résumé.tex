@@ -32,11 +32,14 @@
 \newtheorem{ex}{Exemple}
 
 \DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\tq}{t.q.}
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\R}{\mathbb R}
 
 \newcommand{\kappaabs}{\kappa_{\text{abs}}}
+\newcommand{\algonum}[3]{F_{#1}(#2^{(#1)}, #3^{(#1)})}
+\newcommand{\algnum}{\algonum nxd}
 
 \author{R. Petit}
 \date{Année académique 2015 - 2016}
@@ -185,7 +188,7 @@
 	va croitre lentement et donc pour une faible perturbation sur $d$ (axe vertical), une grande perturbation sur $x$ (axe horizontal) va être induite.
 
 	\begin{déf} Soit $F(x, d) = 0$ un problème bien posé. On définit l'\emph{algorithme numérique} pour la résolution du problème $F$ par la suite de problèmes
-	approchés $F_1(x^{(1)}, d^{(1)}), F_2(x^{(2)}, d^{(2)}), \dotsc, F_n(x^{(n)}, d^{(n)})$ dépendant d'un paramètre $n$.
+	approchés $\algonum 1xd, \algonum 2xd, \dotsc, \algnum$ dépendant d'un paramètre $n$.
 	\end{déf}
 
 	L'idée derrière la division en sous-problèmes est d'avoir des $F_k$ plus simples à résoudre que $F$, ce qui permet une résolution numérique.
@@ -196,5 +199,54 @@
 		\item \emph{itératif} si $n$ n'est pas borné et s'il existe une routine $f(u)$ admissible, indépendante de $n$ telle que $x^{(n)} = f(x^{(n-1)})$.
 	\end{itemize}
 	\end{déf}
+
+	\begin{déf} Un algorithme numérique $\{\algonum ixd\}_{1 \leq i \leq n}$ est consistant si~:
+	\[\lim_{n \to +\infty}\algnum = F(x, d^{(n)}),\]
+	et donc si $x$, la soltion précise, est une solution ses sous-problèmes pour $n \to +\infty$.
+	\end{déf}
+
+	\begin{rmq} Un algorithme itératif $x^{(n)} = f(x^{(n-1)})$ est consistant si $x^{(n)} = x$ implique que $x^{(n+1)} = x$. Ce qui revient à direqu'une fois
+	la solution exacte atteinte, l'algorithme itératif la conserve et ne diverge pas.
+	\end{rmq}
+
+	\begin{déf} Un algorithme $\algnum$ est dit \emph{fortement} consistant si~:
+	\[\forall n \geq 1 : F_n(x, d^{(d)}) = 0,\]
+	c'està-dire si $x$ est une solution admissible de tous les sous-problèmes $\algnum$.
+	\end{déf}
+
+	Intéressons-nous au prolème $F(x, d)$ et à $\algnum$, un algotirhme numérique de résolution du problème. Supposons que cet algorithme numérique soit composé
+	d'étapes telles que~:
+	\[x^{(n)} = F_n^{(m)}\left(d_{m-1}^{(n)}\right),\]
+	où~:
+	\[d_{k}^{(n)} = F_n^{(k)}\left(d_{k-1}^{(n)}\right)\qquad\qquad\text{ et }\qquad\qquad d_0^{(n)} = d^{(n)}.\]
+
+	On considère que la résolution numérique est l'applicationde cet algorithme sur des valeurs perturbées~:
+	\[\begin{cases}
+		\bar x^{(n)} &= F_m^{(n)}\left(\bar d_{m-1}^{(n)}\right) + \delta d_m^{(n)} \\
+		\bar d_k^{(n)} &= F_{k}^{(n)}\left(\bar d_{k-1}^{(n)}\right) + \delta d_k^{(n)} \\
+		\bar d_0^{(n)} &= d^{(n)}
+	\end{cases}\]
+
+	\begin{rmq} On voit bien que l'algorithme à l'étape $n$ commence avec $\bar d_0^{(n)} = d^{(n)}$ qui est une donnée initiale \emph{non perturbée}. \end{rmq}
+
+	\begin{déf} Soit $\algnum$ un algorithme numérique. On dit qu'il est \emph{stable} (ou \emph{bien posé}) si~:
+	\begin{itemize}
+		\item $\forall n : \exists! x^{(n)}$, solution~;
+		\item \[\forall \epsilon > 0 : \exists \eta > 0, n_0 \in \N^* \tq \forall n > n_0 :
+			\left(\forall i \in \{1, \dotsc, m\} : \norm {\delta d_i^{(n)}} < \eta\right) \Rightarrow \left(\norm {\bar x^{(n)}-x^{(n)}} < \epsilon\right).\]
+	\end{itemize}
+	\end{déf}
+
+	\begin{déf} Si l'opération $F_m^{(n)}(d)$ ne dépend ni de $m$, ni de $n$, on parle d'algorithme \emph{itératif}. \end{déf}
+
+	\begin{rmq} Un algorithme est donc dit itératif si c'est constamment la même opération qui est appliquée sur des données consécutives. On a alors~:
+	\[x^{(n)} = f(x^{(n-1)}) = (f \circ f)(x^{(n-2)}) = \dotsb = \left(f^n\right)(x^{(0)}) = \left(f^n\right)(d).\]
+	\end{rmq}
+
+	On peut traduire la définitionde stabilité de manière plus informelle par le fait qu'un algorithme est stable s'il existe un voisinnage de $x$, la solution
+	tel que pour tout $x_1, x_2$ dans ce voisinnage, on a un $R \in (0, 1)$ tel que~:
+	\[\norm {f(x_2)-f(x_1)} \leq R\norm {x_2-x_1}.\]
+	Si $f$ est une fonction différentiable, alors on peut dire que~:
+	\[\norm {f'(x_2)} \leq R.\]
 
 \end{document}
