@@ -70,8 +70,8 @@
 	de manière informatique.
 	\end{rmq}
 
-	\begin{thm}[Théorème de Taylor] Soient $f : I \to \R$ où $I$ est un intervalle, $a \in I$ et $k \geq 1$. Alors $T(f, a, k)(x)$ est le seul polynôme de
-	degré inférieur ou égal à $k$ tel que~:
+	\begin{thm}[Théorème de Taylor]\label{thm:Taylor} Soient $f : I \to \R$ où $I$ est un intervalle, $a \in I$ et $k \geq 1$. Alors $T(f, a, k)(x)$ est le seul
+	polynôme de degré inférieur ou égal à $k$ tel que~:
 	\[\lim_{x \to a}\frac {f(x)-T(f, a, k)}{(x-a)^k} = 0,\]
 	où $T(f, a, k)(x)$, appelé \emph{polynôme de Taylor} est défini par~:
 	\[T(f, a, k)(x) = \sum_{i=0}^k\frac {f^{(i)}(a)(x-a)^i}{i!}.\]
@@ -477,5 +477,45 @@
 		\end{rmq}
 
 	\subsection{Erreurs de propagation et de génération}
+		Les erreurs de propagation sont dues au conditionnement du problème. Les erreurs de génération quant à elles sont dues à la stabilité de l'algorithme
+		mis en place pour la résolution du problème.
+
+		\subsubsection{Erreurs de propagation}
+		Soit $F$ une fonction admettant une dérivée d'ordre 1 en $d$. Par Taylor (voir théorème~\ref{thm:Taylor}), on sait que~:
+		\[F(\widehat d) = F(d + d\rho_d) \simeq F(d) + F'(d)d\rho_d = F(d)\left(1 + \frac {F'(d)d}{F(d)}\rho_d\right) = x(1 + \kappa(d)\rho_d).\]
+
+		On appelle donc $\kappa(d)\rho_d$ l'\emph{erreur de propagation}.
+
+		Il est également possible que $F(\widehat d)$ subisse une approximation. On a alors~:
+		\[\widehat {F(\widehat d)} = x(1 + \kappa(d)\rho_d)(1 + \rho_{F(\widehat d)})
+		= x(1 + \kappa(d)\rho_d + \rho_{F(\widehat d)} + \kappa(d)\rho_d\rho_{F(\widehat d)}).\]
+		On remarque cependant que $\rho_d\rho_{F(\widehat d)}$ est négligeable face au reste (ordre de grandeur deux fois plus grand en valeur absolue) et donc,
+		\[\widehat {F(\widehat d)} \simeq x(1 + \kappa(d)\rho_d + \rho_{F(\widehat d)}).\]
+
+		\begin{rmq} On dit que le conditionnement est lié aux erreurs de propagation car si $\kappa(d) > 1$, alors l'erreur d'arrondi initiale $\rho_d$ va être
+		amplifiée, ce qui est encore plus flagrant sur un algorithme itératif.
+		\end{rmq}
+
+		On ne peut pas changer le conditionnement d'un problème, et donc en cas de mauvais conditionnement, il est préférable de transformer le problème en un
+		problème équivalent mais de plus faible conditionnement.
+
+		\subsubsection{Erreurs de génération}
+		Supposons que le problème $x = F(d)$ soit décomposé en $n$ sous-étapes $x_i = F_i(x_{i-1})$ où $x_0 = d$. Soit $\widehat d = d(1+\rho_d)$ la valeur
+		encodée en machine de $d$. On détermine~:
+		\[\widehat {x_1} = d(1 + \kappa_1(d)\rho_d + \rho_i + \kappa_1(d)\rho_d\rho_i) = x(1 + \rho_{x_1}).\]
+		En réitérant ceci $n$ fois, on obtient~:
+		\[\widehat x = x\left(1 + \rho_n + \sum_{i=1}^{n-1}\rho_{n-i}\prod_{k=i+1}^{n}\kappa_k(d) + \prod_{k=1}^n\kappa_k(d)\rho_d\right).\]
+
+		On comprend de cela que $\rho_n$ est l'erreur d'arrondi final et ne peut donc être évité. De même, $\rho_d\prod_{k=1}^n\kappa_k(d)$ est l'erreur de
+		propagation et dépend du conditionnement, qui dès lors ne peut être évitée. La somme des produits sur $\kappa_k$ et $\rho_{n-i}$ quant à elle est
+		l'erreur de génération et est dépendante de l'algorithme choisi pour résoudre le problème. Les $\rho_{n-i}$ dépendent des fonctions $F_i$ choisies lors
+		des décisions d'implémentation. Ces erreurs sont donc évitables (ou du moins contrôlables par les choix d'implémentation).
+
+		\begin{rmq} Si l'algorithme a besoin de réaliser un calcul dangereux -- tel qu'une soustraction de deux nombres proches -- il est préférable que cette
+		opération soit réalisée le plus tôt possible afin de limiter l'erreur relative.
+		\end{rmq}
+
+\newpage
+\section{Résolution de systèmes linéaires}
 
 \end{document}
