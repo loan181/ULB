@@ -15,7 +15,8 @@ Les résumés disponibles sont les suivants :
 
 + [INFO-F-204 : Analyse et méthodes informatiques](https://github.com/RobinPetit/ULB/blob/master/INFOF-204/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**) ;
 + [MATH-F-307 : Mathématiques discrètes](https://github.com/RobinPetit/ULB/blob/master/MATHF-307/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**) ;
-+ [MATH-H-2002 : Statistiques et probabilités](https://github.com/RobinPetit/ULB/blob/master/MATHH-2002/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**).
++ [MATH-H-2002 : Statistiques et probabilités](https://github.com/RobinPetit/ULB/blob/master/MATHH-2002/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**) ;
++ [INFOF-205 : Caclul formel et numérique](https://github.com/RobinPetit/ULB/blob/master/INFOF-205/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf).
 
 ### BA1 Mathématque
 
