@@ -322,5 +322,85 @@
 		\end{prp}
 
 	\subsection{Représentation interne des nombres par l'ordinateur}
+		Il existe deux manières de représenter les nombres décimaux par un ordinateur~: la \emph{virgule fixe} et la \emph{virgule flottante}.
+
+		\subsubsection{Représentation en virgule fixe}
+		Soit $x \in \F$ un nombre. Sa représentation en virgule fixe est donnée par le triplet $(\{a_i\}_{-m \leq i \leq n}, b, s)$ où~:
+		\begin{itemize}
+			\item $b \geq 2$ est la base de représentation~;
+			\item $s \in \{0, 1\}$ est le signe~;
+			\item $\{a_{-m}, \dotsc, a_n\}$ est l'ensemble de chiffres $0 \leq a_i \lneqq b$ pour tout $i$.
+		\end{itemize}
+
+		\begin{rmq} $m$ représente le nombre de chiffres suivant la virgule, et $n+1$ caractérise le nombre de chiffres précédant la virgule. On en déduit que
+		la virgule est (implicitement) placée entre $a_0$ et $a_{-1}$.
+		\end{rmq}
+
+		On peut donc exprimer $x$ par~:
+		\[x = (-1)^s\sum_{k=-m}^na_kb^k.\]
+
+		\begin{rmq} La base choisie pour les ordinateurs est souvent $2, 8$ ou $16$ car $2$ représente le binaire, et les bases octale et hexadécimale
+		représentent chacune une écriture \emph{compactée} du binaire par paquets de 3 ou 4 bits.
+
+		La base 10 est par fois également choisie.
+		\end{rmq}
+
+		\begin{prp}[Propriétés des nombres en virgule fixe]~
+		\begin{itemize}
+			\item Les nombres représentés par virgule fixe sont équirépartis sur la droite des réels~;
+			\item l'écart entre deux nombres consécutifs représentés en virgule flottante est $b^{-m}$, qui est le plus petit nombre représentable
+			      (en valeur absolue)~;
+			\item et la plus grande valeur représentable est $b^{n+1}-1$, où $n+1$ est le nombre de chiffres avant la virgule.
+		\end{itemize}
+		\end{prp}
+
+		\begin{rmq} La représentation par virgule flottante limite fortement les valeurs extrêmes que peut prendre un nombre de par son équirépartition. Les
+		nombres à virgule fixe (comme vu juste après) ont une densité de répartition différente, ce qui leur permet de prendre des valeurs maximum et minimum
+		bien plus haute (en terme d'ordre de grandeur).
+		\end{rmq}
+
+		\subsubsection{Représentation en virgule flottante}
+		Soit $x \in \F$ un nombre. Sa représentation en virgule flottante est donnée par le quadruplet $(\{a_i\}_{1 \leq i \leq t}, b, s, e)$où~:
+		\begin{itemize}
+			\item $b$ et $s$ représentent les mêmes quantités que pour la virgule fixe~;
+			\item $t$ est le nombre de \emph{chiffres significatifs}~;
+			\item $\{a_i\}_{1 \leq i \leq t}$ est l'ensemble des chiffres $0 \lneqq a_1 \lneqq b$ et $0 \leq a_i \lneqq b$ pour $i > 1$.
+		\end{itemize}
+
+		\begin{rmq} On impose $a_1 \neq 0$ afin que la représentation d'un nombre soit unique. \end{rmq}
+
+		\begin{déf} La \emph{mantisse} est la quantité définie par $\sum_{i=1}^ta_ib^{t-i}$. On la note $m \in \N$, ou encore $m[x] \in \N$ quand il est
+		nécessaire de montrer que $m$ est la mantisse de la valeur $x$.
+		\end{déf}
+
+		\begin{rmq} Dû à la normalisation des $a_i$, on sait borner $m$ par~:
+		\[b^{t-1} \leq m \leq b^t - 1.\]
+		\end{rmq}
+
+		On peut donc au final exprimer $x$ comme~:
+		\[x = (-1)^sb^e\sum_{i=1}^ta_ib^{-i} = (-1)^sb^eb^tb^{-t}\sum_{i=1}^ta_ib^{-i} = (-1)^sb^{e-t}\sum_{i=1}^ta_ib^{t-i} = (-1)^sb^{e-t}m.\]
+
+		\begin{rmq} On note $L$ et $U$ les valeurs respectivement plus petite et plus grande que peut prendre la valeur $e$ de l'exposant. \end{rmq}
+
+		\begin{prp} On paramétrise l'ensemble $\F$ par les quantités $b$, $t$, $L$, et $U$. Quand la paramétrisation doit être explicite, on note l'ensemble~:
+		\[\F(b, t, L, U).\]
+		\end{prp}
+
+		\begin{rmq} Dans une représentation normalisée, $0 \not \in \F$. \end{rmq}
+
+		\begin{thm} Si $x$ est un élément de $\F(b, t, L, U)$, alors on peut borner $x$ tel que~:
+		\[b^{L-1} \leq \abs x \leq b^U(1-b^t).\]
+		\end{thm}
+
+		\begin{prp} Le cardinal de l'ensemble $\F(b, t, L, U)$ est donné par~:
+		\[\abs {\F(b, t, L, U)} = 2(b-1)b^{t-1}(U-L+1).\]
+		\end{prp}
+
+		\begin{rmq} Étant donné que l'exposant $e$ est code sur un nombre $n_e$ de bits (et représenté en complément à 2) dans une représentation machine de
+		représentation flottante, on peut trouver que $L = -2^{n_e-1}-1 \leq e \leq 2^{n_e} = U$. On voit alors que les valeurs maximum prises par un nombre
+		sont beaucoup plus grandes (en valeur absolue de l'ordre de grandeur) qu'en virgule fixe.
+		\end{rmq}
+
+		\subsubsection{Distance relative dans $\F$}
 
 \end{document}
