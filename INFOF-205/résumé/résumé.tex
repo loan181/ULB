@@ -33,6 +33,8 @@
 
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\tq}{t.q.}
+\DeclareMathOperator{\fl}{fl}
+\DeclareMathOperator{\tr}{tr}
 
 \newcommand{\C}{\mathbb C}
 \newcommand{\F}{\mathbb F}
@@ -402,5 +404,78 @@
 		\end{rmq}
 
 		\subsubsection{Distance relative dans $\F$}
+		Prenons $x_i$ et $x_{i+1}$ dans $\F$. On note $\eta(x_i)$ la distance relative entre $x_i$ et $x_{i+1}$ que l'on définit~:
+		\[\eta(x_i) : \abs {\frac {x_{i+1}-x_i}{x_i}}.\]
+
+		Dans un système à virgule fixe, $\eta(x_i)$ est fixe pour tout $i$. Pour un système à virgule flottante, on trouve~:
+		\[\eta(x_i) = \abs {\frac {x_{i+1}-x_i}{x_i}} = \abs {\frac {m[x_{i+1}]b^{e-t}-m[x_i]b^{e-t}}{m[x_i]b^{e-t}}} = \frac 1{m[x_i]}.\]
+		Si $x_{i+1}$ a un exposant plus grand que $x_i$, on a~:
+		\[\eta(x_i)=  \abs {\frac {b^{t-1}b^{e-t+1} - (b^t-1)b^{e-t}}{(b^t-1)^{e-t}}} = \abs {\frac{b^{e-t}}{(b^t-1)b^{e-t}}} = \frac 1{m[x_i]}.\]
+
+		On peut donc, en virgule flottante, également déterminer une distance générale (formule) mais qui n'est pas constante.
+
+		En sachant que~:
+		\[b^{t-1} \leq m < b^t,\]
+		on peut trouver~:
+		\[b^{-t} < \frac 1m = \eta \leq b^{1-t}.\]
+		En divisant de part et d'autre par $b^{1-t}$, on trouve~:
+		\[\frac \epsilon b < \eta(x_i) \leq \epsilon.\]
+
+		\begin{déf} On appelle $\epsilon \coloneqq b^{1-t}$ l'\emph{epsilon machine} qui représente la distance maximale entre deux nombres consécutifs en
+		virgule flottante.
+		\end{déf}
+
+		\begin{rmq} L'epsilon machine permet de déterminer $1+\epsilon$ qui est le plus petit nombre $x \in \F$ tel que $x \gneqq 1$. \end{rmq}
+
+		\begin{rmq} Il ne faut pas confondre $\epsilon$ qui est la distance maximale entre deux nombres et $b^{L-1}$ qui est le plus petit nombre que l'on peut
+		représenter. En pratique, $\epsilon \simeq 10^{-16}$ alors que $b^{L-1} \simeq 10^{-308}$. \end{rmq}
+
+		\begin{déf} Le phénomène d'oscillation de $\eta(x_i)$ est appelé \textit{wobbling precision} en anglais. \end{déf}
+
+		\begin{rmq} Le phénomène de \textit{wobbling precision} est d'autant plus grand que la base $b$ est grande. C'est entre autres pour cela que les petites
+		bases ($b = 2$) sont utilisées en pratique. \end{rmq}
+
+		\begin{déf} Soit $x \in \R \setminus \F$ un réel. $x$ n'a pas de représentation exacte par l'ordinateur puisque $x \not \in \F$.
+
+		\begin{itemize}
+			\item Si $\abs x > b^U(1-b^{-t})$, alors $x$ est plus grand que le plus grand nombre que l'on peut représenter. On parle alors d'\emph{overflow}.
+			      En cas d'overflow, habituellement, le système interrompt le programme.
+			\item Si $\abs x < b^{L-1}$, alors $x$ est plus petit que le plus petit nombre possible à représenter. On parle alors d'\emph{underflow}. En cas
+			      d'underflow, habituellement, le nombre $x$ est arrondi à 0.
+			\item Si $x$ ne dépasse pas des bornes de représentation, on considère $a_{t+1}$, le chiffre suivant $a_t$ dans la représentation théorique à
+			      précision infinie de $x$. On peut alors déterminer $\widehat x$ de deux manières~:
+				\begin{itemize}
+					\item par arrondi~;
+					\item par troncature.
+				\end{itemize}
+		\end{itemize}
+
+		Un arrondi se fait par l'application $x \mapsto \widehat x = \fl(x)$, qui \emph{remplace} $a_t$ par $a_t^*$ défini par~:
+		\[a_t^* = \begin{cases}a_t &\text{ si }a_{t+1} < \frac b2, \\ a_t + 1 &\text{ si }a_{t+1} \geq \frac b2.\end{cases}\]
+		Si $a_{t+1} \geq \frac b2$ et $a_t = b-1$, on réitère le processus pour $a_{t-1}$ selon $a_t$, etc.
+
+		Une troncature se fait par l'application $x \mapsto \widehat x = \tr(x)$, qui conserve uniquement les $t$ premiers chiffres de la notation théorique.
+		\end{déf}
+
+		\begin{déf} On définit $\epsilon_x$ l'erreur relative de $x$ par~:
+		\[\epsilon_x = \abs {\frac {\fl(x)-x}x}.\]
+
+		On définit également la \emph{précision machine} $u \coloneqq \frac \epsilon2$.
+		\end{déf}
+
+		\begin{prp} Soit $x \in \R$ et $\fl(x) \in \F$. On a $\epsilon_x \leq \frac \epsilon2$. \end{prp}
+
+		\begin{proof} $\abs {\fl(x)-x}$ représente la distance entre $x$ et son approximation. $x$ est arrondi au nombre dans $\F$ le plus proche, et donc
+		$\abs {\fl(x)-x} \leq \frac 12\abs{x_{i+1}-x_{i}}$ avec $x_i \leq x \leq x_{i+1}$. On trouve alors~:
+		\[\epsilon_x = \abs {\rho_x} \leq \frac \epsilon2 = u.\]
+		\end{proof}
+
+		\begin{rmq} La précision machine $u$ donne l'ordre de grandeur de la meilleure approximation possible pour un arrondi sur une machine donnée. \end{rmq}
+
+		\begin{rmq} On trouve alors~:
+		\[\fl(x) = x(1 + \rho_x).\]
+		\end{rmq}
+
+	\subsection{Erreurs de propagation et de génération}
 
 \end{document}
