@@ -34,7 +34,10 @@
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\tq}{t.q.}
 
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
 \newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 
 \newcommand{\kappaabs}{\kappa_{\text{abs}}}
@@ -202,25 +205,25 @@
 
 	\begin{déf} Un algorithme numérique $\{\algonum ixd\}_{1 \leq i \leq n}$ est consistant si~:
 	\[\lim_{n \to +\infty}\algnum = F(x, d^{(n)}),\]
-	et donc si $x$, la soltion précise, est une solution ses sous-problèmes pour $n \to +\infty$.
+	et donc si $x$, la solution précise, est une solution ses sous-problèmes pour $n \to +\infty$.
 	\end{déf}
 
-	\begin{rmq} Un algorithme itératif $x^{(n)} = f(x^{(n-1)})$ est consistant si $x^{(n)} = x$ implique que $x^{(n+1)} = x$. Ce qui revient à direqu'une fois
+	\begin{rmq} Un algorithme itératif $x^{(n)} = f(x^{(n-1)})$ est consistant si $x^{(n)} = x$ implique que $x^{(n+1)} = x$. Ce qui revient à dire qu'une fois
 	la solution exacte atteinte, l'algorithme itératif la conserve et ne diverge pas.
 	\end{rmq}
 
 	\begin{déf} Un algorithme $\algnum$ est dit \emph{fortement} consistant si~:
 	\[\forall n \geq 1 : F_n(x, d^{(d)}) = 0,\]
-	c'està-dire si $x$ est une solution admissible de tous les sous-problèmes $\algnum$.
+	c'es-tà-dire si $x$ est une solution admissible de tous les sous-problèmes $\algnum$.
 	\end{déf}
 
-	Intéressons-nous au prolème $F(x, d)$ et à $\algnum$, un algotirhme numérique de résolution du problème. Supposons que cet algorithme numérique soit composé
+	Intéressons-nous au problème $F(x, d)$ et à $\algnum$, un algorithme numérique de résolution du problème. Supposons que cet algorithme numérique soit composé
 	d'étapes telles que~:
 	\[x^{(n)} = F_n^{(m)}\left(d_{m-1}^{(n)}\right),\]
 	où~:
 	\[d_{k}^{(n)} = F_n^{(k)}\left(d_{k-1}^{(n)}\right)\qquad\qquad\text{ et }\qquad\qquad d_0^{(n)} = d^{(n)}.\]
 
-	On considère que la résolution numérique est l'applicationde cet algorithme sur des valeurs perturbées~:
+	On considère que la résolution numérique est l'application de cet algorithme sur des valeurs perturbées~:
 	\[\begin{cases}
 		\bar x^{(n)} &= F_m^{(n)}\left(\bar d_{m-1}^{(n)}\right) + \delta d_m^{(n)} \\
 		\bar d_k^{(n)} &= F_{k}^{(n)}\left(\bar d_{k-1}^{(n)}\right) + \delta d_k^{(n)} \\
@@ -243,10 +246,81 @@
 	\[x^{(n)} = f(x^{(n-1)}) = (f \circ f)(x^{(n-2)}) = \dotsb = \left(f^n\right)(x^{(0)}) = \left(f^n\right)(d).\]
 	\end{rmq}
 
-	On peut traduire la définitionde stabilité de manière plus informelle par le fait qu'un algorithme est stable s'il existe un voisinnage de $x$, la solution
-	tel que pour tout $x_1, x_2$ dans ce voisinnage, on a un $R \in (0, 1)$ tel que~:
+	On peut traduire la définition de stabilité de manière plus informelle par le fait qu'un algorithme est stable s'il existe un voisinage de $x$, la solution
+	tel que pour tout $x_1, x_2$ dans ce voisinage, on a un $R \in (0, 1)$ tel que~:
 	\[\norm {f(x_2)-f(x_1)} \leq R\norm {x_2-x_1}.\]
 	Si $f$ est une fonction différentiable, alors on peut dire que~:
 	\[\norm {f'(x_2)} \leq R.\]
+
+\newpage
+\section{Analyse et mesure d'erreurs}
+	\subsection{Définitions}
+		\begin{déf} $\F$ est l'ensemble des nombres représentés exactement par un ordinateur. \end{déf}
+
+		\begin{rmq} On remarque aisément que $\F \subset \R$ car $\F \not \subset \C \setminus \R$. On peut tout de même raffiner car il semble évident que
+		$\F \subset \Q$~: un nombre irrationnel n'a pas de représentation physique finie, et ne peut donc pas être représentés par un ordinateur.
+		\end{rmq}
+
+		\begin{déf} Soit $x$ un nombre dans $\Q$. Une approximation de $x$ est une valeur $\widehat x$ légèrement différente de $x$ et qui remplace $x$ dans les
+		calculs effectués. On note également $x \simeq \widehat x$ pour montrer que $\widehat x$ est une approximation de $x$.
+
+		Si $\widehat x < x$, on parle d'approximation par défaut, et si $\widehat x > x$, on parle d'approximation par excès.
+		\end{déf}
+
+		\begin{déf} On définit l'\emph{erreur absolue} entre $x$ et son approximation $\widehat x$ par~:
+		\[\delta_x = \abs {\widehat x - x}.\]
+
+		On définit également l'\emph{écart relatif} entre $x$ et $\widehat x$ par~:
+		\[\rho_x = \frac {\widehat x - x}x.\]
+
+		On définit alors l'écart absolue défini comme $\epsilon_x = \abs {\rho_x}$.
+		\end{déf}
+
+		\begin{rmq} L'écart relatif permet d'écrire l'approximation sous la forme $\widehat x = x(1+\rho_x)$ où $\rho_x$ est censé être faible (car l'écart
+		entre $x$ et son approximation doit rester relativement faible). Cette notation est fortement utilisée.
+
+		Les écarts ne sont cependant définis qu'en $x \neq 0$, ce dont il faut tenir compte.
+		\end{rmq}
+
+		\begin{déf} La \emph{borne supérieure d'erreur relative} d'une approximation $\widehat x$, notée $u$ est nombre positif quelconque tel que
+		$u \geq \epsilon_x$.
+		\end{déf}
+
+		Mis à part les erreurs de calcul (qui consistent à déterminer un résultat erroné sur base de données bien définies) et les erreurs d'implémentation
+		(qui consiste en une implémentation erronée amenant à des erreurs de calcul), il existe cinq catégories d'erreurs que l'on peut regrouper en deux
+		familles~:
+
+		\begin{itemize}
+			\item les erreurs de modèle qui consistent en simplifier les phénomènes en omettant des éléments afin de le rendre plus facile à étudier~;
+			\item les erreurs numériques qui consistent en l'approximation due à l'observation et non à la résolution théorique.
+		\end{itemize}
+
+	\subsection[les erreurs numériques]{Les erreurs numériques\footnote{Les erreurs de modélisation ne sont pas traitées ici.}}
+		\begin{déf} Les \emph{erreurs de troncature} sont les erreurs liées aux processus théoriques mathématiques infinis (série infinie par exemple).
+		\end{déf}
+
+		\begin{déf} Les \emph{erreurs d'arrondi} sont les erreurs liées au système numérique de la machine venant du fait qu'un ordinateur ne peut représenter
+		qu'un sous-ensemble fini $\F$ des nombres.
+		\end{déf}
+
+		\begin{déf} Les \emph{erreurs de génération et de propagation} sont les erreurs liées à l'évaluation d'une opération sur des opérandes pas exactes.
+		\end{déf}
+
+		\begin{rmq} Les erreurs de troncature sont compliquées à éviter~: il est nécessaire d'avoir un procédé fini pour y échapper. Cette catégorie d'erreurs
+		ne seront donc pas étudiées dans ce cours.
+		\end{rmq}
+
+		Les différents types d'erreurs concernent différentes propriétés des problèmes ou des algorithmes numériques utilisés.
+
+		\begin{prp}~
+		\begin{itemize}
+			\item Les erreurs d'approximation ou de troncature se mesurent par la \textbf{consistance} de l'algorithme~;
+			\item les erreurs de propagation se mesurent par le \textbf{conditionnement} de l'algorithme~;
+			\item les erreurs de génération se mesurent par la \textbf{stabilité de l'algorithme}~;
+			\item les erreurs d'arrondi sont liées à la représentation interne des nombres.
+		\end{itemize}
+		\end{prp}
+
+	\subsection{Représentation interne des nombres par l'ordinateur}
 
 \end{document}
