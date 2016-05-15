@@ -517,5 +517,110 @@
 
 \newpage
 \section{Résolution de systèmes linéaires}
+	\subsection{Définitions}
+		\begin{déf}Un système de $N$ équations linéaires à $n$ inconnues est donné par $(S) : \sum_{i=1}^na_{i\,j}x_i = b_i$ pour $j \in \{1, \dotsb, N\}$.
+
+		Un tel système se note également sous forme matricielle par $Ax = b$ où $A \in \R^{N \times n}$, $x \in \R^n$ et $b \in \R^N$.
+		Si $x = (x_1, \dotsc, x_n) \in \R^n$ est un $n$-uple satisfaisant ces $N$ conditions, alors $x$ est une solutions de $(S)$.
+		\end{déf}
+
+		\begin{rmq} Dans cette section, seuls les systèmes linéaires carrés ($N = n$) seront étudiés. \end{rmq}
+
+		\begin{déf} Soit $A$ une matrice carrée. Le rang de $A$ est la dimension de l'espace vectoriel engendré par ses vecteurs colonnes. \end{déf}
+
+		\begin{prp} La solution d'un système linéaire carré $(S) : Ax = b$ existe et est unique si et seulement si une des conditions équivalentes suivantes
+		est remplie~:
+		\begin{enumerate}
+			\item $A$ est inversible~;
+			\item $A$ est régulière ($\det(A) \neq 0$)~;
+			\item le rang de $A$ vaut $n$~;
+			\item Le système homogène $(\bar S) : Ax = 0$ admet $x = (0, \dotsc, 0)$ pour seule solution.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{thm}[Formule de Cramer] Soit $(S) : Ax = b$ un système linéaire carré. La solution est donnée par le vecteur $x$ tel que~:
+		\[x_j = \frac 1{\det(A)}\Delta_j,\]
+		où $\Delta_j$ est le déterminant de la matrice obtenue en remplaçant la $j$ème colonne de $A$ par le vecteur $b$.
+		\end{thm}
+
+		\begin{rmq} Le calcul du déterminant est en $O(n!)$ et est donc impraticable pour des $n$ même relativement petits (et impensables pour $n \sim 10^5$,
+		ce qui est l'ordre de grandeur de certains systèmes de résolutions d'équations différentielles partielles). On opte donc pour une résolution numérique
+		du système.
+		\end{rmq}
+
+		\begin{déf} Une méthode de résolution est dite \emph{directe} si elle fournit la solution exacte en un nombre fini d'étapes. Elle est dite itérative
+		si elle fournit une approximation convergente vers la solution.
+		\end{déf}
+
+	\subsection{Systèmes triangulaires}
+		\begin{déf} Une matrice carrée $A$ est dite \emph{triangulaire inférieure} si $\forall j > i : A_{i\,j} = 0$. \end{déf}
+
+		\begin{déf} Une matrice carrée $A$ est dite \emph{triangulaire supérieure} si $A^T$ est triangulaire inférieure. \end{déf}
+
+		\begin{déf} Un système $(S) : Ax = b$ est dit triangulaire inférieur (respectivement supérieur) si sa matrice $A$ est triangulaire inférieure
+		(respectivement supérieure).
+		\end{déf}
+
+		\begin{rmq} Il est fréquent de noter les matrices triangulaires inférieures $L$ (pour \emph{lower}) et les matrices triangulaires supérieures $U$
+		(pour \emph{upper}).
+		\end{rmq}
+
+		\begin{prp}[Résolution d'un système triangulaire inférieur] Soit $(S) : Lx = b$ un système triangulaire inférieur. On trouve (dans l'ordre croissant,
+		à savoir pour $j$ de $1$ à $n$) les solutions de la manière suivante~:
+		\begin{equation}\label{eq:ressystriang}
+			x_j = \frac {(b_j - \sum_{k=1}^{j-1}x_kL_{j\,k})}{L_{k\,k}}.
+		\end{equation}
+		\end{prp}
+
+		\begin{cor} La résolution d'un système triangulaire supérieur $(S) : Ux = b$ se fait de la même manière mais dans l'ordre décroissant, c'est-à-dire
+		pour $j$ de $n$ à $1$. (Cela revient, théoriquement, à dire que la solution est la transposée de la solution de la transposée.)
+		\end{cor}
+
+		\begin{déf} On définit le \emph{flop} comme étant une unité de mesure des opérations à virgule flottante tel qu'une opération est $1$~flop. \end{déf}
+
+		\subsubsection{Analyse du coût calculatoire de la résolution d'un système triangulaire}
+		Par l'équation~\eqref{eq:ressystriang}, on voit que pour chaque $x_j$, il y a à opérer $(j-1)$ multiplications, $(j-1)$ additions, et une division.
+		La résolution d'un système carré de dimension $n \times n$ nécessite donc, au total, $n + \frac {n(n-1)}2 + \frac {n(n-1)}2 = n^2$ opérations.
+		On peut donc exprimer le coût calculatoire par $n^2$~flops.
+
+		\begin{déf} Soient $(S_1) : A_1x = b_1$ et $(S_2) : A_2x = b_2$ deux systèmes linéaires d'équations. On dit qu'ils sont équivalents si leur ensemble
+		de solution respectif est identique. \end{déf}
+
+		\begin{prp} Soit $(S) : Ax = b$ un système. Il existe trois opérations fondamentales permettant de modifier un système en un autre système équivalent.
+		Ces opérations sont~:
+		\begin{enumerate}
+			\item échanger deux lignes~;
+			\item multiplier une ligne par une constante~;
+			\item ajouter à une ligne une combinaison linéaire des autres.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{thm}[Méthode de Gauss de diagonalisation de matrice] La méthode de gauss permet de diagonaliser une matrice carrée. Une fois la matrice carrée
+		diagonalisée, la solution est immédiate.
+
+		La méthode de diagonalisation est la suivante~: tout d'abord, on \emph{ajoute} le vecteur $n$ en $n+1$ème colonne de $A$. Ensuite, pour chaque ligne
+		$i$ (une par une), on prend l'élément $A_{i\,i}$. S'il est nul, on échange la $i$ème ligne avec la première ligne $j > i$ telle que $A_{j\,i} \neq 0$.
+		Si un tel $j$ n'existe pas, le déterminant est nul et donc la matrice n'est pas inversible, le système n'a donc pas de solution (du moins unique).Une
+		fois qu'il est assuré que $A_{i\,i} \neq 0$, on remplace toutes les colonnes $j \neq i$ par $A_j - \frac {A_{i\,i}}{A_{j\,i}}A_i$. Une fois toutes les
+		lignes traitées, la matrice est diagonalisée.
+		\end{thm}
+
+		\subsubsection{Analyse du coût calculatoire de la méthode de Gauss}
+		On peut limiter l'élimination de Gauss en triangulant la matrice et pas en la diagonalisant. Dans ce cas, à chaque colonne $i$ à normaliser, il y a
+		$(n-i)$ divisions à opérer. Le nombre de divisions est donc $\frac {n(n-1)}2$.
+
+		Il y a une multiplication à chaque élément normalisé (en considérant le coefficient $\frac {A_{i\,i}}{A_{j\,i}}$ calculé par la division comptée juste
+		au-dessus). Il y a $(n-1)$ lignes, et pour la $i$ème d'entre elles, il y a $(n-i)(n-i+1)$ normalisations. Il en est de même pour les additions et
+		soustractions. Le coût total est donc~:
+
+		\begin{align*}
+			\sum_{k=1}^{n-1}1 + 2\sum_{k=1}^{n-1}(n-k)(n-k+1) &= \frac {n(n-1)}2 + 2\sum_{k=1}^{n-1}k(k+1) = \frac {n(n-1)}2 + 2\sum_{k=1}^{n-1}(k^2 + k) \\
+			&= \frac {n(n-1)}2 + 2\sum_{k=1}^{n-1}k^2 + 2\sum_{k=1}^{n-1}k = \frac {3n(n-1)}2 + 2\frac {n(n-1)(2n-1)}6 \\
+			&= \frac {n(n-1)}2\left(9 + 2(2n-1)\right) = \frac {n(n-1)}2(4n+7) = \frac {2n^3}3 + \frac {7n^2}6 - \frac {4n^2}6 - \frac {7n}6 \\
+			&= \frac {2n^3}3 + \frac {n^2}2 - \frac {7n}6.
+		\end{align*}
+
+		En rajoutant à cela les $n^2$~flops de résolution de la matrice triangulaire, on obtient un coût total de résolution de
+		$\frac {2n^3}3 + \frac {3n^2}2 + \frac {7n}6$.
 
 \end{document}
