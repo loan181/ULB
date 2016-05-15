@@ -543,9 +543,9 @@
 		où $\Delta_j$ est le déterminant de la matrice obtenue en remplaçant la $j$ème colonne de $A$ par le vecteur $b$.
 		\end{thm}
 
-		\begin{rmq} Le calcul du déterminant est en $O(n!)$ et est donc impraticable pour des $n$ même relativement petits (et impensables pour $n \sim 10^5$,
-		ce qui est l'ordre de grandeur de certains systèmes de résolutions d'équations différentielles partielles). On opte donc pour une résolution numérique
-		du système.
+		\begin{rmq} Le calcul du déterminant est en $\mathcal O(n!)$ et est donc impraticable pour des $n$ même relativement petits (et impensables pour
+		$n \sim 10^5$, ce qui est l'ordre de grandeur de certains systèmes de résolutions d'équations différentielles partielles). On opte donc pour une
+		résolution numérique du système.
 		\end{rmq}
 
 		\begin{déf} Une méthode de résolution est dite \emph{directe} si elle fournit la solution exacte en un nombre fini d'étapes. Elle est dite itérative
@@ -622,5 +622,67 @@
 
 		En rajoutant à cela les $n^2$~flops de résolution de la matrice triangulaire, on obtient un coût total de résolution de
 		$\frac {2n^3}3 + \frac {3n^2}2 + \frac {7n}6$.
+	
+	\subsection{Factorisation de matrices}
+		\subsubsection{Factorisation LU}
+		\begin{déf} On définit l'application $\delta$ sur un ensemble quelconque $E$ telle que :
+		\[\delta : E \times E \to E : (x, y) \mapsto \delta_{x\,y} \coloneqq \begin{cases}1 &\text{ si }x = y, \\0 &\text{ sinon}.\end{cases}\]
+		\end{déf}
+
+		\begin{déf} Soit $A$ une matrice triangulaire (inférieure ou supérieure). Si pour tout $i$, on a : $A_{i\,i} = 1$, on dit que $A$ est triangulaire
+		\emph{atomique}.
+		\end{déf}
+
+		\begin{prp} L'inverse $A^{-1}$ d'une matrice triangulaire atomique $A$ est également triangulaire atomique. \end{prp}
+
+		Il peut être intéressant de décomposer la matrice carrée $A$ d'un système par un produit de deux matrices $L$ et $U$ respectivement triangulaire
+		inférieure et triangulaire supérieure, où $\forall i : L_{i\,i} = 1$.
+
+		Il existe plusieurs méthodes (dont certaines directes) pour procéder à cette factorisation, mais commençons par l'adaptation de la méthode de Gauss pour
+		créer les matrices pendant la triangulation.
+
+		À l'étape de la renormalisation de la $i$ème colonne, il y a $(n-i)$ lignes à remplacer par une combinaison linéaire des autres. Cette renormalisation
+		de la ligne peut s'écrire~:
+		\[\forall j > i, k \geq i : A_{j\,k} \leftarrow A_{j\,k} - \frac {A_{j\,i}}{A_{i\,i}}A_{i\,k}.\]
+		On peut noter cette opération de manière matricielle par~:
+		\[A \leftarrow M^{(i)}A,\]
+		où $M^{(i)}$ est la $i$ème matrice de diagonalisation et vaut~:
+		\[M^{(i)} = \left[M^{(i)}_{k\,l}\right]_{k\,l} = \left[\delta_{k\,l} - \delta_{i\,l}\frac {A_{k\,i}}{A_{i\,i}}\right]_{k\,l}\]
+
+		\begin{rmq} La matrice inverse de $M^{(i)}$ est la matrice $\left(M^{(i)}\right)^{-1}$ définie par~:
+		\[\left(M^{(i)}\right)^{-1} = \left[\delta_{k\,l} + \delta_{i\,l}\frac {A_{k\,i}}{A_{i\,i}}\right]_{k\,l} = (2I - M^{(i)}).\]
+
+		Cela est intuitivement vrai du fait que la matrice inverse représente l'application inverse. Et l'application inverse du fait de retirer $\alpha_{k\,i}$
+		fois la ligne $i$ est de l'ajouter $\alpha_{k\,i}$, où $\alpha_{k\,i}$ représente le coefficient $\frac {A_{k\,i}}{A_{i\,i}}$.
+		\end{rmq}
+		
+		On peut nommer les matrices intermédiaires $A^{(k)}$. On a donc $A^{(0)} = A$, $A^{(1)} = M^{(1)}A$, $A^{(2)} = M_2A^{(1)} = M_2M_1A$, etc. que l'on
+		peut généraliser en~:
+		\[A^{(k)} = M^{(k)}M^{(k-1)}\dotsm M^{(2)}M^{(1)}A = \left(\prod_{\gamma=0}^{k}M^{(k-\gamma)}\right)A.\]
+
+		La matrice finale est une matrice triangulaire supérieure (algorithme de Gauss vu plus haut). On peut donc poser $U = A^{(n)}$ si $n$ est la dimension
+		de la matrice. On pose alors~:
+		\[L \coloneqq (M^{(k)}M^{(k-1)} \dotsm M^{(2)}M^{(1)})^{-1}
+		= \left(\left(M^{(1)}\right)^{-1}\left(M^{(2)}\right)^{-1} \dotsm \left(M^{(k-1)}\right)^{-1}\left(M^{(k)}\right)^{-1}\right).\]
+
+		\begin{rmq} Étant donné que les $M_i$ sont atomiques inférieures, leur inverse l'est également. Et la \emph{composition} de ces matrices atomiques
+		est également une matrice atomique inférieure. Dès lors, on sait que $L$ est atomique inférieure et peut satisfaire la factorisation.
+		\end{rmq}
+
+		On a donc finalement bien $A = LU$ avec $U$ triangulaire supérieure et $L$ triangulaire inférieure atomique.
+
+		\begin{rmq} L'intérêt de cette décomposition LU est qu'une fois la factorisation faite, la résolution du système $(S) : Ax = b$ se fait par la résolution
+		de deux système triangulaires, à savoir~:
+		\[\begin{cases}Ly &= b, \\Ux &= y.\end{cases}\]
+
+		Supposons qu'il y ait $p \in \N^*$ systèmes à résoudre ayant tous la même matrice caractéristique $A$. Cette suite de problèmes peut donc se noter~:
+		\[Ax^{(k)} = b^{(k)}.\]
+		Ainsi, en appliquant $p$ fois Gauss, asymptotiquement, le terme $n^2$ de Gauss devient négligeable, et on obtient~: $p\mathcal O(n^3)$~flops.
+		En appliquant une fois la décomposition et en utilisant ces deux matrices pour la résolution de sous-systèmes triangulaires, on obtient~:
+		$\mathcal O(n^3 + pn^2)$. Par définition du grand O, c'est équivalent à $\mathcal O(n^3)$. Asymptotiquement, la factorisation rend le programme $p$
+		fois plus rapide (du moins, moins coûteux en opérations).
+		\end{rmq}
+
+	\subsection{Pivots de la méthode de Gauss}
 
 \end{document}
