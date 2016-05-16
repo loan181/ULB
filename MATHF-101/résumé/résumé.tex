@@ -2275,4 +2275,51 @@
 		convergente, ce qui est une contradiction.
 		\end{proof}
 
+		\begin{déf} Un ensemble $E \subset \R^m$ est dit \emph{compact} si toute suite $(x_k) \subset E$ admet une sous-suite convergente dans $E$. \end{déf}
+
+		\begin{thm}[Théorème des bornes atteintes]\label{thm:bornesatteintesrn} Soit $\frmr fE$ une fonction continue. Si $E$ est un ensemble fermé borné,
+		alors $f(E) \subseteq \R$ est un ensemble fermé borné. En particulier, $f$ est bornée et atteint ses bornes.
+		\end{thm}
+
+		\begin{proof} Notons $m, M$ respectivement les quantités $\inf_{x \in E}f(x)$ et $\sup_{x \in E}f(x)$. Montrons que $f$ est bornée, et donc supposons par
+		l'absurde que $m = -\infty$ ou $M = +\infty$.  On trouve donc une suite $(x_k) \subset E$ telle que $\abs {f(x_k)} \to +\infty$ (ou encore
+		$\forall k \in \N : \abs{f(x_k)} \geq k$). Puisque $E$ est un ensemble fermé borné, on peut extraire $(x_{k_n})$ une sous-suite de $(x_k)$ convergente
+		en $x \in E$. Par continuité de $f$, on sait que $f(x_{k_n})$ est également une suite convergente en $f(x)$. La fonction $f$ est donc bornée, ce qui
+		contredit l'hypothèse.
+
+		Montrons ensuite que $m \in f(E)$. (L'argument pour montrer $M \in f(E)$ est identique.) Par définition de l'infimum, il existe $(x_k) \subset E$ une
+		suite telle que $f(x_k)$ est convergente en $m$. Puisque $E$ est fermé borné, on peut extraire une sous-suite $(x_{k_n})$ telle que $x_{k_n} \to x \in E$.
+		On sait alors $f(x_{k_n}) \to f(x)$ par continuité de $f$, et donc $m \in f(E)$.
+
+		Montrons maintenant que $f(E)$ est fermé. Prenons $c \in \adh f(E)$. On sait qu'il existe une suite $(x_k) \subset f(E)$ convergente en $c$. Si $x_k$
+		est dans $E$, alors il existe $z_k \in E$ tel que $x_k = f(z_k)$. La suite $(z_k) \subset E$ possède une sous-suite $(z_{k_n})$ convergente en $x \in E$.
+		Par continuité de $f$, on sait que $f(z_k) \to f(x) \in f(E)$. Or, par unicité de la limite, on a $c = f(x) \in f(E)$.
+		\end{proof}
+
+	\subsection{continuité uniforme}
+		\begin{déf} Soit $\frmr fE$ une fonction. Si~:
+		\[\forall \epsilon > 0 : \exists \delta > 0 \tq \forall x, y \in E : \norm{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} < \epsilon,\]
+		alors on dit que que $f$ est \emph{uniformément continue}.
+		\end{déf}
+
+		\begin{déf} Une fonction $\frmr fE$ est dite \emph{Lipschitzienne} si~:
+		\[\exists \alpha > 0 \tq \forall x, y \in E : \norm{f(x)-f(y)} \leq \alpha\norm{x-y}.\]
+		\end{déf}
+
+		\begin{lem} Une fonction Lipschitzienne est uniformément continue. \end{lem}
+
+		\begin{proof} Soit $\frmr fE$ une fonction Lipschitzienne. Soit $\epsilon > 0$. Prenons $\delta = \frac \epsilon\alpha$ où $\alpha$ est le paramètre
+		lipschitzien de $f$. Supposons que $\norm{x-y} < \delta$, on trouve alors~:
+		\[\abs {f(x)-f(y)} \leq \alpha\norm{x-y} < \alpha\delta = \epsilon.\]
+		\end{proof}
+
+		\begin{rmq} On remarque également que l'uniforme continuité implique la continuité. \end{rmq}
+
+		\begin{prp} Soit $\frmr fE$ une fonction continue définie sur $E$ fermé borné. Alors $f$ est uniformément continue. \end{prp}
+
+		\begin{proof} Par Bolzano-Weierstrass. \end{proof}
+
+\newpage
+\section{Fonctions différentiables à plusieurs variables}
+
 \end{document}
