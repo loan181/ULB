@@ -23,7 +23,7 @@
 
 \title{Calcul différentiel et intégral}
 \author{R. Petit}
-\date{année académique 2015 - 2016}
+\date{Année académique 2015 - 2016}
 
 \DeclareMathOperator{\arctanh}{arctanh}
 \DeclareMathOperator{\dom}{dom}
@@ -36,7 +36,6 @@
 \DeclareMathOperator{\Larea}{\mathcal L}
 \DeclareMathOperator{\Uarea}{\mathcal U}
 
-\newcommand{\QED}{\begin{flushright}$\square$\end{flushright}}
 \newcommand{\scpr}[2]{{\left\langle#1, #2\right\rangle}}
 \newcommand{\frrn}[2]{#1 : #2 \subseteq \R \to \R^n}
 \newcommand{\frr}[2]{#1 : #2 \subseteq \R \to \R}
@@ -1342,8 +1341,7 @@
 		la proposition est démontrée. \end{proof}
 
 \newpage
-\section{Fonctions dérivables}
-	
+\section{Fonctions dérivables}\label{sec:foncdérivables}
 	\subsection{Définitions}
 	
 		\begin{déf} Soit $f : I \to \R$ une fonction définie sur un intervalle ouvert $I$ contenant $a$. La fonction $f$ est dérivable en $a$ si la limite
@@ -2321,5 +2319,45 @@
 
 \newpage
 \section{Fonctions différentiables à plusieurs variables}
+	\subsection{Rappels}
+		On appelle la \emph{différentielle} en $a$ l'application $(\partial_vf)(a)$ qui envoie $v$ sur $\scpr {(\nabla f)(a)}v$, où
+		$(\nabla f)(a)$ est le gradient de $f$ au point $a$, donné par le vecteur $\left((\partial_if)(a)\right)_i$.
+
+		\begin{déf} Soit $\frmrn fE$ et soient $a \in \intr E, v \in \R^m$. On dit que \emph{$f$ est dérivable au point $a$ dans la direction $v$} si~:
+		\[\forall i \in \{1, \dotsb, n\} : (\partial_if)(a) \coloneqq \lim_{h \to 0}\frac {f_i(a+hv)-f_i(a)}h\qquad\text{existe}.\]
+		Dans ce cas, on note~:
+		\[(\partial_vf)(a) \coloneqq \lim_{h \to 0}\frac {f(a+hv)-f(a)}h = \left((\partial_vf_i)(a)\right)_i.\]
+		\end{déf}
+
+		La définition de différentiabilité des fonctions réelles a été vue à la section~\ref{sec:foncdérivables}. $\frmr fE$ est différentiable en $x \in \R^m$
+		s'il existe $u \in \R^m$ tel que~:
+		\[\lim_{x \to a}\frac {f(x)-f(a)-\scpr u{x-a}}{\abs {x-a}} = 0.\]
+
+		Si un tel vecteur $u$ existe, il faut que que ce vecteur $u$ soit le gradient $(\nabla f)(a)$ de $f$. On peut dès lors déterminer les différentes
+		dérivées directionnelles d'une fonction $\frmr fE$ en connaissant son gradient~:
+		\[(\partial_vf)(a) = \scpr {(\nabla f)(a)}v.\]
+
+		On extrapole cette formule dans le cas de fonctions à valeur vectorielle~:
+		\[(\partial_vf)(a) = \left((\partial_vf_i)(a)\right)_i = \left(\scpr{(\nabla f_i)(a)}v\right)_i.\]
+
+		Cette formule peut s'écrire de manière matricielle~:
+		\[(\partial_vf_i)(a) =
+		\begin{pmatrix}
+			\pd {f_1}{x_1} & \pd {f_1}{x_2} & \ldots & \pd {f_1}{x_m} \\
+			\pd {f_2}{x_1} & \pd {f_2}{x_2} & \ldots & \pd {f_2}{x_m} \\
+			     \vdots    &      \vdots    & \ddots &     \vdots     \\
+			\pd {f_n}{x_1} & \pd {f_n}{x_m} & \ldots & \pd {f_n}{x_m}
+		\end{pmatrix}
+		\begin{pmatrix}
+			v_1 \\ v_2 \\ \vdots \\ v_m
+		\end{pmatrix}.\]
+
+		\begin{déf} La matrice $J_f(a) \coloneqq \left[\pd {f_i}{x_j}\right]$ est appelée la \emph{matrice Jacobienne} de $\frmrn fE$ au point $a$. \end{déf}
+
+		\begin{rmq} La matrice jacobienne (ou le jacobien) est une généralisation du gradient : $J_f(a)$ est une matrice à $n$ lignes si $f$ est à valeurs dans
+		$\R^n$. Donc si $n = 1$ (cas de fonction à valeur réelle), alors la matrice ne contient qu'une seule ligne et est donc le vecteur gradient.
+		\end{rmq}
+
+	\subsection{Différentiabilité de fonctions à valeur vectorielle}
 
 \end{document}
