@@ -2359,5 +2359,90 @@
 		\end{rmq}
 
 	\subsection{Différentiabilité de fonctions à valeur vectorielle}
+		\begin{déf} Soient $\frmrn fE$ et $a \in \intr E$. Ont dit que $L : \R^m \to \R^n$ est une \emph{approximation linéaire de $f$ en $a$} si~:
+		\[\lim_{x \to a}\frac {\norm {f(x)-f(a)-L(x-a)}}{\norm {x-a}} = 0.\]
+		\end{déf}
+
+		\begin{déf} Soient $\frmrn fE$ et $a \in \intr E$. On dit que $f$ est \emph{différentiable au point $a$} s'il existe une approximation linéaire de $f$
+		en $a$. Cette application linéaire est appelé la \emph{différentielle} de $f$ en $a$ et se note $(Df)(a)$ ou $(\dif f)(a)$.
+		\end{déf}
+
+		\begin{lem} Soient $\frmrn fE$ et $a \in \intr E$. Soient $L_1, L_2$ deux approximations linéaires de $f$ autour de $a$. Alors $L_1 = L_2$. \end{lem}
+
+		\begin{proof} On observe que la somme de deux applications linéaires reste une application linéaire. De plus, on trouve~:
+		\begin{align*}
+			\frac {\norm {(L_1-L_2)(x-a)}}{\norm{x-a}} &= \frac {\norm {(L_1-L_2)(x-a) + f(a) - f(x) - f(a) + f(x)}}{\norm {x-a}} \\
+			&\leq \frac {\norm{-L_1(x-a)-f(a)+f(x)}}{\norm {x-a}} + \frac {\norm {f(x)-f(a)-L_2(x-a)}}{\norm {x-a}}.
+		\end{align*}
+
+		Par définition, en faisant tendre $x$ vers $a$ dans ces deux termes, on obtient 0. On a~:
+		\[0 \leq \frac {\norm{(L_1-L_2)(x-a)}}{\norm{x-a}} \leq \frac {\norm{-L_1(x-a)-f(a)+f(x)}}{\norm {x-a}} + \frac {\norm {f(x)-f(a)-L_2(x-a)}}{\norm {x-a}}.\]
+		Par le théorème du sandwich, on trouve que~:
+		\[\lim_{x \to a}\frac {\norm{(L_1-L_2)(x-a)}}{\norm{x-a}} = 0.\]
+
+		Soit $v \in \R^m$ tel que $v \neq 0$. On considère la suite $(x_k) \subset \R^m$ telle que $x_k = a + \frac vk$. Par hypothèse, $a \in \intr E$. Dès
+		lors, il existe un voisinage de $a$ entièrement inclus dans $E$. On peut donc trouver $K$ tel que $\forall k > K : x_k \in E$. En faisant tendre $k$
+		vers $+\infty$, on retrouve la même limite que juste au-dessus~:
+		\[\lim_{k \to +\infty}\frac {\norm{(L_1-L_2)(x_k-a)}}{\norm{x_k-a}} = 0.\]
+
+		Or, par linéarité, on trouve~:
+		\[0 = \lim_{k \to +\infty}\frac {\norm{(L_1-L_2)(a+\frac vk-a)}}{\norm{a+\frac vk-a}}
+		= \lim_{k \to +\infty}\frac {\frac 1k}{\frac 1k}\frac {\norm{(L_1-L_2)(v)}}{\norm v}.\]
+
+		On trouve effectivement $0 = (L_1-L_2)(v)$ pour tout $v$.
+		\end{proof}
+
+		\begin{déf} Soient $f : \R^m \to \R^n$. On dit que $f$ est un petit $o$ de $\norm h$ si~:
+		\[\lim_{h \to 0}\frac {\norm {f(h)}}{\norm h} = 0.\]
+		Ce la se note $f(h) = o(\norm h)$.
+		\end{déf}
+
+		\begin{thm} Soient $\frmrn fE$ et $a \in \intr E$. La fonction $f$ est différentiable en $a$ si et seulement si toutes les composantes $f_i$ pour
+		$1 \leq i \leq n$ sont différentiables en $a$. De plus, on détermine $(\dif f)(a) = J_f(a)$ où $J_f(a)$ est la matrice jacobienne.\footnote{
+		Pour être entièrement rigoureux, on dit que $(\dif f)(a)$ est \emph{déterminée} par $J_f(a)$ car $(\dif f)(a)$ est une application linéaire et toute
+		application linéaire est sous la forme $v \mapsto av$ où $a$ est une matrice. Dans un tel cas, on dit que la matrice $a$ détermine (ou définit)
+		l'\emph{application linéaire associée}.}
+		\end{thm}
+
+		\begin{proof} Supposons d'abord que $f$ est différentiable en $a$. On sait alors qu'il existe $L$, une application linéaire telle que~:
+		\[f(x) = f(a) + L(x-a) + o(\norm{x-a}).\]
+		On note $U = [U_{i\,j}]$ la matrice associée à l'application linéaire $L$. Soit $1 \leq k \leq n$. Alors~:
+		\begin{align*}
+			\lim_{x \to a}\frac {\abs {f_k(x)-f_k(a) - \scpr {U_{k\,\cdot}}{x-a}}}{\norm{x-a}}
+			&\leq \lim_{x \to a} \frac 1{\norm{x-a}}\sqrt{\sum_{i=1}^n\abs {f_i(x)-f_i(a)-\scpr{U_{i\,\cdot}}{x-a}}^2} \\
+			&= \lim_{x \to a}\frac 1{\norm{x-a}}\norm{\left[f_i(x)-f_i(a)-\sum_{j=1}^m(U_{i\,j}(x_j-a_j))\right]_i} \\
+			&= \lim_{x \to a}\frac 1{\norm{x-a}}\norm{[f_i(x)]_i - [f_i(a)]_i - \left[\sum_{j=1}^mU_{i\,j}(x_j-a_j)\right]_i} \\
+			&= \lim_{x \to a}\frac 1{\norm{x-a}}\norm{f(x)-f(a)-L(x-a)}.
+		\end{align*}
+
+		Or ce dernier membre tend vers 0 par définition de la différentiabilité. Par le théorème du sandwich, en sachant que~:
+		\[0 \leq \frac {\abs {f_k(x)-f_k(a) - \scpr {U_{k\,\cdot}}{x-a}}}{\norm{x-a}},\]
+		on trouve que~:
+		\[\lim_{x \to a}\frac {\abs{f_k(x)-f_k(a)-\scpr{U_{k\,\cdot}}{x-a}}}{\norm{x-a}} = 0,\]
+		et donc la composante $f_k$ est différentiable en $a$.
+
+		Supposons maintenant que $f_k$ est différentiable pour tout $1 \leq k \leq n$ et montrons que $f$ est différentiable. On sait que~:
+		\[\forall 1 \leq i \leq n : \lim_{x \to a}\frac {f(x)-f(a)-\scpr{U_i}{x-a}}{\norm{x-a}} = 0.\]
+		On définit ensuite $U = [U_{i\,j}]$ où $U_{i\,j} \coloneqq (U_i)_j$. Si $L$ est l'application linéaire telle que $L(v) = Uv$, on trouve~:
+		\begin{align*}
+			\lim_{x \to a}\frac {\norm{f(x)-f(a)-L(x-a)}^2}{\norm{x-a}^2}
+			&= \lim_{x \to a}\frac 1{\norm{x-a}^2}\sum_{i=1}^n\abs {f_i(x)-f_i(a)-\scpr{U_{i\,\cdot}}{x-a}}^2 \\
+			&= \sum_{i=1}^n\lim_{x \to a}\norm{\frac {\abs{f_i(x)-f_i(a) - \scpr{U_{i\,\cdot}}{x-a}}}{\norm{x-a}}}^2 \\
+			&= \sum_{i=1}^n0^2 = 0.
+		\end{align*}
+		Ce qui veut dire que $f$ est différentiable.
+
+		La seconde partie du théorème est de dire que la différentielle de $f$ est l'application associée à la matrice jacobienne $J_f(a)$.
+		Afin de montrer cela, on a vu dans le cas $n=1$ qu'il était obligatoire d'avoir $U_i = (\nabla f_i)(a)$. Par définition de $U$ (mettre les vecteurs
+		$U_i$ en lignes pour en faire une matrice), on a bien~:
+		\[U_{i\,j} = (U_i)_j = \left((\nabla f_i)(a)\right)_j = \pd {f_i}{x_j}(a).\]
+		\end{proof}
+
+		\begin{prp} Soient $\frmrn fE$ et $a \in \intr E$. Si $f$ est différentiable en $a$, alors il existe $C, R \in  \R_0^+$ tels que~:
+		\[\forall x \in B(a, r) : \norm{f(x)-f(a)} \leq \norm{x-a}.\]
+		En particulier, $f$ est continue en $a$.
+		\end{prp}
+
+	\subsection{Condition suffisante de différentiabilité}
 
 \end{document}
