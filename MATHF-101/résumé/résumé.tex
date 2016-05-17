@@ -2444,5 +2444,51 @@
 		\end{prp}
 
 	\subsection{Condition suffisante de différentiabilité}
+		\begin{déf} Soit $\frmrn fE$ où $E$ est ouvert. Si les dérivées partielles de $f$ existent en tout point $a \in E$ et qu'elles définissent des fonctions
+		continues, on dit que $f$ est de classe $C^1$.
+		\end{déf}
+
+		\begin{thm}\label{thm:diffssipdcont} Soient $\frmrn fE$ et $a \in \intr E$. S'il existe $\delta > 0$ tel que~:
+		\[\forall x \in B(a, \delta), j \in \{1, \dotsc, m\} : \pd f{x_j} : \intr E \to \R\qquad\text{ existe et est continue en $a$},\]
+		alors $f$ est différentiable en $a$.
+		\end{thm}
+
+		\begin{proof} Considérons le cas où $n=1$. On sait alors revenir au cas $n \gneqq 1$ par le théorème qui dit qu'une fonction $f$ est différentiable si
+		et seulement si ses composantes le sont.
+
+		Soient $a \in \intr E, \epsilon > 0$. Par hypothèse, toutes les dérivées partielles sont continues en $a$. Donc, pour tout $1 \leq j \leq m$, il existe
+		$\delta_j > 0$ (et $\delta_j < r$\footnote{Cette hypothèse nous permet que les dérivées partielles soient définies sur $B(a, \delta_j) \subset B(a, r)$
+		sans souci.}) tel que pour tout $x \in B(a, \delta_j)$, on ait~:
+		\[\abs{\pd f{x_j}(x) - \pd f{x_j}(a)} \leq \frac \epsilon m.\]
+		On pose $\delta \coloneqq \min_{j = 1, 2, \dotsc, m}\delta_j$. Ainsi, $\forall x \in B(a, \delta)$, l'inéquation précédente est vérifiée.
+
+		Soit $\beta \coloneqq \{e_1, \dotsb, e_m\}$ la base canonique de $\R^m$. On pose la fonction~:
+		\[h_1 : [0, 1] \to \R : t \mapsto f(a + t(x-a)_1e_1).\]
+
+		L'évaluation $h_1'(s)$ au point $s \in [0, 1]$ représente la dérivée partielle de $f$ par rapport à $x_1$ au point $a + s(x-a)_1e_1$. Par le théorème de
+		la moyenne, on sait qu'il existe $t_1 \in (0, 1)$ tel que~:
+		\[f(a + (x-a)_1e_1) - f(a) = h_1(1) - h_1(0) = h_1'(t_1)(x-a)_1 = \pd {}{x_1}f(a + t(x-a)_1e_1)(x-a)_1.\]
+
+		Par choix de $\delta$, on sait que~:
+		\[\abs{\pd {}{x_1}f(a + t_1(x-a)_1e_1) - \pd {}{x_1}f(a)} \leq \frac \epsilon m.\]
+
+		En multipliant de part et d'autre par $\abs {(x-a)_1}$, on trouve~:
+		\[\abs {f(a + t(x-a)e_1) - f(a) - \pd {}{x_j}f(a)(x-a)_1} \leq \frac \epsilon m\abs {(x-a)_1} \leq \frac \epsilon m \abs {x-a}.\]
+
+		En reproduisant l'argument pour $h_2, \dotsc, h_m$ et en appliquant à nouveau le théorème de la moyenne, on trouve les inégalités suivantes~:
+		\[\forall i \in \{1, \dotsc, m\} : \abs{f\left(a+ \sum_{j=1}^i(x-a)_je_j\right) - f\left(a + \sum_{j=1}^{i-1}(x-a)_je_j\right) - \pd f{x_i}(a)}
+		\leq \frac \epsilon m \norm{x-a}\]
+
+		En les sommant, on obtient~:
+		\[\abs{f(x)-f(a) - \sum_{j=1}^m\pd f{x_j}(a)(x-a)_j} = \abs {f\left(a + \sum_{k=1}^m(x-a)_ke_k\right)-f(a) - \sum_{j=1}^m\pd f{x_k}(a)(x-a)_j}
+		\leq \epsilon\norm{x-a},\]
+		ce qui prouve que la limite tend vers 0. La fonction $f$ est donc différentiable en $a$.
+		\end{proof}
+
+		\begin{rmq} Il est habituellement plus simple d'établir les dérivées partielles et leur continuité que de définir la différentiabilité sur base de la
+		définition \emph{brute}. C'est pour cela que le théorème~\ref{thm:diffssipdcont} s'avère très utile dans beaucoup de situations.
+		\end{rmq}
+
+	\subsection{(Hyper-)plan tangent}
 
 \end{document}
