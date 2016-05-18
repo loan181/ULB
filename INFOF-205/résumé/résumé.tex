@@ -790,5 +790,102 @@
 		\end{rmq}
 
 	\subsection{Analyse des propriétés des algorithmes de factorisation matricielle}
+		\subsubsection{Analyse du conditionnement}
+		\begin{déf} Soit $A$ une matrice réelle carrée $n \times n$ et soit $p$ un naturel non nul. On définit la $p$-norme matricielle par~:
+		\[\norm A_p \coloneqq \sup_{x \in \R^n \setminus \{0\}}\frac {\norm {Ax}_p}{\norm x_p}.\]
+
+		Quand $p = 2$, on note~:
+		\[\norm A \coloneqq \sup_{x \in \R^n \setminus \{0\}}\frac {\norm {Ax}}{\norm x}.\]
+		\end{déf}
+
+		Soient $A$ et $b$ les données d'un système linéaire $(S) : Ax = b$. On sait que si $x$ est perturbé par $\delta x$, on a~:
+		\[A(x + \delta x) = b + \delta b.\]
+		Or dans notre cas, c'est $x$ que l'on cherche. On veut donc savoir comment se comporte $\delta x$.
+		On sait que $Ax = b$, et donc $A\delta x = \delta b$, ou encore $\delta x = A^{-1}\delta b$. Par définition de la norme matricielle, on sait~:
+		\[\norm {\delta x} = \norm{A^{-1}\delta b} \leq \norm {A^{-1}} \norm{\delta b}.\]
+		On sait également que $\norm b \leq \norm A\norm x$ et donc $\frac 1{\norm x} \leq \frac {\norm A}{\norm b}$.
+
+		On peut alors définir le conditionnement, par définition~:
+		\[\kappa(A) = \max_x \frac {\frac {\norm {\delta x}}{\norm x}}{\frac {\norm {\delta b}}{\norm b}}
+		= \frac 1{\frac {\norm {\delta b}}{\norm b}}\norm {A^{-1}}\norm {\delta b}\frac {\norm A}{\norm b} = \norm {A^{-1}}\norm A.\]
+
+		\begin{déf} Le $p$-conditionnement $\kappa_p$ de la matrice $A$ est donné par~:
+		\[\kappa_p(A) = \norm A_p\norm{A^{-1}}_p.\]
+		\end{déf}
+
+		\begin{rmq} On remarque que $1 = \norm I = \norm{A^{-1}A} \leq \norm A\norm{A^{-1}} = \kappa(A)$. Le conditionnement est donc toujours supérieur à 1.
+		On remarque également que~:
+		\[\kappa_p(A) = \norm{A^{-1}}_p\norm A_p = \norm A_p\norm{A^{-1}}_p = \kappa_p(A^{-1}).\]
+
+		De plus, on aimerait que multiplier la matrice $A$ par une constante ne change pas le conditionnement car le problème reste intrinsèquement le même.
+		En effet, $\kappa_p(\alpha A) = \norm{\alpha A}_p\norm{(\alpha A)^{-1}}_p = \alpha\norm A_p\frac 1\alpha\norm{A^{-1}}_p = \kappa_p(A)$.
+		\end{rmq}
+
+		\begin{déf} Soit $A \in \R^{n \times n}$ une matrice carrée. On appelle \emph{vecteur propre} de $A$ tout vecteur $x$ tel qu'il existe $\lambda \in \R$
+		tel que $Ax = \lambda x$.
+		\end{déf}
+
+		\begin{déf} On appelle valeur propre de $A$ tout $\lambda \in \R$ tel qu'il existe $x \in \R^n$ tel que $Ax = \lambda x$. \end{déf}
+
+		\begin{rmq} Même si le nombre de valeurs propres d'une matrice est fini, une valeur propre engendre un sous-espace vectoriel de vecteurs propres.
+
+		En effet, si $x$ est un vecteur propre de $A$, alors il existe $\lambda \in \R$ tel que $Ax = \lambda x$. On en déduit donc que pour tout $\mu \in \R$,
+		$A(\mu x) = \mu(Ax) = \mu\lambda x = \lambda (\mu x)$ et donc $\mu x$ est également un vecteur propre de $A$.
+		\end{rmq}
+
+		\begin{déf} Si $\lambda$ est une valeur propre de $A \in \R^{n \times n}$ et $\lambda > 0$, alors $\sigma \coloneqq \sqrt \lambda$ est appelée une
+		\emph{valeur singulière} de $A$.
+		\end{déf}
+
+		\begin{déf} Si $A \in \R^{n \times n}$ est une matrice carrée de valeurs propres $\lambda_1, \dotsc, \lambda_m$, on définit son \emph{rayon spectral}
+		par~:
+		\[\rho(A) \coloneqq \max_k\abs{\lambda_k}.\]
+		\end{déf}
+
+		\begin{rmq} On peut définir le conditionnement à l'aide de ces définitions~:
+		\[\kappa(A) = \rho(A)\rho(A^{-1}) = \frac {\sigma_{\text{max}}}{\sigma_{\text{min}}}.\]
+		\end{rmq}
+
+		\subsubsection{Analyse de la stabilité}
+		À cause des erreurs d'arrondi, une méthode numérique fournit une solution approchée $\widehat x = x + \delta x$. Procédons à une analyse directe de
+		la stabilité. Supposons que $A$ et $b$ soient représentés de manière approchée par $\widehat A = A + \delta A$ et $\widehat b = b + \delta b$.
+
+		On a alors~:
+		\[(A + \delta A)(x + \delta x) = \widehat A\widehat x = \widehat b = b + \delta b.\]
+		Or on sait que $Ax = b$. Dès lors~:
+		\[Ax + \delta Ax + A\delta x + \delta A\delta x = b + \delta b \qquad\iff\qquad \delta A x + (A+\delta A)\delta x = \delta b.\]
+
+		\begin{thm} Soit $A \in \R^{n \times n}$ une matrice carrée régulière et $\delta A$ une perturbation telles que~:
+		\[\norm {A^{-1}}\norm {\delta A} \lneqq 1.\]
+		Alors~:
+		\[\frac {\norm{\delta x}}{\norm x}
+		\leq \frac {\kappa(A)}{1 - \kappa(A)\frac {\norm {\delta A}}{\norm A}}\left(\frac {\norm{\delta b}}{\norm b} + \frac {\norm{\delta A}}{\norm A}\right).\]
+		\end{thm}
+
+		\begin{rmq} La preuve de ce théorème est omise. \end{rmq}
+
+		\begin{cor} Si les conditions du théorème précédent sont respectées et $\norm {\delta A} = 0$, alors~:
+		\[\frac 1{\kappa(A)}\frac {\norm {\delta b}}{\norm b} \leq \frac {\norm {\delta x}}{\norm x} \leq \kappa(A)\frac {\norm {\delta b}}{\norm b}.\]
+		\end{cor}
+
+		\begin{rmq} Ce corollaire dit que pour un grand conditionnement $\kappa(A)$, la borne supérieure pour $\frac {\norm {\delta x}}{\norm x}$ devient très
+		grande. Cependant, il dit également que la borne inférieure devient très petite (et tend vers 0 pour $\kappa(A) \to +\infty$).
+
+		On en déduit qu'un conditionnement élevé n'implique \emph{pas obligatoirement} une grande perturbation $\delta x$ sur la solution déterminée.
+		\end{rmq}
+
+		On a pu remarquer que le calcul du $p$-conditionnement $\kappa_p(A)$ pour l'analyse du problème requiert le calcul de $\norm {A^{-1}}_p$, et donc de
+		$A^{-1}$ qui est assez coûteux. L'analyse directe de stabilité vue ci-dessus requiert le conditionnement et donc par extrapolation nécessite également
+		le calcul de $A^{-1}$. 
+
+		\begin{rmq} Il y a moyen, d'effectuer des estimations du conditionnement, par exemple à l'aide de la méthode LAPACK\footnote{Algorithme implémenté dans
+		MATLAB.}. Ceci permet de déterminer une valeur approchée du conditionnement en $\mathcal O(n^2)$, ce qui est largement préférable à $\mathcal O(n^3)$
+		nécessaire pour inverser la matrice $A$.
+		\end{rmq}
+
+		On peut cependant procéder à une analyse à posteriori (contrairement à l'analyse à priori faite juste avant)\footnote{L'analyse à priori permet d'évaluer,
+		avant de lancer la résolution, quelle va être la sensibilité de la résolution aux problèmes d'arrondis, et donc possiblement d'améliorer l'implémentation
+		afin d'en éviter les conséquences néfastes. Une analyse à posteriori est moins coûteuse de manière générale et se fait une fois la résolution terminée.
+		Elle permet d'évaluer la pertinence de la solution suivant la sensibilité aux arrondis.}
 
 \end{document}
