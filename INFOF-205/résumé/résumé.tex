@@ -1046,5 +1046,89 @@
 
 \newpage
 \section{Résolution d'équations différentielles ordinaires}
+	\subsection{Introduction}
+		\begin{déf} Une \emph{équation différentielle} est une équation faisant intervenir une fonction inconnue et une ou plusieurs de ses dérivées. \end{déf}
+
+		\begin{rmq} Beaucoup de lois physiques peuvent s'exprimer en termes de \emph{taux de variation}, ce qui est particulièrement adapté pour les équations
+		différentielles (également appelées ED ou équadiffs).
+		\end{rmq}
+
+		\begin{déf} Une EDO (\emph{équadiff ordinaire}) du premier ordre en la fonction $y(t)$ est un équation sous la forme~:
+		\[a_0(t)y(t) + a_1(t)y'(t) = p(t).\]
+
+		Si $p(x) = 0$ pour tout $x$, alors on parle d'équation homogène.
+		\end{déf}
+
+		\begin{rmq} On parle ici d'équation différentielles \textbf{ordinaires} du fait que la fonction inconnue $y(t)$ ne dépende que d'une seule variable $t$.
+		Si la fonction $y$ ne dépendait pas uniquement de $t$ mais d'au moins deux variables, alors les dérivées apparaissant dans les équations ne seraient
+		plus des dérivées ordinaires mais des dérivées partielles.
+
+		Dans ce cas-là, on parle d'équations différentielles partielles.
+		\end{rmq}
+
+		Une telle EDO se résout par ce que l'on appelle la \emph{séparation des variables}. Cela revient à mettre tout ce qui concerne la fonction $y$ d'un
+		côté de l'égalité. On a alors~:
+		\[\od {}y\log(y(t)) = \frac {y'(t)}{y(t)} = -\frac {a_0(t)}{a_1(t)}.\]
+
+		En intégrant et puis en passant à l'exponentielle de part et d'autre, on trouve~:
+		\[y(t) = \exp\left(-\int_{t_0}^t\frac {a_0(x)}{a_1(x)}\dif x\right),\]
+		où $t_0$ est une constante arbitraire déterminée par la condition initiale.
+
+		On pose la forme de la solution d'une équation homogène du premier ordre comme étant $y(t) = Ky_0(t)$. Si l'EDO n'est pas homogène (et donc $p(x)$ n'est
+		pas la fonction constante nulle), alors la solution générale s'écrit sous la forme~:
+		\[y(t) = K(t)y_0(t).\]
+		Cette méthode de résolution s'appelle \emph{méthode de variation de la constante}.
+		La fonction $K(t)$ doit satisfaire la propriété suivante~:
+		\[a_0Ky_0 + a_1(K'y_0 + Ky_0') = p,\]
+		ce qui peut se réécrire comme~:
+		\[K(t) = \int_{t_0}^t\frac {p(x)}{a_1(t)y_0(t)}\dif x.\]
+
+		\begin{déf} On appelle $D$ l'opérateur de différentiation~: on pose $D\gamma(t) \coloneqq \gamma'(t)$, et donc
+		$D^2\gamma(t) = D(D\gamma(t)) = D\gamma'(t) = \gamma''(t)$.
+		\end{déf}
+
+		\begin{déf} On note la forme générale d'une EDO \emph{linéaire} d'ordre $n$ à coefficients constants\footnote{La notion de \emph{coefficients constants}
+		vient du fait que les coefficients $a_k$ sont des scalaires et ne sont pas des fonctions de $t$.} comme suit~:
+		\[\left(\sum_{k=0}^na_kD^k\right)y(t) = p(t).\]
+
+		À nouveau, si $p(x)$ est la fonction constante nulle, on parle d'EDO linéaire homogène d'ordre $n$.
+		\end{déf}
+
+		\begin{thm} La solution générale d'une solution de l'EDO linéaire homogène d'ordre $n$ est donnée par~:
+		\[y(t) = \sum_{k=1}^n\beta_k\exp(\alpha_kt),\]
+		où les $\beta_k$ sont des constantes à déterminer à posteriori à l'aide des conditions initiales et où les $\alpha_k$ sont les solutions de l'équation
+		caractéristique~:
+		\[\pi(\alpha) = \sum_{k=0}^na_k\alpha^k.\]
+		\end{thm}
+
+		Si une racine $\alpha$ du polynôme caractéristique $\pi(\alpha)$ est de multiplicité $\mu(\alpha) \gneqq 1$, alors la forme générale de la solution est
+		différente. En effet, les racines de multiplicité strictement supérieure à 1 se comportent de manière différente : elles apparaissent plusieurs fois
+		avec un facteur $t^k$. Si $\gamma$ est le nombre de racines distinctes de l'équation caractéristique, alors~:
+		\[y(t) = \sum_{k=1}^\gamma\sum_{m=1}^{\mu(\alpha_k)}\beta_{k\,m}t^{m-1}\exp(\alpha_kt)\]
+		est la forme générale de la solution de l'EDO, où les $\beta_{i\,j}$ sont les constantes à déterminer à posteriori à l'aide des conditions initiales.
+
+		\subsubsection{EDO linéaires à coefficients constants non-homogènes}
+
+		Dans le cas d'une EDO non-homogène d'ordre $n \gneqq 1$, on pourrait utiliser la méthode de variation de la constante mais cela amènerait alors un
+		système d'équations différentielles. Une autre possibilité est de procéder à une \emph{annihilation} du second membre (la fonction $p(t)$) afin de
+		retrouver une équation homogène qui se résout \emph{plus simplement}.
+
+		Pour annihiler le second membre, il faut rétablir des dérivations afin de faire disparaitre le membre. Par exemple si le second membre $p(t)$ est une
+		fonction trigonométrique telle que $\sin(\lambda t)$, alors on sait que $D^2p(t) = -\lambda^2\sin(\lambda t)$. Dès lors, on peut \emph{transformer}
+		l'équation de départ~:
+		\[\left(\sum_{k=0}^nD^ka_k\right)y(t) = p(t) = \sin(\lambda t)\]
+		par une autre \emph{conservant l'ensemble des solutions}\footnote{Pour être précis, l'ensemble des solutions de la première équation est contenu dans
+		l'ensemble des solutions de la seconde et donc une solution de la première est également une solution de la seconde. La réciproque n'est cependant pas
+		vérifiée étant donné que le fait de rajouter une opération de dérivation rajoute des solutions.} donnée par~:
+		\[(D^2 + \lambda^2)\left(\sum_{k=0}^nD^ka_k\right)y(t) = (D^2 + \lambda^2)p(t) = 0.\]
+
+		\begin{rmq} Dans cette section, seules les EDO du premier ordre seront analysées. \end{rmq}
+
+		\subsubsection{Importance des conditions initiales}
+		De manière générale, ce n'est pas une unique solution qui est déterminée par la résolution d'une équation différentielle, mais bien une famille de
+		fonctions. Pour réussir ensuite à tirer la fonction, il faut imposer des \emph{conditions} dites \emph{initiales}.
+
+		Ces conditions se retrouvent sous la forme $\od[k]{}t\big\rvert_{t=\sigma_k}y(t) = \delta_k$. Ce sont ces conditions initiales (également appelées
+		\emph{problème de Cauchy}) qui permettent de donner une valeur numérique aux constantes $\beta_j$ dans les formes générales des solutions.
 
 \end{document}
