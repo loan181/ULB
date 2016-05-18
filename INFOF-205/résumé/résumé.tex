@@ -683,11 +683,11 @@
 		fois plus rapide (du moins, moins coûteux en opérations).
 		\end{rmq}
 
-	\subsection{Pivots de la méthode de Gauss}
+		\subsubsection{Pivots de la méthode de Gauss}
 		Lors d'une élimination de Gauss, si le pivot $A_{k\,k}$ vaut 0 à la $k$ème étape, l'algorithme ne peut fonctionner. Numériquement, quand $A_{k\,k}$ est
 		proche de 0, l'algorithme risque de mal se dérouler.
 
-		\subsubsection{Changement de pivot partiel}
+		\paragraph{Changement de pivot partiel}
 		Pour le changement \emph{partiel} de pivot, il faut trouver, dans la $k$ème colonne (en dessous de $A_{k\,k}$) un élément $A_{p\,k} \neq 0$. Et ensuite,
 		il faut échanger les lignes $p$ et $k$ dans la matrice $A$ \textbf{et} dans le vecteur $b^{(k)}$\footnote{Et donc dans la matrice étendue utilisée par
 		l'algorithme de Gauss.}.
@@ -695,7 +695,7 @@
 		Cela évite d'avoir un pivot nul. Cependant, on a dit que numériquement, un pivot \emph{proche} de 0 était \emph{dangereux}. Dès lors, on cherche le plus
 		grand $A_{p\,k}$ (en valeur absolue).
 
-		\subsubsection{Changement de pivot total}
+		\paragraph{Changement de pivot total}
 		Pour le changement \emph{total}, le plus grand élément (en valeur absolue) ne doit pas être cherché dans la $k$ème colonne mais bien dans la sous-matrice
 		$[N_{i\,j}]_{k \leq i \leq n, k \leq j \leq m}$. Une fois le plus grand élément $A_{p\,r}$ trouvé, à nouveau, on échange les lignes $p$ et $k$, mais on
 		échange également les colonnes $k$ et $r$.
@@ -745,5 +745,50 @@
 		diagonale de $U$ par exemple, c'est ce que fait la méthode de Crout.
 
 		\subsubsection{Algorithme de Doolittle}
+		En écrivant $LU = A$ avec $L_{i\,i} = 1$ pour $i = 1, \dotsc, n$, on peut résoudre toutes les équations dans l'ordre suivante~:
+		\begin{itemize}
+			\item la 1ère ligne de $U$ par $U_{1\,i} = A_{1\,i}$~;
+			\item la 1ère colonne de $L$ par $L_{i\,1}$ = $\frac {A_{i\,1}}{U_{1\,1}}$~;
+			\item la 2ème ligne de $U$~;
+			\item la 2ème colonne de $L$~;
+			\item etc.
+		\end{itemize}
+
+		\subsubsection{Algorithme de Crout}
+		Le principe est exactement le même que pour l'algorithme de Doolittle, sauf que ce ne sont pas les $L_{i\,i}$ qui sont imposés à 1 mais bien les
+		$U_{i\,i}$. La méthode de résolution est similaire mais se fait dans l'ordre inverse~:
+		\begin{itemize}
+			\item la 1ère colonne de $L$~;
+			\item la 1ère ligne de $U$~;
+			\item la 2ème colonnes de $L$~;
+			\item la 2ème ligne de $U$~;
+			\item etc.
+		\end{itemize}
+
+		\subsubsection{Factorisation de Cholesky}
+		Prenons $(S) : Ax = b$, un système linéaire tel que $A$ est définie positive et symétrique. Ce genre de systèmes est fréquent en statistiques de
+		simulation.
+
+		\begin{thm} Soit $A \in \R^{n \times n}$ symétrique et définie positive. Alors il existe une unique matrice $H$ triangulaire supérieure telle que sa
+		diagonale est définie positive et $A = H^TH$.
+		\end{thm}
+
+		La méthode de Cholesky permet de déterminer cette matrice $H$ symétrique en la déterminant ligne par ligne.
+
+		\begin{rmq} Les équations sont données explicitement en écrivant $A = H^TH$. \end{rmq}
+
+		Tout comme pour la factorisation $LU$, la factorisation de Cholesky permet de scinder le système $(S)$ en deux systèmes triangulaire qui sont beaucoup
+		plus simples à résoudre. On a effectivement~:
+		\[Ax = b \iff H^THx = b \iff \begin{cases}H^Ty &= b \\Hx &= y\end{cases}.\]
+
+		Le coût numérique de cet algorithme est de $\mathcal O(\frac {n^3}6)$ produits et additions, $n$ racines carrées et $\mathcal O(\frac {n^2}2)$ divisions.
+		On peut donc dire que Cholesky se fait en $\mathcal O(\frac {n^3}3)$, comparé à la méthode de Gauss qui se fait en $\mathcal O(\frac {2n^3}3)$, sans
+		compter les pivotages.
+
+		\begin{rmq} De plus, la place de stockage nécessaire est réduite de moitié car il n'y a qu'une seule matrice à déterminer ($H$) et plus deux ($L$ et $U$).
+		De plus, $A$ est supposée symétrique, et donc $A$ et $H$ peuvent toutes deux être stockées dans une matrice carrée $n \times n$.
+		\end{rmq}
+
+	\subsection{Analyse des propriétés des algorithmes de factorisation matricielle}
 
 \end{document}
