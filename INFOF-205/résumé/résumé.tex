@@ -31,10 +31,11 @@
 \newtheorem*{rmq}{Remarque}
 \newtheorem{ex}{Exemple}
 
-\DeclareMathOperator{\Jac}{Jac}
-\DeclareMathOperator{\tq}{t.q.}
-\DeclareMathOperator{\fl}{fl}
-\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Jac}{Jac}  % Jacobien
+\DeclareMathOperator{\tq}{t.q.}  % tel que
+\DeclareMathOperator{\fl}{fl}  % arrondi des flottants (\R \to \F)
+\DeclareMathOperator{\tr}{tr}  % troncature de flottant (\R \to \F)
+\DeclareMathOperator{\diag}{diag}  % diagonale
 
 \newcommand{\C}{\mathbb C}
 \newcommand{\F}{\mathbb F}
@@ -886,6 +887,164 @@
 		On peut cependant procéder à une analyse à posteriori (contrairement à l'analyse à priori faite juste avant)\footnote{L'analyse à priori permet d'évaluer,
 		avant de lancer la résolution, quelle va être la sensibilité de la résolution aux problèmes d'arrondis, et donc possiblement d'améliorer l'implémentation
 		afin d'en éviter les conséquences néfastes. Une analyse à posteriori est moins coûteuse de manière générale et se fait une fois la résolution terminée.
-		Elle permet d'évaluer la pertinence de la solution suivant la sensibilité aux arrondis.}
+		Elle permet d'évaluer la pertinence de la solution suivant la sensibilité aux arrondis.}.
+
+		\begin{déf} On définit le \emph{résidu} comme étant l'écart entre la valeur théorique $b$ et le résultat de l'utilisation de la solution déterminée
+		$A\widehat x$. On l'appelle $r$~:
+		\[r \coloneqq b - A\widehat x.\]
+		\end{déf}
+
+		\begin{déf} On définit également l'erreur par $e \coloneqq x - \widehat x$. \end{déf}
+
+		L'objectif de l'analyse à posteriori est de lier la précision (et donc la fiabilité) de la solution finale et le résidu.
+
+		On peut en effet déterminer~:
+		\[Ae = A(x-\widehat x) = b - A\widehat x = r.\]
+
+		On peut alors exprimer~:
+		\[\frac {\norm e}{\norm x} \leq \norm{A^{-1}}\norm r\frac {\norm A}{\norm b} = \kappa(A)\frac {\norm r}{\norm b}.\]
+
+		\begin{rmq} \textbf{Attention}, il est important de préciser qu'un petit résidu n'implique pas une petite erreur. \end{rmq}
+
+		La donnée inconnue recherchée est $e$ car $b$ et $A$ sont connus, et donc $r$ est connu également. On procède alors à un \emph{raffinement itératif}.
+		On pose initialement $x^{(0)} = \widehat x$. On définit une borne supérieure pour l'écart admissible. On l'appelle $\varepsilon$. Ensuite, on procède
+		au raffinement défini par~:
+		\[\begin{cases}
+			r^{(i)} &= b - Ax^{(i)} \\
+			Ae^{(i)} &= r^{(i)} \\
+			x^{(i+1)} &= x^{(i)} + e^{(i)}
+		\end{cases}\]
+		tant que $\norm{e^{(i)}} > \varepsilon\norm{x^{(i)}}$.
+
+		\begin{rmq} Ce \emph{raffinement itératif} tient son nom du fait qu'il permet de compenser les erreurs faites pendant la résolution du système linéaire.
+		C'est ainsi que l'on peut noter $x^{(0)} = \widehat x$, il faut d'abord avoir une solution approchée par une méthode (telle que l'algorithme de Gauss,
+		ou une factorisation quelconque permettant de résoudre des systèmes triangulaires) classique. Ensuite, l'objectif est d'obtenir une meilleure solution.
+
+		Si la matrice $A$ n'est \emph{pas trop mal} conditionnée, alors la convergence pour $x$ va assez vite (quelques étapes seulement).
+		\end{rmq}
+
+	\subsection{Méthodes itératives}
+		\begin{déf} Soit $(S) : Ax = b$ un système d'ordre $n$. La forme générale de résolution itérative d'ordre $m$ est~:
+		\begin{align*}
+			x^{(0)} &= f_0(A, b) \\
+			x^{(k)} &= f_k(x^{(k-1)}, x^{(k-2)}, \dotsc, x^{k+1-m}, A, b)\qquad\text{pour }k \geq m-1
+		\end{align*}
+
+		Si les fonctions $f_k$ ne dépendent pas de $k$, on dit que la méthode est \emph{stationnaire}. Sinon, on la dit \emph{non-stationnaire}.
+		\end{déf}
+
+		Les procédés itératifs sont convergents en l'infini (par définition). En pratique, on fixe une limite $\varepsilon$ en dessous de laquelle il faut
+		abaisser $\norm{x^{(k)}-x}$ afin d'accepter la solution. Plus $\varepsilon$ est petit, plus le nombre d'itérations sera élevé (de manière générale).
+
+		\begin{déf} Si $A \in \R^{n \times n}$ est une matrice avec un nombre d'éléments nuls proche de $n^2$, on dit que $A$ est une matrice \emph{creuse}.
+		\end{déf}
+
+		\begin{rmq} Les méthodes itératives sont particulièrement efficaces dans le cas de matrices creuses. En effet, lors d'une factorisation (par exemple
+		$A = LU$), on perd la structure creuse intéressante.\footnote{On parle alors de \emph{fill-in} qui est le processus observé lorsqu'une matrice creuse
+		perd sa structure en étant remplie aux endroits où les éléments étaient nuls.} On préfère donc utiliser une méthode itérative qui, quant à elle, ne
+		modifiera pas la matrice $A$.
+		\end{rmq}
+
+		\begin{déf} Soit $x^{(0)} \in \R^n$ un vecteur initial. On définit la méthode itérative linéaire du premier ordre par~:
+		\[x^{(k)} \coloneqq Bx^{(k-1)} + f,\]
+		où $B \in \R^{n \times n}$ est appelée la \emph{matrice d'itération}.
+		\end{déf}
+
+		\begin{déf} La méthode est dite \emph{consistante} si pour $x$, solution de $Ax=b$, on a $x = Bx + f$, ou encore si~:
+		\[f = (I-B)A^{-1}b.\]
+		\end{déf}
+
+		\begin{déf} La méthode est dite \emph{convergente} si~:
+		\[\lim_{k \to +\infty}e^{(k)} = \lim_{k \to +\infty}x^{(k)} - x = 0.\]
+		\end{déf}
+
+		On remarque que si la méthode est consistante, elle n'est pas obligatoirement convergente.
+
+		\begin{prp} Soit $x^{(k)} = Bx + f$ une méthode itérative linéaire. Si la méthode est consistante, alors pour tout $k \geq 1$~:
+		\[e^{(k)} = B^{(k-1)}e^{(0)}.\]
+		\end{prp}
+
+		\begin{proof} Prouvons-cela par récurrence sur $k$. Pour le cas initial, prenons $k=1$. On a alors~:
+		\[e^{(1)} = x^{(1)}-x = (Bx^{(0)} + f) - (Bx + f) = B(x^{(0)}-x) = B^1e^{(0)}.\]
+
+		Supposons la formule vraie pour $k-1$ et montrons qu'elle est vraie pour $k$. On calcule~:
+		\[e^{(k)} = x^{(k)} - x = (Bx^{(k-1)} + f) - (Bx + f) = Bx^{(k-1)} - Bx = Be^{(k-1)} = B(B^{k-1}e^{(0)}) = B^ke^{(0)}.\]
+		\end{proof}
+
+		\begin{thm} Soit $B \in \R^{n \times n}$, une matrice réelle carrée. Alors~:
+		\[\lim_{k \to +\infty}B^k = 0\quad\iff\quad\rho(B) \lneqq 1.\]
+		\end{thm}
+
+		\begin{cor} Une méthode consistante est convergente si et seulement si $\rho(B) \lneqq 1$. \end{cor}
+
+		\begin{rmq} $\rho(B)$ (le rayon spectral) est également appelé \emph{facteur de convergence asymptotique}. \end{rmq}
+
+		\begin{rmq} On sait montrer que pour toute matrice $B$, son rayon spectral est inférieur à sa norme. On en déduit que si $\norm B < 1$ dans une méthode
+		consistante, alors la méthode est convergente.
+		\end{rmq}
+
+		Si le rayon spectral de la matrice d'itération est petit, l'algorithme convergera plus vite. De plus, la caractéristique de convergence d'une méthode
+		itérative peut dépendre de certaines caractéristiques de matrices, et donc une méthode itérative peut converger pour une certaine famille de matrices et
+		diverger pour une autre.
+
+		\subsubsection{Méthode de Jacobi}
+		La méthode de Jacobi consiste à réécrire le système (où l'on considère que la diagonale de $A$ ne s'annule pas)~:
+		\[\sum_{j=1}^nA_{i\,j}x_j = b_i\qquad\text{pour }i=1, \dotsc, n\]
+		par une écriture identique~:
+		\[x_i = \frac 1{A_{i\,i}}\left(b_i - \sum_{j \neq i}A_{i\,j}x_j\right)\qquad\text{pour }i=1, \dotsc, n.\]
+
+		On en fait une méthode itérative en la récrivant, avec $k \geq 1$~:
+		\[x^{(k)}_i = \frac 1{A_{i\,i}}\left(b_i - \sum_{j \neq i}A_{i\,j}x^{(k-1)}_j\right)\qquad\text{pour }i=1, \dotsc, n.\]
+
+		L'idée est donc d'utiliser les valeurs approchées déterminées à l'étape $k-1$ pour les raffiner et en déterminer les valeurs approchées à l'étape $k$.
+		Cela peut s'écrire de manière lus formelle à l'aide des matrices\footnote{Les inversions de matrices sont de manière générale à éviter car
+		$\mathcal O(n^3)$, mais dans le cas d'une matrice diagonale, la matrice inverse revient à prendre l'inverse multiplicatif des éléments de la diagonale.
+		Il est donc plus aisé de la calculer, même numériquement (bien que l'inverse multiplicatif d'un très grand nombre sera très petit, et on risque les
+		erreurs d'absorption).}~:
+		\[x^{(k)} = D^{-1}\left((D-a)x^{(k-1)} + b\right),\]
+		où $D = \diag(A)$ est diagonale. On en déduit que la matrice d'itération $B_J$ (en indice, $J$ pour Jacobi) vaut $B_J = D^{-1}(D-A) = I-D^{-1}A$.
+
+		\subsubsection{Méthode de Gauss-Seidel}
+		La méthode de Gauss-Seidel est très proche de la méthode de Jacobi, à la différence près que les éléments déjà calculés à l'étape $k$ sont utilisés
+		pendant l'étape $k$ alors que dans la méthode de Jacobi, les éléments de l'étape $k$ ne sont utilisés qu'à partir du début de l'étape $k+1$.
+
+		Plus formellement, la méthode de Gauss-Seidel peut s'exprimer comme suit~:
+		\[x^{(k)}_i = \frac 1{A_{i\,i}}\left(b_i - \sum_{j=1}^{i-1}A_{i\,j}x^{(k)}_j - \sum_{j=i+1}^nA_{i\,j}x^{(k-1)}_j\right)\qquad\text{pour }i=1, \dotsc, n.\]
+
+		De manière matricielle, cela se note~:
+		\[x^{(k)} = (D-E)^{-1}\left(Fx^{(k-1)} + b\right),\]
+		où $D$ est toujours la diagonale de $A$ et où $D-A = E+F$. On trouve alors la matrice d'itération de Gauss-Seidel qui est donnée par~:
+		\[B_{GS} = (D-E)^{-1}F.\]
+
+		\begin{rmq} Ces deux méthodes sont suffisamment différentes pour que la convergence de la méthode Jacobi n'implique pas la convergence de la méthode
+		Gauss-Seidel, et inversement. Cependant, de manière générale, sur une matrice pour laquelle les deux méthodes vont converger, typiquement Gauss-Seidel
+		aura un taux de convergence supérieur.
+		\end{rmq}
+
+		\begin{déf} Soit $A$ une matrice $n \times n$. On dit que $A$ est à \emph{diagonale dominante} si tout élément de sa diagonale est supérieur (en valeur
+		absolue) à la somme de tous les autres termes de sa ligne (en valeurs absolues toujours). Plus formellement~:
+		\[\forall i \in \{1, \dotsc, n\} : \abs {A_{i\,i}} \geq < \sum_{j \neq i}\abs{A_{i\,j}}.\]
+
+		Si $A^T$ est à diagonale dominante, on dit que $A$ est à diagonale dominante \emph{par colonnes}.
+
+		On dit que $A$ est à diagonale dominante \emph{stricte} si les inégalités sont strictes.
+		\end{déf}
+
+		\begin{thm} Si $A \in \R^{n \times n}$ est une matrice à diagonale dominante stricte (par lignes ou par colonnes), alors les méthodes Jacobi \emph{et}
+		Gauss-Seidel sont convergentes pour $A$.
+		\end{thm}
+
+		\begin{thm} Si $A$ et $(2D-A)$ sont symétriques\footnote{Une matrice carrée $A$ est symétrique si $A^T = A$.} et définies positives\footnote{Si pour tout
+		vecteur $x$, on a $x^TAx > 0$, on dit que $A$ est définie positive.}, alors les méthodes Jacobi et Gauss-Seidel sont convergentes pour $A$.
+		\end{thm}
+
+		\begin{thm} Si $A$ est une matrice symétrique, alors la méthode Gauss-Seidel est convergente pour $A$. \end{thm}
+
+		\begin{rmq} On remarque que la méthode Jacobi requiert plus de conditions pour être convergente, ce qui peut partiellement expliquer se taux de
+		convergence plus élevé de Gauss-Seidel.
+		\end{rmq}
+
+\newpage
+\section{Résolution d'équations différentielles ordinaires}
 
 \end{document}
