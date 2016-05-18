@@ -684,5 +684,66 @@
 		\end{rmq}
 
 	\subsection{Pivots de la méthode de Gauss}
+		Lors d'une élimination de Gauss, si le pivot $A_{k\,k}$ vaut 0 à la $k$ème étape, l'algorithme ne peut fonctionner. Numériquement, quand $A_{k\,k}$ est
+		proche de 0, l'algorithme risque de mal se dérouler.
+
+		\subsubsection{Changement de pivot partiel}
+		Pour le changement \emph{partiel} de pivot, il faut trouver, dans la $k$ème colonne (en dessous de $A_{k\,k}$) un élément $A_{p\,k} \neq 0$. Et ensuite,
+		il faut échanger les lignes $p$ et $k$ dans la matrice $A$ \textbf{et} dans le vecteur $b^{(k)}$\footnote{Et donc dans la matrice étendue utilisée par
+		l'algorithme de Gauss.}.
+
+		Cela évite d'avoir un pivot nul. Cependant, on a dit que numériquement, un pivot \emph{proche} de 0 était \emph{dangereux}. Dès lors, on cherche le plus
+		grand $A_{p\,k}$ (en valeur absolue).
+
+		\subsubsection{Changement de pivot total}
+		Pour le changement \emph{total}, le plus grand élément (en valeur absolue) ne doit pas être cherché dans la $k$ème colonne mais bien dans la sous-matrice
+		$[N_{i\,j}]_{k \leq i \leq n, k \leq j \leq m}$. Une fois le plus grand élément $A_{p\,r}$ trouvé, à nouveau, on échange les lignes $p$ et $k$, mais on
+		échange également les colonnes $k$ et $r$.
+
+		\begin{rmq} Si la recherche d'un pivot est faite à toutes les étapes (et que la recherche est supposée en $\mathcal O(n)$), un pivot partiel amènerait
+		une complexité en $\mathcal O(n^2)$ et un pivot total impliquerait une complexité en $\mathcal O(n^3)$ (toutes opérations confondues, tant pour l'un que
+		pour l'autre).
+		\end{rmq}
+
+		Notons $P^{(i)}$ la matrice de permutations à la $i$ème étape. La matrice de permutation\footnote{Qui est une permutation de la matrice identité.} est
+		celle qui permet d'échanger les lignes (et éventuellement colonnes) de $A$ pour le $i$ème pivot. On remarque que cette matrice est \emph{auto-inverse}.
+		En effet, $P^{(i)}\left(P^{(i)}\right)^{-1}$ représente un échange de deux lignes (et éventuellement deux colonnes) suivi de l'opération inverse. Or
+		pour annuler une permutation, il faut la réeffectuer.
+
+		La matrice $U$ se remplit lors de l'exécution de l'algorithme de Gauss. Dès lors, on pouvait écrire \\$A = LU$ s'il n'y avait pas de permutations car
+		tous les pivots étaient non-nuls. Avec la notation $P^{(i)}$, on peut réécrire~:
+		\[U = \left(\prod_{i=1}^nM^{(n+1-i)}P^{(n+1-i)}\right)A.\]
+
+		$U$ est toujours une matrice triangulaire supérieure (par construction). Cependant, la matrice $L' \coloneqq AU^{-1}$ n'est plus triangulaire inférieure,
+		mais en est une permutation. Dès lors, on note $P \coloneqq P^{(n)}P^{(n-1)}P^{(n-2)}\dotsm P^{(2)}P^{(1)}$. On définit alors la matrice $L$ par~:
+		\[L = PAU^{-1}.\]
+		On a alors l'égalité suivante~:
+		\[PA = LU.\]
+
+		\begin{rmq} Même s'il est assez coûteux d'effectuer les pivots à chaque étape, il est préférable lorsque le résultat doit être assez précis de tout de
+		même les appliquer. Les deux raisons principales sont~:
+		\begin{enumerate}
+			\item le conditionnement (erreur de propagation) car un petit pivot peut entraîner une très grande erreur relative, or le pivot est au centre de
+			      tout l'algorithme, ce qui risquerait de fausser toutes les valeurs~;
+			\item la stabilité (erreur de génération) car un petit pivot pourrait amener des produits à donner des résultats très bas qui pourraient être
+			      assimilés à 0 par absorption.
+		\end{enumerate}
+		\end{rmq}
+
+		On sait que le déterminant d'une matrice triangulaire est le produit des éléments de sa diagonale. Donc~:
+		\[\det(A)=\det(L)\det(U) = 1\prod_{k=1}^nU_{k\,k}.\]
+
+		Si on appelle $D$ la matrice définie par~:
+		\[D = [D_{i\,j}] = \left[\delta_{i\,i}U_{i\,i}\right].\]
+
+		Il existe des méthodes directes pour la factorisation LU (contrairement à la construction par l'algorithme de gauss qui est itérative). Ces méthodes
+		doivent fixer $n$ éléments afin de permettre la résolution. En effet, la factorisation $A = LU$ revient à résoudre un système de $n(n+1)$ variables et
+		$n^2$ équations. En fixant $n$ inconnues, on obtient un système de $n^2$ équations à $n^2$ inconnues qui possède une solution unique si ces équations
+		forment une partie libre.
+
+		L'algorithme de Doolittle (voir juste ci-dessous) fixe les éléments de la diagonale $L$, mais il est possible également de fixer les éléments de la
+		diagonale de $U$ par exemple, c'est ce que fait la méthode de Crout.
+
+		\subsubsection{Algorithme de Doolittle}
 
 \end{document}
