@@ -1187,5 +1187,82 @@
 		\end{rmq}
 
 		\subsubsection{Méthode d'Euler}
+		Taylor donne une petite erreur lorsque $h$ est petit. L'idée derrière la méthode d'Euler est donc de \emph{découper} $I$, l'intervalle $(t_0, t_0+T)$
+		d'intégration en $N$ sous-intervalles $I_k = [t_k, t_{k+1})$ où $t_k = t_0 + kh$. On appelle $h \gneqq 0$ le \emph{pas de discrétisation}. Pour chacun
+		de ces sous-intervalles, la méthode d'Euler consiste à appliquer la méthode de Taylor (d'ordre 1\footnote{Et donc se basant sur les deux premiers termes
+		de la série de Taylor.}) afin de déterminer les $\widehat y(t_k)$. Formellement, pour tout $k$, on définit~:
+		\[\begin{cases}\widehat y(t_k) &= \widehat y(t_{k-1}) + h\widehat y'(t_{k-1}) \\\widehat y'(t_k) &= f(t_k, \widehat y(t_k))\end{cases}.\]
+
+		Le principe est donc d'utiliser la pente de la fonction au début de l'intervalle $I_n$ afin de calculer l'incrément de l'étape $n+1$.
+
+		\begin{rmq} Il y a 4 propriétés à vérifier concernant la méthode d'Euler~:
+		\begin{enumerate}
+			\item consistance~;
+			\item zéro-stabilité~;
+			\item convergence~;
+			\item stabilité absolue.
+		\end{enumerate}
+		\end{rmq}
+
+		\paragraph{Consistance} La consistance concerne les erreurs de troncature. On note $e_k \coloneqq y(t_k) - \widehat y(t_k)$ l'\emph{erreur globale} au
+		nœud $t_k$ de la $k$ème étape. On note $\widehat {y^*}(t_k)$ la solution obtenue après un pas de la méthode d'Euler basée sur la solution exacte
+		$y(t_k)$. On peut alors exprimer l'erreur globale comme~:
+		\[e_k = y(t_k) - \widehat {y^*}(t_k) + \widehat {y^*}(t_k) - \widehat y(t_k).\]
+		En notant $\epsilon_k(h) \coloneqq y(t_k) - \widehat {y^*}(t_k)$, on peut définir l'\emph{erreur de troncature locale} par~:
+		\[\tau_k(h) \coloneqq \frac {\epsilon_k(h)}h.\]
+
+		On définit ensuite l'\emph{erreur de troncature globale} par~:
+		\[\tau(h) \coloneqq \max_{1 \leq k \leq \frac Th}\abs{\tau_k(h)},\]
+		où $T$ représente la longueur de l'intervalle $I$ d'intégration.
+
+		\begin{déf} On dit qu'une méthode numérique est \emph{consistante} si son erreur de troncature globale $\tau_k(h) \to 0$ pour $h \to 0$. \end{déf}
+
+		\begin{rmq} Cette définition est équivalent à dire que la méthode est consistante si $\tau_k(h) = \mathcal O(h)$. \end{rmq}
+
+		\begin{déf} On dit qu'une méthode numérique est $p$-consistante\footnote{Ou consistante d'ordre $p$.} pour $p \in \N^*$ si pour tout $t \in I$, on a
+		$\tau_k(h) = \mathcal O(h^p)$ quand $h \to 0$. \end{déf}
+
+		Par Taylor, on peut écrire plus formellement la solution exacte à l'étape $k$ comme\footnote{À nouveau avec $\zeta \in (t_k, t_{k+1})$ qui est le point
+		en lequel il faut évaluer les dérivées afin de déterminer l'erreur.}~:
+		\[y(t_k) = y(t_k) + hf(t_k, y(t_k)) + h^2\frac {y''(\zeta)}2.\]
+		On en déduit donc l'erreur de troncature locale~:
+		\[\tau_k(h) = \frac {y(t_k) - \widehat {y^*}(t_k)}2 = \frac {y''(\zeta)}{2h}h^2 = \frac {y''(t\zeta)h}2.\]
+		On peut donc exprimer $\tau(h) = \mathcal O(h)$
+
+		\paragraph{Stabilité} La stabilité d'une méthode à pas (telle que la méthode d'Euler) se définit par deux composantes~:
+		\begin{itemize}
+			\item la \emph{zéro-stabilité}~;
+			\item et la \emph{stabilité absolue}.
+		\end{itemize}
+
+		En considérant la méthode à pas générale~:
+		\[\widehat y(t_k) = \widehat y(t_{k-1}) + h\Phi(t, \widehat y(t_{k-1})),\]
+		la zéro-stabilité concerne le contrôle des erreurs de générations induites dans le calcul du pas $\Phi(t, \widehat y(t_k))$. Ces erreurs peuvent être
+		évitées en prenant un pas $h$ très petit. La stabilité absolue concerne les erreurs de génération dans
+		$\widehat y(t_{k-1}) + h\Phi(t, \widehat y(t_{k-1}))$.
+
+		\begin{déf} Soient $\widehat {y_1}$ et $\widehat y{y_2}$, deux solutions d'une méthode numérique données par~:
+		\[\begin{cases}\widehat {y_1}
+			(t_k) &= \widehat {y_1}(t_{k-1}) + h\Phi(t_{k-1}, \widehat {y_1}(t_{k-1})) \\
+			\widehat {y_1}(t_0) &= y_0,
+		\end{cases}\]
+		et
+		\[\begin{cases}
+			\widehat {y_2}(t_k) &= \widehat {y_2}(t_{k-1}) + h\left[\Phi(t_{k-1}, \widehat {y_2}(t_{k-1})) + \delta(t_k)\right] \\
+			\widehat {y_2}(t_0) &= y_0 + \delta(t_0).
+		\end{cases}\]
+
+		Cette méthode est dite zéro-stable si~:
+		\[\exists C \gneqq 0 \tq \forall \epsilon \gneqq 0 : \exists h_0 \tq \forall h < h_0 :
+			\left(\forall 1 \leq k \leq \frac Th : \delta(t_k) \leq \epsilon\right) \Rightarrow \abs {\widehat {y_1}(t) - \widehat {y_2}(t)} < C\epsilon.\]
+		\end{déf}
+
+		\begin{thm} Soit une méthode numérique générique explicite à pas donnée par~:
+		\[\widehat y(t_k) = \widehat y(t_{k-1}) + h\Phi(t_{k-1}, \widehat y(t_{k-1})).\]
+		Si la fonction $\Phi$ d'incrément est Lipschitzienne par rapport à sa seconde variable, et si la constante de Lipschitz $C$ ne dépend pas de $h$ ni des
+		nœuds $t_k$, alors la méthode est zéro-stable.
+		\end{thm}
+
+		\begin{cor} Il suit directement de ce théorème que la méthode d'Euler est zéro-stable. \end{cor}
 
 \end{document}
