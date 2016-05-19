@@ -1131,4 +1131,61 @@
 		Ces conditions se retrouvent sous la forme $\od[k]{}t\big\rvert_{t=\sigma_k}y(t) = \delta_k$. Ce sont ces conditions initiales (également appelées
 		\emph{problème de Cauchy}) qui permettent de donner une valeur numérique aux constantes $\beta_j$ dans les formes générales des solutions.
 
+		\begin{déf} Soit $f : I \times \R \to \R : (t, y) \mapsto f(t, y)$. On dit que $f$ est une fonction \emph{Lipschitzienne} (ou \emph{de Lipschitz}) si~:
+		\[\exists C \gneqq 0 \tq \forall t \in I, y_1, y_2 \in \R : \abs{f(t, y_1) - f(t, y_2)} \leq C\abs{y_1-y_2}.\]
+		$C$ est appelé la \emph{constante de Lipschitz}.
+		\end{déf}
+
+		\begin{thm} Soit $f : I \times \R \to \R : (t, y) \mapsto f(t, y)$. Si pour tout $t \in I$, la dérivée partielle de $f$ selon $y$ est continue, alors
+		$f$ est une fonction de Lipschitz.
+		\end{thm}
+
+		\begin{proof} Par le théorème de la moyenne, on sait qu'il existe $\xi \in (y_1, y_2)$ tel que~:
+		\[\abs{f(t, y_1)-f(t, y_2)} = \abs{\pd {}y\big\rvert_{y=\xi}f(t, y)}\abs{y_1-y_2}.\]
+		On trouve donc que $f$ est Lipschitzienne de constante $C \coloneqq \max_y\abs{\pd {}y\big\rvert_{y=\xi}f(t, y)}$.
+		\end{proof}
+
+		\begin{thm} Soit $f(t, y)$ une fonction Lipschitzienne et continue. Alors le problème de Cauchy suivante~:
+		\[\begin{cases}\od yt(t) &= f(t, y) \\y'(t_0) &= y_0\end{cases}\]
+		a une solution $y(t) = y(t, y_0) \in C^1$ pour tout $t \in I$.
+		\end{thm}
+
+		\begin{rmq} Ce théorème signifie qu'une EDO du premier ordre représente un problème bien posé (unicité de la solution et dépendance continue). \end{rmq}
+
+		On remarque en plus que $\norm{y(t, y_1) - y(t, y_0)} \leq \exp(C\abs{t-t_0})\abs{y_1-y_0}$. Dès lors, pour un petit $C$ (constante de Lipschitz),
+		de petites variations sur la condition initiale impliquent des petites variations sur la solution finale.
+
+	\subsection{Résolution d'EDO}
+		La solution dite \emph{analytique}\footnote{C'est-à-dire la solution théorique.} d'une EDO du premier ordre est donnée par~:
+		\[y(t) = y_0 + \int_{t_0}^tf(\tau, y(\tau))\dif\tau.\]
+		Cependant, seules très peu de ces EDO non-linéaires peuvent être résolues directement. De plus, pour certaines que l'on sait résoudre, on ne sait pas
+		exprimer de manière formelle la solution obtenue. On opte alors dans ces cas pour une résolution numérique.
+
+		Une telle résolution ne donne pas, au final, une fonction $y(t)$ à proprement parler, mais plus précisément un tableau de valeurs en un ensemble de
+		points $\{t_0, \dotsc, t_n\}$ choisis à l'avance. La résolution numérique est dès lors donnée par $\{\widehat y(t_0), \dotsc, \widehat y(t_n)\}$.
+
+		La résolution numérique se fait alors par le théorème de Taylor (théorème~\ref{thm:Taylor}). On sait alors que l'on peut exprimer une fonction $g(x)$
+		comme un polynôme avec comme coefficients $\frac {g^{(k)}}{k!}$. Dès lors, considérons le problème de Cauchy suivant~:
+		\[\begin{cases}\od yt(t) &= f(t, y) \\y(t_0) &= y_0\end{cases}.\]
+		On sait que $y(t_0) = y_0$, ensuite on détermine $y'(t_0)$ par $f(t, y_0)$. En dérivant encore cette fonction $f(t, y)$, on peut déterminer plusieurs
+		dérivées successives. On a alors $\{y^{(k)}(t_0)\}_{0 \leq k \leq p}$. On pose ensuite $h \coloneqq t-t_0$, et par Taylor, on peut exprimer~:
+		\[y(t) = \left(\sum_{k=0}^p\frac {y^{(k)}(t_0)}{k!}h^k\right) + \varepsilon,\]
+		où $\varepsilon$ représente l'erreur qui est bornée par~:
+		\[\varepsilon \leq \frac {y^{(p+1)}(\zeta)\abs h^{p+1}}{(p+1)!},\]
+		où $\zeta \in (t_0-l, t_0+l)$ où $[t_0-l, t_0+l]$ est le voisinage de $t_0$ sur lequel la fonction opère. Cette fonction est donc une approximation
+		dans un voisinage de $t_0$. On l'évalue donc en $t = t_i$ pour $0 \leq i \leq n$, et on obtient $\{\widehat y(t_i)\}$, l'ensemble des valeurs
+		approchées. Ces valeurs peuvent ensuite, par exemple, être mises sur un graphique afin de déterminer l'allure de la solution.
+
+		\begin{rmq} Cependant, les dérivées ne sont pas toujours simples à évaluer, ni à déterminer (surtout numériquement). De plus, le calcul de l'erreur
+		dépend de $\zeta$ qui est un paramètre que l'on ne connait pas avec précision (on ne connait que l'intervalle dans lequel il se trouve). Cela rend
+		l'erreur impossible à établir précisément. Également, ce résultat demande beaucoup de termes pour des grandes valeurs de $h$ (compensations). Il est
+		donc plus facile à appliquer pour des évaluations proches de l'origine\footnote{Avoir $h$ proche de l'origine ne veut pas obligatoirement dire que $t$
+		doit également être proche de l'origine. Si $h$ est petit (et donc proche de l'origine) c'est que $t$ est proche de $t_0$ qui est la valeur dont on
+		connait l'évaluation de $y$ par le problème de Cauchy.}.
+
+		Tout ces éléments font qu'une méthode itérative sera, de manière générale, plus facilement choisie.
+		\end{rmq}
+
+		\subsubsection{Méthode d'Euler}
+
 \end{document}
