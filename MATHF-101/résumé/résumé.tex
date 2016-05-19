@@ -29,12 +29,14 @@
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\Imf}{Im}
 \DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\Q}{\mathbb Q}
 \DeclareMathOperator{\R}{\mathbb R}
 \DeclareMathOperator{\N}{\mathbb N}
 \DeclareMathOperator{\adh}{adh}
 \DeclareMathOperator{\tq}{ t.q. }
 \DeclareMathOperator{\Larea}{\mathcal L}
 \DeclareMathOperator{\Uarea}{\mathcal U}
+\DeclareMathOperator{\vol}{vol}
 
 \newcommand{\scpr}[2]{{\left\langle#1, #2\right\rangle}}
 \newcommand{\frrn}[2]{#1 : #2 \subseteq \R \to \R^n}
@@ -2551,5 +2553,144 @@
 
 \newpage
 \section{Intégration de fonctions à plusieurs variables}
+	\subsection{Introduction}
+		\begin{rmq} Il existe deux théories principales de l'intégration : l'intégration de Riemann et l'intégration de Lebesgue. L'intégration de Lebesgue est
+		intuitivement \emph{meilleure} que l'intégration de Riemann au sens que si $f$ est une fonction intégrable au sens de Riemann, alors elle l'est également
+		au sens de Lebesgue et la valeur de l'intégrale concorde alors qu'il existe des fonctions\footnote{Dont la fonction de Dirichlet définie par
+		$f(x) = 1$ si $x \in \Q$ et $f(x) = 0$ si $x \not \in \Q$.} qui sont intégrables au sens de Lebesgue et qui ne le sont pas au sens de Riemann.
+
+		L'intégration de Riemann est cependant plus simple à définir et à comprendre, Lebesgue dépasse donc le cadre de ce cours.
+		\end{rmq}
+
+	\subsection{Intégrale de Darboux sur un rectangle}
+		\begin{déf} On définit un \emph{rectangle} $R$ dans $\R^n$ par~:
+		\[R = \prod_{i=1}^n[a_i, b_i] = \{x \in \R^n \tq \forall 1 \leq i \leq n : a_i \leq x_i \leq b_i\}.\]
+		\end{déf}
+
+		\begin{déf} Une partition d'un intervalle $I = [a, b] \subset \R$ est un choix de $k$ nombres $t_i \in I$ tels que~:
+		\[a = t_0 < t_1 < \dotsb < t_{k-1} < t_k = b.\]
+
+		Une partition rectangulaire d'un rectangle $R = \prod_k[a_k, b_k] \subset \R^n$ est une partition de chaque intervalle de $R$.
+		Cela revient à choisir $t_{i\,j}$ tels que~:
+		\begin{align*}
+			a_1 &= t_{1\,0} < t_{1\,1} < \dotsb < t_{1\,k_1-1} < t_{1\,k_1} = b_1 \\
+			a_2 &= t_{2\,0} < t_{2\,1} < \dotsb < t_{2\,k_2-1} < t_{2\,k_2} = b_2 \\
+			\vdots \\
+			a_n &= t_{n\,0} < t_{n\,1} < \dotsb < t_{n\,k_n-1} < t_{n\,k_n} = b_n.
+		\end{align*}
+		\end{déf}
+
+		\begin{déf} On définit $R_j$ pour $1 \leq j \leq p$ (où $p$ est le nombre de \emph{sous-rectangles} de la partition $\mathcal P$) comme étant le $j$ème
+		rectangle. On définit ensuite es valeurs maximales et minimales atteintes par rectangle par~:
+		\begin{align*}
+			m_j &\coloneqq \inf\{f(x) \tq x \in R_j\} \\
+			M_j &\coloneqq \sup\{f(x) \tq x \in R_j\}.
+		\end{align*}
+		\end{déf}
+
+		\begin{déf} Soit $f : R \subset \R^n \to \R$ une fonction définie sur un rectangle de $\R^n$, et $\mathcal P$ une partition rectangulaire de $R$. Les
+		sommes~:
+		\begin{align*}
+			\underline S(f, \mathcal P) &\coloneqq \sum_jm_j\vol(R_j), \\
+			\overline  S(f, \mathcal P) &\coloneqq \sum_jM_j\vol(R_j)
+		\end{align*}
+		s'appellent respectivement la \emph{somme inférieure} et la \emph{somme supérieure} de Darboux de $f$ par rapport à $\mathcal P$.
+		\end{déf}
+
+		\begin{déf} On définit les intégrales respectivement \emph{inférieure} et \emph{supérieure} de Darboux de $f$ par~:
+		\begin{align*}
+			\underline \int_R f(x)\dif x &\coloneqq \sup_{\mathcal P} \underline S(f, \mathcal P), \\
+			\overline  \int_R f(x)\dif x &\coloneqq \inf_{\mathcal P} \overline  S(f, \mathcal P).
+		\end{align*}
+		\end{déf}
+
+		\begin{rmq} Il suit directement de la définition que pour toute partition $\mathcal P$, on a~:
+		\[\underline S(f, \mathcal P) \leq \overline S(f, \mathcal P),\]
+		et donc, en particulier~:
+		\[\underline \int_R f(x)\dif x \leq \overline \int_R f(x)\dif x.\]
+		\end{rmq}
+
+		\begin{déf} On dit que la fonction $f : R \subset \R^m \to \R$ est intégrable au sens de Riemann si les intégrales inférieure et supérieure de
+		Darboux sont égales~:
+		\[\underline \int_R f(x)\dif x = \overline \int_R f(x)\dif x.\]
+		Dans ce cas, on définit l'\emph{intégrale de Riemann} de la fonction $f$ par~:
+		\[\int_R f(x)\dif x,\]
+		qui vaut cette valeur commune.
+		\end{déf}
+
+		\begin{déf} Soit $f : R \subset \R^m \to \R^n$. $f$ est dite intégrable sur $R$ si toutes ses composantes sont intégrables, et on définit son intégrale
+		par le vecteur correspondant aux intégrales des composantes~:
+		\[\int_R f(x)\dif x = \left[\int_R f_i(x)\dif x\right]_i \in \R^n.\]
+		\end{déf}
+
+		\begin{lem}\label{lem:intégrablesiepsilonP(epsilon)} Soit $f : R \to \R$ bornée. Si pour tout $\epsilon > 0$, il existe $\mathcal P(\epsilon)$ une
+		partition rectangulaire de $R$ telle que~:
+		\[\overline S(f, \mathcal P(\epsilon)) - \underline S(f, \mathcal P(\epsilon)) \leq \epsilon,\]
+		alors $f$ est intégrable au sens de Riemann.
+		\end{lem}
+
+		\begin{rmq} À nouveau, et pour la plupart des résultats qui suivront, le fait que la définition d'une intégrale d'une fonction à valeur vectorielle est
+		définie par le vecteur dont les composantes sont les intégrales des composantes implique que les résultats basés sur une fonction
+		$f : R \subset \R^m \to \R$ peuvent être étendus aux fonctions $f : R \subset \R^m \to \R^n$.
+		\end{rmq}
+
+		\begin{proof} Supposons par l'absurde que le lemme soit faux et donc que sous ces hypothèses, il existe $f$ non intégrable au sens de Riemann\footnote{
+		À compter d'ici, le terme \emph{intégrable} fera toujours référence à la notion d'\emph{intégrable au sens de Riemann}.}. On peut alors prendre~:
+		\[\epsilon = \inf_{\mathcal P}\overline S(f, \mathcal P) - \sup_{\mathcal P}S(f, \mathcal P) \gneqq 0.\]
+		On sait par les hypothèses qu'il existe $\mathcal P(\epsilon)$ une partition de $R$ telle que~:
+		\[\overline S(f, \mathcal P(\epsilon)) \leq \underline S(f, \mathcal P(\epsilon)) + \epsilon
+		= \underline S(f, \mathcal P(\epsilon)) + \inf_{\mathcal P}\overline S(f, \mathcal P) - \sup_{\mathcal P}\underline S(f, \mathcal P).\]
+		De plus, par définition, on sait que~:
+		\[\inf_{\mathcal P}\overline S(f, \mathcal P) \leq \overline S(f, \mathcal P(\epsilon))
+		\lneqq \underline S(f, \mathcal P(\epsilon)) + \inf_{\mathcal P}\overline S(f, \mathcal P) - \sup_{\mathcal P}\underline S(f, \mathcal P).\]
+		En soustrayant $\inf_{\mathcal P}$ de part et d'autre, on obtient~:
+		\[\sup_{\mathcal P}\underline S(f, \mathcal P) < \underline S(f, \mathcal P(\epsilon)),\]
+		ce qui est une contradiction, par définition du supremum.
+		\end{proof}
+
+		\begin{prp} Si $R \subset \R^m$ est un rectangle et $f : E \to \R$ est continue, alors $f$ est intégrable. \end{prp}
+		
+		\begin{proof} Puisque $E$ est un rectangle, il est fermé borné, et donc $f$ est bornée également (par sa continuité). $f$ est également uniformément
+		continue (puisque continue sur un ensemble fermé borné). Dès lors, pour tout $\epsilon > 0$, il existe $\delta > 0$ tel que~:
+		\[\forall x, x' \in R : \norm{x-x'} < \delta \Rightarrow \abs{f(x)-f(x')} < \frac \epsilon{\vol(R)}.\]
+		En choisissant $\mathcal P$ de manière à ce que chaque $R_j$ soit contenu dans une boule ouverte de diamètre $\delta$. On trouve donc, pour tout
+		$R_j$ dans $\mathcal P$~:
+		\[M_j(f) - m_j(f) = \sup_{R_j}f(x) - \inf_{R_j}f(x) < \frac \epsilon{\vol(R)}.\]
+
+		On a donc construit une partition $\mathcal P$ telle que~:
+		\[\overline S(f, \mathcal P) - \underline S(f, \mathcal P) = \sum_j\left(M_j(f)-m_j(f)\right)\vol(R) < \frac \epsilon{\vol(R)}\vol(R) = \epsilon.\]
+		Dès lors, par le lemme~\ref{lem:intégrablesiepsilonP(epsilon)}, sait que $f$ est intégrable.
+		\end{proof}
+
+		\begin{prp}[Propriétés des intégrales]
+		\begin{enumerate}
+			\item Soient $f, g : R \subset \R^m \to \R$ intégrables et $\alpha, \eta \in \R$. Alors $(\alpha f + \beta g)$ est intégrable telle que~:
+				\[\int_R (\alpha f + \beta g)(x)\dif x = \alpha \int_R f(x)\dif x + \beta \int_R g(x)\dif x.\]
+			\item Soient $f, g : R \subset \R^m \to \R$ intégrables telles que pour tout $x \in R$, on a $f(x) \geq g(x)$, alors~:
+				\[\int_R f(x)\dif x \geq \int_R g(x)\dif x.\]
+			\item Soit $f : R \subset \R^m \to \R$ intégrable. Alors $\abs{f(x)}$ est également intégrable telle que~:
+				\[\int_R \abs{f(x)}\dif x \geq \abs{\int_R f(x)\dif x}.\]
+			\item Soit $R \subset \R^m$ un rectangle et soient $P, S$ tels que $R = P \cup S$ où $P$ et $S$ sont également des rectangles n'ayant pour seule
+				intersection éventuelle leurs bords. Soit $f : R \to \R$. Alors $f$ est intégrable, si et seulement si $f$  réduit à $P$ et $f$ réduit à $S$
+				sont intégrables. De plus~:
+				\[\int_R f(x)\dif x = \int_P f(x)\dif x + \int_S f(x)\dif x.\]
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof} Les démonstrations sont similaires à celles concernant les fonctions univariées. \end{proof}
+
+		\begin{déf} Soit $E$ un ensemble quelconque (discret, infini dénombrable, infini indénombrable, etc.) Alors on définit la \emph{fonction caractéristique}
+		de $E$\footnote{Également appelée \emph{fonction} indicatrice de l'ensemble $E$.} par~:
+		\[1_E : x \mapsto \begin{cases}1 &\text{ si }x \in E\\0 &\text{ sinon}\end{cases}.\]
+		\end{déf}
+
+		\begin{rmq} Cette fonction indicatrice permet, entre autres, de définir une intégrale sur un ensemble qui n'est pas un rectangle. En effet, soit $S$
+		un sous-ensemble de $\R^m$. Si $S$ n'est pas un rectangle, o peut déterminer un rectangle $R$ tel que $S \subset R$. Dans ce cas, on intègre la fonction
+		$(1_Sf)(x)$ sur le rectangle $S$. La fonction s'annulant sur tous les points de $R \setminus S$ c'est bien l'aire de $f$ sur $S$ qui est obtenue.
+
+		Attention tout de même~: la fonction $(1_Sf)(x)$ n'est (à priori) pas continue.
+		\end{rmq}
+
+	\subsection{Critère de Lebesgue}
 
 \end{document}
