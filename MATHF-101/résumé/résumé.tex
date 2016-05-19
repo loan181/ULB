@@ -2438,7 +2438,8 @@
 		\[U_{i\,j} = (U_i)_j = \left((\nabla f_i)(a)\right)_j = \pd {f_i}{x_j}(a).\]
 		\end{proof}
 
-		\begin{prp} Soient $\frmrn fE$ et $a \in \intr E$. Si $f$ est différentiable en $a$, alors il existe $C, R \in  \R_0^+$ tels que~:
+		\begin{prp}\label{prp:diffexistanceC} Soient $\frmrn fE$ et $a \in \intr E$. Si $f$ est différentiable en $a$, alors il existe $C, R \in  \R_0^+$ tels
+		que~:
 		\[\forall x \in B(a, r) : \norm{f(x)-f(a)} \leq \norm{x-a}.\]
 		En particulier, $f$ est continue en $a$.
 		\end{prp}
@@ -2489,6 +2490,38 @@
 		définition \emph{brute}. C'est pour cela que le théorème~\ref{thm:diffssipdcont} s'avère très utile dans beaucoup de situations.
 		\end{rmq}
 
-	\subsection{(Hyper-)plan tangent}
+	\subsection{Différentiation de fonction composées}
+		On a vu que pour $f : \R \to \R^n$ et $g : \R^n \to \R$, la dérivée de la composée était donnée par~:
+		\[(g \circ f)(a) = \scpr {(\nabla g)(f(a))}{f'(a)}.\]
+
+		Soient maintenant deux fonctions $f : \R^m \to \R^n$ et $g : \R^m \to \R^p$. Leur composée $(g \circ f) : \R^m \to \R^p$ est bien définie. Supposons
+		que $f$ est différentiable en $a$ et a $(\dif f)(a)$ pour différentielle et que $g$ est différentiable en $f(a)$ et a $(\dif g)(f(a))$ pour
+		différentielle.
+
+		\begin{thm} Soient $f : A \subset \R^m \to \R^n$ et $g : B \subset \R^n \to \R^p$.Si $f(A) \subseteq B$, $a \in \intr A$, $f(a) \in \intr B$, et si
+		$f$ et $g$ sont différentiables respectivement en $a$ et $f(a)$, alors $(g \circ f)$ est différentiable en $a$ et sa différentielle est donnée par~:
+		\[(\dif (g \circ f))(a) : \R^m \to \R^p : v \mapsto \left[(\dif g)(f(a)) \circ (\dif f)(a)\right]v = J_g(f(a))J_f(a)v,\]
+		où $J_g$ et $J_f$ représentent respectivement la matrice jacobienne de $g$ et de $f$.
+		\end{thm}
+
+		\begin{proof} Étant donné que l'on peut réduire la différentiabilité d'une fonction vectorielle à la différentiabilité de ses composantes,
+		concentrons-nous sur le cas $p=1$. On pose~:
+		\[Q(x) \coloneqq \frac {(\dif g)(f(a))\left(f(x)-f(a)-(\dif f)(a)(x-a)\right)}{\norm {x-a}}
+		= \sum_{k=1}^n\pd g{x_k}(f(a))\frac{f_k(x)-f_k(a)-(\dif f_k)(a)(x-a)}{\norm{x-a}}.\]
+		Par différentiabilité de $f$, on peut dire que $f_k$ est différentiable en $a$ pour tout $k$. Donc en passant à la limite, on obtient~:
+		\[\lim_{x \to a}Q(x) = \sum_{k=1}^n\pd g{x_k}(f(a))\lim_{x \to a}\frac {f_k(x)-f_k(a)-(\dif f_k)(a)(x-a)}{\norm{x-a}} = 0.\]
+		Si $f(x) = f(a)$, alors $P(x) = 0$. Sinon, on pose~:
+		\begin{align*}
+			R(x) &\coloneqq \frac {g(f(x)) - g(f(a)) - (\dif f)(a)(f(x)-f(a))}{\norm{f(x)-f(a)}} \\
+			S(x) &\coloneqq \frac {\norm{f(x)-f(a)}}{\norm{x-a}}.
+		\end{align*}
+
+		On peut alors réécrire $P(x) = (RS)(x)$. Par la proposition~\ref{prp:diffexistanceC}, on sait que $f(x) \to f(a)$ et par différentiabilité de $g$, on
+		sait que $R(x) \to 0$ pour $x \to a$. On sait donc également que $P(x) \to 0$ pour $x \to a$. De là, on trouve~:
+		\[0 = \lim_{x \to a}P(x)-Q(x) = \lim_{x \to a}\frac {g(f(x)) - g(f(a)) - (\dif g)(f(a))((\dif f)(a)(x-a)}{\norm {x-a}},\]
+		ou encore $(g \circ f)$ est différentiable en $a$ et a $(\dif g)(f(a)) \circ (\dif f)(a)$ pour différentielle.
+		\end{proof}
+
+	\subsection{Changement de variables}
 
 \end{document}
