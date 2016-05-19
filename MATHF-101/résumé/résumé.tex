@@ -290,7 +290,7 @@
 
 	\subsection{Théorème fondamental du calcul différentiel et intégral}
 		\subsubsection{1ère version}
-				En analyse, il existe un théorème (parfois appelé \textit{théorème fondamental de l'analyse} qui définit la dérivation et l'intégration
+				En analyse, il existe un théorème (parfois appelé \textit{théorème fondamental de l'analyse}) qui définit la dérivation et l'intégration
 				comme deux opérations inverses l'une de l'autre. Avant d'exprimer le théorème, tentons de donner un peu d'intuition au rapport
 				entre dérivation et intégration.
 
@@ -435,14 +435,14 @@
 			Dans le premier cas (deux solutions distinctes), l'équation différentielle peut être réécrite sous la forme factorisée suivante~:
 			\[\left(\od{}{x} - \lambda_1\right)\left(\od{}{x} - \lambda_2\right)f = 0.\]
 
-			Les solutions $f_1(x) = e^{\lambda_1 x}$ et $f_2(x) = e^{\lambda_2 x}$ sont possible à \textit{deviner}. le principe de linéarité exprimé juste au-dessus
+			Les solutions $f_1(x) = e^{\lambda_1 x}$ et $f_2(x) = e^{\lambda_2 x}$ sont possible à \textit{deviner}. Le principe de linéarité exprimé juste au-dessus
 			permet d'affirmer donc que $f(x) = C_1e^{\lambda_1 x} + C_2e^{\lambda_2 x}$ représente la famille des solutions paramétrées par $C_1$ et $C_2$.
 
 			Dans le second cas (solution unique), l'équadiff peut être réécrite sous la forme factorisée suivante~:
 			\[\left(\od{}{x} - \lambda\right)^2f = \od[2]{}{x}f + \lambda^2f - 2\lambda\od{}{x}f = 0.\]
 
 			En posant $g(x) = \od{}{x}f(x) - \lambda f(x)$, nous avons $\od{}{x}g(x) = \od[2]{}{x}f(x) - \lambda\od{}{x}f(x)$. Cela nous permet de réécrire (encore une
-			fois l'équadiff sous la forme suivante~:
+			fois) l'équadiff sous la forme suivante~:
 			\[\od[2]{}{x}f(x) - \lambda\od{}{x}f(x) - \lambda\left(\lambda\od{}{x}f(x) - \lambda f(x)\right) = \od{}{x}g(x) - \lambda(g(x)) = 0.\]
 
 			La solution est $g(x) = Ke^{\lambda x}$. Or $g(x) = \od{}{x}f(x) - \lambda f(x)$. Donc il faut encore résoudre l'équation à l'aide de la méthode vue ci-dessus
@@ -2523,5 +2523,33 @@
 		\end{proof}
 
 	\subsection{Changement de variables}
+		\begin{thm} Soient $U, V \subseteq \R^n$. Soient $f : U \to V$ et $g : V \to \R$ deux fonction admettant des dérivées partielles continues.
+		Alors la fonction définie par $h : U \to \R : x \mapsto (g \circ f)(x)$ admet des dérivées partielles définies par~:
+		\[\pd h{y_j}(a) = \sum_{i=1}^n\pd g{x_i}(f(a))\pd {f_i}{y_j}(a).\]
+		\end{thm}
+
+		\begin{proof} Par le théorème~\ref{thm:diffssipdcont}, on sait que les fonctions $f$ et $g$ sont différentiables. On sait également que sa
+		différentielle est donnée par~:
+		\[(\dif h)(a) = (\dif g)(f(a)) \circ (\dif f)(a).\]
+		On peut exprimer ses dérivées partielles (qui existent puisque $h$ est différentiable) comme~:
+		\[\pd h{y_j} = (\dif h)(a)(e_j),\]
+		où $e_j$ est un vecteur de la base canonique de $\R^n$.
+		On peut alors exprimer la différentielle de $f$ par la différentielle de ses composantes~:
+		\[(\dif f)(a)(e_j) = \left[\pd {f_i}{x_j}(a)\right]_i \in \R^n.\]
+
+		Également, on peut écrire pour tout $u, b \in \R^n$~:
+		\[(\dif g)(b)(u) = \sum_{i=1}^n\pd g{x_i}(b)u_i.\]
+		En posant $u \coloneqq (\dif f)(a)(e_j)$ et $b \coloneqq f(a)$, cela revient à écrire~:
+		\[(\dif g)(f(a))((\dif f)(a)(e_j)) = \sum_{i=1}^n\pd g{x_i}(f(a))\pd {f_i}{y_j}(a).\]
+		On remarque que~:
+		\[(\dif g)(f(a))((\dif f)(a)(e_j)) = \pd h{y_j}.\]
+		\end{proof}
+
+		\begin{rmq} En changeant ainsi les variables, on passe de $x_k$ qui sont des variables indépendantes à une collection de fonctions $f_k$ qui sont liées
+		aux variables $x_k$.
+		\end{rmq}
+
+\newpage
+\section{Intégration de fonctions à plusieurs variables}
 
 \end{document}
