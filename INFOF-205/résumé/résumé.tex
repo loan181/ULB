@@ -1265,4 +1265,17 @@
 
 		\begin{cor} Il suit directement de ce théorème que la méthode d'Euler est zéro-stable. \end{cor}
 
+		\paragraph{Convergence} La consistance de la méthode permet de déterminer la propriété intrinsèque à la méthode concernant l'approximation de la
+		solution exacte, alors que la zéro-stabilité permet de déterminer son comportement (à la méthode) par rapport aux erreurs numériques engendrées.
+
+		\begin{déf} La méthode est dite convergente si~:
+		\[\forall n \in \{0, \dotsc, \frac Th\} : e_n(h) \coloneqq \abs{y(t_n) - \widehat y(t_n)} = \mathcal O(h).\]
+		\end{déf}
+
+		\begin{déf} Si $e_n = \mathcal O(h^p)$ pour un $p \in \N^*$, alors on dit que la méthode est $p$-convergente (ou convergente d'ordre $p$). \end{déf}
+
+		\begin{thm}[Théorème fondamental de l'analyse numérique] La convergence d'une méthode numérique est équivalente à sa consistance \textbf{et} sa
+		zéro-stabilité.
+		\end{thm}
+
 \end{document}
