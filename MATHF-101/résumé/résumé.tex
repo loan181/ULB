@@ -2930,6 +2930,42 @@
 		\end{rmq}
 
 	\subsection{Aire d'une surface et intégrale sur une surface}
+		\begin{déf} Soit $S$ une surface paramétrée par $f : U \subseteq \R^2 \to \R^3$. L'aire de $S$ est définie par~:
+		\[A(S) \coloneqq \int_S \norm{\pd fx \times \pd fy}\dif (x, y).\]
+		\end{déf}
+
+		\begin{rmq} L'idée derrière cette définition est de définir l'aire d'une surface par la valeur numérique d'un volume de hauteur 1 et de base $S$.
+		\end{rmq}
+
+		S'il faut plus d'une paramétrisation locale de la courbe pour définir l'aire, on prend une paramétrisation qui couvre la surface $S$ en y enlevant
+		un nombre fini de courbes $C_1, \dotsc, C_n$. On appelle cette surface $\hat S$. L'aire d'une courbe étant nulle il est intuitivement vrai que $S$ et
+		$\hat S$ ont la même aire.
+
+		\begin{déf} Soit $g : \R^3 \to \R$ une fonction continue et soit $f : U \subset \R^2 \to \R^3$ une paramétrisation de la surface $S$. L'intégrale
+		de $g$ sur $S$ est définie par~:
+		\[\int_Sg\dif A \coloneqq \int_U g(f(x, y))\norm{\pd fx \pd fy}\dif (x, y).\]
+		\end{déf}
+
+		\begin{rmq} À nouveau, s'il faut plus d'une paramétrisation locale, on définit $\widehat S = S \setminus (\bigcup_{i-1}^nC_i)$ qui est la surface
+		$S$ à laquelle un nombre fini de courbes a été retiré. On définit alors~:
+		\[\int_S g\dif A = \int_{\hat S}g \dif A.\]
+		\end{rmq}
+
+		\subsubsection{Flux d'un champ de vecteurs au travers d'une surface}
+		Si $F$ est un champ de vecteur (à savoir si $F : \R^3 \to \R^3$), alors on peut définir la notion de \emph{flux} de vecteur à travers une surface $S$.
+
+		\begin{déf} Soient $f : U \subset \R^2$ une paramétrisation de la surface $S$ définie sur un ouvert $U$ et $F : \R^3 \to \R^3$ un champ de vecteur
+		continu. Le \emph{flux de $F$ au travers de $S$} est défini par~:
+		\[\int_S\scpr F{\dif n} \coloneqq \scpr F{\pd fx \times \pd fy}\dif (x, y).\]
+		\end{déf}
+
+		Dans ce contexte, $\dif n$ représente l'élément normal à la surface $S$ est \emph{vaut}\footnote{Gardons en tête que cette notation n'a un sens \--
+		jusqu'à présent et dans ce cours \-- que dans une intégrale} $(\pd fx \times \pd fy)\dif x\dif y$.
+
+		L'orientation de la paramétrisation a beaucoup d'importance : si $\hat f$ est d'orientation opposée à $f$, alors l'intégrale revient à
+		\emph{parcourir la surface dans l'autre sens}. Dès lors, la notion de flux n'a de sens que pour les surfaces orientées.
+
+	\subsection{Théorèmes fondamentaux}
 
 \newpage
 \section{Les séries}\label{sec:séries}
