@@ -2692,5 +2692,59 @@
 		\end{rmq}
 
 	\subsection{Critère de Lebesgue}
+		\begin{déf} Soit $N \subset \R^m$. On dit que $N$ est de \emph{mesure nulle} si pour tout $\epsilon > 0$, il existe une collection dénombrable de
+		rectangles $R_j$ dans $\R^m$ telle que~:
+		\begin{itemize}
+			\item[$(i)$]  $\displaystyle N \subset \bigcup_{j=1}^{+\infty}R_j$,
+			\item[$(ii)$] $\displaystyle \lim_{k \to +\infty}\sum_{j=0}^k\vol(R_j) \leq \epsilon$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} Pour le point $(ii)$, c'est une série qui doit être inférieure à $\epsilon$.  Les séries seront détaillées dans la section~\ref{sec:séries}.
+		L'idée derrière est le fait qu'une somme d'un nombre fini de termes est bien définie, mais une somme infinie ne l'est pas directement. Dès lors, on
+		passe à la limite sur $k \to +\infty$.
+		\end{rmq}
+
+		\begin{rmq} Un ensemble fini ou dénombrable est de mesure nulle. \end{rmq}
+
+		\begin{lem} Soit $f : E \subset \R^{m-1} \to \R$ une fonction continue où $E$ est un ensemble compact. Alors le graphe de $f$ est de mesure nulle.
+		\end{lem}
+
+		\begin{proof} Soit $R$ un rectangle tel que $\dom f \subseteq R$. Soit $\epsilon > 0$. Par continuité uniforme (continuité d'une fonction bornée sur un
+		ensemble compact), on sait qu'il existe $\delta > 0$ tel que~:
+		\[\forall x, x' \in \dom f : \norm{x-x'} < \delta \Rightarrow \abs{f(x)-f(x')} < \frac \epsilon{\vol(R)}.\]
+		Soit ensuite $\mathcal P$ une partition rectangulaire de $R$ telle que chaque rectangle $R_j$ a un diamètre\footnote{Le diamètre d'un rectangle
+		correspond à la longueur de ses diagonales.} $\lneqq \delta$. Pour chaque rectangle $R_j$, on construit $R_j' \coloneqq R_j \times [m_j, M_j]$.
+		Chacun de ces sous-rectangles a un volume donné par~:
+		\[\vol(R_j') = \vol(R_j)(M_j-m_j) \lneqq \vol(R_j)\frac \epsilon{\vol(R)}.\]
+		En sommant le volume de tous ces rectangles, on trouve un volume inférieur à $\epsilon$.
+		\end{proof}
+
+		\begin{thm}[Critère de Lebesgue] Soit $f : R \subset \R^m \to \R$ une fonction définie sur un rectangle. Soit~:
+		\[D \coloneqq \{p \in R \tq f \text{ n'est pas continue en } p\}.\]
+		Alors $f$ est intégrable si et seulement si $f$ est bornée et $D$ est de mesure nulle.
+		\end{thm}
+
+		\begin{rmq} Ce théorème n'est pas démontré ici. \end{rmq}
+
+		\begin{cor} Soit $f : R \to \R_0^+$ intégrable et positive définie sur un rectangle . Si $\int_R f(x)\dif x = 0$, alors l'ensemble~:
+		\[N \coloneqq \{x \in R \tq f(x) \gneqq 0\}\]
+		est de mesure nulle. De plus, si $f$ est continue, alors $N = \emptyset$ et $f$ est la fonctions constante nulle.
+		\end{cor}
+
+		\begin{proof} Soit $D$ l'ensemble des points de $R$ où $f$ n'est pas continue. Par Lebesgue, on sait que $D$ est de mesure nulle.
+		Montrons que $N \subseteq D$. Supposons par l'absurde qu'il existe $p \in N$ tel que $f$ est continue en $p$. Par définition de $N$, on sait que $f(p) > 0$.
+		Par la continuité de $f$ en $p$, on sait qu'il existe un rectangle $R' \subset R$ tel que $p \in R'$ et pour tout $x \in R'$, on a~:
+		\[f(x) > \frac {f(p)}2.\]
+		Puisque $f(x)$ est définie positive, on sait que pour tout $x$ : $(f)(x) \geq (1_{R'}f)(x)$. Dès lors~:
+		\[\int_R f(x)\dif x \geq \int_R (1_{R'}f)(x)\dif x = \int_{R'} f(x)\dif x \geq \vol(R')\frac {f(p)}2 \gneqq 0.\]
+		Ce qui est une contradiction. Dès lors, on sait $N \subseteq D$. Or un sous-ensemble d'un ensemble dénombrable est dénombrable et donc $N$ est de
+		mesure nulle. Également, si $f$ est continue, il est évident que $D = \emptyset$, et donc forcément $N = D$.
+		\end{proof}
+
+	\subsection{Théorème de Fubini}
+
+\newpage
+\section{Les séries}\label{sec:séries}
 
 \end{document}
