@@ -46,6 +46,7 @@
 \newcommand{\kappaabs}{\kappa_{\text{abs}}}
 \newcommand{\algonum}[3]{F_{#1}(#2^{(#1)}, #3^{(#1)})}
 \newcommand{\algnum}{\algonum nxd}
+\newcommand{\opt}[1]{{#1}_{\text{opt}}}
 
 \author{R. Petit}
 \date{Année académique 2015 - 2016}
@@ -1269,13 +1270,88 @@
 		solution exacte, alors que la zéro-stabilité permet de déterminer son comportement (à la méthode) par rapport aux erreurs numériques engendrées.
 
 		\begin{déf} La méthode est dite convergente si~:
-		\[\forall n \in \{0, \dotsc, \frac Th\} : e_n(h) \coloneqq \abs{y(t_n) - \widehat y(t_n)} = \mathcal O(h).\]
+		\[\forall n \in \left\{0, \dotsc, \frac Th\right\} : e_n(h) \coloneqq \abs{y(t_n) - \widehat y(t_n)} = \mathcal O(h).\]
 		\end{déf}
 
 		\begin{déf} Si $e_n = \mathcal O(h^p)$ pour un $p \in \N^*$, alors on dit que la méthode est $p$-convergente (ou convergente d'ordre $p$). \end{déf}
 
-		\begin{thm}[Théorème fondamental de l'analyse numérique] La convergence d'une méthode numérique est équivalente à sa consistance \textbf{et} sa
-		zéro-stabilité.
+		\begin{thm}[Théorème fondamental de l'analyse numérique] Si une méthode numérique de résolution d'EDO est zéro-stable \textbf{et} consistante, alors
+		elle est convergente.
 		\end{thm}
+
+		\begin{proof} Soit une méthode générique (et explicite) à pas~:
+		\[\begin{cases}
+			\widehat y(t_n) &= \widehat y(t_{n-1}) + h\phi(t_{n-1}, \widehat y(t_{n-1})) \\
+			\widehat {y^*}(t_n) &= y(t_{n-1} + h\phi(t_{n-1}, y(t_{n-1})).
+		\end{cases}\]
+
+		La différence entre les deux est que $\widehat y$ représente une solution approchée, et la méthode itérative se base sur la solution approchée de l'étape
+		précédente alors que $\widehat {y^*}$ représente une solution approchée calculée selon la solution théorique exacte de l'étape précédente.
+
+		\begin{align*}
+			\widehat y(t_n) - \widehat {y^*}(t_n) &= \widehat y(t_{n-1}) +h\phi(t_{n-1}, \widehat y(t_{n-1})) - y(t_n) \\
+			&= \widehat y(t_{n-1}) + h\phi(t_{n-1}, \widehat y(t_{n-1})) - y(t_n) + \widehat {y^*}(t_n) - \widehat {y^*}(t_n) \\
+			&= \widehat y(t_{n-1}) + h\phi(t_{n-1}, \widehat y(t_{n-1})) - y(t_n) + \widehat {y^*}(t_n) - \left(y(t_{n-1}) + h\phi(t_{n-1}, y(t_{n-1}))\right) \\
+			&= \widehat y(t_{n-1}) - y(t_{n-1}) + h\left[\phi(t_{n-1}, \widehat y(t_{-1})) - \phi(t_{n-1}, y(t_{n-1})) + \frac {\widehat {y^*}(t_n) - y(t_n)}h\right] \\
+			&= \left(\widehat y(t_{n-1}) - y(t_{n-1})\right) + h\left(\phi(t_{n-1}, \widehat y(t_{n-1})) - \phi(t_{n-1}, y(t_{n-1}) + \tau_n(h)\right).
+		\end{align*}
+
+		Par définition de méthode zéro-stable, on sait qu'il existe $C$ tel que~:
+		\[\abs{\widehat y(t_n) - y(t_n)} \leq C\max_n\abs{\tau_n(h)} = C\tau(h).\]
+		Si une méthode est consistante, alors pour $h \to 0$, on a $\tau(h) \to 0$. On trouve donc bien que~:
+		\[\abs{\widehat y(t_n) - y(t_n)} =\mathcal O(h).\]
+		\end{proof}
+
+		\begin{rmq} le calcul de la convergence de la méthode d'Euler fait l'hypothèse que tous les calculs sont en arithmétique exacte. On peut, pour être plus
+		rigoureux, introduire les erreurs d'arrondi~:
+		\[\abs{\widehat y(t_n) - y(t_n)}
+			= \widehat y(t_{n-1}) - y(t_{n-1}) + h\left[f(t_{n-1}, \widehat y(t_{n-1})) - f(t_{n-1}, y(t_{n-1})) + \tau_n(h) + \epsilon_n(h)\right] + \rho_{n-1}.\]
+
+		Pour tout $n$ et avec $h \leq h_0$, en supposant $\epsilon_n \leq \epsilon$, et $\rho_n \leq \rho$ et en sachant que $\tau_n \leq Kh$, on trouve que~:
+		\[\abs{\widehat y(t_n) - y(t_n)} \leq C\left(\frac KCh + \epsilon + \frac \rho h\right).\]
+
+		On y voit donc clairement qu'en prenant $h$ trop petit, la bore de l'erreur devient trop grande.
+
+		À cause des erreurs d'arrondi, on ne peut pas dire que l'erreur générale tend vers 0 pour $h \to 0$, maison peut cependant dire qu'il existe une valeur
+		optimale (que l'on note ici $\opt h$) qui minimise l'erreur. Pour $h \lneqq \opt h$, l'erreur d'arrondi prend le dessus sur l'erreur de troncature et
+		donc l'erreur globale augmente.
+		\end{rmq}
+
+		\paragraph{Stabilité absolue} la stabilité absolue concerne le comportement de la méthode numérique pour $t_n \to +\infty$. Étudions donc le problème de
+		Cauchy linéaire suivant~:
+		\[\begin{cases}y'(t) &= \lambda y(t) \\y(0) &= 1.\end{cases},\]
+		avec $\lambda \in \R_0^-$. La solution analytique est~:
+		\[y(t) = \exp(\lambda t),\]
+		et donc~:
+		\[\lim_{t \to +\infty}\abs{y(t)} = 0.\]
+
+		\begin{déf} Une méthode numérique pour l'approximation du problème linéaire de Cauchy est dite \emph{absolument stable} si~:
+		\[\lim_{t_n \to +\infty}\abs{\widehat y(t_n)} = 0.\]
+		\end{déf}
+
+		\begin{déf} L'espace de stabilité absolue de la méthode numérique est donné par~:
+		\[\mathcal A_\lambda \coloneqq \left\{h\lambda \tq h \in \R \land \lim_{t_n \to +\infty}\abs{\widehat y(t_n)} = 0\right\}.\]
+		\end{déf}
+
+		Dans le problème de Cauchy actuel, on a la fonction $f(t, y) = \lambda y$. En y appliquant Euler, on trouve~:
+		\[\widehat y(t_n) = \widehat y(t_{n-1}) + hf(t_{n-1}, y(t_{n-1})) = \widehat y(t_{n-1})(1 + h\lambda).\]
+		Puisque $y(0) = 1$, on trouve (par récurrence) $y(t_n) = (1 + \lambda h)^n$. Dès lors, on peut définir que la méthode est absolument stable si et
+		seulement si $\abs{1 + \lambda h} \lneqq 1$, ce que l'on peut réécrire~:
+		\[\frac {-2}\lambda \gneqq h \gneqq 0.\]
+		Si cette condition n'est pas respectée, on dit que la méthode est instable.
+
+		\begin{déf} Une méthode numérique de résolution d'EDO est dite à \emph{un pas} quand pour tout $n$, l'élément $\widehat y_{n+1}$ ne dépend que de
+		$\widehat y_n$ et pas de $\widehat y_k$ pour $k \lneqq n$. Sinon, on dit que la méthode est à \emph{pas multiples}.
+		\end{déf}
+
+		\begin{déf} Une méthode numérique de résolution d'EDO est dite \emph{explicite} si pour tout $n$, la valeur $\widehat y_n$ peut se calculer directement
+		avec les valeurs $\widehat y_k$ pour $k \lneqq n$. Sinon, on dit que la méthode est \emph{implicite}.
+		\end{déf}
+
+		\begin{rmq} Les méthode d'Euler dites respectivement \emph{retrograde} et \emph{du trapèze} sont absolument stable pour tout $h$ et sont respectivement
+		d'ordre 1 et 2.
+		\end{rmq}
+
+	\subsection{Runge-Kutta}
 
 \end{document}
