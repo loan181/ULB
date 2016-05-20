@@ -2727,7 +2727,8 @@
 
 		\begin{rmq} Ce théorème n'est pas démontré ici. \end{rmq}
 
-		\begin{cor} Soit $f : R \to \R_0^+$ intégrable et positive définie sur un rectangle . Si $\int_R f(x)\dif x = 0$, alors l'ensemble~:
+		\begin{cor}\label{cor:intpositive=0ssiNmesurenulle} Soit $f : R \to \R_0^+$ intégrable et positive définie sur un rectangle .
+		Si $\int_R f(x)\dif x = 0$, alors l'ensemble~:
 		\[N \coloneqq \{x \in R \tq f(x) \gneqq 0\}\]
 		est de mesure nulle. De plus, si $f$ est continue, alors $N = \emptyset$ et $f$ est la fonctions constante nulle.
 		\end{cor}
@@ -2743,6 +2744,89 @@
 		\end{proof}
 
 	\subsection{Théorème de Fubini}
+		\begin{thm}[Théorème de Fubini simplifié dans $\R^2$] Soit $f : [a, b] \times [c, d] \to \R$ une fonction continue définie sur un rectangle de $\R^2$.
+		Les fonctions $F : [a, b] \to \R$ et $G : [c, d] \to \R$ définies par~:
+		\[\begin{cases}F(s) &= \int_c^df(s, t)\dif t \\ G(t) &= \int_a^bf(s, t)\dif s\end{cases}\]
+		sont continues. De plus, on a~:
+		\[\int_c^dF(s)\dif s = \int_a^bG(t)\dif t = \int_R f(x)\dif x.\]
+		\end{thm}
+
+		\begin{proof} On remarque que les fonctions $F$ et $G$ sont bien définies de par la continuité de $f$. De plus, comme $R$ est fermé borné, la fonction
+		$f$ est uniformément continue sur $R$. Dès lors, en posant $\epsilon > 0$, on sait qu'il existe $\delta > 0$ tel que pour tout $(s_1, t_1), s_2, t_2$,
+		si $\abs {(s_1, t_1)-(s_2, t_2)} < \delta$, alors $\abs{f(s_1, t_1) - f(s_2, t_2)} < \frac \epsilon{d-c}$. Dès lors, soient $s_1, s_2$, en supposant
+		$\abs{s_1-s_2} < \delta$, alors on trouve~:
+		\[\abs{F(s_1) - F(s_2)} = \abs{\int_c^d\left(f(s_1, t) - f(s_2, t)\right)\dif t} \leq \int_c^d\abs{f(s_1, t)-f(s_2, t)}\dif t
+		= \int_c^d\frac \epsilon{d-c} = \epsilon.\]
+		On observe donc que $F$ est également uniformément continue. On détermine similairement que $G$ est uniformément continue.
+
+		Soit $\mathcal P$ une partition rectangulaire de $R$. Par définition, on peut écrire~:
+		\[\begin{cases}
+			\mathcal P_1 &: a = s_0 < s_1 < \dotsb < s_{p-1} < s_p = b \\
+			\mathcal P_2 &: c = t_0 < t_1 < \dotsb < t_{q-1} < t_q = d.
+		\end{cases}\]
+
+		On note alors $\mathcal P_{ij}$ le rectangle $[s_{i-1}, s_i] \times [t_{j-1}, t_j]$. Les sommes de Darboux peuvent s'exprimer ainsi~:
+		\begin{align*}
+			\underline S(f, \mathcal P) &= \sum_{i=1}^p\sum_{j=1}^q\abs{[s_{i-1}, s_i]}\abs{[t_{j-1}, t_j]}\inf_{(s, t)\in \mathcal P_{ij}}f(s, t)
+			= \sum_{i=1}^p\sum_{j=1}^q(s_i - s_{i-1})(t_j-t_{j-1})\inf_{s \in [s_{i-1}, s_i]}\left(\inf_{t \in [t_{j-1}, t_j]}f(s, t)\right) \\
+			&= \sum_{i=1}^p\left((s_i-s_{i-1})\inf_{s \in [s_{i-1}, s_i]}\left[\sum_{j=1}^q(t_j-t_{j-1})\inf_{t \in [t_{j-1}, t_j]}f(s, t)\right]\right).
+		\end{align*}
+
+		On remarque cependant que~:
+		\[\sum_{j=1}^q(t_j-t_{j-1})\inf_{t \in [t_{j-1}, t_j]}f(s, t) = \underline S(t \mapsto f(s, t), \mathcal P_2) \leq \int_c^df(s, t)\dif t = F(s).\]
+
+		On peut alors réécrire~:
+		\[\underline S(f, \mathcal P) \leq \sum_{i=1}^p(s_i-s_{i-1})\inf_{s \in [s_{i-1}, s_i]}F(s) = \underline S(F, \mathcal P_1) \leq \int_a^bF(s)\dif s.\]
+
+		De manière sensiblement équivalente, on montre que~:
+		\[\overline S(f, \mathcal P) \geq \int_a^bF(s)\dif s.\]
+
+		On sait cependant que $f$ est intégrable et donc que~:
+		\[\int_R f(x)\dif x = \int_a^b F(s)\dif s.\]
+		On prouve de la même manière que $\int_R f(x)\dif x = \int_c^dG(t)\dif t$.Ce qui conclut la preuve du théorème.
+		\end{proof}
+
+		\begin{thm}[Théorème de Fubini] Soient $R_1 \subset \R^{m_1}, R_2 \subset \R^{m_2}$ et $f : R_1 \times R_2 \to \R$ une fonction intégrable. Alors les
+		fonctions suivantes sont intégrables également~:
+		\begin{align*}
+			R_1 \ni x &\mapsto \underline \int_{R_2} f(x, y)\dif y, \\
+			R_1 \ni x &\mapsto \overline  \int_{R_2} f(x, y)\dif y, \\
+			R_2 \ni y &\mapsto \underline \int_{R_1} f(x, y)\dif x, \\
+			R_2 \ni y &\mapsto \overline  \int_{R_1} f(x, y)\dif x.
+		\end{align*}
+
+		De plus~:
+		\begin{align*}
+			\int_{R_1 \times R_2} f(x)\dif x
+				&= \int_{R_1}\left(\underline \int_{R_2} f(x, y)\dif y\right)\dif x \\
+				&= \int_{R_1}\left(\overline  \int_{R_2} f(x, y)\dif y\right)\dif x \\
+				&= \int_{R_2}\left(\underline \int_{R_1} f(x, y)\dif x\right)\dif y \\
+				&= \int_{R_2}\left(\overline  \int_{R_1} f(x, y)\dif x\right)\dif y.
+		\end{align*}
+		\end{thm}
+
+		\begin{rmq} Lorsque la fonction $x \mapsto f(x, y)$ est intégrable pour tout $y \in R_2$, alors~:
+		\[\int_{R_1} f(x, y)\dif x = \underline \int_{R_1} f(x, y)\dif x = \overline \int_{R_1} f(x, y)\dif x.\]
+
+		Dans ce cas, le théorème de  Fubini dit que~:
+		\[\int_{R_1 \times R_2} f(x, y)\dif (x, y) = \int_{R_1}\left(\int_{R_2} f(x, y)\dif y\right)\dif x.\]
+		De même, si la fonction $y \mapsto f(x, y)$ est intégrable pour tout $x \in R_1$, alors Fubini dit que~:
+		\[\int_{R_1 \times R_2} f(x, y)\dif (x, y) = \int_{R_2}\left(\int_{R_1} f(x, y)\dif x\right)\dif y.\]
+		\end{rmq}
+
+		\begin{cor} Soit $f : R_1 \times R_2 \to \R$ intégrable. Alors l'ensemble~:
+		\[N \coloneqq \{y \in R_2 \tq x \mapsto f(x, y) \text{ n'est pas intégrable }\}\]
+		est de mesure nulle.
+		\end{cor}
+
+		\begin{proof} Par définition, pour tout $y \in R_2$, n peut définir~:
+		\[\Delta(y) \coloneqq \overline \int_{R_1} f(x, y)\dif x - \underline \int_{R_1} f(x, y)\dif x \geq 0.\]
+
+		De plus, $y \in N$ si et seulement si $\Delta(y) \gneqq 0$. Or Fubini dit que $\Delta(y)$ est intégrable et que $\int_{R_2}\Delta(y)\dif y = 0$.
+		On peut donc dire que $\Delta(y) = 0$ par le corollaire~\ref{cor:intpositive=0ssiNmesurenulle} sauf quand $y \in E$ tel que $E$ est de mesure nulle.
+		\end{proof}
+
+	\subsection{Changements de variables}
 
 \newpage
 \section{Les séries}\label{sec:séries}
