@@ -2827,6 +2827,35 @@
 		\end{proof}
 
 	\subsection{Changements de variables}
+		\begin{déf} Soit $M$ une matrice de dimension $n \times m$. On note, pour tout $(i, j) \in \{1, \dotsc, n\} \times \{1, \dotsc, m\}$, $M(i, j)$ pour
+		faire référence à la matrice $M$ à laquelle la $i$ème ligne et la $j$ème colonne ont été retirées.
+		\end{déf}
+
+		\begin{rmq} Soit $f : \R^n \to \R^n$ une fonction de classe $C^1$. On prend $a, \epsilon \in \R^n$, et on définit $R_\epsilon$ le rectangle~:
+		\[R_\epsilon \coloneqq \prod_{k=1}^n[a_k, a_k+\epsilon_k].\]
+		Rien ne garantit que $f(R_\epsilon)$ soit toujours un rectangle, cependant, pour $\epsilon$ \emph{tout petit}, on peut utiliser $(\dif f)(a)$, la
+		différentielle de $f$ en $a$ pour approximer (linéairement) $f(R_\epsilon)$. La différentielle envoie $R_\epsilon$, un rectangle sur $f(R_\epsilon)$,
+		un parallélogramme. On peut définir ce parallélogramme par $P$ engendré par les vecteurs~:
+		\[f(a) + \pd f{x_1}(a)\epsilon_1, \;f(a) + \pd f{x_2}(a)\epsilon_2, \; \dotsc, \;f(a) + \pd f{x_n}(a)\epsilon_n.\]
+
+		Il s'ensuit que le volume de ce parallélogramme est donné par le déterminant de la matrice dont les vecteurs de $P$ sont les vecteurs de $P$~:
+		\[\vol(f(R_\epsilon)) = \vol(P) = \abs{\det J_f(a)}\prod_{k=1}^n\epsilon_k = \abs{\det J_f(a)}\vol(R_\epsilon).\]
+
+		On en déduit que $\abs{\det J_f(a)}$ définit la variation infinitésimale de volume en $a$ quand les variables sont changées par la fonction $f$.
+		\end{rmq}
+
+		\begin{déf} Soit $f : U \subset \R^n \to \R^n$ de classe $C^1$ définie sur $U$ un ouvert. On dit que $f$ est un changement de variables si
+		$\det J_f(a) \neq 0$ pour tout $a \in U$.
+		\end{déf}
+
+		\begin{thm}[Formule du changement de variables] Soit $f : U \subseteq \R^n \to \R^n$ définie sur $U$ un ouvert. Si $g : f(U) \to \R^n$ est une fonction
+		intégrable, alors la fonction $(g \circ f)\abs{\det J_f(a)} : U \to \R^n$ est intégrable et~:
+		\[\int_V g(x)\dif x = \int_U g(f(x))\abs{\det J_f(x)}\dif x.\]
+		\end{thm}
+
+		\begin{rmq} Ce théorème n'est pas démontré. \end{rmq}
+
+	\subsection{Surfaces dans $\R^3$}
 
 \newpage
 \section{Les séries}\label{sec:séries}
