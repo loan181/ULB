@@ -2856,6 +2856,80 @@
 		\begin{rmq} Ce théorème n'est pas démontré. \end{rmq}
 
 	\subsection{Surfaces dans $\R^3$}
+		\begin{déf} Soit $f : U \subset \R^2 \to \R^3$ injective de classe $C^1$ où $U$ est un ouvert. On dit que $f(U)$ est une \emph{surface paramétrisable} si
+		pour tout $p \in U : \pd fx$ et $\pd fy$ sont linéairement indépendants. On dit que l'application $f$ est une \emph{paramétrisation} de $S$.
+		\end{déf}
+
+		\begin{rmq} Si $V \subset \R^2$ est un ouvert et si $\phi : V \to U$ est une bijection de classe $C^1$ telle que pour tout $q \in V$~:
+		$(\dif \phi)(q) : U \to V$ est un isomorphisme, alors $\hat f : V \to \R^3 : x \mapsto (f \circ \phi)(x)$ a la même image que $f$ et de plus, on sait~:
+		\[(\dif \hat f)(q) = (\dif f)(\phi(q))(\dif \phi)(q).\]
+		De plus, puisque $(\dif \phi)(q)$ est un isomorphisme et $(\dif f)(\phi(q))$ est injective, $(\dif \hat f)(q)$ est également injective. Dès lors, $\hat f$
+		est également une paramétrisation de $S$.
+		\end{rmq}
+
+		\begin{déf} Une \emph{surface paramétrisable} est un sous-ensemble $S \subset \R^3$ qui est localement paramétrisable. C'est-à-dire que pour tout
+		$p \in S$, il existe $V \subset \R^3$ un ouvert contenant $p$ tel que $V \cap S$ est paramétrisable.
+
+		S'il existe un ensemble de paramétrisations telles que toutes les paramétrisations sont localement injectives, alors la surface $S$ est dite
+		\emph{plongée}.
+		\end{déf}
+
+		\subsubsection{Surfaces orientables}
+		\begin{déf} Soient $u, v \in \R^3$. On définit le produit vectoriel~:
+		\[u \times v \coloneqq \left(u_2v_3 - u_3v_2, -(u_1v_3 - u_3v_1), u_1v_2 - u_2v_1\right).\]
+		\end{déf}
+
+		\begin{rmq} On peut définir le produit vectoriel par le déterminant de la matrice~:
+		\[\begin{pmatrix}
+			e_x & e_y & e_z \\
+			u_1 & u_2 & u_3 \\
+			v_1 & v_2 & v_3
+		\end{pmatrix}.\]
+		\end{rmq}
+
+		\begin{lem} La norme du produit vectoriel de $u, v \in \R^3$ respecte l'égalité suivante~:
+		\[\norm{u \times v} = \norm u\norm v\sin\theta,\]
+		où $\theta$ est l'angle formé par les deux vecteurs.
+		\end{lem}
+
+		\begin{rmq} En supposant $u \neq 0 \neq v$, on trouve que $u \times v = 0$ si et seulement si $u$ et $v$ sont colinéaires. Le produit vectoriel donne
+		donc un moyen de tester l'indépendance linéaire entre deux vecteurs.
+		\end{rmq}
+
+		\begin{déf} Soit $S$ une surface paramétrée par $f : U \to \R^3$. On définit le \emph{vecteur normal unitaire positif à $S$} par~:
+		\[n : U \to \R^3 : p \mapsto \frac {\pd fx(p) \times \pd fy(p)}{\norm{\pd fx(p) \times \pd fy(p)}}.\]
+		\end{déf}
+
+		\begin{rmq} Par définition d'une surface paramétrée, les vecteurs $\pd fx(p)$ et $\pd fy(p)$ sont linéairement indépendants. Dès lors diviser la norme
+		du produit scalaire a du sens car cette norme est strictement positive.
+		\end{rmq}
+
+		Le produit scalaire donne un vecteur orthogonal aux vecteurs $u$ et $v$. Donc par définition, $n(p)$ donne un vecteur (unitaire) orthogonal aux
+		dérivées partielles $\pd fx(p)$ et $\pd fy(p)$, et donc par extension, $n(p)$ est également orthogonal à l'image de $(\dif f)(p) : \R^2 \to \R^3$.
+
+		De plus, il existe deux vecteurs unitaires orthogonaux au plan tangent à $f(p)$, à savoir $n(p)$ et $-n(p)$. En choisissant $\hat f$, une autre
+		paramétrisation de $S$, on aura toujours un de ces deux vecteurs.
+
+		\begin{déf} Soient $f, \hat f$ deux paramétrisations d'une même surface $S$ paramétrisable. On note respectivement $n$ et $\hat n$ les vecteurs unitaires
+		normaux. On dit que $f$ et $\hat f$ sont de même orientation si $n = \widehat n$, et on dit que $f$ et $\hat f$ sont d'orientation opposée si
+		$n = \hat n$.
+		\end{déf}
+
+		\begin{rmq} Le nombre d'orientations possibles étant réduit à 2, on peut subdiviser toutes le paramétrisations $f$ d'une même surface paramétrisable $S$
+		en 2 classes (selon le vecteur normal unitaire).
+		\end{rmq}
+
+		\begin{déf} Une surface $S$ est dite orientable si on peut choisir toutes les paramétrisations locales telles qu'elles induisent toutes le même vecteur
+		normal (donc de même orientation) en tout point où leur image se rencontre.
+		\end{déf}
+
+		\begin{rmq} Sur une surface orientable, on peut dès lors définir le champ normal $S \to \R^3$ de manière globale sur la surface. Une \emph{orientation}
+		est alors un choix explicite d'une des deux possibilités du champ.
+
+		Il existe des surfaces non-orientables (c.f. le ruban de Möbius ou la bouteille de Klein).
+		\end{rmq}
+
+	\subsection{Aire d'une surface et intégrale sur une surface}
 
 \newpage
 \section{Les séries}\label{sec:séries}
