@@ -36,6 +36,7 @@
 \DeclareMathOperator{\fl}{fl}  % arrondi des flottants (\R \to \F)
 \DeclareMathOperator{\tr}{tr}  % troncature de flottant (\R \to \F)
 \DeclareMathOperator{\diag}{diag}  % diagonale
+\DeclareMathOperator{\dom}{dom}  % domaine de définition
 
 \newcommand{\C}{\mathbb C}
 \newcommand{\F}{\mathbb F}
@@ -518,7 +519,7 @@
 		\end{rmq}
 
 \newpage
-\section{Résolution de systèmes linéaires}
+\section{Résolution de systèmes linéaires}\label{sec:systèmeslinéaires}
 	\subsection{Définitions}
 		\begin{déf}Un système de $N$ équations linéaires à $n$ inconnues est donné par $(S) : \sum_{i=1}^na_{i\,j}x_i = b_i$ pour $j \in \{1, \dotsb, N\}$.
 
@@ -1379,7 +1380,7 @@
 
 		La forme explicite de la méthode itérative est alors~:
 		\[\widehat y(t_n) = \widehat y(t_{n-1}) + h\left(b_1K_1 + b_2K_2\right),\]
-		où les $K_j$ valent\footnote{On suppose que l'étape $n-1$ a été déterminée avec précision infinie et donc que $\widehat y(t_{n-1}) = y(t_{n-1})$}~:
+		où les $K_j$ valent\footnote{On suppose que l'étape $n-1$ a été déterminée avec précision infinie et donc que $\widehat y(t_{n-1}) = y(t_{n-1})$.}~:
 		\begin{align*}
 			K_1 &= f\left(t_{n-1} + c_1h, \widehat y(t_{n-1}) + ha_{11}K_1 + ha_{12}K_2\right) = f\left(t_{n-1}, \widehat y(t_{n-1})\right), \\
 			K_2 &= f\left(t_{n-1} + c_2h, \widehat y(t_{n-1}) + ha_{21}K_1 + ha_{22}K_2\right) = f\left(t_{n-1} + c_2h, \widehat y(t_{n-1}) + ha_{21}K_1\right)
@@ -1403,7 +1404,7 @@
 			&             &&+ h^2b_2c_2f(t_{n-1}, y(t_{n-1}))\pd fy(t_{n-1}, y(t_{n-1})) + \mathcal O(h^3).
 		\end{align*}
 
-		En considérant que $y'(t_n) = f(t_{n-1}, y(t_{n-1}))$, on trouve\footnote{En utilisant la formule de dérivation d'une composition}~:
+		En considérant que $y'(t_n) = f(t_{n-1}, y(t_{n-1}))$, on trouve\footnote{En utilisant la formule de dérivation d'une composition.}~:
 		\begin{align*}
 			y''(t_n) &= \left(y'\right)'(t_n) = \left(f'\right)(t_{n-1}, y(t_{n-1})) = \pd ft(t_{n-1}, y(t_{n-1}))
 							+ \pd fy(t_{n-1}, y(t_{n-1}))\od yt(t_{n-1}) \\
@@ -1439,5 +1440,119 @@
 
 \newpage
 \section{Interpolation}
+	\subsection*{Introduction}
+		Lorsqu'une fonction a une forme analytique compliquée à évaluer, différentier ou encore intégrer, il est confortable de pouvoir l'approcher par une
+		fonction beaucoup plus simple à analyser, tel qu'un polynôme. Pour ce faire, on évalue la fonction analytique en un certain nombre de points, que
+		l'on appelle les \emph{nœuds d'interpolation}.
+
+		Soit $f$ une fonction dont on connait qu'un nombre fini d'évaluations. Deux cas se distinguent~:
+		\begin{enumerate}
+			\item si les données sont supposées exactes, on parle de situation \emph{déterministe} et on résout cela par interpolation~;
+			\item si les données sont perturbées, on parle de situation \emph{stochastique}\footnote{Terme relativement équivalent à \emph{probabiliste}.}
+			    et on résout cela par lissage.
+		\end{enumerate}
+
+		Dans cette section, seule l'interpolation est discutée, le lissage concerne la section suivante.
+
+		L'idée est d'avoir un ensemble de $n+1$ couples $(x_i, y_i)$ tels que $f(x_i) = y_i$ pour tout $i$, et on recherche une autre fonction $\phi$ telle
+		que $\phi(x_i) = y_i$ afin d'obtenir une approximation de $f$. Les exemples d'interpolation les plus connus sont les suivants~:
+		\begin{itemize}
+			\item interpolation \emph{polynômiale} ($\phi$ est un polynôme)~;
+			\item interpolation polynômiale \emph{par morceaux} (également appelée \emph{interpolation par splines})~;
+			\item approximation trigonométrique (pas discutée ici).
+		\end{itemize}
+
+	\subsection{Interpolation polynômiale}
+		\begin{thm}\label{thm:caractérisationpolynômeparpoints} Soient $x_0, \dotsc, x_n$, $n+1$ points distincts, et soient $y_0, \dotsc, y_n$ leur valeur
+		associée. Alors il existe une unique polynôme $\pi_n$ tel que~:
+		\[\forall 0 \leq i \leq n : \pi_n(x_i) = y_i.\]
+		\end{thm}
+
+		\begin{rmq} La preuve de ce théorème (omise ici) ne fournit pas un algorithme afin de déterminer les coefficients du polynôme. Il y a donc deux moyens
+		de déterminer le polynôme avec précision~:
+		\begin{itemize}
+			\item utiliser une méthode générale\footnote{Que l'on peut également qualifier de \emph{naïve}.} qui consiste à créer un système linéaire en
+				remplaçant les valeurs de $x_i$ et $y_i$ dans l'équation du polynôme. Cependant, cette méthode implique une résolution de système, ce qui
+				est assez coûteux ($\mathcal O(n^3)$ comme vu dans la section~\ref{sec:systèmeslinéaires}) et peut, en plus, donner un système mal conditionné.
+			\item Utiliser une méthode \emph{ad hoc}. Les méthodes de Lagrange et de Newton présentent l'avantage d'être en complexité $\mathcal O(n^2)$.
+		\end{itemize}
+		\end{rmq}
+
+		\subsubsection{Polynôme de Lagrange}
+		\begin{déf} On définit le $i$ème polynôme de Lagrange par~:
+		\[l_i(x) \coloneqq \prod_{j \neq i}\frac {x-x_j}{x_i-x_j},\]
+		avec $0 \leq i \leq n$.
+		\end{déf}
+
+		\begin{thm} Soient $\{(x_i, y_i\}_{0 \leq i \leq n}$ des couples de données. Le polynôme de Lagrange est donné par~:
+		\[\pi_n(x) \coloneqq \sum_{i=0}^ny_il_i(x).\]
+		\end{thm}
+
+		On remarque que les polynômes de Lagrange ont une propriété très agréable qui est que~:
+		\[l_i(x_j) = \delta_{ij}.\]
+		En effet, si $i = j$, alors tous les facteurs du produit seront 1, et le polynôme s'évalue donc par 1~; et si $i \neq j$, alors un des facteurs du
+		produit donnera 0, ce qui absorbera tout le résultat et donc évaluera le polynôme par 0. De plus, chaque polynôme de Lagrange est de degré $n$.
+		C'est assez clair du fait que ces polynômes sont définis par un produit où le dénominateur est constant (pour chaque facteur) et où le numérateur
+		est de degré 1 en $x$.
+
+		\begin{déf} On définit le polynôme nodal de degré $n+1$ par~:
+		\[\omega_{n+1} \coloneqq \prod_{i=0}^n(x-x_i).\]
+		\end{déf}
+
+		\begin{lem} Si $\omega_{n+1}$ est le polynôme nodal de degré $n+1$ lié à un ensemble $\{(x_i, y_i)\}$ de points, alors~:
+		\[\forall 0 \leq i \leq n : \omega_{n+1}'(x_i) = \prod_{j \neq i}(x_i-x_j).\]
+		\end{lem}
+
+		On remarque à nouveau que le polynôme nodal de degré $n+1$ s'annule en tout $x_i$.
+
+		\begin{thm} Le polynôme $\pi_n$ peut s'écrire de manière équivalente comme~:
+		\[\pi_n(x) = \sum_{i=0}^n\frac {\omega_{n+1}(x)}{(x-x_i)\omega_{n+1'}(x_i)}y_i.\]
+		\end{thm}
+
+		\begin{proof} Il suffit de montrer que le polynôme de Lagrange $l_i$ est équivalent à~:
+		\[\frac {\omega_{n+1}(x)}{(x-x_i)\omega_{n+1}'(x_i)}.\]
+		On trouve donc~:
+		\[l_i(x) = \prod_{j \neq i}\frac {x-x_j}{x_i-x_j} = \left(\prod_{j \neq i}(x-x_j)\right)\left(\prod_{j \neq i}\frac 1{x_i-x_j}\right)
+		= \frac {\omega_{n+1}(x)}{(x-x_i)}\frac 1{\omega_{n+1}'(x_i)}.\]
+		\end{proof}
+
+		\begin{thm} Soient $x_0, \dotsc, x_n$, $n+1$ points distincts et soit $x \in \dom f$. On suppose $f$ de classe $C^{n+1}$ sur $I_x$, le plus petit
+		ensemble continue contenant tous les $x_i$\footnote{On peut dès lors exprimer $I_x$ comme étant l'intervalle $[m_x, M_x]$ où
+		$m_x \coloneqq \min_i x_i$ et $M_x \coloneqq \max_i x_i$ en posant $x_{n+1} \coloneqq x$.}. Alors l'erreur d'interpolation au point $x$ est donnée
+		par~:
+		\[E_n(x) = f(x) - \pi_n(x) = \frac {f^{(n+1)}(\xi)}{(n+1)!}\omega_{n+1}(x),\]
+		où $\omega_{n+1}$ est le polynôme nodal de degré $n+1$ et où $\xi \in I_x$.
+		\end{thm}
+
+		\begin{rmq} Ce théorème est assez proche du théorème de Taylor : il permet de borner l'erreur d'une approximation (ici polynômiale). \end{rmq}
+
+		\begin{déf} Soit $f$ une fonction continue sur $[a, b]$. On définit sa norme infinie par~:
+		\[\norm f_\infty \coloneqq \max_{x \in [a, b]}\abs{f(x)}.\]
+		\end{déf}
+
+		La norme infinie d'une fonction est donc la plus grande valeur (en valeur absolue) que peut prendre la fonction sur son domaine de définition.
+		Pour tout $x \in [a, b]$, on peut alors affirmer~:
+		\[f(x) \leq \norm f_\infty,\]
+		par définition. On peut donc revenir au théorème et borner l'erreur par~:
+		\[E_n(x) = \frac {f^{(n+1)}(\xi)}{(n+1)!}\omega(x) \leq \frac {\norm {f^{(n+1)}}_\infty}{(n+1)!}\norm {\omega_{n+1}}_\infty
+		= \frac {\norm {f^{(n+1)}}_\infty (b-a)^{n+1}}{(n+1)!}.\]
+
+		On peut remarquer un certain nombre de propriétés sur la méthode d'interpolation de Lagrange. Premièrement, on peut borner l'erreur d'interpolation,
+		mais il faut pour cela connaitre la fonction $f$, ce qui est loin d'être systématique. On peut également observer que l'erreur d'interpolation est
+		faible près des valeurs $x_i$, et l'est d'autant plus que la fonction $f$ est lisse.
+
+		Une propriété des polynômes nodaux (et donc par extension applicable à Lagrange) est le fait que le maximum de $x \mapsto \abs {\omega_{n+1}(x)}$
+		est toujours atteint dans un des deux intervalles extrêmes (à savoir $[x_0, x_1]$ ou $[x_{n-1}, x_n]$). Instinctivement, c'est lié au fait que dans
+		ces intervalles, ce sont les plus grands exposants qui prennent le dessus sur les autres (ils deviennent dominant, et on qualifie les plus petits
+		exposants de \emph{négligeables}), ce qui implique qu'on a une valeur qui sera plus grande dans es intervalles (en valeur absolue tout du moins).
+
+		Par définition, si la fonction $f$ est un polynôme de degré $n$, alors l'erreur est nulle (ce qui est logique car $n+1$ points permettent de caractériser
+		un unique polynôme de degré $n$, comme énoncé par le théorème~\ref{thm:caractérisationpolynômeparpoints}).
+
+		On peut également remarquer (ce qui est lié avec la remarque localisant le maximum de la fonction $x \mapsto \abs{\omega_{n+1}(x)}$) que l'erreur
+		d'extrapolation est typiquement supérieure à l'erreur d'interpolation. L'erreur d'extrapolation étant définie comme l'erreur d'évaluation d'un point $x$
+		n'appartenant \textbf{pas} à l'intervalle $I_x$, contrairement à l'erreur d'interpolation. En effet, un polynôme de degré $n$ (typiquement $\pi_n$)
+		va osciller entre sa première et sa dernière racine. Après cela, le polynôme se dirige (avec une croissance définie par le degré) vers les infinis,
+		et donc le polynôme d'interpolation $\pi_n$ n'est pas bon à utiliser pour approcher $f$ en dehors de l'ensemble de définition.
 
 \end{document}
