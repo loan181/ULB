@@ -1516,8 +1516,8 @@
 		= \frac {\omega_{n+1}(x)}{(x-x_i)}\frac 1{\omega_{n+1}'(x_i)}.\]
 		\end{proof}
 
-		\begin{thm} Soient $x_0, \dotsc, x_n$, $n+1$ points distincts et soit $x \in \dom f$. On suppose $f$ de classe $C^{n+1}$ sur $I_x$, le plus petit
-		ensemble continue contenant tous les $x_i$\footnote{On peut dès lors exprimer $I_x$ comme étant l'intervalle $[m_x, M_x]$ où
+		\begin{thm}\label{thm:erreurinterpolation} Soient $x_0, \dotsc, x_n$, $n+1$ points distincts et soit $x \in \dom f$. On suppose $f$ de classe $C^{n+1}$
+		sur $I_x$, le plus petit ensemble continue contenant tous les $x_i$\footnote{On peut dès lors exprimer $I_x$ comme étant l'intervalle $[m_x, M_x]$ où
 		$m_x \coloneqq \min_i x_i$ et $M_x \coloneqq \max_i x_i$ en posant $x_{n+1} \coloneqq x$.}. Alors l'erreur d'interpolation au point $x$ est donnée
 		par~:
 		\[E_n(x) = f(x) - \pi_n(x) = \frac {f^{(n+1)}(\xi)}{(n+1)!}\omega_{n+1}(x),\]
@@ -1554,5 +1554,83 @@
 		n'appartenant \textbf{pas} à l'intervalle $I_x$, contrairement à l'erreur d'interpolation. En effet, un polynôme de degré $n$ (typiquement $\pi_n$)
 		va osciller entre sa première et sa dernière racine. Après cela, le polynôme se dirige (avec une croissance définie par le degré) vers les infinis,
 		et donc le polynôme d'interpolation $\pi_n$ n'est pas bon à utiliser pour approcher $f$ en dehors de l'ensemble de définition.
+
+		\subsection{Polynôme de Newton}
+		La méthode de Lagrange implique un re-calcul de tous les polynômes $l_i$ à chaque ajout d'un point $(x_i, y_i)$ à l'interpolation. Pour cela, la méthode
+		de Newton est plus générale.
+
+		\begin{déf} Soient $\{(x_i, y_i)\}_{0 \leq i \leq n}$ des couples de données. Le polynôme de Newton est défini par~:
+		\[\pi_n(x) \coloneqq \pi_{n-1}(x) + q_n(x),\]
+		où $\pi_{n-1}$ est le polynôme interpolant pour les données $(x_i, y_i)$ pour $0 \leq i < n$. Pour $q_n(x)$, on impose qu'il soit de degré $n$ et~:
+		\[\forall i \tq 0 \leq i < n : \pi_n(x_i) - \pi_{n-1}(x_i) = 0.\]
+		On a donc~:
+		\[q_n(x) = a_n(x-x_0)(x-x_1)\dotsm(x-x_{n-1}) = a_n\omega_n(x).\]
+		On peut alors déduire que~:
+		\[f(x_n) = \pi_n(x_n) = \pi_{n-1}(x_n) + a_n\omega_n(x_n),\]
+		ou encore~:
+		\[a_n = \frac {f(x_n)-\pi_{n-1}(x_n)}{\omega_n(x_n)}.\]
+		\end{déf}
+
+		\begin{déf} Le coefficient $a_n$ est appelé la $n$ème différence divisée de Newton et vaut~:
+		\[a_n = f[x_0, \dotsc, x_n] = \frac {f(x_n)-\pi_{n-1}(x_n)}{\prod_{j=0}^{n-1}(x-x_j)}.\]
+		\end{déf}
+
+		De ces deux définition, on peut tirer une formule récursive pour le polynôme de Newton~:
+		\[\pi_n(x) = \pi_{n-1}(x) + f[x_0, \dotsc, x_n]\omega_n(x).\]
+
+		En particulier, on trouve~:
+		\begin{align*}
+			\pi_0(x) &= \omega_0f[x_0] \\
+			\pi_1(x) &= \pi_0(x) + \omega_1(x)f[x_0, x_1] \\
+			\vdots \\
+		\end{align*}
+
+		Puisque $\pi_0(x) = f(x_0)$, on peut poser $f[x_0] = f(x_0)$ et $\omega_0 : x \mapsto 1$. Dès lors, on peut définir, par récurrence~:
+		\[\pi_n(x) = \sum_{k=0}^n\omega_k(x)f[x_0, \dotsc, x_k].\]
+
+		En faisant référence au polynôme de Lagrange, on retrouve que~:
+		\[f[x_0, \dotsc, x_k] = \sum_{k=0}^n\frac {y_k}{\omega_{n+1}'(x_k)}.\]
+
+		\begin{prp} Pour tout $k \geq 1$, la $k$ème différence divisée de Newton est donnée par~:
+		\[f[x_0, \dotsc, x_k] = \frac {f[x_1, \dotsc, x_k] - f[x_0, \dotsc, x_{k-1}]}{x_k-x_0}.\]
+		\end{prp}
+
+		Le polynôme donné par~:
+		\[\pi_n(x) = \sum_{k=0}^n\omega_k(x)f[x_0, \dotsc, x_k]\]
+		peut tout à fait porter le même nom (à savoir $\pi_n$) que le polynôme de Lagrange, car par le théorème~\ref{thm:caractérisationpolynômeparpoints}, on
+		peut affirmer que ce polynôme est unique. S'il y en a deux, alors ils sont égaux.
+
+		\begin{rmq} Les différences divisées de Newton sont définies par récurrence, ce qui veut dire que pour déterminer le $k$ème de ces coefficients, il
+		est nécessaires de calculer une matrice triangulaire (inférieure) de dimension $(n+1) \times (n+1)$ représentant ces coefficients.
+		\end{rmq}
+
+		Cette remarque permet tout de même de signaler que pour raffiner l'interpolation à l'aide d'un point $(x_{n+1}, y_{n+1})$, il faut uniquement ajouter
+		une ligne à la matrice, ce qui revient à $(n+1)$ divisions et $2(n+1)$ additions\footnote{Pour construire le polynôme $\pi_n$, au complet, il faut
+		$n(n+1)$ additions et $\frac {n(n+1)}2$ divisions.}, ce qui, comparé à Lagrange est avantageux (il n'est plus nécessaire de refaire tout le processus
+		en $\mathcal O(n^2)$).
+
+		On peut évaluer l'erreur d'interpolation grâce au théorème~\ref{thm:erreurinterpolation}, et de plus, par définition, on peut dire~:
+		\[\omega_{n+1}(x)\frac {f^{(n+1)}(\xi)}{(n+1)!} = E_n(x) = \pi_{n+1}(x) - \pi_n(x) = \omega_{n+1}(x)f[x_0, \dotsc, x_{n+1}],\]
+		ce qui implique~:
+		\[f[x_0, \dotsc, x_{n+1}] = \frac {f^{(n+1)}(\xi)}{(n+1)!},\]
+		avec toujours $\xi \in I_x$.
+
+		\begin{thm}[Théorème de Weierstrass] Soit $f$ continue sur $[a, b]$. Alors il existe $\{p_n\}_{n \in \N}$ une suite de polynômes telle que~:
+		\[\lim_{n \to +\infty}\norm(f-\pi_n)_\infty = 0.\]
+		\end{thm}
+
+		\begin{rmq} Même si le théorème assure l'existence de ces polynômes, il n'est pas possible de les récupérer par interpolation (car la limite est infinie).
+		\end{rmq}
+
+		La convergence uniforme détaille le comportement de la norme infinie de l'erreur pour $n \to +\infty$.
+
+		\begin{prp}[Propriété de convergence uniforme] Soient $x_0, \dotsc, x_n$, $n+1$ nœuds d'interpolation distincts dans $[a, b]$ et $\pi_n$
+		leur interpolation polynômiale. Pour $n \to +\infty$, on peut toujours trouver $f$ continue telle que~:
+		\[\lim_{n \to +\infty}\norm{f-\pi_n}_\infty \neq 0.\]
+		\end{prp}
+
+		On en déduit que l'interpolation polynômiale ne nous permet pas d'approcher précisément toute fonction continue.
+
+	\subsection{Analyse du conditionnement du problème}
 
 \end{document}
