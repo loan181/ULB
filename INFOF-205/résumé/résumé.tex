@@ -1353,5 +1353,91 @@
 		\end{rmq}
 
 	\subsection{Runge-Kutta}
+		Les méthodes de Runge-Kutta sont des méthodes itératives à un pas qui augmentent leur précision en augmentant le nombre d'évaluations de la fonction $f$
+		par pas. L'idée générale derrière un R-K d'ordre $p$ est d'avoir les $p$ premiers termes de la série de Taylor équivalents entre la solution exacte
+		$y(t_n)$ et la solution approchée $\widehat y(t_n))$. En particulier, un R-K d'ordre 1 est la méthode d'Euler.
+
+		\begin{déf} La forme générale d'un R-K est la suivante~:
+		\[\widehat y(t_n) = \widehat y(t_{n-1}) + hF\left(t_{n-1}, \widehat y(t_{-ni1}), h, f\right),\]
+		où $F$ est définie par~:
+		\[F\left(t_n, \widehat y(t_n), h, f\right) \coloneqq \sum_{k=1}^pb_kK_k,\]
+		avec~:
+		\[K_i \coloneqq f\left(t_n + c_ih, \widehat y(t_n) + h\sum_{j=1}^p(a_{ij}K_j)\right).\]
+
+		Les valeurs $a_{ij}$, $b_i$ et $c_i$ sont les paramètres de la méthode. On suppose que la condition suivante est remplie~:
+		\[\forall 1 \leq i \leq s : c_i = \sum_{k=1}^pa_{ij}.\]
+		\end{déf}
+
+		\begin{rmq} Un R-K est explicite si et seulement si $\forall j \geq i : a_{ij} = 0$. \end{rmq}
+
+		La méthode Runge-Kutta d'ordre $p$ se note RK$p$ ou R-K$p$.
+
+		\subsubsection{Runge-Kutta explicite d'ordre 2}
+		Par la remarque précédente, on sait que pour que la méthode soit explicite, il faut que $a_{11} = a_{12} = a_{22} = 0$.
+		On détermine alors les valeurs $c_i$ par~:
+		\[\begin{cases}c_1 &= a_{11} + a_{12} = 0,\\c_2 &= a_{21} + a_{22} = a_{21}.\end{cases}\]
+
+		La forme explicite de la méthode itérative est alors~:
+		\[\widehat y(t_n) = \widehat y(t_{n-1}) + h\left(b_1K_1 + b_2K_2\right),\]
+		où les $K_j$ valent\footnote{On suppose que l'étape $n-1$ a été déterminée avec précision infinie et donc que $\widehat y(t_{n-1}) = y(t_{n-1})$}~:
+		\begin{align*}
+			K_1 &= f\left(t_{n-1} + c_1h, \widehat y(t_{n-1}) + ha_{11}K_1 + ha_{12}K_2\right) = f\left(t_{n-1}, \widehat y(t_{n-1})\right), \\
+			K_2 &= f\left(t_{n-1} + c_2h, \widehat y(t_{n-1}) + ha_{21}K_1 + ha_{22}K_2\right) = f\left(t_{n-1} + c_2h, \widehat y(t_{n-1}) + ha_{21}K_1\right)
+				= f\left(t_{n-1} + c_2h, \widehat y(t_{n-1}) + hc_2K_1\right).
+		\end{align*}
+
+		Le développement de Taylor d'une fonction à deux variables est donné par~:
+		\[f(x_0 + \delta x_0, y_0 + \delta y_0) \simeq f(x_0, y_0) + \pd fx(x_0, y_0)\delta x_0 + \pd fy(x_0, y_0)\delta y_0.\]
+
+		On peut dès lors appliquer Taylor sur $K_2$, ce qui donne~:
+		\begin{align*}
+			K_2 &= f(t_{n-1} + c_2h, y(t_{n-1}) + c_2hK_1) = f(t_{n-1}, y(t_{n-1})) + c_2h\pd ft(t_{n-1}, y(t_{n-1}))
+					+ c_2hK_1\pd fy(t_{n-1}, y(t_{n-1})) + \mathcal O(h^2) \\
+			    &= K_1 + c_2h\left(\pd ft(t_{-1n}, y(t_{n-1})) + K_1\pd fy(t_{n-1}, y(t_{n-1}))\right) + \mathcal O(h^2).
+		\end{align*}
+
+		En réinsufflant cette donnée de $K_2$ dans le calcul de $\widehat y(t_n)$, on trouve~:
+		\begin{align*}
+			\widehat y(t_n) &= y(t_{n-1}) &&+ (b_1K_1 + b_2K_2) = y(t_{n-1}) + hb_1f(t_{n-1}, y(t_{n-1})) + hb_2(K_2) \\
+			&= y(t_{n-1}) &&+ hb_1f(t_{n-1}, y(t_{n-1})) + hb_2f(t_{n-1}, y(t_{n-1})) + h^2b_2c_2\pd ft(t_{n-1}, y(t_{n-1})) \\
+			&             &&+ h^2b_2c_2f(t_{n-1}, y(t_{n-1}))\pd fy(t_{n-1}, y(t_{n-1})) + \mathcal O(h^3).
+		\end{align*}
+
+		En considérant que $y'(t_n) = f(t_{n-1}, y(t_{n-1}))$, on trouve\footnote{En utilisant la formule de dérivation d'une composition}~:
+		\begin{align*}
+			y''(t_n) &= \left(y'\right)'(t_n) = \left(f'\right)(t_{n-1}, y(t_{n-1})) = \pd ft(t_{n-1}, y(t_{n-1}))
+							+ \pd fy(t_{n-1}, y(t_{n-1}))\od yt(t_{n-1}) \\
+			         &= \pd ft(t_{n-1}, y(t_{n-1})) + \pd fy(t_{n-1}, y(t_{n-1}))f(t_{n-1}, y(t_{n-1}))
+		\end{align*}
+
+		On peut également effectuer le même développement de Taylor sur la solution exacte, ce qui donne~:
+		\begin{align*}
+			y(t_n) &= y(t_{n-1}) + h\od yt(t_{n-1}) + \frac {h^2}2\od[2] yt(t{n-1}) + \mathcal O(h^3) \\
+			       &= y(t_{n-1}) + hf(t_{n-1}, y(t_{n-1})) + \frac {h^2}2\left(\pd ft(t_{n-1}, y(t_{n-1}))
+				   		+ f(t_{n-1}, y(t_{n-1})\pd fy(t_{n-1}, y(t_{n-1}))\right) + \mathcal O(h^3).
+		\end{align*}
+
+		En identifiant respectivement les termes de $\widehat y(t_n)$ et de $y(t_n)$, on peut déterminer les égalités suivantes~:
+		\[\begin{cases}
+			b_1 + b_2 &= 1, \\
+			c_2b_2 &= \frac 12.
+		\end{cases}\]
+
+		Il y a trois paramètres à déterminer et uniquement deux équations, ce qui nous laisse choisir un des paramètres arbitrairement pour réduire le degré
+		de liberté. Par exemple, en posant $b_1 = 0$, on trouve directement $b_2 = 1$ et donc $c_2 = \frac 12$. La méthode peut donc s'écrire~:
+		\[\widehat y(t_n) = \widehat y(t_{n-1}) + hK_2,\]
+		étant donné que~:
+		\[K_2 \coloneqq f\left(t_{n-1} + c_2h, \widehat y(t_{n-1}) + hc_2K_1\right)
+		= f\left(t_{n-1} + \frac h2, \widehat y(t_{n-1}) + \frac h2f(t_{n-1}, y(t_{n-1}))\right).\]
+
+		Une interprétation de cette méthode est qu'un \emph{demi-pas} est d'abord effectué, et puis que la dérivée est \emph{instanciée} en ce milieu de pas.
+		C'est cette dérivée-là qui est utilisée à la place de la dérivée en $t_{n-1}$.
+
+		\begin{thm} La stabilité absolue d'un Runge-Kutta d'ordre $p$ est présente si et seulement si $\abs {R(h\lambda)} \lneqq 1$, où on définit~:
+		\[R(h\lambda) \coloneqq \sum_{k=0}^p(h\lambda)^k\frac 1{k!}.\]
+		\end{thm}
+
+\newpage
+\section{Interpolation}
 
 \end{document}
