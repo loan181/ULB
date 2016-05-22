@@ -1887,7 +1887,7 @@
 		
 		\begin{déf} Soient $f : E \subseteq \R^n \to \R$ et $\gamma : \ab \to \R^n$ avec $\Imf \gamma \subseteq E$. On définit l'intégrale de $f$ le
 		long de la courbe $\gamma$ par~:
-		\[\in_\gamma f\dif s \coloneqq \int_a^bf(\gamma(t))\norm{f'(t)}\dif t.\]
+		\[\int_\gamma f\dif s \coloneqq \int_a^bf(\gamma(t))\norm{f'(t)}\dif t.\]
 		\end{déf}
 
 		\begin{déf} Un champ de vecteurs est une application $f : E \subseteq \R^n \to \R^n$. \end{déf}
@@ -3038,6 +3038,107 @@
 			&= \scpr G{\rot F} - \scpr F{\rot G}.
 		\end{align*}
 		\end{proof}
+
+		\subsubsection{Questions d'orientation}
+		\begin{déf} Soit $S \subset \R^3$ une surface et soit $C$ un lacet simple de $S$. Supposons qu'il existe $S_i, S_e \subset S$ tels que
+		$S_i \cap S_e = \emptyset$ et $S \setminus C = S_i \cup S_e$. Dans ce cas, on dit que $C$ est le \emph{bord} de $S_i$ (ou de $S_e$), ce qui se note~:
+		\[C = \partial S_e = \partial S_e.\]
+		\end{déf}
+
+		\begin{rmq} L'orientation de $S$ et le choix de $S_i$ confèrent une orientation à $C$. \end{rmq}
+
+		\begin{déf} Soit $\gamma : [a, b]  \to S$ une paramétrisation de $C$.On dit que $\gamma$ parcourt $C$ dans le sens \emph{positif} si pour tout
+		$t \in [a, b]$, le vecteur  donné par $n(\gamma(t)) \times \gamma'(t)$ se trouve sur le côté intérieur de $S$.
+		\end{déf}
+
+		\begin{rmq} Par continuité, il suffit de vérifier cette propriété sur un point de $\gamma$. \end{rmq}
+
+		\begin{rmq} On remarque également que si $\gamma : [a, b] \to S$ est une paramétrisation du lacet simple $C$, alors l'image de $\gamma$ est le bord de
+		de $S$. Plus formellement~:
+		\[\Imf \gamma = \partial S.\]
+		\end{rmq}
+
+		\subsubsection{Théorème de Cauchy-Green-Riemann}
+		Le théorème CGR (également appelé théorème de Green) est une généralisation du théorème fondamental du calcul différentiel et intégral.
+
+		\begin{déf} Soit $F : U \subset \R^3 \to \R^3$ un champ de vecteur et soit $\gamma : [a, b] \to \R^3$. On introduit la notation suivante~:
+		\[F_k\dif x_k \coloneqq (F_k \circ \gamma)(t)\gamma_k'(t)\dif t.\]
+		\end{déf}
+
+		\begin{lem}\label{lem:décompositionsurfaces} Toute surface $D \subset \R^2$ peut se \emph{découper} en un ensemble de sous-surfaces de la forme~:
+		\[[x_i, x_{i+1}] \times [y_j, f(x)].\]
+		\end{lem}
+
+		\begin{rmq} La preuve de ce lemme est technique, on peut donc le supposer comme vrai dans ce contexte. \end{rmq}
+
+		\begin{lem}\label{lem:opdérivationintégration} Soient $F, G : \R^2 \to \R^2$ tels que~:
+		\[F(x, y) = \int_{y_0}^yG(x, \gamma)\dif \gamma.\]
+		Alors~:
+		\[\pd Fx(x, y) = \int_{y_0}^y\pd Gx(x, \gamma)\dif \gamma.\]
+		\end{lem}
+
+		\begin{rmq} L'idée derrière ce lemme est de montrer que lorsque la variable d'intégration (ici $x_2$) n'est pas la variable de dérivation (ici $x_1$),
+		alors les opérateurs de dérivation et d'intégration peuvent être intervertis.
+		\end{rmq}
+
+		\begin{thm} Soit $D \subset \R^2$ une surface dont le bord est une courbe simple de classe $C^1$ par morceaux. Si $P$ et $Q$ sont de classe $C^1$
+		sur un ouvert contenant $D$, alors~:
+		\[\iint_D\left(\pd Qx - \pd Py\right)\dif (x, y) = \oint_{\partial D}(P\dif x + Q\dif y),\]
+		où $\partial D$ est orienté dans le sens anti-horlogique.
+		\end{thm}
+
+		\begin{proof}\footnote{Ceci est une idée de preuve, la preuve donnée n'est pas rigoureuse.} On commence par décomposer la surface $D$ de telle façon que
+		toutes les sous-surfaces soient sous la forme $[x_0, x_1] \times [y, f(x)]$, ce qui est possible grâce au lemme~\ref{lem:décompositionsurfaces}.
+
+		De là, on intègre sur toutes les sous-surfaces et on somme toutes ces intégrales. On obtient alors l'intégrale sur le \emph{vrai bord} du fait que les
+		autres côtés (que le bord $\partial D$) se compensent dans la somme (en étant parcourus dans des sens opposés). Dès lors, il suffit d'étudier le
+		comportement sur une telle sous-surface pour extrapoler (par la somme).
+
+		Supposons donc que $D$ soit sous la forme $[x_0, x_1] \times [y_0, f(x)]$. On peut donc dire que $\partial D$ est composé de quatre courbes $C^1$,
+		respectivement $C_1, C_2, C_3, C_4$ où on peut \emph{visualiser}~:
+		\begin{align*}
+			C_1 &= \{(x, y_0) \tq x_0 \leq x \leq x_1\} \\
+			C_2 &= \{(x_1, y) \tq y_0 \leq y \leq f(x_1)\} \\
+			C_3 &= \{(x, f(x)) \tq x_0 \leq x \leq x_1\} \\
+			C_4 &= \{(x_0, y) \tq y_0 \leq y \leq f(x_0)\}.
+		\end{align*}
+		Comme on a supposé $\partial D$ parcouru dans le sens anti-horlogique, on peut supposer que $\partial D$ correspond au parcours des $C_i$ dans l'ordre
+		$C_1$ à $C_4$.
+
+		À l'aide du théorème de Fubini et du théorème fondamental, calculons~:
+		\[\iint_D\pd Py\dif (x, y) = \int_{x_0}^{x_1}\left(\int_{y_0}^{f(x)}\pd Py\dif y\right)\dif x
+		= \int_{x_0}^{x_1}\left(P(x, f(x)) - P(x, y_0)\right)\dif x.\]
+
+		De plus, par définition, on peut exprimer~:
+		\[\int_{\partial D}P\dif x = \sum_{i=1}^4\int_{a_i}^{b_i}P\left(\gamma_{i\,1}(t), \gamma_{i\,2}(t) \cdot \gamma_{i\,1}'(t)\right)\dif t.\]
+		On observe que les côtés $C_2$ et $C_4$ correspondent aux « \emph{barres verticales} » de $D$, et donc $\gamma_{i\,1}'(t)$ vaut 0 pour tout $t$ dans
+		$[a, b]$. Il reste alors à sommer les intégrales pour $i \in \{1, 3\}$. On trouve alors~:
+		\[\int_{\partial D}P\dif x = \int_{x_0}^{x_1}P(x, y_0)\dif x + \int_{x_1}^{x_0}P\left(x, f(x)\right)\dif x
+		= \int_{x_0}^{x_1}P(x, y_0) - P\left(x, f(x)\right)\dif x = -\iint_D\pd Py\dif (x, y).\]
+
+		Ensuite, on calcule~:
+		\[\iint_D\pd Qx\dif (x, y) = \int_{x_0}^{x_1}\left(\int_{y_0}^{f(x)}\pd Qx(x, y)\dif y\right)\dif x.\]
+		On note alors~:
+		\[U(x, y) \coloneqq \int_{y_0}^yQ(x, s)\dif s.\]
+
+		Par le théorème fondamental, on sait~:
+		\[\pd Uy(x, y) = Q(x, y).\]
+		Le lemme~\ref{lem:opdérivationintégration} dit que l'on peut écrire l'égalité suivante~:
+		\[\pd Ux(x, y) = \int_{y_0}^y\pd Qx(x, s)\dif s.\]
+
+		On sait que $\partial D$ est une courbe fermée, par définition. On sait également que l'intégrale du travail d'un champ de vecteur sur une telle courbe
+		est nulle. Dès lors~:
+		\[0 = \oint_{\partial D}\scpr {\nabla U}\dif\eta = \oint_{\partial D}\pd Ux\dif x + \oint_{\partial D}\pd Uy\dif y
+		= \oint_{\partial D}\pd Ux\dif x + \oint_{\partial D}Q\dif y.\]
+		On trouve donc~:
+		\[\int_{\partial D}Q\dif y = -\int_{\partial D}\pd Ux\dif x = +\iint_D\pd {}x\left(\pd Uy(x, y)\right)\dif (x, y)
+		= \iint_D\pd Qx\dif (x, y).\]
+
+		En sommant $\int_{\partial D}P\dif x$ et $\int_{\partial D}Q\dif y$, on obtient~:
+		\[\int_{\partial D}\left(P\dif x + Q\dif y\right) = \iint_D\left(\pd Qx - \pd Py\right)\dif (x, y).\]
+		\end{proof}
+
+		\subsubsection{Théorème de Stokes}
 
 %\newpage
 %\section{Les séries}\label{sec:séries}
