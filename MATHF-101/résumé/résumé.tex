@@ -3139,6 +3139,32 @@
 		\end{proof}
 
 		\subsubsection{Théorème de Stokes}
+		\begin{déf} Une surface $S$ différentiable par morceaux est l'union d'un nombre fini de surfaces paramétrisables qui satisfont les propriétés suivantes~:
+		\begin{enumerate}
+			\item $\forall i \neq j : \int S_i \cap \int S_j = \emptyset$~;
+			\item $\forall i \neq j : \partial S_i \cap \partial S_j$ est~:
+			\begin{itemize}
+				\item un point~;
+				\item l'ensemble vide~;
+				\item une courbe $C^1$ par morceaux~;
+			\end{itemize}
+			\item $\forall i \neq j, k \neq j, k \neq i : \partial S_i \cap \partial S_j \cap \partial S_k$ est~:
+			\begin{itemize}
+				\item l'ensemble vide~;
+				\item un point~;
+			\end{itemize}
+			\item $\forall p, q \in S : \exists \gamma$, un chemin dans $S$ de $p$ à $q$~;
+			\item l'ensemble de toutes les courbes ne se trouvant que sur le bord d'un unique $S_i$ dorme un nombre fini de courbes simples, fermées, disjointes
+			et $C^1$ par morceaux.
+		\end{enumerate}
+		\end{déf}
+
+		\begin{thm}[Théorème de Stokes] Soient $S \subset \R^3$ une surface orientée différentiable par morceaux et $\{C_i\}_{1 \leq i \leq n}$ une collection
+		de lacets simples sur $S$ tels que $S \setminus \left(\bigcup_{i=1}^nC_i\right) = S_i \cup S_e$ où $S_i \cap S_e = \emptyset$ et
+		$S_i^\complement \cap S_e^\complement = \bigcup_{i=1}^nC_i$. On suppose $S_i$ compact.
+		Si $F$ est une champ de vecteurs $C^1$ sur un ouvert contenant $\partial S \cup S$, alors~:
+		\[\iint_{S_i}\scpr {\rot F}{\dif n} = \int_{\partial S_i} \scpr F{\dif l} = \sum_{k=1}^n\int_{C_k}\scpr F{(\dif x, \dif y, \dif z)}.\]
+		\end{thm}
 
 %\newpage
 %\section{Les séries}\label{sec:séries}
