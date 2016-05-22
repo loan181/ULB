@@ -37,6 +37,9 @@
 \DeclareMathOperator{\Larea}{\mathcal L}
 \DeclareMathOperator{\Uarea}{\mathcal U}
 \DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\divop}{div}
+\DeclareMathOperator{\rotop}{rot}
+\DeclareMathOperator{\curl}{curl}
 
 \newcommand{\scpr}[2]{{\left\langle#1, #2\right\rangle}}
 \newcommand{\frrn}[2]{#1 : #2 \subseteq \R \to \R^n}
@@ -47,6 +50,8 @@
 \newcommand{\fabr}[1]{#1 : \ab \to \R}
 \newcommand{\evf}[4]{\left[#1\left(#2\right)\right]_{#2=#3}^{#2=#4}}
 \newcommand{\normfty}[1]{\norm {#1}_\infty}
+\newcommand{\divg}[1]{\scpr \nabla {#1}}
+\newcommand{\rot}[1]{\nabla \times #1}
 
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
@@ -2966,8 +2971,36 @@
 		\emph{parcourir la surface dans l'autre sens}. Dès lors, la notion de flux n'a de sens que pour les surfaces orientées.
 
 	\subsection{Théorèmes fondamentaux}
+		\subsubsection{Divergence et rotationnel d'un champ}
+		\begin{déf} Soit $F : U \subset \R^3 \to \R^3 \in C^1$ où $U$ est un ouvert.
 
-\newpage
-\section{Les séries}\label{sec:séries}
+		On définit la \emph{divergence de $F$} parla fonction~:
+		\[\divg F : U \to \R : (x, y, z) \mapsto \left(\pd {F_1}x + \pd {F_2}y + \pd {F_3}z\right)(x, y, z).\]
+		La divergence se note également parfois $\divop F$.
+
+		On définit également le \emph{rotationnel} de $F$ par~:
+		\[\rot F : U \to \R^3 : (x, y, z) \mapsto \left(\pd {F_3}y - \pd {F_2}z, \pd {F_1}z - \pd {F_3}x, \pd {F_2}x - \pd {F_1}y\right)(x, y, z).\]
+		Le rotationnel se note également parfois $\curl F$ ou $\rotop F$.
+		\end{déf}
+
+		On pose les notations suivantes pour $F, G$ deux champs de vecteurs et $f$ une fonction quelconques (tous les trois de classe $C^1$)~:
+		\begin{align*}
+			\scpr F\nabla(f) &\coloneqq F_1\pd fx + F_2\pd fy + F_3\pd fz, \\
+			\scpr F\nabla(G) &\coloneqq \left(\scpr F\nabla(G_i)\right)_i.
+		\end{align*}
+
+		\begin{lem} Soient $\phi, \psi$, deux fonctions et $F, G$ deux champs de vecteurs, tous de classe $C^1$. Alors~:
+		\begin{enumerate}
+			\item $\nabla(\phi\psi) = \phi\nabla\psi + \psi\nabla\phi$~;
+			\item $\divg {\phi F} = \phi\divg F + \scpr {\nabla\phi}F$~;
+			\item $\rot {\phi F} = \phi(\rot F) - F \times (\nabla \phi)$~;
+			\item $\nabla \scpr FG = F \times (\rot G) + G \times (\rot F) + \scpr F\nabla(G) + \scpr G\nabla(F)$~;
+			\item $\divg {F \times G} = \scpr G{\rot F} - \scpr F{\rot G}$~;
+			\item $\rot (F \times G) = F \divg G - G\divg F + \scpr G\nabla(F) - \scpr F\nabla(G)$.
+		\end{enumerate}
+		\end{lem}
+
+%\newpage
+%\section{Les séries}\label{sec:séries}
 
 \end{document}
