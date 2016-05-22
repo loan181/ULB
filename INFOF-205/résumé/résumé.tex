@@ -1616,7 +1616,7 @@
 		avec toujours $\xi \in I_x$.
 
 		\begin{thm}[Théorème de Weierstrass] Soit $f$ continue sur $[a, b]$. Alors il existe $\{p_n\}_{n \in \N}$ une suite de polynômes telle que~:
-		\[\lim_{n \to +\infty}\norm(f-\pi_n)_\infty = 0.\]
+		\[\lim_{n \to +\infty}\norm{f-\pi_n}_\infty = 0.\]
 		\end{thm}
 
 		\begin{rmq} Même si le théorème assure l'existence de ces polynômes, il n'est pas possible de les récupérer par interpolation (car la limite est infinie).
@@ -1632,5 +1632,68 @@
 		On en déduit que l'interpolation polynômiale ne nous permet pas d'approcher précisément toute fonction continue.
 
 	\subsection{Analyse du conditionnement du problème}
+		\begin{déf} On note $\Lambda_n$ la \emph{constante de Lebesgue associée aux nœuds d'interpolation} définie par~:
+		\[\Lambda_n \coloneqq \norm {\sum_{i=0}^nl_i}_\infty.\]
+		\end{déf}
+
+		\begin{prp} Supposons que les données $y_i$ soient perturbées par $\delta_i$ telles que $\widehat y_i = y_i + \delta_i$. Si $\widehat \pi_n$ est le
+		polynôme interpolant des données perturbées, alors~:
+		\[\frac {\norm {\pi_n - \widehat \pi_n}_\infty}{\norm {\pi_n}_\infty} \leq \Lambda_n\frac {\norm \delta_\infty}{\norm f_\infty}.\]
+		\end{prp}
+
+		\begin{cor} Lorsque les nœuds $x_i$ sont équirépartis dans l'intervalle $I_x$, on peut approcher $\Lambda_n$ par~:
+		\[\Lambda_n \simeq \frac {2^{n+1}}{en\log(n)}.\]
+		\end{cor}
+
+		Cela veut dire qu'un petit changement dans la position des nœuds d'interpolation engendre facilement une grange (voire ici très grande) modification
+		du polynôme interpolant. Une interprétation possible de ce résultat est le fait que pour $n$ nœuds, le polynôme interpolant est de degré $n$. Cela
+		implique donc un grand nombre de tangentes nulles et de changements de concavité (à priori respectivement $n-1$ et $n-2$ car ces valeurs correspondent
+		à une annulation de la dérivée première et seconde). Le polynôme interpolant doit donc, sur des intervalles assez \emph{courts}\footnote{Un intervalle
+		$I$ est toujours infini indénombrable mais on parle ici de longueur $\int_I\dif x$.} créer des oscillations et donc s'écarter assez fortement des images
+		des nœuds. Ainsi un petit changement de la valeur du nœud $x_k$ implique un re-calcul sur des valeurs éloignées de l'approximation $\pi_n$.
+
+	\subsection{Interpolation par splines}
+		On remarque assez aisément qu'en augmentant le degré d'interpolation, on perd la caractéristique de la fonction, et on se retrouve avec des
+		oscillations, ce qui fait qu'il est compliqué d'approximer autre chose qu'un polynôme avec un polynôme (de degré assez élevé). L'idée des splines est
+		de pouvoir augmenter le nombre de nœuds d'interpolation sans changer le degré d'interpolation.
+
+		\begin{déf} Soit $[a, b] \subset \R$ et $\{x_i\}_{0 \leq i \leq n}$ une partition de $[a, b]$. Soit $s_k$ une fonction. On dit que $s_k$ est une spline
+		ne degré $k$ et relative à la partition $x_i$ si~:
+		\begin{align*}
+			\forall 0 \leq i < n : s_{k, i} \coloneqq s_k\big\rvert_{[x_i, x_{i+1}]} &\in \R[x, k] \\
+			s_k &\in C^{k-1}\left([a, b]\right).
+		\end{align*}
+
+		Où $s_k\big\rvert_{[x_i, x_{i+1}]}$ représente la restriction de domaine de $s_k$ à l'intervalle $[x_i, x_{i+1}]$, $\R[x, n]$ est l'anneau des polynômes
+		en $x$ de degré $n$.
+		\end{déf}
+
+		\begin{rmq} On remarque de cette définition que tous les polynômes de degré $\geq k$ sont des splines, en particulier les polynômes interpolants $\pi_n$.
+		Cependant, en pratique, les splines intéressantes sont celles qui sont définies par des polynômes différents sur les différents intervalles
+		$[x_i, x_{i+1}]$.
+
+		Il peut y avoir des discontinuités aux dérivées $k$ème des différents polynômes aux nœuds internes.
+		\end{rmq}
+
+		Pour $i \in \{0, \dotsc, n-1\}$, on peut réécrire le polynôme $s_{k,i}$ par~:
+		\[s_{k, i} = \sum_{h=0}^ks_{hi}(x-x_i)^h.\]
+
+		Pour déterminer une spline, il faut donc déterminer les $[(k-0)+1] \times \abs{0, \dotsc, n-1} = (k+1)n$ coefficients $s_{hi}$. Pour réussir à les
+		déterminer, on impose des conditions particulières~:
+		\begin{itemize}
+			\item pour tout $0 < i < n$, et $0 \leq m < k$\footnote{On remarque en effet que rien n'est imposé sur la continuité de la dérivées $k$ème.}~:
+				\[s_{k, i-1}^{(m)}(x_i) = s_{k,i}^{(m)}(x_i).\]
+			\item Pour tout $0 \leq i \leq n$, on impose $f(x_i) = s_k(x_i)$, ce qui est l'interpolation en soi.
+			\item Il reste $k-1$ degrés de liberté à imposer.
+		\end{itemize}
+
+		Il y a deux options concernant les degrés de liberté restant~:
+		\begin{enumerate}
+			\item définir des splines \emph{périodiques}~:
+				\[\forall 1 \leq m \leq k-1 : s_k^{(m)}(a) = s_k^{(m)}(b).\]
+			\item définir des splines \emph{naturelles}~: si $k = 2l-1$, avec $l \geq 2$, on impose les $2(l-1) = 2l-1 -1 = k-1$ conditions supplémentaires
+				suivantes~:
+				\[\forall 0 \leq j \leq l-2 : s_k^{(l+j)}(a) = s_k^{(l+j)}(b) = 0.\]
+		\end{enumerate}
 
 \end{document}
