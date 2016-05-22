@@ -2996,9 +2996,48 @@
 			\item $\rot {\phi F} = \phi(\rot F) - F \times (\nabla \phi)$~;
 			\item $\nabla \scpr FG = F \times (\rot G) + G \times (\rot F) + \scpr F\nabla(G) + \scpr G\nabla(F)$~;
 			\item $\divg {F \times G} = \scpr G{\rot F} - \scpr F{\rot G}$~;
-			\item $\rot (F \times G) = F \divg G - G\divg F + \scpr G\nabla(F) - \scpr F\nabla(G)$.
+			\item $\rot (F \times G) = F \divg G - G \divg F + \scpr G\nabla(F) - \scpr F\nabla(G)$.
 		\end{enumerate}
 		\end{lem}
+
+		\begin{proof} Seuls les points 1, 2 , 3, et 5 sont démontrés ici.
+
+		Point 1~:
+		\begin{align*}
+			\nabla(\phi\psi) &= \left(\pd {(\phi\psi)}x, \pd {(\phi\psi)}y, \pd {(\phi\psi)}z\right)
+				= \left(\pd \phi x\psi + \phi \pd \psi x, \pd \phi y\psi + \phi\pd \psi y, \pd \phi z\psi + \phi\pd \psi z\right) \\
+			&= \psi\left(\pd \phi x, \pd \phi y, \pd \phi z\right) + \phi\left(\pd \psi x, \pd \psi y, \pd \psi z\right)
+				= \psi\nabla\phi + \phi\nabla\psi.
+		\end{align*}
+
+		Point 2~:
+		\begin{align*}
+			\divg {\phi F} &= \pd {(\phi F)_1}x + \pd {(\phi F)_2}y + \pd {(\phi F)_3}z
+				= \pd \phi xF_1 + \phi\pd {F_1}x + \pd \phi yF_2 + \phi\pd {F_2}y + \pd \phi z + \phi\pd {F_3}z \\
+			&= \scpr F{\nabla}(\phi) + \scpr {\nabla \phi}F.
+		\end{align*}
+
+		Point 3~:
+		\begin{align*}
+			\rot {\phi F} &= \left(\pd {(\phi F)_3}y - \pd {(\phi F)_2}y, \pd {(\phi F)_1}z - \pd {(\phi F)_3}x, \pd {(\phi F)_2}x - \pd {(\phi F)_1}y\right) \\
+			&= \left(
+					\pd \phi yF_3 + \phi \pd {F_3}y - \pd \phi zF_2 - \phi \pd {F_2}z,
+					\pd \phi zF_1 + \phi \pd {F_1}z - \pd \phi xF_3 - \phi \pd {F_3}x,
+					\pd \phi xF_2 + \phi \pd {F_2}x - \pd \phi yF_1 - \phi \pd {F_1}y
+				\right) \\
+			&= (\nabla \phi \times F) + \phi(\rot F).
+		\end{align*}
+
+		Point 5~:
+		\begin{align*}
+			\divg {F \times G} &= \pd {(F \times G)_1}x + \pd {(f \times G)_2}y + \pd {(F \times G)_3}z
+				= \pd {(F_2G_3 - F_3G_2)}x + \pd {(F_3G_1 - F_1G_3)}y + \pd {(F_1G_2 - F_2G_1)}z \\
+			&= G_1(\pd {F_3}y - \pd {F_2}z) + G_2(\pd {F_1}z - \pd {F_3}x) + G_3(\pd {F_2}x - \pd {F_1}y)
+			 + F_1(\pd {G_2}z - \pd {G_3}y) + F_2(\pd {G_3}x - \pd {G_1}z) + F_3(\pd {G_1}y - \pd {G_2}x) \\
+			&= G_1(\rot F)_1 + G_2(\rot F)_2 + G_3(\rot F)_3 - F_1(\rot G)_1 - F_2(\rot G)_2 - F_3(\rot G)_3 \\
+			&= \scpr G{\rot F} - \scpr F{\rot G}.
+		\end{align*}
+		\end{proof}
 
 %\newpage
 %\section{Les séries}\label{sec:séries}
