@@ -40,7 +40,7 @@
 \newcommand{\Lu}{\mathcal L_1\Ofp}  % espace L_1 (espérance finie)
 \newcommand{\Ld}{\mathcal L_2\Ofp}  % espace L_2 (variance finie)
 \newcommand{\evpd}[2]{\pd {}{#1}\sVert[2]_{#1=#2}}  % évaluation de dérivée partielle
-\newcommand{\evipd}[3][i]{\pd[i] {}{#2}\sVert[2]_{#2=#3}}  % évaluation de la i ème dérivée partielle
+\newcommand{\evipd}[3][i]{\pd[#1] {}{#2}\sVert[2]_{#2=#3}}  % évaluation de la i ème dérivée partielle
 \newcommand{\Ces}{\overline}  % Somme de Césaro
 \newcommand{\convp}{\stackrel {(p)}\to}  % convergence en probabilités
 
@@ -209,7 +209,7 @@
 
 		\begin{itemize}
 			\item[$(i)$] $\P(\emptyset) = 0$~;
-			\item[$(ii)$] $\forall A \in \mathcal F : \P(aA) + \P(A^\complement) = 1$~;
+			\item[$(ii)$] $\forall A \in \mathcal F : \P(A) + \P(A^\complement) = 1$~;
 			\item[$(iii)$] $\forall A_1, \dotsc, A_n, \ldots$ disjoints deux à deux, on a~:
 			               \[\P\left(\bigcup_{k \geq 1}A_k\right) = \sum_{k \geq 1}\P(A_k).\]
 		\end{itemize}
@@ -242,14 +242,14 @@
 		\begin{déf}[Modèle de Bernoulli] On prend $\Omega = \{0, 1\}$ où~:
 		\[\begin{cases}p_0 &= 1-p \\p_1 &= p\end{cases}.\] \end{déf}
 
-		\begin{rmq} Il est évident que $p + (1-p) = 1 = P(\Omega)$. \end{rmq}
+		\begin{rmq} Il est évident que $p + (1-p) = 1 = \P(\Omega)$. \end{rmq}
 
 		\begin{déf}[Modèle binomial] On prend $\Omega = \iintv 0N$ (et donc $\mathcal F = \mathcal P(\Omega)$) et $p \in [0, 1]$.
 		Le modèle binomial est défini par $p_k = \binom nkp^k(1-p)^{N-k}$ pour tout $k \in \iintv 0N$. \end{déf}
 
 		\begin{rmq} On remarque que $\sum_{k \geq 1}p_k = 1$ car les $p_k$ représentent les termes du binôme de Newton $(p + (1-p))^N = 1^N = 1$. \end{rmq}
 
-		\begin{déf}[Modèle géométrique] On prend $\Omega = \N$, $\mathcal F = \mathcal F(\Omega) \simeq \R$, et $p \in (0, 1)$. Le modèle géométrique
+		\begin{déf}[Modèle géométrique] On prend $\Omega = \N$, $\mathcal F = \mathcal P(\Omega) \simeq \R$, et $p \in (0, 1)$. Le modèle géométrique
 		est défini par $p_k = (1-p)^{k-1}p$ pour tout $k \in \N$. \end{déf}
 
 		\begin{rmq} On remarque que~:
@@ -278,7 +278,7 @@
 		\begin{déf} Soit $f : I \to \R^+$ une fonction intégrable telle que $\int_\R f(x)\dif x = 1$. Soit $A \in \mathcal F$, on pose
 		$\P(A) = \int_Af(x)\dif x$. $f$ est appelée fonction de densité de modèle stochastique. \end{déf}
 
-		\begin{déf}[Loi uniforme continue] On prend $I = [a, b]$ avec $a < b \i \R$. Le modèle uniforme est défini par $f$ constante~:
+		\begin{déf}[Loi uniforme continue] On prend $I = [a, b]$ avec $a < b \in \R$. Le modèle uniforme est défini par $f$ constante~:
 		\[f(x) = \begin{cases}0 &\text{ si }x \not \in [a, b] \\\frac 1{b-a} &\text{ si }x \in [a, b]\end{cases}.\] \end{déf}
 
 		\begin{rmq} On remarque effectivement $\int_\R f(x)\dif x = 1$~:
@@ -306,7 +306,8 @@
 		positif. Il faut également $\int_\R f(x)\dif x = 1$, ce qui peut se vérifier par~:
 		\[\int_\R f(x)\dif x,\]
 		en posant $y \coloneqq x-\mu$, et donc $\dif y = \dif x$~:
-		\[\int_\R \frac 1{\sigma \sqrt{2\pi}}\exp\left(-\frac {y^2}{2\sigma^2}\right) = \frac 1{\sigma\sqrt{2\pi}}\int_\R\exp\left(-\frac {y^2}{2\sigma^2}\right).\]
+		\[\int_\R \frac 1{\sigma \sqrt{2\pi}}\exp\left(-\frac {y^2}{2\sigma^2}\right)\dif y
+			= \frac 1{\sigma\sqrt{2\pi}}\int_\R\exp\left(-\frac {y^2}{2\sigma^2}\right)\dif y.\]
 		En posant $z \coloneqq \frac y\sigma$ (et donc $\dif z = \frac {\dif x}\sigma$), on obtient~:
 		\[\int_\R f(x)\dif x = \frac 1{\sqrt{2\pi}}\int_\R\exp\left(-\frac {z^2}2\right)\dif z.\]
 
@@ -321,13 +322,13 @@
 		\end{aligned}\]
 		
 		En passant en coordonnées polaires, on obtient~:
-		\[\P(\Omega)^2 = \int_{-\pi}^{+\pi}\int_\R\exp\left(-\frac {r^2}2\right)\frac {r\dif r\dif \theta}{2\pi}
-		= \int_{-\pi}^{+\pi}\frac {\dif \theta}{2\pi}\int_\R r\exp\left(-\frac {r^2}2\right)\dif r
+		\[\P(\Omega)^2 = \int_{-\pi}^{+\pi}\int_0^{+\infty}\exp\left(-\frac {r^2}2\right)\frac {r\dif r\dif \theta}{2\pi}
+		= \int_{-\pi}^{+\pi}\frac {\dif \theta}{2\pi}\int_0^{+\infty} r\exp\left(-\frac {r^2}2\right)\dif r
 		= \left[-\exp\left(-\frac {r^2}2\right)\right]_0^{+\infty} = 1.\]
 
 		On en déduit alors $\P(\Omega) = 1$ également. $\P$ est donc bien une probabilité. \end{rmq}
 		
-		\begin{déf} On a défini une probabilité sur $\left(R^+, \mathcal(R^+)\right)$ via la fonction $f(r) = r\exp\left(-\frac {r^2}2\right)$.
+		\begin{déf} On a défini une probabilité sur $\left(R^+, \mathcal B(R^+)\right)$ via la fonction $f(r) = r\exp\left(-\frac {r^2}2\right)$.
 		On l'appelle la \emph{probabilité de Rayleigh}. \end{déf}
 
 		\subsubsection{Divergence sur la fonction Gamma d'Euler}
@@ -428,7 +429,7 @@
 		pour une fonction $f_X$ donnée.
 		\end{rmq}
 
-		\begin{déf} On dit qu'une variable fonction $f : \R \to \R$ est \textbf{absolument continue} si elle admet une représentation intégrale de
+		\begin{déf} On dit qu'une fonction $f : \R \to \R$ est \textbf{absolument continue} si elle admet une représentation intégrale de
 		type~\eqref{eq:abscontinue}. \end{déf}
 
 		\begin{déf} Soit $E$ un ensemble. La fonction $1_E$ est appelée \textbf{fonction indicatrice} est est définie telle que~:
@@ -475,7 +476,7 @@
 			      On note cela~:
 			      \[Z_n \convl Z.\]
 
-			\item Soient $Z$ une v.a.d. et une $\{Z_n, n \geq 1\}$ une suite de variables aléatoires discrètes. On dit que $Z_n$ \emph{covnerge en loi vers}
+			\item Soient $Z$ une v.a.d. et $\{Z_n, n \geq 1\}$ une suite de variables aléatoires discrètes. On dit que $Z_n$ \emph{converge en loi vers}
 			      $Z$ si~:
 			      \[\forall x \in E : \P(Z_n = x) \stackrel{n \to +\infty}\to \P(Z = x).\]
 			      On note cela~:
@@ -490,7 +491,7 @@
 \newpage
 \section{Espérance}
 	\subsection{Pari de pascal}
-		Le terme \emph{espérance} vient de Blaise Pascal et de son traitement de la question «~Faut-il croire en Dieu~?~». On pose la variable $X$ qui
+		Le terme \emph{espérance} vient de Blaise Pascal et de son traitement de la question «~Faut-il croire en Dieu~?~» On pose la variable $X$ qui
 		décrit le résultat de l'existence de Dieu définie comme suit~:
 		\[X = \begin{cases}0 &\text{ si Dieu n'existe pas} \\+\infty &\text{ sinon}\end{cases}.\]
 
@@ -572,7 +573,7 @@
 			I = \int_{-\infty}^{+\infty}\abs xf(x)\dif x.
 		\end{equation}
 
-		Si $I = +\infty$, on dit que $N$ \emph{n'est pas intégrable} et on ne peut pas définir son espérance.
+		Si $I = +\infty$, on dit que $X$ \emph{n'est pas intégrable} et on ne peut pas définir son espérance.
 
 		Si $E < +\infty$, le théorème~\ref{convabsintégrale} entraine que l'intégrale~:
 		\[\int_{-\infty}^{+\infty}xf_X(x)\dif x\]
@@ -625,13 +626,13 @@
 		\begin{ex} (exemple de \ref{espposabscont}.) Soit $X \sim \frac 12\mathcal C$ une demi-Cauchy. On sait (pour $t \in [0, +\infty)$)~:
 		\[f_X(t) = \frac 2{\pi(1+t^2)},\]
 		et donc, on calcule~:
-		\[\E(X) = \int_0^{+\infty}xf_X(x)\dif x = \int_0^{+\infty}\frac {2x}{(1+x^2)}\frac {\dif x}{\pi}= \frac 1\pi \left[\log(1+x^2)\right]_0^{+\infty} = +\infty\]
+		\[\E(X) = \int_0^{+\infty}xf_X(x)\dif x = \int_0^{+\infty}\frac {2x}{(1+x^2)}\frac {\dif x}{\pi}= \frac 1\pi \left[\log(1+x^2)\right]_0^{+\infty} = +\infty.\]
 		\end{ex}
 
 		\begin{ex} (exemple de \ref{espabscont}.) Soit $X \sim \mathcal C$ une Cauchy. On sait~:
 		\[f_X(t) = \frac 1{\pi(1+t^2)},\]
 		et donc, on calcule~:
-		\[\int_{-\infty}^{+\infty}xf_X(x)\dif x = 2\int_0^{+\infty}\abs xf_X(x)\dif x = 2\infty = +\infty.\]
+		\[\E(X) = \int_{-\infty}^{+\infty}xf_X(x)\dif x = 2\int_0^{+\infty}\abs xf_X(x)\dif x = 2\infty = +\infty.\]
 		\end{ex}
 
 		\begin{prp}[Critère de d'Alembert] Soit $f$ une fonction définie positive sur $[1, +\infty)$. On suppose $f(x) \sim \frac c{x^a}$ quand $x \to +\infty$
@@ -776,7 +777,7 @@
 		\]
 
 		On a bien~:
-		\[\E(X)^2 \leq \E(X)^2,\]
+		\[\E(X)^2 \leq \E(X^2),\]
 		qui est l'inégalité~\eqref{eq:var=e-e}.
 		\end{proof}
 
@@ -800,11 +801,11 @@
 
 	\subsection{Moments de variables aléatoires}
 		\subsubsection{Cas discret}
-		\begin{déf} Soit $E = {x_i}_{i \in \N}$ un espace d'état fini ou infini dénombrable. Si $X$ est une variable aléatoire à valeurs dans $E$, alors sa 
+		\begin{déf} Soit $E = \{x_i\}_{i \in \N}$ un espace d'état fini ou infini dénombrable. Si $X$ est une variable aléatoire à valeurs dans $E$, alors sa 
 		\emph{loi} est donnée par $\{p_i = \P(X = x_i)\}_{i \in \N}$. Les moments de $X$ sont les valeurs moyennes de $F(X)$ où $F : E \to \R$ est une fonction
 		donnée. \end{déf}
 
-		\begin{déf} On considère la suite de terme général $\abs {F(x_i)}p_i$.
+		\begin{déf} On considère la série de terme général $\abs {F(x_i)}p_i$.
 
 		\begin{itemize}
 			\item[$(i)$] Si $\sum_{i \in \N}\abs{F(x_i)}p_i$ converge, alors le $F$-moment de $X$ existe et vaut~:
@@ -814,8 +815,8 @@
 		\end{déf}
 
 		\subsubsection{Cas absolument continu}
-		\begin{déf} Soient $E = \R$ et $f_X : \R \to \R^+$ mesurable telle que $\int_\R f_X(x)\dif x$. $f_X$ est appelée \emph{densité de probabilité sur $\R$}.
-		La variable aléatoire $X$ associée est telle que~:
+		\begin{déf} Soient $E = \R$ et $f_X : \R \to \R^+$ mesurable telle que $\int_\R f_X(x)\dif x = 1$. $f_X$ est appelée \emph{densité de probabilité sur
+		$\R$}. La variable aléatoire $X$ associée est telle que~:
 		\[\forall A \in \mathcal B(\R) : \P(X \in A) = \int_A f_X(x)\dif x = \int_\R f_X(x)1_A(x)\dif x.\]
 		\end{déf}
 
@@ -928,7 +929,7 @@
 		\end{rmq}
 
 		\subsubsection{Aperçu de la convergence en loi}
-		\begin{déf} Soit $\{X_k\}_{k \geq 1}$ une famille de variables aléatoires à valeurs dans $\N$. On dit que $\{X_k\}$ converge en loi si~:
+		\begin{déf} Soit $\{X_k\}_{k \geq 1}$ une famille de variables aléatoires à valeurs dans $\N$. On dit que $\{X_k\}$ converge en loi vers $X$ si~:
 		\[\forall n \geq 0 : (k \to +\infty) \Rightarrow (\P(X_k = n) \to \P(X = n)).\]
 
 		La convergence en loi se note~:
@@ -981,7 +982,7 @@
 		\[\E\left(t^X\right) = \sum_{k \geq 1}\P(X=k)t^k = \exp(-\lambda)\sum_{k \geq 1}\frac {\lambda^k}{k!}t^k = \exp(-\lambda)\exp(\lambda t)
 		= \exp\left(\lambda(t-1)\right).\]
 
-		On en déduit alors que $\forall t \in [0, 1] : G_{X_k}(t) \stackrel {k \to +\infty}\to G_X(t)$. Et par~\eqref{convkinf}, on a~:
+		On en déduit alors que $\forall t \in [0, 1] : G_{X_k}(t) \stackrel {k \to +\infty}\to G_X(t)$. Et par~\eqref{eq:convkinf}, on a~:
 		\[X_k \stackrel {k \to +\infty}\to X,\]
 		ce qui est équivalent à~:
 		\[\mathcal B\left(k, \frac \lambda k\right) \stackrel {k \to +\infty}\to \mathcal P(\lambda).\]
@@ -1089,7 +1090,7 @@
 			\item[$(iii)$] $\P(B \cap C) = \P(B)\P(C)$~;
 			\item[$(iv)$] $\P(A \cap B \cap C) = \P(A)\P(B)\P(C)$,
 		\end{itemize}
-		alors $A$, $B$, et $C$ sont mutuellement indépendantes.
+		alors $A$, $B$, et $C$ sont mutuellement indépendants.
 		\end{ex}
 
 		\begin{déf} Soit $\{A_i\} \subset \mathcal F$ une famille d'événements. On dit que les $A_i$ sont indépendants deux à deux si~:
@@ -1135,7 +1136,7 @@
 							&= \exp\left(-(\lambda_1+\lambda_2)\right)\frac 1{n!}(\lambda_1 + \lambda_2)^n.
 		\end{align*}
 
-		On a donc $X+y \sim \mathcal P(\lambda_1 + \lambda_2)$. Cela se note~:
+		On a donc $X+Y \sim \mathcal P(\lambda_1 + \lambda_2)$. Cela se note~:
 		\[\mathcal P(\lambda_1) + \mathcal P(\lambda_2) = \mathcal P(\lambda_1+\lambda_2).\]
 		\end{ex}
 
@@ -1176,7 +1177,8 @@
 		On dérive ensuite (formellement, sous l'intégrale) afin d'obtenir~:
 		\[\pd {}x\P(X+Y \leq x) = \pd {}x\int_\R \P(X \leq x - y)f_Y(y)\dif y = \int_\R f_X(x-y)f_Y(y)\dif y.\]
 
-		\begin{prp}[Formule de convolution absolument continue] Soient $X, Y$ deux variables aléatoires réelles à densité respective $f_X$ et $f_Y$. Alors~:
+		\begin{prp}[Formule de convolution absolument continue] Soient $X, Y$ deux variables aléatoires indépendantes réelles à densité respective $f_X$ et
+		$f_Y$. Alors~:
 		\begin{equation}\label{eq:convabscont}
 			f_{X+Y}(x) = \int_\R f_X(x-y)f_Y(y)\dif y.
 		\end{equation}
@@ -1435,14 +1437,14 @@
 		indépendantes, on dit qu'elles sont miid (\textbf{mutuellement} iid).
 		\end{déf}
 
-		\begin{déf} Soient $X_1, \dotsc, X_n$ es variables aléatoires. On appelle la \emph{somme de Césaro} la quantité~:
+		\begin{déf} Soient $X_1, \dotsc, X_n$ des variables aléatoires. On appelle la \emph{somme de Césaro} la quantité~:
 		\[\Ces{X_n} \coloneqq \frac 1n \sum_{k=1}^nX_k,\]
 		qui représente une moyenne \emph{empirique}.
 		\end{déf}
 
 		\begin{déf}[Convergence en probabilités] Soit $\{Z_n\}_n$ une famille de variables aléatoires à valeur dans $E$. Soit $Z \in E$. On dit que \emph{$Z_n$
 		converge en probabilités vers $Z$} si~:
-		\[\forall \epsilon > 0 : \P\left(\abs {Z_n  E} > \epsilon\right) \stackrel {n \to +\infty}\to 0.\]
+		\[\forall \epsilon > 0 : \P\left(\abs {Z_n - E} > \epsilon\right) \stackrel {n \to +\infty}\to 0.\]
 		On note cela~:
 		\[Z_n \convp Z.\]
 		\end{déf}
@@ -1513,14 +1515,14 @@
 
 		Si on peut majorer la variance (ce qui n'est pas toujours applicable), on peut établir un \emph{intervalle de confiance} sur $\E(X)$.
 
-		\begin{déf} Soit $X$ une v.a. Un \emph{intervalle de confiance} sur $\E(X)$ est un intervalle sous la forme $I = [\E(X) \pm \beta(\sigma, n)]$ où
-		$\beta : \R \to \R$ est une fonction tel que $\P(\Ces {X_n} \in I)$ soit suffisamment élevé. \end{déf}
+		\begin{déf} Soit $X$ une v.a. Un \emph{intervalle de confiance} sur $\E(X)$ est un intervalle sous la forme $I = [\E(X) \pm \beta(\sigma, n)]$, où
+		$\beta : \R \to \R$ est une fonction, tel que $\P(\Ces {X_n} \in I)$ soit suffisamment élevé. \end{déf}
 
 		\begin{ex} Soit $X \sim \mathcal B(p)$ une Bernoulli de paramètre $p$ et $X_n \sim \mathcal B(n, p)$ une binomiale de même paramètre $p$ et de $n$ tirages.
 		On peut borner la variance d'une Bernoulli par~:
 		\[\Var(X) = p(1-p) \leq \frac 14.\]
 		Dès lors, on sait que $\P\left(\abs {\Ces {X_n} - p} > \epsilon\right) \leq \frac 1{4n\epsilon^2}$. On peut alors fixer un petit $\epsilon$
-		pour borner notre approximation (par exemple $\epsilon = 10^2$), ce qui nous permet de déterminer un nombre de tirages $n$ tel que la probabilité
+		pour borner notre approximation (par exemple $\epsilon = 10^{-2}$), ce qui nous permet de déterminer un nombre de tirages $n$ tel que la probabilité
 		que l'écart entre l'estimation $\Ces {X_n}$ et le paramètre effectif $p$ soit supérieure à $\epsilon$ soit $\frac 1{4n\epsilon^2}$. Par exemple, bornons
 		la probabilité par $5\%$. On a alors~:
 		\[\frac 1{4n\epsilon^2} = 5\% \iff n = 50\,000.\]
