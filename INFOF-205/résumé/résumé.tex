@@ -37,6 +37,7 @@
 \DeclareMathOperator{\tr}{tr}  % troncature de flottant (\R \to \F)
 \DeclareMathOperator{\diag}{diag}  % diagonale
 \DeclareMathOperator{\dom}{dom}  % domaine de définition
+\DeclareMathOperator{\rg}{rang}  % rang d'une matrice (ou d'une application linéaire)
 
 \newcommand{\C}{\mathbb C}
 \newcommand{\F}{\mathbb F}
@@ -1789,5 +1790,123 @@
 		d'oscillations. Cependant si les dérivées de la fonction $f$ originale sont très grandes en certains points, les splines peuvent également devenir
 		oscillantes.
 		\end{rmq}
+
+\newpage
+\section{Lissage et \emph{Curve Fitting}}
+		Le lissage est est assez proche de l'interpolation à la différence près que dans l'interpolation, aucun modèle n'est prédéfini. Par exemple, dans
+		l'interpolation polynômiale, c'est le nombre d'observations qui va déterminer le degré du polynôme. Le lissage sert à déterminer les paramètres qui
+		permettraient de faire correspondre un ensemble d'observations à un modèle théorique donné.
+
+		Lorsque pour une application concrète, un ensemble de données est récupéré, ces données sont \emph{entachées de bruit}. Cela veut dire qu'elles ne sont
+		pas analytiquement exactes mais qu'elles sont approchées par l'observation. Dans ces cas, un lissage sera plus approprié qu'une interpolation polynômiale.
+		En effet, avec 20 observations d'une expérience, une interpolation rechercherait un polynôme de degré 20. Or, il est assez rare d'avoir une telle
+		relation entre deux données en sciences.
+
+		Si une relation (d'ordre 2 ou 3 par exemple) est soupçonnée, un lissage permet de voir comment les observations \emph{collent} à la théorie.
+
+		On peut donc considérer que les deux différences majeures sont~:
+		\begin{itemize}
+			\item le fait que le type de fonction recherchée est déterminé à l'avance et est paramétriser avant de déterminer les paramètres selon les données
+			disponibles~;
+			\item le fait que contrairement à l'interpolation où on impose $\hat f(x_i) = y_i$ pour tout $0 \leq i \leq n$, où $\hat f$ est la fonction
+			d'interpolation (que l'on avait appelée $\pi_n$ dans le cas de l'interpolation polynômiale), lors du lissage, $h(x_i)$ est censé être proche
+			de $y_i$, mais n'est pas forcément égal (et ne l'est typiquement pas).
+		\end{itemize}
+
+	\subsection{Introduction}
+		\begin{déf} Soient $n+1$ observations sous la forme (possiblement vectorielle) $(x_i, y_i)$ pour $0 \leq i \leq n$. La fonction construite sur base du
+		modèle théorique et des observations est appelée la fonction \emph{d'hypothèse} et est notée $h$.
+		\end{déf}
+
+		\begin{rmq} Il est également commun de nommer les paramètres $\beta$ ou $\theta$ et des les mettre dans un vecteur. On note alors la fonction d'hypothèse
+		$h_\beta(x)$ ou $h_\theta(x)$ afin de préciser quels sont les paramètres.
+		\end{rmq}
+
+		\begin{déf} Pour tout $0 \leq i \leq n$, on définit l'erreur d'approximation par~:
+		\[e_i(h) \coloneqq h(x_i) - y_i.\]
+		\end{déf}
+
+		\begin{déf} Afin de mesurer l'écart entre la fonction d'hypothèse et les données, plusieurs définitions sont disponibles~:
+		\begin{itemize}
+			\item on définit l'\emph{erreur absolue maximale} par~:
+				\[E_\infty(h) \coloneqq \max_{0 \leq i \leq n}\left\{\abs{h(x_i)-y_i}\right\}~;\]
+			\item on définit l'\emph{erreur absolue moyenne} par~:
+				\[E_1 \coloneqq \frac 1{n+1}\sum_{k=0}^n\abs{h(x_k)-y_k}~;\]
+			\item on définit la \emph{root mean square error} (RMSE) par~:
+				\[E_2(h) \coloneqq \sqrt {\frac 1{n+1}\sum_{k=0}^n\abs{h(x_k)-y_k}^2}.\]
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} De manière plus générale, on définit~:
+		\[E_k(h) \coloneqq \sqrt[k] {\frac 1{n+1}\sum_{i=0}^n\abs{h(x_i)-y_i}^k}.\]
+		\end{rmq}
+
+		\begin{rmq} On observe que l'on peut réécrire $E_p(h)$ de manière vectorielle comme suit~:
+		\[E_p(h) = \sqrt[p] {\frac 1{n+1}}\sqrt[p] {\sum_{k=0}^n\abs{h(x_k)-y_k}^p} = \left(n+1\right)^{-\frac 1p}\norm {h(x)-y}_p.\]
+		\end{rmq}
+
+		C'est la méthode $E_2$ qui sera utilisée ici car elle possède les propriétés avantageuses suivantes~: il n'y a pas d'écart négatif qui pourrait compenser
+		les écarts positifs, et suite à la mise à la puissance, les petits écarts sont amplifiés afin d'être plus sanctionnés. Ces propriétés sont partagées
+		par une bonne partie des $E_p$, mais l'avantage de $E_2$ est d'être facile à différencier.
+
+	\subsection{Systèmes surdéterminés et pseudo-inverses}
+		\begin{déf} Soit $Ax = b$ un système linéaire ou $A \in \R^{n \times m}$ et $b \in \R^n$. Si $n > m$, on dit que le système est \emph{surdéterminé}.
+		\end{déf}
+
+		\begin{déf} Sur un système linéaire $Ax = b$, on définit la fonction $\Phi_{A,b} : \R^m \to \R$ telle que~:
+		\[\Phi_{A,b}(x) = \left(\norm {Ax-b}_2\right)^2.\]
+
+		Lorsque le système est induit, on écrit plus simplement $\Phi(x)$.
+		\end{déf}
+
+		\begin{déf} Soient $A \in \R^{n \times m}$ et $b \in \R^n$ où $n \gneqq m$. On dit que $x^*$ est une solution \emph{au sens des moindres carrés} si~:
+		\[\Phi(x^*) = \min_{x \in \R^m}\Phi(x).\]
+		\end{déf}
+
+		On peut minimiser une fonction en regardant où sa dérivée s'annule. Pour cela, on exprime $\Phi$ sous sa forme matricielle~:
+		\[\Phi(x) = (Ax-b)^T(Ax-b) = (x^TA^T - b^T)(Ax - b) = x^TA^TAx - b^TAx - x^TA^Tb + b^Tb.\]
+		Comme tous ces termes sont des réels, on peut prendre leur transposée sans changer la valeur de la fonction. Donc~:
+		\[\Phi(x) = x^TA^TAx - b^TAx - x^TA^Tb + b^Tb = x^TA^TAx - 2b^TAx + b^Tb.\]
+		On observe ensuite le gradient de $\Phi$ que l'on annule~:
+		\[\nabla \Phi(x) = \pd \Phi x = 2A^TAx - 2A^Tb = 0.\]
+
+		On voit donc que pour minimiser $\Phi(x)$, il faut satisfaire $A^TAx = A^Tb$.
+
+		\begin{déf} L'équation $A^TAx = A^Tb$ est appelée \emph{équation normale du système}. \end{déf}
+
+		\begin{rmq} Du fait que la fonction choisie pour représenter la distance est une fonction d'ordre 2, elle est convexe. Dès lors, on peut dire qu'un
+		minimum local est un minimum global (et donc que le minimum est unique).
+		\end{rmq}
+
+		\begin{déf} Soit $A$ une matrice rectangulaire de dimensions $n \times m$. On définit le \emph{mineur} d'ordre $q$ par le déterminant d'une sous-matrice
+		de $A$ où $n-q$ lignes et $m-q$ colonnes sont retirées.
+		\end{déf}
+
+		\begin{déf} Le rang d'une matrice rectangulaire $n \times m$ est la taille du plus grand mineur non nul de $A$. Si $\rg A = \min\{m, n\}$, alors
+		on dit que $A$ est de \emph{rang maximum}.
+		\end{déf}
+
+		\begin{prp} Si le rang de $A$ est maximal, alors le système d'équations normales est régulier et donc la solution $x^*$ existe et est unique.
+		\end{prp}
+
+		\begin{déf} On définit le résidu par~:
+		\[r \coloneqq b - Ax^*.\]
+		\end{déf}
+
+		\begin{prp} Le résidu est un vecteur orthogonal aux colonnes de $A$. \end{prp}
+
+		\begin{proof} on observe que $A^Tr$ multiplie chaque ligne de $A^T$ avec $r$, et donc chaque colonne de $A$ avec $r$. Or~:
+		\[A^Tr = A^Tb - A^TAx^*,\]
+		ce qui, par choix de $x^*$ (valeur qui annule le gradient), on a $A^Tb = A^TAx^*$. Donc~:
+		\[A^Tr = 0.\]
+		Cela veut dire que chaque colonne de $A^Tr$ est nulle. Or $(A^Tr)_i$ représente le produit scalaire entre la $i$ème colonne de $A$ et $r$.
+		On sait que le produit scalaire entre deux vecteurs est nul si et seulement si ils sont orthogonaux.
+		\end{proof}
+
+		Si $A$ est de rang maximal, on trouve que la matrice des coefficients est symétrique (en effet $(A^TA) = A^TA$). On peut donc utiliser une factorisation
+		de Cholesky. Cependant, le problème est mal conditionné, et des erreurs d'arrondis dans les calculs peuvent entrainer une perte de chiffres significatifs
+		dans $A^TA$. On préfère alors dans ces cas la factorisation $QR$ (qui dépasse les objectifs de ce cours).
+
+	\subsection{Aperçu des factorisations matricielles}
 
 \end{document}
