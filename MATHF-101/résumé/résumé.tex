@@ -3221,7 +3221,19 @@
 		vectoriel, le vecteur $\pd f{u_1} \times \pd f{u_2}$ est normal à $\pd f{u_1}$ \textbf{et} $\pd f{u_2}$.
 		\end{proof}
 
-%\newpage
-%\section{Les séries}\label{sec:séries}
+		\subsubsection{Théorème de la divergence}
+		Le théorème de la divergence est une conséquence directe du théorème de Stokes qui permet de relier l'intégrale de la divergence d'un champ de vecteurs
+		défini sur un ensemble borné fermé de $\R^3$ et le flux de ce champ de vecteur à travers le bord de cet ensemble.
+
+		\begin{thm}[Théorème de la divergence]\label{thm:divergence} Soit $\Omega \subset \R^3$ un ensemble borné, fermé et régulier dont le bord est une surface
+		différentiable de classe $C^1$ par morceaux. Si $F$ est un champ de vecteur de classe $C^1$ sur un ouvert de $\R^3$ contenant $\Omega \cup \partial \Omega$,
+		alors~:
+		\[\iiint_\Omega\divg F\dif (x, y, z) = \iint_{\partial \Omega}\scpr F{\dif n}.\]
+		\end{thm}
+
+		\begin{rmq} Le théorème n'est pas démontré ici. \end{rmq}
+
+\newpage
+\section{Les séries}\label{sec:séries}
 
 \end{document}
