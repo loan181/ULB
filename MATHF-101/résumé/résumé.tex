@@ -29,6 +29,8 @@
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\Imf}{Im}
 \DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\C}{\mathbb C}
+\DeclareMathOperator{\K}{\mathbb K}
 \DeclareMathOperator{\Q}{\mathbb Q}
 \DeclareMathOperator{\R}{\mathbb R}
 \DeclareMathOperator{\N}{\mathbb N}
@@ -54,6 +56,7 @@
 \newcommand{\rot}[1]{\nabla \times #1}
 \newcommand{\diffvec}[3]{\left(\dif #1, \dif #2, \dif #3\right)}
 \newcommand{\difxyz}{\diffvec xyz}
+\newcommand{\geomsum}[2]{\frac {1 - #1^{#2+1}}{1 - #1}}
 
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
@@ -3235,5 +3238,75 @@
 
 \newpage
 \section{Les séries}\label{sec:séries}
+	\subsection{Suites réelles ou complexes}
+		On a une notion de convergence dans $\R^n$, et donc en particulier dans $\R^2$. Cela induit une convergence dans $\C$.
+
+		\begin{rmq} Dans cette section, on note $\K$ un corps désignant tant bien les réels que les complexes. \end{rmq}
+
+		\begin{rmq} Si $z \in \K$, la quantité $\abs z$ représente sa valeur absolue s'il est réel et son module s'il est complexe. \end{rmq}
+
+		\begin{déf} La suite $(z_k) \subset \K$ converge vers $z$ si~:
+		\[\forall \epsilon > 0 : \exists N \in \N \tq \forall k \geq N : \abs {z_k-z} < \epsilon.\]
+		\end{déf}
+
+		\begin{prp} La suite complexe $(z_k)$ converge si et seulement si les suites réelles définies par $(\Re z_k)$ et $(\Im z_k)$ convergent.
+		Dans ces conditions, on a~:
+		\[\lim_{k \to +\infty}z_k = \lim_{k \to +\infty}\Re z_k + i\lim_{k \to +\infty}\Im z_k.\]
+		\end{prp}
+
+		\begin{déf} Une \emph{série} est une somme infinie des éléments d'une suite. On dit que la suite $(a_k)$ est le \emph{terme général} de la série~:
+		\[\sum_{k \geq 0}a_k \equiv \sum_{k=0}^\infty a_k.\]
+		\end{déf}
+
+		\begin{déf} On dit que la série $\sum_{k=0}^\infty a_k$ \emph{converge} si la suite des \emph{sommes partielles} dans $\K$ définie par~:
+		\[s_n = \sum_{k=0}^n a_k\]
+		converge dans $\K$. La limite de cette suite est appelée la \emph{somme} de la série et peut se noter des manières suivantes=
+		\[\sum_{k \geq 0} a_k = \sum_{k=0}^\infty a_k = \sum_k a_k = \sum a_k.\]
+		Si cette suite des sommes partielles ne converge pas, on dit que la série diverge.
+		\end{déf}
+
+		\begin{prp}
+		\begin{itemize}
+			\item La série $\sum_k a_k$ converge si et seulement si pour tout $m$, la série $\sum_{k \geq m}a_k$ converge~;\footnote{Mais la somme de ces deux
+			séries n'est pas identique.}
+			\item soit $(x_k) \subset \R^+$. S'il existe $K \in \N$ et $\epsilon > 0$ tels que pour tout $k \geq K : x_k > \epsilon$, alors la série diverge~;
+			\item si la série $\sum_k a_k$ converge, alors le \emph{reste} défini par $\sum_{k=n}^\infty a_k$ tend vers 0 pour $n \to +\infty$.
+		\end{itemize}
+		\end{prp}
+
+		\begin{prp}\label{prp:siserieconvalorstermevers0} Soient $(a_k) \subset \K$ et $\sum_k a_k$. Si la série $\sum_k a_k$ converge, alors $a_k \to 0$ pour
+		$k \to +\infty$.
+		\end{prp}
+
+		\begin{proof} Par définition, si la série converge, c'est que la suite des sommes partielles converge. Dès lors, la suite $s_n$ est une suite de Cauchy.
+		On peut donc dire que pour $\epsilon > 0$, il existe $N \in \N$ tel que~:
+		\[\forall m > n > N : \abs {s_m - s_n} = \abs {\sum_{k \geq n+1}} < \epsilon.\]
+		En particulier, on peut exprimer~:
+		\[\abs {s_{n+1} - s_n} = \abs {a_{n+1}} < \epsilon.\]
+		On y voit donc bien que $a_k \to 0$ pour $k \to +\infty$.
+		\end{proof}
+
+		\begin{lem}[Formule de la somme d'une suite géométrique] Soit $(z_k) \subset \K$ une suite géométrique. On peut donc dire que $z_k = z^k$ pour
+		$z \in \K$. La $n$ème somme partielle de la série $\sum_k z_k$ est donnée par~:
+		\[s_n = \geomsum zn\]
+		\end{lem}
+
+		\begin{proof} Par définition de la suite des sommes partielles, on trouve~:
+		\[\sum_{k=0}^{n+1}z^k = s_n + z^{n+1} = 1 + \sum_{k=0}^nz^{k+1} = 1 + zs_n.\]
+		On a donc~:
+		\[s_n + z^{n+1} = 1 + zs_n,\]
+		ce qui revient à écrire~:
+		\[s_n = \geomsum zn.\]
+		\end{proof}
+
+		\begin{cor} Une série de suite géométrique $(z^k) \subset \K$ converge si et seulement si $\abs z \lneqq 1$. \end{cor}
+
+		\begin{proof} Si $\abs z < 1$, alors pour $n \to +\infty$, on a $z^{n+1} \to 0$, et donc $s_n \to \frac 1{1-z}$.
+
+		Si $\abs z \geq 1$, alors le terme général $z_k$ ne tend pas vers 0 pour $k \to +\infty$, et donc par la
+		proposition~\ref{prp:siserieconvalorstermevers0}, on sait que la série ne converge pas.
+		\end{proof}
+
+	\subsection{Critères de convergence}
 
 \end{document}
