@@ -13,6 +13,7 @@
 \usepackage{commath}
 \usepackage{hyperref}
 \usepackage{interval}
+\usepackage{stmaryrd}
 
 \makeatletter
 \def\thm@space@setup{%
@@ -57,6 +58,7 @@
 \newcommand{\diffvec}[3]{\left(\dif #1, \dif #2, \dif #3\right)}
 \newcommand{\difxyz}{\diffvec xyz}
 \newcommand{\geomsum}[2]{\frac {1 - #1^{#2+1}}{1 - #1}}
+\newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}  % integer interval
 
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
@@ -3539,5 +3541,55 @@
 		\begin{thm}\label{thm:convabsolurearrangement} Si $\sum_k a_k$ est une série absolument convergente et $\sigma$ est une permutation de $\N$, alors
 		$\sum_k a_{\sigma(k)}$ est absolument convergente et la somme ne dépend pas de $\sigma$.
 		\end{thm}
+
+		\begin{proof} Commençons par montrer que $\sum_k a_{\sigma(k)}$ converge absolument, et nous montrerons que la somme ne dépend pas de $\sigma$ ensuite.
+
+		Soit $n \in \N$. On pose $\tilde n \coloneqq \max_{0 \leq i \leq n}\sigma(i)$. Cela implique que $\sigma(\intint 0n) \subset \intint0{\tilde n}$.
+		On en déduit~:
+		\[\sum_{k=0}^n \abs {a_{\sigma(k)}} \leq \sum_{k=0}^{\tilde n} \abs {a_k} \leq \sum_{k \geq 0}\abs {a_k}.\]
+		La série est donc bornée et est donc absolument convergente.
+
+		On note respectivement $(\hat s_n)$ et $(s_n)$ les suites des sommes partielles de $\sum_k \abs {a_{\sigma(k)}}$ et $\sigma_k \abs{a_k}$.
+		Soit $\epsilon > 0$. Par le critère de Cauchy, on sait qu'il existe $N$ tel que~:
+		\[\forall m > n \geq N : \sum_{k=n+1}^m \abs {a_k} < \frac \epsilon 2.\]
+		On prend alors $\hat N \geq N$ tel que~:
+		\[\intint 0N \subseteq \sigma\left(\intint 0{\hat N}\right).\]
+		Soit $n \geq \hat N$. On pose $A_n \coloneqq \sigma\left(\intint 0n\right) \setminus \intint 0N$. On peut exprimer~:
+		\[\abs{s_n - \hat s_n} = \abs{\sum_{k=0}^n a_k - \sum_{k=0}^n a_{\sigma(k)}} = \abs {\sum_{k=\hat N+1}^n a_k + \sum_{k \in A_n} a_k}
+			\leq \sum_{k=\hat N+1}^n\abs {a_k} + \sum_{k \in A_n}\abs {a_k} \leq \sum_{k=\hat N+1}^n\abs {x_k} + \sum_{k=\hat N+1}^{\tilde n}\abs {a_k}
+			< \frac \epsilon 2 + \frac \epsilon 2.\]
+
+		On a donc montré que pour tout $n \geq \hat N$ et $\epsilon > 0$, on a $\abs {s_n - \hat s_n}$, ou encore $s_n = \hat s_n$. En prenant la limite,
+		l'égalité reste et on montre l'égalité des sommes des suites.
+		\end{proof}
+
+		\begin{déf} Soit $(a_{ij})_{i, j \in \N}$ une \emph{suite double}. La \emph{série double} $\sum_{i,j}a_{ij}$ dite \emph{sommable} si~:
+		\[\sup_{n \in \N}\sum_{i,j=0}^n\abs {a_{ij}} < +\infty\]
+		\end{déf}
+
+		\begin{prp} Si $\sum_k a_k$ et $\sum_k b_k$ sont deux séries absolument convergentes. Alors la série double $\sum_{i, j}a_{ij}$ est sommable. \end{prp}
+
+		\begin{thm}[Théorème de Fubini pour les séries] Soit $(a_{ij}) \subset \K$. Si la série double $\sum_{i,j}a_{ij}$ est sommable, alors pour tout
+		$\sigma : \N \to \N^2$\footnote{$\N$ et $\N^2$ ont bien le même cardinal, pour s'en convaincre, on peut imaginer une bijection qui remplit $\N^2$
+		par ses diagonales. Il y a également la fonction de couplage de Cantor bien connue qui le montre.}, la série $\sum_k a_{\sigma(k)}$ est absolument
+		convergente et la somme $s$ est indépendante de $\sigma$.
+
+		De plus, pour tout $i, j \in \N$, les séries $\sum_k a_{ik}$ et $\sum_k a_{kj}$ sont absolument convergentes et~:
+		\[\sum_i\left(\sum_j a_{ij}\right) = \sum_j\left(\sum_i a_{ij}\right) = s.\]
+		\end{thm}
+
+		\begin{rmq} Ce résultat n'est pas démontré. \end{rmq}
+
+		\begin{déf} Le \emph{produit de Cauchy} de deux séries $\sum_k a_k$ et $\sum_k b_k$ est défini par la série~:
+		\[\sum_n\sum_{\sum_{k=0}^n}a_kb_{n-k}\]
+		\end{déf}
+
+		\begin{rmq} Une conséquence du théorème de Cauchy pour les suites est que si $\sum_k a_k$ et $\sum_k b_k$ sont deux séries absolument convergentes,
+		alors leur produit de Cauchy est une série absolument convergente qui a pour somme $\left(\sum_k a_k\right)\left(\sum_k b_k\right)$.
+
+		De plus, le produit de Cauchy de deux suites convergentes de manière conditionnelle peut de pas converger.
+		\end{rmq}
+
+	\subsection{Séries de puissances}
 
 \end{document}
