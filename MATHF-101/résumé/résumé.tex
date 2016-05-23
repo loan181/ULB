@@ -52,6 +52,8 @@
 \newcommand{\normfty}[1]{\norm {#1}_\infty}
 \newcommand{\divg}[1]{\scpr \nabla {#1}}
 \newcommand{\rot}[1]{\nabla \times #1}
+\newcommand{\diffvec}[3]{\left(\dif #1, \dif #2, \dif #3\right)}
+\newcommand{\difxyz}{\diffvec xyz}
 
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
@@ -3081,8 +3083,8 @@
 		alors les opérateurs de dérivation et d'intégration peuvent être intervertis.
 		\end{rmq}
 
-		\begin{thm} Soit $D \subset \R^2$ une surface dont le bord est une courbe simple de classe $C^1$ par morceaux. Si $P$ et $Q$ sont de classe $C^1$
-		sur un ouvert contenant $D$, alors~:
+		\begin{thm}\label{thm:CGR} Soit $D \subset \R^2$ une surface dont le bord est une courbe simple de classe $C^1$ par morceaux. Si $P$ et $Q$ sont de
+		classe $C^1$ sur un ouvert contenant $D$, alors~:
 		\[\iint_D\left(\pd Qx - \pd Py\right)\dif (x, y) = \oint_{\partial D}(P\dif x + Q\dif y),\]
 		où $\partial D$ est orienté dans le sens anti-horlogique.
 		\end{thm}
@@ -3163,8 +3165,61 @@
 		de lacets simples sur $S$ tels que $S \setminus \left(\bigcup_{i=1}^nC_i\right) = S_i \cup S_e$ où $S_i \cap S_e = \emptyset$ et
 		$S_i^\complement \cap S_e^\complement = \bigcup_{i=1}^nC_i$. On suppose $S_i$ compact.
 		Si $F$ est une champ de vecteurs $C^1$ sur un ouvert contenant $\partial S \cup S$, alors~:
-		\[\iint_{S_i}\scpr {\rot F}{\dif n} = \int_{\partial S_i} \scpr F{\dif l} = \sum_{k=1}^n\int_{C_k}\scpr F{(\dif x, \dif y, \dif z)}.\]
+		\[\iint_{S_i}\scpr {\rot F}{\dif n} = \int_{\partial S_i} \scpr F{\dif l} = \sum_{k=1}^n\int_{C_k}\scpr F{\difxyz}.\]
 		\end{thm}
+
+		\begin{proof} La preuve donnée ici ne concerne que les surfaces différentiables de classe $C^2$, ce qui est une hypothèse de régularité trop fort.
+		Soit $U \subset \R^2$. On prend $f : U \to \R^3$ une paramétrisation de $S_i : f(U)$ telle que $\partial S_i = f(\partial U)$. On suppose
+		$f \in C^2$. On prend également $u : \R \to \R^2$ une paramétrisation de $\partial U$. On définit~:
+		\[\gamma : [a, b] \subset \R \to \R^3 : t \mapsto (f \circ u)(t),\]
+		une paramétrisation de $\partial S_i$. On peut alors écrire~:
+		\[\int_{\partial S_i}\scpr F{\difxyz} = \int_a^b\scpr{F(\gamma(t))}{\od \gamma t(t)}\dif t,\]
+		où~:
+		\[\od \gamma t(t) = \od {(f \circ u)}t(t) = \pd f{u_1}(u(t))\od {u_1}t(t) + \pd f{u_2}(u(t))\od {u_2}t(t).\]
+		On peut alors réécrire~:
+		\[\int_{\partial S_i}\scpr F{\difxyz}
+		= \int_a^b\left(\scpr {F(f(u(t)))}{\pd f{u_1}(u(t))\od {u_1}t(t)} + \scpr{F(f(u(t)))}{\pd f{u_2}(u(t))\od {u_2}t(t)}\right)\dif t.\]
+
+		En posant~:
+		\begin{align*}
+			P(u) &\coloneqq \scpr {F(f(u))}{\pd f{u_1}(u)}, \\
+			Q(u) &\coloneqq \scpr {F(f(u))}{\pd f{u_2}(u)},
+		\end{align*}
+		on peut réécrire~:
+		\begin{align*}
+			\int_{\partial S_i}\scpr F{\difxyz}
+			&= \int_a^b\left(\scpr {F(f(u(t)))}{\pd f{u_1}(u(t))\od {u_1}t(t)} + \scpr{F(f(u(t)))}{\pd f{u_2}(u(t))\od {u_2}t(t)}\right)\dif t \\
+			&= \int_a^b\scpr {F(f(u(t)))}{\pd f{u_1}(u(t))}\od {u_1}t(t)\dif t + \scpr{F(f(u(t)))}{\pd f{u_2}(u(t))}\od {u_2}t(t)\dif t \\
+			&= \int_{\partial U}P\dif x + Q\dif y.
+		\end{align*}
+
+		Par le théorème CGR (théorème~\ref{thm:CGR}), on peut écrire~:
+		\[\int_{\partial U}P\dif x + Q\dif y = \iint_U\left(\pd Q{u_1} - \pd P{u_2}\right)\dif (u_1, u_2).\]
+
+		On peut ensuite chercher à évaluer les dérivées partielles de $P$ et $Q$, ce qui donne~:
+		\begin{align*}
+			\pd P{u_2} &= \pd {}{u_2}\left(\scpr {F(f(u))}{\pd f{u_1}(u)}\right) = \pd {}{u_2}\sum_{j=1}^3F(f(u))_j\cdot \left(\pd f{u_1}(u)\right)_j
+				= \pd {}{u_2}\sum_{j=1}^3F_j(f(u))\pd {f_j}{u_1}(u) \\
+			&= \sum_{j=1}^3\pd {}{u_2}\left(F_j(f(u))\pd {f_j}{u_1}(u)\right)
+				= \sum_{j=1}^3\left(\pd {}{u_2}(F_j(f(u)))\pd {f_j}{u_2}(u)\pd {f_j}{u_1} + F_j(f(u))\pd {}{u_2}\pd {f_j}{u_1}(u)\right) \\
+			&= \sum_{j=1}^3\left[\sum_{k=1}^3\left(\pd {}{x_k}F_j(f(u))\pd {f_k}{u_2}(u)\pd {f_j}{u_1}(u)\right)
+					+ F_j(f(u))\textstyle\frac {\partial^2 f}{\partial u_2\partial u_1}(u)\right].
+		\end{align*}
+
+		De manière similaire, on trouve~:
+		\[\pd Q{u_1} = \sum_{j=1}^3\left[\sum_{k=1}^3\left(\pd {}{x_k}F_j(f(u))\pd {f_k}{u_1}(u)\pd {f_j}{u_2}(u)\right)
+					+ F_j(f(u))\textstyle\frac {\partial^2 f}{\partial u_1\partial u_2}(u)\right].\]
+
+		Puisque $f$ est de classe $C^2$, l'ordre de dérivation n'a as d'importance. Dès lors~:
+		\[\frac {\partial^2 f}{\partial u_1\partial u_2}(u) = \frac {\partial^2 f}{\partial u_2\partial u_1}(u).\]
+
+		En évaluant $\pd Q{u_2} - \pd P{u_1}$, on peut supprimer les dérivées secondes de $f$ qui se compensent. Il reste donc~:
+		\[\pd Q{u_2} - \pd P{u_1} = \sum_{j=1}^3\sum_{k=1}^3\pd {F_j}{x_k}(f(u))\left(\pd {f_k}{u_1}(u)\pd {f_j}{u_2}(u) - \pd{f_k}{u_2}(u)\pd {f_j}{u_1}(u)\right).\]
+		On y voit apparaître $\pd f{u_1} \times \pd f{u_2}$. De plus les éléments se somment avec $\rot F$, on retrouve bien~:
+		\[\pd Q{u_1} - \pd P{u_1} = \scpr {\rot F}{\pd f{u_1} \times \pd f{u_2}}.\]
+		En prenant l'intégrale double sur $U$, on retrouve bien $\iint_U\scpr {\rot F}{\dif n}$ car $\dif n$ est le vecteur normal, or par définition du produit
+		vectoriel, le vecteur $\pd f{u_1} \times \pd f{u_2}$ est normal à $\pd f{u_1}$ \textbf{et} $\pd f{u_2}$.
+		\end{proof}
 
 %\newpage
 %\section{Les séries}\label{sec:séries}
