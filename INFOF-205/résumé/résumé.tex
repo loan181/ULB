@@ -1849,7 +1849,7 @@
 		les écarts positifs, et suite à la mise à la puissance, les petits écarts sont amplifiés afin d'être plus sanctionnés. Ces propriétés sont partagées
 		par une bonne partie des $E_p$, mais l'avantage de $E_2$ est d'être facile à différencier.
 
-	\subsection{Systèmes surdéterminés et pseudo-inverses}
+	\subsection{Systèmes surdéterminés factorisations}
 		\begin{déf} Soit $Ax = b$ un système linéaire ou $A \in \R^{n \times m}$ et $b \in \R^n$. Si $n > m$, on dit que le système est \emph{surdéterminé}.
 		\end{déf}
 
@@ -1908,5 +1908,52 @@
 		dans $A^TA$. On préfère alors dans ces cas la factorisation $QR$ (qui dépasse les objectifs de ce cours).
 
 	\subsection{Aperçu des factorisations matricielles}
+		\subsubsection{Factorisation $QR$}
+		L'idée de la factorisation $QR$ est d'exprimer $A = QR$ où $Q$ est une matrice orthogonale et $R$ est une matrice triangulaire supérieure. On trouve donc~:
+		\[A^TA = (QR)^T(QR) = R^TQ^TQR = R^TIR = R^TR.\]
+
+		\subsubsection{Factorisation spectrale $E\Lambda E^{-1}$}
+		L'idée de la factorisation spectrale est d'exprimer $A = E\Lambda E^{-1}$ où $\Lambda$ est une matrice diagonale contenant les valeurs propres de $A$
+		et $E$ est une matrice (inversible) contenant en colonnes des vecteurs propres de $A$
+
+		\subsubsection{Factorisation en valeurs singulières}
+		L'idée de la décomposition en valeurs singulières est d'exprimer $A = U\Sigma V^T$ où $U$ et $V$ sont des matrices orthogonales et $\Sigma$ est une
+		matrice diagonale avec les valeurs singulières de $A$. Comme une matrice diagonale est symétrique, on a alors~:
+		\[A^TA = V\Sigma^T U^TU\Sigma V^T = V\Sigma^T \Sigma V^T = V\Sigma^2V^T = V\Sigma^2V^{-1}.\]
+
+	\subsection{Moindres carrés et pseudo-inverses}
+		\subsubsection{Matrice pseudo-inverse}
+		Si le rang de $A$ n'est pas maximal, alors la matrice $A^TA$ est singulière et donc le système a une infinité de solutions. Il faut donc imposer~:
+		\[(x^*)^T(x^*) = \left(\norm {x^*}_2\right)^2 = \min_{x \tq A^TAx = A^Tb}(\norm x_2)^2,\]
+		en plus de la condition initiale de minimisation~:
+		\[\Phi(x^*) = \min_{x \in \R}\Phi(x).\]
+
+		\begin{thm} L'unique solution de ce problème est $x = A^\dagger b$, où $A^\dagger$ est la \emph{pseudo-inverse} de $A$.
+		\end{thm}
+
+		\begin{déf} Soit $A \in \R^{n \times m}$ une matrice rectangulaire. La matrice pseudo-inverse $A^\dagger$ est l'unique matrice vérifiant les
+		propriétés suivantes~:
+		\begin{itemize}
+			\item $A^\dagger A A^\dagger = A^\dagger$~;
+			\item $A A^\dagger A = A$~;
+			\item $(AA^\dagger)^T = AA^\dagger$~;
+			\item $(A^\dagger A)^T = A^\dagger A$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{prp}[Propriétés de la matrice pseudo-inverse] Soient $A$ et $A^\dagger$ une matrice et sa pseudo-inverse. Alors~:
+		\begin{enumerate}
+			\item $(A^\dagger)^\dagger = A$~;
+			\item $\forall \alpha \in \R : (\alpha A)^\dagger = \alpha^{-1}A^\dagger$~;
+			\item si $\rg A = m < n$, alors $A^\dagger = (A^TA)^{-1}A^T$~;
+			\item si $\rg A = m = n$, alors $A^\dagger = A^{-1}$.
+		\end{enumerate}
+		\end{prp}
+
+		La première et la dernière propriété sont évidentes avec l'unicité de la pseudo-inverse.
+
+		\begin{rmq} Si on peut écrire $A = BC$ avec $B$ et $C$ orthogonales, alors $A^\dagger = C^TB^T$. \end{rmq}
+
+		\subsubsection{Moindres carrés}
 
 \end{document}
