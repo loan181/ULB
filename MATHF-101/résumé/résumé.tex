@@ -3470,5 +3470,74 @@
 		\end{proof}
 
 	\subsection{Critères de Dirichlet et d'Abel}
+		\begin{thm}[Critère de Dirichlet] Soient $(a_k) \subset \R$ et $(b_k) \subset \C$ telles que~:
+		\begin{itemize}
+			\item[$(i)$]   $\lim_{k \to +\infty} a_k = 0$~;
+			\item[$(ii)$]  $\sum_k \abs{a_{k+1}-a_k}$ est convergente~;
+			\item[$(iii)$] la suite des sommes partielles de $(b_k)$ est bornée dans $\C$.
+		\end{itemize}
+		Alors la série $\sum_k (a_kb_k)$ est convergente dans $\C$.
+		\end{thm}
+
+		\begin{proof} On note $(B_n)$ la suite des sommes partielles de $\sum_k b_k$ et $(s_n)$ la suite des sommes partielles de $\sum_k a_kb_k$.
+		On écrit $s_n$ sous la forme~:
+		\[s_n = \sum_{k=0}^na_kb_k = \sum_{k=0}^na_kB_k - \sum_{k=0}^{n-1}a_{k+1}B_k = \sum_{k=0}^{n-1}B_k(a_k-a_{k+1}) - a_nB_n.\]
+		On sait par hypothèse que $B_n$ est bornée, et donc il existe $M \lneqq $ tel que~:
+		\[\abs {(a_j-a_{j+1})B_j} \leq M\abs{a_j-a_{j+1}}.\]
+		Or, par hypothèse également, la série $\sum_j\abs{a_j-a_{j+1}}$ converge. Comme la série convergente $M\sum_k \abs {a_k-a_{k+1}}$ est un majorant de la
+		série $\sum_k (a_j-a_{j+1})B_j$. Par le critère de comparaison, on sait que~:
+		\[\sigma \coloneqq \lim_{n \to +\infty}\left(\sum_{k=0}^{n-1}(a_k - a_{k+1})B_k\right) \in \R.\]
+
+		On sait également par hypothèse que la suite $(a_k)$ tend vers 0 pour $k \to +\infty$. Par les règles de calcul des suites, on sait que la suite
+		$(a_nB_n)$ tend également vers 0 pour $n \to +\infty$. Dès lors, par les règles de calcul sur les suites, on trouve que la suite des sommes partielles de
+		$\sum_k a_kb_k$ converge.
+		\end{proof}
+
+		\begin{rmq} Lorsque $(a_k)$ est décroissante, le critère de Dirichlet peut s'exprimer comme étant de critère d'Abel. \end{rmq}
+
+		\begin{thm}[Critère d'Abel] Soient $(a_k) \subset \R$ et $(b_k) \subset \C$ telles que~:
+		\begin{itemize}
+			\item[$(i)$]   $\lim_{k \to +\infty} a_k = 0$~;
+			\item[$(ii)$]  $a_{k+1} < a_k$ pour tout $k$~;
+			\item[$(iii)$] la suite des sommes partielles de $(b_k)$ est bornée dans $\C$.
+		\end{itemize}
+		Alors la série $\sum_k (a_kb_k)$ est convergente dans $\C$.
+		\end{thm}
+
+		\begin{proof} On observe que~:
+		\[\sum_{k=0}^n \abs{a_k-a_{k+1}} = \sum_{k=0}^n (a_k-a_{k+1}) = a_0 + \sum_{k=0}^n a_k - \sum_{k=0}^n a_k - a_{n+1} = a_0 - a_{n+1}.\]
+		Dès lors~:
+		\[\lim_{n \to +\infty}\sum_{k=0}^n\abs{a_k - a_{k+1}} = a_0 - \lim_{n \to +\infty}a_{n+1} = a_0.\]
+		Donc la série $\sum_k\abs{a_k-a_{k+1}}$ converge. En appliquant le critère de Dirichlet, on trouve effectivement que $\sum_k a_kb_k$ converge.
+		\end{proof}
+
+	\subsection{Opérations sur les séries}
+		\begin{déf} Soient la suite $(a_k) \subset \K$ et $\sigma : \N \to \N$ bijective. On dit que la série $\sum_k a_{\sigma(k)}$ est un \emph{réarrangement}
+		de la série $\sum_k a_k$.
+		\end{déf}
+
+		\begin{rmq} Si $\sigma$ est une permutation de $\N$ telle que seul un nombre fini de valeurs $k$ ne sont pas envoyées sur elle-même, alors la série
+		$\sum_k a_{\sigma(k)}$ converge si et seulement si $\sum_k a_k$ converge et leur somme sera la même.
+		\end{rmq}
+
+		\begin{thm}[Théorème de réarrangment de Riemann] Soit $(a_k) \subset \R$ telle que $\sum_k a_k$ converge sans converger absolument. Alors pour tout
+		$s \in \R$, il existe $\sigma : \N \to \N$ bijective telle que $\sum_k a_{\sigma(k)} = s$. De plus, il existe $\sigma$ une permutation de $\N$ telle que
+		$\sum_k a_{\sigma(k)}$ diverge.
+		\end{thm}
+
+		\begin{rmq} Ce théorème n'est pas démontré ici car il dépasse le niveau du cours. \end{rmq}
+
+		\begin{déf} Soit $(a_k) \subset \R$ telle que $\sum_k a_k$ converge sans converger absolument. Alors on dit que la convergence de $\sum_k a_k$ est
+		\emph{conditionnelle}. Soit $(b_k) \subset \R$ telle que $\sum_k b_k$ converge absolument. Alors on dit que la convergence de $\sum_k b_k$ est
+		\emph{inconditionnelle}
+		\end{déf}
+
+		\begin{rmq} Cette dénomination vient du fait qu'une suite qui converge sans converger absolument peut converger vers n'importe quel réel (et peut ne pas
+		converger) selon le réarrangement. Une série qui converge absolument ne dépend pas du réarrangement (voir théorème~\ref{thm:convabsolurearrangement}).
+		\end{rmq}
+
+		\begin{thm}\label{thm:convabsolurearrangement} Si $\sum_k a_k$ est une série absolument convergente et $\sigma$ est une permutation de $\N$, alors
+		$\sum_k a_{\sigma(k)}$ est absolument convergente et la somme ne dépend pas de $\sigma$.
+		\end{thm}
 
 \end{document}
