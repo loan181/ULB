@@ -3350,5 +3350,125 @@
 		\begin{proof} En considérant la suite des sommes partielles, on sait qu'elle converge si et seulement si elle est de Cauchy. \end{proof}
 
 	\subsection{Convergence absolue}
+		\begin{déf} Soit $(a_k) \subset \K$. On dit que la série $\sum_k a_k$ \emph{converge absolument} si la série $\sum_k \abs {a_k}$ converge.
+		\end{déf}
+
+		\begin{rmq} Toute série à termes positifs convergente est absolument convergente.\footnote{Cette remarque peut également se formuler «~Pour une suite
+		à termes positifs, la convergence et la convergence absolue sont équivalentes~».}
+		\end{rmq}
+
+		\begin{prp} Toute série absolument convergente est convergente. \end{prp}
+
+		\begin{proof} Soit $\sum_k a_k$ une série absolument convergente. On sait que la série $\sum_k \abs {a_k}$ converge, et est donc une suite de Cauchy.
+		Dès lors, on sait que pour tout $\epsilon > 0$, il existe $N$ tel que~
+		\[\forall m > n \geq N : \abs {\sum_{k=n+1}^m\abs {a_k}} < \epsilon.\]
+		Cependant, on peut exprimer~:
+		\[\epsilon > \abs {\sum_{k=n+1}\abs {a_k}} = \sum_{k=n+1}^m\abs {a_k} \geq \abs {\sum_{k=n+1}^m a_k}.\]
+		On en déduit que la série $\sum_k a_k$ (ou la série des sommes partielles) satisfait également le critère de Cauchy, et est donc convergente.
+		\end{proof}
+
+		\begin{thm} Si la série $\sum_k a_k$ possède une série majorant $\sum_k b_k$ telle que $\sum_k b_k$ est convergente, alors $\sum_k a_k$ est absolument
+		convergente.
+		\end{thm}
+
+		\begin{proof} On prend $\sum_k b_k$ un majorant de $\sum_k a_k$. Par le critère de Cauchy, on sait~:
+		\[\forall \epsilon > 0 : \exists N \tq \forall m > n \geq N : \abs {\sum_{k=n+1}^m b_k} < \epsilon.\]
+
+		Par définition du majorant, on sait qu'il existe $K \in \N$ tel que~:
+		\[\forall k \geq K : \abs {a_k} \leq b_k.\]
+		On en déduit
+		\[\forall m > n \geq \max \{N, K\} : \sum_{k=n+1}^m \abs {a_k} \leq \sum_{k=n+1}^m b_k < \epsilon.\]
+
+		Donc $\sum_k \abs {a_k}$ satisfait le critère de Cauchy, elle est donc convergente.
+		\end{proof}
+
+		\begin{rmq} La contraposée de ce théorème affirme que si $\sum_k b_k$ est un majorant de $\sum_k a_k$ et que $\sum_k \abs{a_k}$ n'est pas convergente,
+		alors $\sum_k b_k$ diverge.
+		\end{rmq}
+
+		\begin{cor}[Critère d'équivalence] Soient $\sum_k a_k$ et $\sum_k b_k$ deux séries réelles à termes positifs. Supposons que $\forall k \in \N : b_k \neq 0$.
+		On note~:
+		\[\alpha \coloneqq \lim_{k \to +\infty}\frac {a_k}{b_k} \in \R^+ \cup \{+\infty\}.\]
+
+		\begin{enumerate}
+			\item Si $0 < \alpha < +\infty$, alors $\sum_k a_k$ converge (respectivement diverge) si et seulement si $\sum_k b_k$ converge
+				(respectivement diverge)~;
+			\item si $\alpha = 0$ et $\sum_k b_k$ converge, alors $\sum_k a_k$ converge~;
+			\item si $\alpha = +\infty$ et $\sum_k b_k$ diverge, alors $\sum_k a_k$ diverge.
+		\end{enumerate}
+		\end{cor}
+
+		\begin{rmq} Dans le cas 1, on remarque que $\alpha$ n'est ni nul ni infini, et donc que $\sum a_k$ et $\sum_k b_k$ tendent vers 0 à la même vitesse.
+		\end{rmq}
+
+		\begin{proof} Preuve du point 1. Par hypothèse, il existe $K \in \N$ tel que~:
+		\[\forall k \geq K : -\epsilon + \alpha \leq \frac {a_k}{b_k} \leq \alpha + \epsilon.\]
+		En prenant $\epsilon$ suffisamment petit, on peut poser~:
+		\[\begin{cases}\beta &\coloneqq \alpha - \epsilon > 0, \\\gamma &\coloneqq \alpha + \epsilon.\end{cases}\]
+
+		On en déduit qu'il existe $N$ tel que~:
+		\[\forall k \geq N : \beta b_k \leq a_k \leq \gamma b_k.\]
+
+		On a alors $\gamma b_k$, un majorant de $a_k$,  donc par le critère de comparaison, si $\sum_k b_k$ converge, alors $\sum_k a_k$ converge.
+		De même, on a $a_k$ un majorant de $\beta b_k$, donc par le critère de comparaison, si $\sum_k a_k$ converge, alors $\sum_k b_k$ converge.
+
+		Les points 2 et 3 se démontrent de manière similaire.
+		\end{proof}
+
+		\begin{thm}[Critère de la racine] Soit $(a_k) \subset \K$. On note~:
+		\[\alpha \coloneqq \limsup_{k \to +\infty}\sqrt[k]{\abs {a_k}}.\]
+
+		\begin{enumerate}
+			\item Si $\alpha < 1$, alors $\sum_k a_k$ converge absolument~;
+			\item si $\alpha > 1$, alors $\sum_k a_k$ diverge.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{rmq} Le critère de la racine ne donne aucune information sur le cas où $\alpha = 1$ car il est possible de trouver des exemples convergents,
+		absolument convergents et divergents.
+		\end{rmq}
+
+		\begin{proof} Preuve du point 1. Soit $a \in (\alpha, 1)$. Par hypothèse, il existe $K$ tel que~:
+		\[\forall k \geq K : \sqrt[k]{\abs {a_k}} < a,\]
+		ou encore $\abs {a_k} < a^k$. Or, on sait la série géométrique $\sum_k a^k$ convergente (car $a \in (0, 1)$), et par le critère de comparaison, comme
+		$\sum_k a^k$ est un majorant de $\sum_k a_k$, le critère de comparaison dit que $\sum_k a_k$ converge.
+
+		Preuve du point 2. Pour tout $n \in N$, il existe $k \geq n$ tel que $\abs {a_k} \geq 1$. Dès lors, on observe~:
+		\[\lim_{k \to +\infty}\abs {a_k} \geq 1.\]
+
+		Le terme général de la série ne tend donc pas vers 0, et par la proposition~\ref{prp:siserieconvalorstermevers0}, on sait que $\sum_k a_k$ diverge.
+		\end{proof}
+
+		\begin{thm}[Critère du quotient] Soient $(a_k) \subset \K$ et $K_0 \in \N$ tels que~:
+		\[\forall k \geq K_0 : a_k \neq 0.\]
+
+		\begin{enumerate}
+			\item S'il existe $K \geq K_0$ et $a < 1$ tels que~:
+				\[\forall k \geq K = \frac {\abs {a_{k+1}}}{\abs {a_k}} < a,\]
+			alors la série $\sum_k a_k$ est convergente~;
+			\item s'il existe $K \geq K_0$ tel que~:
+				\[\forall k \geq K : \frac {\abs {a_{k+1}}}{\abs {a_k}} \geq 1,\]
+			alors la série $\sum_k a_k$ est divergente.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{proof} Preuve du point 1. Commençons par montrer que pour tout $k \geq K+1$, on a~:
+		\[\abs {a_k} \leq \frac {\abs {a_K}}{a^K}a^k.\]
+		Pour $k = K+1$, on a par hypothèse~:
+		\[\frac {\abs {a_k}}{\abs {a_K}} \leq a,\]
+		ou encore~:
+		\[\abs {a_k} \leq \abs {a_K}a = \abs {a_K}a\frac {a^K}{a^K} = \abs{a_K}\frac {a^k}{a^K}.\]
+		Ensuite, supposons cette inégalité vraie pour $k > K$, et montrons-la pour $k+1$~:
+		\[\abs{a_{k+1}} \leq a\abs{a_k} = a\frac {\abs{a_K}}{a^K}a^k = \frac {\abs {a_K}}{a^K}a^{k+1}.\]
+		On peut donc exprimer, pour tout $k \geq K$~:
+		\[\abs {a_k} \leq \beta a^k,\]
+		où $\beta = \frac {\abs {a_K}}{a^K} \in \R$ est une constante. On peut donc dire que la série $\sum_k a_k$ est majorée par la série $\beta\sum_ka^k$,
+		qui converge car $a < 1$, et donc par le critère de comparaison, on peut dire que $\sum_k a_k$ converge.
+
+		Preuve du point 2. Pour tout $m \in \N$, on sait que $\abs {a_{K+m}} \geq \abs {a_K}$. Donc $\abs {a_k}$ ne tend pas vers 0 pour $k \to +\infty$.
+		Par la proposition~\ref{prp:siserieconvalorstermevers0}, on sait que $\sum_k a_k$ ne converge pas.
+		\end{proof}
+
+	\subsection{Critères de Dirichlet et d'Abel}
 
 \end{document}
