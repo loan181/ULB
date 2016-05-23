@@ -3308,5 +3308,47 @@
 		\end{proof}
 
 	\subsection{Critères de convergence}
+		\begin{thm}[Convergence des séries à termes positifs] Soit $(a_k) \subset \R$ une suite positive ($\forall k \in \N : a_k \geq 0$).
+		La série $\sum_k a_k$ converge si et seulement si la suite des sommes partielles est bornée.
+		\end{thm}
+
+		\begin{proof} La suite des sommes partielles est croissante. Par convergence des suites, on sait qu'elle converge si et seulement si elle est bornée, et
+		dans ce cas, $s_n \to \sup s_n$. Sinon, $s_n \to +\infty$.
+		\end{proof}
+
+		\begin{thm}[Critère de Leibniz] Soit $(a_k) \subset \R$ une suite définie positive. Si $\lim_{k \to +\infty}a_k = 0$ et si $a_k$ est décroissante, alors
+		la série $\sum_k(-1)^ka_k$ converge.
+		\end{thm}
+
+		\begin{proof} En \emph{divisant} la suite des sommes partielles en 2 (les indices pairs et impairs), on trouve une suite croissante et une suite
+		décroissante~:
+		\[s_{2n+2} - s_{2n} = \sum_{k=2n+1}^{2n+2}(-1)^a_k = -a_{2n+1} + a_{2n+2} \leq 0,\]
+		et~:
+		\[s_{2n+3} - s_{2n+1} = \sum_{k=2n+2}^{2n+3}(-1)^ka_k = a_{2n+2} - a_{2n+3} \geq 0.\]
+
+		Ces deux suites réelles convergent dans $\R$ si et seulement si elles sont respectivement minorée et majorée. On a supposé $a_k$ décroissante.
+		Dès lors~:
+		\[s_{2n+1} \leq s_{2n} \leq s_0,\]
+		et~:
+		\[s_{2n} \geq s_{2n+1} \geq s_1.\]
+
+		On note alors $s \coloneqq \inf s_{2n}$ et $t \coloneqq \sup s_{2n+1}$. On observe ensuite~:
+		\[t-s = \lim_{n \to \infty}s_{2n+1}-s_{2n} = -\lim_{n \to +\infty}a_{2n+1} = 0.\]
+		On a donc $t = s$. Ce la veut dire que pour tout $\epsilon > 0$, il existe $N_1$ et $N_2$ dans $\N$ tels que~:
+		\begin{align*}
+			\forall n \geq N_1 &: \abs {s_{2n+1}-t} < \epsilon, \\
+			\forall n \geq N_2 &: \abs {s_{2n} - s} < \epsilon.
+		\end{align*}
+
+		On en déduit que pour $n \geq \max\{N_1, N_2\}$, on trouve $\abs {s_n-t} < \epsilon$.
+		\end{proof}
+
+		\begin{thm}[Critère de Cauchy pour les séries] Soit $(a_k) \subset \K$. La série $\sum_k a_k$ converge si et seulement si~:
+		\[\forall \epsilon > 0 : \exists N \in \N \tq \forall m > n \geq N : \abs {\sum_{k=n+1}^m a_k} < \epsilon.\]
+		\end{thm}
+
+		\begin{proof} En considérant la suite des sommes partielles, on sait qu'elle converge si et seulement si elle est de Cauchy. \end{proof}
+
+	\subsection{Convergence absolue}
 
 \end{document}
