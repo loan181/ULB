@@ -38,6 +38,7 @@
 \DeclareMathOperator{\diag}{diag}  % diagonale
 \DeclareMathOperator{\dom}{dom}  % domaine de définition
 \DeclareMathOperator{\rg}{rang}  % rang d'une matrice (ou d'une application linéaire)
+\DeclareMathOperator*{\argmin}{arg\,min}  % arg min
 
 \newcommand{\C}{\mathbb C}
 \newcommand{\F}{\mathbb F}
@@ -1955,5 +1956,100 @@
 		\begin{rmq} Si on peut écrire $A = BC$ avec $B$ et $C$ orthogonales, alors $A^\dagger = C^TB^T$. \end{rmq}
 
 		\subsubsection{Moindres carrés}
+		\begin{déf} Soient $(x_i, y_i)$, $n+1$ observations (possiblement vectorielles). On définit le \emph{polynôme des moindres carrés}\footnote{\emph{Least
+		square polynomial}.} par le polynôme~:
+		\[\Pi^*_m(x) = \sum_{k=0}^mc^*_kx^k \in \R[x, m]\]
+		tel que~:
+		\[\forall \pi_m(x) \in \R[x, m] : \sum_{i=0}^n\abs{\Pi_m^*(x_i) - y_i}^2 \leq \sum_{i=0}^n\abs{\pi_m(x_i) - y_i}.\]
+		\end{déf}
+
+		\begin{rmq} Les coefficients $c_j^*$ sont les paramètres du modèle et sont à déterminer selon les valeurs des $(x_i, y_i)$. Plus formellement, on peut
+		écrire ceci~:
+		\[c^* = \argmin_{c^* \in \R^m}\sum_{i=0}^n\left(y_i - \sum_{j=0}^mx_i^jc_j^*\right).\]
+		\end{rmq}
+
+		La notation $c^* = \argmin f(c^*)$ signifie que l'on donne à $c^*$ la valeur qui permet de minimiser $f(c^*)$. La différence entre $\min$ et $\argmin$
+		est le fait que $\min$ \emph{renvoie} la valeur minimale de la fonction sur un intervalle alors que $\argmin$ \emph{renvoie} la valeur de
+		l'\emph{argument} au sein d'un intervalle qui permet de minimiser la fonction.
+
+		On cherche donc les coefficients $\{c_j^*\}_{0 \leq j \leq m} \subset \R$ de $\Pi_m^*$.
+
+		Posons $\R^{(n+1) \times (m+1)} \ni X \coloneqq [X_{ij}] = x_i^j$. Si $n > m$, alors trouver les coefficients $c_j^*$ est équivalent à résoudre le système
+		surdéterminé suivante~:
+		\[\sum_{j=0}^mx_i^jc_j^* = y_i \quad \equiv \quad Xc^* = y.\]
+		Alors on sait que $c$ est la solution du système~:
+		\[X^TXc^* = X^Ty.\]
+
+		\begin{déf} Le procédé consistant à déterminer une fonction (polynômiale) sur base d'un ensemble de points est appelé \emph{régression}. Lorsque $m=1$,
+		on parle de \emph{régression linéaire}, si $m=2$, on parle de \emph{régression quadratique}, si $m=3$, on parle de \emph{régression cubique}, etc.
+		\end{déf}
+
+		Une régression quadratique recherche donc une fonction $\Pi_2^*(x) = c_0^* + c_1^*x + c_2^*x^2$. Le système est alors donné par~:
+		\[
+			Xc = y\quad\equiv\quad
+			\begin{pmatrix}
+				1 & x_0 & x_0^2 \\
+				1 & x_1 & x_1^2 \\
+				  &  \vdots & \\
+				1 & x_n & x_n^2
+			\end{pmatrix}
+			\begin{pmatrix} c_0 \\ c_1 \\ c_2 \end{pmatrix}
+			=
+			\begin{pmatrix}y_0 \\ y_1 \\ \vdots \\ y_n\end{pmatrix}.
+		\]
+
+		Une régression linéaire est sous la forme~:
+		\[\Pi_1^*(x) = c_0^* + c_1^*.\]
+
+		Le système des équations normales est alors donné par~:
+		\[
+			X^TXc = X^Ty\quad\equiv\quad
+			\begin{pmatrix}
+				1   & 1   & \ldots & 1 \\
+				x_0 & x_1 & \ldots & x_n
+			\end{pmatrix}
+			\begin{pmatrix}
+				1 & x_0 \\
+				1 & x_1 \\
+				\vdots \\
+				1 & x_n
+			\end{pmatrix}
+			\begin{pmatrix}c_0 \\ c_1\end{pmatrix}
+			=
+			\begin{pmatrix}
+				1   & 1   & \ldots & 1 \\
+				x_0 & x_1 & \ldots & x_n
+			\end{pmatrix}
+			\begin{pmatrix} y_0 \\ y_1 \\ \ldots \\ y_n \end{pmatrix}.
+		\]
+
+		Ce système peut se réécrire sous forme plus explicite~:
+		\begin{align*}
+			\begin{pmatrix} (n+1) & \sum_{i=0}^nx_i \\ \sum_{i=0}^nx_i & \sum_{i=0}^nx_i^2 \end{pmatrix}
+			\begin{pmatrix} c_0 \\ c_1 \end{pmatrix}
+			&=
+			\begin{pmatrix} \sum_{i=0}^ny_i \\ \sum_{i=0}^nx_iy_i \end{pmatrix}
+			\\
+			\begin{pmatrix}
+				(n+1)c_0 + c_1\sum_{i=0}^nx_i \\
+				c_0\sum_{i=0}^nx_i + c_1\sum_{i=0}^nx_i^2
+			\end{pmatrix}
+			&=
+			\begin{pmatrix} \sum_{i=0}^ny_i \\ \sum_{i=0}^nx_iy_i \end{pmatrix}
+		\end{align*}
+
+		On pose~:
+		\begin{align*}
+			\overline x &\coloneqq \frac 1{n+1}\sum_{i=0}^nx_i, \\
+			\overline y &\coloneqq \frac 1{n+1}\sum_{i=0}^ny_i.
+		\end{align*}
+		La solution explicite de ce système est donnée par~:
+		\begin{align*}
+			c_0 &= \overline y - c_1\overline x, \\
+			c_1 &= \frac {\sum_{i=0}^n(x_i-\overline x)y_i}{\sum_{i=0}^n(x_i-\overline x)^2}.
+		\end{align*}
+
+\newpage
+\section{Résolution d'équations non-linéaires}
 
 \end{document}
