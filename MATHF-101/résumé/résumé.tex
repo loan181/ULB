@@ -3784,5 +3784,94 @@
 		\end{proof}
 
 	\subsection{Fonctions de plusieurs variables}
+		\begin{déf} Soit $f : E \subset \R^m \to \R$. On dit que $f$ est \emph{continûment dérivable} si les dérivées partielles de $f$ sont continues.
+		Cela se note $f \in C^1$.
+		\end{déf}
+
+		\begin{rmq} Comme pour les fonction $f : \R \to \R$, on définit $f \in C^n$ par récurrence si $f \in C^{n-1}$ est les dérivées partielles de $f^{(n)}$
+		existent et sont continues ($f^{(n)}$ est évidemment un vecteur de dérivées partielles).
+		\end{rmq}
+
+		\begin{déf} On dit que $f : E \subset \R^m \to \R$ est $k$ fois continûment dérivable (ou $f \in C^k$) si toutes les dérivées partielles~
+		\[\frac {\partial^k}{\partial x_{i_k}\partial x_{i_{k-1}}\dotsb\partial x_{i_2}\partial x_{i_1}}\]
+		existent et sont continues. On appelle ces dérivées partielles les \emph{dérivées partielles d'ordre $k$ de $f$.}
+		\end{déf}
+
+		\begin{déf} La fonction $f : E \subset \R^m \to \R^n$ est dite $k$ fois continûment dérivable si toutes ses composantes $f_i$ avec $1 \leq i \leq n$
+		sont de classe $C^k$.
+		\end{déf}
+
+		\begin{thm}[Théorème de Clairault] Soit $f : E \subset \R^m \to \R$ une fonction définie sur un ouvert $E$ de classe $C^2$. Alors pour tout $a \in E$
+		et $1 \leq i, j \leq n$, on a~:
+		\[\pd {}{x_i}\left(\pd f{x_j}\right)(a) = \pd {}{x_j}\left(\pd f{x_i}\right)(a).\]
+		\end{thm}
+
+		\begin{rmq} Ce résultat n'est pas démontré. \end{rmq}
+
+		\begin{cor} Soit $f : E \subset \R^m \to \R^n$ une fonction de classe $C^k$ définie sur un ouvert $E$. Pour tout $\gamma \leq k$, les dérivées partielles
+		d'ordre $\gamma$ de $f$~:
+		\[\frac {\partial^\gamma f}{\partial x_{i_\gamma}\partial x_{i_{\gamma-1}}\dotsb\partial x_{i_2}\partial x_{i_1}}\]
+		ne dépendent pas de l'ordre de dérivation (l'ordre des $i_j$).
+		\end{cor}
+
+		\begin{déf} Soit $\alpha \in \N^m$. On dit que $\alpha$ est un \emph{multi-indice} et sa longueur est définie par~:
+		\[\overline \alpha \coloneqq \sum_{k=1}^m\alpha_m.\]
+		\end{déf}
+
+		\begin{déf} Soient $f : E \subset \R^m \to \R$ une fonction de classe $C^k$ définie sur un ouvert $E$ et $\alpha \in \N^m$ un multi-indice tel que
+		$\overline \alpha = k$. On introduit la notation suivante~:
+		\[\partial^\alpha f \coloneqq \frac {\partial^{\overline \alpha}f}{\partial x_1^{\alpha_1}\dotsb\partial x_m^{\alpha_m}}.\]
+		\end{déf}
+
+		\begin{déf} Si $\alpha \in \N^m$ est un multi-indice et $y \in \R^m$ un vecteur, on définit~:
+		\begin{enumerate}
+			\item $\R \ni \alpha ! \coloneqq \prod_{k=1}^m\alpha_k!$~;
+			\item $\R \ni y^\alpha \coloneqq \prod_{k=1}^ny_k^{\alpha_k}$.
+		\end{enumerate}
+		\end{déf}
+
+		\begin{déf} Soient $f : E \subset \R^m \to \R$ une fonction de classe $C^k$ définie sur un ouvert, $a \in E$, et $1 \leq r \leq k$. On définit le
+		polynôme $P_r(f, a)$ par~:
+		\[P_r(f, a)(x) = \sum_{\alpha \in \N \tq \overline \alpha = r}\frac 1{\alpha!}(x-a)^\alpha\partial^\alpha f(a).\]
+		\end{déf}
+
+		\begin{déf} Soit $f : E \subset \R^m \to \R$ une fonction de classe $C^k$ définie sur un ouvert $E$. On appelle le \emph{polynôme de Taylor de $f$
+		autour de $a$ d'ordre $k$} le polynôme $T_k(f, a) : E \to \R$ défini par~:
+		\[T_k(f, a)(x) = f(a) + \sum_{i=1}^kP_i(f, a)(x).\]
+		\end{déf}
+
+		\begin{lem}\label{lem:dérivéeFTaylor} Soit $f : B(a, R) \subset \R^m \to \R$ de classe $C^{k+1}$. Pour tout $t \in (0, 1), 1 \leq r \leq k+1$, on a~:
+		\[\frac 1{r!}\od[r] Ft(t) = \sum_{\alpha \in \N^m \tq \overline \alpha = r}\frac 1{\alpha !}(x-a)^\alpha\partial^\alpha f(a + t(x-a)).\]
+		\end{lem}
+
+		\begin{thm}[Théorème de Taylor à $n$ variables] Soit $f : E \subset \R^m \to \R$ de classe $C^{k+1}$. Si pour tout $a \in \intr E, R > 0$, la boule
+		$B(a, R) \subset E$, alors il existe $C > 0$ tel que pour tout $x \in \bar B(a, R)$~:
+		\[\norm {f(x) - T_k(f, a)(x)} \leq C\norm{x-a}^{k+1}.\]
+		\end{thm}
+
+		\begin{proof} On pose~:
+		\[F(t) = f(a + t(x-a)).\]
+		On observe que~:
+		\[f(x) - f(a) = F(1) - F(0) = \sum_{r=1}^k\od[r] Ft(0) + R.\]
+		On sait également qu'il existe $\kappa \in (0, 1)$ tel que~:
+		\[R = \frac 1{(k+1)!}\od[k+1]Ft(\kappa).\]
+
+		Par le lemme~\ref{lem:dérivéeFTaylor}, on sait que~
+		\[\frac 1{r!}\od[r]Ft(0) = P_r(f, a)(x).\]
+		On peut donc réécrire le reste comme~:
+		\[R(x) = \sum_{\alpha \in \N^m \tq \overline \alpha = k+1}\frac 1{\alpha!}(x-a)\alpha\partial^\alpha f(a + \kappa(x-a)).\]
+
+		Par hypothèse, $f \in C^{k+1}$, et donc les fonctions $\partial^\alpha f$ sont continues sur $E$ pour $\overline \alpha = k+1$. On peut donc dire que
+		pour tout $x \in \bar B(a, R)$, ces fonctions sont bornées. Donc il existe $M > 0$ tel que~:
+		\[\abs{\partial^\alpha f(a + t(x-a))} < M.\]
+
+		On sait également que $\alpha! < 1$ et donc par l'inégalité triangulaire, on peut exprimer~:
+		\[\abs {R(x)} \leq M\sum_{\alpha \in \N^m \tq \overline \alpha=k+1}\abs {(x-a)\alpha}.\]
+
+		En observant~:
+		\[\abs {y^\alpha} \leq \norm y^{\overline \alpha},\]
+		on peut alors poser $C \coloneqq MN$ où $N$ est le nombre de multi-indices de longueur $k+1$. On a alors~:
+		\[\abs {R(x)} \leq C\norm{x-a}^{k+1}.\]
+		\end{proof}
 
 \end{document}
