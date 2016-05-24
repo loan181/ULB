@@ -32,9 +32,10 @@
 \DeclareMathOperator{\intr}{int}
 \DeclareMathOperator{\C}{\mathbb C}
 \DeclareMathOperator{\K}{\mathbb K}
+\DeclareMathOperator{\N}{\mathbb N}
 \DeclareMathOperator{\Q}{\mathbb Q}
 \DeclareMathOperator{\R}{\mathbb R}
-\DeclareMathOperator{\N}{\mathbb N}
+\DeclareMathOperator{\Z}{\mathbb Z}
 \DeclareMathOperator{\adh}{adh}
 \DeclareMathOperator{\tq}{ t.q. }
 \DeclareMathOperator{\Larea}{\mathcal L}
@@ -3591,5 +3592,115 @@
 		\end{rmq}
 
 	\subsection{Séries de puissances}
+		\begin{déf} Soit $(a_k) \subset \K$ une suite. On appelle la série $\sum_k a_k(z-z_0)^k$ une série de puissances où $z_0 \in \K$.
+		\end{déf}
+
+		\begin{thm}\label{thm:rayondeconvergence} Soit $(a_k) \subset \K$. Alors il existe $\rho_a \in [0, +\infty]$ , appelé \emph{rayon de convergence} tel
+		que pour tout $z$ tel que $\abs {z-z_0} < \rho_a$, la série de puissances $\sum_k a_k(z-z_0)^k$ converge absolument et pour tout $z$ tel que
+		$\abs{z-z_0} > \rho_a$, la série de puissances diverge. De plus, la \emph{formule de Hadamard} donne~:
+		\[\rho_a = \frac 1{\limsup_{k \to +\infty} \sqrt[k] {\abs{a_k}}}.\]
+		\end{thm}
+
+		\begin{proof} On observe~:
+		\[\limsup_{k \to +\infty} \sqrt[k] {\abs{a_k(z-z_0)^k}} = \abs{z-z_0}\limsup_{k \to +\infty}\abs {a_k} = \frac {\abs {z-z_0}}{\rho_a}.\]
+		Il faut donc, par le critère de la racine, que $\abs{z-z_0} \lneqq \rho_a$ pour une convergence absolue et $\abs{z-z_0} \gneqq \rho_a$ pour une
+		divergence.
+		\end{proof}
+
+		\begin{déf} Le disque de contre $z_0$ et de rayon $\rho_a$ est appelé \emph{rayon de convergence}. \end{déf}
+
+		\begin{prp} Soit $(a_k) \subset \K$ telle que~:
+		\[\lim_{k \to +\infty}\abs {\frac {a_k}{a_{k+1}}}\]
+		existe dans $\R \cup \{\pm \infty\}$. Alors le rayon de convergence de la série de puissances $\sum_k a_k(z-z_0)^k$ est donné par~:
+		\[\rho_a = \lim_{k \to +\infty}\abs {\frac {a_k}{a_{k+1}}}.\]
+		\end{prp}
+
+		\begin{proof} On calcule~:
+		\[\lim_{k \to +\infty}\abs {\frac {a_{k+1}(z-z_0)^{k+1}}{a_k(z-z_0)^k}} = \frac {\abs{z-z_0}}{\lim_{k \to +\infty}\abs {\frac {a_k}{a_{k+1}}}}.\]
+		On en conclut que la série $\sum_k a-K(z-z_0)^k$ converge si $\abs {z-z_0} < \lim_{k \to +\infty}\abs{\frac {a_k}{a_{k+1}}}$ et diverge si
+		$\abs {z-z_0} > \lim_{k \to +\infty}\abs{\frac {a_k}{a_{k+1}}}$. Par le théorème~\ref{thm:rayondeconvergence}, on en déduit que~:
+		\[\rho_a = \lim_{k \to +\infty}\abs{\frac {a_k}{a_{k+1}}}.\]
+		\end{proof}
+
+	\subsection{L'ensemble des réels n'est pas dénombrable}
+		\begin{déf} Un ensemble $X$ est dit~:
+		\begin{itemize}
+			\item \emph{fini} s'il existe $m \in \N$ et une bijection $f : X \to \intint 1m$~;
+			\item \emph{infini} s'il n'est pas fini~;
+			\item \emph{dénombrable} s'il existe une bijection $f : X \to \N$~;
+			\item \emph{au plus dénombrable} s'il est fini ou dénombrable.
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf} Deux ensembles $X$ et $Y$ sont dits \emph{équipotents} s'il existe $f : X \to Y$ bijective.
+		\end{déf}
+
+		\begin{prp}\label{prp:propriétésensdénombrables} Soient $X$ et $Y$ deux ensembles au plus dénombrable. Alors les ensembles suivantes~:
+		\begin{itemize}
+			\item $A \subset X$~;
+			\item $X \cup Y$~;
+			\item $X \times Y$,
+		\end{itemize}
+		sont au plus dénombrables.
+		\end{prp}
+
+		\begin{proof} Si $A$ est fini, il n'y a rien à démontrer. Si $A$ est infini (et donc $X$ est infini), alors on sait qu'il existe $g : X \to \N$ une
+		bijection. On peut restreindre cette bijection à $g{\mid_A} : A \to g(A) \subseteq \N$, qui reste une bijection. $A$ est donc dénombrable.
+
+		Si $X$ et $Y$ sont finis, on sait que $X \cup Y$ est fini. Si $X$ est fini et $Y$ infini (le cas symétrique s'en déduit), alors il existe $m \in \N$ et
+		$f : X \to \intint 1m$ et il existe également $g : Y \to \N$. On définit alors~:
+		\[h : X \cup Y \to \N : x \mapsto f(x-1)1_X(x) + g(x)1_Y(x).\]
+		On remarque que $h$ est bijective. De même, si $X$ et $Y$ sont tous deux infinis, il existe $f : X \to \N$ et $g : Y \to \N$ bijectifs. On définit
+		à nouveau~:
+		\[h : X \cup Y \to \N : x \mapsto 2f(x)1_X(x) + (2g(x)+1)1_Y(x).\]
+		On remarque également que $h$ est bijective.
+
+		Si $X$ et $Y$ sont tous deux finis, alors $X \times Y$ est fini également. Si $X$ et $Y$ sont tous deux infinis, alors l'idée de la preuve est de
+		construire une fonction $\N \to X \times Y$ qui remplit le \emph{plan discret} $X \times Y$ en diagonale, et qui, par construction est bijective.\footnote{
+		À nouveau, la fonction de couplage de Cantor peut être utilisée, et c'est une fonction $X \times Y \to \N$ donc qui prend le problème dans l'autre sens.}
+		Si $X$ est fini et $Y$ infini (ou symétriquement), l'argument est le même.
+		\end{proof}
+
+		\begin{prp} Une union dénombrable d'ensembles au plus dénombrables est toujours dénombrable. \end{prp}
+
+		\begin{prp} L'ensemble $\Q$ des rationnels est dénombrable. \end{prp}
+
+		\begin{déf} On prend $f : \Q \to \Z \times \Z_0 : \frac pq \mapsto (p, q)$. On voit que $f$ est injective, et donc $f{\mid_{\Q}}$ est une bijection
+		avec un sous-ensemble de $\Z \times \Z_0$ qui, lui, est dénombrable. On sait également $\N \subset \Q$ et donc $\Q$ ne peut être fini.
+		$\Q$ doit donc forcément être dénombrable.
+		\end{déf}
+
+		\begin{rmq} La théorie des séries permet de justifier la notion de développement décimal illimité. En effet~:
+		\[1.999\ldots = 1 + \sum_{k \geq 1}\frac 9{10} = 1 + 9\sum_{k \geq 1}10^{-k} = 1 + 9\frac {10^{-1}}{1 - 10^{-1}} = 1 + 1 = 2.\]
+		\end{rmq}
+
+		Tout nombre $x \in [0, 1]$ peut se développer dans une base $b \geq 2$ de la manière suivante~:
+		\[x = \sum_{k \geq 1}x_kb^{-k}.\]
+
+		\begin{thm}\label{thm:Rindénombrable} L'ensemble $\R$ des nombres réels n'est pas dénombrable. \end{thm}
+
+		\begin{proof} Montrons que $[0, 1)$ est indénombrable. Supposons par l'absurde qu'il existe une bijection $f : \N \to [0, 1)$. Cette fonction
+		\emph{ordonne} l'intervalle $[0, 1)$ par un ensemble $f(0), f(1), \ldots$ Chacun de ces nombres a une représentation par développement décimal unique~:
+		\[f(n) = \sum_{k \geq 1}(x_n)_k10^{-k}.\]
+
+		On considère la suite $(a_k)$ définie par~:
+		\[a_k = \begin{cases}0 &\text{ si } (a_{k-1})_k \neq 0 \\ 1 &\text{ si }(a_{k-1})_k = 0\end{cases} = 1 - \delta_{0 (a_{k-1})_k}.\]
+		On prend $a \in [0, 1)$ défini par $\sum_{k \geq 1}a_k10^{-k}$. Par construction, on sait pour tout $k \in \N$ que $a \neq f(k)$. On peut donc
+		dire $a \not \in f(\N) = [0, 1)$, or $f$ est supposée injective. C'est une contradiction, et donc $[0, 1)$ n'est pas dénombrable.
+		\end{proof}
+
+		\begin{cor} L'ensemble $\R \setminus \Q$ des nombres irrationnels est indénombrable. \end{cor}
+
+		\begin{proof} Supposons par l'absurde que $\R \setminus \Q$ est dénombrable. Par la proposition~\ref{prp:propriétésensdénombrables}, on sait que
+		$\R = (\Q \setminus \Q) \cup \Q$ est dénombrable. Or on vient de voir dans le théorème~\ref{thm:Rindénombrable} que $\R$ est indénombrable. Il faut donc
+		$\R \setminus \Q$ indénombrable.
+		\end{proof}
+
+		\begin{rmq} Il est assez intuitif de se dire qu'en retirant un ensemble \emph{uniquement dénombrable} d'un ensemble indénombrable, la différence
+		ensembliste reste indénombrable.
+		\end{rmq}
+
+\newpage
+\section{Approximation de Taylor}
 
 \end{document}
