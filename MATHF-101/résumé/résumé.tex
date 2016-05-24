@@ -3702,5 +3702,87 @@
 
 \newpage
 \section{Approximation de Taylor}
+	\subsection{Approximation polynomiale des fonctions d’une variable}
+		\begin{thm}[Théorème de Taylor] Soient $f : I \to \R$, $a \in \intr I$, et $k \geq 1$. Si $f$ est $k$ fois dérivable en $a$, alors il existe une unique
+		polynôme~:
+		\[P(x) = \sum_{i=0}^kc_i(x-a)^i\]
+		tel que~:
+		\[\lim_{x \to a}\frac {f(x)-P(x)}{(x-a)^k} = 0.\]
+		De plus, $P = T_k(f, a)$ où~:
+		\[T_k(f, a)(x) \coloneqq \sum_{n=0}^k\frac {f^{(n)}(a)}{n!}(x-a)^n.\]
+		\end{thm}
+
+		\begin{déf} On appelle le polynôme $T_k(f, a)$ le \emph{polynôme de Taylor de $f$ autour de $a$}. \end{déf}
+
+		\begin{déf} Si $f \in C^\infty$, on définit la \emph{série de Taylor de $f$ autour de $a$} par~:
+		\[T(f, a)(x) \coloneqq \sum_{n=0}^\infty\frac {f^{(n)}(a)}{n!}(x-a)^n.\]
+		\end{déf}
+
+		\begin{rmq} La série de Taylor est une série de puissance et converge donc pour tout $x$ tel que $\abs {x-a} < \rho$, où~:
+		\[\rho = \frac 1{\limsup_{n \to +\infty}\frac {f^{(n)}(a)}{n!}}.\]
+
+		Si $\rho \gneqq 0$, la série $T(f, a)$ définit une fonction (car il y a convergence) sur un voisinage de $a$. Il faut alors montrer que $T(f, a) = f$.
+		\end{rmq}
+
+		\begin{déf} On dit que la fonction $f : I \to \R$ est \emph{analytique} si~:
+		\[\forall a \in I : \exists \delta \tq \forall x \in (a-\delta, a+\delta) : f(x) = T(f, a)(x).\]
+		\end{déf}
+
+		\begin{proof}[Preuve du théorème de Taylor] Montrons d'abord l'unicité, et montrons ensuite l'existence sur base de l'unicité.
+
+		Soient $P_1, P_2$ deux polynômes de degré $\leq k$ tels que~:
+		\[\lim_{x \to a}\frac {f(x) - P_1(x)}{(x-a)^k} = \lim_{x \to a}\frac {f(x) - P_2(x)}{(x-a)^k} = 0.\]
+
+		Par les règles de calcul sur les limites, on a~:
+		\[\lim_{x \to a}\frac {P_1(x)-P_2(x)}{(x-a)^k} = 0.\]
+		On note $P(h) \coloneqq P_1(a+h)-P_2(a+h)$. On peut également écrire~:
+		\[P(h) = \sum_{i=0}^ka_i^i.\]
+		On a donc $P(h) \to 0$ pour $h \to 0$. Il faut donc avoir $a_i = 0$ pour tout $i$. On a donc $P_1(x)-P_2(x) = 0$, ce qui montre que le polynôme est unique.
+
+		Montrons maintenant qu'il existe. Plus précisément, montrons que $T_k(f, a)$ est ce polynôme.
+
+		On pose $R_k(f, a)(x) = f(x) - T_k(f, a)(x)$. Montrons que $\frac {R_k(f, a)(x)}{x-a} \to 0$ pour $x \to a$. Prouvons-cela par induction sur $k$.
+		Pour $k=1$, par définition de la dérivée, on trouve~:
+		\[\lim_{x \to a}\frac {f(x)-T_1(f, a)}{x-a} = \lim_{x \to a}\frac {f(x) - f(a) - f'(a)(x-a)}{x-a} = \lim_{x \to a}\frac {f(x)-f(a)}{x-a} - f'(a) = 0.\]
+		Pour le pas de récurrence, on calcule~:
+		\[R_{k+1}(f, a)(x) = R_{k+1}(f, a)(x) - R_{k+1}(f, a)(a).\]
+		Par le théorème de la moyenne, on sait qu'il existe $\xi$ compris strictement entre $x$ et $a$ tel que~:
+		\[R_{k+1}(f, a)(x) = R_{k+1}(f, a)'(\xi)(x-a).\]
+		En calculant le terme de droite, on trouve~:
+		\begin{align*}
+			R_{k+1}(f, a)'(\xi) &= f'(\xi) - \sum_{n=1}^{k+1}\frac {f^{(n)}(\xi)}{n!}n(x-a)^{n-1} = f'(\xi) - \sum_{n=0}^k\frac {f^{(n+1)}(\xi)}{n!}(x-a)^n \\
+			&= f'(\xi) - \sum_{n=0}^k\frac {(f')^{(n)}(\xi)}{n!}(x-a)^n = f'(\xi) - T_k(f', a)(\xi) = R_k(f', a)(\xi).
+		\end{align*}
+		On procède ensuite à la récurrence~:
+		\[\frac {R_{k+1}(f, a)(x)}{(x-a)^{k+1}} = \frac {R_k(f', a)(\xi)(x-a)}{(x-a)^{k+1}} = \frac {R_k(f', a)(\xi)}{(\xi - a)^k}\frac {(\xi-a)^k}{(x-a)^k}.\]
+		On en déduit alors~:
+		\[\lim_{x \to a}\abs {\frac {R_{k+1}(f, a)(x)}{(x-a)^{k+1}}} = \epsilon(k)\lim_{\xi \to a}\abs {\frac {R_k(f', a)(\xi)}{(\xi-a)^k}},\]
+		où~:
+		\[\epsilon(k) = \frac {\abs {(\xi-a)^k}}{\abs {(x-a)^k}} \leq 1.\]
+		On a donc bien~:
+		\[\lim_{x \to a}\abs {\frac {R_{k+1}(f, a)(x)}{(x-a)^{k+1}}} = 0.\]
+		\end{proof}
+
+		\begin{thm}[Formule du reste de Lagrange] Sous les hypothèses du théorème de Taylor, si de plus $f^{(k)}$ est continue et $f^{(k+1)}$ existe, alors
+		pour tout $x$, il existe $\zeta$ strictement entre $x$ et $a$ tel que~:
+		\[R_k(f, a)(x) = \frac {f^{(k+1)}(\zeta)}{(k+1)!}(x-a)^{k+1}.\]
+		\end{thm}
+
+		\begin{cor} Soit $f \in C^\infty(I=(x_1, x_2))$. Si~:
+		\[\forall x_0 \in I : \exists \delta > 0, M > 0 \tq ([x_0 \pm \delta] \subset I) \land (\forall k \in \N, x \in (x_0 \pm \delta) : \abs {f^{(k)}(x)} \leq k!M^k),\]
+		alors $f$ est analytique.
+		\end{cor}
+
+		\begin{proof} On remarque que le rayon de convergence est $\geq \frac 1M$ par~:
+		\[\frac 1\rho = \sqrt[k] {\frac {f^{(k)}(a)}{k!}} \leq \sqrt[k] {M^k} = M.\]
+		Dès lors~:
+		\[\sum_{k \geq 0}\frac {f^{(k)}(a)}{k!}(x-a)^k\]
+		converge pour tout $x$ tel que $\abs {x-a} < \frac 1M$. On calcule ensuite~:
+		\[\abs {R_k(f, a)(x)} = \frac 1{k!}\abs {f^{(k)}(a)(x-a)^k} \leq \frac 1{k!}\abs {k!M^k(x-a)^k} = M^k(x-a)^k.\]
+		Or on sait $\abs {x-a} \lneqq \frac 1M$. Dès lors~:
+		\[\abs {M(x-a)}^k \to 0.\]
+		\end{proof}
+
+	\subsection{Fonctions de plusieurs variables}
 
 \end{document}
