@@ -3874,4 +3874,112 @@
 		\[\abs {R(x)} \leq C\norm{x-a}^{k+1}.\]
 		\end{proof}
 
+		\begin{déf} On définit la matrice Hessienne de la fonction $f : \R^m \to \R$ de classe $C^2$ par~:
+		\[H_f(a) = \left[\md f2{x_i}{}{x_j}{}(a)\right]_{1 \leq i, j \leq m}.\]
+		\end{déf}
+
+		\begin{rmq} La matrice Hessienne d'une fonction $f$ est symétrique.
+
+		De plus, on observe que $T_2(f, a)(x) = f(a) + \scpr {(\nabla f)(a)}{x-a} + \frac 12(x-a)^TH_f(x-a)$.
+		\end{rmq}
+
+	\subsection{Condition suffisante d’extrémalité}
+		\begin{déf} Soit $f : E \subset \R^m \to \R$. Un point $a \in E$ est un \emph{maximum local} de $f$ si~:
+		\[\exists \delta > 0 \tq \forall x \in B(a, \delta) \cap E : f(x) \leq f(a).\]
+		Similairement, $a$ est un \emph{minimum local} si~:
+		\[\exists \delta > 0 \tq \forall x \in B(a, \delta) \cap E : f(x) \geq f(a).\]
+
+		Si $a$ est soit un minimum local, soit un maximum local, on dit que $a$ est un \emph{extremum local}.
+		\end{déf}
+
+		\begin{lem} Soient $f : E \subset \R^m \to \R$ et $a \in \intr E$. Si $f$ est dérivable en $a$ dans la direction $v \in \R^m$ et si $a$ est un extremum
+		local de $f$, alors $\partial_v f(a) = 0$.
+		\end{lem}
+
+		\begin{proof} Soit $f_v : \R \to \R : t \mapsto f(a + tv)$. On remarque alors que~:
+		\[\od {f_v}t(0) = \partial_v f(a).\]
+
+		De plus, si $a$ est un extremum local de $f$, alors $t$ est un extremum local de $f_v$. Donc $\od {f_v}t(0) = 0$.
+		\end{proof}
+
+		\begin{cor} Soit $f : E \subset \R^m \to \R$ différentiable en $a \in E$. Si $a$ est un extremum local de $f$, alors $(\nabla f)(a) = 0$.
+		\end{cor}
+
+		\begin{proof} Par le lemme précédent, on sait que pour tout $v \in \R^m$ où $v \neq 0$, $\partial_v f(a) = 0$. Or on sait, puisque $f$ est différentiable
+		en $a$, $\pd fv = \scpr {(\nabla f)(a)}v$. Il faut donc $(\nabla f)(a) = 0$.
+		\end{proof}
+
+		\begin{déf} On appelle les points annulant le gradient d'une fonction $f$ les \emph{points critiques} de $f$.
+		\end{déf}
+
+		\begin{rmq} Les extrema locaux sont donc des points critiques d'une fonction $f$ multivariée. \end{rmq}
+
+		\begin{rmq} L'annulation du gradient est une condition nécessaire mais pas suffisante pour la présence d'un extremum local. Un exemple est la fonction
+		$f : \R^2 \to \R : (x, y) \mapsto x^2 - y^2$. Son gradient s'annule en $(0, 0)$, or pour tout $x$, on trouve $f(x, 0) \gneqq f(0, 0) = 0 \gneqq f(0, x)$.
+		\end{rmq}
+
+		\begin{prp} Soient $f : I \to \R$ de classe $C^k$ et $a \in I$. Supposons $f^{(n)}(a) = 0$ pour $1 \leq n < k$ et $f^{(k)}(a) \neq 0$. Alors~:
+		\begin{enumerate}
+			\item si $k$ est pair et $f^{(k)}(a) > 0$, alors $a$ est un minimum local de $f$~;
+			\item si $k$ est pair et $f^{(k)}(a) < 0$, alors $a$ est un maximum local de $f$~;
+			\item si $k$ est impair, alors $a$ n'est pas un extremum de $f$.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{déf} Soit $M$ une matrice symétrique carrée $n \times n$. La forme quadratique~:
+		\[Q_M : \R^n \to \R : x \mapsto x^TMx\]
+		est dite~:
+		\begin{itemize}
+			\item \emph{définie positive} si $\forall x \neq 0 : Q_M(x) \gneqq 0$~;
+			\item \emph{définie négative} si $\forall x \neq 0 : Q_M(x) \lneqq 0$~;
+			\item \emph{indéfinie} si elle n'est ni positive ni négative.
+		\end{itemize}
+		\end{déf}
+
+		\begin{thm} Soit $f : E \subset \R^n \to \R$ une fonction de classe $C^3$ définie sur un ouvert. Soit $a \in E$, un point critique de $f$. Alors
+		\begin{enumerate}
+			\item Si $H_f(a)$ est définie positive, alors $a$ est un minimum local de $f$~;
+			\item si $H_f(a)$ est définie négative, alors $a$ est un maximum local de $f$~;
+			\item si $H_f(a)$ est indéfinie, alors $a$ n'est pas un extremum de $f$.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{proof} Par hypothèse, $(\nabla f)(a) = 0$. Donc on peut exprimer l'approximation de Taylor d'ordre 2 de $f$ autour de $a$ par~:
+		\[T_2(f, a)(x) = f(a) + \frac 12(x-a)^TH_f(a)(x-a),\]
+		que l'on peut réécrire en~:
+		\[T_2(f, a)(x) - f(a) = \frac 12\sum_{i=1}^n\sum_{j=1}^n\md f2{x_i}{}{x_j}{}(a)(x-a)_i(x-a)_j.\]
+
+		Par le théorème de Taylor dans $\R^n$, on sait qu'il existe $C > 0, r > 0$ tels que $\bar B(a, r) \subset E$ et~:
+		\[\abs {f(x)-T_2(f, a)(x)} \leq C\norm{x-a}^3.\]
+
+		Quand $\norm {x-a} \leq 1$, on sait $\norm {x-a}^3 \leq \norm {x-a}^2$. Donc pour $x-a$ suffisamment petit, c'est le comportement de $(x-a)^TH_f(a)(x-a)$
+		qui domine le comportement de $f(x)-T_2(f, a)(x)$.
+
+		Supposons $H_f(a)$ définie positive (le cas définie négative se démontre de la même manière). On pose~:
+		\[S^{n-1} \coloneqq \left\{x \in \R^n \tq \norm x = 1\right\}.\]
+		L'ensemble $S^{n-1}$ et fermé borné, et donc par le théorème des bornes atteintes, on peut noter $\alpha$\footnote{Que l'on sait $\gneqq 0$ car $H_f(a)$
+		est supposée définie positive.} le minimum de $Q$ restreint à $S^{n-1}$. On trouve alors pour tout $x \neq 0$~:
+		\[Q(x) = Q\left(\norm x\frac x{\norm x}\right) = \norm x^2Q\left(\frac x{\norm x}\right) \geq \norm x^2\alpha.\]
+
+		Prenons alors $\epsilon > 0$ tel que $\epsilon < \frac \alpha{4C}$. Si $\norm {x-a} < \epsilon$, on trouve~:
+		\[\abs {f(x)-T_2(f, a)(x)} \leq C\norm{x-a}^3 \leq C\norm{x-a}^2\frac \alpha{4C} = \frac \alpha 4\norm{x-a}^2
+		\leq \frac \alpha 4Q(x-a) = \frac 14(x-a)^TH_f(a)(x-a).\]
+
+		Dès lors, prenons $x \in B(a, r)$. On observe~:
+		\begin{align*}
+			f(x)-f(a) &= f(x) - T_2(f, a)(x) + T_2(f, a)(x) - f(a) = f(x) - T_2(f, a)(x) + \frac 12(x-a)^TH_f(a)(x-a) \\
+			&\geq -\frac 14(x-a)^TH_f(a)(x-a) + \frac 12(x-a)^TH_f(a)(x-a) = \frac 14(x-a)^TH_f(a)(x-a) \geq 0.
+		\end{align*}
+		On en déduit donc que $a$ est un minimum local de $f$.
+
+		Si $H_f(a)$ est indéfinie, on sait qu'il existe $u, v \in \R^n$ tels que~:
+		\[u^TH_f(a)u \gneqq 0 \gneqq v^TH_f(a)v.\]
+		En raisonnant de la même manière, on trouve, avec $\delta \to 0$~:
+		\[f(a + \delta u \gneqq f(a) \gneqq f(a + \delta v).\]
+		On en déduit que $a$ n'est pas un extremum de $f$.
+		\end{proof}
+
+\newpage
+\section{Fonctions implicites et réciproques}
+
 \end{document}
