@@ -4164,5 +4164,51 @@
 		\end{rmq}
 
 	\subsection{Règle des multiplicateurs de Lagrange}
+		\begin{thm} Soient $U \subset \R^m$ un ouvert et $f, g : U \to \R$ tous deux de classe $C^1$. Soit $S = g^{-1}(0)$. Soit $p \in S$ tel que
+		$(\nabla g)(p) \neq 0$. Si la restriction de $f$ à $S$ possède un extremum local en $p$, alors il existe $\lambda \in \R$ tel que~:
+		\[(\nabla f)(p) = \lambda (\nabla g)(p).\]
+		\end{thm}
+
+		\begin{proof} On sait par hypothèse qu'au moins une des dérivées partielles de $g$ ne s'annule pas. On réorganise les variables de manière à avoir~:
+		\[\pd g{x_n}(p) \neq 0.\]
+		par le théorème de la fonction implicite, on sait qu'il existe $V_1, V_2$ deux ouverts et $\varphi : V_2 \to \R$ tels que~:
+		\[(g^{-1} \eqqcolon S) \cap V_1 = \{(a, \varphi(a)) \tq a \in V_2\}.\]
+
+		On prend $v \in \R^m$ tel que $\scpr {(\nabla g)(p)}v = 0$. Puisque $(\partial_n g)(p) \neq 0$, on peut exprimer~:
+		\[v_n = -\frac {\sum_{i=1}^{n-1}v_i\pd g{x_i}(p)}{\pd g{x_n}}.\]
+
+		Soit $\delta > 0$ tel que pour tout $t \in (-\delta, \delta)$, on ait $p + tv \in V_2$. Alors, on définit~:
+		\[\gamma : (-\delta, \delta) \to \R^m : t \mapsto (p + tv, \varphi(p + tv)).\]
+		On sait que $\varphi(p+tv)$ fait sens car $\delta$ est défini de telle manière que $p + tv$ soit dans $V_2$, le domaine de $\varphi$ pour tout
+		$t \tq \abs t < \delta$. On sait exprimer la dérivée de cette courbe~:
+		\[\od \gamma t(0) = \left(v_1, \dotsc, v_{n-1}, \od \varphi t(p + tv)\right)
+		= \left(v_1, \dotsc, v_{n-1}, \sum_{k=1}^{n-1}v_k\pd \varphi{x_k}(p_1, \dotsc, p_{n-1})\right).\]
+
+		Par le théorème de la fonction implicite, on peut écrire~:
+		\[\pd \varphi{x_j}(p_1, \dotsc, p_{n-1}) = -\frac {\pd g{x_j}(p)}{\pd \varphi {x_n}(p)}.\]
+		On peut dès lors exprimer la dérivée de $\gamma$ par~:
+		\[\od \gamma t(0) = \left(v_1, \dotsc, v_{n-1}, -\sum_{k=1}v_k\frac {\pd g{x_k}(p)}{\pd g{x_n}(p)}\right) = (v_1, \dotsc, v_{n-1}, v_n) = v.\]
+
+		On déduit de cela que $v$ est tangent à $\gamma$ en $p$, et donc par extension, $v$ est tangent à la surface $S$.
+
+		On sait que $f$ admet un extremum en $p = \gamma(0)$. Donc on sait que $(f \circ \gamma) : (-\delta, \delta) \to \R$ admet un extremum en 0. Par les
+		règles de dérivation, on trouve~:
+		\[\od {(f \circ \gamma)}t(0) = \od ft(\gamma(0))\od \gamma t(0) = \sum_{k=1}^nv_k\pd f{x_k}(p) = \scpr v{(\nabla f)(p)}.\]
+
+		Or on sait que $0$ est un extremum local de $(f \circ \gamma)$, donc on déduit $\scpr v{(\nabla f)(p)} = 0$. On a donc montré que pour tout vecteur $v$
+		tel que $\scpr v{(\nabla g)(p)} = 0$, on a $\scpr v{(\nabla f)(p)} = 0$. Dès lors, les vecteurs $(\nabla g)(p)$ et $(\nabla f)(p)$ sont colinéaires.
+
+		On note~:
+		\begin{align*}
+			\lambda &\coloneqq \frac {\scpr {(\nabla f)(p)}{(\nabla g)(p)}}{\norm{(\nabla g)(p)}^2}, \\
+			\xi_1 &\coloneqq \lambda (\nabla g)(p), \\
+			\xi_2 &\coloneqq (\nabla f)(p) - \xi_1.
+		\end{align*}
+
+		On remarque que $\scpr {\xi_1}{(\nabla g)(p)} = 0$. Donc on peut également dire $\scpr {\xi_2}{(\nabla f)(p)} = 0$, ce qui veut dire que~:
+		\[0 = \scpr{\xi_2}{(\nabla f)(p) - \xi_1} + \scpr{\xi_2}{\xi_1} = \norm {\xi_2}^2 + \scpr{\xi_2}{\xi_1} = \norm {\xi_2}^2.\]
+		On peut donc déduire $\xi_2 = 0$, et donc~:
+		\[(\nabla f)(p) = \xi_1 = \lambda (\nabla g)(p).\]
+		\end{proof}
 
 \end{document}
