@@ -3981,5 +3981,75 @@
 
 \newpage
 \section{Fonctions implicites et réciproques}
+	\subsection{Théorème du point fixe de Banach}
+		\begin{déf} Soit $X$ un ensemble et soit $f : X \to X$. On dit que $x \in X$ est un \emph{point fixe de $f$} si $f(x) = x$.
+		\end{déf}
+
+		\begin{déf} La fonction $f : \R^m \to \R^n$ est dite \emph{lipschitzienne} s'il existe $L > 0$ tel que~:
+		\[\forall x, y \in \R^m : \norm{f(x)-f(y)} \leq L\norm{x-y}.\]
+		Le plus petit $L > 0$ satisfaisant cette condition est appelé la \emph{constante de Lipschitz} de $f$.
+		\end{déf}
+
+		\begin{lem} Toute fonction lipschitzienne est uniformément continue.
+		\end{lem}
+
+		\begin{proof} Soit $f : \R^m \to \R^n$ lipschitzienne. On sait donc qu'il existe $L > 0$ tel que~:
+		\[\forall x, y \in \R^m : \norm{f(x) - f(y)} \leq L\norm{x-y}.\]
+		Soit $\epsilon > 0$, et posons $\delta = \frac \epsilon L$. Supposons $\norm {x-y} < \delta$. On trouve donc~:
+		\[\norm{f(x)-f(y)} \leq L\norm{y-y} < L\frac \epsilon L = \epsilon.\]
+		\end{proof}
+
+		\begin{déf} Une fonction de Lipschitz est dite \emph{contractante} si sa constante de Lipschitz est strictement inférieure à 1.
+		\end{déf}
+
+		\begin{thm}[Théorème du point fixe de Banach] Une application contractante $f : E \subset \R^m \to E$ admet un unique point fixe si $E$ est fermé.
+		\end{thm}
+
+		\begin{proof} Soit $f$ une telle contraction. On nomme $\alpha \in (0, 1)$ sa constante de Lipschitz. Montrons tout d'abord l'unicité du point fixe.
+		Supposons qu'il existe deux points $x, y \in E$ tels que $F(x) = x$ et $F(y = y)$. On sait~:
+		\[\norm {x-y} = \norm{f(x)-f(y)} \leq \alpha\norm{x-y},\]
+		ce qui est une contradiction car $\alpha \lneqq 1$.
+
+		Montrons maintenant que ce point fixe existe. On prend $x_0 \in E$ quelconque, et on définit la suite $(x_n)_{n \in \N^*} \subset E$ par
+		$x_n = F(x_{n-1})$. On remarque que~:
+		\[\norm{x_{n+1} - x_n} \leq \alpha\norm{x_n-x_{n-1}} \leq \alpha^2\norm{x_{n-1}-x_{n-2}} \leq \dotsb \leq \alpha^n\abs{F(x_0)-x_0}.\]
+		On prend ensuite $n > m \in \N^*$ et on observe~:
+		\[\norm{x_n-x_m} \leq \sum_{k=m+1}^n\norm{x_k-x_{k-1}} \leq \sum_{k=m+1}^n\alpha^{k-1}\norm{F(x_0)-x_0}.\]
+
+		De plus, la suite des sommes partielles de $\alpha^k$ est convergente, et donc de Cauchy. On prend alors $\epsilon > 0$. On sait qu'il existe $N > 0$
+		tel que~:
+		\[\forall n \geq N : \sum_{k=m+1}^n\alpha^{k-1} < \frac \epsilon{\norm{F(0)-x_0}}.\]
+		On trouve donc $\abs {x_n - x_m} < \epsilon$ pour tout $n > m > N$.
+
+		Si $(x_n)$ est de Cauchy, alors elle est convergente. Appelons ce point $x$. De plus~:
+		\[f(x) = f(\lim_{n \to +\infty}x_n) = \lim_{n \to +\infty}f(x_n) = \lim_{n \to + \infty}x_{n+1} = x.\]
+		$x$ est donc bien un point fixe de $f$.
+		\end{proof}
+
+		\begin{lem} Si $g : \bar B(0, r) \to \R^n$ est une application contractante de constante $\alpha$ telle que $g(0)=0$, alors $I+g : \bar B(0, r) \to \R^n$
+		est injective et la boule $\bar B(0, (1-\alpha)r)$ est incluse dans son image.
+		\end{lem}
+
+		\begin{proof} Montrons que $I+g$ est injective : soient $x, y \in \bar B(0, r)$ tels que $x+g(x) = y+g(y)$. On peut réécrire cela par~:
+		\[x-y = g(x)-g(y)\qquad\text{ et donc }\qquad\norm{x-y}=\norm{g(x)-g(y)}.\]
+		Or $g$ est contractante. Dès lors, il faut $\norm {x-y}$ = 0, et donc $x=y$. $I+g$ est donc bien injective.
+
+		Maintenant, montrons que la boule $\bar B(0, (1-\alpha)r)$ est incluse dans l'image de $I+g$. Pour cela, prenons $y \in \bar B(0, (1-\alpha)r)$ et
+		montrons qu'il existe $x \in \bar B(0, r)$ tel que $x + g(x) = (I+g)(x) = y$. On cherche donc un point fixe de l'application~:
+		\[x \mapsto y-g(x).\]
+
+		On définit $F : \bar B(0, r) \to \R^n : x \mapsto y-g(x)$. On peut voir que $F$ est à valeurs dans $\bar B(0, r)$ car~:
+		\[\norm {F(x)} \leq \norm y + \norm {g(x)} \leq \abs{(1-\alpha)r} + \alpha\abs r = r.\]
+		De plus, on observe que $F$ est contractante car~:
+		\[\norm {F(x) - F(\hat x)} = \norm {g(x) -g(\hat x)} \leq \alpha\norm {x-\hat x},\]
+		où $\alpha \lneqq 1$. On peut donc appliquer le théorème de Banach qui garantit l'existence d'un point fixe. On a donc montré que la boule était
+		contenue dans l'image de $I+g$.
+		\end{proof}
+
+	\subsection{Théorème de la fonction réciproque}
+
+	\subsection{Théorème de la fonction implicite}
+
+	\subsection{Règle des multiplicateurs de Lagrange}
 
 \end{document}
