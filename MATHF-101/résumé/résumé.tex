@@ -4141,6 +4141,27 @@
 		\end{rmq}
 
 	\subsection{Théorème de la fonction implicite}
+		Une question qu'il est légitime de se poser est de savoir si l'ensemble~:
+		\[\Gamma = \{x \in \R^n \tq g(x) = 0\},\]
+		avec $g : \R^n \to \R$, est le graphe d'une fonction à $n-1$ variables.
+
+		\begin{thm}[Théorème de la fonction implicite] Soit $g : E \subset \R^m \to \R$ une fonction de classe $C^1$ définie sur un ensemble ouvert. Soit $a \in E$ tel que~:
+		\[\begin{cases}g(a) &= 0, \\\pd g{x_n} &\neq 0.\end{cases}\]
+		Alors il existe~:
+		\begin{enumerate}
+			\item un ouvert $U \subset \R^{m-1} \tq (a_1, \dotsc, a_{n-1}) \in U$~;
+			\item un ouvert $V \subset E \tq a \in V$~;
+			\item une fonction $\varphi : U \to \R : (a_1, \dotsc, a_{n-1}) \mapsto a_n$,
+		\end{enumerate}
+		tels que~:
+		\[\{x \in V \tq g(x) = 0\} = \{(a, \varphi(a)) \tq a \in U\}.\]
+
+		De plus, $\varphi$ est différentiable en $(a_1, \dotsc, a_n)$ et~:
+		\[\forall 1 \leq j < n : \frac {\partial \varphi}{\partial x_j}(a_1, \dotsc, a_{n-1}) = -\frac {\pd g{x_j}(a)}{\pd g{x_n}(a)}.\]
+		\end{thm}
+
+		\begin{rmq} La démonstration est omise dans ces notes.
+		\end{rmq}
 
 	\subsection{Règle des multiplicateurs de Lagrange}
 
