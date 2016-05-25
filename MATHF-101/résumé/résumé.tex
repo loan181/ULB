@@ -4026,8 +4026,8 @@
 		$x$ est donc bien un point fixe de $f$.
 		\end{proof}
 
-		\begin{lem} Si $g : \bar B(0, r) \to \R^n$ est une application contractante de constante $\alpha$ telle que $g(0)=0$, alors $I+g : \bar B(0, r) \to \R^n$
-		est injective et la boule $\bar B(0, (1-\alpha)r)$ est incluse dans son image.
+		\begin{lem}\label{lem:contractanteinjective} Si $g : \bar B(0, r) \to \R^n$ est une application contractante de constante $\alpha$ telle que $g(0)=0$,
+		alors $I+g : \bar B(0, r) \to \R^n$ est injective et la boule $\bar B(0, (1-\alpha)r)$ est incluse dans son image.
 		\end{lem}
 
 		\begin{proof} Montrons que $I+g$ est injective : soient $x, y \in \bar B(0, r)$ tels que $x+g(x) = y+g(y)$. On peut réécrire cela par~:
@@ -4047,6 +4047,98 @@
 		\end{proof}
 
 	\subsection{Théorème de la fonction réciproque}
+		\begin{lem}\label{lem:préimageouvertparcontinuestouvert} La préimage d'un ensemble de $U \subset \R^n$ ouvert par une fonction $f : \R^n \to \R^n$ est
+		un ensemble ouvert de $V \subset \R^n$ si et seulement si $f$ est continue.
+		\end{lem}
+
+		\begin{thm}[Théorème de la fonction réciproque] Soit $f : E \subset \R^m \to \R^n$ de classe $C^1$ et soit $a \in E$. Si la matrice $J_f(a)$ est
+		inversible, alors~:
+		\begin{itemize}
+			\item il existe $U, V \subset \R^n$ ouverts tels que $a \in U$ et $f(a) \in V$,
+			\item et $f : U \to V$ est bijective.
+		\end{itemize}
+
+		De plus, $f^{-1}$ est bien définie, est dérivable en $f(a)$ et sa matrice jacobienne est donnée par~:
+		\[J_{f^{-1}}(f(a)) = (J_f(a))^{-1}.\]
+		\end{thm}
+
+		\begin{proof} Montrons cela par étape, commençons par montrer la formule du jacobien de l'inverse, puis montrons que l'on peut se ramener au cas
+		particulier $a=0$ et $J_f(0) = I$, et puis démontrons ce cas particulier.
+
+		\paragraph{Démonstration de la formule du jacobien de l'inverse} On suppose $f$ différentiable en $f(a)$. Par la différentiation d'une composition, on
+		trouve~:
+		\[I = \left[\pd {x_i}{x_j}\right] = [\delta_{ij}] = J_I(a) = J_{f^{-1} \circ f}(a) = J_{f^{-1}}(f(a))J_f(a).\]
+		On en déduit que $J_{f^{-1}}(f(a)) = (J_f(a))^{-1}$.
+
+		\paragraph{Montrons que l'on peut se rapporter au cas particulier} On veut montrer qu'il est raisonnable de penser que l'on peut se ramener au cas où
+		$a=0$, $f(0) = 0$, et $J_f(0) = I$.
+
+		Soit $f$ respectant les conditions ci-dessus. On définit $\tilde f : E \to \R^n$ telle que~:
+		\[\tilde f(x) = f(x)-f(a).\]
+		On a alors $\tilde f(a) = 0$. En supposant le résultat vrai pour $\tilde f(a) = 0$,  il existe $U$ et $\tilde V$ ouverts tels que $a \in U$ et
+		$\tilde f(a) \in \tilde V$ et $\tilde f : U \to \tilde V$ est une bijection. On pose $V = \tilde V - f(a) = \{v - f(a) \tq v \in \tilde V\}$.
+		Dès lors $V$ est ouvert et $f$ met $U$ et $V$ en bijection. De plus, $f^{-1}$ est différentiable en $f(a)$ car $\tilde f$ est différentiable en $f(a)=0$.
+
+		De manière similaire, on montre, avec $\bar f(x) = f(x+a)$ que l'on peut se ramener au cas $a=0$.
+
+		Maintenant, on pose $\hat f$ définie par $\hat f(x) = (J_f(0))^{-1}f(x)$. Remarquons que l'application $x \mapsto (J_f(0))^{-1}$ est différentiable, que
+		$\hat f(0) = 0$, et que $J_{\hat f}(0) = (J_f(0))^{-1}J_f(0) = I$.
+
+		On peut donc dire qu'il existe $U, \hat V$ ouverts dans $\R^n$ tels que $0 \in U$ et $0 \in \hat V$ et $\hat f : U \to \hat V$ est une bijection.
+		Également, $\hat f^{-1}$ est différentiable et son jacobien en $a=0$ est la matrice identité. On constate alors que $f$ est une bijection entre $U$ et
+		$V$ défini par $J_f(0)\hat V$. Et également, $f$ est différentiable en $0$.
+
+		\paragraph{Montrons le résultat pour les conditions énoncées ci-dessus} Maintenant que l'on a montré que le résultat généralisable s'il est vrai pour
+		$a=0$, $f(a)=0$ et $J_f(0) = I$, démontrons qu'il l'est.
+
+		On pose $g : E \to \R^n$ l'application $x \mapsto f(x) - x$ qui représente la \emph{distance} entre $f$ et $I$. On y voit bien que~:
+		\[J_g(0) = J_f(0) - J_I(0) = 0.\]
+
+		De plus, les dérivées partielles de $f$ sont continues, ce qui implique que les dérivées partielles de $g$ le sont également telles que~:
+		\[\forall 1 \leq i, j \leq n : \pd {g_i}{x_j}(0) = 0.\]
+
+		On en déduit qu'il existe une boule fermée $\bar B(0, r) \subset E$ telle que~:
+		\[\forall \xi \in \bar B(0, r) : \abs{\pd {g_i}{x_j}(\xi)}^2 \leq \frac 1{4n^2}.\]
+		Cela implique~:
+		\[\forall \xi \in \bar B(0, r) : \abs{(\nabla g_i)(\xi)}^2 = \sum_{j=1}^n\abs{\pd {g_i}{x_j}(\xi)}^2 \leq \frac n{4n^2} = \frac 1{4n}.\]
+
+		Par le théorème fondamental et l'inégalité de Cauchy-Schwartz, on peut exprimer pour $x, y \in \bar B(0, r)$~:
+		\begin{align*}
+			\abs{g_i(x) - g_j(x)} &= \abs{\int_0^1\od {}t\left(g_i\left(x + t(y-x)\right)\right)\dif t} = \abs{\int_0^1\scpr {(\nabla g_i)(x + t(y-x))}{y-x}} \\
+			&\leq \int_0^1\abs{\scpr {(\nabla g_i)(x + t(y-x))}{y-x}}\dif t \leq \int_0^1\abs{(\nabla g_i)(x+t(y-x)}\abs{y-x}\dif t \\
+			&\leq \frac 1{2\sqrt n}\abs{y-x}.
+		\end{align*}
+
+		Dès lors, on en conclut~:
+		\[\norm {g(x)-g(y)}^2 = \sum_{i=1}^n\abs{g_i(x)-g_i(y)}^2 \leq \sum_{i=1}^n\left(\frac 1{2\sqrt n}\norm{y-x}\right)^2 = \frac n{4n}\norm{y-x}^2.\]
+
+		On a donc défini une boule de rayon $r$ telle que pour tout $x, y$ dans cette boule, on ait~:
+		\[\norm{g(x)-g(y)} \leq \frac 12\abs{x-y}.\]
+
+		On en déduit que $g$ est une contraction de facteur $\alpha = \frac 12$. Par le lemme~\ref{lem:contractanteinjective}, on sait que $I+g$ est injective
+		sur $\bar B(0, r)$ et que son image contient la boule $\bar B\left(0, \frac r2\right)$.
+
+		On pose $V = B(0, r)$ et $U = f^{-1}(V)$, ce que l'on peut faire car $f^{-1}$ est bien définie (nous apprend le lemme). $f : U \to V$ est une bijection
+		entre deux ouverts (par le lemme~\ref{lem:préimageouvertparcontinuestouvert}).
+
+		Il reste à vérifier que la fonction inverse $f^{-1}$ est différentiable. Pour cela, calculons~:
+		\[\lim_{x \to 0}\frac {\norm{f^{-1}(x) - f^{-1}(0) - (J_{f^{-1}}(0))^{-1}(x-0)}}{\norm x} = \lim_{x \to 0}\frac {\norm {f^{-1}(x)-x}}{\norm x}.\]
+
+		Il faut vérifier que cette limite vaut 0. Il faut donc vérifier que pour toute suite $(x_n) \subset \R$ tendant vers 0 que~:
+		\[\lim_{n \to +\infty}\frac {f^{-1}(x_n) - x_n}{\norm x_n} = 0.\]
+		Puisque $f$ est bijective sur $U$ (dans $V$), on peut travailler sur $y_n \coloneqq f^{-1}(x_n)$. Or on sait $f$ différentiable en 0 de jacobien
+		$J_f(0) = I$. On peut donc écrire~:
+		\[\lim_{n \to +\infty}\frac {\norm {y_n - f(y_n)}}{\norm y_n} = 0.\]
+
+		Puisque $\norm {g(x)} \leq \frac 12\norm x$ (car $g(0) = 0$), on trouve~:
+		\[\frac 12\norm x\leq \norm {g(x)}\leq\frac 32\norm x.\]
+		Cela veut dire que la suite $\left(\frac {\norm {y_n}}{\norm {x_n}}\right)_n$ est bornée. Dès lors~:
+		\[\lim_{x \to 0}\frac {f^{-1}(x) - x}{\norm x} = \lim_{n \to +\infty}\frac {\norm{y_n - f(x_n)}}{\norm {y_n}}\frac {\norm {y_n}}{\norm {x_n}} = 0.\]
+		En effet, le produit d'une suite bornée avec une suite tendant vers 0 tend vers 0.
+		\end{proof}
+
+		\begin{rmq} Si $f$ est de classe $C^k$, alors $f^{-1}$ est de classe $C^k$ également.
+		\end{rmq}
 
 	\subsection{Théorème de la fonction implicite}
 
