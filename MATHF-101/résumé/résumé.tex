@@ -2004,7 +2004,7 @@
 		\end{proof}
 
 		\begin{cor} Soit $(x_k)_k \subset \R^n$. Pour tout $1 \leq p, q \leq n-1$, la suite $(x_k)_k \coloneqq (y_k, z_k)_k \subset \R^p \times \R^q$
-		converge si et seulement si $(y_k)$ converge dans $\R^p$ et $qz_k)$ converge dans $\R^q$. \end{cor}
+		converge si et seulement si $(y_k)$ converge dans $\R^p$ et $(z_k)$ converge dans $\R^q$. \end{cor}
 
 		\begin{proof} Trivial par la proposition~\ref{convergenceRnComposantes}. \end{proof}
 
@@ -2149,7 +2149,7 @@
 		\[\forall \delta_0 > 0 : \exists x \in \R^m \tq \norm{x_n-a} < \delta \land \norm{f(x_n)-L} \geq \epsilon_0.\]
 		En particulier, pour $\delta_0 = \frac 1n$, on trouve~:
 		\[\forall n \geq 1 : \exists x_n \in \R^m \tq \norm{x_n-a} < \delta_0 = \frac 1n \land \norm{f(x_n)-L} \geq \epsilon_0.\]
-		Or, par hypothèse, o na supposé que pour toute suite $(x_k) \subset \R^m \tq x_k \to a$, la suite $(f(x_k))_k$ convergeait en $L$.
+		Or, par hypothèse, on a supposé que pour toute suite $(x_k) \subset \R^m \tq x_k \to a$, la suite $(f(x_k))_k$ convergeait en $L$.
 		Ce qui est une contradiction, et donc $f(x) \to L$.
 		\end{proof}
 
@@ -2459,7 +2459,7 @@
 
 		\begin{prp}\label{prp:diffexistanceC} Soient $\frmrn fE$ et $a \in \intr E$. Si $f$ est différentiable en $a$, alors il existe $C, R \in  \R_0^+$ tels
 		que~:
-		\[\forall x \in B(a, r) : \norm{f(x)-f(a)} \leq \norm{x-a}.\]
+		\[\forall x \in B(a, R) : \norm{f(x)-f(a)} \leq C\norm{x-a}.\]
 		En particulier, $f$ est continue en $a$.
 		\end{prp}
 
@@ -2884,7 +2884,7 @@
 		est également une paramétrisation de $S$.
 		\end{rmq}
 
-		\begin{déf} Une \emph{surface paramétrisable} est un sous-ensemble $S \subset \R^3$ qui est localement paramétrisable. C'est-à-dire que pour tout
+		\begin{déf} Une \emph{surface différentiable} est un sous-ensemble $S \subset \R^3$ qui est localement paramétrisable. C'est-à-dire que pour tout
 		$p \in S$, il existe $V \subset \R^3$ un ouvert contenant $p$ tel que $V \cap S$ est paramétrisable.
 
 		S'il existe un ensemble de paramétrisations telles que toutes les paramétrisations sont localement injectives, alors la surface $S$ est dite
@@ -3059,7 +3059,7 @@
 
 		\begin{rmq} L'orientation de $S$ et le choix de $S_i$ confèrent une orientation à $C$. \end{rmq}
 
-		\begin{déf} Soit $\gamma : [a, b]  \to S$ une paramétrisation de $C$.On dit que $\gamma$ parcourt $C$ dans le sens \emph{positif} si pour tout
+		\begin{déf} Soit $\gamma : [a, b]  \to S$ une paramétrisation de $C$. On dit que $\gamma$ parcourt $C$ dans le sens \emph{positif} si pour tout
 		$t \in [a, b]$, le vecteur  donné par $n(\gamma(t)) \times \gamma'(t)$ se trouve sur le côté intérieur de $S$.
 		\end{déf}
 
@@ -3777,7 +3777,7 @@
 		divergence.
 		\end{proof}
 
-		\begin{déf} Le disque de contre $z_0$ et de rayon $\rho_a$ est appelé \emph{rayon de convergence}. \end{déf}
+		\begin{déf} Le disque de contre $z_0$ et de rayon $\rho_a$ est appelé \emph{disque de convergence}. \end{déf}
 
 		\begin{prp} Soit $(a_k) \subset \K$ telle que~:
 		\[\lim_{k \to +\infty}\abs {\frac {a_k}{a_{k+1}}}\]
