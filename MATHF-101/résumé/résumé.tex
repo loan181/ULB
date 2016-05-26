@@ -41,6 +41,7 @@
 \DeclareMathOperator{\Larea}{\mathcal L}
 \DeclareMathOperator{\Uarea}{\mathcal U}
 \DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\aire}{aire}
 \DeclareMathOperator{\divop}{div}
 \DeclareMathOperator{\rotop}{rot}
 \DeclareMathOperator{\curl}{curl}
@@ -60,6 +61,8 @@
 \newcommand{\difxyz}{\diffvec xyz}
 \newcommand{\geomsum}[2]{\frac {1 - #1^{#2+1}}{1 - #1}}
 \newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}  % integer interval
+\newcommand{\aireint}{\aire_{\text{int}}}
+\newcommand{\aireext}{\aire_{\text{ext}}}
 
 \titlespacing\paragraph{0pt}{1pt plus 1pt minus 1pt}{4pt plus 1pt minus 1pt}
 \titlespacing\subparagraph{0pt}{1pt plus 0pt minus 0pt}{1pt plus 1pt minus 1pt}
@@ -3239,6 +3242,133 @@
 
 		\begin{rmq} Le théorème n'est pas démontré ici. \end{rmq}
 
+	\subsection{Mesure de Jordan}
+		\begin{déf} Soit $D \subset \R^2$ un ensemble borné. On définit une \emph{partition} de $D$ par une collection $D_1, \dotsc, D_m\subset D$ telle que~:
+		\begin{align*}
+			\bigcup_{i=1}^m D_i &= D, \\
+			\forall i \neq j : D_i \cap D_j &= \emptyset.
+		\end{align*}
+		\end{déf}
+
+		\begin{déf} Soient $f : D \to \R$ et $P$ une partition de $D$. On définit respectivement les \emph{sommes inférieure et supérieure de Darboux} par~:
+		\begin{itemize}
+			\item $L(f, P) \coloneqq \sum_{i=1}^m m_i(f)\aire(D_i)$~;
+			\item $U(f ,P) \coloneqq \sum_{i=1}^m M_i(f)\aire(D_i)$,
+		\end{itemize}
+		où $m_i$ et $M_i$ sont définis respectivement par~:
+		\begin{align*}
+			m_i(f) &\coloneqq \inf\{f(x, y) \tq (x, y) \in D_i\}, \\
+			M_i(f) &\coloneqq \sup\{(fx, y) \tq (x, y) \in D_i\}.
+		\end{align*}
+		\end{déf}
+
+		\begin{déf} On définit respectivement les intégrales \emph{inférieure et supérieure de Darboux} par~:
+		\begin{align*}
+			\Larea(f) &\coloneqq \inf_P L(f, P), \\
+			\Uarea(f) &\coloneqq \sup_P U(f, P).
+		\end{align*}
+		\end{déf}
+
+		\begin{déf} L'ensemble $S \subset \R^2$ est dit \emph{simple} s'il peut s'écrire comme une union de rectangles dont les intérieurs sont disjoints deux
+		à deux.
+		\end{déf}
+
+		\begin{déf} On définit l'aire d'un espace simple $S = \bigcup_{i=1}^kR_i$ par~:
+		\[\aire(S) = \sum_{i=1}^k\aire(R_i).\]
+		\end{déf}
+
+		\begin{prp} Soient $S_1, S_2$ deux ensembles simples. Si $S_1 \subseteq S_2$, alors $\aire(S_1) \leq \aire(S_2)$.
+		\end{prp}
+
+		\begin{déf} Soit $D \subset \R^2$ un ensemble borné. On définit respectivement ses aires intérieure et extérieure par~:
+		\begin{align*}
+			\aireint(D) &\coloneqq \sup_{s \subseteq D}\aire(S), \\
+			\aireext(D) &\coloneqq \inf_{S \supseteq D}\aire(S).
+		\end{align*}
+		\end{déf}
+
+		\begin{déf} Un ensemble $D \subset \R^2$ est dit \emph{mesurable au sens de Jordan} si~:
+		\[\aireint(D) =\aireext(D).\]
+
+		Si $D$ est mesurable au sens de Jordan, on définit son aire par=
+		\[\aire(D) = \aireint(D) = \aireext(D).\]
+		\end{déf}
+
+	\subsection{Intégrale de Darboux sur un ensemble Jordan-mesurable}
+		\begin{déf} On dit qu'une partition $\mathcal P$ de $D$ est \emph{en sous-ensembles mesurables au sens de Jordan} si
+		$\mathcal P = \{D_i\}_{1 \leq i \leq m}$ tel que $D_i$ est mesurable au sens de Jordan pour tout $i$.
+		\end{déf}
+
+		\begin{déf} On définit $\mathcal P_D$, l'ensemble des partitions de $D \subset \R^2$ en sous-ensembles mesurables au sens de Jordan.
+		\end{déf}
+
+		\begin{déf} Soit $D \subset \R^2$ borné et mesurable au sens de Jordan. La fonction $f : D \to \R$ est dite \emph{intégrable au sens de Riemann} si~:
+		\[\Uarea_D(f) = \inf_{P \in \mathcal P_D}U(f, P) = \sup_{P \in \mathcal P_D}L(f, P) = \Larea_D(f).\]
+		\end{déf}
+
+		\begin{rmq} Les notations suivantes sont équivalentes~:
+		\begin{align*}
+			\overline{\iint_D}f(x, y)\dif (x, y) = \Uarea_D(f), \\
+			\underline{\iint_D}f(x, y)\dif (x, y) = \Larea_D(f).
+		\end{align*}
+		\end{rmq}
+
+		\begin{lem} Cette définition est équivalente à la définition d'intégration sur domaine rectangulaire dans le cas où $D$ est un rectangle.
+		\end{lem}
+
+		\begin{proof} Supposons que pour tout $\epsilon > $, il existe $P_\epsilon$ une partition rectangulaire telle que~:
+		\[U(f, P_\epsilon) - L(f, P_\epsilon) < \epsilon.\]
+		On en déduit que $\inf_{P \in \mathcal P_D}U(f, P) = \sup_{P \sin \mathcal P_D}L(f, P)$ car les partitions rectangulaires $\subset \mathcal P_D$.
+
+		Supposons que $\inf_{\mathcal P_D}U(f, P) = \sup_{\mathcal P_D}L(f, P)$ et montrons que pour tout $\epsilon > 0$, il existe une partition $P$ telle que~:
+		\[U(f, P) - L(f, P) < \epsilon.\]
+		Pour cela, on pose $\epsilon > 0$, et on sait qu'il existe $P_\epsilon \in \mathcal P_D$ telle que~:
+		\[U(f, P_\epsilon) - L(f, P_\epsilon) < \frac \epsilon 2.\]
+		On note $P_\epsilon = \{D_i\}_{1 \leq i \leq n}$. On définit $\alpha \in \N^*$ et la partition $\mathcal R_\alpha$ composée des sous-rectangles obtenus
+		en découpant les côtés de $D$ (qui est rectangulaire) en $2^\alpha$. Chacun de ces sous-rectangles est soit intérieur à un $D_\gamma$ soit contient des
+		points d'un ou plusieurs bords des $D_i$.
+
+		On note $\mathcal A_i$ l'ensemble de tous les rectangles intérieurs à $D_i$ et $\mathcal B$ l'ensemble des rectangles intérieurs à aucun $D_i$. On note
+		également $\mathcal B_i$ l'ensemble des rectangles de $\mathcal R_\alpha$ qui touchent le bord de $D_i$.
+
+		Les ensembles $S_i$ et $S_i'$ définis comme suit~:
+		\begin{align*}
+			S_i  &\coloneqq \bigcup_{R \in \mathcal A_i}R, \\
+			S_i' &\coloneqq S_i \cup \bigcup_{R \in \mathcal B_i}R
+		\end{align*}
+		sont respectivement un ensemble simple contenu dans $D_i$ et un ensemble simple contenant $D_i$.
+		
+		On observe que~:
+		\[\lim_{\alpha \to +\infty}\aire(S_i \setminus S_i') = 0.\]
+
+		Dès lors, pour tout $\eta > 0$, il existe $\alpha_0$ tel que si $\alpha \geq \alpha_0$, alors~:
+		\[\aire\left(\bigcup_{R \in \mathcal B_i}R\right) < \frac \eta n.\]
+
+		On peut également écrire~:
+		\begin{align*}
+			L(f, \mathcal R_\alpha) &= \sum_{R \in \mathcal R_\alpha}\aire(R)\inf\{f(x, y) \tq (x, y) \in R\} \\
+				&= \sum_{i=1}^n\sum_{R \in \mathcal A_i}\aire(R)\inf\{f(x, y) \tq (x, y) \in R\} + \sum_{R \in \mathcal B}\inf\{f(x, y) \tq (x, y) \in R\}\aire(R).
+		\end{align*}
+
+		Et $D_i$ est mesurable au sens de Jordan, donc~:
+		\[\sum_{R \in \mathcal A_i}\aire(R) - \aire(D_i) \leq \eta.\]
+		Puisque $\mathcal A_i \subset D_i$, on peut écrire~:
+		\[\sum_{i=1}^n\sum_{R \in \mathcal A_i}\inf_{(x, y) \in R}f(x, y)\aire(R) \leq \sum_{i=1}^nm_i(f)\sum_{R \in \mathcal A_i}\aire(R),\]
+		où $m_i(f)$ est le minimum atteint par $f$ sur $D_i$. On peut donc écrire également~:
+		\[\sum_{i=1}^n\sum_{R \in \mathcal A_i}\inf_{(x, y) \in R}f(x, y)\aire(R) \leq \sum_{i=1}^nm_i(f)\aire(D_i) - Mn\eta,\]
+		que l'on modifie en~:
+		\[L(f, \mathcal R_\alpha) \geq L(f, P_\epsilon) - (Mn + m)\eta.\]
+		En prenant $\eta$ suffisamment petit (et donc $\alpha$ suffisamment grand), on peut écrire~:
+		\[L(f, \mathcal R_\alpha) \geq L(f, P_\epsilon) - \frac \epsilon 4.\]
+
+		Par un raisonnement similaire, on trouve une partition $\mathcal R_{\alpha'}$ telle que~:
+		\[U(f, \mathcal R_{\alpha'} \leq U(f, P_\epsilon) + \frac \epsilon 4.\]
+
+		En prenant $\beta \coloneqq \max(\alpha, \alpha')$, on a $\mathcal R_\beta$, une partition telle que~:
+		\[U(f, \mathcal R_\beta) - L(f, \mathcal R_{\beta}) \leq U(f, P_\epsilon) + \frac \epsilon 4 - L(f, P_\epsilon) + \frac \epsilon 4
+		< \frac \epsilon 2 + 2 \frac \epsilon 4 = \epsilon.\]
+		\end{proof}
+
 \newpage
 \section{Les séries}\label{sec:séries}
 	\subsection{Suites réelles ou complexes}
@@ -3263,7 +3393,7 @@
 
 		\begin{déf} On dit que la série $\sum_{k=0}^\infty a_k$ \emph{converge} si la suite des \emph{sommes partielles} dans $\K$ définie par~:
 		\[s_n = \sum_{k=0}^n a_k\]
-		converge dans $\K$. La limite de cette suite est appelée la \emph{somme} de la série et peut se noter des manières suivantes=
+		converge dans $\K$. La limite de cette suite est appelée la \emph{somme} de la série et peut se noter des manières suivantes~:
 		\[\sum_{k \geq 0} a_k = \sum_{k=0}^\infty a_k = \sum_k a_k = \sum a_k.\]
 		Si cette suite des sommes partielles ne converge pas, on dit que la série diverge.
 		\end{déf}
