@@ -1082,7 +1082,7 @@
 			
 			\begin{thm}[Conservation des inégalités] Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$.
 			Si $\exists \delta > 0$ tel que $\forall x \in ]a-\delta, a+\delta[ \cap U \cap B, f(x) \leq g(x)$ et $\lim_{x \to a}f(x)$ et $\lim_{x \to a}g(x)$
-			existent dans $\R$, alors $\lim_{x \to a}f(x) \leq \lim{x \to a}g(x)$. \end{thm}
+			existent dans $\R$, alors $\lim_{x \to a}f(x) \leq \lim_{x \to a}g(x)$. \end{thm}
 			
 		\subsubsection{Limites infinies et limites à l'infini}
 			
@@ -1125,7 +1125,7 @@
 		de suites. Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. Alors la fonction $f$ est continue en
 		$a$ si et seulement si pour toute suite $(x_n)$ convergente en $a$, la suite $(f(x_n))$ converge en $f(a)$. \end{prp}
 
-		\begin{prp} Les règles de calcul concernant la continuité sont assez évidents. Soient $a \ni \R$, $f, g : I \subseteq \R \to \R$ deux fonctions
+		\begin{prp} Les règles de calcul concernant la continuité sont assez évidentes. Soient $a \ni \R$, $f, g : I \subseteq \R \to \R$ deux fonctions
 		définies sur un voisinage de$a$ et continues en $a$. Alors $f+g$ est également continue en $a$, $fg$ est également continue en $a$ et si
 		$g(a) \neq 0$, alors $\frac fg$ est continue en $a$. De plus soit $h : V \subseteq \R \to \R$ une fonction définie sur un voisinage de $f(a)$
 		et contenant $f(I)$, l'image de $f$. Si $h$ est continue en $f(a)$, alors $h \circ f : I \to \R$ est continue en $a$. \end{prp}
@@ -1166,9 +1166,9 @@
 	\subsection{Théorème de la valeur intermédiaire}
 		
 		\begin{thm} Soit $\fabr f$ une fonction continue. Soit $\gamma$ strictement entre $f(a)$ et $f(b)$.
-		Alors $\exists c \in ]a, b[ \tq f(x) = \gamma$. \end{thm}
+		Alors $\exists c \in ]a, b[ \tq f(c) = \gamma$. \end{thm}
 
-		\begin{proof} Supposons $f(a) < \gamma < f(b)$, le cas $f(b) < \gamma f(a)$ se montre de la même manière.
+		\begin{proof} Supposons $f(a) < \gamma < f(b)$, le cas $f(b) < \gamma < f(a)$ se montre de la même manière.
 
 		Soit $S \coloneqq \{x \in \ab \tq f(x) < \gamma\} \subseteq \dom f$. Par définition de $S$, on sait que $a \in S$ et que $S$ est majoré par $b$.
 		Il existe une suite $(x_n)$ dans $S$ telle que $x_n \to \sup S$. Donc $\forall n \in \N : x_n \in S$ donc $f(x_n) < \gamma$. De plus,
@@ -1399,7 +1399,7 @@
 		en $a$ et vaut~: \[g'(f(a))f'(a).\] \end{thm}
 
 		\begin{proof} Soient les fonctions suivantes~:
-		\[F(x) \coloneqq \left\{\begin{aligned}&\frac {f(x)-f(a)}{x-a} &\text{ si } x \neq 0 \\ &f\prime(a) &\text{ si } x = a\end{aligned}\right\},\]
+		\[F(x) \coloneqq \left\{\begin{aligned}&\frac {f(x)-f(a)}{x-a} &\text{ si } x \neq 0 \\ &f\prime(a) &\text{ si } x = a\end{aligned}\right.,\]
 		et~:
 		\[G(x) \coloneqq \left\{\begin{aligned}&\frac {g(x)-g(f(a))}{x-f(a)} &\text{ si } x \neq f(a)\\&g\prime(f(a)) &\text{ si } x = f(a)\end{aligned}\right.\]
 
@@ -1460,7 +1460,7 @@
 		tels que $f(m)$ est le minimum de $f$ et $f(M)$ est le maximum de $f$. Si $f(m) = f(M)$, alors la fonction est constante. Alors prenons $c = \frac {a+b}2$.
 		Sinon, si $m \neq a$ et $m \neq b$, prenons $c = m$ car $m$ est un extremum. Par la proposition précédente, $f'(c) = 0$. \end{proof}
 
-		\begin{thm}[de la moyenne/eds accroissements finis] Soit $f : \ab \subseteq \R \to \R$ continue sur $\ab$ et dérivable sur $]a, b[$.
+		\begin{thm}[de la moyenne/des accroissements finis] Soit $f : \ab \subseteq \R \to \R$ continue sur $\ab$ et dérivable sur $]a, b[$.
 		Alors il existe $c \in ]a, b[$ tel que~:
 		\[f'(c) = \frac {f(b)-f(a)}{b-a}.\]
 		\end{thm}
@@ -1486,7 +1486,7 @@
 		\[\exists c \in ]a, b[ \tq f'(c) = \frac {f(x_1)-f(x_2)}{x_1-x_2}.\]
 
 		Donc si $f'(c) > 0$ (premier cas), il faut $f(x_2) > f(x_1)$, si $f'(c) < 0$ (second cas), il faut $f(x_2) < f(x_1)$ et si $f'(c) = 0$ (dernier cas), il faut
-		$f(x_1 = f(x_2)$. On a donc $f$ soit strictement croissante, soit strictement décroissante soit constante. \end{proof}
+		$f(x_1) = f(x_2)$. On a donc $f$ soit strictement croissante, soit strictement décroissante soit constante. \end{proof}
 
 		\begin{thm}[Comparatif de la moyenne] Soient $\fabr {f, g}$ continues sur $\ab$ et dérivables sur $]a, b[$. Si pour tout $x \in ]a, b[$, on a $g(x) \neq 0$,
 		alors il existe $c \in ]a, b[$ tel que~:
@@ -1557,7 +1557,7 @@
 
 		existe dans $\R^n$ cet élément. \end{déf}
 
-		\begin{lem} La fonction $\frrn rA$ est dérivable en $a \in \intr A$ si et seulement si toutes ses composantes sont dérivables. En ce cas,
+		\begin{lem} La fonction $\frrn fA$ est dérivable en $a \in \intr A$ si et seulement si toutes ses composantes sont dérivables. En ce cas,
 		$f'(a) = (f_1'(a), \ldots, f_n'(a))$. \end{lem}
 
 		\begin{thm} Soient $f : \R \to \R$ dérivable en $a \in \R$ et $g : \R \to \R^n$ dérivable en $f(a)$. Alors $(g \circ f)'(a) = f'(a)g'(f(a))$. \end{thm}
@@ -1650,11 +1650,11 @@
 		\end{align*}
 		\end{déf}
 
-		\begin{déf} une fonction $\fabr f$ bornée est intégrale si $\mathcal U(f) = \mathcal L(f)$. On note cette valeur $\int_a^bf(x)\dif x$ ou encore
+		\begin{déf} une fonction $\fabr f$ bornée est intégrable si $\mathcal U(f) = \mathcal L(f)$. On note cette valeur $\int_a^bf(x)\dif x$ ou encore
 		$\int_a^b f$. \end{déf}
 
 		\begin{lem} Si $\fabr f$ est bornée et $P$ est une partition de $\ab$, $y \in \ab$. On définit $P' \coloneqq P \cup \{y\}$. Alors~:
-		\[\Larea(f, P) \leq \Larea(f, P) \leq \Uarea(f, P) \leq \Uarea(f, P').\]
+		\[\Larea(f, P) \leq \Larea(f, P') \leq \Uarea(f, P') \leq \Uarea(f, P).\]
 		\end{lem}
 
 		\begin{proof} Soit $r \in \{1, \ldots, n\}$ tel que $x_{r-1} < y < x_r$. On sait que $\Larea(f, P) = m_1(x_1-x_0) + \ldots + m_n(x_n-x_{n-1})$ et on
@@ -1748,7 +1748,7 @@
 		\begin{thm}[Théorème fondamental du calcul et intégral] Soit $\fabr f$ continue (donc intégrable). Alors la fonction $\fabr F : x \mapsto \int_a^xf$
 		est l'unique primitive de $f$ sur $\ab$ qui s'annule en $a$. \end{thm}
 
-		\begin{proof} Soit $c \in \ab$. Soit $\epsilon > 0$. Par la continuité(uniforme) de $f$ en $c$, il existe $\delta$ tel que
+		\begin{proof} Soit $c \in \ab$. Soit $\epsilon > 0$. Par la continuité (uniforme) de $f$ en $c$, il existe $\delta$ tel que
 		$\abs{x-c}<\delta \Rightarrow \abs{f(x)-f(c)} < \epsilon$. De plus, notons que~:
 
 		\begin{align*}
@@ -1762,11 +1762,11 @@
 		On a donc montré que pour $x \to c$, on a $\frac {F(x)-F(c)}{x-c} = F'(c) \to f(c)$.
 
 		Montrons maintenant que $F$ est l'\textbf{unique} primitive s'annulant en $a$. Soit $\fabr G$ telle que $G' = f$ et $G(a) = 0$. Montrons que $G = F$~:
-		\[(G-F)'=(f-f)' = 0.\]
+		\[(G-F)'=(f-f) = 0.\]
 
 		On sait donc que $G-F$ est une fonction constante. Et comme $G(a) = F(a) = 0$, on sait que $\forall x \in \ab : (G-F)(x) = 0$. \end{proof}
 
-		\begin{cor} Soit $\fabr f$ intégrable. Sois $F \coloneqq \int f$. On a~:
+		\begin{cor} Soit $\fabr f$ intégrable. Soit $F \coloneqq \int f$. On a~:
 		\[\int_a^b f(x)\dif x = F(b) - F(a) = \evf Fxab.\]
 		\end{cor}
 
@@ -1797,7 +1797,8 @@
 
 		\begin{proof} Soient $F(x) \coloneqq \int_a^xf(t)\dif t$ et $G(t) \coloneqq (F \circ g)(t)$. Dès lors, on sait que $G'(t) = (f \circ g)(t)g'(t)$.
 		De plus, l'intégration bornée donne~:
-		\[\int_\alpha^\beta (f \circ g)(t)g'(t)\dif t = \int_\alpha^\beta G'(t)\dif t = \evf Gt\alpha\beta = (F \circ g)(\beta)-(F \circ g)(\alpha) = \int_a^b f(x)\dif x.\]
+		\[\int_\alpha^\beta (f \circ g)(t)g'(t)\dif t = \int_\alpha^\beta G'(t)\dif t = \evf Gt\alpha\beta
+		= (F \circ g)(\beta)-(F \circ g)(\alpha) = \int_a^b f(x)\dif x.\]
 		\end{proof}
 
 	\subsection{Les intégrales impropres}
@@ -1805,9 +1806,9 @@
 		\begin{déf} Soit $f : [a, +\infty[ \to \R$ une fonction bornée et intégrable sur tout $\interval ab$ pour $b > a$. Alors si la limite suivante existe~:
 		\[\lim_{b \to +\infty}\int_a^bf(x)\dif x,\]
 
-		on dit que $\int_a^{+\infty} f(x)\dif x$ converge. On appelle une telle limite une intégrale impropre. Si la limite n'existe pas, on dit que $\int_a^\infty$
-		diverge. De manière similaire, soit $f : ]-\infty, b] \to \R$ une fonction bornée et intégrable sur tout $\interval ab$ pour $a < b$.
-		Alors si la limite suivante existe~:
+		on dit que $\int_a^{+\infty} f(x)\dif x$ converge. On appelle une telle limite une intégrale impropre. Si la limite n'existe pas, on dit que
+		$\int_a^\infty f(x)\dif x$ diverge. De manière similaire, soit $f : ]-\infty, b] \to \R$ une fonction bornée et intégrable sur tout $\interval ab$ pour
+		$a < b$. Alors si la limite suivante existe~:
 		\[\lim_{a \to -\infty}\int_a^bf(x)\dif x,\]
 
 		on dit que $\int_{-\infty}^bf(x)\dif x$ converge. Pour une fonction $f : \R \to \R$, bornée, si les deux intégrales impropres suivantes existent~:
@@ -1851,7 +1852,7 @@
 
 	\subsection{Longueur de courbes}
 		
-		\begin{déf} Une courbe différentiable est une application $\gamma \ab \subseteq \R \to \R^n$ de classe $C^1$ telle que
+		\begin{déf} Une courbe différentiable est une application $\gamma : \ab \subseteq \R \to \R^n$ de classe $C^1$ telle que
 		$\forall t : t \in \ab \Rightarrow \gamma'(t) \neq 0 \in \R^n$. \end{déf}
 
 		\begin{déf} L'ensemble $C \coloneqq \Imf \gamma$ est la courbe différentiable associée à $\gamma$. \end{déf}
@@ -1919,7 +1920,7 @@
 		\begin{prp} Soit $f : E \subseteq \R^n \to \R^n$ un champ conservatif. Alors $\int_\gamma\scpr f{\dif s}$ ne dépend que des extrémités de
 		$\gamma$. \end{prp}
 
-		\begin{proof} Soit $F = \nabla f$.
+		\begin{proof} Soit $F$ tel que $f = \nabla F$.
 		\[\int_\gamma\scpr f{\dif s} = \int_a^b\scpr {\nabla F(\gamma(t))}{\gamma'(t)}\dif t = \int_a^b(F(\gamma(t)))'(t)\dif t = F(\gamma(b))-F(\gamma(a)).\]
 		\end{proof}
 
