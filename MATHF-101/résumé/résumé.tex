@@ -3347,7 +3347,8 @@
 		On peut également écrire~:
 		\begin{align*}
 			L(f, \mathcal R_\alpha) &= \sum_{R \in \mathcal R_\alpha}\aire(R)\inf\{f(x, y) \tq (x, y) \in R\} \\
-				&= \sum_{i=1}^n\sum_{R \in \mathcal A_i}\aire(R)\inf\{f(x, y) \tq (x, y) \in R\} + \sum_{R \in \mathcal B}\inf\{f(x, y) \tq (x, y) \in R\}\aire(R).
+				&= \sum_{i=1}^n\sum_{R \in \mathcal A_i}\aire(R)\inf\{f(x, y) \tq (x, y) \in R\}
+					+ \sum_{R \in \mathcal B}\inf\{f(x, y) \tq (x, y) \in R\}\aire(R).
 		\end{align*}
 
 		Et $D_i$ est mesurable au sens de Jordan, donc~:
@@ -3368,6 +3369,44 @@
 		\[U(f, \mathcal R_\beta) - L(f, \mathcal R_{\beta}) \leq U(f, P_\epsilon) + \frac \epsilon 4 - L(f, P_\epsilon) + \frac \epsilon 4
 		< \frac \epsilon 2 + 2 \frac \epsilon 4 = \epsilon.\]
 		\end{proof}
+
+		\begin{thm} Soit $f : [a, b] \to \R$ positive et bornée. La région du plan définie par~:
+		\[D_f = \{(x, y) \in \R^2 \tq a \leq x \leq b, 0 \leq y \leq f(x)\}\]
+		est mesurable au sens de Jordan si et seulement si la fonction $f$ est intégrable au sens de Riemann.
+		\end{thm}
+
+		\begin{thm} Soit $f : \R^2 \to \R$ bornée. Si $D \subset \R^2$ est un ensemble ouvert mesurable au sens de Jordan, et si $f$ est intégrable sur $D$,
+		alors $(f1_D)$ est intégrable sur tout rectangle ouvert $R$ tel que $D \subseteq R$ et~:
+		\[\iint_D f(x, y)\dif (x, y) = \iint_R (f1_D)(x, y)\dif (x, y).\]
+		\end{thm}
+
+		\begin{thm} Soit $f : I \times J \to \R$ bornée sur $R = I \times J$. Alors~:
+		\begin{align*}
+			\overline {\iint_R}f(x, y)\dif (x, y) &\geq \overline {\int_I}\left(\overline {\int_J} f(x, y)\dif y\right)\dif x, \\
+			\overline {\iint_R}f(x, y)\dif (x, y) &\geq \overline {\int_J}\left(\overline {\int_I} f(x, y)\dif x\right)\dif y, \\
+			\underline {\iint_R}f(x, y)\dif (x, y) &\leq \underline {\int_I}\left(\underline {\int_J} f(x, y)\dif y\right)\dif x, \\
+			\underline {\iint_R}f(x, y)\dif (x, y) &\leq \underline {\int_J}\left(\underline {\int_I} f(x, y)\dif x\right)\dif y.
+		\end{align*}
+		\end{thm}
+
+		\begin{déf} On introduit les fonctions suivantes~:
+		\begin{align*}
+			\underline {\int_I}f(x, \cdot) : J \to \R : y \mapsto \underline {\int_I} f(x, y)\dif x, \\
+			\underline {\int_J}f(\cdot, y) : I \to \R : x \mapsto \underline {\int_J} f(x, y)\dif y, \\
+			\overline  {\int_I}f(x, \cdot) : J \to \R : y \mapsto \overline  {\int_I} f(x, y)\dif x, \\
+			\overline  {\int_J}f(\cdot, y) : I \to \R : x \mapsto \overline  {\int_J} f(x, y)\dif y.
+		\end{align*}
+		\end{déf}
+
+		\begin{thm}[Théorème de Fubini] Soit $f : I \times J \to \R$ bornée et intégrable sur $R = I \times J$. Alors les fonctions $\underline {\int_J}f(\cdot, y)$
+		et $\overline {\int_J}f(\cdot, y)$ sont intégrables au sens de Riemann sur $I$ et les fonctions $\underline {\int_I}f(x, \cdot)$ et
+		$\overline {\int_I}f(x, \cdot)$ sont intégrables au sens de Riemann sur $J$.
+
+		De plus, si la fonction $f(x, \cdot)$ est intégrable sur $J$ pour tout $x \in I$, alors~:
+		\[\iint_{I \times J}f(x, y)\dif (x, y) = \int_I\left(\int_J f(x, y)\dif y\right)\dif x.\]
+		De même, si la fonction $f(\cdot, y)$ est intégrable sur $I$ pour tout $y \in J$, alors~:
+		\[\iint_{I \times J}f(x, y)\dif (x, y) = \int_J\left(\int_I f(x, y)\dif x\right)\dif y.\]
+		\end{thm}
 
 \newpage
 \section{Les séries}\label{sec:séries}
