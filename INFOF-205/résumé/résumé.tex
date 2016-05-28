@@ -173,7 +173,7 @@
 	\begin{ex}[Conditionnement d'une différence] Soit le problème $x = F(d) = d-a$. La fonction $F$ est différentiable, on peut donc déterminer le
 	conditionnement~:
 	\[\kappa(d) = \norm {F'(d)}\frac {\norm d}{\norm x} = 1\frac {\norm d}{\norm {d-a}}.\]
-	On voit alors que le conditionnement est petit pour $\norm {d-a} >> 0$. Cependant, pour $d$ proche de $a$, le conditionnement devient très grand.
+	On voit alors que le conditionnement est petit pour $\norm {d-a} \gg 0$. Cependant, pour $d$ proche de $a$, le conditionnement devient très grand.
 	Le problème est donc \emph{mal conditionné} pour $d$ proche de $a$.
 	\end{ex}
 
@@ -2233,7 +2233,7 @@
 						initial~;
 					\item \[\lim_{k \to +\infty}\frac {x^{(k+1)} - \alpha}{x^{(k)} - \alpha} = \lim_{k \to +\infty}\phi(\eta^{(k)}) = \phi'(\alpha),\]
 						où $\eta^{(k)}$ est entre $\alpha$ et $x^{(k)}$ telle que~:
-						\[x^{(k+1)} - \alpha = \phi(x^{(k)}) - \phi(\alpha) = \phi'(\eta^{(k)})(x^{(k)} - \alpha)~;\]
+						\[x^{(k+1)} - \alpha = \phi(x^{(k)}) - \phi(\alpha) = \phi'(\eta^{(k)})(x^{(k)} - \alpha)~;\footnote{Par le théorème de la moyenne.}\]
 				\end{enumerate}
 			\item si $\forall x \in [a, b] : \abs {\phi (x)} > 1$, alors pour tout $x^{(0)} \neq \alpha$, la suite d'itérations de point fixe $(x^{(k)})$ ne
 			converge pas.
@@ -2251,7 +2251,8 @@
 
 		\begin{thm} Si $f$ est de classe $C^{p+1}$ sur un voisinage $I$ de $\alpha$ avec $p \geq 1$ et que~:
 		\[\od[i] \phi x(\alpha) = \begin{cases}0 &\text{ si } 1 \leq i \leq p \\K_i(x) \neq 0 &\text{ si }i=p+1\end{cases},\]
-		alors la méthode de point fixe associée à $\phi$ est d'ordre $p+1$.
+		alors la méthode de point fixe associée à $\phi$ est d'ordre $p+1$ et~:
+		\[\lim_{k \to +\infty}\frac {x^{(k+1)} - \alpha}{(x^{(k)} - \alpha)^{p+1}} = \frac {\od[p+1] \phi x(\alpha)}{(p+1)!}.\]
 		\end{thm}
 
 		\begin{thm}[Théorème de convergence locale d'Ostrowski] Soient $\phi$ différentiable sur un voisinage $I$ de $\alpha$, un point fixe de $\phi$.
@@ -2264,5 +2265,70 @@
 		\end{rmq}
 
 	\subsection{Analyse des méthodes linéarisées}
+		\subsubsection{Méthode de la corde}
+		La méthode de la corde peut s'écrire de manière itérative de point fixe comme~:
+		\[x^{(k+1)} = \phi(x^{(k)},\]
+		où $\phi$ est définie par~:
+		\[\phi(x) = x - \frac {b-a}{f(b)-f(a)}f(x).\]
+		Le critère de convergence locale $\abs {\phi'(\alpha)} < 1$ est équivalent à~:
+		\begin{align*}
+			-1 &< \phi('\alpha) &&< 1 \\
+			-1 &< 1 - \frac {b-a}{f(b)-f(a)}f'(\alpha) &&< 1 \\
+			2  &> \frac {b - a}{f(b) - f(a)}f'(\alpha) &&> 0.
+		\end{align*}
+
+		Dans ce cas (donc pas si $\phi'(\alpha) = 0$), la converge est linéaire.
+
+		\subsubsection{Méthode de Newton}
+		La méthode de Newton peut également s'écrire de manière itérative du point fixe avec~:
+		\[\phi(x) = x - \frac {f(x)}{f'(x)}.\]
+		On sait $f(\alpha) = 0$, et on suppose $f'(\alpha) \neq 0$. Alors~:
+		\[\phi'(\alpha) = 1 - \frac {f'(\alpha)f'(\alpha) - f''(\alpha)f(\alpha)}{(f'(\alpha))^2} = 1 - \frac {f'(\alpha)^2}{f'(\alpha)^2} = 0.\]
+
+		Cette méthode est convergente localement d'ordre $p=2$.
+
+	\subsection{Erreur, incrément et résidu}
+		\subsubsection{Erreur et résidu}
+		\begin{déf} L'erreur et le résidu sont définis respectivement par~:
+		\begin{align*}
+			e^{(k)} &= x^{(k)} - \alpha, \\
+			r^{(k)} &= f(x^{(k)}) - f(\alpha) = f(x^{(k)}).
+		\end{align*}
+		\end{déf}
+
+		Si $m$ est la multiplicité de la racine $\alpha$, alors par Taylor, on peut écrire~:
+		\[f(x^{(k)}) \simeq f(\alpha) + \frac {f^{(m)}(\alpha)}{m!}(\alpha-x^{(k)})^m,\]
+		ou encore, en sachant $f(\alpha) = 0$~:
+		\[r^{(k)} \simeq \frac {f^{(m)}(\alpha)}{m!}\left(e^{(k)}\right)^m.\]
+		Dès lors, on estimer l'erreur sur base du résidu par~:
+		\[\abs {e^{(k)}} \simeq \sqrt[m] {\frac {\abs {r^{(k)}m!}}{\abs {f^{(m)}(\alpha)}}}
+		= \sqrt[m] {\frac {m!}{\abs {f^{(m)}(\alpha)}}}\sqrt[m] {\abs {r^{(k)}}}.\]
+
+		Si le critère d'arrêt est basé sur la valeur du résidu (et donc si la méthode s'arrête lorsque $\abs {r^{(k)}} = \abs {f(x^{(k)})} < \varepsilon$ pour
+		$\varepsilon > 0$ une tolérance fixée), alors on remarque que pour~:
+		\begin{itemize}
+			\item $\abs {f'(\alpha)} \simeq 1$, alors $\abs {e^{(k)}} \simeq \abs {r^{(k)}} < \varepsilon$ et donc $\abs{e^{(k)}} \simeq \varepsilon$~;
+			\item $\abs {f'(\alpha)} \gg 1$, alors $\abs {e^{(k)}}$ peut être assez grand par rapport à $\varepsilon$ (et donc la solution pas si proche de
+				$\alpha$ qu'espéré)~;
+			\item $\abs {f'(\alpha)} \ll 1$, alors $\abs {e^{(k)}}$ est très petit par rapport à $\varepsilon$, et donc le test est trop restrictif (peut
+				mettre beaucoup de temps à converger).
+		\end{itemize}
+
+		\subsubsection{Erreur et incrément}
+		On considère la suite $(x^{(k)})$ produite par une méthode de point fixe. On sait que l'on peut écrire~:
+		\[e^{(k+1)} = \alpha - x^{(k+1)} = \phi(\alpha) - \phi(x^{(k)}) = \phi'(\eta^{(k)})(\alpha - x^{(k)}) = \phi'(\eta^{(k)})e^{(k)}.\]
+		Dès lors~:
+		\[x^{(k+1)} - x^{(k)} = (x^{(k+1)} - \alpha) - (x^{(k)} - \alpha) = -e^{(k+1)} + e^{(k)} = (1 - \phi'(\eta^{(k)}))e^{(k)}.\]
+
+		En supposant que $\phi'(\eta^{(k)}) \simeq \phi'(\alpha)$\footnote{On sait que $\eta^{(k)}$ est compris entre $\alpha$ et $x^{(k)}$, or
+		$x^{(k)} \to \alpha$, ce qui implique $\eta^{(k)} \to \alpha$.}, on peut approximer (si $\phi'(\alpha) \neq 1$)~:
+		\[e^{(k)} = \frac 1{1-\phi'(\alpha)}(x^{(k+1)} - x^{(k)}).\]
+
+		En supposant $f$ continûment dérivable (de classe $C^1$), on peut alors définir un test qui fait arrêter la méthode lorsque
+		$\abs {x^{(k+1)} - x^{(k)}} < \varepsilon$ pour $\varepsilon > 0$, une tolérance fixée. À nouveau, cette méthode n'est pas parfaite~:
+		\begin{itemize}
+			\item si $\phi'(\alpha)$ est proche de 1, le test n'est pas satisfaisant~;
+			\item si $\phi'(\alpha) = 0$, alors l'égalité approximative devient parfaite, et donc le test est parfait.
+		\end{itemize}
 
 \end{document}
