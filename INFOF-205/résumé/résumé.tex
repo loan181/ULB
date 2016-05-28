@@ -2051,5 +2051,124 @@
 
 \newpage
 \section{Résolution d'équations non-linéaires}
+	\subsection{Solutions itératives}
+		Le problème général traité ici est le calcul d'une racine réelle d'une fonction réelle~:
+		\[f : I = (a, b) \subset \R \to \R.\]
+		Quelles sont les valeurs $\alpha_i \in \R$ telles que~:
+		\[\forall i : f(\alpha_i) = 0~?\]
+
+		De manière générale, il est compliquée de déterminer une solution analytique à ces problèmes. Ce sont donc les solutions numériques qui sont préférables
+		(surtout les solutions itératives). Dans ce cas, l'objectif est de construire une suite $(x_k)_k \subset \R$ telle que~:
+		\[\lim_{k \to +\infty}x_k = \alpha.\]
+
+		\begin{déf} La suite $(x_k) \subset \R$ converge vers $\alpha \in \R$ avec un ordre $p \in \R$ (où $p \geq 1$) si~:
+		\[\exists C > 0, k_0 \in \N \tq \forall k \geq k_0 : \frac {\abs {x_{k+1} - \alpha}}{\abs {x_k - \alpha}^p} < C.\]
+
+		On appelle $C$ la \emph{constante de convergence} de la méthode.
+		\end{déf}
+
+		\begin{déf} Si $p = 1$ et $C \lneqq 1$, alors on dit que la convergence est \emph{linéaire}.
+		\end{déf}
+
+		\begin{déf} Si la méthode est convergente vers $\alpha$ pour tout $x_0 \in I$, on dit qu'elle est \emph{globalement convergente}. Sinon, on dit qu'elle
+		\emph{localement convergente} dans un voisinage de $\alpha$.
+		\end{déf}
+
+	\subsection{Étude du conditionnement}
+		On considère l'équation non linéaire suivante~:
+		\[f(\alpha) = \phi(\alpha) - d.\]
+		On remarque $\od f\alpha = \od \phi\alpha$.
+
+		Le problème n'est bien posé que si $\phi$ est localement inversible. Dans ce cas, on a~:
+		\begin{align*}
+			\phi(\alpha) &= d, \\
+			\alpha &= \phi^{-1}(d).
+		\end{align*}
+
+		En posant $F(d) = \phi^{-1}(d)$, on trouve~:
+		\[\od Fd(d) = \od {\phi^{-1}}d(d) = \frac 1{\od \phi \alpha(\phi^{-1}(d))} = \frac 1{\od \phi\alpha(\alpha)} = \frac 1{\od f\alpha(\alpha)}.\]
+		On en déduit le conditionnement donné par~:
+		\[\kappa(d) \simeq \norm {\od Fd(d)}\frac {\norm d}{\norm {F(d)}} = \frac 1{\abs {f'(\alpha)}} \abs {\frac d\alpha}.\]
+
+		Dès lors, on considère que $\kappa(d) \sim \abs{f'(\alpha)}^{-1}$. Donc si $f'(\alpha)$ est grand, le problème est bien conditionné. Inversement, si
+		$f'(\alpha)$ est petit, le problème est mal conditionné.
+
+		\begin{rmq} Si $\alpha$ est une racine multiple, alors $f(\alpha) = 0$ mais $f^{(k)}(\alpha) = 0$ également pour tout $k \leq m-1$. La formule du
+		conditionnement fait alors tendre $\kappa(d)$ vers $+\infty$ lorsque $x \to \alpha$.
+		\end{rmq}
+
+		Par le développement de Taylor d'ordre $m$ de $\phi$, on peut exprimer~:
+		\[d+\delta d = \phi(\alpha + \delta\alpha) \simeq T_m(\phi, \alpha)(\delta\alpha).\]
+		On en déduit, du fait que $d = \phi(\alpha)$, que~:
+		\[\delta d = \sum_{k=1}^m\frac {\phi^{(k)}(\alpha)}{k!}(\delta\alpha)^k = \sum_{k=1}^m\frac {f^{(k)}(\alpha)}{k!}(\delta \alpha)^k
+		= \frac {f^{(m)}(\alpha)}{m!}(\delta\alpha)^m.\]
+
+		Il s'en suit que~:
+		\[\delta\alpha = \sqrt[m] {\frac {\delta dm!}{f^{(m)}(\alpha)}}.\]
+
+		Le conditionnement absolu du problème est alors~:
+		\[\kappa_{\text{abs}}(d) \simeq \frac {\abs {\delta \alpha}}{\abs {\delta d}}
+		\simeq \frac 1{\abs {\delta d}} \sqrt[m] {\abs {\frac {\delta dm!}{f^{(m)}(\alpha)}}}.\]
+
+		Ce conditionnement peut être très grand même avec $\delta d$ très petit et donc si $\alpha$ est une racine multiple, problème est \emph{toujours} mal
+		conditionné.
+
+		\begin{prp} Le problème est bien conditionné quand~:
+		\begin{enumerate}
+			\item $\alpha$ est une racine simple~:
+			\item et $\abs {f'(\alpha)}$ grand par rapport à 0.
+		\end{enumerate}
+		\end{prp}
+
+	\subsection{Méthode dichotomique}
+		\begin{thm}[Théorème des racines d'une fonction] Soit $f : [a, b]\to \R$. Si $f(a)f(b) \lneqq 0$, alors il existe $\alpha \in (ab)$ tel que
+		$f(\alpha) = 0$.
+		\end{thm}
+
+		\begin{prp}[Méthode de la bissectrice] La méthode de la bissectrice est basé sur une fonction $f : [a, b] \to \R$ et fonctionne comme suit~:
+		\[\left(a^{(0)}, b^{(0)}, x^{(0)}\right) \coloneqq \left(a, b, \frac {a+b}2\right),\]
+		et ensuite, pour tout $k \geq 1$, tant que $\abs {I_k} = \abs{b^{(k)} - a^{(k)}} \gneqq \epsilon$, on itère~:
+		\begin{enumerate}
+			\item si $f(x^{(k-1)})f(a^{(k-1)}) < 0$, alors~:
+				\[\left(a^{(k)}, b^{(k)}\right) \coloneqq \left(a^{(k-1)}, x^{(k-1)}\right)~;\]
+			\item si $f(x^{(k-1)})f(b^{(k-1)}) < 0$, alors~:
+				\[\left(a^{(k)}, b^{(k)}\right) \coloneqq \left(x^{(k-1)}, b^{(k-1)}\right),\]
+		\end{enumerate}
+		et dans tous les cas~:
+		\[x^{(k)} \coloneqq \frac {a^{(k)} + b^{(k)}}2.\]
+		\end{prp}
+
+		\begin{prp}\label{prp:bissectriceconvglob} La méthode de la bissectrice est globalement convergente.
+		\end{prp}
+
+		\begin{proof} En effet, notons $\epsilon(k) = \abs {\alpha - x^{(k)}}$. On trouve donc~:
+		\[\epsilon(k) \leq \frac {\abs {I_{k-1}}}2 = \frac {\abs {I_0}}{2^{k+1}} = \frac {\abs {b-a}}{2^{k+1}}.\]
+		Donc~:
+		\[\lim_{k \to +\infty}\epsilon(k) = 0.\]
+		\end{proof}
+
+		\begin{rmq} Si $K$ représente le nombre limite d'étapes, il faut $2^K \geq \frac {\abs {b-a}}\epsilon$, ou encore~:
+		\[K = \log_2\left(2^K\right) \geq \log_2\left(\frac {\abs {b-a}}\epsilon\right) = \frac {\log(\abs{b-a}) - \log(\epsilon)}{\log(2)},\]
+		où $\log(e) = 1$.
+		\end{rmq}
+
+		On peut établir la vitesse de convergence en se demandant en combien d'étapes le résultat sera raffiné d'un facteur $n$. Donc on cherche $k \lneqq j$
+		tel que~:
+		\[n\epsilon(k) = \epsilon(j).\]
+		On sait borner les valeurs de $\epsilon(k)$ (voir la preuve de la proposition~\ref{prp:bissectriceconvglob}). En imposant l'égalité de ces bornes,
+		on trouve~:
+		\[2^{k+1} = n \cdot 2^{j+1}\qquad\iff\qquad k-j = \log_2(n).\]
+
+		\begin{rmq} La convergence est lente. Par exemple, pour $n = 10$, on trouve $\log_2(10) \simeq 3.3$. Il faut donc plus de 3 étapes pour augmenter la
+		précision d'un facteur 10.
+		\end{rmq}
+
+		\begin{rmq} La méthode de la bissectrice ne prend pas les informations données par la fonction $f$ voire par sa dérivée s'il y en a. Typiquement, cette
+		méthode est utilisée afin d'obtenir une \emph{bonne approximation initiale} afin de lancer une seconde méthode avec une meilleure vitesse de
+		convergence. En effet, la méthode de la bissectrice a l'avantage de converger globalement, ce qui permet de situer facilement la racine avec une
+		précision faible.
+		\end{rmq}
+
+	\subsection{Méthodes linéarisées}
 
 \end{document}
