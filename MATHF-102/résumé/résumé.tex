@@ -1,17 +1,19 @@
 \documentclass{article}
 
+\usepackage{palatino,eulervm}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
-\usepackage{lmodern}
 \usepackage[parfill]{parskip}
 \usepackage[bottom]{footmisc}
+% math packages
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{mathtools}
 \usepackage{mathdots}
 \usepackage{interval}
 \usepackage{commath}
 \usepackage{hyperref}
+\usepackage{stmaryrd}
 
 \makeatletter
 \def\thm@space@setup{%
@@ -96,7 +98,7 @@
 		\end{déf}
 
 		\begin{déf} Soit $f : X \to Y$ une fonction bijective. On définit la fonction inverse $f^{-1}$ de $f$ par $f^{-1} : Y \to X : y \mapsto x \tq f(x) = y$. \end{déf}
-		
+
 		\begin{déf} Soient $X, Y, Z$ trois ensembles. Soient $f : X \to Y, g : Y \to Z$ deux fonctions. On définit la composée $g \circ f : X \to Z : x \mapsto g(f(x))$.
 		\end{déf}
 
@@ -128,10 +130,10 @@
 			      $\arctan : \R \to ]-\frac \pi2, \frac \pi2[$.
 		\end{itemize}
 		\end{déf}
-	
+
 	\subsection{Nombres complexes}
 		\begin{déf} On définit l'ensemble des complexes $\C \coloneqq \{a + ib \tq (a, b) \in \R^2\}$. Où $i$ est l'unité imaginaire telle que $i^2 = -1$. \end{déf}
-		
+
 		\begin{déf} Soit $z = a + ib \in \C$ un complexe. On définit $\Re z \coloneqq a$ et $\Im z \coloneqq b$ respectivement la partie réelle et la partie
 		imaginaire de $z$. \end{déf}
 
@@ -241,7 +243,7 @@
 		\begin{proof} Par l'algorithme d'Euclide, on sait qu'il existe des uniques $(r_i)_i, (q_i)_i$. Soit $k \geq 0$ le plus petit entier tel que $r_{k+1} = 0$. On sait
 		que $r_k = r_{k-2} - q_kr_{k-1}$. Or $r_{k-1}$ peut s'exprimer en fonction de $r_{k-2}$ et $r_{k-3}$. Donc $r_k = \alpha_2r_{k-2}+\beta_3r_{k-3}$.
 		On répète ce procédé $k$ fois. On a donc $\GCD(a, b) = r_k = \alpha_kr_0 + \beta_{k+1}r_{-1} = \alpha_kb + \beta_{k+1}a$ avec $\alpha, \beta \in \Z$. \end{proof}
-	
+
 	\subsection{L'algorithme d'Euclide sur des polynômes}
 		\begin{déf} On définit l'anneau des polynômes à coefficients réels par $\R[x]$. \end{déf}
 
@@ -263,7 +265,7 @@
 		\begin{alg}[Algorithme d'Euclide sur des polynômes] Soient $f, g \in \R[x]$ tels que $g(x) \neq 0$. Comme pour l'algorithme sur des entiers, posons
 		$r_{-1}(x) \coloneqq f(x)$ et $r_0(x) = g(x)$. Dès lors, pour tout $i > 0$, il existe des uniques $q_i, r_i$ tels que~:\[r_{i-2}(x) = q_i(x)r_{i-1}(x) + r_i(x)\]
 		où $\deg r_i(x) < \deg r_{i-1}(x)$. On s'arrête lorsque $r_i(x) = 0$. \end{alg}
-	
+
 		\begin{thm} Soient $f, g \in \R[x]$. Prenons $(r_i)_i, (q_i)_i \subset \R[x]$ donnés par l'algorithme de division de $f$ par $g$. Soit le plus petit $k \in \N$
 		tel que $r_{k+1}(x) = 0$. $r_k(x)$ est le GCD non-normalisé de $f(x)$ et $g(x)$. Et on définit~:
 		\[\GCD(f(x), g(x)) \coloneqq \frac {r_k(x)}{[x^{\deg r_k(x)}]r_k(x)}.\] \end{thm}
@@ -296,7 +298,7 @@
 
 		\begin{prp} Soit $f \in \R[x]$ un polynôme à coefficients réels. Le théorème fondamental (théorème~\ref{thmFondamental}) dit que $f$ a exactement $\deg(f(x))$
 		racines complexes. Soit $z$ une telle racine. Alors le conjugué de $z$ est également une racine de $f$. \end{prp}
-		
+
 		\begin{proof} Soient $f \in \R[x]$ et $z$ une racine de $f$. Alors $0 = f(z) = \overline {f(z)} = \overline f(\overline z) = f(\overline z)$. \end{proof}
 
 		\begin{prp} Soit $f \in \R[x]$ un polynôme complexe. Soit $z_0 \in \C$ une racine complexe de $f$ telle que $\Im z \neq 0$. Alors le polynôme suivant~:
@@ -305,11 +307,11 @@
 		\begin{proof} Par hypothèse, une telle racine $z_0$ existe. Dès lors le polynôme $(x-z_0)(x-\overline {z_0})$ est un polynôme réel. En effet~:
 		$(x-z_0)(x-\overline {z_0}) = x^2 -z_0x - \overline {z_0}x + z_0\overline z_0 = x^2 - 2\Re z_0 - \abs{z_0}^2 \in \R$. Dès lors, on peut trouver les polynômes
 		quotient et reste tels que~: \[f(x) = q(x)(x-z_0)(x-\overline {z_0}) + r(x).\]
-		
+
 		Ensuite, montrons que $\deg r(x) = 0$. En effet, $0 \leq \deg r(x) < 2$ car 2 est le degré du polynôme diviseur. Supposons par l'absurde que $\deg r(x) = 1$.
 		Alors $r(x) = ax+b$ pour $a, b \in \R$. L'évaluation en $z_0$ donne donc $0 = f(z_0) = r(z_0) = az_0+b$. Donc $\Im r(x) = \Im(az_0+b) = a\Im z_0 \neq 0$. Il y
 		a donc contradiction.
-		
+
 		Le reste étant constant (de degré nul), le polynôme $(x-z_0)(x-\overline{z_0})$ doit diviser $f(x)$. \end{proof}
 
 		\begin{cor} Tout polynôme $f(x) \in \R[x]$ se factorise en un produit de polynômes de degré 2 à racines purement complexes conjuguées et de polynômes de
@@ -411,7 +413,7 @@
 		\begin{rmq} L'équation cartésienne d'une droite est un couple de coordonnées cartésiennes de plan. Cela peut se comprendre comme suit~: l'ensemble des points de
 		la droite sont les points satisfaisant simultanément la première équation et la seconde, ou encore tous les points étant dans l'intersection entre les deux plans.
 		En coordonnées cartésiennes, une droite est définie par deux plans et un point par trois plans (non-parallèles). \end{rmq}
-	
+
 	\subsection{Produit scalaire et orthogonalité}
 		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs. On définit le produit scalaire entre $v$ et $w$ par \[\scpr vw \coloneqq \sum_{i=1}^3v_iw_i.\] \end{déf}
 
@@ -516,7 +518,7 @@
 			      $\pi$ et $D$ est donné par~: \[\alpha \coloneqq \frac \pi2 - \arccos\left(\frac {\abs {\scpr av}}{\norm a\norm v}\right) \in \left]0, \frac \pi2\right].\]
 		\end{enumerate}
 		\end{prp}
-	
+
 	\subsection{Produit vectoriel}
 		\begin{déf} Soient $v, w \in \R^3$ deux vecteurs. On définit le produit vectoriel entre $v$ et $w$ par~:
 		\[v \times w \coloneqq (v_2w_3 - v_3w_2, v_3w_1 - v_1w_3, v_1w_2 - v_2w_1).\] \end{déf}
@@ -551,7 +553,7 @@
 		\begin{proof} Trivial par la définition (expansion de la formule du produit scalaire et arriver à 0). \end{proof}
 
 		\begin{lem}\label{prodsVecSc} Soient $v, w \in \R^3$ deux vecteurs. Alors~:\[\norm v^2\norm w^2 - (\scpr vw)^2 = \norm{v \times w}^2.\] \end{lem}
-		
+
 		\begin{proof} Trivial par expansion de la formule. \end{proof}
 
 		\begin{cor}[du lemme précédent] Soient $v, w \in \R^3$. Alors $\norm {v \times w} = \norm v^2\norm w^2\sin(\alpha)^2$. \end{cor}
@@ -632,7 +634,7 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} L'ensemble des matrices réelles de dimensions $s \times t$ est donné par $\M st\R$. On note $a \coloneqq [a_{ij}] \in M_{s \times t}(\R)$
 		une matrice quelconque de dimension $s \times t$. $a_{ij}$ représente le coefficient de la $i$eme ligne et de la $j$eme colonne. \end{déf}
-		
+
 		\begin{déf} Soit $a \in \M nn\R$ une matrice. $a$ est une matrice triangulaire si pour tout $i > j : a_{i\,j} = 0$. \end{déf}
 
 		\begin{thm}[Unicité de la forme échelonée réduite] Soient trois matrices $a, b, c \in \M st\R$. Si les matrices $b$ et $c$ sont toutes deux obtenues par une suite
@@ -643,11 +645,11 @@ Pour tout 0 < i < l+1
 		les indices des pivots de la matrice $c$. En effet~: soient $1 \leq j_1 < j_2 < \ldots <  j_k \leq t$ les indices des pivots de la matrice $c$.
 
 		Prouvons-le par récurrence. 
-		
+
 		\underline{Cas de base~:} supposons $i_1 < j_1$. Alors, il faudrait que la $i_1$eme colonne de $c$ soit vide. Or $b$ est une combinaison linéaire de $c$ et la
 		première ligne de $b$ contient à la $i_1$eme colonne le coefficient 1 ce qui est une contradiction avec le fait que $b$ et $c$ soient combinaisons linéaires
 		l'un de l'autre. En supposant $i_1 > j_1$, on obtient la même contradiction. Il faut donc $i_1 = j_1$.
-		
+
 		\underline{Pas de récurrence~:} soit $\gamma \in \{1, \dotsc, t\}$. Supposons $i_\gamma < j_\gamma$. Par le même argument, on montre que $i_\gamma = j_\gamma$.
 		\end{proof}
 
@@ -668,7 +670,7 @@ Pour tout 0 < i < l+1
 
 		\begin{lem} Soit $(S) : ax + b$ un système linéaire d'équations et soit $A : \R^t \to \R^s$ la transformation linéaire associée à $a$. Alors l'ensemble $W$ des
 		solutions du système correspond à la préimage du vecteur $b \in \R^s$. \end{lem}
-		
+
 		\begin{proof} On peut constater~: \[A^{-1}(b) = \{x \in \R^t \tq A(x) = b\} = \{x \in \R^t \tq ax = b\} = W.\] \end{proof}
 
 		\begin{prp}[Propriétés de la transformation linéaire associée] Soient $a = [a_{ij}] \in \M st\R$ une matrice et $A : \R^t \to \R^s$ sa transformation
@@ -687,7 +689,7 @@ Pour tout 0 < i < l+1
 		\end{proof}
 
 		\begin{rmq} On remarque que $A(0) = A(v + (-1)v) = A(v) - A(v) = 0 \in \R^s$. \end{rmq}
-	
+
 	\subsection{Structure des solutions d'un système linéaire d'équations}
 		\begin{déf} Soit $(S) : ax = b$ un système linéaire d'équations. On définit le système homogène associé par $(S') : ax = 0$. \end{déf}
 
@@ -732,7 +734,7 @@ Pour tout 0 < i < l+1
 		les vecteurs $\widetilde x, v_i$ sont donnés par l'algorithme de Gauss (le vecteur $\widetilde x$ est le vecteur correspondant à la $(t+1)$eme colonne de
 		la matrice sous sa forme échelonnée réduite). Géométriquement, cela correspond à une translation de l'espace des solutions de $(S')$ par le vecteur
 		$\widetilde x$. C'est donc un point, une droite, un plan, etc. comme pour $(S')$ mais ne devant pas contenir l'origine. \end{rmq}
-	
+
 \newpage
 \section{espaces vectoriels}
 	\subsection{Définitions}
@@ -818,7 +820,7 @@ Pour tout 0 < i < l+1
 		\begin{proof} Pour montrer qu'un sous-ensemble est un sous-espace vectoriel, on peut utiliser la proposition~\ref{conditionsSousEspace}. Dès lors, montrons que
 		$A(Z)$ est un sous-espace de $W$ . Soient $y, z \in Z$. Notons $v = A(y), w = A(z)$. Alors, comme $Z$ est un sous-espace, on sait que $y + \lambda z \in Z$. Donc
 		$A(Z) \ni A(y + \lambda z) = A(y) + \lambda A(z) = v + \lambda w$.
-		
+
 		Montrons maintenant que $A^{-1}(Y)$ est un sous-espace de $V$. Soient $x, y \in Y$. Comme $Y$ est un sous-espace, $x + \lambda y \in Y$. Prenons $v, w$ tels que
 		$A(v) = x$ et $A(w) = y$. Donc $A^{-1}(Y) \ni A^{-1}(x + \lambda y) = A^{-1}(A(v) + \lambda A(w)) = A^{-1}(A(v + \lambda w)) = v+\lambda w$. \end{proof}
 
@@ -993,13 +995,13 @@ Pour tout 0 < i < l+1
 
 		\begin{proof} Soit $B$ une base de $W$. Comme $v \not \in W$, alors $B \cup \{v\}$ est une base de $\eng {W \cup \{v\}}$ car $B \cup \{v\}$ est une partie libre
 		de $\eng {W \cup \{v\}}$ et est génératrice. 
-		
+
 		Si $Z = W$, alors la démonstration est faite. Supposons donc $Z \neq W$. Prenons $z \in Z \setminus W$. Puisque $z$ n'est pas dans $W$, on sait que
 		$B \cup \{z\}$ est une partie libre de $\eng {W \cup \{v\}}$. Alors il faut $v \in \eng {B \cup \{z\}}$ sinon $B \cup \{z, v\}$ serait une partie libre de
 		$\eng {W \cup \{v\}}$ ce qui contredirait le fait que $B \cup \{v\}$ en soit une base. On a donc~:
 		\[\eng {W \cup \{v\}} = \eng {B \cup \{v\}} \subseteq \eng {B \cup \{z\}} \subseteq Z.\]
 		Or par hypothèse, on avait $Z \subseteq \eng {W \cup \{v\}}$. Donc on sait $Z = \eng {W \cup \{v\}}$. \end{proof}
-	
+
 		\subsubsection{Cardinalité}
 		\begin{déf} Soient deux ensembles $X$ et $Y$. On dit qu'ils sont de même cardinalité s'il existe une bijection $f : X \to Y$. Et on note $\abs X = \abs Y$.
 		S'il existe une fonction injective $f : X \to Y$, on écrit $\abs X \leq \abs Y$. \end{déf}
@@ -1042,16 +1044,16 @@ Pour tout 0 < i < l+1
 			On a montré que pour tout $y \in Y$, il existe un $x \in X$ tel que $\varphi(x) = y$. $\varphi$ est donc surjective.
 		\end{enumerate}
 		\end{proof}
-	
+
 		\subsubsection{Dimension}
 		\begin{rmq} Les deux théorèmes suivants ne sont pas démontrés et sont considérés comme admis. \end{rmq}
-		
+
 		\begin{thm}\label{cardPartiesFinies} Soit $X$ un ensemble infini. Soit $\mathcal F_X \coloneqq \{Y \subseteq X \tq Y \text {est une partie finie}\}$.
 		Alors $\abs {\mathcal F_X} = \abs X$. \end{thm}
 
 		\begin{thm}\label{unionEnsFinisIndicésInfini} Soient $I$ un ensemble d'indices infini et $\{X_i\}_{i \in I}$ une famille d'ensembles finis indicés par $I$.
 		Alors~: \[\abs {\bigcup_{i \in I}X_i} \leq \abs I.\] \end{thm}
-		
+
 		\begin{thm} Soient $V$ un espace vectoriel et $E, E'$ deux bases quelconques de $V$. Alors $\abs E = \abs {E'}$. \end{thm}
 
 		\begin{proof} Supposons d'abord $\abs E = n \in \N$ donc $E$ fini. Posons $k \coloneqq \abs {E \cap E'}$. Montrons par récurrence sur $n-k$ que
@@ -1087,7 +1089,7 @@ Pour tout 0 < i < l+1
 		sait que $\abs E = \abs {E'}$. \end{proof}
 
 		\begin{déf} Soit $V$ un e.v. On définit la dimension réelle de $V$ par le cardinal de ses bases~: $\dim_\R V = \abs E$ avec $E$, base de $V$. \end{déf}
-	
+
 		\subsubsection{Dépendance base et système de coordonnées}
 		\begin{déf} Soit $V$ un espace vectoriel réel. Tout vecteur $v \in V$ peut s'écrire comme une combinaison linéaire de $\lambda_ie_i$ où $e_i$ sont les vecteurs
 		de la base $E$ de $V$. On appelle le n-uple de $\lambda_i$ suivant $(\lambda_1, \dotsc, \lambda_n) \in \R^n$ les coordonnées de $v$ dans la base $E$. \end{déf}
@@ -1134,7 +1136,7 @@ Pour tout 0 < i < l+1
 
 		Supposons $X = \{x_1, \dotsc, x_k\}$ une partie génératrice. Si $k < d$, alors Il existe $v \in V \setminus \eng X$ ce qui contredit le fait que $X$ est
 		génératrice. Si $\abs X = d$, alors $X$ est une partie génératrice minimale, donc une base par le théorème~\ref{equivBases}. \end{proof}
-	
+
 \newpage
 \section{Relations entre espaces vectoriels}
 	\subsection{Isomorphismes}
@@ -1162,7 +1164,7 @@ Pour tout 0 < i < l+1
 		Il suffit de prendre $v = \sum_{i=1}^n\lambda_if_i$. \end{proof}
 
 		\begin{prp}\label{dimDIso} Tous les espaces vectoriels réels de dimension $d$ sont isomorphes entre eux. \end{prp}
-		
+
 		\begin{proof} Soient $V$ et $W$ deux espaces vectoriels de dimension $d$. Par la proposition~\ref{dimDIsomorpheRd}, on sait qu'il existe $f : V \to \R^d$
 		et $g : W \to \R^d$ deux isomorphismes. Puisque $g^{-1}$ est également un isomorphisme (par le lemme~\ref{invIsom}), et puisque la composée de bijection reste
 		une bijection ainsi que la composée de transformations linéaires reste une transformation linéaire, la fonction $(g^{-1} \circ f) : V \to W$ est un isomorphisme
@@ -1213,7 +1215,7 @@ Pour tout 0 < i < l+1
 			\item $A$ est un isomorphisme si et seulement si $\dim_\R \Imf(A) = \dim_\R W$ et $\dim_\R V = \dim_\R W$.
 		\end{enumerate}
 		\end{prp}
-		
+
 		\begin{proof}~
 		\begin{enumerate}
 			\item Montrons que si $\dim_\R\Ker(A) = 0$, alors $A$ est injective. Si $\dim_\R\Ker(A) = 0$, alors $\Ker(A) = \{0_V\}$. Donc soient $v_1, v_2 \in V$.
@@ -1252,7 +1254,7 @@ Pour tout 0 < i < l+1
 			      Si $A$ n'est pas un isomorphisme, alors $\dim_\R\Imf(A) \neq \dim_\R W$.
 		\end{enumerate}
 		\end{proof}
-	
+
 	\subsection{Somme directe}
 		\begin{déf} Soient $V$ et $W$ deux espaces vectoriels. On définit la somme directe de $V$ et $W$ par $V \oplus W \coloneqq V \times W$ muni de l'addition interne et
 		de la multiplication externe triviales membre à membre. \end{déf}
@@ -1267,7 +1269,7 @@ Pour tout 0 < i < l+1
 		\begin{proof} Soit $A : W_1 \oplus W_2 \to W_1 + W_2 : (v,w) \mapsto v+w$. $A$ est linéaire car pour tout $v_1, w_1 \in W_1, w_2, v_2 \in W_2, \lambda \in \R$,
 		on a~: $A((w_1, w_2) + \lambda(v_1, v_2)) = A(w_1 + \lambda v_1, w_2 + \lambda v_2) = (w_1+\lambda v_1) + (w_2 + \lambda v_2) = (w_1 + w_2) + \lambda(v_1+v_2)
 		= A(w_1, w_2) + \lambda A(v_1, v_2)$.
-		
+
 		De plus, $\Ker(A) = \{(w_1, w_2) \in W_1 \oplus W_2 \tq w_1 + w_2 = 0\}$. Or, par hypothèse, $W_1 \cap W_2 = \{0\}$. Donc la seule possibilité pour avoir
 		$w_1 + w_2 = 0$ est d'avoir $w_1=w_2=0$. Donc $\dim_\R\Ker(A) = 0$. Soit $x \in W_1+W_2$. On sait qu'il existe $w_1 \in W_1, w_2 \in W_2$ tels que
 		$x = w_1+w_2 = A(w_1, w_2)$. Donc $A$ est surjective. Dès lors, par la proposition~\ref{condIsom}, $A$ est un isomorphisme. \end{proof}
@@ -1282,7 +1284,7 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soient $V, W$ deux e.v. et $A : V \to W$ une application linéaire. Alors on appelle $\dim_\R\Imf(A)$ le rang de $A$ et on le note $\rang A$.
 		\end{déf}
-	
+
 	\subsection{Groupe linéaire}
 		\begin{déf} Soit $V$ un espace vectoriel réel. Le groupe linéaire (général) est l'ensemble des isomorphismes $\{A : V \to V \tq A \text{ est un automorphisme}\}$.
 		On le note $GL(V)$. Si $V = \R^d$, on note $GL_d(\R)$ ou $GL(d, \R)$. \end{déf}
@@ -1296,7 +1298,7 @@ Pour tout 0 < i < l+1
 		\begin{proof} Montrons que si $A$ est un isomorphisme, alors $A(E)$ est une base de $W$. Les vecteurs de $A(E)$ sont des combinaisons linéaires des vecteurs
 		de $E$. Donc $A(E)$ est libre. De plus, soit $v \in W$, il existe $w \in W$ tel que $w = A(v) = \sum_{i=1}^d\lambda_iA(e_i)$. Donc $A(E)$ est une partie
 		génératrice de $W$.
-		
+
 		Montrons maintenant que si $A(E)$ est une base de $W$,a lors $A$ est un isomorphisme. Puisque $\dim_\R V = \dim_\R W$ et $\Imf(A) = W$, par la
 		proposition~\ref{condIsom}, $A$ est un isomorphisme. \end{proof}
 
@@ -1314,7 +1316,7 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soient $V, W$ deux espaces vectoriels de dimension finie, $A \in \Hom(V, W)$. Si $E = \{e_1, \dotsc, e_t\}, F = \{f_1, \dotsc, f_s\}$ sont une
 		base de $V$ et $W$ respectivement, alors on définit $m_{F, E}(A) \coloneqq [A_{ij}] \in \M st\R$ telle que~: \[A(e_j) = \sum_{i=1}^sA_{ij}f_i.\] \end{déf}
-	
+
 	\subsection{Opérations sur les matrices}
 		\begin{prp}\label{linéaritéMatrices} Soient $V, W$ deux espaces vectoriels avec une base respective $E, F$, soient $A, B \in \Hom(V, W)$,
 		et $m_{F, E}(A), m_{F, E}(B)$ les matrices associées à $A$ et $B$. Alors~:
@@ -1337,16 +1339,16 @@ Pour tout 0 < i < l+1
 		Soient $A \in \Hom(U, V)$ et $B \in \Hom(V, W)$. La composée $(B \circ A) \in \Hom(U, W)$. Soient les matrices $m_{E, D}(A) = [A_{ij}] \in \M ts\R$ et
 		$m_{F, E}(B) = [B_{ij}] \in \M ut\R$. On définit le produit de ces deux matrices par $m_{F, E}(B \circ A) = [(BA)_{ij}] \in \M us\R$. Il faut que~:
 		\[(B \circ A)(d_j) = \sum_{i=1}^u(BA)_{ij}f_i. \]
-		
+
 		Or, par la définition de la composée, on sait~:
 		\[(B \circ A)(d_j) = B(A(d_j)) = B\left(\sum_{i=1}^tA_{ij}e_i\right) = \sum_{i=1}^tA_{ij}B(e_i)
 		                   = \sum_{i=1}^tA_{ij}\sum_{k=1}^uB_{ki}f_k = \sum_{k=1}^u\left(\sum_{i=1}^tB_{ki}A_{ij}\right)f_k.\]
-		
+
 		On peut donc conclure pour tout $i, j$~: \[(BA)_{ij} = \sum_{k=1}^tB_{ik}A_{kj}.\] \end{déf}
 
 		\begin{rmq} Selon cette définition, pour $A = [A_{ij}] \in \M st\R, B = [B_{ij}] \in \M tu\R$, on a
 		$(AB) = [(AB)_{ij}] = \left[\sum_{k=1}^tA_{ik}B_{kj}\right] \in \M su\R$.
-		
+
 		Donc pour utiliser les notations des matrices d'applications, on peut écrire $m_{F, D}(B \circ A) = m_{F, E}(B)m_{E, D}(A)$. \end{rmq}
 
 		\begin{prp} Si $V$ et $W$ sont deux espaces vectoriels. Soit $A : V \to W$ une transformation linéaire. Alors si $x \in V : A(x) = m_{F, E}(A)x$. \end{prp}
@@ -1373,7 +1375,7 @@ Pour tout 0 < i < l+1
 
 		\begin{rmq} En partant de l'algorithme de Gauss (algorithme~\ref{algoGauss}), et en se concentrant sur les définitions des opérations matricielles, on remarque
 		que les opérations fondamentales de l'algorithme correspondent à des opérations algébriques sur les matrices.
-		
+
 		Changer la $i$eme ligne de la matrice $A = [A_{ij}]$ par $L_i + \mu L_j$ revient à faire~: \[(I + \mu \Lambda_{ij})A.\] De plus, multiplier à gauche par
 		$(I + \mu\Lambda_{ii})$ correspond à multiplier la $i$eme ligne par $\mu+1$. Donc multiplier une ligne par un facteur $\alpha$ revient à faire~:
 		\[(I + (\alpha-1)\Lambda_{ii})A.\] Finalement, remplacer la $i$eme ligne par la $j$eme revient à faire~:
@@ -1428,7 +1430,7 @@ Pour tout 0 < i < l+1
 
 		On sait donc que pour tout $i, j$, l'égalité suivante est vérifiée~: \[\sum_{k=1}^nB_{ik}A'_{kj} = \sum_{k=1}^nA_{ik}B_{kj},\] ce qui revient à faire l'égalité
 		suivante~: \[b \cdot m_{F, F}(A) = [B_{ij}][A'_{ij}] = [A_{ij}][B_{ij}] = m_{E, E}(A) \cdot b.\] \end{proof}
-	
+
 	\subsection{Dualité}
 		\begin{déf}[Définition naïve de la dualité] Soient deux objets $X$ et $Y$ et une application $A$. Si $A(X) = Y$ et $A(Y) = X$, on dit que $X$ et $Y$ sont duals.
 		\end{déf}
@@ -1473,14 +1475,14 @@ Pour tout 0 < i < l+1
 		\begin{rmq} On sait que $f^{-1}(\lambda) = \{x \in V \tq f(x) = \lambda\}$. Soit $v \in V \setminus \Ker(f)$. Tout vecteur $w \in V$ peut s'écrire comme~:
 		$v = u + \mu v$ avec $u \in \Ker(f)$ et $\mu \in \R$. Dès lors $f(w) = f(u) + \mu f(v) = \mu f(v)$. On sait donc déterminer $f$ par son noyau et un vecteur dans
 		$V \setminus \Ker(f)$. 
-		
+
 		De même, avec un espace $V$, un hyperplan $W$ et $v \in V \setminus W$, il existe une unique forme linéaire $f \in V^*$ telle que $f(W) = \{0\}$ et $f(v) = \xi$
 		pour $\xi$ fixé. \end{rmq}
 
 		\begin{déf} Soit $V$ un espace vectoriel. On définit l'espace bidual de $V$ par $V^{**} \coloneqq (V^*)^* = \Hom(V^*, \R)$. \end{déf}
-		
+
 		\begin{prp} Si $V$ est un espace vectoriel de dimension finie, $V^{**}$ est isomorphe à $V$. \end{prp}
-		
+
 		\begin{proof} On définit une fonction $\alpha : V \to V^{**}$ telle que pour $v \in V$, $\alpha(v) \in \Hom(V^*, \R)$ est définie par $\alpha(v)(f) = f(v)$.
 		Il est évident que $\alpha$ est linéaire~: \[\alpha(v+\lambda w)(f) = f(v+\lambda w) = f(v)+\lambda f(w) = \alpha(v)(f) + \lambda\alpha(w)(f).\]
 		De plus, si $E = \{e_1, \dotsc, e_n\}$ est une base de $V$, on définit la base biduale de $E$ par $E^{**} = \{\alpha(e_1), \dotsc, \alpha(e_n)\}$.
@@ -1490,7 +1492,7 @@ Pour tout 0 < i < l+1
 		\begin{déf} Soit $A : V \to W$ une application linéaire. On définit la transposée de $A$ par $A^T : W^* \to V^* : f \mapsto (f \circ A)$. \end{déf}
 
 		\begin{prp} L'application transposée est linéaire. \end{prp}
-		
+
 		\begin{proof} Montrons la linéarité~:
 		\[A^T(f+\lambda g)(v) = ((f+\lambda g) \circ A)(v) = (f \circ A)(v) + \lambda (g \circ A)(v) = A^T(f)(v) + \lambda A^T(g)(v).\]
 		\end{proof}
@@ -1529,14 +1531,13 @@ Pour tout 0 < i < l+1
 \section{Permutations et Déterminants}
 	\subsection{Définitions}
 		\begin{déf} Soit $n \in \mathbb N^*$. On note l'ensemble des permutations de $\{1, 2, \dotsc, n\}$~:
-		
 		\[\mathfrak{S}_n \coloneqq \left\{f : \{1, 2, \dotsc, n\} \to \{1, 2, \dotsc, n\} \tq f \text{ est bijective}\right\}.\]
-		
+
 		On appelle cet ensemble le \textbf{groupe symétrique de degré $n$}. \end{déf}
 
 		\begin{déf} Soient $n$ un naturel non nul et $\mathfrak{S}_n$, le groupe symétrique de degré $n$. Soit $\sigma \in \mathfrak{S}_n$ une permutation de
 		$\{1, \dotsc, n\}$. Il existe quatre notations pour $\sigma$~:
-		
+
 		\begin{enumerate}
 			\item le tableau double~: \[\sigma = \begin{pmatrix}1 & 2 & \ldots & n \\ \sigma(1) & \sigma(2) & \ldots & \sigma(n) \end{pmatrix}\text{~;}\]
 			\item la chaine~: \[\sigma = \sigma(1)\sigma(2)\ldots\sigma(n)\text{~;}\]
@@ -1572,7 +1573,7 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soit $\sigma \in \Perm_n$. Comme $\sigma$ est une bijection, elle admet un inverse noté $\sigma^{-1}$ tel que
 		$\sigma \circ \sigma^{-1} = \Id_{\Perm_n} = \sigma^{-1} \circ \sigma$. \end{déf}
-		
+
 		\begin{lem}\label{TranspositionEstSonInverse} Soit $\tau \in \Perm_n$ une transposition. L'inverse $\tau^{-1}$ de $\tau$ est $\tau$. \end{lem}
 
 		\begin{proof} Soit $\tau = (i, j) \in \Perm_n$ où $1 \leq i < j \leq n$, montrons que $\tau^{-1} = \tau$. En effet, $\tau^2 = \tau\tau = \tau \circ \tau$
@@ -1585,7 +1586,7 @@ Pour tout 0 < i < l+1
 
 		\begin{proof} Soient $\sigma \in \Perm_n$ et $\tau_1, \dotsc, \tau_n$ des transpositions telles que $\sigma = \tau_1\ldots\tau_n$.
 		Montrons que $\sigma\sigma^{-1} = \sigma^{-1}\sigma = \Id_{\Perm_n}$.
-		
+
 		On sait par le lemme~\ref{TranspositionEstSonInverse} que $\tau_i\tau_i = \Id_{\Perm_n}$ pour tout $i$, et on calcule~:
 		\[\begin{aligned}
 			\tau_1\tau_2\ldots\tau_{n-1}\tau_n\tau_n\tau_{n-1}\ldots\tau_2\tau_1 &= \tau_1\tau_2\ldots\tau_{n-1}(\tau_n\tau_n)\tau_{n-1}\ldots\tau_2\tau_1
@@ -1644,7 +1645,7 @@ Pour tout 0 < i < l+1
 
 		\begin{prp} Soit $\sigma \in \Perm_n$ une permutation. Supposons qu'il existe $m+n$ transpositions $\tau_1, \dotsc, \tau_m, \tau'_1, \dotsc, \tau'_n$ telles que~:
 		\[\sigma = \prod_{i=1}^m\tau_i = \prod_{j=1}^n\tau'_j.\] Alors $m$ et $n$ sont de même parité ($m \mod 2 = n \mod 2 = p \in \{0, 1\}$). \end{prp}
-		
+
 		\begin{proof} Toute inversion peut s'écrire comme un produit (une composition) de transpositions adjacentes~: soient $1 \leq i < j \leq n$. L'inversion $(i, j)$
 		peut s'écrire comme suit~: \[\tau = (j, j-1)(j-1, j-2)\ldots(i+1, i+2)(i, i+1)(i+1, i+2)\ldots(j-2, j-1)(j-1, j).\]
 		Le nombre de transpositions adjacentes est donc $2(j-i-2) + 1$ qui est impair. Dès lors, prenons $\hat{\tau_1}, \dotsc, \hat{\tau_{m'}}$ l'ensemble des
@@ -1768,10 +1769,10 @@ Pour tout 0 < i < l+1
 		Par la proposition~\ref{ChangementDeSigneSwapDeParams}, on sait que $f(e_{\sigma(1)}, \dotsc, e_{\sigma(n)}) = \sign(\sigma)f(e_1, \dotsc, e_n)$.
 		Dès lors, on a bien~:
 		\[f(v_1, \dotsc, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right)f(e_1, \dotsc, e_n).\]
-		
+
 		De plus, en imposant $f(e_1, \dotsc, e_n) = 1$, on peut poser~:
 		\[\det(v_1, \dotsc, v_n) \coloneqq f(v_1, \dotsc, v_n) = \sum_{\sigma \in \Perm_n}\sign(\sigma)\left(\prod_{i=1}^nv_{i\,\sigma(i)}\right).\]
-		
+
 		Maintenant, montrons que $\det$ est une forme multilinéaire alternée. Soient $\lambda \in \R, a_1, \dotsc, a_{i-1}, a_i^{(1)}, a_i^{(2)}, a_{i+1}, \dotsc, a_n \in V$.
 		\[\begin{aligned}
 			\det&(a_1, \dotsc, a_{i-1}, a_i^{(1)} + \lambda a_i^{(2)}, a_{i+1}, \dotsc, a_n) \coloneqq
@@ -1833,7 +1834,7 @@ Pour tout 0 < i < l+1
 
 		\begin{rmq} L'application $\det$ étant une forme multilinéaire, l'inversion de deux lignes (ou colonnes) d'une matrice change le signe de son déterminant
 		(par la proposition~\ref{ChangementDeSigneSwapDeParams}).
-		
+
 		De plus, on sait que si une matrice a deux lignes (ou colonnes) égales, alors le déterminant s'annule car c'est une forme multilinéaire \textbf{variée}.
 		\end{rmq}
 
@@ -2211,7 +2212,7 @@ Pour tout 0 < i < l+1
 
 		La seule combinaison linéaire possible au final pour~: \[0 = \sum_{i=1}^{n+1}\sum_{j=1}^{n_i}\mu_j^{(i)}x_j^{(i)}\] est la combinaison linéaire nulle
 		triviale. L'ensemble $W \coloneqq B_1 \cup \dotsb \cup B_{n+1}$ est donc bien une partie libre. \end{proof}
-	
+
 	\subsection{Équation caractéristique}
 		\begin{déf} Soit $A$ un opérateur linéaire sur $V$, un $\K$-espace vectoriel où $\K$ est un corps commutatif. Alors~:
 		\[\pi_A(\lambda) \coloneqq \det(A - \lambda\Id_{Hom(V, V)})\] est appelé le \textbf{polynôme caractéristique} de $A$. \end{déf}
@@ -2294,7 +2295,7 @@ Pour tout 0 < i < l+1
 			         &= ab_0 + \sum_{i=1}^{n-2}a^{i+1}b_i + a^{n}b_{n-1} - \sum_{i=2}^{n-1}a^ib_{i-1} - a^1b_0 - a^nb_{n-1} = 0.
 		\end{aligned}\]
 		\end{proof}
-	
+
 		\subsubsection{Opérateurs diagonalisables}
 		\begin{déf} Soient $V$ un espace vectoriel de dimension $n$ sur un corps commutatif $\K$ et $A \in \Hom(V, V)$. On dit que $A$ est diagonalisable
 		s'il existe une base $E$ de $V$ telle que $m_{E, E}(A) = [\delta_{i\,j}\lambda_i]$. Donc $A$ est diagonalisable si et seulement s'il existe une base $E$ de
@@ -2399,7 +2400,7 @@ Pour tout 0 < i < l+1
 
 		\begin{rmq} Les blocs $J_i$ d'une telle matrice sont appelés ses \textit{blocs de Jordan}. Lorsque la matrice $m_{E, E}(A)$ est exprimée dans une telle
 		base, on dit qu'elle est dans sa \textit{forme (canonique) de Jordan}. \end{rmq}
-		
+
 		\begin{rmq}[bis] Le théorème de Jordan dit également que s'il existe une autre base $F \neq E$ respectant cette propriété, alors les blocs de Jordan de
 		$m_{F, F}(A)$ sont une permutation des blocs de Jordan de $m_{E, E}(A)$. \end{rmq}
 
@@ -2464,7 +2465,7 @@ Pour tout 0 < i < l+1
 		\begin{proof} On sait par le lemme~\ref{valPropreRacineMu} que toutes les valeurs propres de $A$ sont des racines de $\mu_A$. Si on note $m_i \geq 1$ la
 		multiplicité algébrique de la valeur propre $\lambda_i$ dans $\mu_A$, on a bien~:
 		\[\mu_A(x) = \prod_{i=1}^k(x-\lambda_i)^{m_i}.\]
-		
+
 		Il faut également $m_i \leq n_i$ si $n_i$ est la multiplicité de $\lambda_i$ dans $\pi_A$ car il faut que $\mu_A$ divise $\pi_A$. Pour cette même raison, on
 		ne peut avoir une racine de $\mu_A$ n'étant pas une racine de $\pi$. Et par définition, les racines de $\pi_A$ sont les valeurs propres.
 		On a donc bien $m_1 + m_2 + \dotsb + m_k = \deg(\mu_A(x))$. \end{proof}
@@ -2511,7 +2512,7 @@ Pour tout 0 < i < l+1
 		\[\frac 1{p(x)} = \sum_{i=1}^k\sum_{j=1}^{m_i}\frac {a_{i\,j}}{(x-\lambda_i)^j}.\] \end{prp}
 
 		\begin{rmq} La démonstration est omise. \end{rmq}
-	
+
 	\subsection{Sous-espaces généralisés}
 		\begin{prp} Soit $V$ un espace vectoriel de dimension $n$ sur un corps $\K$ et soit $A \in \Hom(V, V)$. Soient $\lambda_1, \dotsc, \lambda_k \in \K$
 		les valeurs propres de $\mu_A$, le polynôme minimal de $A$ et $a_i] \in \K^{m_i}$ pour $i \in \{1, \dotsc, k\}$, les coefficients de sa décomposition en
@@ -2613,5 +2614,8 @@ Pour tout 0 < i < l+1
 		et pour tout $i \in \{1, \dotsc, k\} :$
 		\[\restr f{V(\lambda_i)} \in \Hom(V(\lambda_i), V(\lambda_i)).\]
 		\end{prp}
+
+	\subsection{Existence de la forme canonique de Jordan}
 		
+
 \end{document}
