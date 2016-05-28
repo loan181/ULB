@@ -26,7 +26,6 @@
 \author{R. Petit}
 \date{année académique 2015 - 2016}
 
-\DeclareMathOperator{\tq}{\text{ t.q. }}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\GCD}{GCD}
 \DeclareMathOperator{\Ker}{Ker}
@@ -55,6 +54,7 @@
 	\vphantom{\big|} %
 	\right|_{#2} %
 }
+\newcommand{\tq}{\textrm{ t.q. }}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -1539,7 +1539,7 @@ Pour tout 0 < i < l+1
 		$\{1, \dotsc, n\}$. Il existe quatre notations pour $\sigma$~:
 
 		\begin{enumerate}
-			\item le tableau double~: \[\sigma = \begin{pmatrix}1 & 2 & \ldots & n \\ \sigma(1) & \sigma(2) & \ldots & \sigma(n) \end{pmatrix}\text{~;}\]
+			\item le tableau double~: \[\sigma = \begin{bmatrix}1 & 2 & \ldots & n \\ \sigma(1) & \sigma(2) & \ldots & \sigma(n) \end{bmatrix}\text{~;}\]
 			\item la chaine~: \[\sigma = \sigma(1)\sigma(2)\ldots\sigma(n)\text{~;}\]
 			\item la tresse~: deux lignes comportant les points $\{1, 2, \dotsc, n\}$ reliés par des arêtes $(i, \sigma(i))$~;
 			\item le produit de cycles~: \[\sigma = \left(\sigma(k_{1, 1})\sigma(k_{1, 2})\ldots\sigma(k_{1, r})\right)\left(\sigma(k_{2, 1})\sigma(k_{2, 2})\ldots\sigma(k_{2, s})\right)\ldots\left(\sigma(k_{t, 1})\sigma(k_{t, 2})\ldots\sigma(k_{t, n})\right).\]
@@ -1917,14 +1917,14 @@ Pour tout 0 < i < l+1
 	\subsection{Cofacteurs, matrices adjointes et inverses}
 		\begin{déf} Soit $a \coloneqq [a_{i\,j}] \in \M nn\R$ une matrice. Le cofacteur $A_i^j$ est défini par~:
 		\[A_i^j \coloneqq (-1)^{i+j}\det_{(n-1)\times(n-1)}
-		\begin{pmatrix}
+		\begin{bmatrix}
 			a_{1\,1}   & \ldots  & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
 			  \vdots   & \ddots  &    \vdots    &   \vdots     & \iddots & \vdots     \\
 			a_{i-1\,1} & \ldots  & a_{i-1\,j-1} & a_{i-1\,j+1} & \ldots  & a_{i-1\,n} \\
 			a_{i+1\,1} & \ldots  & a_{i+1\,j-1} & a_{i+1\,j+1} & \ldots  & a_{i+1\,n} \\
 			  \vdots   & \iddots &     \vdots   &    \vdots    & \ddots  & \vdots     \\
 			a_{n\,1}   & \ldots  & a_{n\,j-1}   & a_{n\,j+1}   & \ldots  & a_{n\,n}
-		\end{pmatrix}
+		\end{bmatrix}
 		\] \end{déf}
 
 		\begin{thm}[Théorème de Laplace]\label{thmLaplace} Soit $a \in \M nn\R$. Pour $1 \leq i, j \leq n$, on a~:
@@ -1935,48 +1935,48 @@ Pour tout 0 < i < l+1
 			\det(a) &= \sum_{\sigma\in\Perm_n}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} = \sum_{j=1}^n\sum_{\sigma\in\Perm_n, \sigma(n)=j}\sign(\sigma)\prod_{k=1}^na_{k\,\sigma(k)} \\
 			        &= \sum_{j=1}^na_{n\,j}\sum_{\sigma\in\Perm_n, \sigma(n)=j}\sign(\sigma)\prod_{k=1}^{n-1}a_{k\,\sigma(k)} \\
 					&= \sum_{j=1}^na_{n\,j}\det
-						\begin{pmatrix}
+						\begin{bmatrix}
 							a_{1\,1}   & \ldots  & a_{1\,j-1}   & a_{1\,j}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
 							  \vdots   & \ddots  &   \vdots     &   \vdots   &   \vdots     & \iddots &   \vdots   \\
 							a_{n-1\,1} & \ldots  & a_{n-1\,j-1} & a_{n-1\,j} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n} \\
 							    0      &     0   &      0       &     1      &     0        &    0    &    0
-						\end{pmatrix} \\
+						\end{bmatrix} \\
 					&= \sum_{j=1}^na_{n\,j}(-1)^{j-1}\det
-						\begin{pmatrix}
+						\begin{bmatrix}
 							a_{1\,j}   & a_{1\,1}   & \ldots & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
 							  \vdots   &   \vdots   & \ddots &   \vdots     &   \vdots     & \iddots &   \vdots   \\
 							a_{n-1\,j} & a_{n-1\,1} & \ldots & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n} \\
 							     1     &     0      &     0  &     0        &      0       &    0    &       0
-						\end{pmatrix} \\
+						\end{bmatrix} \\
 					&= \sum_{j=1}^na_{n\,j}(-1)^{j-1}(-1)^{n-1}\det
-						\begin{pmatrix}
+						\begin{bmatrix}
 							     1     &     0      &     0  &     0        &      0       &    0    &       0    \\
 							a_{1\,j}   & a_{1\,1}   & \ldots & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
 							  \vdots   &   \vdots   & \ddots &   \vdots     &   \vdots     & \iddots &   \vdots   \\
 							a_{n-1\,j} & a_{n-1\,1} & \ldots & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n}
-						\end{pmatrix} \\
+						\end{bmatrix} \\
 					&= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\gamma=1}^nb_{1\,\gamma}\sum_{\sigma\in\Perm_n, \sigma(1)=\gamma}\sign(\sigma)\prod_{k=2}^nb_{k\,\sigma(k)} \\
 					&= \sum_{j=1}^na_{n\,j}(-1)^{j+n}\sum_{\sigma\in\Perm_n, \sigma(1)=1}\sign(\sigma)\prod_{k=2}^nb_{k\,\sigma(k)}.
 		\end{aligned}\]
 
 		Ici, on a posé~:
 		\[b \coloneqq [b_{i\,j}] \coloneqq
-			\begin{pmatrix}
+			\begin{bmatrix}
 				     1     &     0      &     0  &     0        &      0       &    0    &       0    \\
 				a_{1\,j}   & a_{1\,1}   & \ldots & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}   \\
 				  \vdots   &   \vdots   & \ddots &   \vdots     &   \vdots     & \iddots &   \vdots   \\
 				a_{n-1\,j} & a_{n-1\,1} & \ldots & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n}
-			\end{pmatrix}
+			\end{bmatrix}
 		\in \M nn\R.\]
 
 		De plus, en imposant $\sigma(1) = 1$, pour tout $n \geq i > 1$, on a $\sigma(i) > 1$ car $\sigma$ est une bijection. Donc avec cette contrainte, et en
 		itérant sur $k \in \{2, 3, \dotsc, n\}$, les éléments de la première ligne ou de la première colonne ne sont pas accédés. En posant~:
 		\[c \coloneqq [c_{i\,j}] \coloneqq
-			\begin{pmatrix}
+			\begin{bmatrix}
 				a_{1\,1}   & \ldots  & a_{1\,j-1}   & a_{1\,j+1}   & \ldots  & a_{1\,n}  \\
 				  \vdots   & \ddots  &   \vdots     &   \vdots     & \iddots &   \vdots  \\
 				a_{n-1\,1} & \ldots  & a_{n-1\,j-1} & a_{n-1\,j+1} & \ldots  & a_{n-1\,n} \\
-			\end{pmatrix}
+			\end{bmatrix}
 		\in \M {(n-1)}{(n-1)}\R,\]
 		à savoir $c$ est la matrice $b$ sans la première ligne et la première colonne, on a alors~:
 		\[\begin{aligned}
@@ -2015,11 +2015,11 @@ Pour tout 0 < i < l+1
 
 		\begin{déf} Soient $a = [a_{i\,j}] \in \M nn\R$ et $b = [b_i], x = [x_i] \in \M n1\R$ tels que~: \[ax = b.\] On pose~:
 		\[S_j(a, b) \coloneqq
-		\begin{pmatrix}
+		\begin{bmatrix}
 			a_{1\,1} & \ldots & a_{1\,j-1} &   b_1  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
 			  \vdots & \ddots &   \vdots   & \vdots &   \vdots   & \iddots &   \vdots \\
 			a_{n\,1} & \ldots & a_{n\,j-1} &   b_n  & a_{n\,j+1} & \ldots  & a_{n\,n}
-		\end{pmatrix}
+		\end{bmatrix}
 		\]
 
 		La valeur $S_j(a, b)$ est donc la matrice $a$ où la $j$ème colonne a été remplacée par $b$. \end{déf}
@@ -2031,31 +2031,31 @@ Pour tout 0 < i < l+1
 		\begin{proof} Soient $a \in \M nn\R, b, x \in \M n1\R$ tels que $ax = b$. On peut déterminer~:
 		\[\begin{aligned}
 			\det(S_j(a, b)) &= \det
-				\begin{pmatrix}
+				\begin{bmatrix}
 					a_{1\,1} & \ldots & a_{1\,j-1} &   b_1  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
 					  \vdots & \ddots &   \vdots   & \vdots &   \vdots   & \iddots &   \vdots \\
 					a_{n\,1} & \ldots & a_{n\,j-1} &   b_n  & a_{n\,j+1} & \ldots  & a_{n\,n}
-				\end{pmatrix} \\
+				\end{bmatrix} \\
 			&= \det
-				\begin{pmatrix}
+				\begin{bmatrix}
 					a_{1\,1} & \ldots & a_{1\,j-1} &   \sum_{k=1}^na_{1\,k}x_k  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
 					  \vdots & \ddots &   \vdots   &           \vdots           &   \vdots   & \iddots &   \vdots \\
 					a_{n\,1} & \ldots & a_{n\,j-1} &   \sum_{k=1}^na_{n\,k}x_k  & a_{n\,j+1} & \ldots  & a_{n\,n}
-				\end{pmatrix} \\
+				\end{bmatrix} \\
 			&= \sum_{k=1}^n
 				\det
-					\begin{pmatrix}
+					\begin{bmatrix}
 						a_{1\,1} & \ldots & a_{1\,j-1} &   a_{1\,k}x_k  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
 						  \vdots & \ddots &   \vdots   &     \vdots     &   \vdots   & \iddots &   \vdots \\
 						a_{n\,1} & \ldots & a_{n\,j-1} &   a_{n\,k}x_k  & a_{n\,j+1} & \ldots  & a_{n\,n}
-					\end{pmatrix} \\
+					\end{bmatrix} \\
 			&= \sum_{k=1}^n
 				x_k\det
-					\begin{pmatrix}
+					\begin{bmatrix}
 						a_{1\,1} & \ldots & a_{1\,j-1} &   a_{1\,k}  & a_{1\,j+1} & \ldots  & a_{1\,n} \\
 						  \vdots & \ddots &   \vdots   &   \vdots    &   \vdots   & \iddots &   \vdots \\
 						a_{n\,1} & \ldots & a_{n\,j-1} &   a_{n\,k}  & a_{n\,j+1} & \ldots  & a_{n\,n}
-					\end{pmatrix}
+					\end{bmatrix}
 		\end{aligned}\]
 
 		Ici, pour toute valeur de $k$ différente de $j$, la matrice aura deux colonnes identiques (à savoir la colonne $j$ et la colonne $k$). Dès lors, le déterminant
@@ -2245,7 +2245,7 @@ Pour tout 0 < i < l+1
 			\item Montrons cela par récurrence sur $n$.
 
 			      \underline{Cas de base~:} $n = 1$. On sait que
-				  $\det\left(\begin{pmatrix}a_{1\,1}\end{pmatrix} - \lambda\begin{pmatrix}1\end{pmatrix}\right) = a_11 - \lambda$, qui est effectivement un polynôme
+				  $\det\left(\begin{bmatrix}a_{1\,1}\end{bmatrix} - \lambda\begin{bmatrix}1\end{bmatrix}\right) = a_11 - \lambda$, qui est effectivement un polynôme
 				  de degré 1 en $\lambda$.
 
 				  \underline{Pas de récurrence~:} supposons que pour $V$ de dimension $n$, $\det(a - \lambda \Id_{\Hom(V, V)})$ est un polynôme de degré $n$
@@ -2392,7 +2392,7 @@ Pour tout 0 < i < l+1
 	\subsection{Formule canonique de Jordan}
 		\begin{thm}[Théorème de Jordan] Soit $V$ un espace vectoriel de dimension finie $n$ sur $\C$. Soit $A \in \Hom(V, V)$. Il existe $E$, une base de $V$
 		telle que $a \coloneqq m_{E, E}(A)$ soit donnée par~:
-		\[a = \begin{pmatrix}J_1 &  & 0 \\ & \ddots & \\0 & & J_k\end{pmatrix},\]
+		\[a = \begin{bmatrix}J_1 &  & 0 \\ & \ddots & \\0 & & J_k\end{bmatrix},\]
 		avec $k \in \N^*$, et où, pour $\gamma \in \{1, 2, \ldots, k\}$, on a~:
 		\[J_\gamma = \left[\begin{cases}\lambda_\gamma & \text{ si } i = j \\ 1 & \text{ si } j-i = 1 \\0 & \text{ sinon}\end{cases}\right] \in \M{n_\gamma}{n_\gamma}\C,\]
 		où $\lambda_\gamma \in \C$ est une valeur propre de $A$ et $n_\gamma \in \N^*$.
@@ -2616,6 +2616,83 @@ Pour tout 0 < i < l+1
 		\end{prp}
 
 	\subsection{Existence de la forme canonique de Jordan}
-		
+		\begin{lem} Soit $B \in \Hom(V, V)$ un opérateur sur un espace vectoriel $V$ complexe de dimension finie. S'il existe $h \in \N$ tel que
+		$B^h = 0 \in \Hom(V, V)$, alors il existe $v_1, \dotsc, v_k \in V$ et $m_1, \dotsc, m_k \in \N$ tels que~:
+		\[\bigcup_{\ell = 1}^k\bigcup_{\gamma = 1}^{m_\ell}\{B^\gamma(v_\ell)\}\]
+		est une base de $V$ et~:
+		\[\{B^{m_\ell}(v_\ell) \tq 1 \leq \ell \leq k\}\]
+		est une base de $\ker(B)$.
+		\end{lem}
+
+		\begin{proof} Procédons par récurrence sur $n$, la dimension de $V$.
+
+		Si $n=1$, il est nécessaire que $B = 0$, et donc le lemme est vrai.
+
+		Soit $n > 1$ et soit $h \in \N$ tel que $B^h = 0$. Dès lors, on sait que $\Ker B \neq \{0\}$ et $\Imf B \neq V$. On considère la restriction de $B$ à
+		$\Imf B$, ce qui donne $\restr {\left(B^h\right)}{\Imf(B)} = 0 \in \Hom(\Imf(B), \Imf(B))$. Par hypothèse de récurrence, il existe
+		$u_1, \dotsc, u_s \in \Imf(B)$ et $n_1, \dotsc, n_s \in \N$ tels que~:
+		\[E' \coloneqq \bigcup_{\alpha=1}^s\bigcup_{\beta=1}^{n_\alpha}\{B^\beta(u_\alpha)\}\]
+		est une base de $\Imf(B)$ et $\left\{B^{n_i}(v_i \tq 1 \leq i \leq s\right\}$ est une base de $\Ker\left(\restr B{\Imf§B)}\right) = \ker(B) \cap \Imf(B)$.
+		On sait que $u_i \in \Imf(B)$, donc il existe $v_i \in V$ tel que $(v_i) = u_i$.
+
+		Si $\Ker(B) \cap \Im(B) \subseteq \Ker(B)$, on peut compléter une base de $\Ker\left(\restr B{\Imf(B)}\right) = \Ker(B) \cap \Imf(B)$ en une base de
+		$\Ker(B)$. Soit donc $\left\{B^{n_1}(v_1), \dotsc, B^{n_s}(v_s), v_{s+1}, v_{s+2}, \dotsc, v_k\right\}$ une base de $\Ker(B)$.
+
+		En posant $m_i \coloneqq n_i + 1$ pour tout $1 \leq i \leq s$, on remarque que~:
+		\[\{B^{m_1}(v_1), \dotsc, B^{m_s}(v_s), v_{s+1}, v_{s+2}, \dotsc, v_k\}\]
+		est une base de $\Ker(B)$ par construction. De plus, montrons que~:
+		\[E \coloneqq \{v_1, \dotsc, B^{m_1}(v_1), v_2, \dotsc, B^{m_2}(v_2), \dotsc, v_s, \dotsc, B^{m_s}(v_s), v_{s+1}, v_{s+2}, \dotsc, v_k\}\]
+		est une base de $V$. Pour ce faire, on sait que $\abs E = \dim \Ker(B) + \dim \Imf(B) = \dim V$, il faut uniquement prouver que $E$ est libre.
+
+		Soit la combinaison linéaire nulle suivante~:
+		\[0 = \sum_{\alpha=1}^k\sum_{\beta=0}^{m_\alpha}a_{\alpha\,\beta}B^\beta(v_\alpha),\]
+		où pour tout $s < \alpha \leq k$, on pose $m_\alpha = 0$ et où pour tout $1 \leq \alpha \leq k, 1 \leq \beta m_\alpha$, $a_{\alpha\,\beta} \in \C$.
+		On sait que $B^{m_i}(v_i) \in \Ker(B)$ pour tout $i$, et donc $B(B^{m_i}(v_i)) = 0$. En appliquant $B$ de part et d'autre, on trouve~:
+		\[0 = B(0) = \sum_{\alpha=1}^k\sum_{\beta=0}^{n_\alpha}a_{\alpha\,\beta}B^\beta(u_\alpha).\]
+		Et de plus, $E'$ est libre et donc, pour tout $1 \leq \alpha \leq s$ et $1 \leq \beta \leq n_\alpha$, on trouve $a_{\alpha\,\beta} = 0$. Il reste~:
+		\[\sum_{\gamma=1}^sa_{\gamma\,m_\gamma}B^{m_\gamma}(v_\gamma) + \sum_{\gamma=s+1}^ka_{\gamma\,0} = 0.\]
+
+		Or, on sait que $\{B^{m_1}(v_1), B^{m_2}(v_2), \dotsc, B^{m_s}(v_s), v_{s+1}, v_{s+2}, \dots, v_k\}$ est une base de $\ker(B)$ et est donc libre.
+		Il en résulte que $a_{\alpha\,\beta} = 0$ pour tout $\alpha, \beta$.
+		\end{proof}
+
+		\begin{rmq} Soit $A \in \Hom(V, V)$ un opérateur sur un espace vectoriel complexe $V$ de dimension finie $n$. On s'intéresse à $\lambda \in \C$ une
+		valeur propre de $A$ et $V(\lambda) = \Ker(A - \lambda I)^m$, le sous-espace propre généralisé de $V$ par $\lambda$.
+
+		On considère la restriction $B \coloneqq \restr {(A - \lambda I)}{V(\lambda)} : V(\lambda) \to V(\lambda)$. Puisque
+		$B^m = 0 \in \Hom(V(\lambda), V(\lambda))$, on sait par le lemme précédent qu'il existe une base de $V$ donnée par~:
+		\[\{v_1, B(v_1), \dotsc, B^{m_1}(v_1), \dotsc, v_k, B(v_k), \dotsc, B^{m_k}(v_k)\}.\]
+
+		On remarque que la matrice $m_{E, E}(B) \in \M {m_\lambda}{m_\lambda}\C$ est donnée par~:
+		\[m_{E, E}(B) =
+		\begin{bmatrix}
+			\widetilde {J_1} & \ldots & 0 \\
+			\vdots & \ddots & \vdots \\
+			0 & \ldots & \widetilde {J_k}
+		\end{bmatrix}
+		\]
+		où les $\widetilde {J_i}$ sont sous la forme~:
+		\[\begin{bmatrix}
+			0      & 1      & \ldots & 0 \\
+			\vdots & \ddots & \ddots & \vdots \\
+			0      & \ldots & 0      &  1 \\
+			0      & \ldots &     0  &   0
+		\end{bmatrix}\]
+
+		Or, on peut exprimer la matrice $m_{E, E}$ par rapport à $A$~:
+		\[m_{E, E}(B) = m_{E, E}\left(\restr {(A-\lambda I)}{V(\lambda)}\right) = m_{E, E}(\restr A{V(\lambda)}) - m_{E, E}(\Id_{V(\lambda)}
+		= m_{E, E}\left(\restr A{V(\lambda)}\right) - \lambda I,\]
+		et donc en réarrangeant, on trouve effectivement la matrice $m_{E, E}(A)$ sous sa forme canonique de Jordan.
+		\end{rmq}
+
+		\begin{rmq}	La preuve du lemme ci-dessus donne un algorithme pour mettre une matrice sous sa forme canonique de Jordan. Il faut~:
+		\begin{enumerate}
+			\item déterminer les valeurs propres de $A$ (les racines du polynôme caractéristique $\pi_A$)~;
+			\item déterminer leur multiplicité algébrique~;
+			\item pour chacune d'entre elles, résoudre le système $(a-\lambda I)^mx = 0$ où $1 \leq m \leq m_\lambda$~;
+			\item mettre ces vecteurs dans les colonnes de $b$.
+		\end{enumerate}
+		Alors la matrice $b^{-1}ab$ est sous sa forme canonique de Jordan.
+		\end{rmq}
 
 \end{document}
