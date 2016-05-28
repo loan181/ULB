@@ -2170,5 +2170,32 @@
 		\end{rmq}
 
 	\subsection{Méthodes linéarisées}
+		Par le développement de Taylor d'ordre 1 (et la formule du reste de Lagrange), autour de $\alpha$, on peut exprimer~:
+		\[0 = f(\alpha) = f(x) + f'(\xi)(\alpha-x),\]
+		avec $\xi \in [\alpha, x]$. On en déduit~:
+		\[\alpha = x - \frac {f(x)}{f'(\xi)}.\]
+
+		Cependant, on ne connait pas $\xi$. Si $q_k$ est une approximation de $f'(\xi)$, alors ceci conduit à la méthode itérative suivante~:
+		\[0 = f(x^{(k)}) + (x^{(k+1)} - x^{(k)})q_k\qquad\iff\qquad x^{(k+1)} = x^{(k)} - f(x^{(k)}) \cdot q_k^{-1}.\]
+
+		L'interprétation à y donner est que $x^{(k+1)}$ est l'intersection entre l'axe $OX$ et la droite de pente $q_k = f'(\xi)$ et passant par
+		$(x^{(k)}, f(x^{(k)})$. Il est possible de déterminer plusieurs méthodes en changeant $q_k$, l'approximation de la pente de la droite~:
+
+		\begin{enumerate}
+			\item la méthode de la corde converge localement d'ordre 1 en ayant~:
+				\[q_k \coloneqq \frac {f(b) - f(a)}{b-a}~;\]
+			\item la méthode de la sécante pose~:
+				\[q_k \coloneqq \frac {f(x^{(k)}) - f(x^{(k-1)})}{x^{(k+1)} - x^{(k)}},\]
+				et converge localement d'ordre $p=1.63$ si $f$ est de classe $C^2$ et si $x^{(0)}$ est suffisamment proche de $\alpha$~;
+			\item la méthode de la fausse position (ou \emph{regula-falsi}) pose~:
+				\[q_k \coloneqq \frac {f(x^{(k)}) - f(x^{\beta(k)})}{x^{(k)} - x^{\beta(k)}},\]
+				où $\beta(k)$ représente le plus grand $\ell$ strictement inférieur à $k$ tel que $f(x^{(k)})f(x^{(\ell)}) < 0$ et est globalement
+				convergente d'ordre 1~;
+			\item la méthode de Newton pose~:
+				\[q_k = f'(x^{(k)}),\]
+				et est convergente localement d'ordre 2.
+		\end{enumerate}
+
+	\subsection{Itérations de point fixe}
 
 \end{document}
