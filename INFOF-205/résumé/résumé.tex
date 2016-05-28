@@ -2197,5 +2197,72 @@
 		\end{enumerate}
 
 	\subsection{Itérations de point fixe}
+		\begin{déf} Soient $X$ un ensemble et $f : X \to X$. Un \emph{point fixe} de $f$ est une valeur $x \in X$ telle que~:
+		\[f(x) = x.\]
+		\end{déf}
+
+		Chercher une racine de la fonction $f$ est équivalent au problème de recherche d'un point fixe de la fonction $\phi(x) = f(x) + x$.
+
+		\begin{rmq} Il est toujours possible de trouver une telle fonction $\phi$ mais elle n'est pas toujours unique. Toutes les fonctions $F$ telles que
+		$F$ est continue et $F(0) = 0$ permettent de formuler~:
+		\[\phi(x)  = (F \circ f)(x) + x.\]
+		\end{rmq}
+
+		\begin{déf} Soit $x^{(0)}$, on définit pour tout $k \geq 1$ la méthode itérative dite \emph{de point fixe} par~:
+		\[x^{(k)} = \phi(x^{(k-1)}).\]
+		\end{déf}
+
+		\begin{déf} On appelle $\phi$ la fonction d'itération associée à la méthode.
+		\end{déf}
+
+		\begin{rmq} La fonction est \emph{fortement consistante}, c'est-à-dire consistante à toutes les itérations.
+		\end{rmq}
+
+		\begin{thm} Soit $\phi$ continue et $(x^{(k)})$ obtenue par une méthode d'itération de point fixe. Si $x^{(k)} \to \alpha$, alors $\alpha$ est un
+		point fixe de $\phi$.
+		\end{thm}
+
+		\begin{thm} Soit $\phi : [a, b] \to \R$ de classe $C^1$ sur $[a, b]$. Alors~:
+		\begin{itemize}
+			\item si $\phi([a, b]) = [a, b]$, alors $\phi$ admet un point fixe~;
+			\item si de plus il existe $> \lneqq 1$ tel que~:
+				\[\forall x \in [a, b] : \abs{\phi(x)} < 1,\]
+				alors~:
+				\begin{enumerate}
+					\item $\phi$ admet un unique point fixe $\alpha \in [a, b]$ et la suite $(x^{(k)})$ converge en $\alpha$ pour tout choix de $x^{(0)}$
+						initial~;
+					\item \[\lim_{k \to +\infty}\frac {x^{(k+1)} - \alpha}{x^{(k)} - \alpha} = \lim_{k \to +\infty}\phi(\eta^{(k)}) = \phi'(\alpha),\]
+						où $\eta^{(k)}$ est entre $\alpha$ et $x^{(k)}$ telle que~:
+						\[x^{(k+1)} - \alpha = \phi(x^{(k)}) - \phi(\alpha) = \phi'(\eta^{(k)})(x^{(k)} - \alpha)~;\]
+				\end{enumerate}
+			\item si $\forall x \in [a, b] : \abs {\phi (x)} > 1$, alors pour tout $x^{(0)} \neq \alpha$, la suite d'itérations de point fixe $(x^{(k)})$ ne
+			converge pas.
+		\end{itemize}
+		\end{thm}
+
+		\begin{rmq} Ce théorème généralise le théorème du point fixe de Banach.
+		\end{rmq}
+
+		\begin{déf} Si pour tout choix de $x^{(0)}$, la suite d'itérations de point fixe converge en $\alpha$, on dit que $\alpha$ est un point attractif de
+		$\phi$ et si la suite ne converge pour aucun $x^{(0)}$ différent de $\alpha$ on dit que $\alpha$ est une point répulsif de $\phi$.
+		\end{déf}
+
+		Ce théorème nous apprend que s'il existe un tel $K < 1$ et si $\phi'(\alpha) \neq 0$, alors la méthode est globalement convergente d'ordre 1.
+
+		\begin{thm} Si $f$ est de classe $C^{p+1}$ sur un voisinage $I$ de $\alpha$ avec $p \geq 1$ et que~:
+		\[\od[i] \phi x(\alpha) = \begin{cases}0 &\text{ si } 1 \leq i \leq p \\K_i(x) \neq 0 &\text{ si }i=p+1\end{cases},\]
+		alors la méthode de point fixe associée à $\phi$ est d'ordre $p+1$.
+		\end{thm}
+
+		\begin{thm}[Théorème de convergence locale d'Ostrowski] Soient $\phi$ différentiable sur un voisinage $I$ de $\alpha$, un point fixe de $\phi$.
+		Si $\abs {\phi'(\alpha)} < 1$, alors il existe un rayon de convergence $\delta > 0$ tel que~:
+		\[\forall x^{(0)} \in (\alpha \pm \delta) : x^{(k)} \to \alpha.\]
+		\end{thm}
+
+		\begin{rmq} Si la dérivée $\abs {\phi'(\alpha)}$ est strictement supérieure à 1, alors la convergence est impossible (et $\alpha$ est un point
+		répulsif) et si la dérivée vaut 1, le cas est indéterminé : il est possible d'obtenir convergence ou divergence.
+		\end{rmq}
+
+	\subsection{Analyse des méthodes linéarisées}
 
 \end{document}
