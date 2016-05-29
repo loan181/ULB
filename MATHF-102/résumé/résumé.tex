@@ -2835,4 +2835,59 @@ Pour tout 0 < i < l+1
 		qui est une base orthonormale.
 		\end{proof}
 
+		\begin{thm} Tout espace euclidien de dimension réelle $n$ est isomorphe à $\R^n$ avec le produit scalaire usuel et tout espace hermitien de dimension
+		$m$ est isomorphe à $\C^m$ avec le produit hermitien usuel.
+		\end{thm}
+
+		\begin{proof} Corollaire direct de la proposition~\ref{dimDIsomorpheRd}.
+		\end{proof}
+
+		\subsubsection{Angles entre vecteurs}
+		\begin{déf} Soient $x, y \in V$, un espace euclidien ou hermitien. On appelle $\theta \in [0, \pi]$ tel que $\cos \theta = \frac {xy}{\norm x\norm y}$
+		l'\emph{angle entre $x$ et $y$}.
+		\end{déf}
+
+		\begin{rmq} Par l'inégalité de Cauchy-Schwartz, on sait que $-\norm x\norm y \leq xy \leq \norm x\norm y$ et donc~:
+		\[-1 \leq \frac {xy}{\norm x\norm y} \leq 1.\]
+		Dès lors, on sait qu'il existe un tel $\theta$.
+		\end{rmq}
+
+		\begin{rmq} On remarque également que cette définition permet de dire que deux vecteurs sont orthogonaux si et seulement si $\theta = \frac \pi 2$.
+		\end{rmq}
+
+		\subsubsection{Métrique}
+		\begin{déf} Soit $V$ un espace euclidien ou hermitien et soient $x, y \in V$. On définit la \emph{distance} entre $x$ et $y$ par~:
+		\[\abs {xy} \coloneqq \norm {x-y}.\]
+		\end{déf}
+
+		\begin{déf} Un espace euclidien ou hermitien muni d'une distance est appelé un \emph{espace métrique}, c'est-à-dire, pour tout $x, y, z \in V$~:
+		\begin{enumerate}
+			\item $\abs {xy} > 0$ si $x \neq y$ et $\abs {xy} = 0$ si $x=y$~;
+			\item $\abs {xy} = \abs {yx}$~;
+			\item $\abs {xy} \leq \abs {xz} + \abs {zx}$.
+		\end{enumerate}
+		\end{déf}
+
+		\begin{thm}[Théorème de Pythagore] Soit $V$ un espace euclidien ou hermitien et soient $x, y, z \in V$. Si $(x-y) \bot (x-z)$, alors~:
+		\[\abs {yz}^2 = \abs {xy}^2 + \abs {xz}^2.\]
+		\end{thm}
+
+		\begin{proof} On sait que si $a, b \in V$ sont orthogonaux, alors~:
+		\[\abs {ab} = \norm {a-b} = (a-b)(a-b) = \norm a^2 - ab - ba + \norm b^2 = \norm a^2 + \norm b^2.\]
+		En posant $a = x-y$ et $b = x-z$, on obtient~:
+		\[\abs {yz} = \norm{z - y} = \norm{(x-y) - (x-z)} = \norm{x-y}^2 + \norm {x-z}^2 = \abs{xy}^2 + \abs {xz}^2.\]
+		\end{proof}
+
+		\begin{thm}[Loi des cosinus] Soit $V$ un espace euclidien et soient $x, y, z \in V$. Si $\theta$ est l'angle entre les vecteurs $(x-y)$ et $(x-z)$,
+		alors~:
+		\[\abs {yz}^2 = \abs {xy}^2 + \abs {xz}^2 - 2\abs{xy}\abs{xz}\cos\theta.\]
+		\end{thm}
+
+		\begin{proof} Si $a, b \in V$, on sait que~:
+		\[\norm {a-b}^2 = \norm a^2 - ab - ba + \norm b^2 = \norm a^2 + \norm b^2 - 2ab = \norm a^2 + \norm b^2 - 2\norm a\norm b\cos \theta.\]
+		En posant $a = x-y$ et $b = x-z$, on obtient bien la loi des cosinus.
+		\end{proof}
+
+	\subsection{Sous-espaces orthogonaux}
+
 \end{document}
