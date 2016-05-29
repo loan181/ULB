@@ -2764,5 +2764,75 @@ Pour tout 0 < i < l+1
 		\end{déf}
 
 		\subsubsection{Orthogonalité}
+		\begin{déf} Dans un espace euclidien ou hermitien, on dit que $x, y$ sont orthogonaux si $xy = 0$, ce que l'on note $x \bot y$.
+		\end{déf}
+
+		\begin{prp} Soient $x, y \in V$ où $V$ est un espace euclidien ou hermitien. La \emph{projection orthogonale de $x$ sur $y$} est donnée par~:
+		\[p = \frac {xy}{yy}y.\]
+		\end{prp}
+
+		\begin{proof} On veut en effet que $p = \lambda y$ et $x - p$ orthogonal à $y$. Dès lors, on sait~:
+		\[(x - \lambda y)y = 0.\]
+		En réarrangeant, on obtient~:
+		\[\lambda yy = xy,\]
+		et en isolant $\lambda$, on obtient effectivement~:
+		\[\lambda = \frac {xy}{yy}.\]
+		Dès lors, $p = \frac {xy}{yy}y$.
+		\end{proof}
+
+		\begin{déf} On appelle $\frac {xy}{yy}$ le \emph{coefficient de Fourier} de $x$ par rapport à $y$.
+		\end{déf}
+
+		\begin{prp}\label{prp:vectorthogonauxlibre} Dans un espace euclidien ou hermitien, tout ensemble de vecteurs non nuls et deux à deux orthogonaux est
+		une partie libre.
+		\end{prp}
+
+		\begin{proof} Soit la combinaison linéaire nulle $\sum_{i \in I}\lambda_ie_i = 0$. Soit $j \in I$. On trouve alors~:
+		\[0 = 0e_j = \sum_{i \in I}\lambda_ie_ie_j = \lambda_j(e_je_j).\]
+		Il faut donc $\lambda_j = 0$ pour tout $j \in I$, et donc $\{e_i \tq i \in I\}$ est libre.
+		\end{proof}
+
+		\begin{prp}[Othogonalisation de Gram-Schmidt] Soit $V$ un espace euclidien ou hermitien de dimension finie $n$. Si $\{e_1, \dotsc, e_i\}$ (avec
+		$i \lneqq n$) est une partie libre orthogonale de $V$, alors il existe $(n-i)$ vecteurs $e_{i+1}, \dotsc, e_n$ tels que $\{e_i \tq 1 \leq i \leq n\}$
+		est une base orthogonale de $V$.
+		\end{prp}
+
+		\begin{proof} On sait que toute partie libre de $V$ peut être complétée en une base. Doit donc $\{e_1, \dotsc, e_i, f_{i+1}, \dotsc, f_n\}$ une base
+		de $V$. On pose pour tout $1 \leq k \leq (n-i)$~:
+		\[e_{i+k} \coloneqq f_{i+k} - \sum_{j=1}^{i+k-1}\frac {f_{i+k}e_j}{e_je_j}e_j.\]
+		Soit $1 \leq k \leq n-i$ et soit $\ell < i+k$. On trouve~:
+		\[e_{i+k}e_\ell = f_{i+k}e_\ell - \sum_{j=1}^{i+k-1}\frac {f_{i+k}e_j}{e_je_j}e_je_\ell
+		= f_{i+k}e_\ell - \frac {f_{i+k}e_\ell}{e_\ell e_\ell}e_\ell e_\ell = 0.\]
+
+		Dès lors, $E \coloneqq \{e_i \tq 1 \leq i \leq n\}$ est une partie libre par la proposition~\ref{prp:vectorthogonauxlibre}. Et comme $\abs E = n$ on
+		sait que $E$ est une base de $V$.
+		\end{proof}
+
+		\subsubsection{Propriétés de la norme}
+		\begin{déf} Soit $V$ un espace euclidien ou hermitien et $x \in V$. On définit la norme de $x$ par~:
+		\[\norm x \coloneqq \sqrt {xx}.\]
+		\end{déf}
+
+		\begin{prp}[Propriétés de la norme] Soit $V$ un espace euclidien ou hermitien. Pour tout $x, y \in V$, on a~:
+		\begin{enumerate}
+			\item $\norm > 0$ si $x \neq 0$ et $\norm x = 0$ si $x = 0$~;
+			\item $\norm {\lambda x} = \abs \lambda\norm x$~;
+			\item $\abs {xy} \leq \norm x\norm y$ (inégalité de Cauchy-Schwartz)~;
+			\item $\norm {x+y} \leq \norm x + \norm y$ (inégalité triangulaire).
+		\end{enumerate}
+		\end{prp}
+
+		\subsubsection{base orthonormale}
+		\begin{déf} Une \emph{base orthonormale} d'un espace euclidien ou hermitien $V$ est une base orthogonale $E$ de $V$ telle que~:
+		\[\forall e \in E : \norm e = 1.\]
+		\end{déf}
+
+		\begin{prp} Un espace euclidien ou hermitien admet toujours une \emph{base orthonormale}.
+		\end{prp}
+
+		\begin{proof} Par Gram-Schmidt, on obtient $E = \{e_i \tq 1 \leq i \leq n\}$, une base orthogonale. On pose alors~:
+		\[E' \coloneqq \left\{\frac {e_i}{\norm e_i} \tq 1 \leq i \leq n\right\},\]
+		qui est une base orthonormale.
+		\end{proof}
 
 \end{document}
