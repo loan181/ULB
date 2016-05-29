@@ -55,6 +55,8 @@
 	\right|_{#2} %
 }
 \newcommand{\tq}{\textrm{ t.q. }}
+\newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
+\newcommand{\conj}[1]{\overline {#1}}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -2438,7 +2440,7 @@ Pour tout 0 < i < l+1
 
 		\begin{proof} Soit $A$, un endomorphisme sur un espace vectoriel $V$ de dimension $n$ sur un corps commutatif $\K$. Par Euclide, on sait qu'il existe
 		$q(x), r(x) \in \K[x]$ tels que $\pi_A(x) = q(x)\mu_A(x) + r(x)$. Or, on sait que~:
-		\[r(A) = \pi_A(A) q(A)\mu_A(A) = 0_{V^V} - q(A)0_{V^V} = 0_{V^V}.\]
+		\[r(A) = \pi_A(A) - q(A)\mu_A(A) = 0_{V^V} - q(A)0_{V^V} = 0_{V^V}.\]
 		On a donc le fait que le reste est nul, et donc $\mu_A(x) | \pi_A(x)$. \end{proof}
 
 		\begin{lem}\label{valPropreRacineMu} Les valeurs propres de $A \in \Hom(V, V)$ pour $V$ un espace vectoriel complexe de dimension $n$ sont les racines
@@ -2615,7 +2617,8 @@ Pour tout 0 < i < l+1
 		\[\restr f{V(\lambda_i)} \in \Hom(V(\lambda_i), V(\lambda_i)).\]
 		\end{prp}
 
-	\subsection{Existence de la forme canonique de Jordan}
+	\subsection{La forme canonique de Jordan}
+		\subsubsection{Existence de la forme canonique de Jordan}
 		\begin{lem} Soit $B \in \Hom(V, V)$ un opérateur sur un espace vectoriel $V$ complexe de dimension finie. S'il existe $h \in \N$ tel que
 		$B^h = 0 \in \Hom(V, V)$, alors il existe $v_1, \dotsc, v_k \in V$ et $m_1, \dotsc, m_k \in \N$ tels que~:
 		\[\bigcup_{\ell = 1}^k\bigcup_{\gamma = 1}^{m_\ell}\{B^\gamma(v_\ell)\}\]
@@ -2694,5 +2697,72 @@ Pour tout 0 < i < l+1
 		\end{enumerate}
 		Alors la matrice $b^{-1}ab$ est sous sa forme canonique de Jordan.
 		\end{rmq}
+
+		\subsubsection{Unicité de la forme canonique de Jordan}
+		\begin{thm}[Unicité de la forme de Jordan] Soit $V$ un espace vectoriel complexe de dimension finie $n$ et soit $A \in \Hom(V, V)$. Soit $E$ une base
+		de $V$ telle que $m_{E, E}(A) \in \M nn\C$ est sous sa forme de Jordan. S'il existe $F \neq E$ une base de $V$ telle que $m_{F, F}(A)$ est sous sa forme
+		de Jordan, alors les blocs de Jordan de $m_{F, F}(A)$ sont une permutation des blocs de Jordan de $m_{E, E}(A)$.
+		\end{thm}
+
+		\begin{proof} On nomme $\lambda_1, \dotsc, \lambda_k$ les valeurs propres distinctes de $A$. Soit $\mu_A(x)$ le polynôme minimal de $A$. On prend $i$ et
+		$v$ un vecteur propre de $\lambda_i$ (donc $v \in \Ker(A-\lambda_iI)$, ou encore $Av = \lambda_iv$). Soit $j \neq i$ et soit $h \in \N^*$. On remarque
+		que~:
+		\begin{align*}
+			(A-\lambda_jI)^h(v) &= \left(\sum_{k=0}^h\binom hkA^k(-\lambda_j)^{h-k}I\right)v = \sum_{k=0}^h\binom hkA^k(-\lambda_j)^{h-k}v \\
+			&= \sum_{k=0}^h\binom hk(-\lambda_j)^{h-k}A^kv = \sum_{k=0}^h\binom hk(-\lambda_j)^{h-k}(\lambda_i)^kv \\
+			&= \left(\sum_{k=0}^h\binom hk(\lambda_i)^k(-\lambda_j)^{h-k}\right)v = (\lambda_i-\lambda_j)^hv \neq 0.
+		\end{align*}
+
+		On remarque de plus que~:
+		\[\Ker(A-\lambda_i I)^h \subseteq \Ker(A - \lambda_i I)^{h+1},\]
+		qui est assez évident. De plus, pour tout $h \in \N$, on trouve~:
+		\[V(\lambda_i) = \Ker(A - \lambda_i I)^{m_i} = \Ker(A-\lambda_i I)^{m_i + h}.\]
+
+		Supposons qu'il existe $h \in \intint 1{m_i-1}$ tel que~:
+		\[\Ker(A-\lambda_iI)^{m_i} = \ker(A-\lambda_iI)^{m_i-h}.\]
+		On peut alors définir $\widetilde \mu(x)$ par~:
+		\[\widetilde \mu(x) = \frac {\mu_A(x)}{(x-\lambda_i)^h} = (x-\lambda_i)^{m_i-h}\prod_{j \neq i}(x-\lambda_j)^{m_j}.\]
+		Or $\deg(\widetilde \mu(x)) < \deg(\mu_A(x))$ par construction, ce qui est une contradiction avec la définition du polynôme minimal. $m_i$ est donc le
+		plus petit naturel tel que $\Ker(A-\lambda_i I)^{m_i} = V(\lambda_i)$.
+
+		On pose alors~:
+		\[\widetilde V(\lambda_i) \coloneqq \left\{v \in V \tq \exists h \in \N \tq v \in \Ker(A-\lambda_i I)^h\right\}.\]
+		On constate donc effectivement $V(\lambda_i) = \widetilde V(\lambda_i)$.
+
+		Par le lemme précédent, on observe que si $B = A-\lambda_iI$ et $j \geq 1$, alors~:
+		\[\dim_\C\Ker(B^j) - \dim_\C\Ker(B^{j-1}) = \beta,\]
+		où $\beta$ est le nombre de blocs de Jordan associés à $\lambda_i$ et de taille $\geq j$. La décomposition en blocs de Jordan est donc unique.
+		\end{proof}
+
+		\begin{cor} La dimension $\dim_\C V(\lambda_i)$ du sous-espace propre généralisé de $A \in \Hom(V, V)$ associé à$\lambda_i$ une valeur propre de $A$
+		est égale à la multiplicité algébrique de $\lambda_i$.
+		\end{cor}
+
+		\begin{proof} On a montré que $V(\lambda_i) = \Ker(A-\lambda_i I)^{m_i}$, et donc la dimension de cet espace est $m_i$, la multiplicité algébrique de
+		$\lambda_i$.
+		\end{proof}
+
+	\subsection{Espaces euclidiens et hermitiens}
+		\begin{déf} On définit le \emph{produit hermitien} par une application $V \subseteq \C^n \times V \to \C$ noté $\cdot$ tel que pour tout
+		$x, x', y, y' \in V, \lambda \in \C$~:
+		\begin{itemize}
+			\item[$(i)$]   $x(y+y') = xy + xy$ et $(x+x')y = xy + x'y$~;
+			\item[$(ii)$]  $(\lambda x)y = \lambda(xy)$ et $x(\lambda y) = \conj \lambda(xy)$~;
+			\item[$(iii)$] $xy = \conj {yx}$~;
+			\item[$(iv)$]  $xx \gneqq 0$ si $x \neq 0$ et $xx = 0$ si $x = 0$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf} Le produit hermitien usuel est~:
+		\[\forall x, y \in \C^n : xy = \sum_{i=1}^nx_i\conj {y_i}.\]
+		\end{déf}
+
+		\begin{déf} Un espace euclidien est un espace vectoriel $V$ sur $\R$ muni d'un produit scalaire.
+		\end{déf}
+
+		\begin{déf} Un espace hermitien est un espace vectoriel $V$ sur $\C$ muni d'un produit hermitien.
+		\end{déf}
+
+		\subsubsection{Orthogonalité}
 
 \end{document}
