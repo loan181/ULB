@@ -2889,5 +2889,121 @@ Pour tout 0 < i < l+1
 		\end{proof}
 
 	\subsection{Sous-espaces orthogonaux}
+		\begin{déf} Soit $V$ un espace euclidien ou hermitien. Soit $S \subseteq V$ un sous-ensemble non-vide de $V$. On définit le \emph{sous-espace orthogonal
+		à $S$} par~:
+		\[S^\bot \coloneqq \{x \in V \tq \forall s \in S : xs = 0\}.\]
+		\end{déf}
+
+		\begin{prp} Si $S$ est un sous-ensemble non-vide d'un espace euclidien ou hermitien $V$, alors $S^\bot$ est un sous-espace de $V$ tel que~:
+		\[S^\bot \cap S\in \left\{\emptyset, \{0\}\right\}.\]
+		\end{prp}
+
+		\begin{proof} Par linéarité du produit scalaire ou hermitien, on sait que $S^\bot$ est un sous-espace de $V$. De plus, si on suppose
+		$S^\bot \cap S \neq \emptyset$, alors il faut obligatoirement $S \cap S^\bot = \{0\}$ car si $x \in S^\bot \cap S$, alors $xx = 0$, et donc $x = 0$.
+		\end{proof}
+
+		\subsubsection{Droites, hyperplans et projections orthogonales dans $\R^n$}
+		\begin{déf} Soient $a, b \in \R^n$. On dit que l'ensemble $D \coloneqq \{ta + b \tq t \in \R\}$ où $a \neq 0 \in \R^n$ est une \emph{droite} dans $\R^n$.
+		$a$ est appelé le \emph{vecteur directeur} de $D$.
+		\end{déf}
+
+		\begin{déf} Soit $a \in \R^n$ et soit $S = \{a\}$. On dit que le sous-espace $S^\bot$ est un hyperplan de $\R^n$ passant par l'origine.
+		\end{déf}
+
+		\begin{déf} Soient $V$ un espace euclidien ou hermitien de dimension finie $n$ et $W$ un sous-espace de $V$ de dimension $m < n$. Soit
+		$E = \{e_i \tq 1 \leq i \leq m\}$ une base de $W$. On dit que la projection orthogonale de $v \in V$ dans $W$ est le vecteur $w \in W$ tel que~:
+		\[w \coloneqq \sum_{i=1}^m\frac {ve_i}{e_ie_i}e_i.\]
+		\end{déf}
+
+		\begin{thm}[Caractérisation de la projection orthogonale dans un sous-espace] Soit $V$ un espace euclidien ou hermitien de dimension finie $n$.
+		Soit $W$ un sous-espace de $V$ de dimension $m < n$. Soit $\{e_i \tq 1 \leq i \leq m\}$ une base de $W$. Soient $v \in V$ et $w \in W$ tels que~:
+		\[w = \sum_{i=1}^m\frac {ve_i}{e_ie_i}e_i.\]
+		Alors~:
+		\begin{enumerate}
+			\item $v - w \in W^\bot$~;
+			\item si $w' \in W$ tel que $v - w' \in W^\bot$, alors $w' = w$, en particulier, $w$ ne dépend pas de la base orthogonale choisie~;
+			\item pour tout $w' \in W$, on a $\norm {v-w} \leq \norm {v-w'}$, donc $w$ est une \emph{approximation optimale} de $v$ dans $W$~;
+			\item si $\omega \in W$ et si pour tout $<' \in W : \norm {v-\omega} \leq \norm {v-w'}$, alors $w = w'$, en particulier l'approximation optimale
+				est unique.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{thm} Si $V$ est un espace euclidien ou hermitien de dimension finie $n$ et $W$ est un sous-espace de $V$, alors~:
+		\[V = W \oplus W^\bot,\]
+		en particulier~:
+		\[\dim_\K W + \dim_\K W^\bot = \dim_\K V\]
+		où $\K = \R$ si $V$ est euclidien et $\K = \C$ si $V$ est hermitien.
+		\end{thm}
+
+		\begin{proof} Soit $v \in V$ et soit $w \in W$ la projection orthogonale de $v$ dans $W$. On sait $v-w \in W^\bot$, or $v = (v-w) + w$ où $w \in W$.
+		Donc $V = W + W^\bot$. On a également vu que $W\cap W^\bot = \{0\}$, ce qui implique $W \oplus W^\bot = V$.
+		\end{proof}
+
+	\subsection{Isométries}
+		\begin{déf} Une isométrie dans un espace euclidien ou hermitien $V$ est un opérateur $\alpha$ inversible tel que~:
+		\[\forall x, y \in V : \alpha(x)\alpha(y) = xy.\]
+		\end{déf}
+
+		\begin{rmq} Une isométrie conserve le produit scalaire (ou hermitien) et donc conserve les distance (d'où son nom \emph{iso-métrie}) et les angles.
+
+		De plus, on remarque qu'une isométrie $\alpha$ envoie une base orthonormale sur une base orthonormale étant donné que les angles et distances sont
+		conservés.
+		\end{rmq}
+
+		\begin{thm} Soit $V$ un espace euclidien ou hermitien et soient $E = \{e_i \tq 1 \leq i \leq n\}$ et $F = \{f_i \tq 1 \leq i \leq n\}$ deux base
+		orthonormales de $V$. Alors il existe une unique isométrie $\alpha$ telle que $\forall 1 \leq i \leq n : \alpha(e_i) = f_i$.
+		\end{thm}
+
+		\begin{proof} Il existe un unique opérateur $\alpha$ (isomorphisme) déterminé par $\alpha(e_i) = f_i$. Montrons maintenant qu'il est isométrique.
+
+		Soient $x, y \in V$ tels que~:
+		\[x = \sum_{i=1}^nx_ie_i,\qquad\textrm{ et }\qquad y = \sum_{i=1}^ny_ie_i.\]
+
+		On remarque que~:
+		\[xy = \left(\sum_{i=1}^nx_ie_i\right)\left(\sum_{j=1}^ny_je_j\right) = \sum-{i=1}^n\sum_{j=1}^nx_i\conj {y_j}(e_ie_j) = \sum_{i=1}^nx_i\conj {y_i}.\]
+		De plus~:
+		\[\alpha(x)\alpha(y) = \sum_{i=1}^n\sum_{j=1}^nx_i\conj{y_j}\alpha(e_i)\alpha(e_j) = \sum_{i=1}\sum_{j=1}^nx_i\conj{y_j}(f_if_j)
+		= \sum_{i=1}^nx_i\conj{y_i} = xy.\]
+
+		$\alpha$ est donc bien une isométrie.
+		\end{proof}
+
+		\begin{prp} Soit $V$ un espace euclidien ou hermitien de dimension finie $n$ et soit $E$ une base de $V$. Une matrice $[a_{ij}] \in \M nn\K$ est la
+		matrice d'une isométrie $\alpha$ dans la base $E$ si et seulement si~:
+		\[a^{-1} = \cong a^T.\]
+		\end{prp}
+
+		\begin{proof} Soit $\alpha$ une isométrie et soit $[a_{ij}] \eqqcolon m_{E, E}(\alpha)$. Or on sait que les vecteurs $\alpha(e_i)$ sont de norme 1 et
+		sont deux à deux orthogonaux. Donc pour tout $1 \leq i, j \leq n$~:
+		\[\delta_{ij} = \alpha(e_i)\alpha(e_j) = \left(\sum_{k=1}^na_{ki}e_k\right)\left(\sum_{k=1}^na_{kj}e_j\right) = \sum_{k=1}^na_{ki}\conj {a_{kj}}.\]
+		On en déduit alors~:
+		\[a^T\conj a = I = \conj a^Ta = a\conj a^T.\]
+		Et donc~:
+		\[a^{-1} = \conj a^T.\]
+
+		Réciproquement, si $[a_{ij}]$ est une telle matrice, alors cette matrice définit un opérateur linéaire $\alpha$ inversible qui envoie la base
+		orthonormale $E$ sur une base orthonormale. $\alpha$ est donc une isométrie.
+		\end{proof}
+
+		\begin{déf} Soit $a \in \M nn\R$. On dit que $a$ est \emph{orthogonale} si $a^{-1} = a^T$.
+
+		Soit $u \in \M nn\C$. On dit que $u$ est \emph{unitaire} si $u^{-1} = \conj u^T$.
+		\end{déf}
+
+		\begin{déf} On définit $O_n(\R)$ comme l'ensemble des matrices carrées $n \times n$ orthogonales.
+
+		On définit $U_n(\C)$ comme l'ensemble des matrices carrées $n \times n$ unitaires.
+		\end{déf}
+
+		\begin{rmq} Les ensembles $U_n$ et $O_n$ forment des groupes multiplicatifs. De plus, ces groupes sont isomorphes aux isométries de $\R^n$
+		(respectivement $\C^n$).
+		\end{rmq}
+
+		\begin{prp} $U_n(\C) \cap \M nn\R = O_n(\R)$.
+		\end{prp}
+
+		\begin{rmq} On remarque que dans $O_2$, les seules matrices (donc isométries) existantes sont les rotations qui fixent l'origine, les symétries par
+		rapport à une droite passant par l'origine, ainsi que leurs composées.
+		\end{rmq}
 
 \end{document}
