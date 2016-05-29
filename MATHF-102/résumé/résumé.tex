@@ -738,7 +738,7 @@ Pour tout 0 < i < l+1
 		$\widetilde x$. C'est donc un point, une droite, un plan, etc. comme pour $(S')$ mais ne devant pas contenir l'origine. \end{rmq}
 
 \newpage
-\section{espaces vectoriels}
+\section{Espaces vectoriels}
 	\subsection{Définitions}
 		\begin{déf} Soit $\mathbb K$ un corps. Un espace vectoriel $V$ sur $\mathbb K$\footnote{Il sera question ici presque exclusivement d'espaces vectoriels sur $\R$.}
 		est un sous-ensemble de vecteurs muni d'une addition interne et d'un produit externe définis par~:
@@ -2742,7 +2742,9 @@ Pour tout 0 < i < l+1
 		$\lambda_i$.
 		\end{proof}
 
-	\subsection{Espaces euclidiens et hermitiens}
+\newpage
+\section{Espaces euclidiens et hermitiens}
+	\subsection{Définitions}
 		\begin{déf} On définit le \emph{produit hermitien} par une application $V \subseteq \C^n \times V \to \C$ noté $\cdot$ tel que pour tout
 		$x, x', y, y' \in V, \lambda \in \C$~:
 		\begin{itemize}
@@ -3005,5 +3007,200 @@ Pour tout 0 < i < l+1
 		\begin{rmq} On remarque que dans $O_2$, les seules matrices (donc isométries) existantes sont les rotations qui fixent l'origine, les symétries par
 		rapport à une droite passant par l'origine, ainsi que leurs composées.
 		\end{rmq}
+
+		\subsection{Déterminants et valeurs propres}
+		\begin{prp} La norme du déterminant d'une matrice orthogonale ou unitaire vaut 1.
+		\end{prp}
+
+		\begin{proof} Soit $a \in U_n$. On calcule~:
+		\[1 = \det(I) = \det(a\conj a^T) = \det(a)\det(\conj a^T) = \det(a)\conj{\det(a)} = \abs {\det(a)}^2.\]
+		\end{proof}
+
+		\begin{prp} Si $\lambda$ est une valeur propre de $a$ une matrice orthogonale ou unitaire, alors $\abs \lambda = 1$.
+		\end{prp}
+
+		\begin{proof} Soit $V$ un espace euclidien ou hermitien. On appelle $\alpha$ l'isométrie associée à $a$. On prend $x$ un vecteur propre de $a$ associé
+		à la valeur propre $\lambda$. On calcule~:
+		\[xx = \alpha(x)\alpha(x) = (ax)(ax) = (\lambda x)(\lambda x) = \lambda\conj{\lambda}xx = \abs \lambda^2xx.\]
+		Il faut donc $\abs \lambda = 1$.
+		\end{proof}
+
+		\begin{rmq} Ce résultat est assez intuitif du fait qu'une isométrie conserve les distances. Il faut donc que les valeurs propres soient de norme 1.
+		\end{rmq}
+
+	\subsection{Le groupe orthogonal $O_3$}
+		Si $\alpha$ est une isométrie $\in O_3$, alors son polynôme caractéristique est de degré 3 et donc admet au moins une racine réelle. On
+		sait que cette racine $\lambda$ est une valeur propre et donc $\lambda = \pm 1$. Par Gram-Schmidt, on peut construire $E$ une base orthonormale de
+		$\R^3$ telle que~:
+		\[m_{E, E}(\alpha) =
+		\begin{bmatrix}
+			\pm 1 & f & g \\
+			  0   & a & b \\
+			  0   & c & d
+		\end{bmatrix}.\]
+		Or les colonnes de $m_{E, E}(\alpha)$ forment une base orthonormale. Don il est impératif d'avoir $f = g = 0$. De plus, il faut que la matrice
+		\[\begin{bmatrix}a & b \\ c & d\end{bmatrix}\]
+		soit une isométrie de $O_2$. L'ensemble des isométries de $O_3$ sont donc les rotations qui fixent l'origine, les symétries par rapport à un plan
+		qui passe par l'origine et leur composées.
+
+		\begin{rmq} La forme générale des matrices de $O_4$ est~:
+		\[\begin{bmatrix}
+			\cos \theta & -\sin \theta &       0      &        0 \\
+			\sin \theta &  \cos \theta &       0      &        0 \\
+			     0      &      0       & \cos \varphi & -\sin \varphi \\
+			     0      &      0       & \sin \varphi &  \cos \varphi
+		\end{bmatrix} \in O_4(\R), \theta, \varphi \in [0, 2\pi).\]
+		Elles représentent donc des rotations qui ne sont pas des rotations \emph{simples} mais des rotations doubles simultanées.
+		\end{rmq}
+
+\newpage
+\section{Matrices symétriques et hermitiennes}
+	\subsection{Définitions}
+		\begin{déf} La matrice $a \in \M nn\R$ est dite symétrique si~:
+		\[a = a^T.\]
+		\end{déf}
+
+		\begin{déf} La matrice $b \in \M nn\C$ est dite hermitienne si~:
+		\[a = \conj a^T.\]
+		\end{déf}
+
+		\begin{lem} Soient $x, y \in \C^n$. Soit $a \in \M nn\C$. Alors~:
+		\[(ax)y = x(\conj a^Ty).\]
+		\end{lem}
+
+		\begin{proof} On calcule~:
+		\[(ax)y = \sum_{i=1}^n\sum_{j=1}^n\left(a_{ij}x_j\right)\conj {y_i} = \sum_{j=1}^nx_j\sum_{i=1}^na_{ij}\conj {y_i}
+		= \sum_{j=1}^nx_j\conj {(\conj ay)}_j = x(\conj a^Ty).\]
+		\end{proof}
+
+		\begin{prp} Soit $a$ une matrice symétrique ou hermitienne. Alors toute valeur propre complexe de $a$ est réelle.
+		\end{prp}
+
+		\begin{proof} Soit $\lambda$ une valeur propre de $a$ et $x$ un vecteur propre de $a$ associé à $\lambda$. On calcule~:
+		\[(ax)x = x(\conj a^Tx) = x(ax) = \conj {(ax)x}.\]
+		Donc $(ax)x \in \R$. Mais également~:
+		\[\R \ni (ax)x = (\lambda x)x = \lambda xx,\]
+		où $xx \in \R_0$, et donc $\lambda \in\R$.
+		\end{proof}
+
+		\begin{prp} Deux vecteurs propres d'une matrice $a$ symétrique ou hermitienne associés à deux valeurs propres distinctes sont orthogonaux.
+		\end{prp}
+
+		\begin{proof} Soient $\lambda, \lambda'$ deux valeurs propres de $a$ et soient $x, x'$ deux vecteurs propres associées respectivement à $\lambda$ et
+		$\lambda'$. On calcule~:
+		\[\lambda (xx') = (\lambda x)x' = (ax)x' = x(\conj a^Tx') = x(ax') = x(\lambda' x) = \lambda'(xx').\]
+		Donc on peut exprimer~:
+		\[0 = \lambda (xx') - \lambda'(xx') = (\lambda-\lambda')(xx').\]
+		Or on sait $\lambda \neq \lambda'$ et donc il faut $xx' = 0$.
+		\end{proof}
+
+	\subsection{Diagonalisation de matrices hermitiennes et symétriques}
+		\begin{thm} Si $a$ est un matrice hermitienne (respectivement symétrique), alors il existe une base orthogonale de $\C^n$ (respectivement $R^n$) dans
+		laquelle l'opérateur associé à $a$ est diagonal.
+		\end{thm}
+
+		\begin{rmq} Il est équivalent de dire que pour toute matrice hermitienne (ou symétrique), il existe une matrice $b$ unitaire (orthogonale) telle que
+		la matrice $b^{-1}ab$ est diagonale.
+		\end{rmq}
+
+		\begin{proof} la démonstration se fait ici sur les matrices symétriques, le cas hermitien se démontre de la même manière. Procédons par récurrence sur
+		$n$, la dimension de $a$. Pour $n=1$, $a$ est diagonale.
+
+		Supposons le théorème vrai pour $n \in \N^*$ et montrons-le pour $n+1$. Soit $a \in \M {(n+1)}{(n+1)}\R$ symétrique avec $n \geq 1$. Il existe
+		$\lambda \in \R$ une valeur propre de $a$. Donc il existe $v \neq 0$ un vecteur propre de $a$ associé à $\lambda$ et il existe doc une base
+		orthonormale de $\R^n$ qui \emph{commence} par $\frac v{\norm v}$.
+
+		On pose $c \in \M {(n+1)}{(n+1)}\R$ la matrice dont les colonnes sont les vecteurs de cette base orthonormale. La matrice $c$ est une matrice
+		orthogonale. Dès lors, on sait que~:
+		\[c^{-1}ac =
+		\begin{bmatrix}
+			\lambda & *_1 & \ldots & *_2 \\
+			0 \\
+			\vdots & & a_{(1)}\\
+			0
+		\end{bmatrix}.\]
+
+		On trouve également que la matrice $c^{-1}ac$ est symétrique~:
+		\[\left(c^{-1}ac\right)^T = c^Ta^T(c^{-1})^T = c^{-1}ac.\]
+		On peut donc trouver la première ligne de $c^{-1}ac$ qui est la première colonne transposée. On peut donc écrire~:
+		\[c^{-1}ac =
+		\begin{bmatrix}
+			\lambda & 0 & \ldots & 0 \\
+			0 \\
+			\vdots & & a_{(1)}\\
+			0
+		\end{bmatrix}.\]
+
+		Dès lors, $a_{(1)}$ est également symétrique mais de dimension $n \times n$. Par hypothèse de récurrence, on sait qu'il existe $d_{(1)}$ orthogonale
+		telle que~:
+		\[(d_{(1)})^{-1}(a_{(1)})d_{(1)}\]
+		est diagonale.
+
+		En posant~:
+		\[d \coloneqq
+		\begin{bmatrix}
+			  1    & 0 & \ldots & 0 \\
+			  0    \\
+			\vdots &   &  d_{(1)} \\
+			  0
+		\end{bmatrix},\]
+		on peut dire que $d^{-1}\left(c{-1}ac\right)d$ est diagonale. En posant $b \coloneqq cd$, le théorème est prouvé.
+		\end{proof}
+
+	\subsection{Formes bilinéaires et quadratiques}
+		\begin{déf} Soit $V$ un espace euclidien. Une fonction $f : V \times V \to \R$ est une forme bilinéaire symétrique si $f$ est linéaire dans ses deux
+		composantes et si $\forall v, w : f(v, w) = f(w, v)$.
+		\end{déf}
+
+		\begin{déf} La forme quadratique associée à la forme bilinéaire $f : V \times V \to R$ est l'application $q : V \to \R$ définie par~:
+		\[\forall v \in V : q(v) \coloneqq f(v, v).\]
+		\end{déf}
+
+		\begin{rmq} On remarque que la forme quadratique est déterminée par l'application bilinéaire $f$, mais réciproquement, la forme quadratique est
+		également entièrement définie par la forme bilinéaire $f$. En effet, pour tout $v, w \in V$~:
+		\[q(v+w) = f(v+w, v+w) = f(v, v) + f(w, v) + f(v, w) + f(w, w) = q(v) + q(w) + 2f(v, w),\]
+		et donc~:
+		\[f(v, w) = \frac 12\left(q(v+w) - q(v) - q(w)\right)\]
+
+		Soit $V$ un espace euclidien et soit $E = \{e_1, \dotsc, e_n\}$ une base de $V$. Si $f : V \times V \to \R$ est une forme bilinéaire sur $V$, on sait~:
+		\[f(v, w) = \sum_{i=1}^n\sum_{j=1}^nv_iw_jf(e_i, e_j).\]
+		On pose $g_{ij} \coloneqq f(e_i, e_j)$.
+		\end{rmq}
+
+		\begin{déf} On appelle $g = [g_{ij}] \in \M nn\R$ la \emph{matrice associée à la forme bilinéaire $f$ dans la base $E$}.
+		\end{déf}
+
+		\begin{rmq} Étant donné que la forme quadratique $q$ est déterminée par la forme bilinéaire $f$, on peut également dire que $g$ est la matrice de la
+		forme quadratique $q$. En effet~:
+		\[q(v) = f(v, v) = \sum_{i=1}^n\sum_{j=1}^nv_iv_jg_{ij} = \sum_{i=1}^nv_i^2g_{ii} + \sum_{1 \leq i < j \leq n}(g_{ij} + g_{ji})v_iv_j
+		= \sum_{i=1}^ng_{ii}x_i^2 + \sum_{1 \leq i < j \leq n}2g_{ij}v_iv_j.\]
+
+		On peut donc remplir la matrice $g$ en connaissant $q$~: il faut mettre les coefficients des termes en $x_i^2$ sur la diagonale, et ensuite mettre dans
+		les autres $g_{ij}$ en divisant le coefficient de $x_ix_j$ par deux.
+		\end{rmq}
+
+		\subsubsection{Changement de base pour les formes quadratiques}
+		\begin{prp} la forme matricielle d'une forme bilinéaire symétrique $f : V \times V \to \R$ est~:
+		\[f(v, w) = v^Tgw.\]
+		\end{prp}
+
+		\begin{prp} Soient $E = \{e_1, \dots,c e_n\}$ et $F = \{f-1, \dotsc, f_n\}$ deux bases distinctes de $V$, un espace euclidien de dimension $n$. Soit
+		$f : V \times V \to \R$ une forme bilinéaire symétrique sur $V$. Si $ = [g_{ij}]$ est la matrice de $f$ dans la base $E$, on pose $b \in \M nn\R$ la
+		matrice de changement de base de $F$ vers $E$. Donc~:
+		\[f_j = \sum_{i=1}^nb_{ij}e_i.\]
+		Alors $g' \coloneqq b^Tgb$ est la matrice de $f$ dans la base $F$.
+		\end{prp}
+
+		\begin{proof}
+		On prend $v, w \in V$ que l'on peut exprimer dans les bases $E$ et $F$ par~:
+		\begin{align*}
+			v &= \sum_{i=1}^nv_ie_i = \sum_{i=1}^nv_i'f_i, \\
+			w &= \sum_{i=1}^nw_ie_i = \sum_{i=1}^nw_i'f_i.
+		\end{align*}
+
+		Puisque $bv' = v$ et $bw' = w$, on peut écrire~:
+		\[f(v, w) = v^Tgw = (bv')^Tg(bw') = v'^T(b^Tgb)w'.\]
+		on a bien $g' = b^Tgb$ la matrice de $f$ dans la base $F$.
+		\end{proof}
 
 \end{document}
