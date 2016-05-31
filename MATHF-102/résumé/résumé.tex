@@ -3095,8 +3095,8 @@ Pour tout 0 < i < l+1
 		\end{proof}
 
 	\subsection{Diagonalisation de matrices hermitiennes et symétriques}
-		\begin{thm} Si $a$ est un matrice hermitienne (respectivement symétrique), alors il existe une base orthogonale de $\C^n$ (respectivement $R^n$) dans
-		laquelle l'opérateur associé à $a$ est diagonal.
+		\begin{thm}\label{thm:diagonalisationmatricesymétrique} Si $a$ est un matrice hermitienne (respectivement symétrique), alors il existe une base
+		orthogonale de $\C^n$ (respectivement $R^n$) dans laquelle l'opérateur associé à $a$ est diagonal.
 		\end{thm}
 
 		\begin{rmq} Il est équivalent de dire que pour toute matrice hermitienne (ou symétrique), il existe une matrice $b$ unitaire (orthogonale) telle que
@@ -3202,5 +3202,141 @@ Pour tout 0 < i < l+1
 		\[f(v, w) = v^Tgw = (bv')^Tg(bw') = v'^T(b^Tgb)w'.\]
 		on a bien $g' = b^Tgb$ la matrice de $f$ dans la base $F$.
 		\end{proof}
+
+		\begin{déf} Soit $q$ une forme bilinéaire sur un espace euclidien $V$. On dit que~:
+		\begin{itemize}
+			\item $q$ est \emph{définie positive} si pour tout $v \in V_0 : q(v) > 0$ et $q(0_V) = 0_V$~;
+			\item $q$ est \emph{définie négative} si pour tout $v \in V_0 : q(v) < 0$ et $q(0_V) = 0_V$~;
+			\item $q$ est \emph{semi-définie positive} si pour tout $v \in V : q(v) \geq 0$~;
+			\item $q$ est \emph{semi-définie négative} si pour tout $v \in V : q(v) \leq 0$~;
+			\item $q$ est \emph{indéfinie} sinon.
+		\end{itemize}
+		\end{déf}
+
+		\begin{prp} Une forme quadratique $q$ sur un espace euclidien $V$ est définie positive (respectivement négative) si et seulement si toute valeur propre de la
+		matrice $g$ de $q$ dans une base $E$ de $V$ est positive (respectivement négative).
+		\end{prp}
+
+		\begin{proof} Par le théorème~\ref{thm:diagonalisationmatricesymétrique}, on sait qu'il existe $a \in \M nn\R$ une matrice orthogonale telle que~:
+		\[a^{-1}ga = \begin{bmatrix}\lambda_1 &  & 0 \\ & \ddots & \\0 &  & \lambda_n\end{bmatrix} \eqqcolon d\]
+		est diagonale et $\lambda_i$ est une valeur propre de $g$. Par orthogonalité de $a$, on sait que $(aa^{-1}) = (aa^T) = I$. Dès lors~:
+		\[q(v) = v^Tgv = v^TIgIv = (v^Ta)a^{-1}ga(a^{-1}v) = (a^{-1}v)^T(a^{-1}ga)(a^{-1}v) = (a^Tv)^Td(a^Tv).\]
+		En posant $w = a^Tv$, on peut exprimer~:
+		\[q(v) = w^Tdw = \sum_{i=1}^n\lambda_iw_i^2.\]
+		On remarque que si $\forall 1 \leq i \leq n : \lambda_i < 0$, alors $q(v) < 0$ (et si $\lambda_i > 0$, alors $q(v) > 0$). Inversement, en prenant le vecteur
+		$e_i$ on remarque que si $q(e_i) > 0$, alors $\lambda_i > 0$ (et si $q(e_i) < 0$, alors $\lambda_i < 0$). Donc si $q(v)$ est définie positive (ou négative),
+		il faut $\lambda_i > 0$ (ou $\lambda_i < 0$) pour tout $i$.
+		\end{proof}
+
+		\begin{prp} Soit une forme quadratique $q : V \times V \to \R$ et $g \in \M nn\R$ sa matrice dans une base $E$ de $V$. Alors~:
+		\begin{enumerate}
+			\item $q$ est définie positive si et seulement si les coefficients du polynôme caractéristique de $g$ alternent en signe~;
+			\item $q$ est définie négative si et seulement si les coefficients du polynôme caractéristique de $g$ ont tous le même signe.
+		\end{enumerate}
+		\end{prp}
+
+		\subsubsection{Signature et théorème de Sylvester}
+		\begin{déf} Soit $a \in \M nn\R$ une matrice symétrique. On définit la \emph{signature} de $a$ par le triplet $(n_+, n_-, n_0)$ où~:
+		\begin{itemize}
+			\item $n_0$ est le nombre de valeurs propres nulles de $a$~;
+			\item $n_+$ est le nombre de valeurs propres strictement positives de $a$~;
+			\item $n_-$ est le nombre de valeurs propres strictement négatives de $a$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} Les valeurs propres sont comptées avec leur multiplicité dans la signature de la forme quadratique (ou de la matrice $g$).
+		\end{rmq}
+
+		\begin{thm}[Loi d'intertie de Sylvester] Soit $g \in \M nn\R$ et soient $a, b \in \M nn\R$ inversibles. Alors la signature de $(a^Tga)$ et la signature de
+		$(b^Tgb)$ sont équivalentes.
+		\end{thm}
+
+		\begin{rmq} Cela veut dire que la signature d'une forme quadratique est un invariant.
+		\end{rmq}
+
+		\begin{proof} On remarque que $(a^Tga)$ est une matrice symétrique et $(b^Tgb)$ également. Soient $(m_+, m_-, m_0)$ et $(n_+, n_-, n_0)$ la signature de
+		$(a^Tga)$ et $(b^Tgb)$. Soit $r \coloneqq \rang(g)$. Puisque les matrices $a$ et $b$ sont inversibles, on remarque que $\rang(a^Tga) = r = \rang(b^Tgb)$.
+		Or $r = \dim(\Imf(a^Tga)) = m_+ + m_-$. Similairement, $r = n_+ + n_-$. On en déduit donc $m_0 = n_0$.
+
+		On sait également qu'il existe $\widetilde a, \widetilde b \in \M nn\R$ telles que~:
+		\[\begin{cases}
+			\widetilde a^Ta^Tga\widetilde a =
+				\begin{bmatrix}
+					\lambda_1 &        &           &   &        & 0 \\
+					          & \ddots &           &   &        & \\
+					          &        & \lambda_r &   &        & \\
+					          &        &           & 0 &        & \\
+					          &        &           &   & \ddots & \\
+					0         &        &           &   &        & 0
+				\end{bmatrix}, \\
+			\widetilde b^Tb^Tgb\widetilde b =
+				\begin{bmatrix}
+					\mu_1 &        &       &   &        & 0 \\
+					      & \ddots &       &   &        & \\
+					      &        & \mu_r &   &        & \\
+					      &        &       & 0 &        & \\
+					      &        &       &   & \ddots & \\
+					0     &        &       &   &        & 0
+				\end{bmatrix},
+		\end{cases}\]
+		où $\forall 1 \leq i \leq m_+ : \lambda_i > 0$, $\forall m_++1 \leq i \leq r : \lambda_i < 0$ et $\forall 1 \leq i \leq n_+ : \mu_i > 0$,
+		$\forall n_++1 \leq i \leq r : \mu_i < 0$.
+
+		Soient $E = \{e_i \tq 1 \leq i \leq n\}, F = \{f_i \tq 1 \leq i \leq n\}$ deux bases de $V$ telles que $m_{E, E}(q) = g$ et $m_{F, F}(q) = F$.
+		On remarque que $\Delta = \{e_1, \dotsc, e_{m_+}, f_{n_++1}, \dotsc, f_n\}$. Dès lors~:
+		\[m_+ + (n-n_+) \leq n \qquad\iff\qquad m_+ \leq n_+.\]
+		Similairement, on trouve $n_+ \leq m_+$, ce qui implique $m_+ = n_+$. On en conclut $m_- = n_-$.
+
+		Pour montrer que $\delta$ est libre, on procède à une combinaison linéaire~:
+		\[0 = \alpha_1e_1 + \dotsb + \alpha_{m_+}e_{m_+} + \beta_{n_++1}f_{n_++1} + \dotsb + \beta_nf_n = 0.\]
+		On pose~:
+		\[v = \alpha_1e_1 + \dotsb + \alpha_{m_+}e_{m_+} = -\left(\beta_{n_++1}f_{n_++1} + \dotsb + \beta_nf_n\right).\]
+		On évalue~:
+		\[q(v) = \sum_{i=1}^{m_+}\lambda_i\alpha_i^2 \geq 0,\]
+		car les $\lambda_i$ sont $> 0$ par définition de $m_+$. On évalue également~:
+		\[q(v) = \sum_{i=n_++1}^n \beta_i^2\mu_i = \sum_{i=1}^r\beta_i^2\mu_i \leq 0,\]
+		car les $\mu_i$ sont $< 0$ par définition de $n_+$. Il reste alors uniquement les $f_{r+1}, \dotsc, f_n$ qui sont tous dans $F$, qui est une famille
+		libre. Dès lors, il faut $0 = f_{r+1} = f_{r+2} = \dotsb = f_n$. On a donc bien $0 = \alpha_i = \beta_j$.
+		\end{proof}
+
+		\begin{rmq} La \emph{signature} d'une forme quadratique est invariante, mais ses valeurs propres peuvent changer lors d'une transformation
+		$g \mapsto a^Tga$.
+		\end{rmq}
+
+\newpage
+\section{Approche naïve des affinités}
+	\subsection{Introduction}
+		\begin{déf} On pose $\mathcal A(\R^n)$ l'espace $\R^n$ en tant qu'espace affine (espace linéaire en considérant les translations).
+		\end{déf}
+
+		\begin{déf} On appelle \emph{affinités} les transformations de la forme~:
+		\[L : \mathcal A(\R^n) \to \mathcal A(\R^n) : x \mapsto ax + b,\]
+		où $a \in \M nn\R$ et $b \in \R^n$.
+		\end{déf}
+
+		\begin{prp} La composée de deux affinités est une affinité.
+		\end{prp}
+
+		\begin{proof} Soient $L_1, L_2$ deux affinités de $\mathcal A(\R^n)$ dans $\mathcal A(\R^n)$. Alors~:
+		\[(L_1 \circ L_2)(x) = L_1(a_2x + b_2) = a_1(a_2x + b_2) + b_1 = (a_1a_2)x + \left(a_1b_2 + b_1\right).\]
+		\end{proof}
+
+		\begin{déf} Une isométrie affine est une isométrie translatée par $b \in \R^n$. C'est donc une affinité $L : x \mapsto ax + b$ où $a$ est orthogonale.
+		\end{déf}
+
+	\subsection{Lieu des solutions d'une équation polynômiale}
+		\begin{déf} Soient $f : \mathcal A(\R^n) \to \R$ une fonction et $S \coloneqq \{v \in S \tq f(v) = 0\}$. On dit que $S$ est le \emph{lieu des solutions
+		de l'équation $f(x) = 0$}.
+		\end{déf}
+
+		\begin{rmq} Si $L$ est un affinité, $L(S)$ est $S$ transformé puis translaté. Donc $v \in L(S) \iff L^{-1}(v) \in S$. $L(S)$ est donc le lieu des solutions
+		de l'équation $f(L^{-1}(x)) = 0$.
+		\end{rmq}
+
+		\begin{prp} Une affinité envoie un sous-espace affine sur un sous-espace affine.
+		\end{prp}
+
+\newpage
+\section{Coniques et quadriques}
 
 \end{document}
