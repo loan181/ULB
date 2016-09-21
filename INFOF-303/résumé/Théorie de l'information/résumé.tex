@@ -1,0 +1,167 @@
+\documentclass{article}
+
+\usepackage{commath}
+\usepackage[french]{babel}
+\usepackage{palatino, eulervm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage[parfill]{parskip}
+\usepackage[bottom]{footmisc}
+
+\title{INFOF-303 : Réseaux, information et communication}
+\author{R. Petit}
+\date{année académique 2016 - 2017}
+
+\DeclareMathOperator{\tq}{\text{ t.q. }}
+
+\newcommand{\N}{\mathbb N}
+
+% amsthm
+\newtheorem{thm}{Théorème}[section]
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\section{Introduction et inégalités de Kraft/Mc Millan}
+	\subsection{Définitions}
+		\begin{déf} Soit $\Sigma$ un ensemble de cardinalité finie. Si on appelle les éléments $\sigma \in \Sigma$ des \textit{symboles},
+		on dit que $\Sigma$ est un \textit{alphabet}. \end{déf}
+
+		\begin{déf} Soit $\Sigma$ un alphabet. On pose $\ell \in \N$, un naturel. Toute séquence de $\ell$ symboles de $\Sigma$ concaténés est appelée
+		\textit{mot} de l'alphabet $\Sigma$. Si $m$ est un mot, on peut écrire $m \in \Sigma^\ell$. \end{déf}
+
+		\begin{déf} Soit $\Sigma$ un alphabet. On définit l'ensemble~:
+		\[\Sigma^{*} \coloneqq \bigcup_{\ell \in \N}\Sigma^\ell.\]
+		\end{déf}
+
+		\begin{rmq} L'ensemble $\Sigma^{*}$ contient donc tous les mots de cardinalité naturelle qui peuvent être faits à l'aide de l'alphabet $\Sigma$.
+		On peut également noter que l'ensemble $\Sigma^*$ est toujours de cardinalité infinie alors que, par définition, l'alphabet $\Sigma$ est de
+		cardinalité finie. \end{rmq}
+
+		\begin{déf} Soit $\Sigma$ un alphabet et $m \in \Sigma^*$ un mot sur $\Sigma$. On définit la fonction~:
+		\[\ell_\Sigma : \Sigma^* \to \N : m \mapsto n \in \N \tq m \in C^n.\]
+		On appelle cette fonction la fonction \textit{longueur} des mots sur $\Sigma$. \end{déf}
+
+		\begin{rmq} Lorsque l'alphabet du mot n'est pas ambigu, on note simplement cette fonction $\ell$. \end{rmq}
+
+		\begin{déf} Soient deux alphabets $S$ et $C$. Soit $K : S \to C^* : s \mapsto (c_i)_{i \leq n}$. On dit que la fonction $K$ est une fonction de codage
+		si $K$ est injective. Dans ce contexte, le terme \textit{univoque} est préféré à \textit{injectif}. \end{déf}
+
+		\begin{rmq}~
+		\begin{itemize}
+			\item Par une fonction de codage, chaque symbole de l'alphabet de départ $S$ est codé par une \textit{suite} de symboles de l'alphabet d'arrivée $C$~;
+			\item l'ensemble $K(S) \neq C^*$ car $K$ est injective et donc $\abs {K(S)}  = \abs S$. Or $\abs S \in \N$ et $\abs {C^*} = +\infty$. La fonction
+			      $K$ ne peut donc pas être bijective~;
+			\item il est usuel de noter les cardinaux des ensembles $S$ et $C$ respectivement par $q$ et $r$.
+		\end{itemize}
+		\end{rmq}
+
+		\begin{déf} On étend la fonction de codage $K : S \to C^*$ codant un unique symbole de $S$ en la fonction~:
+		\[K : S^k \to C^* : (s_i)_{1 \leq i \leq k} \mapsto \left(K(s_i)\right)_{1 \leq i \leq k} =
+			\left(\left(c_{ij}\right)_{1 \leq j \leq n}\right)_{1 \leq i \leq k} = \left(c_{ij}\right)_{\underset{1 \leq i \leq k}{1 \leq j \leq n}}.\]
+		\end{déf}
+
+		\begin{rmq} En théorie de l'information, la fonction $K$ de codage est totalement déterministe afin de permettre le décodage. \end{rmq}
+	
+	\subsection{Familles de codes}
+		\subsubsection{Codes blocs}
+			\begin{déf} Soient $S$ et $C$ deux alphabets et $K : S \to C^*$ une fonction de codage. S'il existe $n \in \N$ tel que $K(S) \subseteq C^n$, on
+			dit que $K$ est une fonction de \textit{code bloc}. \end{déf}
+
+			\begin{rmq} Une fonction de code bloc code donc tous les symboles de $S$ par une suite d'un nombre fixé de symboles de $C$. \end{rmq}
+
+			\begin{rmq} La majorité des codes correcteurs d'erreurs (CCE) sont des codes blocs. En effet, si un canal de transmission est bruyant, il faut
+			connaitre au préalable la longueur des blocs à lire afin de les décoder et de les corriger. \end{rmq}
+
+		\subsubsection{Codes préfixes}
+			\begin{déf} Soient $S = \{s_1, s_2, \ldots, s_n\}$ et $C$ deux alphabets et $K : S \to C^*$ une fonction de codage. On dit que $K$ est une
+			fonction de \textit{code préfixe} si~:
+			\[\forall 1 \leq i \leq n : \not \exists 1 \leq j \leq n \tq \left(i \neq j\right) \land
+				\left(\forall 1 \leq k \leq \min\{\abs {K(s_i)}, \abs{K(s_j)} : K(s_i)_k = K(s_j)_k\}\right).\]
+			\end{déf}
+
+			\begin{rmq}~
+			\begin{itemize}
+				\item Autrement dit, une fonction de code est dite \textit{préfixe} lorsqu'aucun mot du code n'est préfixe d'un autre mot du code~;
+				\item les codes préfixes présentent l'avantage d'être déchiffrables à la volée à l'aide d'un automate fini
+				      (ou d'un arbre de décision $n$-aire où $n = \abs C$\footnote{Les codes blocs peuvent également être représentés par un arbre de
+				      décision $n$-aire. On peut alors dire qu'un code est un code bloc si et seulement si l'arbre de décision associé est complet.})~;
+				\item les codes blocs sont un cas particulier de code préfixe~: en effet, aucun mot du code n'est préfixe d'un autre étant donné qu'ils
+				      ont tous la même longueur et que la fonction de code est injective.
+			\end{itemize}
+			\end{rmq}
+
+	\subsection{Théorèmes de Kraft et Mc Millan}
+		\begin{thm}[Inégalité de Kraft] Soient $S = \{s_1, \ldots, s_q\}$ et $C = \{c_1, \ldots, c_r\}$. On pose $\ell_i \coloneqq \ell(K(s_i))$.
+		Alors, il existe un code préfixe $K : S \to C^*$ si et seulement si~:
+		\[\sum_{i=1}^qr^{-\ell_i} \leq 1.\]
+		\end{thm}
+
+		\begin{proof} Réorganisons les $s_i$ de manière à ce que $\forall 1 \leq i \lneqq q : \ell_i \leq l_{i+1}$.
+
+		Montrons d'abord que s'il existe un code préfixe, alors l'inégalité est vérifiée.
+
+		Soit $\mathcal A$, l'arbre $r$-aire complet de hauteur $l_q$. Pour $1 \leq i \leq q$, on pose $a_i \coloneqq K(s_i)$. Notons $\mathcal A_i$ le
+		sous-arbre $r$-aire ayant $a_i$ pour racine. Par définition de code préfixe, la famille $\{\mathcal A_i\}_{1 \leq i \leq q}$ est distincte deux à deux.
+
+		On observe aisément que $\mathcal A_i$ est un arbre $r$-aire de hauteur $\ell_q - \ell_i$. On a donc~:
+		\[\abs {\mathcal A_i} = r^{\ell_q-\ell_i}.\]
+
+		On peut donc écrire~:
+		\[r^{\ell_q} = \abs {\mathcal A} \geq \abs {\bigcup_{k=0}^q\mathcal A_k} = \sum_{k=0}^q \abs {\mathcal A_k} = \sum_{k=0}^qr^{\ell_q-\ell_k}.\]
+		En divisant de part et d'autre par $r^{\ell_q}$, on obtient~:
+		\[1 \geq \sum_{k=0}^qr^{-\ell_k}.\]
+
+		Supposons maintenant que l'inégalité est vérifiée et montrons qu'il existe un code préfixe.
+
+		Si $(\ell_i)_{1 \leq i \leq q}$ est un vecteur de naturels satisfaisant l'inégalité de Kraft et tels que~:
+		\[\forall 1 \leq i \lneqq q : \ell_i < \ell_{i+1},\]
+		alors on construit $\mathcal A$ un arbre $r$-aire de hauteur $\ell_q$. Pour tout $i \leq q$, on élague l'arbre $\mathcal A_i$ en supprimant un nœud
+		de hauteur $\ell_i$. Cela supprime à l'itération $i$, $r^{\ell_q-\ell_i}$ nœuds de l'arbre. Donc à la $q$ème itération, sont supprimés au total~:
+		\[\sum_{k=0}^qr^{\ell_q-\ell_k} = r^{\ell_q}\sum_{k=0}^qr^{-\ell_k} \leq r^{\ell_q}\]
+		nœuds de l'arbre. Il est donc possible de placer les $q$ mots afin de former un code préfixe dans l'arbre car si ce n'était pas possible, l'arbre
+		devrait contenir strictement moins de nœuds que $r^{\ell_q}$, ce qui n'est pas le cas.
+		\end{proof}
+
+		\begin{thm}[Théorème de Mc Millan] Tout code univoque satisfait l'inégalité de Kraft. \end{thm}
+
+		\begin{proof} Soient $i_1, \ldots, i_n \in \N$, $C$ et $S$ deux alphabets. Soit $K : S \to C^*$ une fonction de code. On pose~:
+		\[j \coloneqq \abs {K(s_{i_1}s_{i_2}\ldots s_{i_n})}.\footnote{Ici, $j$ est une fonction de $n$ paramètres $i_1$ jusque $i_n$,
+			mais on peut considérer la valeur constante car les valeurs $i_k$ sont fixées.}\]
+		Si $x_j$ est le nombre de mots de longueur $j$, on sait que $x_j \leq r^j$. Par définition de $j$, on peut écrire~:
+		\[j = \sum_{k=1}^n\ell_{i_k}.\]
+
+		On pose~:
+		\[\alpha \coloneqq \sum_{k=1}^qr^{-\ell_k}.\footnote{Idem.}\]
+		Dès lors, on a~:
+		\[\alpha^n = \left(\sum_{k=1}^qr^{-\ell_k}\right) = \sum_{\gamma_1, \ldots, \gamma_n = 1}^nr^{-\sum_{k=1}^n\ell_{\gamma_k}}.\]
+
+		On pose~:
+		\[\mu \coloneqq \max_{\gamma_1, \ldots, \gamma_n}\left\{\sum_{i=1}^n\ell_{\gamma_i}\right\}.\]
+		On peut alors exprimer
+		\[\alpha^n \leq \sum_{j=1}^\mu x_jr^{-j} \leq \sum_{j=1}^\mu r^{-1}r^j = \sum_{j=1}^\mu 1 = \mu.\]
+
+		Or, $\mu = \max_i\{\ell_i\}$. Notons $L \coloneqq \max_i \{\ell_i\}$. On a alors~:
+		\[\alpha^n \leq nL.\]
+
+		En divisant par $n$ de part et d'autre, on obtient~:
+		\[\frac {\alpha}n \leq L,\]
+		où $L$ est une constante naturelle. La suite $\left(\frac {\alpha^n}n\right)_n$ est donc bornée par $L$. On peut alors déduire que la limite de cette suite
+		existe également.\footnote{Il faut pour cela que la suite $\left(\abs {\frac {\alpha^n}n}\right)_n$ soit bornée, mais la suite
+		$\left(\frac {\alpha^n}n\right)_n$ est définie positive, donc la suite valeur absolue est la même, et est donc bornée.}
+
+		Dès lors, $\abs \alpha = \alpha \leq 1$.
+		\end{proof}
+\end{document}
