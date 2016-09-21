@@ -1,0 +1,351 @@
+\documentclass{report}
+
+\usepackage[french]{babel}
+\usepackage{commath}
+\usepackage{palatino, eulervm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage[bottom]{footmisc}
+\usepackage[parfill]{parskip}
+
+\title{Calcul différentiel et intégral II}
+\author{R. Petit}
+\date{année académique 2016 - 2017}
+
+% amsthm
+\newtheorem{thm}{Théorème}[chapter]
+\newtheorem{prp}[thm]{Proposition}
+\renewcommand{\proofname}{\it{Démonstration}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}[chapter]
+
+\DeclareMathOperator{\K}{\mathbb K}
+\DeclareMathOperator{\C}{\mathbb C}
+\DeclareMathOperator{\R}{\mathbb R}
+\DeclareMathOperator{\Rp}{\R^{+}}
+\DeclareMathOperator{\Rm}{\R^{-}}
+\DeclareMathOperator{\N}{\mathbb N}
+\DeclareMathOperator{\Ns}{\N^{*}}
+\DeclareMathOperator{\tq}{\text{t.q.}}
+
+% sequence; parameters: sequence letter, sequence index, index set
+\newcommand{\seq}[3]{\left(#1_{#2}\right)_{#2 \in #3}} 
+% sequence of instanciated function; parameters: sequence function letter, sequence index, function variable name, index set
+\newcommand{\seqf}[4]{\left(#1_{#2}\left(#3\right)\right)_{#2 \in #4}}
+% metric set convergence; parameters: variable name, variable limit, distance function
+\newcommand{\mconv}[3]{\xrightarrow[#1 \to #2]{#3}}  
+% Convergence
+\newcommand{\CONV}[4]{\xrightarrow[#2 \to #3]{#4 \text{ sur } #1}}
+% Simple convergence
+\newcommand{\CVS}[3]{\CONV{#1}{#2}{#3}{CVS}}
+% uniform convergence
+\newcommand{\CVU}[3]{\CONV{#1}{#2}{#3}{CVU}}
+
+\newcommand{\pinfty}{+\infty}
+\newcommand{\grantedproof}{\begin{proof} \underline{Admis.} \end{proof}}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter{Suites et séries de fonctions}
+	\section{Rappels}
+		\subsection{Topologie métrique}
+			\subsubsection{Espaces métriques}
+				\begin{déf} Soit $X$ un ensemble. Une \textit{distance} sur $X$ est une application $d : X \times X \to \Rp$ telle que~:
+
+				\begin{enumerate}
+					\item $\forall x, y \in X : d(x, y) = d(y, x)$ (symétrie)~;
+					\item $\forall x, y, z \in X : d(x, z) \leq d(x, y) + d(y, z)$ (inégalité triangulaire)~;
+					\item $\forall x, y \in X : \left(d(x, y) = 0 \iff x = y\right)$ (séparation\footnote{Également appelé
+					      \textit{principe d'identité des indiscernables.}}).
+				\end{enumerate}
+				\end{déf}
+
+				\begin{déf}  On appelle \textit{espace métrique} $(X, d)$ un espace $X$ muni d'une distance $d$ sur $X$. \end{déf}
+
+				\begin{déf} Soient $(X, d)$ un espace métrique, $\seq xn\N$ et $x \in X$ La suite $(x_n)$ converge vers $x$ dans $(X, d)$ lorsque~:
+				\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq \N : d(x_n, x) < \varepsilon.\]
+
+				Cela se note~:
+				\[x_n \mconv n\pinfty d x.\]
+				\end{déf}
+
+				\begin{prp} Soit $\seq xn\N$ une suite dans $(X, d)$, un espace métrique. Soient $x, y \in X$. Si~:
+				\[x_n \mconv n\pinfty d x \qquad\qquad \text{et} \qquad\qquad x_n \mconv n\pinfty d y,\]
+				alors $x = y$. \end{prp}
+
+				\begin{proof} Soit $\varepsilon > 0$. Puisque $x_n \to x$ et $x_n \o y$, on sait qu'il existe $N_1, N_2 \in \N$ tels que~:
+				\[\forall n \geq N_1 : d(x_n, x) < \frac \varepsilon2 \qquad\qquad \text{et} \qquad\qquad \forall n \geq N_2 : d(x_n, y) < \frac \varepsilon2.\]
+
+				Dès lors, soit $N \coloneqq \max\{N_1, N_2\}$. On peut dire~:
+				\[\forall n \geq N : d(x, y) \leq d(x, x_n) + d(x_n, y) < \frac \varepsilon2 + \frac \varepsilon2 = \varepsilon.\]
+
+				On en déduit $d(x, y) = 0$ et donc $x = y$ par séparation. \end{proof}
+
+			\subsubsection{Espaces vectoriels}
+				\begin{déf} Soit $\K$, un sous-corps de $\C$. On appelle \textit{norme} sur le $\K$-e.v. $E$ toute application $n : E \to \Rp$ telle que~:
+
+				\begin{enumerate}
+					\item $\forall x \in E : \left(n(x) = 02 \iff x = 0\right)$~;
+					\item $\forall x \in E : \forall \lambda \in \K : n(\lambda x) = \abs \lambda n(x)$~;
+					\item $\forall x, y \in E : n(x + y) \leq n(x) + n(y)$.
+				\end{enumerate}
+				\end{déf}
+
+				\begin{prp} Soit $(E, n)$ un $\K$-espace vectoriel normé. L'application $d$ suivante est une distance sur $E$ (on l'appelle la
+				\textit{distance associée à la norme $n$})~:
+				\[d : E \times E \to \Rp : (x, y) \mapsto n(y-x).\]
+				\end{prp}
+
+				\begin{proof} EXERCICE.
+				\end{proof}
+
+				\begin{rmq} Si $(E, n)$ est un espace vectoriel normé, $\seq xn\N$ est une suite de $E$, et si $x \in E$, alors on dit~:
+				\[x_n \mconv n\pinfty n x\]
+				lorsque~:
+				\[x_n \mconv n\pinfty{} x\]
+				au sens de la distance associée à la norme $n$.
+				\end{rmq}
+
+				\begin{ex} $\R$ est un $\R$-e.v. normé avec pour norme $n : x \mapsto \abs x$. \end{ex}
+
+				\begin{ex} Soient $d \in \Ns$, $p \in [1, \pinfty)$. Pour $x = (x_i)_{1 \leq i \leq d} \in \C^d$, on définit~:
+				\[n(x) = \norm x_p \coloneqq \left(\sum_{k=0}^d\abs {x_i}^p\right)^{\frac 1p}.\]
+				On a alors $(\C^d, n)$ est un $\C$-espace vectoriel normé. Également $(\C^d, n)$ et $(\R^d, n)$  sont des $\R$-espaces vectoriels normés.
+				\end{ex}
+
+				\begin{déf} Soit $x \in \C^d$. On définit la \textit{norme infinie} de $x$ dans $\C^d$ par~:
+				\[\norm x_\infty \coloneqq \max_{1 \leq i \leq d}\abs {x_i}.\]
+				\end{déf}
+
+				\begin{ex} Soit $d \in \Ns$. $(\C^d, \norm \cdot_\infty)$ est un $\C$-espace vectoriel normé. Également, $(\R^d, \norm \cdot_\infty)$
+				et $(\C^d, \norm \cdot_\infty)$ sont des $\R$-espaces vectoriels normés. \end{ex}
+
+				\begin{proof} EXERCICE.
+				\end{proof}
+
+				\begin{déf} Soit $\seq xn\N$ une suite. On dit que la suite $(x_n)$ est \textit{presque nulle} s'il existe $N \in \N$ tel que
+				$\forall n \geq N : x_n = 0$. \end{déf}
+
+				\begin{ex} Soient $P \in \C[x]$ et $\seq ak\N$ la suite presque nulle des coefficients de $P$. On pose~:
+				\[\norm P_\infty \coloneqq \sup_{k \in \N}\abs {a_k} = \max_{k \in \N}\abs {a_k}.\]
+
+				Alors $\norm \cdot_\infty$ est une norme sur $\C[x]$.
+				\end{ex}
+
+				\begin{proof} EXERCICE.
+				\end{proof}
+
+			\subsubsection{Ouverts, fermés, compacts}
+				\begin{déf} Soit $(X, d)$ un espace métrique. On appelle \textit{boule ouverte} de centre $x \in X$ et de rayon $r \gneqq 0$ l'ensemble~:
+				\[B(x, r[ \coloneqq \left\{y \in X \tq d(x, y) \lneqq r\right\}.\]
+
+				On définit également la \textit{boule fermée} de centre $x$ et de rayon $r$ l'ensemble~:
+				\[B(x, r] \coloneqq \{y \in X \tq d(x, y) \leq r\}.\]
+				\end{déf}
+
+				\begin{déf} Soit $(X, d)$ un espace métrique et soit $O \subset X$. On dit que $O$ est une partie \textit{ouvert} dans $X$ lorsque~:
+				\[\forall x \in O : \exists r \gneqq 0 \tq B(x, r)  \subset O.\]
+				\end{déf}
+
+				\begin{rmq} Pour tout $X$, les ensembles $\emptyset$ et $X$ sont tous deux des ouverts de $X$. \end{rmq}
+
+				\begin{déf} Soit $(X, d)$ un espace métrique. Une partie $F \subset X$  de $X$ est dite \textit{fermée} dans $X$ lorsque $X \setminus F$
+				est ouvert. \end{déf}
+
+				\begin{prp} Dans un espace métrique $(X, d)$, soit $\seq OiI$ une famille d'ouverts de $X$ indicés par un ensemble $I \neq \emptyset$.
+				Alors $\left(\bigcup_{i \in I}O_i\right)$ est un ouvert de $X$. Si de plus $I$ est fini, alors $\left(\bigcap_{i \in I}\right)$ est
+				un ouvert de $X$. \end{prp}
+
+				\begin{ex} Prenons $X = \R$ et $O_i = (-1-\frac 1i, 1 + \frac 1i)$. Alors $\left(\bigcap_{i \in \Ns}O_i\right) = [-1, 1]$ qui n'est pas
+				un ouvert de $X$. \end{ex}
+
+				\begin{proof} EXERCICE.
+				\end{proof}
+
+				\begin{déf}[Compacts par Borel-Lebesgue] Soit $(X, d)$ un espace métrique. Une partie $K \subset X$ est dite \textit{compacte} si
+				$K \neq \emptyset$ et si, de tout recouvrement de $K$ par des ouverts de $X$, on peut extraire un sous-recouvrement fini.
+
+				C'est-à-dire lorsque~:
+				\begin{enumerate}
+					\item $K \neq \emptyset$~;
+					\item $\forall I \neq \emptyset : \forall \seq OiI$ ouverts de $X \tq K \subset \left(\bigcup_{i \in I}O_i\right) : \exists J \subset I$
+					      fini $\tq K \subset \left(\bigcup_{j \in J}O_j\right)$.
+				\end{enumerate}
+				\end{déf}
+
+				\begin{prp}[Compacts par Bolzano-Weierstrass] Soit $(X, d)$ un espace métrique. Une partie $K$ de $X$ est compacte si et seulement si~:
+
+				\begin{enumerate}
+					\item $K \neq \emptyset$~;
+					\item de toute suite de points de $K$, on peut extraire une sous-suite convergente dans $K$.
+				\end{enumerate}
+				\end{prp}
+
+				\grantedproof
+
+				\begin{ex} L'ensemble $[0, 1]$ est un compact de $\R$. \end{ex}
+
+				\begin{prp} Soit $(X, d)$, un espace métrique et $K \subset X$, une partie compacte. Alors $K$ est fermé et borné. \end{prp}
+
+				\begin{proof} EXERCICE. (Absurde)
+				\end{proof}
+
+				\begin{prp} Soit $(E, n)$ un $\K$-e.v. normé de dimension finie. Alors les parties compactes de $E$ sont les parties fermées
+				bornées non nulles. \end{prp}
+
+				\grantedproof
+
+			\subsubsection{Suites de Cauchy}
+				\begin{déf} Soit $(X, d)$, un espace métrique. On dit que $\seq xn\N$ est \textit{de Cauchy} dans $X$ lorsque~:
+				\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall m, n \geq N : d(x_n, x_m) < \varepsilon.\]
+				\end{déf}
+
+				\begin{prp} Si $\seq xn\N$ est convergente dans l'espace métrique $(X, d)$, alors elle est de Cauchy. \end{prp}
+
+				\begin{proof} Si $x$ est la limite de la suite $(x_n)$, on pose $\varepsilon > 0$. Il existe $N \in \N$ tel que~:
+				\[\forall n \geq \N : d(x, x_n) < \frac \varepsilon2.\]
+
+				Donc $\forall m, n \geq N : d(x_m, x_n) \leq d(x_m, x) + d(x, x_n) < \varepsilon$.
+				\end{proof}
+
+				\begin{déf} Un espace métrique $(M, d)$ est dit \textit{complet} quand toute suite de Cauchy de points de $X$ converge dans $X$. \end{déf}
+
+				\begin{déf} Un espace vectoriel $E$ est dit \textit{de Banach} lorsque toute suite de Cauchy de vecteurs de $E$ converge dans $E$. \end{déf}
+
+				\begin{rmq} On remarque que dans un espace métrique complet, une suite converge si et seulement si elle est de Cauchy
+				(ce qui est entre autres le cas de $\R$).
+
+				De plus, les suites de Cauchy permettent, dans des espaces complets, de montrer que des suites convergent sans connaitre leur limite. \end{rmq}
+
+				\begin{ex} Les espaces métriques $(\R, \abs \cdot)$ et $(\C, \abs \cdot)$ sont des espaces de Banach. Et pour tout $p \in [1, \pinfty)$ et
+				$q \in \N$, les espaces métriques $(\R^q, \norm \cdot_p)$ et $(\C^q, \norm \cdot_p)$ sont des espaces de Banach. \end{ex}
+
+			\subsubsection{Continuité}
+				\begin{déf} Soient $(X, d_X)$ et $(Y, d_Y)$ deux espaces métriques. Une application $f : X \to Y$ est dite continue en $x_0 \in X$ lorsque~:
+				\[\forall \varepsilon > 0 : \exists \delta \gneqq 0 \tq \forall x \in X :
+					\left(d_X(x, x_0) < \delta \Rightarrow d_X(f(x), f(x_0)) < \varepsilon\right).\]
+
+				On dit que $f$ est continue sur $A \subset X$ lorsque $f$ est continue en tout $a \in A$.
+				\end{déf}
+
+				\begin{prp} Une fonction $f : (X, d) \to (Y, d)$ est continue sur $X$ lorsque l'image réciproque par $f$ de $(Y, d)$ est un ouvert de $(X, d)$.
+				\end{prp}
+
+				\grantedproof
+
+				\begin{prp} Une fonction $f : (X, d) \to (Y, d)$ est continue en $x_0 \in X$ si et seulement si l'image par $f$ de toute suite de points de
+				$X$ convergente en $x_0$ est une suite convergente en $f(x_0)$. \end{prp}
+
+				\grantedproof
+
+				\begin{déf} Soit $f : (X, d) \to (Y, d)$. $f$ est dite \textit{lipschitzienne} de constante $K \geq 0$ lorsque~
+				\[\forall (x, y) \in X^2 : d(f(x), f(y)) \leq d(x, y).\]
+				\end{déf}
+
+				\begin{prp} Si $f : (X, d) \to (Y, d)$ est lipschitzienne, alors elle est continue sur $X$. \end{prp}
+
+				\begin{proof} EXERCICE.
+				\end{proof}
+
+				\begin{déf} Soit $\seq ak\N$, une suite dans un espace métrique $(X, d)$. On dit que $(a_k)$ est \textit{presque nulle} lorsqu'il existe
+				$N \in \N$ tel que $\forall n \geq N : a_n = 0$. \end{déf}
+
+				\begin{ex}~
+				\begin{itemize}
+					\item Pour tout $i \in \N$, l'application $c_i : \C[x] \to \C : P = \sum_{k=0}^\pinfty a_kx^k \mapsto a_i$ est continue de
+					      $(\C[x], \norm \cdot_\infty)$ dans $(\C, \abs \cdot)$. En effet, pour $i \in \N$, $P = \sum_{k=0}^\pinfty a_kx^k$, et
+					      $Q = \sum_{k=0}^\pinfty b_kx^k$, on a~:
+						  \[\abs{c_i(P) - c_i(Q)} = \abs{a_i - b_i} \leq \norm{P-Q}_\infty = \max_{k \in \N}\abs{a_k - b_k}.\]
+
+					      On en déduit que $c_i$ est lipschitzienne sur $\C[x]$ et donc continue sur $\C[x]$.
+					\item Soit $n \in \N$. Posons~:
+					      \[P_n = \sum_{k=0}^n\frac 1{k!}x^k \in \C[x].\]
+
+					      On observe que $\seq Pn\N$ est de Cauchy dans $(\C[x], \norm \cdot_\infty)$ car~:
+					      \[\norm{P_n - P_m}_\infty = \norm{\sum_{k=0}^n\frac 1{k!}x^k - \sum_{k=0}^m\frac 1{k!}x^k}_\infty.\]
+
+					      On a alors~:
+					      \[\norm{P_n - P_m}_\infty = \norm {\sum_{k=\min\{m, n\}+1}^{\max\{m, n\}}\frac 1{k!}x^k}_\infty =
+					      	\max_{\min\{m, n\}+1 \leq k \leq \max\{m, n\}}\frac 1{k!} = \frac 1{(\min\{m, n\}+1)!}.\]
+
+					      Montrons que $\seq Pn\N$ est de Cauchy. Supposons (par l'absurde) que $\seq Pn\N$ converge vers $P \in (\C[x], \norm \cdot_\infty)$.
+					      Notons $(a_k) \subset \C$, la suite presque nulle des coefficients de $P$. Pour $i \in \N$, on a $c_i(P) = \frac 1{i!}$ quand
+					      $n \geq i$. Or par la propriété de Lipschitz, on sait que $c_i(P_n) \mconv n\pinfty{} c_i(P) = a_i$. Or $(a_k)$ est presque nulle et
+					      $a_i = \frac 1{i!}$. Il y a donc contradiction. Donc $(P_n)$ ne converge pas dans $(\C[x], \norm \cdot_\infty)$. Dès lors,
+					      $(\C[x], \norm \cdot_\infty)$ n'est pas complet.
+				\end{itemize}
+				\end{ex}
+
+	\section{Convergence de suites de fonctions}
+		\subsection[Convergence simple]{Convergence simple\protect\footnote{La convergence simple est la notion de convergence «~minimale~» que l'on va exiger.
+		Il existe des convergences encore plus élémentaires (voir théorie de l'intégration de Lebesgue), mais qui se trouvent en dehors des objectifs du cours.}}
+			\begin{déf} Soit $X$ un ensemble et $(Y, d)$ un espace métrique. On dit que la suite $\seqf fnx\N$ où $f_n : X \to (Y, d)$
+			\textit{converge simplement} sur $X$ lorsque~:
+			\[\forall x \in X : \seqf fnx\N \text{converge dans } (Y, d).\]
+			\end{déf}
+
+			\begin{déf} Dans ce cas, la suite a pour limite simple la fonction~:
+			\[f : X \to (Y, d) : x \mapsto \lim_{n \to \pinfty}f_n(x)\]
+			et est bien définie. Cela se note~:
+			\[f_n \xrightarrow[n \underset{X}{\to} \pinfty]{CVS} f \qquad\qquad \text{ou} \qquad\qquad f_n \CVS Xn\pinfty f.\]
+			\end{déf}
+
+			\begin{ex} Soient $X = [0, 1]$ et $Y = \R$. On pose $f_n(x) = x^n$ pour tout $n \in \N$.
+			\begin{itemize}
+				\item Si $x \in [0, 1)$, alors la suite $\seqf fnx\N$ est une suite géométrique de raison $x$ avec $\abs x < 1$ donc la suite converge vers 0~;
+				\item si $x = 1$,a lors $f_n(x) = 1$ pour tout $n \in \N$. Donc la suite $\seqf fnx\N$ converge simplement sur $[0, 1]$ vers la fonction~:
+				      \[f : [0, 1] \to \R : x \mapsto \begin{cases}0 &\text{ si } x  < 1 \\ 1 &\text{ si } x = 1\end{cases}.\]
+			\end{itemize}
+			\end{ex}
+
+			\begin{rmq}~
+			\begin{itemize}
+				\item On a «~perdu~» la continuité des fonctions $f_n$ par passage à la limite~;
+				\item ici, la convergence simple peut s'écrire ainsi, à l'aide de quantificateurs~:
+				      \[\forall \varepsilon > 0 : \forall x \in X : \exists N \in \N \tq \forall n \geq N : d(f_n(x), f(x)) < \varepsilon.\]
+
+				      On remarque donc que $N$ dépend de $x$ (ordre des quantificateurs).
+			\end{itemize}
+			\end{rmq}
+
+		\subsection{Convergence uniforme}
+			\begin{déf} Soient $X$ un ensemble, $(Y, d)$ un espace métrique, et $f_n : X \to (Y, d)$. On dit que $(f_n)$ \textit{converge uniformément} sur $X$
+			vers $f : X \to (Y, d)$ lorsque~:
+			\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : \forall x \in X : d(f_n(x), f(x)) < \varepsilon.\]
+
+			Cela se note~:
+			\[f_n \CVU Xn\pinfty f.\]
+			\end{déf}
+
+			\begin{rmq} La définition est très proche de la convergence simple. La différence étant que pour une convergence uniforme, il faut que
+			$N \in \N$ ne dépende pas de la valeur de $x$. \end{rmq}
+
+			\begin{prp} Soient $X$ un ensemble, $(Y, d)$ un espace métrique, $\seqf fnx\N$ une suite de fonctions de $X$ dans $(Y, d)$ et $f : X \to (Y, d)$.
+			Si $(f_n)$ converge uniformément sur $X$ vers $f$, alors $(f_n)$ converge simplement sur $X$ vers $f$. \end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{ex} Prenons $X = \R = Y$ et pour tout $n \geq 1$, définissons $f_n(x) = \sqrt{x^2 + \frac 1n}$. Fixons $x \in \R$. On trouve alors~:
+			\[\seqf fnx\N = \seq {\sqrt{x^2 + \frac 1n}}n\N \to \sqrt {x^2} = \abs x.\]
+
+			Donc~:
+			\[f_n \CVS Xn\pinfty \abs \cdot.\]
+			\end{ex}
+\end{document}
