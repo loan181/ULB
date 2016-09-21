@@ -33,7 +33,7 @@ Les résumés disponibles sont les suivants :
 
 #### Q1
 
-+ [INFO-F-303](https://github.com/RobinPetit/ULB/blob/master/INFOF-303/r%C3%A9sum%C3%A9/Th%C3orie%20de%20l'information/r%C3%A9sum%C3%A9.pdf).
++ [INFO-F-303 : Réseaux, information et communication](https://github.com/RobinPetit/ULB/blob/master/INFOF-303/r%C3%A9sum%C3%A9/Th%C3%A9orie%20de%20l'information/r%C3%A9sum%C3%A9.pdf).
 
 ## Mathématique
 
@@ -59,4 +59,4 @@ Les résumés disponibles sont les suivants :
 
 #### Q1 et Q2
 
-+ [MATH-F-201 : alcul différeniel et intégral II](https://github.com/RobinPetit/ULB/blob/master/MATHF-201/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf).
++ [MATH-F-201 : Calcul différeniel et intégral II](https://github.com/RobinPetit/ULB/blob/master/MATHF-201/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf).
