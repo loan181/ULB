@@ -29,6 +29,12 @@ Les résumés disponibles sont les suivants :
 
 + [INFOF-205 : Caclul formel et numérique](https://github.com/RobinPetit/ULB/blob/master/INFOF-205/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**).
 
+### BA3 Informatique
+
+#### Q1
+
++ [INFO-F-303](https://github.com/RobinPetit/ULB/blob/master/INFOF-303/r%C3%A9sum%C3%A9/Th%C3orie%20de%20l'information/r%C3%A9sum%C3%A9.pdf).
+
 ## Mathématique
 
 ### BA1 Mathématique
@@ -37,7 +43,7 @@ Les résumés disponibles sont les suivants :
 
 #### Q1 et Q2
 
-+ [MATH-F-101 : Calcul différentiel et intégral](https://github.com/RobinPetit/ULB/blob/master/MATHF-101/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**) ;
++ [MATH-F-101 : Calcul différentiel et intégral I](https://github.com/RobinPetit/ULB/blob/master/MATHF-101/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**) ;
 + [MATH-F-102 : Algèbre linéaire et géométrie](https://github.com/RobinPetit/ULB/blob/master/MATHF-102/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**) ;
 + [MATH-F-104 : Logique élémentaire (présentation sur les nombres premiers)](https://github.com/RobinPetit/ULB/blob/master/MATHF-104/Pr%C3%A9sentation/slides.pdf) (**complet**).
 
@@ -45,3 +51,12 @@ Les résumés disponibles sont les suivants :
 
 + [MATHF-105 : Probabilités](https://github.com/RobinPetit/ULB/blob/master/MATHF-105/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**).
 
+### BA2 Mathématique
+
+#### Q1
+
++ [MATH-F-211]().
+
+#### Q1 et Q2
+
++ [MATH-F-201 : alcul différeniel et intégral II](https://github.com/RobinPetit/ULB/blob/master/MATHF-201/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf).
