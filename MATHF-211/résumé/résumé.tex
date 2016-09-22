@@ -1,0 +1,213 @@
+\documentclass{report}
+
+\usepackage{commath}
+\usepackage[french]{babel}
+\usepackage{palatino, eulervm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{mathtools}
+\usepackage{fullpage}
+\usepackage[bottom]{footmisc}
+\usepackage[parfill]{parskip}
+
+\title{MATH-F-211~: Topologie}
+\author{R. Petit}
+\date{année académique 2016 - 2017}
+
+% amsthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemme}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}[section]
+
+\DeclareMathOperator{\tq}{\text{ t.q. }}
+
+\renewcommand{\proofname}{\it{Preuve}}
+
+\newcommand{\cont}[2]{\mathcal C\left(\left[#1, #2\right]\right)}
+\newcommand{\restr}[2]{\left.#1\right|_{#2}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\N}{\mathbb N}
+
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter{Topologie générale}
+	\section{Espaces métriques}
+		\begin{déf} Soit $M$ un ensemble non vide. Une fonction $d : M \times M \to \R$ est un e \textit{métrique} si $d$ satisfait~:
+		\begin{itemize}
+			\item[M1.] $\forall x, y \in M : d(x, y) \geq 0$ avec $d(x, y) = 0 \iff x = y$~;
+			\item[M2.] $\forall x, y \in M : d(x, y) = d(y, x)$~;
+			\item[M3.] $\forall x, y, z \in M : d(x, z) \leq d(x, y) + d(y, z)$.
+		\end{itemize}
+
+		Le couple $(M, d)$ est appelé \textit{espace métrique}.
+		\end{déf}
+
+		\begin{ex} La métrique euclidienne sur $\R$ est définie par~:
+		\[d_E : \R \times \R \to \R : (x, y) \mapsto \abs {x-y}.\]
+		\end{ex}
+
+		\begin{proof} EXERCICE.
+		\end{proof}
+
+		\begin{ex}\label{ex:metriqueeuclidiennern} La métrique euclidienne sur $\R^n$ est définie par~:
+		\[d_E : \R^n \times \R^n \to \R : (x, y) \mapsto \norm {x-y} = \sqrt {\sum_{i=1}^n (x_i-y_i)^2}.\]
+		\end{ex}
+
+		\begin{lem}[Inégalité de Cauchy-Schwartz] Soient $r, s \in \R^n$. Alors~:
+		\[\left(\sum_{i=1}^n r_is_i\right)^2 \leq \left(\sum_{i=1}^nr_i^2\right)\left(\sum_{i=1}^ns_i^2\right).\]
+		\end{lem}
+
+		\begin{proof} Soit la fonction~:
+		\[F(t) = \sum_{j=1}^n(r_j + ts_j)^2 = \left(\sum_{j=1}^ns_j^2\right)t^2 + \left(2\sum_{j=1}^nr_js_j\right)t + \sum_{j=1}^nr_j^2.\]
+
+		La fonction $F(t)$ est positive pour tout $t$ car c'est une somme de valeurs positives. Dès lors, son discriminant est négatif. On a alors~:
+		\[\left(2\sum_{j=1}^nr_js_j\right)^2 - 4\left(\sum_{j=1}^nr_j^2\right)\left(\sum_{j=1}^ns_j^2\right) \leq 0.\]
+		
+		En divisant par 4 de part et d'autre et en réarrangeant l'inégalité, on obtient~:
+		\[\left(\sum_{j=1}^nr_js_j\right)^2 \leq \left(\sum_{j=1}^nr_j^2\right)\left(\sum_{j=1}^ns_j^2\right).\]
+		\end{proof}
+
+		\begin{proof}[Preuve de l'exemple~\ref{ex:metriqueeuclidiennern}] M1 et M2 sont triviaux.
+
+		Pour M3, posons pour $1 \leq i \leq n$~: $r_i \coloneqq x_i - y_i$ et $s_i \coloneqq y_i - z_i$.
+
+		Par l'inégalité de Cauchy-Schwartz, on peut écrire~:
+		\begin{align*}
+			2\sum_{i=1}^nr_is_i &\leq 2\sqrt {\left(\sum_{i=1}^nr_i^2\right)\left(\sum_{i=1}^ns_i^2\right)} \\
+			2\sum_{i=1}^nr_is_i + \sum_{i=1}^n(r_i^2+s_i^2) &\leq 2\sqrt{\left(\sum_{i=1}^nr_i^2\right)\left(\sum_{i=1}^ns_i^2\right)} + \sum_{i=1}^n(r_i^2+s_i^2) \\
+			\sum_{i=1}^n(r_i+s_i)^2 &\leq \left(\sqrt {\sum_{i=1}^ns_i^2} + \sqrt {\sum_{i=1}^nr_i^2}\right)^2 \\
+			\sqrt {\sum_{i=1}^n(r_i+s_i)^2} &\leq \sqrt {\sum_{i=1}^nr_i^2} + \sqrt {\sum_{i=1}^ns_i^2} \\
+			\sqrt {\sum_{i=1}^n(x_i-z_i)^2} &\leq \sqrt {\sum_{i=1}^n(x_i-y_i)^2} + \sqrt {\sum_{i=1}^n(y_i-z_i)^2} \\
+			d_E(x, z) &\leq d_E(y, z) + d_E(x, y).
+		\end{align*}
+		\end{proof}
+
+		\begin{déf} Soit $M \neq \emptyset$. On définit la \textit{métrique discrète} sur $M$ par~:
+		\[d : M \times M \to \R : x \mapsto \begin{cases} 1 &\text{ si } x \neq y \\ 0 &\text{ si } x = y \end{cases}.\]
+		\end{déf}
+
+		\begin{proof} M1 et M2 sont triviaux.
+
+		Pour M3~:
+		\begin{itemize}
+			\item soit $x \neq z$, et donc $x \neq y$ ou $y \neq z$, ce qui implique $d(x, y) + d(y, z) \geq 1 = d(x, z)$~;
+			\item soit $x = z$, et donc $0 = d(x, z) \leq d(x, y) + d(y, z)$.
+		\end{itemize}
+		\end{proof}
+
+		\begin{déf} La métrique de Manhattan est définie par~:
+		\[d_{\mathcal M} : \R^2 \times \R^2 \to \R : (x, y) \mapsto \abs {x_1 - y_1} + \abs {x_2 - y_2}.\]
+		\end{déf}
+
+		\begin{proof} M1 et M2 sont triviaux.
+
+		Pour M3, on pose $x, y, z \in \R^2$. On a alors~:
+		\begin{align*}
+			d_{\mathcal M}(x, z) &= d_E(x_1, z_1) + d_E(x_2, z_2) \leq d_E(x_1, y_1) + d_E(y_1, z_1) + d_E(x_2, y_2) + d_E(y_2, z_2) \\
+			&= \left(d_E(x_1, y_1) + d_E(x_2, y_2)\right) + \left(d_E(y_1, z_1) + d_E(y_2, z_2)\right) = d_{\mathcal M}(x, y) + d_{\mathcal M}(y, z).
+		\end{align*}
+		\end{proof}
+
+		\begin{déf} Soit $\cont ab$, l'ensemble des fonctions continues sur $[a, b]$ à valeurs dans $\R$. Soient $f, g \in \cont ab$, et on définit~:
+		\begin{itemize}
+			\item $d_1 : \cont ab \times \cont ab \to \R : (f, g) \mapsto \displaystyle\int_a^b\abs {(f-g)(x)}\dif x$~;
+			\item $d_2 : \cont ab \times \cont ab \to \R : (f, g) \mapsto \displaystyle\sqrt{\int_a^b\left((f-g)(x)\right)^2\dif x}$~;
+			\item $d_\infty : \cont ab \times \cont ab \to \R : (f, g) \mapsto \sup\left\{\abs {(f-g)(x)} \tq x \in [a, b]\right\}$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf} Soit $\mathcal C^1([a, b])$, l'ensemble des fonctions continument différentiables sur $[a, b]$ à valeurs dans $\R$. On définit~:
+		\begin{align*}
+			d : \mathcal C^1([a, b]) \times \mathcal C^1([a, b]) \to \R : (f, g) &\mapsto
+			\sup\left\{\abs {(f-g)(x)} \tq x \in [a, b]\right\} + \sup\left\{\abs {(f'-g')(x)} \tq x \in [a, b]\right\} \\
+			&= d_\infty(f, g) + d_\infty(f', g').
+		\end{align*}
+		\end{déf}
+
+		\begin{rmq} Si $f$ et $g$ sont $k$ fois continument dérivables, alors on définit~:
+		\[d(f, g) = \sum_{i=0}^kd_\infty(f^{(i)}, g^{(i)}).\]
+		\end{rmq}
+
+		\subsection{Sous-espaces métriques}
+			\begin{prp} Soit $(M, d)$ un espace métrique. Soit $A \subset M$, non vide. Alors $(A, d_A)$ est un espace métrique, où~:
+			\[d_A = \restr d{A \times A}.\]
+			\end{prp}
+
+			\begin{déf} Soient $(M, d_M)$ et $(N, d_N)$ deux espaces métriques. Soit $A \subset M$ non-vide. On définit trois métriques distinctes~:
+			\begin{align*}
+				&d_1 : (M \times N)^2 \to \R : ((x, y), (x', y')) \mapsto d_M(x, x') + d_N(y, y') \\
+				&d_2 : (M \times N)^2 \to \R : ((x, y), (x', y')) \mapsto \sqrt {d_M(x, x') + d_N(y, y')} \\
+				&d_\infty : (M \times N)^2 \to \R : ((x, y), (x', y')) \mapsto \max\left\{d_M(x, x'), d_N(y, y')\right\}
+			\end{align*}
+			\end{déf}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{déf} Soit $(M, d)$ un espace métrique et soient $a \in M, r \in \R^+_0$. On définit la \textit{boule ouverte} centrée en $a$ de rayon $r$
+			par~:
+			\[B(a, r) \coloneqq \left\{x \in M \tq d(x, a) \lneqq r\right\}.\]
+			\end{déf}
+
+			\begin{déf} Soit $f : (M, d_M) \times (N, d_N)$, une application entre deux espaces métriques. Si $f$ est une bijection et~:
+			\[\forall x, y \in M : d_N(f(x), f(y)) = d_M(x, y),\]
+			alors on dit que $f$ est une \textit{isométrie}. \end{déf}
+
+			\begin{rmq} L'ensemble des isométries d'un espace métrique dans lui-même forme un groupe pour la composition. \end{rmq}
+
+	\section{Suites et limites}
+		\begin{déf} Une suite $(x_n)$ dans un espace métrique $(M, d)$ converge vers un point $a \in M$ si et seulement si~:
+		\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : d(x_n, a) < \varepsilon.\]
+		\end{déf}
+
+		\begin{lem} Soit $(x_n)$ une suite dans un espace métrique $(M, d)$. S'il existe $a$ et $b$ dans $M$ tels que $x_n \to a$ et $x_n \to b$, alors $a=b$.
+		\end{lem}
+
+		\begin{lem} Soient $(M, d_M)$ et $(N, d_N)$ deux espaces métriques. Soient $(x_n)$ une suite dans $M$ et $(y_n)$ une suite dans $N$. Alors la suite
+		$(x_n, y_n)_n$ dans $M \times N$ converge par $d$ en $(a, b) \in M \times N$ si et seulement si $x_n \to a$ et $y_n \to b$, où
+		$d \in \{d_1, d_2, d_\infty\}$. \end{lem}
+
+		\begin{rmq} Ici, la convergence est assurée par les trois métriques si elle est constatée par une seule. En réalité, de manière générale, la convergence
+		dépend de la métrique. \end{rmq}
+
+		\begin{ex} La fonction~:
+		\[f_n : [0, 1] \to [0, 1] : x \mapsto
+			\begin{cases}nx &\text{ si } 0 \leq x < \frac 1n \\2-nx &\text{ si } \frac 1n \leq x < \frac 2n \\0 &\text{ sinon}\end{cases}.\]
+
+		On observe que~:
+		\begin{align*}
+			d_1(f_n, 0) &= \int_0^1\abs{f_n(x) - 0(x)}\dif x = \int_0^1\abs {f_n(x)}\dif x = \frac 1n \underset {n \to \infty}\to 0 \\
+			d_2(f_n, 0) &= \int_0^1\abs{f_n(x)}^2 \leq \sqrt{\frac 1n} \underset {n \to \infty}\to 0 \\
+			d_\infty(f_n, 0) = 1 \forall n \in \N.
+		\end{align*}
+
+		Il y a donc convergence vers 0 (la fonction nulle) pour $d_1$ et $d_2$ dans $\mathcal C([0, 1])$ mais vers 1 (la fonction constante valant 1)
+		pour $d_\infty$. \end{ex}
+
+		\begin{déf} Une suite $(x_n)$ dans un espace métrique $(M, d)$ est dite \textit{de Cauchy} si~:
+		\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall m, n \geq N : d(x_m, x_n) < \varepsilon.\]
+		\end{déf}
+
+		\begin{lem} Soit $(x_n)$ une suite convergente dans un espace métrique $(M, d)$. Alors $(x_n)$ est de Cauchy. \end{lem}
+
+		\begin{rmq} On ne peut pas cependant dire que la réciproque est vraie~: le cas est trop général. \end{rmq}
+
+		\begin{ex} Si $(x_n) \subset \Q$ est une suite convergente en $\sqrt 2$ dans $\R$, alors $(x_n)$ est de Cauchy. Or $(x_n)$ ne converge pas dans $\Q$.
+		\end{ex}
+
+% \chapter{Topologie différentielle}
+\end{document}
