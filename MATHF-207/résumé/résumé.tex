@@ -1,0 +1,212 @@
+\documentclass{report}
+
+\usepackage[french]{babel}
+\usepackage{mathtools}
+\usepackage{eulervm, palatino}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{commath}
+\usepackage[parfill]{parskip}
+\usepackage{fullpage}
+\usepackage{amsmath, amsthm,amssymb, amsfonts}
+
+\title{Statistiques mathématiques}
+\author{R. Petit}
+\date{année académique 2016 - 2017}
+
+\DeclareMathOperator{\tq}{\text{ t.q. }}
+\DeclareMathOperator{\Unif}{Unif}  % uniform law
+\DeclareMathOperator{\Bern}{Bern}  % Bernoulli law
+\DeclareMathOperator{\Var}{Var}
+
+\newcommand{\minfty}{{-\infty}}
+\newcommand{\pinfty}{{+\infty}}
+\newcommand{\statmod}[4]{\left(#1^{#4}, #2\left(#1^{#4}\right), #3^{\left(#4\right)}\right)}
+\newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
+\newcommand{\vvp}[2]{\begin{pmatrix}#1 \\ #2\end{pmatrix}}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Ns}{\N^{*}}
+\newcommand{\R}{\mathbb R}
+
+\newcommand{\Brl}{\mathcal B}  % \sigma-algebra of borelians
+
+\newtheorem{thm}{Théorème}[chapter]
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}[chapter]
+
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter*{Introduction}
+	En probabilités, une variable aléatoire $X$ donnée est entièrement définie par sa loi. On peut l'exprimer par la fonction de répartition $F^X$ ou par la
+	fonction de densité $f^X = \od {}xF^X$. Ces fonctions permettent de déterminer~:
+	\[P[a \leq X \leq b] = \int_a^bf^X(x)\dif x = F^X(b) - F^X(a).\]
+	Ou encore~:
+	\[E[X] = \int_\minfty^\pinfty xf^X(x)\dif x.\]
+
+	Cependant, les fonctions $f^X$ et $F^X$ ne sont jamais connues précisément. Elles peuvent être approchées par des modélisations, mais les modèles ne sont
+	jamais exacts. En probabilités, on cherche donc les observations sur base de la loi qui est connue, alors qu'en statistiques, on cherche à retrouver la loi
+	sur base de $n$ observations $X_1, \ldots, X_n$.
+
+	Nous allons nous intéresser à des \textit{modèles statistiques} sous la forme $\statmod \R\Brl{\mathcal P}n$ où~:
+	\[\mathcal P^{(n)} = \left\{P^{(n)}\right\} = \left\{P^{(n)}_\theta \tq \theta \in \Theta \subset \R^k\right\},\]
+	et donc les $P^{(i)}$ sont chacun une loi possible pour $(X_1, \ldots, X_n)$.
+
+	Ces modèles sont dits \textit{paramétriques} car les différentes lois sont les mêmes au paramètre $\theta$ près. Nous n'étudierons que des modèles
+	paramétriques où $\Theta$ est un espace de dimension $d \in \N$ finie.
+
+	\begin{ex} Soient $X_1,\ldots, X_n$ des variables aléatoires iid (indépendantes et identiquement distribuées).
+	\begin{itemize}
+		\item Si les $X_i$ sont de loi normale $\Nms$, alors le paramètre $\theta$ est donné par ~:
+		      \[\theta = \vvp \mu{\sigma^2} \in \Theta = \R \times \R^+ \subset \R^2~;\]
+		\item si les $X_i$ sont de loi uniforme $\Unif(0, \theta)$, le paramètre $\theta$ est donné par $\theta \in \Theta = \R_0^+ \subset \R$~;
+		\item si les $X_i$ sont de loi $\Bern(p)$, le paramètre $\theta$ est donné par $\theta = p \in \Theta = [0, 1] \subset \R$.
+	\end{itemize}
+	\end{ex}
+
+	\begin{rmq} Une loi normale $\Nms$ est déraisonnable car les valeurs observables ne vont empiriquement pas vers les infinis alors que la distribution le
+	permet théoriquement mais n'est pas \textbf{complètement} déraisonnable car ces probabilités sont négligeables grâce à l'exponentielle de $(-x^2)$ dans la
+	formule de la densité.
+	\end{rmq}
+
+\chapter{Théorie de l'échantillonnage}
+	\section{Terminologie et définitions}
+		\begin{déf} On appelle \textit{modèle d'échantillonnage} un modèle d'observations iid.  \end{déf}
+
+		\begin{déf} Soit un modèle statistique $\statmod E\Brl{\mathcal P}n$ où $\mathcal P^{(n)} =
+		\left\{P_\theta^{(n)} \tq \theta \in \Theta \subset \R^k\right\}$. On note ici $P^{(n)}_\theta$ une loi possible pour $(X_1, \ldots, X_n)$ et $P_\theta$
+		une loi possible pour $X_i$ avec $i$ fixé. On dit alors que $P^{(n)}_\theta$ est déterminé par $P_\theta$.
+		\end{déf}
+
+		\begin{rmq} Ici, deux visions vont s'opposer et se compléter~: la vision \textit{population} qui est associée à $P_\theta$ et la version
+		\textit{échantillonage} (ou \textit{empirique}), qui, elle, est associée à $P_\theta^{(n)}$.
+		\end{rmq}
+
+		\begin{déf} On définit la fonction indicatrice $I_{[\cdot]}$ qui vaut 1 quand l'expression entre crochets est vraie et 0 sinon. \end{déf}
+
+		\begin{déf} Soit $X_1, \ldots, X_n$ une suite de $n$ observations. On définit la \textit{$i$eme statistique d'ordre} par
+		$X_{(i)} = X_k \tq \abs {\{X_j \tq X_j < X_k, 1 \leq j \leq n\}} = i$. On définit également la \textit{statistique d'ordre} par $\left(X_{(i)}\right)_i$.
+		\end{déf}
+
+		\begin{déf} On définit les fonctions de répartitions comme suit~:
+		\begin{itemize}
+			\item la fonction de répartition population~:
+			      \[F_\theta(x) = P_\theta[X_i \leq x]~;\]
+			\item la fonction de répartition empirique~:
+			      \[F_n(x) = \frac 1n\sum_{i=1}^nI_{[X_i \leq x]}.\]
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} La fonction $F_n$ empirique est une fonction en escaliers. Elle fait des sauts de hauteur $\frac 1n$, et est telle que~:
+		\[\lim_{x \to \pinfty}F_n(x) = 1\qquad\qquad \text{ et } \qquad\qquad \lim_{x \to \minfty}F_n(x) = 0.\]
+
+		On peut également remarquer que $F_n(X_{(i)}) = \frac in$. En effet, par définition de $X_{(i)}$, il y a exactement $i$ observations inférieures à
+		$X_{(i)}$. Dès lors, la fonction indicatrice donnera $i$ fois la valeur 1 et $(n-i)$ fois la valeur 0. La somme donc donc $i$ et la fonction donne
+		$\frac in$. \end{rmq}
+
+		\begin{déf} On appelle \textit{statistique} toute fonction faisant intervenir \textbf{uniquement} des observations. \end{déf}
+
+		\begin{ex} Par exemple $F_n$ est une statistique car seules les valeurs $X_i$ sont utilisée, mais $F_\theta$ n'est pas une statistique car la valeur
+		du paramètre $\theta$ apparait et n'est pas une observation. \end{ex}
+
+		\begin{rmq} Une statistique peut être à valeur scalaire ($X_{(i)}$ par exemple), à valeur vectorielle ($\left(X_{(i)}\right)_{1 \leq i \leq n}$ par
+		exemple), à valeur ensembliste ($[X_i \pm \overline X]$ avec $i$ fixé par exemple), ou encore à valeur fonctionnelle ($F_n$ par exemple). \end{rmq}
+
+		\begin{rmq} L'objectif est de pouvoir approximer la loi régissant les populations ($F_\theta$) à l'aide de la loi observée empiriquement. Par la loi
+		des grands nombres, on a~:
+		\[F_n(x) \xrightarrow[n \to \pinfty]{p.s. \text{ par } P_\theta}.\]
+		\end{rmq}
+
+		\begin{thm}[Théorème de Glivenko-Cantelli] Si $F_n$ et $F_\theta$ sont repsectivement une fonction de répartition empirique et de population, alors~:
+		\[\sup_{x \in \R}\abs {F_n(x) - F_\theta(x)} \xrightarrow[n \to \pinfty]{p.s.} 0\]
+		\end{thm}
+	
+	\section{Moments}
+		\begin{déf}[Moments pour populations] On définit $\mu_r'(\theta)$ le \textit{moment \textbf{non}-centré} d'ordre $r$ avec $r \in \Ns$ par~:
+		\[\mu_r'(\theta) \coloneqq E_\theta[X_1^r].\]
+
+		On définit également $\mu_r(\theta)$, le \textit{moment \textbf{centré}} d'ordre $r$ avec $r \in \Ns$ par~:
+		\[\mu_r(\theta) \coloneqq E_\theta\left[\left(X_1 - \mu_r'(\theta)\right)^r\right].\]
+		\end{déf}
+
+		\begin{déf}[Moments pour échantillon] On définit $m_r'$, le \textit{moment \textbf{non}-centré} d'ordre $r$ avec $r \in \Ns$ par~:
+		\[m_r' \coloneqq \frac 1n\sum_{i=1}^n X_i^r.\]
+
+		On définit également le \textit{moment \textbf{centré}} d'ordre $r$ avec $r \in \Ns$ par~:
+		\[m_r \coloneqq \frac 1n\sum_{i=1}^n\left(X_i - m_r'\right)^r.\]
+		\end{déf}
+
+		\begin{rmq} La loi des grands nombres dit que~:
+		\[m_r' \xrightarrow[n \to \pinfty]{p.s.} \mu_r'(\theta),\]
+		mais on ne peut pas dire que~:
+		\[m_r \xrightarrow[n \to \pinfty]{p.s.} \mu_r(\theta).\]
+
+		Ce n'est donc pas possible car pour $m_r'$, il y a une somme de variables iid alors que pour $m_r$, les variables sommées ne sont pas iid (mais
+		dépendent toutes de tous les $X_i$).
+		
+		En réalité, il y a convergence, mais on ne peut pas l'exprimer de manière triviale par la loi des grands nombres. \end{rmq}
+
+		\subsection{Indicateurs}
+			On peut observer que $\mu_1'(\theta) = E_\theta[X_1]$. Pareil pour $m_1' = \overline X$. Le moment d'ordre 1 est donc un indice de position.
+			On a alors $\mu \coloneqq \mu_1(\theta) = E[(X - E[X_1])] = E[X_1] - E[X_1] = 0$. Cette valeur n'est donc pas intéresante. Par contre~:
+			\[\mu_2(\theta) = E\left[(X_1 - E[X_1])^2\right] \eqqcolon \Var(X) \qquad\qquad \text{ si }
+				\qquad\qquad m_2 = \frac 1n\sum_{i=1}^n\left(X_i - \overline X\right)^2 \eqqcolon s^2.\]
+			Le moment d'ordre 2 est donc un indice de dispertion.
+
+			\begin{déf} On appelle le \textit{coefficient d'asymétrie de Fisher} la quantité~:
+			\[\gamma_1 \coloneqq \mu_3(\theta) \cdot \left(\mu_2(\theta)\right)^{-\frac 32}.\]
+			\end{déf}
+
+			\begin{rmq} Le dénominateur $\mu_2(\theta)^{\frac 32}$ apparait afin de rendre invariant le coeficient d'asymétrie de Fisher aux transformations
+			affines. \end{rmq}
+
+			\begin{déf} Le coefficient d'asymétrie de Fisher \textit{empirique} est doné par~:
+			\[m_3 \cdot m_2^{-\frac 32}.\]
+			\end{déf}
+
+			\begin{déf} On appelle \textit{coefficient d'applatissement de Fisher} la quantité~:
+			\[\gamma_2 \coloneqq \mu_4(\theta) \cdot \left(\mu_2(\theta)\right)^{-2} - 3.\]
+			\end{déf}
+
+			\begin{déf} Le coefficient d'applatissement de Fisher \textit{empirique} est doné par~:
+			\[m_4 \cdot m_2^{-2} - 3.\]
+			\end{déf}
+
+			\begin{rmq} Si $\gamma_2 \gneqq 0$, c'est que les évenements extrêmes sont de plus haute probabilité et si $\gamma_2 \lneqq 0$, c'est que les
+			évenements extrêmes sont de moins haute probabilité.
+
+			À nouveau, le dénominateur y a été ajouté afin de rendre le coefficient invariant aux transformations affines. Et le terme $-3$ sert à annuler le
+			coefficient d'applatissement de Fisher pour une normale $\Nms$. \end{rmq}
+
+	\section{Quantile}
+		\begin{déf} Si $F_\theta$ est inversible, alors on définit $x_\alpha(\theta) \coloneqq F_\theta^{-1}(\alpha)$, et on appelle $x_\alpha(\theta)$ un
+		\textit{quantile}. \end{déf}
+
+		\begin{rmq} Il faut cependant faire attention car on peut avoir le cas de $F_\theta$ discontinue où on choisit $\alpha = F_\theta^{-1}$(point de discontinuité)
+		ou alors le cas de $F_\theta$ admettant un plateau et où on choisit $\alpha$ sur le plateau. \end{rmq}
+
+		\begin{déf} On définit alors~:
+		\[x_\alpha(\theta) \coloneqq \inf\left\{x \in \R \tq F_\theta(x) \geq \alpha\right\}.\]
+		\end{déf}
+
+		\begin{rmq} On donne les noms de \textit{médiane}, \textit{quartile}, \textit{décile}, \textit{percentile} pour $\alpha$ valant, avec $k$ entier,
+		respectivement $\frac 12$, $\frac k4$ avec $k < 4$, $\frac k{10}$ avec $k < 10$, et $\frac k{100}$ avec $k < 100$.
+		\end{rmq}
+
+		\begin{déf} Pour les échantillons, on définit le \textit{quantile empirique d'ordre $\alpha$} par~:
+		\[x_\alpha^{(n)} \coloneqq \inf\{x \in \R \tq F_n(x) \geq \alpha\}.\]
+		\end{déf}
+
+		\begin{rmq} On peut également définir des indices de position, dispertion, asymétrie, applatisement, etc. sur les quantiles plutôt que sur les moments.
+		Ils auront des propriétés différentes et une robustesse différente aux valeurs aberrantes.
+		\end{rmq}
+\end{document}
