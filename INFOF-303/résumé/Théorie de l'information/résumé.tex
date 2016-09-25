@@ -51,7 +51,7 @@
 		cardinalité finie. \end{rmq}
 
 		\begin{déf} Soit $\Sigma$ un alphabet et $m \in \Sigma^*$ un mot sur $\Sigma$. On définit la fonction~:
-		\[\ell_\Sigma : \Sigma^* \to \N : m \mapsto n \in \N \tq m \in C^n.\]
+		\[\ell_\Sigma : \Sigma^* \to \N : m \mapsto n \in \N \tq m \in \Sigma^n \subsetneqq \Sigma^*.\]
 		On appelle cette fonction la fonction \textit{longueur} des mots sur $\Sigma$. \end{déf}
 
 		\begin{rmq} Lorsque l'alphabet du mot n'est pas ambigu, on note simplement cette fonction $\ell$. \end{rmq}
@@ -89,7 +89,7 @@
 			\begin{déf} Soient $S = \{s_1, s_2, \ldots, s_n\}$ et $C$ deux alphabets et $K : S \to C^*$ une fonction de codage. On dit que $K$ est une
 			fonction de \textit{code préfixe} si~:
 			\[\forall 1 \leq i \leq n : \not \exists 1 \leq j \leq n \tq \left(i \neq j\right) \land
-				\left(\forall 1 \leq k \leq \min\{\abs {K(s_i)}, \abs{K(s_j)} : K(s_i)_k = K(s_j)_k\}\right).\]
+				\left(\forall 1 \leq k \leq \min\left\{\abs {K(s_i)}, \abs{K(s_j)}\right\} : \left(K(s_i)\right)_k = \left(K(s_j)\right)_k\right).\]
 			\end{déf}
 
 			\begin{rmq}~
@@ -109,7 +109,7 @@
 		\[\sum_{i=1}^qr^{-\ell_i} \leq 1.\]
 		\end{thm}
 
-		\begin{proof} Réorganisons les $s_i$ de manière à ce que $\forall 1 \leq i \lneqq q : \ell_i \leq l_{i+1}$.
+		\begin{proof} Réorganisons les $s_i$ de manière à ce que $\forall 1 \leq i \lneqq q : \ell_i \leq \ell_{i+1}$.
 
 		Montrons d'abord que s'il existe un code préfixe, alors l'inégalité est vérifiée.
 
@@ -146,18 +146,18 @@
 		On pose~:
 		\[\alpha \coloneqq \sum_{k=1}^qr^{-\ell_k}.\footnote{Idem.}\]
 		Dès lors, on a~:
-		\[\alpha^n = \left(\sum_{k=1}^qr^{-\ell_k}\right) = \sum_{\gamma_1, \ldots, \gamma_n = 1}^nr^{-\sum_{k=1}^n\ell_{\gamma_k}}.\]
+		\[\alpha^n = \left(\sum_{k=1}^qr^{-\ell_k}\right)^n = \sum_{\gamma_1, \ldots, \gamma_n = 1}^nr^{-\sum_{k=1}^n\ell_{\gamma_k}}.\]
 
 		On pose~:
 		\[\mu \coloneqq \max_{\gamma_1, \ldots, \gamma_n}\left\{\sum_{i=1}^n\ell_{\gamma_i}\right\}.\]
 		On peut alors exprimer
 		\[\alpha^n \leq \sum_{j=1}^\mu x_jr^{-j} \leq \sum_{j=1}^\mu r^{-1}r^j = \sum_{j=1}^\mu 1 = \mu.\]
 
-		Or, $\mu = \max_i\{\ell_i\}$. Notons $L \coloneqq \max_i \{\ell_i\}$. On a alors~:
+		Or, $\mu = n \cdot \max_i\{\ell_i\}$. Notons $L \coloneqq \max_i \{\ell_i\}$. On a alors~:
 		\[\alpha^n \leq nL.\]
 
 		En divisant par $n$ de part et d'autre, on obtient~:
-		\[\frac {\alpha}n \leq L,\]
+		\[\frac {\alpha^n}n \leq L,\]
 		où $L$ est une constante naturelle. La suite $\left(\frac {\alpha^n}n\right)_n$ est donc bornée par $L$. On peut alors déduire que la limite de cette suite
 		existe également.\footnote{Il faut pour cela que la suite $\left(\abs {\frac {\alpha^n}n}\right)_n$ soit bornée, mais la suite
 		$\left(\frac {\alpha^n}n\right)_n$ est définie positive, donc la suite valeur absolue est la même, et est donc bornée.}
