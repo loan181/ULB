@@ -18,6 +18,7 @@
 % amsthm
 \newtheorem{thm}{Théorème}[chapter]
 \newtheorem{prp}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
 \renewcommand{\proofname}{\it{Démonstration}}
 \theoremstyle{definition}
 \newtheorem{déf}[thm]{Définition}
@@ -41,11 +42,15 @@
 % metric set convergence; parameters: variable name, variable limit, distance function
 \newcommand{\mconv}[3]{\xrightarrow[#1 \to #2]{#3}}  
 % Convergence
-\newcommand{\CONV}[4]{\xrightarrow[#2 \to #3]{#4 \text{ sur } #1}}
+\newcommand{\CONV}[5]{\xrightarrow[#2 \to #3]{#4 \text{ #5 } #1}}
 % Simple convergence
-\newcommand{\CVS}[3]{\CONV{#1}{#2}{#3}{CVS}}
+\newcommand{\CVS}[3]{\CONV{#1}{#2}{#3}{CVS}{sur}}
 % uniform convergence
-\newcommand{\CVU}[3]{\CONV{#1}{#2}{#3}{CVU}}
+\newcommand{\CVU}[3]{\CONV{#1}{#2}{#3}{CVU}{sur}}
+% uniform convergence on compacts
+\newcommand{\CVUc}[3]{\CONV{#1}{#2}{#3}{CVU}{sur tout compact de}}
+
+\newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
 
 \newcommand{\pinfty}{+\infty}
 \newcommand{\grantedproof}{\begin{proof} \underline{Admis.} \end{proof}}
@@ -89,7 +94,7 @@
 				\[x_n \mconv n\pinfty d x \qquad\qquad \text{et} \qquad\qquad x_n \mconv n\pinfty d y,\]
 				alors $x = y$. \end{prp}
 
-				\begin{proof} Soit $\varepsilon > 0$. Puisque $x_n \to x$ et $x_n \o y$, on sait qu'il existe $N_1, N_2 \in \N$ tels que~:
+				\begin{proof} Soit $\varepsilon > 0$. Puisque $x_n \to x$ et $x_n \to y$, on sait qu'il existe $N_1, N_2 \in \N$ tels que~:
 				\[\forall n \geq N_1 : d(x_n, x) < \frac \varepsilon2 \qquad\qquad \text{et} \qquad\qquad \forall n \geq N_2 : d(x_n, y) < \frac \varepsilon2.\]
 
 				Dès lors, soit $N \coloneqq \max\{N_1, N_2\}$. On peut dire~:
@@ -348,4 +353,187 @@
 			Donc~:
 			\[f_n \CVS Xn\pinfty \abs \cdot.\]
 			\end{ex}
+
+			\begin{thm} Soient $(X, d)$, $(Y, d)$ deux espaces métriques. Soient $f_n : X \to Y$, $a \in X$. On suppose~:
+			\begin{itemize}
+				\item $\exists f \tq f_n \CVU Xn\pinfty f$~;
+				\item $\forall n \in \N : f_n$ est continue en $a$.
+			\end{itemize}
+
+			Alors $f$ est continue en $a$.
+			\end{thm}
+
+			\begin{proof}  Soit $\varepsilon > 0$. Par convergence uniforme des $f_n$, on sait~:
+			\[\exists N \in \N \tq \forall n \geq N : \forall x \in X : d(f_n(x), f(x)) < \frac \varepsilon3.\]
+
+			De plus, la fonction $f_N$ est continue en $a$ par hypothèse. Dès lors, on sait qu'il existe $\delta$ tel que~:
+			\[\forall x \in X : d(x, a) < \delta \Rightarrow d(f_N(x), f_N(a)) < \frac \varepsilon3.\]
+
+			Ainsi, prenons $x \in X$ tel que $d(x, a) < \delta$. On a alors~:
+			\[d(f(x), f(a)) \leq d(f(x), f_N(x)) + d(f_N(x), f(a)) \leq d(f(x), f_N(x)) + d(f_N(x), f_N(a)) + d(f_N(a), f(a)) \leq 3\frac \varepsilon3 = \varepsilon.\]
+			\end{proof}
+
+			\begin{cor} Si $f_n \in C^0(X, Y)$ et $f_n \CVU Xn\pinfty$, alors $f \in C^0(X, Y)$. \end{cor}
+
+			\begin{proof} Les fonctions $f_n$ sont continues en tout point et $f_n \CVU Xn\pinfty$ par hypothèse. Dès lors, pour tout point $a \in X$, par le
+			théorème précédent, on peut dire $f$ continue en $a$. Dès lors $f \in C^0(X, Y)$.
+			\end{proof}
+
+		\subsection{L'espace $B(X, E)$}
+			\begin{déf} Soient $X \neq \emptyset$ et $(E, \norm \cdot_E)$ un espace vectoriel normé. On note~:
+			\[B(X, E) \coloneqq \left\{f : X \to E \tq f \text{ est bornée sur } X\right\}.\]
+
+			Pour $f \in B(X, E)$, on définit~:
+			\[\norm f_\infty \coloneqq \sup_{x \in X}\norm {f(x)}_E.\]
+			\end{déf}
+
+			\begin{prp} $\left(B(X, E), \norm \cdot_\infty\right)$ est un espace vectoriel normé. \end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{thm} $\left(B(X, E), \norm \cdot_\infty\right)$ est complet si et seulement si $(E, \norm \cdot_E)$ est complet.
+			\end{thm}
+
+			\begin{proof} Supposons d'abord $\left(B(X, E), \norm \cdot_\infty\right)$ complet et montrons que $(E, \norm \cdot_E)$ est complet.
+
+			Soit $(x_n)_n$ une suite de Cauchy d'éléments de $E$. Soit $(f_n)$ une suite de fonctions de $B(X, E)$ telle que~:
+			\[\forall n \in \N : \forall x \in X : f_n(x) = x_n.\]
+
+			Puisque $(x_n)$ est de Cauchy, on sait que~:
+			\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall m, n \geq N : d(x_m, x_n) < \varepsilon.\]
+			Or, avec $a \in X$ fixé, on peut alors dire $\forall m, n \geq N : d(f_m(a), f_n(a)) < \varepsilon$, et ce peu importe le $a$ choisi (car les
+			$f_n$ sont constantes). On a donc $(f_n)$ une suite de Cauchy dans $B(X, E)$ car $d(f_m(a), f_n(a)) = \norm {f_m - f_n}_\infty$. Or, par
+			complétude de $B(X, E)$, on sait qu'il existe $f \in B(X, E)$ telle que $f_n \to f$. La fonction $f$ est également constante. Posons $L$ la seule
+			image de $f$. Soit $\varepsilon > 0$. On sait qu'il existe $n \in \N$ tel que $\forall n \geq N : \norm {f_n - f}_\infty < \varepsilon.$
+
+			Or~:
+			\[\varepsilon > \norm {f_n - f}_\infty = \sup_{x \in X} \norm {f_n(x) - f(x)}_E = \norm {f_n(a) - f(a)}_E = \norm {x_n - L}.\]
+			Dès lors, on sait que $(x_n)$ converge dans $E$.
+
+			Montrons maintenant que si $(E, \norm \cdot_E)$ est complet, alors $(B(X, E), \norm \cdot_\infty)$ est complet également.
+
+			Soit $(f_n)_n$ une suite de Cauchy de fonctions de $(B(X, E), \norm \cdot_\infty)$. Fixons $\varepsilon > 0$. Il existe alors $N \in \N$ tel que~:
+			\[\forall m, n \geq N : \norm {f_m - f_n}_\infty < \varepsilon.\]
+
+			Soit $x \in X$. On observe que~:
+			\[\forall m, n \geq N : \norm {f_n(x) - f_m(x)}_E \leq \norm {f_n - f_m}_\infty < \varepsilon.\]
+			La suite $(f_n(x))_n$ est donc une suite de Cauchy dans $(E, \norm \cdot_E)$. Par complétude de $E$, on sait qu'il existe $f(x) \in E$ tel que
+			$f_n(x) \to f(x)$. Montrons maintenant que $f \in B(X, E)$.
+
+			La suite $(f_n)_n$ est de Cauchy et donc bornée. Soit $M \gneqq 0$ tel que $\forall n \in \N : \norm {f_n}_\infty < M$. Passons à la limite dans
+			$(B(X, E)$. On a alors~:
+			\[\forall n \in \N : \forall x \in X : \norm {f(x)}_E < M.\]
+
+			Ainsi, $f \in B(X, E)$ par définition.
+
+			Soit alors $\varepsilon > 0$. Pour tout $m, n \in \N$ et pour tout $x \in X$, on a~:
+			\[\norm {f_n(x) - f_m(x)}_E  \leq \norm {f_n - f_m}_\infty \leq \varepsilon.\]
+
+			Passons alors à la limite e $m$, ce qui donne~:
+			\[\norm {f_n(x) - f(x)}_E \leq \norm {f_n - f}_\infty \leq \varepsilon.\]
+			Dès lors~:
+			\[\forall n \geq N : \norm {f_n - f}_\infty \leq \varepsilon.\]
+			\end{proof}
+
+			\begin{rmq} Quand $X \neq \emptyset$ et $Y = E$ est un espace vectoriel normé, on a~:
+			\[f_n \CVU Xn\pinfty f \iff
+				\begin{cases}&\exists N \in \N \tq \forall n \geq N : f_n - f \in B(X, E) \\ &f_n - f \xrightarrow[n \to \pinfty]{\norm \cdot_\infty} 0\end{cases}.\]
+			\end{rmq}
+
+		\subsection{Convergence uniforme sur tout compact}
+			\begin{déf} Soit $X$, une partie non-vide d'un espace vectoriel normé de dimension finie $(E, \norm \cdot_E)$. Soit $(Y, d)$ un espace métrique.
+			Une suite $f_n : X \to Y$ converge uniformément vers $f : X \to Y$ sur tout compact lorsque~:
+			\[\forall \text{ compact } K \subset X : \restr {f_n}K \CVU Kn\pinfty \restr fK.\]
+
+			Cela se note~:
+			\[f_n \CVUc Xn\pinfty f.\]
+			\end{déf}
+
+			\begin{prp} Si la suite $f_n$ converge uniformément sur tout compact de $X$ et si toutes les fonctions $f_n$ sont continues en $a \in X$, alors
+			$f$ est continue en $a$.
+			\end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{ex} Prenons $X = Y = \R$. On définit $f_n(x) = \sum_{k=0}^n\frac {x^k}{k!}$. On a alors $f_n \CVS Xn\pinfty \exp$.
+
+			De plus~:
+			\[\norm {f_n - \exp}_\infty = \sup_{x \in \R} \abs {\sum_{k=0}^n\frac {x^k}{k!} - \exp(x)} = \pinfty.\]
+			Donc $f_n$ ne converge pas uniformément vers $\exp$. Montrons maintenant que $f_n$ converge uniformément vers $\exp$ sur tout compact de $\R$.
+			Soit $K \subset \R$ un compact. On sait qu'il existe $a, b \in \R, a < b$ tels que $K \subset [a, b]$. Pour $x \in [a, b]$, par Lagrange, on a~:
+			\[\exp(x) - \sum_{k=0}^n\frac {x^k}{k!} = \frac {x^{n+1}}{(n+1)!}\exp(c_x),\]
+			avec $c_x \in [a, b]$.
+
+			Ainsi~:
+			\[\abs {\exp(x) - \sum_{k=0}^n\frac {x^k}{k!}} \leq \frac {(b-a)^{n+1}}{(n+1)!}\sup_{x \in [a, b]}\exp(x) \xrightarrow[n \to \pinfty]{} 0.\]
+
+			D'où $f_n \xrightarrow[n \to \pinfty]{[a, b]} f$ et donc la convergence uniforme sur tout compact de $f_n$ vers $f$.
+			\end{ex}
+
+	\section{Suites de fonctions et opérations d'intégration et de dérivation}
+		\subsection{Passage à la limite dans une intégrale de Riemann}
+			Soit $X$ un pavé de $\R^d$ (donc $X = \prod_{i=1}^d[a_i, b_i]$ avec $a_i < b_i \forall i \in \{1, \ldots, d\}$).
+
+			\begin{thm} Soit $f_n : X \to \R$ intégrables au sens de Riemann sur $X$. Supposons $f_n \CVU Xn\pinfty f$. Alors~:
+			\begin{itemize}
+				\item $f$ est intégrable au sens de Riemann~;
+				\item la $\left(\int_X f_n(x)\dif x\right)_n$ converge vers $\int_Xf(x)\dif x$.\footnote{Cela veut dire que~:
+					\[\lim_{n \to \pinfty}\int_X f_n(x)\dif x = \int_X \lim_{n \to \pinfty} f_n(x)\dif x.\]}
+			\end{itemize}
+			\end{thm}
+
+			\begin{proof} On note $\mathcal E(X, \R) \coloneqq \{f : X \to \R \tq f \text{ est élémentaire}\}$.
+
+			Soit $\varepsilon > 0$. Par la convergence uniforme, on sait qu'il existe $N \in \N$ tel que~:
+			\[\forall n \geq N : \norm {f_n - f}_\infty \leq \frac \varepsilon{4\abs X},\]
+			où $\abs X = \prod_{i=1}^d(b_i - a_i)$.
+
+			Par intégrabilité de $f_N$, on sait qu'il existe $\varphi, \psi \in \mathcal E(X, \R)$ telles que~:
+			\[\psi \leq f_N \leq \varphi \qquad\qquad \text{ et } \qquad\qquad \int_X(\varphi - \psi) < \frac \varepsilon2.\]
+
+			On a alors~:
+			\[\psi - f_N \leq f \leq \varphi + f_N,\]
+			ou encore~:
+			\[\psi - \frac \varepsilon{4\abs X} \leq f \leq \varphi + \frac \varepsilon{4\abs X}.\]
+
+			En posant $\overline \psi \coloneqq \psi - \frac \varepsilon{4\abs X}$ et $\overline \varphi \coloneqq \varphi + \frac \varepsilon{4\abs X}$, on a
+			$\overline \psi, \overline \varphi \in \mathcal E(X, \R)$. De plus~:
+			\[\int_X(\psi-\varphi) = \int_X\left(\psi + \frac \varepsilon{4\abs X} - \left(\varphi - \frac \varepsilon{4\abs X}\right)\right)
+				= \frac \varepsilon{2\abs X}\abs X + \int_X \psi - \varphi < 2\frac \varepsilon2 = \varepsilon.\]
+
+			Dès lors, on en déduit $f$ intégrable au sens de Riemann.
+
+			Fixons $\varepsilon > 0$. Par convergence uniforme de $f_n$ vers $f$ sur $X$, on sait que~:
+			\[\exists N \in \N \tq \forall n \geq N : \norm {f_n - f}_\infty < \frac \varepsilon{\abs X}\]
+
+			Et donc~:
+			\[\abs {\int_X f_n(x)\dif x - \int_X f(x)\dif x} = \abs {\int_X (f_n-f)(x)\dif x} \leq \abs {\int_X\norm {f_n-f}_\infty\dif x}
+				= \abs X\norm{f_n-f}_\infty \leq \abs X\frac \varepsilon{\abs X} = \varepsilon.\]
+
+			Finalement, la suite $\left(\int_X f_n(x)\dif x\right)_n$ converge dans $\R$ vers $\int_X f(x)\dif x$.
+			\end{proof}
+
+			\begin{rmq}~
+			\begin{enumerate}
+				\item Il est possible d'avoir les résultats sans vérifier les hypothèses. Par exemple, $X = [0, 1] \subset \R = Y$, avec $f_n(x) = x^n$.
+				      On sait que $f_n \CVS Xn\pinfty 1_{\{x=1\}}$ et que la convergence n'est pas uniforme sur $[0, 1]$. On remarque alors~:
+				      \[\lim_{n\to\pinfty}\int_0^1f_n(x)\dif x = \lim_{n\to\pinfty}\frac 1{n+1} = 0 = \int_0^11_{\{x=1\}}(x)\dif x
+				      	= \int_0^1\lim_{n\to\pinfty}f_n(x)\dif x~;\]
+				\item si les hypothèses ne sont pas vérifiées, la conclusion peut être fausse. Par exemple, $X = [0, 1] \subset \R = Y$. On définit ($n \geq 1$)~:
+				      \[f_n(x) = \begin{cases}
+				      	2n\alpha_nx &\text{ si } 0 \leq x < \frac 1{2n} \\
+				        2\alpha_n - 2n\alpha_nx &\text{ si }\frac 1{2n} \leq x < \frac 1n \\
+				        0 &\text{ sinon}\end{cases},\]
+				      où $\alpha_n \in \R^+_0 \tq \forall n \in \N^* : \int_0^1f_n(x)\dif x = 1$, donc $\alpha_n = 2n$.
+
+				      On a alors $f_n \CVS Xn\pinfty 0 = f$. La fonction nulle $0(x)$ est intégrable au sens de Riemann sur $[0, 1]$.
+
+				      Finalement, on a~:
+				      \[\int_0^1\lim_{n \to \pinfty}f_n(x)\dif x = \int_0^1f(x)\dif x = 0 \qquad \text{ et } \qquad \lim_{n \to \pinfty}\int_0^1f_n(x)\dif x = 1.\]
+
+				      Dans ce cas précis, on ne peut pas passer à la limite.
+			\end{enumerate}
+			\end{rmq}
 \end{document}
