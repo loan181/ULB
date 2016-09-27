@@ -1,5 +1,6 @@
 \documentclass{report}
 
+\usepackage{hyperref}
 \usepackage[french]{babel}
 \usepackage{commath}
 \usepackage{palatino, eulervm}
@@ -8,6 +9,7 @@
 \usepackage{fullpage}
 \usepackage{amsmath, amsthm, amssymb, amsfonts}
 \usepackage{mathtools}
+\usepackage{stmaryrd}
 \usepackage[bottom]{footmisc}
 \usepackage[parfill]{parskip}
 
@@ -45,15 +47,21 @@
 \newcommand{\CONV}[5]{\xrightarrow[#2 \to #3]{#4 \text{ #5 } #1}}
 % Simple convergence
 \newcommand{\CVS}[3]{\CONV{#1}{#2}{#3}{CVS}{sur}}
+% Simple convergence on compacts
+\newcommand{\CVSc}[3]{\CONV{#1}{#2}{#3}{CVS}{sur tout cpct de}}
 % uniform convergence
 \newcommand{\CVU}[3]{\CONV{#1}{#2}{#3}{CVU}{sur}}
 % uniform convergence on compacts
-\newcommand{\CVUc}[3]{\CONV{#1}{#2}{#3}{CVU}{sur tout compact de}}
+\newcommand{\CVUc}[3]{\CONV{#1}{#2}{#3}{CVU}{sur tout cpct de}}
 
 \newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
+\newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
+\newcommand{\scpr}[2]{\left\langle #1, #2\right\rangle}
 
 \newcommand{\pinfty}{+\infty}
 \newcommand{\grantedproof}{\begin{proof} \underline{Admis.} \end{proof}}
+\newcommand{\evn}{espace vectoriel normé}
+\newcommand{\evnc}{{\evn} complet}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -112,7 +120,7 @@
 				\end{enumerate}
 				\end{déf}
 
-				\begin{prp} Soit $(E, n)$ un $\K$-espace vectoriel normé. L'application $d$ suivante est une distance sur $E$ (on l'appelle la
+				\begin{prp} Soit $(E, n)$ un $\K$-\evn. L'application $d$ suivante est une distance sur $E$ (on l'appelle la
 				\textit{distance associée à la norme $n$})~:
 				\[d : E \times E \to \Rp : (x, y) \mapsto n(y-x).\]
 				\end{prp}
@@ -120,7 +128,7 @@
 				\begin{proof} EXERCICE.
 				\end{proof}
 
-				\begin{rmq} Si $(E, n)$ est un espace vectoriel normé, $\seq xn\N$ est une suite de $E$, et si $x \in E$, alors on dit~:
+				\begin{rmq} Si $(E, n)$ est un \evn, $\seq xn\N$ est une suite de $E$, et si $x \in E$, alors on dit~:
 				\[x_n \mconv n\pinfty n x\]
 				lorsque~:
 				\[x_n \mconv n\pinfty{} x\]
@@ -131,14 +139,14 @@
 
 				\begin{ex} Soient $d \in \Ns$, $p \in [1, \pinfty)$. Pour $x = (x_i)_{1 \leq i \leq d} \in \C^d$, on définit~:
 				\[n(x) = \norm x_p \coloneqq \left(\sum_{k=0}^d\abs {x_i}^p\right)^{\frac 1p}.\]
-				On a alors $(\C^d, n)$ est un $\C$-espace vectoriel normé. Également $(\C^d, n)$ et $(\R^d, n)$  sont des $\R$-espaces vectoriels normés.
+				On a alors $(\C^d, n)$ est un $\C$-\evn. Également $(\C^d, n)$ et $(\R^d, n)$  sont des $\R$-espaces vectoriels normés.
 				\end{ex}
 
 				\begin{déf} Soit $x \in \C^d$. On définit la \textit{norme infinie} de $x$ dans $\C^d$ par~:
 				\[\norm x_\infty \coloneqq \max_{1 \leq i \leq d}\abs {x_i}.\]
 				\end{déf}
 
-				\begin{ex} Soit $d \in \Ns$. $(\C^d, \norm \cdot_\infty)$ est un $\C$-espace vectoriel normé. Également, $(\R^d, \norm \cdot_\infty)$
+				\begin{ex} Soit $d \in \Ns$. $(\C^d, \norm \cdot_\infty)$ est un $\C$-\evn. Également, $(\R^d, \norm \cdot_\infty)$
 				et $(\C^d, \norm \cdot_\infty)$ sont des $\R$-espaces vectoriels normés. \end{ex}
 
 				\begin{proof} EXERCICE.
@@ -380,19 +388,19 @@
 			\end{proof}
 
 		\subsection{L'espace $B(X, E)$}
-			\begin{déf} Soient $X \neq \emptyset$ et $(E, \norm \cdot_E)$ un espace vectoriel normé. On note~:
+			\begin{déf} Soient $X \neq \emptyset$ et $(E, \norm \cdot_E)$ un \evn. On note~:
 			\[B(X, E) \coloneqq \left\{f : X \to E \tq f \text{ est bornée sur } X\right\}.\]
 
 			Pour $f \in B(X, E)$, on définit~:
 			\[\norm f_\infty \coloneqq \sup_{x \in X}\norm {f(x)}_E.\]
 			\end{déf}
 
-			\begin{prp} $\left(B(X, E), \norm \cdot_\infty\right)$ est un espace vectoriel normé. \end{prp}
+			\begin{prp} $\left(B(X, E), \norm \cdot_\infty\right)$ est un \evn. \end{prp}
 
 			\begin{proof} EXERCICE.
 			\end{proof}
 
-			\begin{thm} $\left(B(X, E), \norm \cdot_\infty\right)$ est complet si et seulement si $(E, \norm \cdot_E)$ est complet.
+			\begin{thm}\label{thm:BXEcpltssiEcplt} $\left(B(X, E), \norm \cdot_\infty\right)$ est complet si et seulement si $(E, \norm \cdot_E)$ est complet.
 			\end{thm}
 
 			\begin{proof} Supposons d'abord $\left(B(X, E), \norm \cdot_\infty\right)$ complet et montrons que $(E, \norm \cdot_E)$ est complet.
@@ -436,13 +444,13 @@
 			\[\forall n \geq N : \norm {f_n - f}_\infty \leq \varepsilon.\]
 			\end{proof}
 
-			\begin{rmq} Quand $X \neq \emptyset$ et $Y = E$ est un espace vectoriel normé, on a~:
+			\begin{rmq} Quand $X \neq \emptyset$ et $Y = E$ est un \evn, on a~:
 			\[f_n \CVU Xn\pinfty f \iff
 				\begin{cases}&\exists N \in \N \tq \forall n \geq N : f_n - f \in B(X, E) \\ &f_n - f \xrightarrow[n \to \pinfty]{\norm \cdot_\infty} 0\end{cases}.\]
 			\end{rmq}
 
 		\subsection{Convergence uniforme sur tout compact}
-			\begin{déf} Soit $X$, une partie non-vide d'un espace vectoriel normé de dimension finie $(E, \norm \cdot_E)$. Soit $(Y, d)$ un espace métrique.
+			\begin{déf} Soit $X$, une partie non-vide d'un \evn de dimension finie $(E, \norm \cdot_E)$. Soit $(Y, d)$ un espace métrique.
 			Une suite $f_n : X \to Y$ converge uniformément vers $f : X \to Y$ sur tout compact lorsque~:
 			\[\forall \text{ compact } K \subset X : \restr {f_n}K \CVU Kn\pinfty \restr fK.\]
 
@@ -450,8 +458,8 @@
 			\[f_n \CVUc Xn\pinfty f.\]
 			\end{déf}
 
-			\begin{prp} Si la suite $f_n$ converge uniformément sur tout compact de $X$ et si toutes les fonctions $f_n$ sont continues en $a \in X$, alors
-			$f$ est continue en $a$.
+			\begin{prp}\label{prp:cvuccontinues} Si la suite $f_n$ converge uniformément sur tout compact de $X$ et si toutes les fonctions $f_n$ sont continues
+			en $a \in X$, alors $f$ est continue en $a$.
 			\end{prp}
 
 			\begin{proof} EXERCICE.
@@ -535,5 +543,199 @@
 
 				      Dans ce cas précis, on ne peut pas passer à la limite.
 			\end{enumerate}
+			\end{rmq}
+
+		\subsection{Passage à la limite dans une dérivation ordinaire ou partielle}
+			\begin{thm} Soit $\emptyset \neq \Omega \subset \R^d$, un ouvert. Soient $f_n : \Omega \to \R$, toutes de classe $C^1$ sur $\Omega$. Supposons~:
+			\begin{itemize}
+				\item $f_n \CVSc \Omega n\pinfty f$~;
+				\item $\forall i \in \intint 1d : \pd {f_n}{x_i} \CVU \Omega n\pinfty g_i$.
+			\end{itemize}
+
+			Alors~:
+			\begin{enumerate}
+				\item $f \in C^1(\Omega, \R)$~;
+				\item $\forall i \in \intint 1d : \pd f{x_i} = \lim_{n \to \pinfty} \pd {f_n}{x_i}$ dans $\Omega$~;
+				\item $f_n \CVUc \Omega n\pinfty f$.
+			\end{enumerate}
+			\end{thm}
+			
+			\begin{proof} Soit $x \in \Omega$. Par ouverture de $\Omega$, on sait qu'il existe $\delta \gneqq 0$ tel que $B(x, \delta[ \subset \Omega$.
+			On en déduit que $B(x, \frac \delta2]$ est incluse dans $B(x, \delta[$. Or $B(x, \frac \delta2]$ est fermé et borné par définition.
+			$B(x \frac \delta2]$ est donc un compact de $\Omega$.
+
+			Soient $i \in \intint 1d$ et $h \in [\pm \frac \delta2]$. On a alors~:
+			\[\forall n \in \N : f_n(x + he_i) = f_n(x) + \int_0^h\pd f{x_i}(x+s e_i)\dif s.\]
+
+			Or comme $f_n \CVSc \Omega n\pinfty f$ et pour tout $i$, $\pd {f_n}{x_i}$ converge uniformément vers $g_i$ sur $B(x, \frac \delta2]$, il vient~:
+			\[f_n(x + he_i) = f_n(x) + \int_0^hg_i(x+se_i)\dif s,\]
+			où $\{e_1, \ldots e_d\}$ est la base canonique de $\R^d$.
+
+			On en déduit alors que $f$ admet une dérivée partielle par rapport à $x_i$ en $x$~:
+			\[\pd f{x_i}(x) = g_i(x).\]
+
+			De plus, les $f_n$ sont $C^1(\Omega, \R)$, et donc les dérivées partielles $\pd {f_n}{x_i}$ sont $C^0(\Omega, \R)$ pour tout $i$ et par convergence
+			uniforme sur les compacts, $g_i \in C^0(\Omega, \R)$ (Proposition~\ref{prp:cvuccontinues}).
+
+			On en déduit alors $f \in C^1(\Omega, \R)$ avec $\pd f{x_i} = g_i$ pour tout $i$ dans $\Omega$ (points 1 et 2 à montrer).
+
+			Il reste donc à montrer le point 3.
+
+			Soit $K \subset \Omega$, un compact. Par ouverture de $\Omega$, on sait que pour tout $a \in K$, on a~:
+			\[\exists r_a \gneqq 0 \tq B(a, r_a[ \subset \Omega.\]
+
+			Dès lors, on sait que~:
+			\[K \subset \bigcup_{a \in K}B\left(a, \frac {r_a}2\right[.\]
+
+			Par complétude, on sait qu'il existe un sous-recouvrement fini de $K$, c'est-à-dire $p \in \N^*$ et $(a_i)_{i \in \intint 1p} \in K^p$ tel que~:
+			\[K \subset \bigcup_{i=1}^pB\left(a_i, \frac {r_{a_i}}2\right[.\]
+
+			Par convergence simple de $f_n$ vers $f$, et puisque les $a_i$ sont en nombre fini, on peut alors exprimer~:
+			\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : \forall k \in \intint 1p\abs {f_n(a_i) - f(a_i)} < \varepsilon.\]
+
+			Fixons donc $\varepsilon > 0$, soit $N$ correspondant et soit $x \in K$. Il existe $k \in \intint 1p$ tel que $x \in B(a_k, \frac {r_{a_k}}2[$ car
+			les boules ouvertes forment un recouvrement de $K$. On a alors~:
+			\[f_n(x) = f_n(a_k) + \int_0^1\scpr {\nabla f_n(a_k + t(x - a_k))}{(x - a_k)}\dif t,\]
+			et~:
+			\[f(x) = f(a_k) + \int_0^1\scpr {\nabla f(a_k + t(x - a_k))}{(x - a_k)}\dif t.\]
+
+			Par différence, on a~:
+			\[\abs {f_n(x) - f(x)} \leq \abs {f_n(a_k) - f(a_k)} + \int_0^1\norm {\nabla f_n(a_k + t(x - a_k)) - \nabla f(a_k + t(x - a_k))}\dif t \cdot \norm {x - a_k}.\]
+
+			Par convergence uniforme sur $\left(\bigcup_{i=1}^pB(a_i, \frac {r_{a_i}}2]\right)$ de $\nabla f_n$ vers $\nabla f$, on sait que~:
+			\[\exists N \in \N \tq \forall n \geq N : \norm {\nabla f_n - \nabla f}_{\infty, \bigcup_{i=1}^pB\left(a_i, \frac {r_{a_i}}2\right]} <
+				\frac {2\varepsilon}{\displaystyle \max_{i \in \intint 1p} r_{a_i}}.\]
+
+			Finalement, on a~:
+			\[\forall x \in K : \forall n \geq N : \norm {f_n(x) - f(x)} \leq
+				\varepsilon + \frac {r_{a_k}}{2} \cdot \frac {2\varepsilon}{\displaystyle \max_{i \in \intint 1d}r_{a_i}} \leq 2\varepsilon.\]
+				
+			Ainsi, pour $n \geq N$, on a~:
+			\[\norm {f_n - f}_{\infty, K} \leq 2\varepsilon.\]
+			\end{proof}
+
+			\begin{rmq} Ce théorème est vrai en particulier pour $d = 1$, et $\Omega$ un segment de $\R$. \end{rmq}
+
+			\begin{ex}[Contre-exemples ne vérifiant pas les hypothèses donc ne pouvant faire passer la limite dans la dérivation]
+			\begin{enumerate}
+				\item $f_n(x) = \frac {\sin(n^2x)}n, n \geq 1, x \in X = \R$. On a donc $f_n \CVU \R n\pinfty 0 = f$ car $\abs {f_n(x) - f(x)} \leq \frac 1n \to 0$
+				      avec $\frac 1n$ ne dépendant pas de $x$. Les $f^n$ sont $C^\infty(\R)$ et sont donc dérivables~:
+				      \[\od {f_n}x = n\cos(n^2x),\]
+				      et donc~:
+				      \[\od {f_n}x\sVert[3]_{x=0} = n \to \pinfty.\]
+
+			          On en déduit~:
+				      \[\lnot\left(\od {f_n}x \xrightarrow[n \to \pinfty]{} \od fx\right).\]
+
+				\item $f_n(x) = \frac {x^n}n, n \geq 1, x \in X = [0, 1]$. On a $f_n \CVU Xn\pinfty 0$. Puisque les $f_n$ sont $C^\infty(X, \R)$, on a~:
+				      \[\od {f_n}x = x^{n-1} \xrightarrow[n \to \pinfty]{} 1_{\{x=1\}},\]
+				      qui n'est pas une dérivée. À nouveau, la suite des dérivées des $f_n$ ne tend pas vers la dérivée de $f$.
+			\end{enumerate}
+			\end{ex}
+
+			\begin{cor} Soient $p \in \N^*, \Omega \subset \R^d$, un ouvert non-vide. Soit $f_n : \Omega \to \R$ de classe $C^p(\Omega, \R)$. Suposons~:
+			\begin{itemize}
+				\item $\displaystyle \forall q \in \intint 0{p-1} : \forall (i_1, \ldots, i_q) \in \intint 1d^q :
+					\frac {\partial^qf_n}{\partial x_{i_1}\ldots\partial x_{i_q}} \CVU \Omega n\pinfty g_{i_1, \ldots, i_q}$~;
+				\item $\displaystyle \forall (i_1, \ldots i_p) \in \intint 1d^p :
+					\frac {\partial^pf_n}{\partial x_{i_1}\ldots\partial x_{i_p}} \CVU \Omega n\pinfty g_{i_1, \ldots i_q}$.
+			\end{itemize}
+			Alors~:
+			\begin{enumerate}
+				\item $f = g_\emptyset \in C^p(\Omega, \R)$~;
+				\item $\displaystyle \forall q \in \intint 1p : \forall (i_1, \ldots, i_q) \in \intint 1d^q :
+					\frac {\partial^qf}{\partial x_{i_1}\ldots\partial x_{i_q}} = g_{i_1, \ldots, i_q}$~;
+				\item $\forall q \in \intint 0{p-1} : \forall (i_1, \ldots, i_q) \in \intint 1d^q :
+					\frac {\partial^qf_n}{\partial x_{i_1}\ldots\partial x_{i_q}} \CVUc \Omega n\pinfty g_{i_1, \ldots, i_q}$.
+			\end{enumerate}
+			\end{cor}
+
+			\begin{proof} EXERCICE. (Récurrence sur $p$ par le résultat précédent)
+			\end{proof}
+
+	\section{Séries de fonctions}
+		\subsection{Retranscription des résultats sur les suites}
+			\begin{déf} Soit $u_n : X \to Y$ où $X \neq \emptyset$ et $Y$ est un \evn. On appelle \textit{somme partielle d'ordre $n$ de la série de terme
+			général $u_n$} la fonction suivante~:
+			\[S_n : X \to Y : x \mapsto \sum_{k=0}^nu_k(x).\]
+
+			On dit que la série de terme général $u_n$ \textit{converge simplement} sur $X$ lorsque $S_n$ converge simplement sur $X$. De même pour la
+			\textit{convergence uniforme} sur $X$ et la \textit{convergence uniforme sur tout compact} de $X$.
+			\end{déf}
+
+			\begin{thm} Soient $(X, d)$ un espace métrique et $Y$ un \evn. Soit $u_n : X \to Y$. Si $\forall n \in \N : u_n$ est continue en $a \in X$ et si
+			la série de terme général $u_n$ converge uniformément sur $X$, alors~:
+			\[S \coloneqq \lim_{n \to \pinfty}S_n \text{ est continue en } a.\]
+			\end{thm}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{thm} Soit $X \neq \emptyset$, un pavé de $\R^d$ et soit $u_n : X \to Y \tq \sum_{n \geq 0}u_n \CVU Xn\pinfty S$ avec $u_n$ intégrable au
+			sens de Riemann pour tout $n$. Alors~:
+			\begin{enumerate}
+				\item $S$ est intégrable au sens de Riemann sur $X$~;
+				\item la suite $\int_XS_n(x)\dif x$ converge vers $\int_XS(x)\dif x$.
+			\end{enumerate}
+			\end{thm}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{thm} Soit $\Omega \subset \R^d$, un ouvert non-nul et soit $u_n : \Omega \to \R$ de classe $C^p(\Omega, \R)$ avec $p \in \N^*$.
+			Supposons~:
+			\begin{itemize}
+				\item $\sum_{n \geq 0}u_n \CVS \Omega n\pinfty S$~;
+				\item $\displaystyle \forall \alpha \in \N^d \tq \abs \alpha \coloneqq \sum_{i=1}^d\alpha_i \leq p :
+					\sum_{n \geq 0}\frac {\partial^{\abs \alpha}}{\partial x_1^{\alpha_1}\ldots\partial x_d^{\alpha_d}}u_n \CVS \Omega n\pinfty s_{\alpha}$~;
+				\item lorsque $\abs \alpha = p$, la convergence ci-dessus est uniforme sur les compacts de $\Omega$.
+			\end{itemize}
+
+			Alors~:
+			\begin{enumerate}
+				\item $S \in C^p(\Omega, \R)$~;
+				\item $\displaystyle \forall \alpha \in \N^d :
+					\frac {\partial^{\abs \alpha}}{\partial x_1^{\alpha_1}\ldots\partial x_d^{\alpha_d}}S =
+						\sum_{n \geq 0}\frac {\partial^{\abs \alpha}}{\partial x_1^{\alpha_1}\ldots\partial x_d^{\alpha_d}}u_n$~;
+				\item Il y a convergence uniforme sur les compacts de $\Omega$ des séries de dérivées partielles d'ordre $0$ à $p-1$.
+			\end{enumerate}
+			\end{thm}
+
+		\subsection{Convergence normale}
+			\begin{déf} Soient $X \neq \emptyset$ et $Y$ un \evn. On dit que la série de terme général $u_n : X \to Y$ converge normalement sur $X$ lorsque~:
+			\[\sum_{n \geq 0}\norm {u_n}_{\infty, X} < \pinfty.\]
+			\end{déf}
+
+			\begin{déf} On dit que la série de terme général $u_n : X \to Y$ vérifie le critère de Weierstrass lorsqu'il existe $\seq Mn\N$ telle que~:
+			\begin{itemize}
+				\item $\displaystyle \forall n \in \N : \forall x \in X : \norm {u_n(x)}_E \leq M_n$~;
+				\item $\displaystyle \sum_{n \geq 0}M_n < \pinfty$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} $\sum_{n \geq 0}u_n$ converge normalement sur $X$ si et seulement si elle vérifie le critère de Weierstrass.
+			\end{rmq}
+
+			\begin{prp} Si $(E, \norm \cdot_E)$ est un \evnc, et si $\sum_{n \geq 0}u_n$ converge normalement sur $X$ alors $\sum_{n \geq 0}$
+			converge uniformément sur $X$.
+			\end{prp}
+
+			\begin{proof} Écrivons $S_n = \sum_{k=0}^nu_k \in B(X, E)$. Par convergence normale, la suite $\sigma_n = \sum_{k \geq 0}\norm {u_k}_{\infty, X}$
+			converge. De plus, $(\sigma_n)$ est de Cauchy dans $\Rp$. Donc~:
+			\[\forall \varepsilon > 0 : \exists N \in \N \tq \forall n, m \geq N : \abs {\sigma_n - \sigma_m} < \varepsilon.\]
+
+			Ainsi~:
+			\begin{align*}
+				\norm {S_n - S_m}_{\infty, X} &= \norm {\sum_{k=\min(m, n)+1}^{\max(m, n)}u_k}_{\infty, X} \leq \sum_{k=\min(m, n)+1}^{\max(m, n)}\norm {u_k}_{\infty, X} \\
+				&\leq \abs {\sigma_n - \sigma_m} < \varepsilon.
+			\end{align*}
+
+			Donc $(S_n)_n$ est de Cauchy dans $\left(B(X, E), \norm \cdot_{\infty, X}\right)$. Cet espace est complet car $(E, \norm \cdot_E)$ l'est
+			(Théorème~\ref{thm:BXEcpltssiEcplt}). Et donc, $(S_n)_n$ converge uniformément sur $X$.
+			\end{proof}
+
+			\begin{rmq} On peut écrire~:
+			\[CVN \underset {\text{complet}}\Rightarrow CVU \Rightarrow CVS,\]
+			mais les réciproques sont habituellement fausses.
 			\end{rmq}
 \end{document}
