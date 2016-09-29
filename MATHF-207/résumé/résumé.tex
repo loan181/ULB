@@ -157,19 +157,19 @@
 
 		\subsection{Indicateurs}
 			On peut observer que $\mu_1'(\theta) = E_\theta[X_1]$. Pareil pour $m_1' = \overline X$. Le moment d'ordre 1 est donc un indice de position.
-			On a alors $\mu \coloneqq \mu_1(\theta) = E[(X - E[X_1])] = E[X_1] - E[X_1] = 0$. Cette valeur n'est donc pas intéresante. Par contre~:
+			On a alors $\mu \coloneqq \mu_1(\theta) = E[(X - E[X_1])] = E[X_1] - E[X_1] = 0$. Cette valeur n'est donc pas intéressante. Par contre~:
 			\[\mu_2(\theta) = E\left[(X_1 - E[X_1])^2\right] \eqqcolon \Var(X) \qquad\qquad \text{ si }
 				\qquad\qquad m_2 = \frac 1n\sum_{i=1}^n\left(X_i - \overline X\right)^2 \eqqcolon s^2.\]
-			Le moment d'ordre 2 est donc un indice de dispertion.
+			Le moment d'ordre 2 est donc un indice de dispersion.
 
 			\begin{déf} On appelle le \textit{coefficient d'asymétrie de Fisher} la quantité~:
 			\[\gamma_1 \coloneqq \mu_3(\theta) \cdot \left(\mu_2(\theta)\right)^{-\frac 32}.\]
 			\end{déf}
 
-			\begin{rmq} Le dénominateur $\mu_2(\theta)^{\frac 32}$ apparait afin de rendre invariant le coeficient d'asymétrie de Fisher aux transformations
+			\begin{rmq} Le dénominateur $\mu_2(\theta)^{\frac 32}$ apparait afin de rendre invariant le coefficient d'asymétrie de Fisher aux transformations
 			affines. \end{rmq}
 
-			\begin{déf} Le coefficient d'asymétrie de Fisher \textit{empirique} est doné par~:
+			\begin{déf} Le coefficient d'asymétrie de Fisher \textit{empirique} est donné par~:
 			\[m_3 \cdot m_2^{-\frac 32}.\]
 			\end{déf}
 
@@ -177,15 +177,15 @@
 			\[\gamma_2 \coloneqq \mu_4(\theta) \cdot \left(\mu_2(\theta)\right)^{-2} - 3.\]
 			\end{déf}
 
-			\begin{déf} Le coefficient d'applatissement de Fisher \textit{empirique} est doné par~:
+			\begin{déf} Le coefficient d'aplatissement de Fisher \textit{empirique} est donné par~:
 			\[m_4 \cdot m_2^{-2} - 3.\]
 			\end{déf}
 
-			\begin{rmq} Si $\gamma_2 \gneqq 0$, c'est que les évenements extrêmes sont de plus haute probabilité et si $\gamma_2 \lneqq 0$, c'est que les
-			évenements extrêmes sont de moins haute probabilité.
+			\begin{rmq} Si $\gamma_2 \gneqq 0$, c'est que les événements extrêmes sont de plus haute probabilité et si $\gamma_2 \lneqq 0$, c'est que les
+			événements extrêmes sont de moins haute probabilité.
 
 			À nouveau, le dénominateur y a été ajouté afin de rendre le coefficient invariant aux transformations affines. Et le terme $-3$ sert à annuler le
-			coefficient d'applatissement de Fisher pour une normale $\Nms$. \end{rmq}
+			coefficient d'aplatissement de Fisher pour une normale $\Nms$. \end{rmq}
 
 	\section{Quantile}
 		\begin{déf} Si $F_\theta$ est inversible, alors on définit $x_\alpha(\theta) \coloneqq F_\theta^{-1}(\alpha)$, et on appelle $x_\alpha(\theta)$ un
@@ -206,7 +206,7 @@
 		\[x_\alpha^{(n)} \coloneqq \inf\{x \in \R \tq F_n(x) \geq \alpha\}.\]
 		\end{déf}
 
-		\begin{rmq} On peut également définir des indices de position, dispertion, asymétrie, applatisement, etc. sur les quantiles plutôt que sur les moments.
+		\begin{rmq} On peut également définir des indices de position, dispersion, asymétrie, aplatisement, etc. sur les quantiles plutôt que sur les moments.
 		Ils auront des propriétés différentes et une robustesse différente aux valeurs aberrantes.
 		\end{rmq}
 \end{document}
