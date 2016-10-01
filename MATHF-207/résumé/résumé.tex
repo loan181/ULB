@@ -1,5 +1,6 @@
 \documentclass{report}
 
+\usepackage{hyperref}
 \usepackage[french]{babel}
 \usepackage{mathtools}
 \usepackage{eulervm, palatino}
@@ -9,6 +10,7 @@
 \usepackage[parfill]{parskip}
 \usepackage{fullpage}
 \usepackage{amsmath, amsthm,amssymb, amsfonts}
+\usepackage{stmaryrd}
 
 \title{Statistiques mathématiques}
 \author{R. Petit}
@@ -17,12 +19,16 @@
 \DeclareMathOperator{\tq}{\text{ t.q. }}
 \DeclareMathOperator{\Unif}{Unif}  % uniform law
 \DeclareMathOperator{\Bern}{Bern}  % Bernoulli law
+\DeclareMathOperator{\Bin}{Bin}
 \DeclareMathOperator{\Var}{Var}
 
 \newcommand{\minfty}{{-\infty}}
 \newcommand{\pinfty}{{+\infty}}
+\newcommand{\lcvg}{\xrightarrow[n \to \pinfty]{\mathcal L}}
+\newcommand{\distreq}{\overset {\mathcal D}=}
 \newcommand{\statmod}[4]{\left(#1^{#4}, #2\left(#1^{#4}\right), #3^{\left(#4\right)}\right)}
 \newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
+\newcommand{\Nzo}{\mathcal N(0, 1)}
 \newcommand{\vvp}[2]{\begin{pmatrix}#1 \\ #2\end{pmatrix}}
 
 \newcommand{\N}{\mathbb N}
@@ -30,8 +36,11 @@
 \newcommand{\R}{\mathbb R}
 
 \newcommand{\Brl}{\mathcal B}  % \sigma-algebra of borelians
+\newcommand{\charfun}[1]{I_{\left[#1\right]}}
+\newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
 
 \newtheorem{thm}{Théorème}[chapter]
+\newtheorem{lem}[thm]{Lemme}
 \theoremstyle{definition}
 \newtheorem{déf}[thm]{Définition}
 \theoremstyle{remark}
@@ -113,7 +122,7 @@
 		$X_{(i)}$. Dès lors, la fonction indicatrice donnera $i$ fois la valeur 1 et $(n-i)$ fois la valeur 0. La somme donc donc $i$ et la fonction donne
 		$\frac in$. \end{rmq}
 
-		\begin{déf} On appelle \textit{statistique} toute fonction faisant intervenir \textbf{uniquement} des observations. \end{déf}
+		\begin{déf} On appelle \textit{statistique} toute fonction mesurable faisant intervenir \textbf{uniquement} des observations. \end{déf}
 
 		\begin{ex} Par exemple $F_n$ est une statistique car seules les valeurs $X_i$ sont utilisée, mais $F_\theta$ n'est pas une statistique car la valeur
 		du paramètre $\theta$ apparait et n'est pas une observation. \end{ex}
@@ -191,8 +200,8 @@
 		\begin{déf} Si $F_\theta$ est inversible, alors on définit $x_\alpha(\theta) \coloneqq F_\theta^{-1}(\alpha)$, et on appelle $x_\alpha(\theta)$ un
 		\textit{quantile}. \end{déf}
 
-		\begin{rmq} Il faut cependant faire attention car on peut avoir le cas de $F_\theta$ discontinue où on choisit $\alpha = F_\theta^{-1}$(point de discontinuité)
-		ou alors le cas de $F_\theta$ admettant un plateau et où on choisit $\alpha$ sur le plateau. \end{rmq}
+		\begin{rmq} Il faut cependant faire attention car on peut avoir le cas de $F_\theta$ discontinue où on choisit $\alpha = F_\theta^{-1}$(point de
+		discontinuité) ou alors le cas de $F_\theta$ admettant un plateau et où on choisit $\alpha$ sur le plateau. \end{rmq}
 
 		\begin{déf} On définit alors~:
 		\[x_\alpha(\theta) \coloneqq \inf\left\{x \in \R \tq F_\theta(x) \geq \alpha\right\}.\]
@@ -206,7 +215,138 @@
 		\[x_\alpha^{(n)} \coloneqq \inf\{x \in \R \tq F_n(x) \geq \alpha\}.\]
 		\end{déf}
 
-		\begin{rmq} On peut également définir des indices de position, dispersion, asymétrie, aplatisement, etc. sur les quantiles plutôt que sur les moments.
+		\begin{rmq} On peut également définir des indices de position, dispersion, asymétrie, aplatissement, etc. sur les quantiles plutôt que sur les moments.
 		Ils auront des propriétés différentes et une robustesse différente aux valeurs aberrantes.
 		\end{rmq}
+
+		\begin{déf} La loi échantillonnée de $T(X^{(n)})$ est la loi déterminée par~:
+		\[P_\theta^{(n)}\left[T(X^{(n)}) \in B\right] = P_\theta^{(n)}\left[\left\{x^{(n)} \in X^{(n)} \tq T(x^{(n)} \in B\right\}\right], B \in \Brl(\R^m).\]
+		\end{déf}
+
+		\begin{ex}[Bernoulli] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Bern(p)$. On a alors~: $T(X^{(n)}) = \sum_{i=1}^nX_i$, sous
+		$P_\theta^{(n)}$, est de loi $\Bin(n, p)$.
+		\end{ex}
+
+		\begin{ex}[Normale] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Nms$ et où
+		$\theta = \begin{pmatrix}\mu \\ \sigma^2\end{pmatrix} \in \Theta = \R \times \R^+_0 \subset \R^2$.
+		La statistique $T_1(X^{(n)}) = \sum_{i=1}^nX_i$, sous $P_\theta^{(n)}$, est de loi $\mathcal N(n\mu, n\sigma^2)$.
+
+		La statistique $T_2(X^{(n)}) = \frac 1n\sum_{i=1}^nX_i$, sous $P_\theta^{(n)}$, est de loi $\mathcal N(\mu, \frac {\sigma^2}n)$.
+		\end{ex}
+
+		\begin{ex}[Uniforme] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Unif(0, \theta)$, pour $\theta \in \Theta = \R^+_0 \subset \R$.
+		On a donc $f_\theta^{X_i}(x) = \theta^{-1}\charfun {0 \leq x \leq \theta}$. Et donc~:
+		\[F_\theta^{X_i}(x) = \begin{cases}0 &\text{ si } x < 0 \\\frac x\theta &\text{ si } 0 \leq x \leq \theta \\1 &\text{ sinon}\end{cases}.\]
+
+		La statistique $T(X^{(n)}) = X_{(n)} = \max_{1 \leq k \leq n}\{X_k\}$ a pour fonction de répartition, sous $P_\theta^{(n)}$~:
+		\[F_\theta^{(n)}(x) = P[X_{(n)} \leq x] = P[X_1 \leq x, X_2 \leq x, \ldots, X_n \leq x].\]
+
+		La seconde forme est plus agréable car on a une intersection d'événements indépendants. Donc~:
+		\[F_\theta^{(n)}(x) = \prod_{i=1}^nP[X_i \leq x] = \prod_{i=1}^nF-\theta^{X_i}(x) =
+			\begin{cases}0 &\text{ si } x < 0 \\\left(\frac x\theta\right)^n &\text{ si } 0 \leq x \leq \theta \\0 &\text{ sinon}\end{cases}.\]
+
+		On a alors la fonction de densité~:
+		\begin{align*}
+			f_\theta^{X_{(n)}}(x) &= \od {}xF_\theta^{X_{(n)}}\sVert[3]_x =
+			\begin{cases}0 &\text{ si } x < 0 \\\frac {nx^{n-1}}{\theta^n}\charfun{0 \leq x \leq \theta} &\text{ si } 0\leq x \leq \theta \\0 &\text{ sinon}\end{cases} \\
+			&= \frac {nx^{n-1}}{\theta^n}\charfun{0 \leq x \leq \theta}.
+		\end{align*}
+		\end{ex}
+
+		\begin{rmq} La loi échantillonnée n'est pas toujours possible à déterminer exactement analytiquement. Dans ce cas, on donne~:
+		\begin{itemize}
+			\item[$(i)$] les/des moments de la loi échantillonnée exacte~;
+			\item[$(ii)$] la loi échantillonnée asymptotique.
+		\end{itemize}
+
+		Et pour de grandes valeurs de $n$, la loi asymptotique donne une assez bonne approximation de la loi exacte.
+		\end{rmq}
+
+		\begin{rmq} Ici, les termes \textit{exact} et \textit{asymptotique} s'opposent~: on parle d'objet \textit{exact} lorsque l'objet est connu pour $n$ fixé,
+		et d'objet \textit{asymptotique} lorsque l'objet n'est connu que pour $n \to \pinfty$.
+		\end{rmq}
+
+		\begin{ex} Voici un cas où on ne peut exprimer de loi exacte mais où il est possible d'exprimer une loi asymptotique. Soit $X^{(n)} = (X_1, \ldots, X_n)$
+		où les $X_i$ sont iid $F$ avec la fonction $F$ telle que $\Var_F(X_i) = \sigma^2 < \pinfty$ et donc $E_F(X_i) = \mu < \pinfty$. On pet dès lors
+		appliquer le théorème central limite (TCL)~:
+		\[\sqrt n(\overline X^{(n)} - \mu) \lcvg \mathcal N(0, \sigma^2).\]
+
+		Pour $n \gg$, on peut alors dire~:
+		\[\overline X^{(n)} \approx \mathcal N\left(\mu, \frac {\sigma^2}n\right),\]
+		où le symbole $\approx$ se lit \textit{est à peu près de même loi}.
+
+		On en conclut donc qu'avec $n$ suffisamment grand, on peut approximer $\overline X^{(n)}$, même sans connaitre sa loi exacte.
+		\end{ex}
+
+	\subsection{Lemme de Fisher}
+		\begin{déf} La variable aléatoire $Q$ est de loi $\chi^2$ (chi-carrée) à $k (\in \N^*)$ degrés de liberté lorsque~:
+		\[Q \distreq \sum_{i=1}^kZ_i^2,\]
+		où les $Z_i$ sont iid $\Nzo$ et où «~$\distreq$~» veut dire \textit{a la même distribution que}. Cela se note~:
+		\[Q \sim \chi^2_k\]
+		\end{déf}
+		\begin{rmq} Si $Q \sim \chi^2_k$, alors~:
+		\[f^Q(x) = \frac 1{2^{\frac k2}\Gamma\left(\frac k2\right)}x^{\frac k2-1}\exp\left(-\frac x2\right)\charfun{x > 0},\]
+		où $\Gamma$ est la fonction Gamma d'Euler définie par~:
+		\[\Gamma(x) = \int_0^\pinfty t^{x-1}\exp(-t)\dif t.\]
+
+		De plus, $\Var(Q) = 2k$, et $E(Q) = k$.
+
+		On peut également noter que les $\chi^2$ sont stables par la somme~: si $Q_1 \sim \chi^2_{k_1}$ et $Q_2 \sim \chi^2_{k_2}$, alors~:
+		\[Q_1 + Q_2 \sim \chi^2_{k_1+k_2}.\]
+		\end{rmq}
+
+		\begin{lem}\label{lem:preFisher} Soit $W = (W_1, \ldots, W_k)$ un vecteur de variables aléatoires, où $f^W$ : $\R^k \to \R^+$ est la fonction de
+		densité du vecteur $W$. Alors~:
+		\begin{enumerate}
+			\item $P[W \in B] = \int_Bf^W(x)\dif x$~;
+			\item si $V = AW + b$ où $A$ est une matrice $k \times k$ inversible, alors~:
+				\[f^V(v) = \abs {\det A^{-1}}f^W\left(A^{-1}(v-b)\right).\]
+		\end{enumerate}
+		\end{lem}
+
+		\begin{thm}[Lemme de Fisher] Soient $X_1, \ldots, X_n$ iid $\Nms$ où $n \geq 2$. Alors~:
+		\begin{enumerate}
+			\item[$(i)$]   $\overline X \sim \mathcal N(\mu, \frac {\sigma^2}n)$~;
+			\item[$(ii)$]  $\frac {ns^2}{\sigma^2} \sim \chi^2_{n-1}$~;
+			\item[$(iii)$] $\overline X \sqcup s^2$.
+		\end{enumerate}
+		\end{thm}
+
+		\begin{proof} Posons $Z_i \coloneqq \frac {X_i - \mu}\sigma$ pour $i \in \intint 1n$. Puisque les $X_i$ sont iid, les $Z_i$ le sont également (même
+		transformation appliquée à tous les $X_i$ et chaque $Z_i$ ne fait intervenir que le $X_i$ correspondant). Notons que~:
+		\[\overline X = \frac 1n\sum_{i=1}^nX_i = \frac 1n\sum_{i=1}^n\left(\sigma Z_i + \mu\right) = \sigma\overline Z + \mu,\]
+		où $\overline Z$ est la moyenne empirique des $Z_i$. Notons également que~:
+		\[ns^2 = \sum_{i=1}^n(X_i - \overline X)^2 = \sum_{i=1}^n\left(\left(\sigma Z_i + \mu\right) - \left(\sigma\overline Z + \mu\right)\right)^2
+			= \sigma^2\sum_{i=1}^n\left(Z_i - \overline Z\right)^2 = n\sigma^2s_Z^2.\]
+
+		Il nous faut alors montrer que $\overline Z \sim \Nzo$ et $ns_Z^2 \sim \chi^2_{n-1}$, avec $\overline Z \sqcup s_Z^2$.
+
+		Pour cela, on sait que le vecteur $Z^{(n)} = (Z_1, \ldots, Z_n)$ a pour densité~:
+		\[f^{Z^{(n)}}(z^{(n)}) = \prod_{i=1}^nf^{Z_i}(z_i) = \prod_{i=1}^n\left(\frac 1{\sqrt {2\pi}}\exp\left(\frac {z_i^2}2\right)\right)
+			= \left(\frac 1{\sqrt {2\pi}}\right)^n\exp\left(-\sum_{i=1}^n\frac {z_i^2}2\right)
+			= \left(\frac 1{\sqrt {2\pi}}\right)^n\exp\left(-\frac 12\norm {z^{(n)}}^2\right).\]
+
+		Soit $O$ une matrice orthogonale de dimension $n \times n$ telle que $\forall j \in \intint 1n$ : $O_{1j} = \frac 1{\sqrt n}$. On pose alors~:
+		\[(Y_1, \ldots, Y_n) = Y^{(n)} = OZ^{(n)}.\]
+
+		Puisque la matrice $O$ est orthogonale, on sait que $O^{-1}$ existe et que $\abs {\det O} = \abs {\det O^{-1}} = 1$. Par le lemme~\ref{lem:preFisher},
+		on peut dire~:
+		\[f^{Y^{(n)}}(y^{(n)}) = \abs {\det O^{-1}}f^{Z^{(n)}}\left(O^{-1}y^{(n)}\right)
+			= \left(\frac 1{\sqrt {2\pi}}\right)^n\exp\left(-\frac 12\norm {O^{-1}y^{(n)}}\right)
+			= \left(\frac 1{\sqrt {2\pi}}\right)^n\exp\left(-\frac 12\norm {y^{(n)}}\right).\]
+
+		On a donc $f^{Y^{(n)}} = f^{Z^{(n)}}$, ce qui implique que les $Y_i$ sont iid $\Nzo$.
+
+		En particulier, $Y_1 = (Y^{(n)})_1 = (OZ^{(n})_1 = \sum_{i=1}^nO_{1i}Z_i = \sum_{i=1}^n\frac {Z_i}{\sqrt n} = \sqrt n\overline Z \sim \Nzo$.
+		On peut alors en déduire que $\overline Z \sim \mathcal N(0, n^{-1})$.
+
+		Montrons alors que $ns_Z^2 \sim \chi^2_{n-1}$~:
+		\[ns_Z^2 = \sum_{i=1}^n(Z_i - \overline Z)^2 = \sum_{i=1}^nZ_i^2 - n(\overline Z)^2 = \norm {Z^{(n)}}^2 - (\sqrt n\overline Z)^2 = \norm{Y^{(n)}} - Y_1^2
+			= \sum_{i=2}^nY_i^2.\]
+
+		Or, les $Y_i$ sont $\Nzo$. On a alors bien $ns_Z^2 \sim \chi^2_{n-1}$ (car la somme sur $i$ commence à $2$, il y a donc $(n-1)$ variables sommées).
+
+		De plus, puisque les $Y_i$ sont indépendantes deux à deux, que $\overline Z$ ne dépend que de $Y_1$ et que $ns_Z^2$ ne dépend pas de $Y_1$, on sait que
+		$\overline Z \sqcup ns_Z^2$.
+		\end{proof}
 \end{document}
