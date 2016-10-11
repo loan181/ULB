@@ -33,8 +33,12 @@
 \newcommand{\restr}[2]{\left.#1\right|_{#2}}
 
 \newcommand{\R}{\mathbb R}
+\newcommand{\Rp}{{\R^+}}
+\newcommand{\Rm}{{\R^-}}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\N}{\mathbb N}
+
+\newcommand{\mconv}[2]{\xrightarrow[#1 \to #2]{}}
 
 \begin{document}
 \pagenumbering{Roman}
@@ -190,12 +194,12 @@
 
 		On observe que~:
 		\begin{align*}
-			d_1(f_n, 0) &= \int_0^1\abs{f_n(x) - 0(x)}\dif x = \int_0^1\abs {f_n(x)}\dif x = \frac 1n \underset {n \to \infty}\to 0 \\
-			d_2(f_n, 0) &= \int_0^1\abs{f_n(x)}^2 \leq \sqrt{\frac 1n} \underset {n \to \infty}\to 0 \\
-			d_\infty(f_n, 0) = 1 \forall n \in \N.
+			d_1(f_n, 0) &= \int_0^1\abs{f_n(x) - 0(x)}\dif x = \int_0^1\abs {f_n(x)}\dif x = \frac 1n \mconv n\infty 0 \\
+			d_2(f_n, 0) &= \int_0^1\abs{f_n(x)}^2 \leq \sqrt{\frac 1n} \mconv n\infty 0 \\
+			d_\infty(f_n, 0) &= 1 \quad \forall n \in \N.
 		\end{align*}
 
-		Il y a donc convergence vers 0 (la fonction nulle) pour $d_1$ et $d_2$ dans $\mathcal C([0, 1])$ mais vers 1 (la fonction constante valant 1)
+		Il y a donc convergence vers 0 (la fonction nulle) pour $d_1$ et $d_2$ dans $\cont 01$ mais vers 1 (la fonction constante valant 1)
 		pour $d_\infty$. \end{ex}
 
 		\begin{déf} Une suite $(x_n)$ dans un espace métrique $(M, d)$ est dite \textit{de Cauchy} si~:
@@ -208,6 +212,40 @@
 
 		\begin{ex} Si $(x_n) \subset \Q$ est une suite convergente en $\sqrt 2$ dans $\R$, alors $(x_n)$ est de Cauchy. Or $(x_n)$ ne converge pas dans $\Q$.
 		\end{ex}
+
+		\begin{déf} Soient $(M, d)$, un espace métrique et $A \subseteq M$. $A$ est dit borné lorsque~:
+		\[\exists L \in \Rp_0 \tq \forall x, y \in M : d(x, y) \leq L.\]
+
+		De plus, la suite $(x_n) \subset M$ est dite bornée lorsque le sous-ensemble $\{x_n \tq n \in \N\} \subset M$ est borné.
+		\end{déf}
+
+		\begin{prp} Un sous-ensemble $A$ de $M$, où $(M, d)$ est un espace métrique, est borné si et seulement si~:
+		\[\exists x_0 \in M, R \in \Rp_0 \tq A \subset B(x_0, R).\]
+		\end{prp}
+
+		\begin{proof}  % TODO
+		\end{proof}
+
+		\begin{thm}[Bolzanno-Weierstrass] Soit $(x_n) \subset \R^m$. Si $(x_n)$ est bornée, alors il existe une sous-suite de $(x_n)$ convergente.
+		\end{thm}
+	
+	\section{Fonctions et applications continues}
+		\begin{déf} Soit $f : (M, d_M) \to (N, d_N)$, une application entre deux espaces métriques. On dit que $f$ est continue en $a \in M$ lorsque~:
+		\[\forall \varepsilon > 0 : \exists \delta > 0 \tq d_M(x, a) < \delta \Rightarrow d_N(f(x), f(a)) < \varepsilon.\]
+
+		On dit que $f$ est continue lorsqu'elle est continue en tout point $a$ de $M$.
+		\end{déf}
+
+		\begin{lem} Soit $f : M \to N$, une application entre deux espaces métriques. $f$ est continue en $a \in M$ si et seulement si~:
+		\[\forall (x_n) \subset M : \left(x \to a\right) \Rightarrow \left(f(x_n) \to f(a)\right).\]
+		\end{lem}
+
+		\begin{prp} Soient $(M, d_M), (N, d_N), (P, d_P)$ trois espaces métriques. Soient $f : (M, d_M) \to (N, d_N)$ et $g : (N, d_N) \to (P, d_P)$ continues.
+		Alors la fonction $g \circ f$ est également continue.
+		\end{prp}
+
+	\section{Ensembles ouverts et fermés}
+		% To be continued...
 
 % \chapter{Topologie différentielle}
 \end{document}
