@@ -1,12 +1,12 @@
 \documentclass{report}
 
+\usepackage{commath}
 \usepackage{hyperref}
-\usepackage[french]{babel}
+\usepackage[francais]{babel}
 \usepackage{mathtools}
 \usepackage{eulervm, palatino}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{commath}
 \usepackage[parfill]{parskip}
 \usepackage{fullpage}
 \usepackage{amsmath, amsthm,amssymb, amsfonts}
@@ -22,11 +22,18 @@
 \DeclareMathOperator{\Bin}{Bin}
 \DeclareMathOperator{\Var}{Var}
 
+\renewcommand{\P}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+
 \newcommand{\minfty}{{-\infty}}
 \newcommand{\pinfty}{{+\infty}}
-\newcommand{\lcvg}{\xrightarrow[n \to \pinfty]{\mathcal L}}
+\newcommand{\cvgp}{\xrightarrow[n \to \pinfty]{\P}}
+\newcommand{\cvgLr}{\xrightarrow[n \to \pinfty]{L_r}}
+\newcommand{\cvgd}{\xrightarrow[n \to \pinfty]{\mathcal D}}
+\newcommand{\cvgps}{\xrightarrow[n \to \pinfty]{\text{p.s.}}}
 \newcommand{\distreq}{\overset {\mathcal D}=}
 \newcommand{\statmod}[4]{\left(#1^{#4}, #2\left(#1^{#4}\right), #3^{\left(#4\right)}\right)}
+\newcommand{\probspace}[3]{\left(#1, #2, #3\right)}
 \newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
 \newcommand{\Nzo}{\mathcal N(0, 1)}
 \newcommand{\vvp}[2]{\begin{pmatrix}#1 \\ #2\end{pmatrix}}
@@ -34,6 +41,8 @@
 \newcommand{\N}{\mathbb N}
 \newcommand{\Ns}{\N^{*}}
 \newcommand{\R}{\mathbb R}
+\newcommand{\Rp}{{\mathbb R^+}}
+\newcommand{\Rm}{{\mathbb R^-}}
 
 \newcommand{\Brl}{\mathcal B}  % \sigma-algebra of borelians
 \newcommand{\charfun}[1]{I_{\left[#1\right]}}
@@ -41,11 +50,14 @@
 
 \newtheorem{thm}{Théorème}[chapter]
 \newtheorem{lem}[thm]{Lemme}
+\newtheorem{prp}[thm]{Proposition}
 \theoremstyle{definition}
 \newtheorem{déf}[thm]{Définition}
 \theoremstyle{remark}
 \newtheorem*{rmq}{Remarque}
 \newtheorem{ex}{Exemple}[chapter]
+
+\NoAutoSpaceBeforeFDP
 
 \begin{document}
 \pagenumbering{Roman}
@@ -58,16 +70,16 @@
 \chapter*{Introduction}
 	En probabilités, une variable aléatoire $X$ donnée est entièrement définie par sa loi. On peut l'exprimer par la fonction de répartition $F^X$ ou par la
 	fonction de densité $f^X = \od {}xF^X$. Ces fonctions permettent de déterminer~:
-	\[P[a \leq X \leq b] = \int_a^bf^X(x)\dif x = F^X(b) - F^X(a).\]
+	\[\P[a \leq X \leq b] = \int_a^bf^X(x)\dif x = F^X(b) - F^X(a).\]
 	Ou encore~:
-	\[E[X] = \int_\minfty^\pinfty xf^X(x)\dif x.\]
+	\[\E[X] = \int_\minfty^\pinfty xf^X(x)\dif x.\]
 
 	Cependant, les fonctions $f^X$ et $F^X$ ne sont jamais connues précisément. Elles peuvent être approchées par des modélisations, mais les modèles ne sont
 	jamais exacts. En probabilités, on cherche donc les observations sur base de la loi qui est connue, alors qu'en statistiques, on cherche à retrouver la loi
 	sur base de $n$ observations $X_1, \ldots, X_n$.
 
 	Nous allons nous intéresser à des \textit{modèles statistiques} sous la forme $\statmod \R\Brl{\mathcal P}n$ où~:
-	\[\mathcal P^{(n)} = \left\{P^{(n)}\right\} = \left\{P^{(n)}_\theta \tq \theta \in \Theta \subset \R^k\right\},\]
+	\[\mathcal P^{(n)} = \left\{\P^{(n)}\right\} = \left\{\P^{(n)}_\theta \tq \theta \in \Theta \subset \R^k\right\},\]
 	et donc les $P^{(i)}$ sont chacun une loi possible pour $(X_1, \ldots, X_n)$.
 
 	Ces modèles sont dits \textit{paramétriques} car les différentes lois sont les mêmes au paramètre $\theta$ près. Nous n'étudierons que des modèles
@@ -92,8 +104,8 @@
 		\begin{déf} On appelle \textit{modèle d'échantillonnage} un modèle d'observations iid.  \end{déf}
 
 		\begin{déf} Soit un modèle statistique $\statmod E\Brl{\mathcal P}n$ où $\mathcal P^{(n)} =
-		\left\{P_\theta^{(n)} \tq \theta \in \Theta \subset \R^k\right\}$. On note ici $P^{(n)}_\theta$ une loi possible pour $(X_1, \ldots, X_n)$ et $P_\theta$
-		une loi possible pour $X_i$ avec $i$ fixé. On dit alors que $P^{(n)}_\theta$ est déterminé par $P_\theta$.
+		\left\{P_\theta^{(n)} \tq \theta \in \Theta \subset \R^k\right\}$. On note ici $\P^{(n)}_\theta$ une loi possible pour $(X_1, \ldots, X_n)$ et $\P_\theta$
+		une loi possible pour $X_i$ avec $i$ fixé. On dit alors que $\P^{(n)}_\theta$ est déterminé par $\P_\theta$.
 		\end{déf}
 
 		\begin{rmq} Ici, deux visions vont s'opposer et se compléter~: la vision \textit{population} qui est associée à $P_\theta$ et la version
@@ -132,11 +144,11 @@
 
 		\begin{rmq} L'objectif est de pouvoir approximer la loi régissant les populations ($F_\theta$) à l'aide de la loi observée empiriquement. Par la loi
 		des grands nombres, on a~:
-		\[F_n(x) \xrightarrow[n \to \pinfty]{p.s. \text{ par } P_\theta}.\]
+		\[F_n(x) \xrightarrow[n \to \pinfty]{p.s. \text{ par } \P_\theta} F_\theta(x).\]
 		\end{rmq}
 
 		\begin{thm}[Théorème de Glivenko-Cantelli] Si $F_n$ et $F_\theta$ sont repsectivement une fonction de répartition empirique et de population, alors~:
-		\[\sup_{x \in \R}\abs {F_n(x) - F_\theta(x)} \xrightarrow[n \to \pinfty]{p.s.} 0\]
+		\[\sup_{x \in \R}\abs {F_n(x) - F_\theta(x)} \cvgps 0\]
 		\end{thm}
 	
 	\section{Moments}
@@ -155,9 +167,9 @@
 		\end{déf}
 
 		\begin{rmq} La loi des grands nombres dit que~:
-		\[m_r' \xrightarrow[n \to \pinfty]{p.s.} \mu_r'(\theta),\]
+		\[m_r' \cvgps \mu_r'(\theta),\]
 		mais on ne peut pas dire que~:
-		\[m_r \xrightarrow[n \to \pinfty]{p.s.} \mu_r(\theta).\]
+		\[m_r \cvgps \mu_r(\theta).\]
 
 		Ce n'est donc pas possible car pour $m_r'$, il y a une somme de variables iid alors que pour $m_r$, les variables sommées ne sont pas iid (mais
 		dépendent toutes de tous les $X_i$).
@@ -165,9 +177,9 @@
 		En réalité, il y a convergence, mais on ne peut pas l'exprimer de manière triviale par la loi des grands nombres. \end{rmq}
 
 		\subsection{Indicateurs}
-			On peut observer que $\mu_1'(\theta) = E_\theta[X_1]$. Pareil pour $m_1' = \overline X$. Le moment d'ordre 1 est donc un indice de position.
-			On a alors $\mu \coloneqq \mu_1(\theta) = E[(X - E[X_1])] = E[X_1] - E[X_1] = 0$. Cette valeur n'est donc pas intéressante. Par contre~:
-			\[\mu_2(\theta) = E\left[(X_1 - E[X_1])^2\right] \eqqcolon \Var(X) \qquad\qquad \text{ si }
+			On peut observer que $\mu_1'(\theta) = \E_\theta[X_1]$. Pareil pour $m_1' = \overline X$. Le moment d'ordre 1 est donc un indice de position.
+			On a alors $\mu \coloneqq \mu_1(\theta) = \E[(X - \E[X_1])] = \E[X_1] - \E[X_1] = 0$. Cette valeur n'est donc pas intéressante. Par contre~:
+			\[\mu_2(\theta) = \E\left[(X_1 - \E[X_1])^2\right] \eqqcolon \Var(X) \qquad\qquad \text{ si }
 				\qquad\qquad m_2 = \frac 1n\sum_{i=1}^n\left(X_i - \overline X\right)^2 \eqqcolon s^2.\]
 			Le moment d'ordre 2 est donc un indice de dispersion.
 
@@ -220,18 +232,18 @@
 		\end{rmq}
 
 		\begin{déf} La loi échantillonnée de $T(X^{(n)})$ est la loi déterminée par~:
-		\[P_\theta^{(n)}\left[T(X^{(n)}) \in B\right] = P_\theta^{(n)}\left[\left\{x^{(n)} \in X^{(n)} \tq T(x^{(n)} \in B\right\}\right], B \in \Brl(\R^m).\]
+		\[\P_\theta^{(n)}\left[T(X^{(n)}) \in B\right] = \P_\theta^{(n)}\left[\left\{x^{(n)} \in X^{(n)} \tq T(x^{(n)} \in B\right\}\right], B \in \Brl(\R^m).\]
 		\end{déf}
 
 		\begin{ex}[Bernoulli] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Bern(p)$. On a alors~: $T(X^{(n)}) = \sum_{i=1}^nX_i$, sous
-		$P_\theta^{(n)}$, est de loi $\Bin(n, p)$.
+		$\P_\theta^{(n)}$, est de loi $\Bin(n, p)$.
 		\end{ex}
 
 		\begin{ex}[Normale] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Nms$ et où
 		$\theta = \begin{pmatrix}\mu \\ \sigma^2\end{pmatrix} \in \Theta = \R \times \R^+_0 \subset \R^2$.
 		La statistique $T_1(X^{(n)}) = \sum_{i=1}^nX_i$, sous $P_\theta^{(n)}$, est de loi $\mathcal N(n\mu, n\sigma^2)$.
 
-		La statistique $T_2(X^{(n)}) = \frac 1n\sum_{i=1}^nX_i$, sous $P_\theta^{(n)}$, est de loi $\mathcal N(\mu, \frac {\sigma^2}n)$.
+		La statistique $T_2(X^{(n)}) = \frac 1n\sum_{i=1}^nX_i$, sous $\P_\theta^{(n)}$, est de loi $\mathcal N(\mu, \frac {\sigma^2}n)$.
 		\end{ex}
 
 		\begin{ex}[Uniforme] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Unif(0, \theta)$, pour $\theta \in \Theta = \R^+_0 \subset \R$.
@@ -239,10 +251,10 @@
 		\[F_\theta^{X_i}(x) = \begin{cases}0 &\text{ si } x < 0 \\\frac x\theta &\text{ si } 0 \leq x \leq \theta \\1 &\text{ sinon}\end{cases}.\]
 
 		La statistique $T(X^{(n)}) = X_{(n)} = \max_{1 \leq k \leq n}\{X_k\}$ a pour fonction de répartition, sous $P_\theta^{(n)}$~:
-		\[F_\theta^{(n)}(x) = P[X_{(n)} \leq x] = P[X_1 \leq x, X_2 \leq x, \ldots, X_n \leq x].\]
+		\[F_\theta^{(n)}(x) = \P[X_{(n)} \leq x] = \P[X_1 \leq x, X_2 \leq x, \ldots, X_n \leq x].\]
 
 		La seconde forme est plus agréable car on a une intersection d'événements indépendants. Donc~:
-		\[F_\theta^{(n)}(x) = \prod_{i=1}^nP[X_i \leq x] = \prod_{i=1}^nF-\theta^{X_i}(x) =
+		\[F_\theta^{(n)}(x) = \prod_{i=1}^n\P[X_i \leq x] = \prod_{i=1}^nF_\theta^{X_i}(x) =
 			\begin{cases}0 &\text{ si } x < 0 \\\left(\frac x\theta\right)^n &\text{ si } 0 \leq x \leq \theta \\0 &\text{ sinon}\end{cases}.\]
 
 		On a alors la fonction de densité~:
@@ -267,9 +279,9 @@
 		\end{rmq}
 
 		\begin{ex} Voici un cas où on ne peut exprimer de loi exacte mais où il est possible d'exprimer une loi asymptotique. Soit $X^{(n)} = (X_1, \ldots, X_n)$
-		où les $X_i$ sont iid $F$ avec la fonction $F$ telle que $\Var_F(X_i) = \sigma^2 < \pinfty$ et donc $E_F(X_i) = \mu < \pinfty$. On pet dès lors
+		où les $X_i$ sont iid $F$ avec la fonction $F$ telle que $\Var_F(X_i) = \sigma^2 < \pinfty$ et donc $E_F(X_i) = \mu < \pinfty$. On peut dès lors
 		appliquer le théorème central limite (TCL)~:
-		\[\sqrt n(\overline X^{(n)} - \mu) \lcvg \mathcal N(0, \sigma^2).\]
+		\[\sqrt n(\overline X^{(n)} - \mu) \cvgd \mathcal N(0, \sigma^2).\]
 
 		Pour $n \gg$, on peut alors dire~:
 		\[\overline X^{(n)} \approx \mathcal N\left(\mu, \frac {\sigma^2}n\right),\]
@@ -298,7 +310,7 @@
 		\begin{lem}\label{lem:preFisher} Soit $W = (W_1, \ldots, W_k)$ un vecteur de variables aléatoires, où $f^W$ : $\R^k \to \R^+$ est la fonction de
 		densité du vecteur $W$. Alors~:
 		\begin{enumerate}
-			\item $P[W \in B] = \int_Bf^W(x)\dif x$~;
+			\item $\P[W \in B] = \int_Bf^W(x)\dif x$~;
 			\item si $V = AW + b$ où $A$ est une matrice $k \times k$ inversible, alors~:
 				\[f^V(v) = \abs {\det A^{-1}}f^W\left(A^{-1}(v-b)\right).\]
 		\end{enumerate}
@@ -349,4 +361,187 @@
 		De plus, puisque les $Y_i$ sont indépendantes deux à deux, que $\overline Z$ ne dépend que de $Y_1$ et que $ns_Z^2$ ne dépend pas de $Y_1$, on sait que
 		$\overline Z \sqcup ns_Z^2$.
 		\end{proof}
+		
+\chapter{Estimation ponctuelle}
+	\section{Introduction}
+		Considérons toujours un modèle statistique $\statmod \R\Brl{\mathcal P}n$ avec $\theta$ le paramètre vectoriel $\in \Theta \subset \R^k$.
+		
+		\begin{déf} Soit $g : \Theta \to \R^km$. Une statistique est appelée \textit{estimateur de $g(\theta)$} lorsqu'elle est à valeurs dans $g(\Theta)$.
+		\end{déf}
+		
+		\begin{déf} Soit $\theta \in \Theta \subset \R^k$. Si $g : \Theta \to \R^m : \theta \mapsto (\theta_{\varphi(1), \ldots, \theta_{\varphi(m)}})$, on
+		appelle les paramètres $\theta_{\varphi(i)}$ les paramètres \textit{d'intérêt}, et on appelle les autres paramètres les paramètres \textit{de nuisance}.
+		\end{déf}
+		
+		\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$. On sait $\theta = (\mu, \sigma^2) \in \Theta = \R \times \Rp_0 \subset \R^2$.
+		Soit $g : \Theta \to \R : \theta \mapsto \mu$. $\mu$ est le paramètre d'intérêt et $\sigma^2$ est le paramètre de nuisance.
+		\end{ex}
+		
+		\begin{rmq} Ne pas connaître le paramètre de nuisance induit une \textit{nuisance} pour déterminer le paramètre d'intérêt.
+		\end{rmq}
+		
+	\section{Critères d'estimation}
+			\begin{rmq} Afin de définir les estimateurs convergents, il faut définir la notion de convergence, or il n'existe pas une manière canonique de la définir.
+			Il existe donc plusieurs définitions de convergences différentes.
+			\end{rmq}
+		
+		\subsection{Définitions de convergence}
+			Soient $Z^{(n)} = (Z_1, \ldots, Z_n)$ définis pour $n \geq 1$ et sur $\probspace \Omega{\mathcal F}\P$.
+		
+			\begin{déf} On dit que $Z^{(n)}$ converge \textit{presque sûrement} (ou \textit{stochastiquement}) vers $Z$ lorsque~:
+			\[\P\left[\left\{\omega \in \Omega \tq Z^{(n)} \xrightarrow[n \to \pinfty]{} Z(\omega)\right\}\right] = 1.\]
+			Cela se note~:
+			\[Z^{(n)} \cvgps Z.\]
+			\end{déf}
+		
+			\begin{déf} On dit que $Z^{(n)}$ converge \textit{en probabilités} vers $Z$ lorsque~:
+			\[\forall \varepsilon > 0 : \P\left[\abs {Z^{(n)} - Z} > \varepsilon\right] \xrightarrow[n \to \pinfty]{} 0.\]
+			Cela se note~:
+			\[Z^{(n)} \cvgp Z.\]
+			\end{déf}
+		
+			\begin{déf} On dit que $Z^{(n)}$ converge \textit{en $L_r$} vers $Z$ lorsque~:
+			\[\E\left[\abs {Z^{(n)} - Z}\right] \xrightarrow[n \to \pinfty]{} 0.\]
+			Cela se note~:
+			\[Z^{(n)} \cvgLr Z.\] 
+			\end{déf}
+		
+			\begin{rmq} Lorsque $r=2$, on parle de convergence en moyenne quadratique.
+			\end{rmq}
+			
+			\begin{déf} On dit que $Z^{(n)}$ converge \textit{en loi} (ou \textit{en distribution}) vers $Z$ lorsque~:
+			\[\forall z \text{ point de continuité de }F^Z : F^{Z^{(n)}}(z) \xrightarrow[n \to \pinfty]{} F^Z(z).\]
+			Cela se note~:
+			\[Z^{(n)} \cvgd Z.\]
+			\end{déf}
+			
+			\begin{rmq} Ces définitions sont faites pour des variables aléatoires réelles mais peuvent être étendues à $\R^n$ en appliquant la convergence composante
+			par composante.
+			\end{rmq}
+			
+		\subsection{Résultats élémentaires sur les convergences}
+			\begin{prp} Les convergences sont induites mutuellement par les assertions suivantes~:
+			\begin{enumerate}
+				\item si $Z^{(n)} \cvgps Z$, alors $Z^{(n)} \cvgp Z$~;
+				\item si $Z^{(n)} \cvgp Z$, alors $Z^{(n)} \cvgd Z$~;
+				\item si $Z^{(n)} \cvgLr Z$, alors $Z^{(n)} \cvgp Z$.
+			\end{enumerate}
+			\end{prp}
+			
+			\begin{thm} Les convergences presque sûre, en probabilités, et en loi sont stables par transformations continues.
+			\end{thm}
+			
+			\begin{thm}\label{thm:propconvg} Notons $\to$ une convergence soit presque sûre, soit en probabilités. Si $Z^{(n)} \to Z$, et $Y^{(n)} \to Y$, alors~:
+			\begin{itemize}
+				\item[$(i)$]   $Z^{(n)} + Y^{(n)} \to Z+Y$~;
+				\item[$(ii)$]  $Z^{(n)} \cdot Y^{(n)} \to Z \cdot Y$~;
+				\item[$(iii)$] si $\P[Y^{(n)} = 0] = 0$, alors $\frac {Z^{(n)}}{Y^{(n)}} \to \frac ZY$.
+			\end{itemize}
+			\end{thm}
+			
+			\begin{lem}[Lemme de Slutzky] Si $Z^{(n)} \cvgd Z$, et $Y^{(n)} \cvgd c \neq 0$, alors~:
+			\begin{itemize}
+				\item[$(i)$]   $Z^{(n)} + Y^{(n)} \cvgd Z+c$~;
+				\item[$(ii)$]  $Z^{(n)} \cdot Y^{(n)} \cvgd Z \cdot c$~;
+				\item[$(iii)$] $\frac {Z^{(n)}}{Y^{(n)}} \cvgd \frac Zc$.
+			\end{itemize}
+			\end{lem}
+			
+			\begin{thm}[Loi forte des grands nombres] Soient $Z_1, Z_2, \ldots$ iid avec $\E\left[\abs {Z_1}\right] < \pinfty$. Alors~:
+			\[\overline Z^{(n)} = \frac 1n\sum_{k=1}^nZ_k \cvgps \mu = \E[Z_1].\]
+			\end{thm}
+			
+			\begin{thm}[Loi faible des grands nombres] Soient $Z_1, Z_2, \ldots$ iid avec $\E\left[\abs {Z_1}\right] < \pinfty$. Alors~:
+			\[\overline Z^{(n)} = \frac 1n\sum_{k=1}^nZ_k \cvgp \mu = \E[Z_1].\]
+			\end{thm}
+			
+			\begin{thm}[Théorème central limite (TCL)] Soient $Z_1, Z_2, \ldots$ iid, avec $\E[Z_1^2] < \pinfty$. Alors~:
+			\[\sqrt n\left(Z^{(n)} - \mu\right) \cvgd W,\]
+			où~:
+			\[W \sim \mathcal N(0, \sigma^2),\]
+			avec $\sigma^2 = \Var(Z_1)$.
+			\end{thm}
+		
+		\subsection{Estimateurs convergents}
+			\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{faiblement convergent} lorsque~:
+			\[\forall \theta \in \Theta : T^{(n)}(X^{(n)}) \cvgp g(\theta) \qquad \text{ sur }\P_\theta^{(n)}.\]
+			\end{déf}
+			
+			\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{fortement convergent} lorsque~:
+			\[\forall \theta \in \Theta : T^{(n)}(X^{(n)}) \cvgps g(\theta)\qquad \text{ sur }\P_\theta^{(n)}.\]
+			\end{déf}
+			
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$. Prenons $g(\theta) = \mu$ et $T^{(n)}(X^{(n)}) = \overline X$. On a bien~:
+			\[T^{(n)}(X^{(n)}) = \overline X^{(n)} \cvgps \mu = \E[X_1] \qquad \text{ sur }\P_{\mu, \sigma^2}^{(n)}.\]
+			$T^{(n)}(X^{(n)})$ est donc un estimateur fortement convergent.
+			
+			Prenons maintenant $T_2^{(n)}(X^{(n)}) = \sigma^2$. On ne peut pas appliquer la loi des grands nombres car les variables aléatoires $(X_i - \overline X)^2$
+			sommées ne sont pas indépendantes. On a alors~:
+			\begin{align*}
+				T_2^{(n)}(X^{(n)}) &= s^2 = \frac 1n\sum_{i=1}^n(X_i-\overline X)^2
+					= \frac 1n\sum_{i=1}^n\left((X_i - \mu)^2 + (\mu - \overline X)^2 - 2(X_i - \overline X)(\overline X - X_i)\right) \\
+				&= \frac 1n\sum_{i=1}^n(X_i - \mu)^2 - (\overline X - \mu)^2,
+			\end{align*}
+			où $\frac 1n\sum_{i=1}^n(X_i-\mu)^2 \cvgps \E\left[(X_i - \mu)^2\right] = \sigma^2$, par la loi forte des grands nombres,
+			et $(\overline X - \mu) \cvgps 0$. Donc, par le théorème~\ref{thm:propconvg}, on a $T_2^{(n)}(X^{(n)}) \cvgps \sigma^2$
+			\end{ex}
+			
+			\begin{rmq} On a également~:
+			\[\frac 1{n-1}\sum_{i=1}^n(X_i-\overline X)^2 = \frac n{n-1}s^2 \cvgps 1 \cdot \sigma^2.\]
+			\end{rmq}
+			
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Unif(0, \theta)$, avec $\theta \in \Theta \subset \R$. On veut estimer $g(\theta) = \theta$. L'estimateur
+			$T^{(n)}(X^{(n)}) = \overline X$ n'est pas un estimateur convergent car~:
+			\[\overline X \cvgps \E_\theta(X_1) = \frac \theta2 \neq \theta \qquad \text{ sur }\P_\theta^{(n)}.\]
+			Par contre, si on prend $T_2^{(n)}(X^{(n)}) = 2\overline X$, on a~:
+			\[2\overline X \cvgps 2\E_\theta(X_1) = 2\frac \theta2 = \theta \qquad \text{ sur }\P_\theta^{(n)}.\]
+			
+			Si on prend $T_3^{(n)}(X^{(n)}) = X_{(n)}$, à savoir l'observation maximale, on a~:
+			\[F_\theta^{X_{(n)}}(x) = \begin{cases}0 &\text{ si }x < 0 \\\frac {x^n}{\theta^n} &\text{ si } 0 \leq x \leq \theta \\1 &\text{ sinon}\end{cases}.\]
+			Posons donc $\varepsilon > 0$. On calcule~:
+			\begin{align*}
+				\P_\theta^{(n)}\left[\abs {X_{(n)} - \theta} > \varepsilon\right] &= \P_\theta^{(n)}\left[X_{(n)} \leq \theta - \varepsilon\right] 
+					+ \P_\theta^{(n)}\left[X_{(n)} \geq \theta + \varepsilon\right] = \P_\theta^{(n)}\left[X_{(n)} \leq \theta - \varepsilon\right]
+					= F_\theta^{X_{(n)}}(\theta - \varepsilon) \\
+				&=\begin{cases}0 &\text{ si }\varepsilon \geq \theta \\ \left(\frac {\theta-\varepsilon}{\theta}\right)^n &\text{ si } 0 < \varepsilon < \theta\end{cases}
+					\longrightarrow 0
+			\end{align*}
+			on a alors convergence en probabilité de $X_{(n)}$ vers $\theta$. On en déduit que $T_3^{(n)}(X^{(n)})$ est un estimateur faiblement convergent.
+			\end{ex}
+			
+			\begin{rmq} L'estimateur $\frac {n+1}nX_{(n)}$ est également faiblement convergent.
+			\end{rmq}
+			
+			\begin{rmq} Il n'est pas toujours possible de s'en sortir en invoquant le TCL ou la loi des grands nombres pour déterminer la convergence d'un estimateur.
+			Prenons par exemple $X_1, \ldots, X_n$ iid de densité~:
+			\[f^X(x) = \frac 1{\pi(1 + (x-\theta)^2)}.\]
+			On a effectivement $\E[X_1] = \pinfty$. En réalité~:
+			\[\lnot\left(\overline X^{(n)} \cvgp \theta \qquad \text{ sur } P_\theta^{(n)}\right),\]
+			mais bien~:
+			\[\overline X^{(n)} \cvgd X_1\]
+			\end{rmq}
+	
+	\section{Estimateur exhaustif}
+		\begin{déf} Soit $T^{(n)}(X^{(n)})$, une statistique. On la dit \textit{exhaustive} lorsque~:
+		\[\forall B \in \Brl(\R^n) : \forall t \in T^{(n)}(\R^n) : \P_\theta^{(n)}\left[X^{(n)} \in B | T^{(n)}(X^{(n)}) = t\right] \text{ ne dépend pas de } \theta.\]
+		\end{déf}
+		
+		\begin{rmq} Puisque l'on travaille sur des modèles paramétriques $\statmod \R\Brl{\mathcal P}n$, il existe toujours un $B \in \Brl(\R^n)$ tel que
+		$\P_\theta[X^{(n)} \in B]$ dépende de $\theta$.
+		\end{rmq}
+		
+		\begin{rmq} On peut en comprendre qu'une statistique est exhaustive si la valeur prise par $T^{(n)}(X^{(n)})$ donne toutes les informations contenues par
+		$X^{(n)}$ sur $\theta$. 
+		\end{rmq}
+		
+		\begin{ex} La statistique identité $x^{(n)} \mapsto x^{(n)}$ est une statistique exhaustive car~:
+		\[\P\left[X^{(n)} \in B | X^{(n)} = x^{(n)}\right] =  \begin{cases}1 &\text{ si } x^{(n)} \in B \\0 &\text{ sinon}\end{cases}.\]
+		\end{ex}
+		
+		\begin{ex} Prenons $X_1, \ldots, X_n$ iid $\Bern(p)$ avec la statistique $T^{(n)}(X^{(n)}) = \sum_{i=1}^nX_i$. Pour évaluer la probabilité~:
+		\[\P_p^{(n)}\left[X^{(n)} \in \{x^{(n)}\} | \sum_{i=1}^nX_i = t\right],\]
+		on est en présence d'une binomiale. Dès lors, si $\sum_{i=1}^nX_i \neq t$, alors la probabilité est nulle. Sinon, la probabilité est $\frac 1{\binom nt}$ car
+		il y a $\binom nt$ moyens d'avoir $n$ observations dont $t$ valant 1 et $n-t$ valant 0. Ces probabilités ne dépendent donc pas de $\theta$, la statistique
+		$T^{(n)}(X^{(n)}) = \sum_{i=1}^nX_i$ est donc une statistique exhaustive.
+		\end{ex}
 \end{document}
