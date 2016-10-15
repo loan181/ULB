@@ -10,6 +10,8 @@
 \usepackage{fullpage}
 \usepackage[bottom]{footmisc}
 \usepackage[parfill]{parskip}
+\usepackage{upgreek}
+\usepackage{stmaryrd}
 
 \title{MATH-F-211~: Topologie}
 \author{R. Petit}
@@ -27,11 +29,13 @@
 \newtheorem{ex}{Exemple}[section]
 
 \DeclareMathOperator{\tq}{\text{ t.q. }}
+\DeclareMathOperator{\Id}{Id}
 
 \renewcommand{\proofname}{\it{Preuve}}
 
 \newcommand{\cont}[2]{\mathcal C\left(\left[#1, #2\right]\right)}
 \newcommand{\restr}[2]{\left.#1\right|_{#2}}
+\newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
 
 \newcommand{\R}{\mathbb R}
 \newcommand{\Rp}{{\R^+}}
@@ -43,6 +47,7 @@
 \newcommand{\minfty}{{-\infty}}
 
 \newcommand{\mconv}[2]{\xrightarrow[#1 \to #2]{}}
+\renewcommand{\top}{\mathcal T}
 
 \begin{document}
 \pagenumbering{Roman}
@@ -104,7 +109,7 @@
 		\end{align*}
 		\end{proof}
 
-		\begin{déf} Soit $M \neq \emptyset$. On définit la \textit{métrique discrète} sur $M$ par~:
+		\begin{déf}\label{déf:métriquediscrète} Soit $M \neq \emptyset$. On définit la \textit{métrique discrète} sur $M$ par~:
 		\[d : M \times M \to \R : (x, y) \mapsto \begin{cases} 1 &\text{ si } x \neq y \\ 0 &\text{ si } x = y \end{cases}.\]
 		\end{déf}
 
@@ -260,8 +265,8 @@
 		tout ouvert $U \subseteq M$~: si $a \in U$, alors il existe $N \in \N$ tel que $\forall n > N : x_n \in U$.
 		\end{lem}
 		
-		\begin{lem} Soit $f : M \to N$ une application allant d'un espace métrique dans un autre. L'application $f$ est continue si et seulement si pour tout ouvert
-		$u \subseteq M : f^{-1}(U)$ est un ouvert.
+		\begin{lem}\label{lem:continuitéouverts} Soit $f : M \to N$ une application allant d'un espace métrique dans un autre. L'application $f$ est continue si
+		et seulement si pour tout ouvert $u \subseteq M : f^{-1}(U)$ est un ouvert.
 		\end{lem}
 		
 		\begin{proof} Supposons d'abord $f$ continue et prenons $U \subset N$ un ouvert et $a \in f^{-1}(U)$. Par ouverture de $U$, on a~:
@@ -281,7 +286,7 @@
 		de la notion d'ouvert.
 		\end{rmq}
 		
-		\begin{lem} Soit $(M, d)$ un espace métrique. Alors~:
+		\begin{lem}\label{lem:espmetraxiomestop} Soit $(M, d)$ un espace métrique. Alors~:
 		\begin{enumerate}
 			\item $M$ et $\emptyset$ sont des ouverts~;
 			\item si $U_1, \ldots, U_k$ sont des ouverts de $M$, alors $\bigcap_{i=1}^kU_i$ est un ouvert de $M$~;
@@ -294,7 +299,7 @@
 		Pour le point 2, prenons $a \in \bigcap_{i=1}^nU_i$. On sait que pour tout $1 \leq i \leq n$, il existe $\varepsilon_i > 0$ tel que
 		$B(a, \varepsilon_i) \subseteq U_i$. Prenons donc $\varepsilon \coloneqq \min_i\{\varepsilon_i\}$, on sait donc que~:
 		\[\forall i \in \{1, \ldots, n\} : B(a, \varepsilon) \subseteq U_i.\]
-		On peut donc dir que $B(a, \varepsilon) \subseteq \bigcap_{i=1}^nU_i$.
+		On peut donc dire que $B(a, \varepsilon) \subseteq \bigcap_{i=1}^nU_i$.
 		
 		Pour le point 3, prenons $a \in \bigcup_{i\in I}U_i$. On sait donc qu'il existe $j \in I$ tel que $a \in U_j$, et donc, par ouverture de $U_j$, il existe
 		$\varepsilon > 0$ tel que $B(a, \varepsilon) \subseteq U_j \subseteq \bigcup_{i\in I}U_i$.
@@ -335,5 +340,158 @@
 		équivalentes.
 		\end{lem}
 
-% \chapter{Topologie différentielle}
+\chapter{Topologie différentielle}
+	\section{Définitions}
+		\begin{déf} Soit $X$ un ensemble non-vide. Une collection $\top_X$ des sous-ensembles de $X$ est une topologie lorsque~:
+		\begin{itemize}
+			\item[T1] $\{X, \emptyset\} \subseteq \top_X$~;
+			\item[T2] si $U_1, \ldots, U_k \in \top_X$, alors $\bigcap_{i=}^kU_i \in \top_X$~;
+			\item[T3] si $\{U_i \tq i \in I\}$ est une collection quelconque d'éléments de $\top_X$, alors $\bigcup_{i=1}^kU_i \in \top_X$.
+		\end{itemize}
+
+		On appelle le couple $(X, \top_X)$ un \textit{espace topologique}. Les éléments de $\top_X$ sont appelés les \textit{ouverts} de $X$.
+		\end{déf}
+
+		\begin{déf} Soient $(X, \top_X), (Y, \top_Y)$ deux espaces topologiques et $f : X \to Y$. On dit que $f$ est $(\top_X, \top_Y)$-continue si~:
+		\[\forall U \in \top_Y : f^{-1}(U) \in \top_X.\]
+		\end{déf}
+
+		\begin{ex} Si $(M, d_M)$ est un espace métrique, on définit $\top_{d_M}$ comme étant la collection de tous les ouverts de $(M, d_M)$. On a vérifié par
+		le Lemme~\ref{lem:espmetraxiomestop} que $(M, \top_{d_M})$ est un espace topologique.
+		\end{ex}
+
+		\begin{rmq} On observe qu'une fonction est continue au sens topologique ssi elle est continue au sens précédent, par le Lemme~\ref{lem:continuitéouverts}.
+		\end{rmq}
+
+		\begin{déf} Soit $X$ un ensemble non-vide quelconque. On définit~:
+		\begin{itemize}
+			\item la \textit{topologie grossière sur $X$} par $\top_X = \{X, \emptyset\}$~;
+			\item la \textit{topologie discrète sur $X$} par $\top_X = \mathcal P(X) = 2^X$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} La topologie discrète revient à la topologie induite par la métrique discrète (voir Définition~\ref{déf:métriquediscrète}) sur un ensemble.
+
+		La topologie grossière par contre ne peut être issue d'une métrique lorsque $\abs X \geq 2$.
+		\end{rmq}
+
+		\begin{ex} Soient $\N = \{0, 4, \ldots\}$ et $U_n = \intint 0n$ pour $n \in \N$. On pose $\top \coloneqq \{U_n \tq n \in \N\} \cup \{\N, \emptyset\}$.
+
+		L'axiome T1 est satisfait de manière triviale (par définition).
+
+		Pour prouver que T2 est respecté, prenons $U_{n_1}, \ldots, U_{n_k} \in \top$. Posons $n \coloneqq \min_i\{n_i\}$. On a alors
+		$\bigcap_{i=1}^kU_{n_i} = U_n \in \top$. Si dans l'intersection, il y a $\emptyset$, alors l'intersection est $\emptyset \in \top$. Également si
+		l'intersection comporte au plus $k-1$ fois $\N$, on peut les \textit{retirer} et retomber sur le cas $U_n$. Si l'intersection est
+		$\N \cap \N \cap \ldots \cap \N$, alors l'intersection vaut $\N \in \top$.
+
+		Pour l'axiome T3, prenons $\{U_{n_i} \tq i \in I\}$. Si $\{n_i \tq i \in I\}$ est borné, alors $\bigcup_{i \in I}U_{n_i} = U_{\max_{i \in I}\{n_i\}}$,
+		et sinon $\bigcup_{i \in I}U_i = \N$.
+
+		On a donc bien une topologie sur $\N$, ce qui veut dire que $(\N, \top)$ est un espace topologique.
+		\end{ex}
+
+		\begin{rmq} Ici, $\top$ ne peut être issu d'une métrique car toute fonction continue de $(\N, \top)$ dans $(\R, \top_{d_E})$ est constante. En effet,
+		soit $f : \N \to \R$, $(\top, \top_{d_E})$-continue. Soit $n_0 \in \N$. Posons $y \coloneqq f(n_0) \in \R$. Soit $\varepsilon > 0$. Puisque
+		$(y-\varepsilon, y+\varepsilon)$ est un ouvert, par continuité, on sait que $f^{-1}\left((y-\varepsilon, y+\varepsilon)\right)$ est également un ouvert,
+		et qui contient $n_0$, et donc qui inclut $U_{n_0}$.
+
+		On en déduit $f(0) \in (y-\varepsilon, y+\varepsilon)$, or $\varepsilon$ est quelconque. On trouve donc~:
+		\[f(0) \in \bigcap_{\varepsilon > 0}(y-\varepsilon, y+\varepsilon) = \{y\}.\]
+		On a alors trouvé que $f(0) = y = f(n_0)$, et ce, pour tout $n_0 \in \N$. La fonction $f$ est donc bien constante.
+		\end{rmq}
+
+		\begin{déf} Soit $(X, \top)$ un espace topologique et soit $x \in X$. Un \textit{voisinage de $x$} est un sous-ensemble $V$ de $X$ tel que~·
+		\[\exists O \in \top \tq x \in O \subseteq O.\]
+
+		On note $\mathcal V_X(x)$ l'ensemble des voisinages de $x$ dans $X$.
+		\end{déf}
+
+		\begin{déf} Soit $f : (X, \top_X) \to (Y, \top_Y)$, une application et $a \in X$. On dit que $f$ est continue en $a$ lorsque~:
+		\[\forall V \in \mathcal V_Y(f(a)) : f^{-1}(V) \in \mathcal V_X(a).\]
+		\end{déf}
+
+		\begin{rmq} On remarque alors qu'une fonction est continue si elle est continue en tous ses points.
+		\end{rmq}
+
+		\begin{déf} Soit $A \subseteq (X, \top)$. Munissons $A$ d'une topologie~:
+		\[\restr \top A \coloneqq \left\{U \cap A \tq U \in \top\right\}.\]
+
+		On appelle $\restr \top A$ la \textit{topologie induite par $A$}.
+		\end{déf}
+
+		\begin{rmq} Montrons que $\restr \top A$ est bien une topologie.
+
+		Pour T1, on sait que $\emptyset, X \in \top$. Et donc $\restr \top A \supseteq \{\emptyset \cap A, X \cap A\} = \{\emptyset, A\}$.
+
+		Pour T2, prenons $U_1, \ldots, U_k \in \restr \top A$. On en déduit que pour tout $i = 1, \ldots, k$, il existe $V_i \in \top$ tel que $V_i \cap A = U_i$.
+		Et donc~:
+		\[\bigcap_{i=1}^kU_i = \bigcap_{i=1}^k(V_i \cap A) = \left(\bigcap_{i=1}^kV_i\right) \cap A \in \restr \top A,\]
+		car $\bigcap_{i=1}^kV_i \in \top$.
+
+		Pour T3, à nouveau, pour tout $i \in I$, il existe $V_i \in \top$ tel que $U_i = V_i \cap A$. On a alors~:
+		\[\bigcup_{i \in I}U_i = \bigcup_{i \in I}(V_i \cap A) = \left(\bigcup_{i \in I}V_i\right) \cap A \in \restr \top A,\]
+		car $\bigcup_{i\in I}V_i \in \top$.
+		\end{rmq}
+
+		\begin{déf} On appelle \textit{inclusion} la fonction d'identité allant d'un ensemble $A \subset X$ dans $X$~:
+		\[i : A \to X : x \mapsto x.\]
+		\end{déf}
+
+		\begin{lem} Soit $(X, \top_X)$ un espace topologique et soit $\emptyset \neq A \subset X$. La fonction d'inclusion $i : A \to X$ est
+		$(\restr \top A, \top_X)$-continue.
+		\end{lem}
+
+		\begin{rmq} La topologie induite est la plus réduite (avec le moins d'ouverts) telle que l'inclusion est continue.
+		\end{rmq}
+
+		\begin{lem} Soit $f : (X, \top_X) \to (Y, \top_Y)$ continue et soit $\emptyset \neq A \subseteq X$. Alors $(f \circ i) : A \to (Y, \top_Y)$
+		est $(\restr \top A, \top_Y)$-continue.
+		\end{lem}
+
+		\begin{rmq} Cela revient à dire que la restriction d'une fonction continue à un sous-ensemble de son domaine est toujours continue.
+		\end{rmq}
+
+		\begin{lem} Soient $f : (X, \top_X) \to (Y, \top_Y)$, une application telle que $f(X) \subseteq B \subseteq Y$. Alors $f$ est $(\top_X, \top_Y)$-continue
+		si et seulement si $\tilde f : (X, \top_X) \to (B, \restr {\top_Y} B)$ est $(\top_X, \restr {\top_Y}B)$-continue.
+		\end{lem}
+
+		\begin{lem} Soient $f : (X, \top_X) \to (Y, \top_Y)$ et $g : (Y, \top_Y) \to (Z, \top_Z)$ deux applications continues. Alors $g \circ f$ est continue.
+		\end{lem}
+
+		\begin{proof} Soit $U \in \top_Z$. On sait que $(g \circ f)^{-1}(U) = (f^{-1} \circ g^{-1})(U) = f^{-1}(g^{-1}(U))$, où $g^{-1}(U)$ est un ouvert par
+		continuité de $g$. Appelons-le $V$. On a alors $f^{-1}(V)$ un ouvert également par continuité de $f$. Donc $(g \circ f)^{-1}(U) \in \top_X$ et donc
+		$(g \circ f)$ est continue.
+		\end{proof}
+
+		\begin{rmq} On peut remarquer l'efficacité de la topologie dans de telles démonstrations.
+		\end{rmq}
+
+	\section{Homéomorphismes}
+		\begin{déf} Soit $f : (X, \top_X) \to (Y, \top_Y)$ une application entre deux espaces topologiques. $f$ est un \textit{homéomorphisme} lorsque~:
+		\begin{itemize}
+			\item[$(i)$]   $f$ est bijective~;
+			\item[$(ii)$]  $f$ est continue~;
+			\item[$(iii)$] $f^{-1}$ est continue.
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} Attention~: un hom\textbf{é}omorphisme n'est pas un homomorphisme~!
+
+		Également, une bijection continue n'est pas forcément un homéomorphisme.\\
+		Par exemple $\Id : (X, \top_1) \to (X, \top_2)$, avec $\top_2 \subsetneqq \top_1$.
+		\end{rmq}
+
+		\begin{ex} Tous les ouverts de $(\R, \top_{d_E})$ sont homéomorphes. En effet, l'application~:
+		\[f : (a, b) \to (c, d) : x \mapsto c + \frac {(x-a)(d-c)}{(b-a)}\]
+		est continue (et sa réciproque également) et bijective. La continuité est assurée par la composition d'applications continues (translations et homothéties).
+		\end{ex}
+
+		\begin{déf} On appelle \textit{propriété topologique} toute propriété résistante aux homéomorphismes.
+		\end{déf}
+
+		\begin{ex} Le fait qu'une fonction continue sur $(\N, \top_{d_D})$, avec $d_D$ la métrique discrète, est constante est une propriété topologique.
+
+		À l'opposé, le fait d'être un ensemble borné n'est pas une propriété topologique. En effet, l'ensemble ouvert $(-1, 1)$ est borné, mais prenons
+		l'application $f : (-1, 1) \to \R : x \mapsto \frac x{1 + \abs x}$. On voit bien que $f$ est un homéomorphisme mais que $f((-1, 1)) = \R$ n'est plus borné.
+		\end{ex}
 \end{document}
