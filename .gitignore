@@ -8,6 +8,8 @@
 *.vimrc
 *.txt
 *.600pk
+*.bak
+*.synctex.gz
 
 */*/
 !*/résumé/
