@@ -544,4 +544,138 @@
 		il y a $\binom nt$ moyens d'avoir $n$ observations dont $t$ valant 1 et $n-t$ valant 0. Ces probabilités ne dépendent donc pas de $\theta$, la statistique
 		$T^{(n)}(X^{(n)}) = \sum_{i=1}^nX_i$ est donc une statistique exhaustive.
 		\end{ex}
+		
+		\begin{rmq} Si $T^{(n)}(X^{(n)})$ est une statistique bijective, alors elle est exhaustive. Cependant, les estimateurs intéressants sont ceux qui «~réduisent~»
+		l'information de manière à ce qu'elles soient plus facilement analysables.
+		\end{rmq}
+		
+		\begin{déf} Soit $X^{(n)} = (X_1, \ldots, X_n)$. On appelle la \textit{fonction de vraissemblance de $X^{(n)}$} la fonction~:
+		\[L_\theta^{(n)} : \R^n \to \R : x^{(n)} \mapsto \begin{cases}\P[X^{(n)} = x^{(n)}] &\text{ si $X^{(n)}$ est de loi discrète} \\f_\theta^{X^{(n)}}(x^{(n)} &\text{ sinon}\end{cases}.\]
+		\end{déf}
+		
+		\begin{rmq} Dans le cas de variables $X_1, \ldots, X_n$ iid, la fonction de vraissemblance correspond toujours à un produit~:
+		\[L_\theta^{(n)}(X^{(n)}) = \P[X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n] \overset \sqcup= \prod_{i=1}^n\P[X_i = x_i].\]
+		\end{rmq}
+		
+		\begin{thm}[Critère de factorisation de Neymann-Fisher] Dans un modèle paramétrique $\statmod \R\Brl{\mathcal P}n$, une statistique $T^{(n)}(X^{(n)})$ est
+		exhaustive \textbf{si et seulement si} pour tout $\theta \in \Theta$, la fonction de vraissemblance $L_\theta^{(n)}(X^{(n)})$ est factorisable sous la forme~:
+		\[L_\theta^{(n)}(X^{(n)}) \left(= g_\theta \circ T^{(n)}\right) h(x^{(n)}),\]
+		et ce $\P_\theta^{(n)}$-sûrement.
+		\end{thm}
+		
+		\begin{rmq} Dans cette factorisation, la fonction $h$ ne peut dépendre de $\theta$, et seule la fonction $g_\theta$ peut en dépendre, mais uniquement par
+		l'intermédiaire de $T^{(n)}$.
+		\end{rmq}
+		
+		\begin{ex} En reprenant l'exemple d'au-dessus~: $X_1, \ldots, X_n$ iid $\Bern(p)$ et $T^{(n)}(X^{(n)}) = \sum_{i=1}^nX_i$, on a~:
+		\[L_\theta^{(n)}(x^{(n)}) = \prod_{i=1}^np^{x_i}(1-p)^{1-x_i} = p^{\sum_{i=1}^nx_i}(1-p)^{n - \sum_{i=1}^nx_i}.\]
+		Dès lors, en posant $g_\theta(x) = p^x(1-p)^{n-x}$ et $h(x^{(n)}) = 1$, on a bien une factorisation de Neymann-Fisher, ce qui implique que la statistique
+		est exhaustive.
+		\end{ex}
+		
+		\begin{rmq} Pour chaque statistique exhaustive, il en existe une infinité définies à bijection près. En effet, si $T(X^{(n)})$ est une statistique exhaustive
+		et si $H$ est une fonction bijective quelconque, alors~:
+		\[L_\theta^{(n)}(x^{(n)}) = g_\theta(T(x^{(n)})h(x^{(n)}) = (g_\theta \circ H^{-1} \circ H \circ T)(x^{(n)})h(x^{(n)}).\]
+		La fonction $H \circ T$ est donc également une statistique exhaustive. 
+		\end{rmq}
+		
+		\begin{rmq} Le critère précédent peut également donner une manière de \textit{deviner} des statistiques exhaustives. Prenons par exemple
+		$X^{(n)} = (X_1, \ldots, X_n)$ iid $\Nms$. Si $\theta = (\mu, \sigma^2) \in \Theta \subset \R^2$, on peut écrire~:
+		\begin{align*}
+			L_\theta^{(n)}(x^{(n)}) &= \prod_{i=1}^nf^{X_i}_\theta(x_i) = \prod_{i=1}^n\frac 1{\sqrt {2\pi}\sigma}\exp\left(-\frac {(x-\mu)^2}{2\sigma^2}\right)
+				= \left(\frac 1{2\pi\sigma^2}\right)^{\frac n2}\exp\left(-\sum_{i=1}^n\frac {(x_i-\mu)^2}{2\sigma^2}\right) \\
+			&= \left(\frac 1{2\pi\sigma^2}\right)^{\frac n2}\exp\left(-\frac 2{2\sigma^2}\sum_{i=1}^nx_i^2 - \frac {n\mu}{2\sigma^2} + \frac \mu{\sigma^2}\sum_{i=1}^nx_i\right).
+		\end{align*}
+		
+		Dès lors, en prenant $T(X^{(n)}) = \left(\sum_{i=1}^nx_i, \sum_{i=1}^nx_i^2\right)$, on a bien une statistique exhaustive. Alors, de même, on peut dire que
+		$\left(\frac 1n\sum_{i=1}^nx_i, \frac 1n\sum_{i=1}^nx_i^2\right)$ est un estimateur exhaustif (composition avec une bijection). On peut également dire que
+		$\left(\frac 1n\sum_{i=1}^nx_i, \frac 1n\sum_{i=1}^nx_i^2 - \left(\frac 1n\sum_{i=1}^nx_i\right)^2\right)$ est un estimateur exhaustif (même argument). Or
+		ce dernier vecteur correspond à $(\overline X, s^2)$.
+		
+		En prenant cette fois $X^{(n)} = (X_1, \ldots, X_n)$ iid $\Unif(0, \theta)$, on peut à nouveau construire des statistiques exhaustives~:
+		\[L_\theta^{(n)}(x^{(n)}) = \prod_{i=1}^nf^{X_i}_\theta(x_i) = \prod_{i=1}^n\frac 1\theta\charfun{0 \leq x_i \leq \theta}
+			= \frac 1{\theta^n}\charfun{0 \leq x_1, \ldots, x_n \leq \theta}.\]
+		Cela garantit bien que $x^{(n)}$ est une statistique exhaustive. Mais de plus, par commutativité du produit~:
+		\[L_\theta^{(n)}(x^{(n)}) = \prod_{i=1}^nf^{X_{(i)}}_\theta(x_i) = \frac 1{\theta^n}\charfun{0 \leq x_{(1)}, \ldots, x_{(n)} \leq \theta)}.\]
+		On a donc que la statistique d'ordre est une statistique exhaustive. Or, la condition $0 \leq x_{(1)}, \ldots, x_{(n)} \leq \theta$ revient à la condition
+		$0 \leq x_{(1)}, x_{(n)} \leq \theta$. La statistique $(x_{(1)}, x_{(n)})$ est donc également une statistique exhaustive. Pour aller plus loin, décomposant
+		la fonction caractéristique $\charfun {0 \leq x_{(1)}, x_{(n)} \leq \theta)}$ en $\charfun {0 \leq x_{(1)}}\charfun{x_{(n)} \leq \theta}$, on peut poser
+		$h(x^{(n)}) = \charfun{0 \leq x_{(1)}}$, ce qui amène à une nouvelle statistique exhaustive~: $x_{(n)}$.
+		
+		À chaque étape du raisonnement, la statistique exhaustive contient \textit{de moins en moins d'information} générale mais conserve l'information sur $\theta$
+		qui est donc en quelque sorte contenue dans $x_{(n)}$.
+		\end{rmq}
+		
+	\subsection{Estimateurs non biaisés}
+		En se situant toujours dans un modèle statistique $\statmod \R\Brl{\mathcal P}n$, on veut estimer $g(\theta)$, avec $g : \Theta \to \R^m$.
+		
+		\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{non biaisé} lorsque~:
+		\[\forall \theta \in \Theta : \E_\theta[T^{(n)}(X^{(n)})] = g(\theta).\]
+		\end{déf}
+		
+		\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{asymptotiquement non biaisé} lorsque~:
+		\[\forall \theta \in \Theta : \E_\theta[T^{(n)}(X^{(n)})] \xrightarrow[n \to \pinfty]{} g(\theta).\]
+		\end{déf}
+		
+		\begin{déf} Le \textit{biais} d'un estimateur $T^{(n)}(X^ {(n)})$ est la quantité~:
+		\[b^{(n)}_\theta = b^{(n)}(\theta) = \E_\theta[T^{(n)}(X^{(n)})] - g(\theta).\]
+		\end{déf}
+		
+		\begin{rmq} On remarque donc qu'un estimateur non biaisé a un biais de 0 et qu'un estimateur asymptotiquement non biaisé a un biais qui tend vers 0 pour
+		$n$ tendant vers $\pinfty$.
+		\end{rmq}
+		
+		\begin{ex} $X_1, \ldots, X_n$ iid $\Unif(0, \theta)$, avec $\theta \in \Theta = \Rp_0 \subset \R$.
+		\begin{itemize}
+			\item Si $T^{(n)}(X^{(n)}) = 2\overline X$, on a~:
+			\[\E_\theta^{(n)}\left[2\overline X\right] = \frac 2n\E_\theta^{(n)}\left[\sum_{i=1}^nX_i\right] = \frac 2n\sum_{i=2}^n\E_\theta[X_i]
+				= \frac 2n\frac {n\theta}2 = \theta.\]
+			\item Si $T^{(n)}(X^{(n)}) = X_{(n)}$, on a~:
+			\[\E_\theta^{(n)}[X_{(n)}] = \int_\R xf_\theta^{X_{(n)}}(x)\dif x = \int_0^\theta x\frac {nx^{n-1}}{\theta^n}\dif x
+				= \frac n{\theta^n}\int_0^\theta x^n\dif x = \frac n{\theta^n}\left[\frac {x^{n+1}}{n+1}\right]_0^\theta = \frac n{n+1}\theta.\]
+			On en déduit que $T^{(n)}(X^{(n)})$ est biaisé car il \textit{vise en moyenne trop à gauche} et a un biais de $-\frac \theta{n+1}$. Il est cependant
+			asymptotiquement non biaisé car $\frac n{n+1} \xrightarrow[n \to \pinfty]{} 1$.
+		\end{itemize}
+		\end{ex}
+		
+		\begin{rmq} Si le biais d'un estimateur est négatif, alors c'est que l'estimateur sous-estime en moyenne, alors que si le biais est positif, c'est que
+		l'estimateur surestime.
+		\end{rmq}
+		
+		\begin{rmq} On peut tout de même dire que l'estimateur $\frac {n+1}nX_{(n)}$ est non biaisé car~:
+		\[\E_\theta^{(n)}\left[\frac {n+1}nX_{(n)}\right] = \frac {n+1}n\E_\theta^{(n)}[X_{(n)}] = \frac {n+1}n\frac n{n+1}\theta = \theta.\]
+		\end{rmq}
+		
+		\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$, avec $\theta = (\mu, \sigma^2)$.
+		\begin{itemize}
+			\item pour tout $\theta \in \Theta$, on a~: $\E_\theta[\overline X] = \frac 1n\sum_{i=1}^n\E(X_i) = \frac {n\mu}n = \mu$. $\overline X$ est donc un
+			estimateur sans biais de $\mu$~;
+			\item $\E_\theta[s^2] = \E_\theta[X_1^2] - \E_\theta[\overline X^2]$. On remarque que pour toute variable aléatoire $Z$, on a~:
+			\[\Var(Z) = \E[Z^2] - \E[Z]^2 \qquad \iff \qquad \E[Z^2] = \Var(Z) + \E[Z]^2.\]
+			On peut donc remplacer dans la formule de l'espérance de $s^2$, et on obtient~:
+			\[\E_\theta[s^2] = \Var_\theta(X_1) + \E(X_1)^2 - \Var_\theta(\overline X) - \E(\overline X)^2.\]
+			Or on sait $\E_\theta(X_1) = \E_\theta(\overline X) = \mu$. On a donc~:
+			\[\E_\theta[s^2] = \Var_\theta(X_1) - \Var_\theta(\overline X) = \sigma^2 - \frac 1{n^2}\Var_\theta\left(\sum_{i=1}^nX_i\right)
+				= \sigma^2 - \frac 1{n^2}\sum_{i=1}^n\Var_\theta(X_i) = \sigma^2 - \frac {n\sigma^2}{n^2} = \frac {n-1}n\sigma^2.\]
+			
+			On en conclut que l'estimateur $s^2$ est biaisé pour $\sigma^2$ et de biais $\frac {-\sigma^2}n \xrightarrow[n \to \pinfty]{} 0$.
+			
+			Notons alors $S^2 \coloneqq \frac {n}{n-1}s^2$. On a que $\E_\theta[S^2] = \sigma^2$, et donc $S^2$ est un estimateur sans biais.
+		\end{itemize}
+		\end{ex}
+		
+		\begin{rmq} Le non biais est une propriété fragile. Soient $X_1, \ldots, X_n$ iid $\Nms$ où l'on veut estimer $g(\theta) = \sigma$ (et pas $\sigma^2$).
+		
+		Que vaut $\E_\theta[S]$~? On sait $\Var_\theta(S) = \E_\theta[S^2] - \E_\theta[S]^2 = \sigma^2 - \E_\theta[S]^2$. Or $\Var_\theta(S) \gneqq 0$, et donc
+		$\sigma^2 \gneqq \E_\theta[S]^2$. On en déduit $\E_\theta[S] \lneqq \sigma$.
+		\end{rmq}
+		
+		\begin{rmq} De plus, il n'existe pas toujours d'estimateur sans biais. Soit $X_1 \sim \Bern(p)$. On veut estimer $g(p) = p^2 \in [0, 1]$. L'estimateur
+		$T(X^{(n)})$ est entièrement déterminé par $T(0)$ et $T(1)$. Imposons donc pour tout $p \in [0, 1] : \E_\theta[T(X_1)] = p^2$. On a donc~:
+		\[p^2 = \E_\theta[T(X_1)] = T(0)\P[X_1 = 0] + T(1)\P[X_1 = 1] = T(0)(1-p) + T(1)p.\]
+		En réarrangeant cette équation du second degré, on obtient~:
+		\[\forall p \in [0, 1] : p^2 + (T(0) - T(1))p - T(0) = 0.\]
+		Or une telle équation ne peut avoir que 2 racines tout au plus, et ici, une infinité non-dénombrable est requise. Il n'existe donc pas de telle fonction $T$,
+		et donc par extension, il n'existe pas d'estimateur sans biais de $p^2$.
+		\end{rmq}
 \end{document}
