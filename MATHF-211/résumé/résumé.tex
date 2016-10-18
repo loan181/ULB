@@ -30,6 +30,7 @@
 
 \DeclareMathOperator{\tq}{\text{ t.q. }}
 \DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\adh}{adh}
 
 \renewcommand{\proofname}{\it{Preuve}}
 
@@ -483,7 +484,8 @@
 
 		\begin{ex} Tous les ouverts de $(\R, \top_{d_E})$ sont homéomorphes. En effet, l'application~:
 		\[f : (a, b) \to (c, d) : x \mapsto c + \frac {(x-a)(d-c)}{(b-a)}\]
-		est continue (et sa réciproque également) et bijective. La continuité est assurée par la composition d'applications continues (translations et homothéties).
+		est continue (et sa réciproque également) et bijective. La continuité est assurée par la composition d'applications continues (translations et
+		homothéties).
 		\end{ex}
 
 		\begin{déf} On appelle \textit{propriété topologique} toute propriété résistante aux homéomorphismes.
@@ -494,4 +496,176 @@
 		À l'opposé, le fait d'être un ensemble borné n'est pas une propriété topologique. En effet, l'ensemble ouvert $(-1, 1)$ est borné, mais prenons
 		l'application $f : (-1, 1) \to \R : x \mapsto \frac x{1 + \abs x}$. On voit bien que $f$ est un homéomorphisme mais que $f((-1, 1)) = \R$ n'est plus borné.
 		\end{ex}
+
+	\section{Topologie produit}
+		\begin{déf} Étant donnés deux espaces topologiques $(X, \top_X), (Y, \top_Y)$, on définit la collection $\top$ de sous-ensembles de $X \times Y$ comme
+		suit~:
+		\[W \in \top \iff \forall x, y \in W : \exists U \in \top_X, V \in \top_Y \tq (x, y) \in U \times V \subseteq W.\]
+		On appelle $\top$ la \textit{topologie produit} de $\top_X$ et $\top_Y$.
+		\end{déf}
+
+		\begin{lem} $\top$ est une topologie sur $X \times Y$.
+		\end{lem}
+
+		\begin{proof} Pour vérifier T1, on observe que $\emptyset \in \top$ car si $W = \emptyset$, la condition est vérifiée pour tout $(x, y) \in W$.
+		Également, $X \times Y \in \top$ car si on prend $(x, y) \in W = X \times Y$, on peut prendre $X \in \top_X$, $Y \in \top_Y$ tels que~:
+		\[(x, y) \in X \times Y \subseteq W = X \times Y.\]
+
+		Pour vérifier T2, prenons $W_1, W_2 \in \top$. Soit $(x, y) \in W_1 \cap W_2$. On sait que~:
+		\begin{align*}
+			&\exists U_1 \in \top_X, V_1 \in \top_Y \tq (x, y) \in U_1 \times V_1 \subseteq W_1, \\
+			&\exists U_2 \in \top_X, V_2 \in \top_Y \tq (x, y) \in U_2 \times V_2 \subseteq W_2.
+		\end{align*}
+
+		On peut alors dire $(x, y) \in (U_1 \times V_1) \cap (U_2 \times V_2) = (U_1 \cap U_2) \times (V_1 \cap V_2) \subseteq W_1 \cap W_2.$
+
+		Pour vérifier T3, soit $\{W_i \tq i \in I\} \subseteq \top$. Alors $\bigcup_{i \in I}W_i \in \top$. En effet, soit $(x, y) \in \bigcup_{i \in I}W_i$.
+		On sait qu'il existe $i \in I$ tel que $(x, y) \in W_i$. Donc $\exists U \in \top_X$ et $V \in \top_Y$ tels que
+		$(x, y) \in U \times V \subseteq \bigcup_{i \in I}W_i$.
+		\end{proof}
+
+		\begin{rmq} Les produits d'ouverts sont des ouverts, mais tous les ouverts ne sont pas des produits d'ouverts~: il suffit de prendre les boules ouvertes.
+		\end{rmq}
+
+		\begin{prp}\label{prp:projcont} Les projections $\pi_1 : X \times Y \to X$ et $\pi_2 : X \times Y \to Y$ sont continues.
+		\end{prp}
+
+		\begin{proof} Soit $U \in \top_X$. Alors $\pi^{-1}(U) = U \times Y \in \top$. De même, soit $V \in \top_Y$. Alors~:
+		\[\pi^{-1}(V) = X \times V \in \top.\]
+		\end{proof}
+
+		\begin{rmq} La topologie produit est la moins fine qui rende les $\pi_i$ continues.
+		\end{rmq}
+
+		\begin{prp} Soit $f : Z \to X \times Y$, une application continue, où $X, Y, Z$ sont des espaces topologiques. Alors $f$ est continue si et seulement si
+		$(\pi_1 \circ f)$ et $(\pi_2 \circ f)$ sont continues.
+		\end{prp}
+
+		\begin{proof} Supposons $f$ continue. Par la Proposition~\ref{prp:projcont}, on sait que les projections sont continues, donc la composition
+		d'applications continues est une application continue.
+
+		Supposons maintenant les $(\pi_i \circ f)$ continues. Soit $W \in \top$. Soit $z \in f^{-1}(W)$. Puisque $W$ est un ouvert, on sait qu'il existe
+		$(U, V) \in (\top_X, \top_Y)$ tels que $f(z) \in U \times V$. Par hypothèse, on sait $(\pi_1 \circ f)^{-1}(U), (\pi_2 \circ f)^{-1}(V) \in \top$. Par
+		l'axiome d'intersection finie, on sait que $T_z \coloneqq (\pi_1 \circ f)^{-1}(U) \cap (\pi_2 \circ f)^{-1}(V) \in \top$. On en déduit également
+		$f(z) \supseteq f^{-1}(W) \in T_z$.
+
+		Puisque $T_z \subseteq f^{-1}(W)$ pour tout $z$, on peut dire que~:
+		\[f^{-1}(W) = \bigcup_{z \in f^{-1}(W)}T_z \in \top,\]
+		par l'axiome d'union quelconque. La préimage d'un ouvert $W$ est donc bien un ouvert $\in \top$. L'application $f$ est donc continue.
+		\end{proof}
+
+		\begin{rmq} Cette proposition assure la continuité composante par composante.
+		\end{rmq}
+
+	\section{Topologie quotient}
+		\begin{déf} un quotient d'un espace topologique $(X, \top_X)$ est une application surjective $\pi : X \to Y$, où $Y$ est un ensemble quelconque.
+		\end{déf}
+
+		\begin{rmq} On parle de quotient car on peut aisément faire des classes d'équivalences contenant tous les $x \in X$ tels que $\pi(x)$ ont la même
+		valeur. Par surjection de $\pi$, on sait que tous les $y \in Y$ admettent une préimage, et on peut donc identifier les classes $[\pi(x)]$ aux valeurs
+		$y = \pi(x)$.
+		\end{rmq}
+
+		\begin{déf} La topologie quotient sur $Y$ est la collection $\top_\pi$ de tous les sous-ensembles $O$ de $Y$ tels que $\pi^{-1}(O) \in \top$.
+		\end{déf}
+
+		\begin{lem} $\top_\pi$ est une topologie sur $Y$. De plus, $\pi$ est $(\top, \top_\pi)$-continue.
+		\end{lem}
+
+		\begin{proof} Pour vérifier T1, on sait que $\emptyset \in \top_\pi$ car $\pi^{-1}(\emptyset) = \emptyset \in \top$. De plus, $\pi^{-1}(Y) = X \in \top$
+		par surjection de $\pi$, et donc $Y \in \top_\pi$.
+
+		Pour vérifier T2, si $O_1, \ldots, O_k \in \top_\pi$, alors~:
+		\[\pi^{-1}\left(\bigcap_{i=1}^kO_i\right) = \bigcap_{i=1}^k\pi^{-1}(O_i) \in \top,\]
+		par l'axiome d'intersection finie.
+
+		Pour vérifier T3, si $\{O_i \tq i \in I\} \subset \top_\pi$, alors~:
+		\[\pi^{-1}\left(\bigcup_{i \in I}O_i\right) = \bigcup_{i \in I}\pi^{-1}(O_i) \in \top,\]
+		par l'axiome d'union quelconque.
+		\end{proof}
+
+		\begin{rmq} Bien qu'il soit correct d'écrire $\pi^{-1}(O_1 \cap O_2) = \pi^{-1}(O_1) \cap \pi^{-1}(O_2)$, il est généralement faux d'écrire
+		$\pi(O_1 \cap O_2) = \pi(O_1) \cap \pi(O_2)$.
+		\end{rmq}
+
+		\begin{rmq} la topologie quotient est la topologie la plus fine (qui contient le plus d'ouverts) qui rende $\pi$ continue.
+		\end{rmq}
+
+		\begin{lem} Soit $\pi : (X, \top) \to Y$, surjective, et $f : Y \to (Z, \top')$. Alors $f$ est $(\top_\pi, \top')$-continue si et seulement si
+		$(f \circ \pi)$ est $(\top, \top')$-continue.
+		\end{lem}
+
+		\begin{proof} Supposons $f$ continue. $(f \circ \pi)$ est alors une composition d'applications continues, et est donc continue.
+
+		Supposons maintenant $(f \circ \pi)$ continue. Prenons $U \in \top'$. Alors $f^{-1}(U) \in \top_\pi \iff (\pi^{-1} \circ f^{-1})(U) \in \top$.
+		Or $(\pi^{-1} \circ f^{-1}) = (f \circ \pi)^{-1}$. Donc, par hypothèse, $(f \circ \pi)^{-1}(U) \in \top$.
+		\end{proof}
+
+	\section{Sous-ensembles fermés et sous-ensembles denses}
+		\begin{déf} Un sous-ensemble $F$ d'un espace topologique $X$ est fermé lorsque $X \setminus F$ est ouvert.
+		\end{déf}
+
+		\begin{lem} Soit $X$ un espace topologique. Alors~:
+		\begin{itemize}
+			\item[$(i)$]   $X, \emptyset$ sont fermés~;
+			\item[$(ii)$]  si $F_1, \ldots, F_k$ sont fermés, alors $\bigcup_{i=1}^kF_i$ est fermé~;
+			\item[$(iii)$] si $\{F_i \tq i \in I\}$ est une collection de fermés, alors $\bigcap_{i \in I}F_i$ est un ouvert.
+		\end{itemize}
+		\end{lem}
+
+		\begin{lem} Une application $f : (X, \top_X) \to (Y, \top_Y)$ est continue si et seulement si~:
+		\[\forall F \subset Y : F \text{ fermé } \Rightarrow f^{-1}(F) \text{ fermé } \subseteq X.\]
+		\end{lem}
+
+		\begin{rmq} Un sous-ensemble peut être à la fois ouvert et fermé, et peut n'être ni ouvert, ni fermé.
+		\end{rmq}
+
+		\begin{déf} Soit $A$ un sous-ensemble d'un espace topologique $(X, \top)$. L'adhérence de $A$, notée $\adh A$ est le sous-ensemble~:
+		\[\adh A \coloneqq \{x \in X \tq \forall U \in \top : x \in U \Rightarrow U \cap A \neq \emptyset\}.\]
+		\end{déf}
+
+		\begin{déf} Un point limite de $A$ est un point dans $\adh A \setminus A$.
+		\end{déf}
+
+		\begin{ex} Soit l'intervalle $(a, b)$ avec $a < b \in \R$. $\adh\left((a, b)\right) = [a, b]$ si on se place dans $\R$, mais
+		$\adh\left((a, b)\right) = (a, b)$ si on se place dans $(a, b)$.
+		\end{ex}
+
+		\begin{lem} Soient $(M, d)$ est un espace métrique, $A \subseteq M$, et $x \in M$. Alors $x \in \adh A$ si et seulement si~:
+		\[\exists (x_n) \subset A \tq x_n \xrightarrow[n \to +\infty]{} x.\]
+		\end{lem}
+
+		\begin{lem} Soient $A, B \subseteq (X, \top_X)$, un espace topologique. Alors~:
+		\begin{itemize}
+			\item[$(i)$]   $A$ est fermé si et seulement si $A = \adh A$~;
+			\item[$(ii)$]  $A \subseteq B \Rightarrow \adh A \subseteq \adh B$~;
+			\item[$(iii)$] $\adh\left(\adh(A)\right) = \adh(A)$~;
+			\item[$(iv)$]  $\adh A$ est fermé~;
+			\item[$(v)$]   soit $F$, l'intersection de tous les fermés qui contiennent $A$~; alors $F = \adh A$.
+		\end{itemize}
+		\end{lem}
+
+		\begin{proof}~
+		\begin{itemize}
+			\item[$(i)$] Supposons d'abord $A$ fermé. On a alors $A \subseteq \adh A$. Montrons que $\adh A \subseteq A$. Prenons $x \not \in A$. Puisque $A$
+			est fermé, on sait que $U \coloneqq X \setminus A$ est ouvert et $x \in U$. Mais $U \cap A = (X \setminus A) \cap A = A \cap \emptyset = \emptyset$.
+			Donc $x \not \in \adh A$, ce qui montre que $X \setminus A \subseteq X \setminus \adh A$, ou encore $\adh A \subseteq A$.
+
+			Supposons ensuite $\adh A = A$. Montrons que $X \setminus A$ est ouvert. Soit $x \in X \setminus A = X \setminus \adh A$. Alors, comme
+			$x \not \in \adh A$, il existe $U_x$ un ouvert tel que $x \in U_x$ et $U_x \cap A = \emptyset$. Donc~:
+			\[U_x \subset X \setminus A = \bigcup_{x \in X \setminus A}U_x,\]
+			on a donc bien $X \setminus A$ ouvert.
+			
+			\item[$(ii)$] Trivial.
+			\item[$(iii)$] Par $(ii)$, on sait que $\adh A \subseteq \adh(\adh(A))$. Montrons que $\adh(\adh(A)) \subseteq \adh A$. Soit $x \in \adh(\adh(A))$,
+			et soit $U$ ouvert tel que $x \in U$. Alors $U \cap \adh(A) \neq \emptyset$, par définition de l'adhérence. Soit $y \in U \cap \adh(A)$. On peut
+			donc dire $y \in \adh(A)$ et $U$ est un ouvert tel que $U \ni x$. Donc $U \cap A \neq \emptyset$, ou encore $x \in \adh(A)$.
+
+			\item[$(iv)$] Trivial par $(i)$ et $(iii)$.
+			\item[$(v)$] Montrons que $F \subseteq \adh(A)$~: $\adh A$ est fermé, donc $\adh(A) \supseteq \bigcap_{C \text{ fermé } \supseteq A}C = F$.
+
+			Montrons maintenant que $F \supseteq \adh A$~: si $C$ est un fermé qui continent $A$, alors $C = \adh C \supseteq \adh A$. Donc~:
+			\[\bigcap_{C \text{ fermé } \supseteq A}C \supseteq \adh A.\]
+		\end{itemize}
+		\end{proof}
 \end{document}
