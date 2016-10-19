@@ -33,9 +33,14 @@
 \DeclareMathOperator{\R}{\mathbb R}
 \DeclareMathOperator{\Rp}{\R^{+}}
 \DeclareMathOperator{\Rm}{\R^{-}}
+\DeclareMathOperator{\Z}{\mathbb Z}
 \DeclareMathOperator{\N}{\mathbb N}
 \DeclareMathOperator{\Ns}{\N^{*}}
 \DeclareMathOperator{\tq}{\text{t.q.}}
+\DeclareMathOperator{\Mat}{Mat}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
 % sequence; parameters: sequence letter, sequence index, index set
 \newcommand{\seq}[3]{\left(#1_{#2}\right)_{#2 \in #3}} 
@@ -633,7 +638,7 @@
 			\end{enumerate}
 			\end{ex}
 
-			\begin{cor} Soient $p \in \N^*, \Omega \subset \R^d$, un ouvert non-vide. Soit $f_n : \Omega \to \R$ de classe $C^p(\Omega, \R)$. Suposons~:
+			\begin{cor} Soient $p \in \N^*, \Omega \subset \R^d$, un ouvert non-vide. Soit $f_n : \Omega \to \R$ de classe $C^p(\Omega, \R)$. Supposons~:
 			\begin{itemize}
 				\item $\displaystyle \forall q \in \intint 0{p-1} : \forall (i_1, \ldots, i_q) \in \intint 1d^q :
 					\frac {\partial^qf_n}{\partial x_{i_1}\ldots\partial x_{i_q}} \CVU \Omega n\pinfty g_{i_1, \ldots, i_q}$~;
@@ -663,8 +668,8 @@
 			\textit{convergence uniforme} sur $X$ et la \textit{convergence uniforme sur tout compact} de $X$.
 			\end{déf}
 
-			\begin{thm} Soient $(X, d)$ un espace métrique et $Y$ un \evn. Soit $u_n : X \to Y$. Si $\forall n \in \N : u_n$ est continue en $a \in X$ et si
-			la série de terme général $u_n$ converge uniformément sur $X$, alors~:
+			\begin{thm}\label{thm:fncvusériecvg} Soient $(X, d)$ un espace métrique et $Y$ un \evn. Soit $u_n : X \to Y$. Si $\forall n \in \N : u_n$ est continue en
+			$a \in X$ et si la série de terme général $u_n$ converge uniformément sur $X$, alors~:
 			\[S \coloneqq \lim_{n \to \pinfty}S_n \text{ est continue en } a.\]
 			\end{thm}
 
@@ -738,4 +743,360 @@
 			\[CVN \underset {\text{complet}}\Rightarrow CVU \Rightarrow CVS,\]
 			mais les réciproques sont habituellement fausses.
 			\end{rmq}
+% 3rd class
+			\begin{cor} Si $f_n : X \to Y$ (avec $Y$ un \evnc) est $\tq$~:
+			\begin{align*}
+				\begin{cases}
+					&\forall n \in \N : \exists M_n \geq 0 \tq \norm {f_{n+1} - f_n}_{\infty, X} \leq M_n \\
+					&\sum_{m \geq 0}M_m < \pinfty,
+				\end{cases}
+			\end{align*}
+			alors $\seq fn\N$ converge uniformément sur $X$.
+			\end{cor}
+
+			\begin{proof} La série de terme général $u_n = f_{n+1}-f_n$ converge normalement sur $X$ car elle vérifie le critère de Weierstrass sur $X$. Par
+			complétude de $Y$, la série $\sum u_n$ converge uniformément sur $X$.
+
+			Pour $n \in \N$, on calcule~:
+			\[S_n = \sum_{k=0}^nu_k = f_{n+1}-f_0.\]
+			Donc la suite $\seq fn\N$ converge uniformément sur $X$.
+			\end{proof}
+
+		\subsection{Transformation d'Abel}
+			\begin{thm} Soient $Y$ un \evnc, $\seq gn\N \in Y^{\N}$, et $\seq fn\N \in (\Rp)^{\N}$. Supposons~:
+			\[
+				\begin{cases}
+					&\exists M \gneqq 0 \tq \forall n \in \N : \norm {\sum_{k=0}^ng_k}_Y \leq M \\
+					&f_n  \mconv n\pinfty{} 0\text{ en décroissant.}
+				\end{cases}
+			\]
+			Alors $f_ng_n$ est le terme général d'une série convergente.
+			\end{thm}
+
+			\begin{proof} On pose~:
+			\[\forall k \in \Ns : G_k = \sum_{m=0}^kg_m\]
+
+			Calculons, pour $n, p \in \Ns$~:
+			\begin{align*}
+				S_{n+p} - S_n &= \sum_{k=n+1}^{n+p}f_kg_k = \sum_{k=n+1}^{n+p}f_k(G_k - G_{k-1}) = \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n+1}^{n+p}f_kG_{k-1}
+				= \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n}^{n+p-1}f_{k+1}G_k \\
+				&= \sum_{n+1}^{n+p-1}G_k(f_k - f_{k+1}) + f_{n+p}G_{n+p} - f_{n+1}G_n.
+			\end{align*}
+			
+			Ainsi~:
+			\begin{align*}
+				\norm {S_{n+p} - S_n}_Y &\leq M\sum_{k=n+1}^{n+p}(f_k-f_{k+1}) + Mf_{n+p} + Mf_{n+1} = M(f_{n+1}-f_{n+p}) + M(f_{n+p} + f_{n+1}) \\
+				&= 2Mf_{n+1} \xrightarrow [n \to \pinfty]{} 0,
+			\end{align*}
+			et la convergence de dépend pas de $p$. On a alors que la suite $\seq Sn\N$ est de Cauchy, et par complétude de $Y$, $S_n$ converge, ce qui implique que la
+			série de terme général $f_ng_n$ converge.
+			\end{proof}
+			
+			\begin{thm} Soient $X$ un \evnc et $X \neq 0$. Soient~:
+			\begin{align*}
+				g_n &: X \to Y, \\
+				f_n &: X \to \Rp.
+			\end{align*}
+			
+			Supposons~:
+			\begin{itemize}
+				\item qu'il existe $M \gneqq 0$ tel que $\forall n \in \N : \norm {\sum_{k=1}^ng_k}_{\infty, X} \leq M$~;
+				\item que $f_n \CVU Xn\pinfty 0$ en décroissant.
+			\end{itemize}
+			
+			Alors $f_ng_n$ est le terme général d'une série qui converge uniformément sur $X$.
+			\end{thm}
+			
+			\begin{proof} Par la preuve précédente, on a~:
+			\[\norm {S_{n+p} - S_n}_Y \leq 2Mf_{n+1}(x) \leq 2M\norm {f_{n+1}}_{\infty, X}.\]
+			On déduit donc~:
+			\[\norm {S_{n+p}-S_n}_{\infty, X} \leq 2M\norm {f_{n+1}}_{\infty, X}.\]
+			
+			On sait donc que $\seq Sn\N$ est de Cauchy dans $B(X, Y)$. Par complétude de $Y$, la série de terme général $f_ng_n$ converge uniformément sur $X$.
+			
+			On remarque en effet que les $S_n$ sont bornés car $f_n \CVU Xn\pinfty 0$, ce qui implique $\norm {f_n}_{\infty, X}$ bornée, au moins à partir d'un certain
+			$n \in \N$. De plus, $\norm {\sum_kg_k} < M$ assure que $g_k$ est uniformément bornée.
+			\end{proof}
+			
+		\subsection{Exemple d'une fonction continue sur $\R$ nulle part dérivable}
+			Considérons la fonction $\varphi : \R \to \R : x \mapsto \abs x$ sur $[-1, 1]$ et 2-périodique. La fonction $\varphi$ est continue sur $\R$. Posons~:
+			\[\forall k \in \N : u_k : \R \to \R : x \mapsto \left(\frac 34\right)^k\varphi(4^kx).\]
+			
+			On sait que $\forall k \in \N : \norm {u_k}_\infty = \left(\frac 34\right)^k \in [0, 1]$. Ainsi, la série de terme général $u_k$ converge normalement
+			sur $\R$ par le critère de Weierstrass. Par le Théorème~\ref{thm:fncvusériecvg}, la fonction~:
+			\[f : \R \to \R : x \mapsto \sum_{k \geq 0}u_k(x)\]
+			est continue sur $\R$.
+			
+			Montrons maintenant la fonction $f$ n'est jamais dérivable.
+			
+			Construisons $\alpha_n$ et $\beta_n$ tels que~:
+			\begin{align*}\begin{cases}
+				&\forall n \in \N : \alpha_n \leq x \leq \beta_n, \\
+				&\beta_n - \alpha_n \xrightarrow[]{} 0, \\
+				&\forall n \in \N : \abs {\frac {f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}} \geq \frac 123^n.
+			\end{cases}\end{align*}
+			
+			Soit $n \in \Ns$. Choisissez $p \in \Z$ tel que $p = \floor {4^nx}$ (et donc $p \leq 4^nx < p+1$). Posons $\alpha_n = \frac p{4^n}$ et
+			$\beta_n = \frac {p+1}{4^n}$. On a alors~:
+			\[f(\beta_n) - f(\alpha_n) = \sum_{k \geq 0}\left(\varphi(4^k\beta_n)\left(\frac 34\right)^k - \varphi(4^k\alpha_n)\left(\frac 34\right)^k\right)
+				= \sum_{k \geq 0}\left(\frac 34\right)^k\left(\varphi(4^k\beta_n) - \varphi(4^k\alpha_n)\right)\]
+
+			On observe que~:
+			\begin{itemize}
+				\item si $k \lneqq n$, alors $4^k\beta_n = 4^{k-n}(p+1)$ et $4^k\alpha_n = 4^{k-n}p$. Puisque $\varphi$ est lipschitzienne de constante 1, on a~:
+					\[\varphi(4^k\beta_n) - \varphi(4^k\alpha_n) \leq 4^{k-n}(p+1-p) = 4^{k-n}~;\]
+				\item si $k = n$, alors $\abs {\varphi(4^k\beta_n) - \varphi(4^k\alpha_n)} = 1$~;
+				\item si $k \gneqq n$, alors $4^k\alpha_n = 4^{k-n}p \in 4\Z \subset 2\Z$ donc $\varphi(4^k\alpha_n) = 0$.
+					De même, on a $\varphi(4^k\beta_n) = 0$.
+			\end{itemize}
+			
+			Ainsi~:
+			\[f(\beta_n) - f(\alpha_n) = \sum_{k=0}^{n-1}\left(\frac 34\right)^k\left(\varphi(4^k\beta_n) - \varphi(4^k\alpha_n)\right) +
+				\left(\frac 34\right)^n\left(\varphi(4^n\beta_n) - \varphi(4^n\alpha_n)\right).\]
+			
+			Or, par inégalité triangulaire inversée, on a~:
+			\[\abs {f(\beta_n) - f(\alpha_n)} \geq \left(\frac 34\right)^n\abs {\varphi(4^n\beta_n) - \varphi(4^k\alpha_n)} - \sum_{k=0}^{n-1}\left(\frac 34\right)^k4^{k-n} \geq \frac 12\left(\frac 34\right)^n.\]
+			
+			Et puisque $\beta_n - \alpha_n = 4^{-n}$, il vient~:
+			\[\abs {\frac {f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}} \geq \frac 123^n,\]
+			ce qui contredit la dérivabilité en $x$.
+	\section{Séries de puissances}
+		\subsection{Théorie du rayon}
+			On se donne $(Y, \norm \cdot)$, un $\C$-ev complet.
+
+			\begin{déf} On appelle \textit{série de puissance} toute série de fonctions~:
+			\[u_n : \C \to Y,\]
+			dont le terme général est sous la forme $u_n(z) = a_n(z-z_0)^n$, avec $z_0 \in \C$ fixé et $(a_n) \subset Y$.
+			\end{déf}
+
+			\begin{rmq} $Y = \Mat_{n \times n}(\C)$.
+			\end{rmq}
+
+			\begin{déf} Définissons $\overline {\Rp} \coloneqq \Rp \cup \{\pinfty\}$.
+			\end{déf}
+
+			\begin{thm}\label{thm:rayondeconvergence} Soit $R \coloneqq \left(\limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n}\right)^{-1}$. Quelque soit
+			$z \in \C$~:
+			\begin{itemize}
+				\item si $\abs {z - z_0} \lneqq R$, alors $\sum_{n \geq 0}u_n(z)$ converge absolument~;
+				\item si $\abs {z - z_0} \gneqq R$, alors $\sum_{n \geq 0}u_n(z)$ diverge grossièrement (le terme général ne tend pas vers 0 pour $n \to \pinfty$
+				en norme dans $Y$).
+			\end{itemize}
+			\end{thm}
+
+			\begin{proof} Soit $z \in \C$ tel que $\abs {z - z_0} < R$. Alors il existe $R' \gneqq 0 \tq \abs {z - z_0} < R' < R$ et~:
+			\[\frac 1R + \frac 1{R'} < \frac 1{\abs {z - z_0}}.\]
+
+			Puisque $R^{-1} = \limsup_{n \to \pinfty}\norm{a_n}_Y^{\frac 1n}$, il existe $N \in \N \tq$~:
+			\[\forall n \geq N : \norm {a_n}_Y^{\frac 1n} \leq \limsup_{n \to \pinfty} \norm {a_n}_Y^{\frac 1n} = \frac 1R \leq \frac 1{R'}.\]
+
+			Dès lors~: $\norm {a_n}_Y \leq \frac 1{(R')^n}$, ou encore $\abs {z - z_0}\norm {a_n}_Y \leq \frac {\abs {z - z_0}^n}{(R')^n}$. On a donc~:
+			\[\norm {(z-z_0)^na_n}_Y \leq \left(\frac {\abs {z - z_0}}{R'}\right)^n.\]
+
+			Et comme $\abs {\frac {\abs {z - z_0}}{R'}} < 1$, on sait que la série de terme général $\frac {\abs {z - z_0}}{R'}$ converge et donc de terme
+			général $\norm {(z - z_0)^na_n}_Y$ converge aussi.
+
+			Soit maintenant $z \in \C \tq \abs {z - z_0} > R$. Il existe $R' > 0$ tel que $\abs {z - z_0} > R' > R$ et $\abs {z - z_0}^{-1} < (R')^{-1} + R^{-1}$.
+			Soit $\varphi: \N \to \N$ strictement croissante telle que~:
+			\[\forall n \in \N : \frac 1{R'} \leq \norm {a_{\varphi(n)}}_Y^{\frac 1{\varphi(n)}}.\]
+
+			On en déduit~:
+			\[\norm {a_{\varphi(n)}(z - z_0)^{\varphi(n)}}_Y = \abs {z - z_0}^{\varphi(n)}\norm {a_{\varphi(n)}}_Y
+				\geq \left(\frac {\abs {z - z_0}}{R'}\right)^{\varphi(n)} \xrightarrow[n \to \pinfty]{} \pinfty.\]
+
+			Dès lors, $\sum_{n \geq 0}a_n(z - z_0)^n$ diverge grossièrement.
+			\end{proof}
+
+			\begin{thm}\label{thm:cvnsurrayondeconvergence} Soit $a_n(z - z_0)^n$, le terme général d'une série de puissance. Alors~:
+			\begin{itemize}
+				\item lorsque $0 < R < \pinfty, \forall r \in (0, R) :$ la série de série de terme général~: $z \mapsto a_n(z - z_0)^n$ converge normalement
+				sur $B(z_0, r]$~;
+				\item lorsque $R = \pinfty$, la série de fonctions de terme général $z \mapsto a_n(z - z_0)^n$ converge normalement sur $B(z_0, r]$ pour tout $r$.
+			\end{itemize}
+			\end{thm}
+
+			\begin{proof} Si $0 < r < R < \pinfty$, observons que $\abs {z_0 + r - z_0} < R$. Ainsi, avec le Théorème~\ref{thm:rayondeconvergence}, la série
+			de terme général $a_n(z_0 + r)$ converge absolument. Or~:
+			\[\norm {a_n(z_0 + r)}_Y = \norm {a_n}_Y\abs {z_0 + r - z_0}^n = \norm {a_n}_Yr^n.\]
+			Donc la série de terme général $\norm {a_n}_Yr^n$ converge. Observons que~:
+			\[\forall n \in \N : \forall z \in B(z_0, r] : \norm {u_n(z)}_Y = \norm {a_n}_Y\abs {z - z_0}^n \leq \norm {a_n}_Yr^n.\]
+
+			Ainsi $\norm {u_n}_{\infty, B(z_0, r]} \leq \norm {a_n}_Yr^n$. Or $\norm {a_n}_Yr^n$ est le terme général d'une série qui converge. Par le critère
+			de Weierstrass, la série de terme général $u_n$ converge normalement $B(z_0, r]$.
+
+			Si maintenant $R = \pinfty$, on prend $r \in \Rp_0$, $\abs {z_0 + r - z_0} = r < R = \pinfty$. Avec le Théorème~\ref{thm:rayondeconvergence}, on a~:
+			que $\sum_{n \geq 0}u_n(z_0 + r)$ converge absolument. Or $\norm {u_n(z_0 + r)}_Y = \norm {a_n}_Rr^n$. Donc la série de terme général
+			$\norm {a_n}_Yr^n$ converge. Puisque l'on a toujours~:
+			\[\norm {u_n}_{\infty, B(z_0, r]} \leq \norm {a_n}_Yr^n,\]
+			on a donc $\sum_{n \geq 0}u_n$ converge normalement sur $B(z_0, r]$ par le critère de Weierstrass.
+			\end{proof}
+
+			\begin{cor} Soit $a_n(z - z_0)^n$ une série de puissance dans $Y$ complet et $R$ le rayon associé. Lorsque $R \gneqq 0$, la série converge normalement
+			sur tout compact de $B(0, r[$.
+			\end{cor}
+
+			\begin{proof} Si $0 < R < \pinfty$, soit $K \subset B(z_0, R[$ un compact. Il existe $r \in (0, R)$ tel que $K \subset B(z_0, r] \subset B(z_0, R[$.
+			La convergence normale sur $B(z_0, r]$ implique la convergence normale sur $K$.
+
+			Si $R = \pinfty$, on a $B(z_0, R[ = \C$ Soit $K$, un compact de $\C$. Il existe $r > 0$ tel que $K \subset B(z_0, r]$, et donc la convergence
+			normale sur $B(z_0, r]$ implique la convergence normale sur $K$.
+			\end{proof}
+
+			\begin{cor} Lorsque $R > 0$, la fonction $S(z) = \sum_{k \geq 0}a_k(z - z_0)^k$ est une fonction continue sur $B(z_0, R[$.
+			\end{cor}
+
+			\begin{proof} Les fonctions $u_n : B(z_0, R[ \to Y : z \mapsto a_n(z - z_0)^n$ sont continues sur l'ouvert $B(z_0, R[ \subset \C$, et il y a
+			convergence normale (et donc uniforme) de $\sum_{n \geq 0}u_n$ sur les compacts de $B(z_0, R[$. Par le Théorème~\ref{thm:cvnsurrayondeconvergence},
+			on sait que $S \in C^0(B(z_0, R[, Y)$.
+			\end{proof}
+		\subsection{Étude sur le cercle de convergence}
+			\begin{déf} On définit le cercle centré en $z_0 \in \C$ et de rayon $R > 0$ par~:
+			\[\mathcal C(z_0, R] = \{z \in \C \tq \abs {z - z_0} = R\}.\]
+			\end{déf}
+
+			\begin{thm}Lorsque $0 < R < \pinfty$, s'il existe $z \in \mathcal C(z_0, R]$ tel que $\sum_{n \geq 0}a_n(z - z_0)^n$ converge absolument,alors la
+			série de fonctions~: $u_n(z) = a_n(z - z_0)^n$ converge normalement sur $B(z_0, R]$.
+			\end{thm}
+
+			\begin{proof} Soit $z \in \mathcal C(z_0, R]$ tel que $\sum_{n \geq 0}a_n(z - z_0)^n$ converge absolument. On a~:
+			\[\norm {a_n(z - z_0)^n}_Y = \abs {z - z_0}^n\norm {a_n}_Y = R^n\norm {a_n}_Y.\]
+			Puisque $\forall z \in B(z_0, R] : \forall n \in \N : \norm {u_n(z)}_Y = \abs {z - z_0}\norm {a_n}_Y \leq R^n\norm {a_n}_Y,$
+			il vient que~:
+			\[\forall n \geq 0 : \norm {u_n}_{\infty, B(z_0, R]} \leq R^n\norm {a_n}_Y.\]
+			Et donc $\sum_{n \geq 0}u_n$ converge normalement sur $B(z_0, R]$ par le critère de Weierstrass.
+			\end{proof}
+
+			\begin{ex} $Y = \C, \sum_{n \geq 1}\frac {z^n}{n^2}$. On a alors $a_n = \frac 1{n^2}$, donc~:
+			\[\abs {a_n}^{\frac 1n} = n^{\frac {-2}n} = \exp\left(-2\frac {\ln n}n\right) \xrightarrow[n \to \pinfty]{} 1,\]
+			d'où $R = 1$, et il y a convergence en $z = 1$, donc il y a convergence absolue de la série~:
+			\[\sum_{n \geq 1}\frac {\exp(in\theta)}{n^2} \; \forall \theta \in \R,\]
+			et la convergence de $\sum_{n \geq 1}\frac {z^n}{n^2}$ est normale sur $B(0, 1]$.
+			\end{ex}
+
+			\begin{thm}[Théorème d'Abel]\label{thm:cvgsurcercleimpliquecvusursegment} Si $R \in (0, \pinfty)$ et
+			$\exists z \in \mathcal C(z_0, R] \tq \sum_{n \geq 0} a_n(z - z_0)^n$ converge, alors la série de fonctions de terme général
+			$z \mapsto a_n(z - z_0)^n$ converge uniformément sur le segment reliant $z_0$ à $z$.
+			\end{thm}
+
+			\begin{proof} Prenons $z_0 = 0$ et $z \in \Rp_0$. Prenons $x \in [0, z], n, p \in \Ns$. Écrivons~:
+			\[\sum_{k=n}^{n+p}a_kx^k = \sum_{n=0}^{n+p}a_kz^k\left(\frac xz\right)^k.\]
+			Notons alors $S_m \coloneqq \sum_{k=0}^ma_kz^k$, pour tout $m$. On obtient alors~:
+			\begin{align*}
+				\sum_{k=n}^{n+p}a_kx^k &= \sum_{k=n}^{n+p}(S_k - S_{k-1})\left(\frac xz\right)^k
+					= \sum_{k=n}^{n+p}(S_k - S_{n-1})\left(\frac xz\right)^k - \sum_{k=n}^{n+p}(S_{k-1} - S_{n-1})\left(\frac xz\right)^k \\
+				&= \sum_{k=n}^{n+p}(S_k-S_{n-1})\left(\frac xz\right)^k - \sum_{k=n-1}^{n+p-1}(S_k-S_{n-1})\left(\frac xz\right)^{k+1} \\
+				&= -(S_{n-1}-S_{n-1})\left(\frac xz\right)^n + \sum_{k=n}^{n+p-1}(S_k-S_{n-1})\left(\left(\frac xz\right)^k - \left(\frac xz\right)^{k+1}\right)
+					+ (S_{n+p}-S_{n-1})\left(\frac xz\right)^{n+p}.
+			\end{align*}
+
+			Puisque la série de terme général $z \mapsto a_k\abs {z-z_0}^k$ converge, la suite $(S_m)_n$ est de Cauchy dans $Y$. Soit $\varepsilon > 0$. On sait
+			qu'il existe $N \in \N \tq$~:
+			\[\forall k, n > N : \norm {S_k - S_{n-1}}_Y \leq \varepsilon.\]
+			
+			Soit un $n \geq N$, et $p \in \Ns$. Prenons $x \in [0, z]$. On a~:
+			\begin{align*}
+				\norm {\sum_{k=n}^{n+p}a_kx^k}_Y &\leq \sum_{k=n}^{n+p-1}\norm {(S_k-S_{n-1})\left(\left(\frac xz\right)^{k+1} - \left(\frac xz\right)^k\right)}_Y
+					+ \norm {(S_{n+p}-S_{n-1}\left(\frac xz\right)^{n+p}} \\
+				&\leq \sum_{k=n}^{n+p-1}\norm {S_k - S_{n-1}}\left(\left(\frac xz\right)^k - \left(\frac xz\right)^{k+1}\right)
+					+ \norm {S_{n+p}-S_{n-1}}\left(\frac xz\right)^{n+p} \\
+				&\leq \varepsilon\sum_{k=n}^{n+p-1}\left(\left(\frac xz\right)^k - \left(\frac xz\right)^{k+1}\right) + \varepsilon\left(\frac xz\right)^{n+p} \\
+				&\leq \varepsilon\left(\left(\frac xz\right)^n - \left(\frac xz\right)^{n+p}\right) + \varepsilon\left(\frac xz\right)^{n+p} \\
+				&\leq \varepsilon\left(\frac xz\right)^{n}.
+			\end{align*}
+
+			Par la suite, on peut dire que pour $n \geq N, p \in \Ns$~:
+			\[\norm {\sum_{k=n}^{n+p}a_k \cdot^k}_{\infty, [0, z]} \leq \varepsilon.\]
+
+			On en déduit que la série de terme général $x \mapsto a_kx^k$ est de Cauchy dans $B([0, z], Y)$, et donc, par complétude de $Y$, convergente.
+			\end{proof}
+
+			\begin{rmq} Soient $(a_n), (b_n) \subset \C$. On appelle la \textit{suite de Cauchy} de $(a_n)$ et $(b_n)$ la suite de terme général~:
+			\[c_n \coloneqq \sum_{k=0}^na_kb_{n-k}.\]
+			\end{rmq}
+
+			\begin{thm}[Théorème de Cauchy, version CDI1]\label{thm:CauchyCDI1} Si $\sum_{n \geq 0}a_n$ et $\sum_{n \geq 0}b_n$ convergent absolument,
+			alors $\sum_{n \geq 0}c_n$ converge absolument, et on a~:
+			\[\left(\sum_{n \geq 0}a_n\right)\left(\sum_{n \geq 0}b_n\right) = \sum_{n \geq 0}c_n.\]
+			\end{thm}
+
+			\begin{thm}[Théorème de Cauchy, version CDI2] Si $\sum_{n \geq 0}a_n$, $\sum_{n \geq 0}b_n$, et $\sum_{n \geq 0}c_n$ convergent, alors~:
+			\[\left(\sum_{n \geq 0}a_n\right)\left(\sum_{n \geq 0}b_n\right) = \sum_{n \geq 0}c_n.\]
+			\end{thm}
+
+			\begin{proof} Par hypothèse de convergence des séries, on a~:
+			\[R_a \coloneqq R\left(\sum_{n \geq 0}a_nz^n\right), R_b \coloneqq R\left(\sum_{n \geq 0}b_nz^n\right), R_c \coloneqq R\left(\sum_{n \geq 0}c_nz^n\right)
+				\geq 1.\]
+			Posons~:
+			\begin{align*}
+				&A : [0, 1] \to \R : x \mapsto \sum_{n \geq 0}a_nx^n, \\
+				&B : [0, 1] \to \R : x \mapsto \sum_{n \geq 0}b_nx^n, \\
+				&C : [0, 1] \to \R : x \mapsto \sum_{n \geq 0}c_nx^n.
+			\end{align*}
+
+			Si les $R_\cdot$ sont $> 1$, alors $[0, 1]$ est un compact de $B(0, R[$ et donc la somme de la série de terme général $\cdot_nz^n$ est $C^0$ sur
+			$[0, 1]$, et si $R=1$, alors la série de puissance converge en $1 \in \mathcal C(0, 1]$ et donc la série de terme général $\cdot_nz^n$ converge
+			uniformément sur $[0, 1]$.
+
+			Puisque $z \mapsto a_nz^n$ (pareil pour $b_n$, $c_n$) est $C^0$ sur $[0, 1]$, il vient que $A, B, C \in C^0([0, 1], \C)$.
+
+			Pour $x \in [0, 1)$, les séries $\sum_{n \geq 0}\cdot_n$ convergent \textbf{absolument}. De plus~:
+			\[\sum_{k=0}^na_kx^k\cdot b_{n-k}x^{n-k} = x^n\sum_{n=0}^na_kb_{n-k} = x^nc_n.\]
+
+			Par le Théorème~\ref{thm:CauchyCDI1}, on a~:
+			\[\forall x \in [0, 1) : A(x)B(x) = C(x).\]
+			De même, en passant à la limite (continuité) $x \to 1$, il vient~:
+			\[\left(\sum_{n \geq 0}a_n\right)\left(\sum_{n \geq 0}b_n\right) = A(1)B(1) = C(1) = \sum_{n\geq 0}c_n.\]
+			\end{proof}
+
+		\subsection{Fonctions réelles analytiques}
+			On considère la série de puissances $u_n(x) = a_n(x - x_0)^n$, avec $x, x_0 \in \R$ et $x_0$ fixé.
+
+			\begin{déf} On appelle \textit{série dérivée formelle} de $u_n$ la série de terme général~:
+			\[u_n'(x) = na_n(x-x_0)^{n-1}, \qquad n \geq 1\]
+			\end{déf}
+
+			\begin{rmq} La série dérivée formelle est toujours une série de puissances.
+			\end{rmq}
+
+			\begin{prp} Soient~:
+			\begin{align*}
+				&R_1 \coloneqq R\left(\sum_{n \geq 0}a_n(x-x_0)^n\right), \\
+				&R_2 \coloneqq R\left(\sum_{n \geq 1}na_n(x-x_0)^{n-1}\right).
+			\end{align*}
+
+			Alors $R_1 = R_2$.
+			\end{prp}
+
+			\begin{proof} On observe aisément que~:
+			\[R_1^{-1} = \limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n},\]
+			et donc~:
+			\[R_2^{-1} = \limsup_{n \to \pinfty}\norm {na_n}_Y^{\frac 1n} = \limsup_{n \to \pinfty}n^{\frac 1n}\norm {a_n}_Y^{\frac 1n}
+				= \limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n} = R_1^{-1},\]
+			car $n^{\frac 1n} \xrightarrow[n \to \pinfty]{} 1$.
+			\end{proof}
+
+			\begin{prp}\label{prp:formuledérivéepsdp} Soit $x_0 \in \R$. Supposons $R \gneqq 0$, et notons~:
+			\[f : (x_0-R, x_0+R) \to Y : x \mapsto \sum_{n \geq 0}a_n(x-x_0)^n.\]
+
+			Alors la fonction $f$ est continue sur $(x_0 \pm R)$, et on a~:
+			\[\forall p \in \N : \forall x \in (x_0 \pm R) : f^{(p)}(x) = \sum_{n \geq p}\left(n(n-1)(n-2)\ldots(n-p+1)\right)a_n(x-x_0)^{n-p}
+				= \sum_{n \geq p}\frac {n!}{(n-p)!}a_n(x-x_0)^{n-p}.\]
+			\end{prp}
+
+			\begin{proof} On observe que le terme général $u_n(x) = a_n(x-x_0)^n$ est de classe $C^\infty$ sur $(x_0 \pm R)$. La série
+			$u_n'(x) = na_n(x-x_0)^{n-1}$ converge normalement sur les compacts de $(x_0 \pm R)$ par l'égalité des rayons. Donc $f \in C^1\left((x_0 \pm R)\right)$
+			et $f'(x) = \sum_{n \geq 1}na_n(x-x_0)^{-1}$.
+
+			Par récurrence, on obtient le résultat désiré.
+			\end{proof}
+
+			\begin{cor} Si $f$ est une somme d'une série de puissances $\sum_{n \geq 0}a_n(x-x_0)^n$ de rayon $R \gneqq 0$ sur $(x_0 \pm R)$, alors~:
+			\[\forall n \in \N : a_n = \frac {f^{(n)}(x_0)}{n!}.\]
+			\end{cor}
+
+			\begin{proof} Si $f$ est somme de la série de puissance de terme général $a_n(x-x_0)^n$, alors $f \in C^\infty$ sur $(x_0 \pm R)$. Par la
+			Proposition~\ref{prp:formuledérivéepsdp}, on trouve~:
+			\[\forall p \in \N : f^{(p)}(x_0) = \sum_{n \geq p}\frac {n!}{(n-)!}a_n(x_0-x_0)^{n-p} = \frac {p!}{0!}a_p(x_0-x_0)^{p-p} + 0 = p!a_p1 = p!a_p,\]
+			et donc $a_p = \frac {f^{(p)}(x_0)}{p!}$.
+			\end{proof}
 \end{document}
