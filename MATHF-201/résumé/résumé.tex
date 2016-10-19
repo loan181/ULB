@@ -59,11 +59,14 @@
 % uniform convergence on compacts
 \newcommand{\CVUc}[3]{\CONV{#1}{#2}{#3}{CVU}{sur tout cpct de}}
 
+\newcommand{\El}[2]{\mathcal E\!\left(#1, #2\right)}
+
 \newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
 \newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
 \newcommand{\scpr}[2]{\left\langle #1, #2\right\rangle}
 
-\newcommand{\pinfty}{+\infty}
+\newcommand{\minfty}{{-\infty}}
+\newcommand{\pinfty}{{+\infty}}
 \newcommand{\grantedproof}{\begin{proof} \underline{Admis.} \end{proof}}
 \newcommand{\evn}{espace vectoriel normé}
 \newcommand{\evnc}{{\evn} complet}
@@ -1099,4 +1102,322 @@
 			\[\forall p \in \N : f^{(p)}(x_0) = \sum_{n \geq p}\frac {n!}{(n-)!}a_n(x_0-x_0)^{n-p} = \frac {p!}{0!}a_p(x_0-x_0)^{p-p} + 0 = p!a_p1 = p!a_p,\]
 			et donc $a_p = \frac {f^{(p)}(x_0)}{p!}$.
 			\end{proof}
+
+			\begin{rmq} Les notations suivantes sont dues à Landau~:
+			\begin{align*}
+				&u_n \sim v_n \iff \forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : \abs {u_n - v_n} < \varepsilon \abs{u_n} \\
+				&u_n = o(v_n) \iff \forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : \abs {u_n} < \varepsilon \abs {v_n} \\
+				&u_n = O(v_n) \iff \exists N \in \N \tq \forall M \gneqq 0 : \forall n \geq N : u_n < M \abs {v_n}
+			\end{align*}
+			\end{rmq}
+
+			\begin{déf} Soit $U \subset \R$, un ouvert. Une fonction $f : U \to \R$ est dite \textit{réelle analytique} lorsque~:
+			\[\forall x_0 \in U : \exists \varepsilon > 0, (a_n) \subset \R \tq (x_0 \pm \varepsilon) \subset U \text{ et } \sum_{k=0}^na_k(x-x_0)^k
+			\text{ converge simplement sur } (x_0 \pm \varepsilon).\]
+			\end{déf}
+
+			\begin{déf}[Définition équivalente] $f : U \subset U \to \R$ est dite \textit{réelle analytique} lorsque $f$ est somme de sa série de Taylor sur un
+			voisinage de chaque point de $U$.
+			\end{déf}
+
+			\begin{déf} Pour $\emptyset \neq U \subset \R$, on pose $\mathcal A(U) \coloneqq \{f : U \to \R \tq f \text{ est réelle analytique sur } U\}$.
+			\end{déf}
+
+			\begin{prp} Soit $\emptyset \neq U \subset \R$. Alors $\mathcal A(U) \subsetneqq C^\infty(U, \R)$.
+			\end{prp}
+
+			\begin{proof} Montrons d'abord l'inclusion. Soit $x_0 \in U$ et soit $\varepsilon > 0$ tel que~:
+			\[f(x) = \sum_{k \geq 0}\frac {f^{(k)}(x_0)}{k!}(x-x_0)^k \text{ sur } (x_0 \pm \varepsilon).\]
+			On a donc $\restr f {(x_0 \pm \varepsilon)} \in C^\infty\left((x_0 \pm \varepsilon), \R\right)$.
+
+			Pour montrer l'inclusion stricte, soit~:
+			\[f : \R \to \R : x \mapsto \begin{cases}\exp(-x^{-1}) &\text{ si } x > 0 \\0 &\text{ sinon}\end{cases}.\]
+			On sait que $f \in C^\infty(\R, \R)$, et $\forall k \in \N : f^{(k)}(0) = 0$. Donc $f$ n'est somme de sa série de Taylor sur aucun voisinage de $0$.
+			On a donc $f \not \in \mathcal A(\R)$.
+			\end{proof}
+
+			\begin{rmq} $f \in \mathcal A(\R)$ peut avoir, en certains points, un rayon fini. Par exemple $f(x) = \frac 1{1 + x^2}$. Pour $\abs x < 1$, on a~:
+			\[f(x) = \frac 1{1 - (-x^2)} = \sum_{k \geq 0}(-1)^kx^{2k},\]
+			et $R\left(\sum_{k \geq 0}(-1)^kx^{2k}\right) = \left(\limsup_{n \to \pinfty}((-1)^n)^{\frac 1n}\right)^{-1} = 1$.
+			\end{rmq}
+
+\chapter{Intégration}
+	\section{Intégrales absolument convergentes}
+		\subsection{Rappels concernant l'intégrale de Riemann}
+			\begin{déf} On se place sur un segment $[a, b] \subset \R$. On note~:
+			\[\El {[a, b]}\R \coloneqq \left\{\varphi : [a, b] \to \R \tq \varphi \text{ est en escaliers sur} [a, b]\right\}.\]
+			\end{déf}
+
+			\begin{rmq} $\int$ est bien définie sur $\El {[a, b]}\R$.
+			\end{rmq}
+
+			\begin{déf} La fonction $f : [a, b] \to \R$ est \textit{R-int} (\textit{Riemann intégrable}, ou encore \textit{intégrable au sens de Riemann})
+			lorsque~:
+			\begin{align*}
+				\forall \varepsilon > 0 : &\exists \varphi, \psi \in \El {[a, b]}\R \tq \\
+				&(i) \quad \varphi \leq f \leq \psi \\
+				&(ii) \quad \int(\psi-\varphi) < \varepsilon
+			\end{align*}
+			\end{déf}
+
+			\begin{prp} De manière équivalente, $f : [a, b] \to \R$ est R-int sur $[a, b]$ lorsque~:
+			\[\overline \int f \coloneqq \inf_{f \leq \psi \in \El {[a, b]}\R}\int \psi
+				= \sup_{f \geq \varphi \in \El {[a, b]}\R}\int \varphi \eqqcolon \underline \int f.\]
+			\end{prp}
+
+			\begin{déf} On note dans ce cas~:
+			\[\int_a^b f(x)\dif x = \overline {\int_a^b} f(x)\dif x = \underline {\int_a^b} f(x)\dif x.\]
+			\end{déf}
+
+			\begin{prp} Si $f : [a, b] \to \R$ est R-int sur $[a, b]$, alors $f$ est bornée sur $[a, b]$.
+			\end{prp}
+
+			\begin{prp} Soient $f, g$ R-int, et $\lambda, \mu \in \R$. Alors les fonctions suivantes sont R-int~:
+			\begin{align*}
+				&\lambda f + \mu g \\
+				&\min(f, g) \\
+				&\max(f, g) \\
+				&\abs f
+			\end{align*}
+			Et on a~:
+			\begin{itemize}
+				\item[$(i)$]  \[\abs {\int_a^b f(x)\dif x} \leq \int_a^b\abs {f(x)}\dif x~;\]
+				\item[$(ii)$] \[\int_a^b\left(\lambda f + \mu g\right)(x)\dif x = \lambda \int_a^b f(x)\dif x + \mu \int_a^b g(x)\dif x.\]
+			\end{itemize}
+			\end{prp}
+
+			\begin{proof} montrons que $\min(f, g)$ est R-int sur $[a, b]$.
+
+			Fixons $\varepsilon > 0$. Soient $\varphi_f, \varphi_g, \psi_f, \psi_g \in \El {[a, b]}\R$ tels que~:
+			\begin{align*}
+				&\varphi_f \leq f \leq \psi_f, \qquad\qquad \int_a^b(\psi_f - \varphi_f) < \varepsilon \\
+				&\varphi_g \leq g \leq \psi_g, \qquad\qquad \int_a^b(\psi_g - \varphi_g) < \varepsilon.
+			\end{align*}
+
+			Prenons $x \in [a, b]$, et remarquons que~:
+			\[\min(\varphi_f, \varphi_g) \leq f\qquad\qquad\min(\varphi_f, \varphi_g) \leq g,\]
+			et donc $\min(\varphi_f, \varphi_g) \leq \min(f, g)$.
+
+			Posons $\El {[a, b]}\R \ni \widetilde \varphi \coloneqq \min(\varphi_f, \varphi_g), \widetilde \psi \coloneq \min(\psi_f, \psi_g)$. On remarque alors~:
+			\[\widetilde \varphi \leq \min(f, g) \leq \widetilde \psi.\]
+
+			Prenons $x \in [a, b]$. On remarque~:
+			\begin{itemize}
+				\item si $\varphi_f(x) \leq \varphi_g(x)$, on a~:
+				\[\widetilde \psi(x) - \widetilde \varphi(x) \leq \psi_f(x) - \varphi_f(x)~;\]
+				\item si $\varphi_g(x) < \varphi_f(x)$, on a~:
+				\[\widetilde \psi(x) - \widetilde \varphi(x) \leq \psi_g(x) - \varphi_g(x).\]
+			\end{itemize}
+
+			Ainsi, en séparant les intégrales en un nombre fini où on a soit $(i)$, soit $(ii)$, on a~:
+			\[\int_a^b (\widetilde \psi - \widetilde \varphi) \leq \int_a^b (\psi_f - \varphi_f) + \int_a^b (\psi_g - \varphi_g) \leq 2\varepsilon.\]
+			\end{proof}
+
+			\begin{cor} $\abs {\int_a^b (\lambda f + \mu g)(x)\dif x} \leq \abs \lambda \int_a^b \abs {f(x)}\dif x + \abs \mu \int_a^b\abs {g(x)}\dif x$.
+			\end{cor}
+		\subsection{Fonctions absolument intégrables sur un intervalle}
+			\begin{déf} Soit $I \neq \emptyset$, un intervalle de $\R$, et $f : I \to \R$. On dit que $f$ est \textit{abs-int} (\textit{absolument intégrable})
+			sur $I$ lorsque~:
+			\begin{itemize}
+				\item[$(i)$] $\forall [a, b] \subset U : \restr f{[a, b]}$ est R-int sur $[a, b]$~;
+				\item[$(ii)$] $\sup_{[a, b] \subset I} \int_a^b \abs f \leq \pinfty$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} La condition $(ii)$ revient à dire que $\exists M > 0 \tq \forall [a, b] \subset U : \int_a^b \abs f \leq M$.
+			\end{rmq}
+
+			\begin{déf} Soit $I \subset \R$, un intervalle. On appelle \textit{suite exhaustive de segments de $I$} toute suite $([a_n, b_n])_{n \in \N}$ de
+			segments de $I$ tels que~:
+			\begin{itemize}
+				\item[$(i)$]  la suite est croissante (c-à-d $\forall n \in \N : [a_{n+1}, b_{n+1}] \supseteq [a_n, b_n]$)~;
+				\item[$(ii)$] $\bigcup_{n \in \N}[a_n, b_n] = I$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{prp} Soit $I \neq \emptyset$, un intervalle de $\R$. $I$ admet une suite exhaustive.
+			\end{prp}
+
+			\begin{proof} Si $I$ est un fermé, prenons $a, b \in \R$ tels que $I = [a, b]$. La suite $([a_n, b_n])_n = ([a, b])_n$ est exhaustive.
+
+			Si $I$ est un ouvert, prenons $a, b \in \R$ tels que $I = (a, b)$. La suite $([a_n, b_n])_n = ([a + \frac 1n, b - \frac 1n])_n$ est exhaustive.
+
+			Si $I$ est ouvert d'un côté, et fermé de l'autre, les suites exhaustives $([a, b-\frac 1n])_n$ et $([a + \frac 1n, b])_n$ sont exhaustives.
+			\end{proof}
+
+			\begin{prp} Soit $I \neq \emptyset$ un intervalle de $\R$. Soit $f : I \to \R$ abs-int sur $I$. Soit $([a_n, b_n])_n$ une suite exhaustive de
+			segments de $I$. Alors~:
+			\begin{itemize}
+				\item[$(i)$]  la suite définie par~:
+				\[\left(\int_{a_n}^{b_n}f(x)\dif x\right)_n \subset \R\]
+				est convergente~;
+				\item[$(ii)$] la limite de cette suite ne dépend pas de la suite exhaustive de segments de $I$ choisie.
+			\end{itemize}
+			\end{prp}
+
+			\begin{déf} On appelle \textit{intégrale de $f$ sur $I$} cette valeur, et on la note~:
+			\[\int_I f(x)\dif x.\]
+			\end{déf}
+
+			\begin{proof} Soit $([a_n, b_n])$ une suite exhaustive de segments de $I$. Posons pour $n \in \N$~: $\alpha_n = \int_{a_n}^{b_n}\abs f$.
+			La suite $(\alpha_n)_n$ est croissante et majorée donc $(\alpha_n)$ converge vers un certain $\ell \in \Rp$. En particulier, $(\alpha_n)$ est de
+			Cauchy dans $\R$. Considérons maintenant $(\beta_n)_n$, où $\beta_n \coloneqq \int_{a_n}^{b_n}f$. Observons que pour $p, n \in \N$~:
+			\[\beta_{n+p} - \beta_n = \int_{a_{n+p}}^{b_{n+p}}f - \int_{a_n}^{b_n}f
+				= \int_{a_{n+p}}^{a_n}f + \int_{a_n}^{b_n}f + \int_{b_n}^{b_{n+p}}f - \int_{a_n}^{b_n}f = \int_{a_{n+p}}^{a_n}f + \int_{b_n}^{b_{n+p}}f.\]
+
+			Ainsi~:
+			\[\abs {\beta_{n+p}-\beta_n} \leq \int_{a_{n+p}}^{a_n}\abs f + \int_{b_n}^{b_{n+p}} \abs f
+				\leq \int_{a_{n+p}}^{a_n}\abs f + \int_{a_b}^{b_n} \abs f + \int_{b_n}^{b_{n+p}} \abs f - \int_{a_n}^{b_n}\abs f
+				= \alpha_{n+p} - \alpha_n.\]
+
+			La suite $(\beta_n)_n$ est donc bornée par une suite de Cauchy (et est donc de Cauchy) dans $\R$. Par complétude de $\R$, $(\beta_n)_n$ converge
+			dans $\R$.
+
+			Montrons maintenant que cette limite ne dépend pas de la suite exhaustive. Soit $[\widetilde a_n, \widetilde b_n]$ une suite exhaustive de $I$. On
+			sait que $\widetilde \beta_n = \int_{\widetilde a_n}^{\widetilde b_n} f$ converge. On veut montrer que $\widetilde \beta_n$ a la même limite que
+			$\beta_n$. On construit donc une nouvelle suite exhaustive de $I$. On choisit $[\bar a_0, \bar b_0] = [a_0, b_0]$. Il existe
+			$N_1 \gneqq 0 \tq \forall n \geq N_1 : [a_0, b_0] \subset [\widetilde a_n, \widetilde b_n]$. On pose ensuite
+			$[\bar a_1, \bar b_1] = [\widetilde a_{N_1}, \widetilde b_{N_1}]$. Il existe
+			$N_2 \gneqq N_1 \tq \forall n \geq N_2 : [\bar a_1, \bar b_1] \subset [a_n, b_n]$. On pose donc $[\bar a_2, \bar b_2] = [a_{N_2}, b_{N_2}]$.
+			
+			On construit donc $\varphi : \N \to \N$ strictement croissante telle que pour tout $p$~:
+			\begin{align*}
+				&[\bar a_{2p}, \bar b_{2p}] = [a_{\varphi(2p)}, b_{\varphi(2p)}], \\
+				&[\bar a_{2p+1}, \bar b_{2p+1}] = [\widetilde a_{\varphi(2p+1}, \widetilde b_{2p+1}].
+			\end{align*}
+			
+			Donc la suite $([\bar a_p, \bar b_p])_p$ est exhaustive. La suite $\left(\int_{\bar a_p}^{\bar b_p}f\right)_p$ converge vers $\bar \beta$ dans $\R$.
+			
+			Puisque~:
+			\begin{align*}
+				&\int_{\bar a_{2p}}^{\bar b_{2p}}f = \int_{a_{\varphi(2p)}}^{b_{\varphi(2p)}}f = \beta_{\varphi(2p)} \xrightarrow[p \to \pinfty]{} \beta = \bar \beta \\
+				&\int_{\bar a_{2p+1}}^{\bar b_{2p+1}} f = \int_{\widetilde a_{\varphi(2p+1)}}^{\widetilde b_{\varphi(2p+1)}} f
+					= \widetilde \beta_{\varphi(2p+1)} \xrightarrow[p \to \pinfty]{} \widetilde \beta = \bar \beta,
+			\end{align*}
+			on déduit $\beta = \bar \beta = \widetilde \beta$. Les limites sont donc les mêmes, peu importe les suites exhaustives choisies.
+			\end{proof}
+			
+			\begin{prp} Soit $f : [a, b] \to \R$ R-int sur $[a, b]$. Alors $f$ est abs-int sur $[a, b]$, et on a~:
+			\[\int_{[a, b]} f = \int_a^b f.\]
+			\end{prp}
+			
+			\begin{proof} $f$ est R-int, et donc est R-int sur tout segment de $[a, b]$. Soit $([a_n, b_n])_n$, une suit exhaustive de segments de $[a, b]$. Il existe
+			$N \in \N \tq \forall n \geq N : [a_n, b_n] = [a, b]$. Ainsi, pour $n \geq N$, on a~:
+			\[\int_{a_n}^{b_n} f = \int_a^b f.\]
+			En passant à la limite pour $n \to \pinfty$, on a~:
+			\[\int_{[a, b]} f = \int_a^b f.\]
+			\end{proof}
+			
+			\begin{prp} L'ensemble $L^1(I) \coloneqq \{f : I \to \R \tq f \text{ est abs-int sur } I\}$ est un $\R-ev$. De plus, l'application~:
+			\[\int : L^1(I) \to \R : f \mapsto \int_I f\]
+			est une forme linéaire sur $L^1(I)$.
+			\end{prp}
+			
+			\begin{proof} EXERCICE.
+			\end{proof}
+			
+		\subsection{Fonctions absolument intégrables vues comme fonction des bornes}
+			\begin{prp} Soit $I \subset \R$, un intervalle non-vide de $\R$. Si la fonction $f : I \to \R$ est abs-int sur $I$, alors elle l'est sur
+			$I \cap (\minfty, a]$ et $[a, \pinfty)$ pour tout $a \in \R$, et on a~:
+			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
+			\end{prp}
+			
+			\begin{proof} Soit $[\alpha, \beta] \subset [a, \pinfty) \cap I$. $[\alpha, \beta]$ est un segment de $I$ et $f$ est abs-int sur $I$. $f$ est donc abs-int
+			sur tout segment de $I$, en particulier sur $[\alpha, \beta]$. De plus, il existe $M \gneqq 0$ tel que pour tout segment $[u, v]$ de $I$, on a~:
+			\[\int_u^v \abs f \leq M.\]
+			
+			Ainsi~:
+			\[\int_\alpha^\beta \abs f \leq M.\]
+			$f$ est donc abs-int sur $I \cap [a, \pinfty)$. On raisonne de manière similaire pour $(\minfty, a]$.
+			
+			Montrons maintenant l'égalité. Soit $[\alpha_n, \beta_n]$, une suite de segments de $I$. Il existe $N \in \N$ tel que~:
+			\[\forall n \geq N : \alpha_n \leq a \leq \beta_n.\]
+			Il vient alors que $([\alpha_n, a])_n$ est une suite exhaustive de $I \cap (\minfty, a]$, et $([a, \beta_n])_n$ est une suite exhaustive de
+			$I \cap [a, \pinfty)$. Pour $n \geq N$, on a alors~:
+			\[\int_{\alpha_n}^{\beta_n} f = \int_{\alpha_n}^a f + \int_a^{\beta_n} f.\]
+			En passant à la limite pour $n \to \pinfty$, on trouve~:
+			\[\int_I f= \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
+			\end{proof}
+			
+			\begin{prp} Soient $I \subset \R$, $a \in I$, et $f : I \to \R$. Si $f$ est abs-int sur $I \cap (\minfty, a]$ et sur $I \cap [a, \pinfty)$, alors $f$
+			est abs-int sur $I$, et on a~:
+			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
+			\end{prp}
+			
+			\begin{proof} Soit $[\alpha, \beta]$ un segment de $I$. Si $a < \alpha$, ou $a > \beta$, c'est trivial.
+			
+			Supposons alors $\alpha \leq a \leq \beta$. $f$ est R-int sur $[\alpha, a]$ et sur $[a, \beta]$. $f$ est donc R-int sur $[\alpha, \beta]$. De plus, il existe
+			$M^+, M^- > 0$ tels que~:
+			\[\sum_{[u, v] \subset (\minfty, a] \cap I}\int_u^v f \leq M^-\qquad\qquad\text{ et }\qquad\qquad\sup_{[u, v] \subset I \cap [a, \pinfty)}\int_u^v\abs f \leq M^+.\]
+			On peut donc dire que $\int_\alpha^\beta\abs f \leq M^+ + M^-$. On a alors $f$ abs-int sur $I$ et on peut appliquer la proposition précédente pour~:
+			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
+			\end{proof}
+			
+			\begin{prp} Soient $I \subset \R$, un intervalle non-vide, et $f : I \to \R$ abs-int. La fonction $F : I \to \R : x \to \int_{I \cap (-\minfty, x]} f$ est
+			localement lipschitizienne.
+			\end{prp}
+			
+			\begin{proof} Soit $x_0 \in I$. Supposons que $x_0$ n'est pas un bord de $I$ (sinon EXERCICE). Supposons qu'il existe
+			$\delta > 0 \tq (x_0 \pm \delta) \subset I$. La fonction $f$ est R-int sur $\left[x_0 \pm \frac \delta2\right]$ et donc sa valeur absolue est bornée sur
+			ce segment par $M(x_0, \delta)$. Pour $x, y \in \left[x_0 \pm \frac \delta2\right]$, avec $x < y$, on déduit~:
+			\[F(y) - F(x) = \int_{I \cap (\minfty, y]} f - \int_{I \cap (-\infty, x]} f
+				= \int_{I \cap (\minfty, x]} f + \int_x^y f - \int_{I \cap (\minfty, x]} f = \int_x^y f.\]
+			
+			D'où~:
+			\[\abs {F(y) - F(x)} = \int_x^y\abs f \leq M(x_0, \delta)(y-x).\]
+			\end{proof}
+			
+			\begin{cor} Si $f$ est abs-int sur $I$, alors $F$ est continue sur $I$.
+			\end{cor}
+			
+			\begin{prp} Si $f$ est abs-int sur $I$, et continue en $x_0 \in I$, alors $F$ est dérivable en $x_0$ et on a~:
+			\[F'(x_0) = f(x_0).\]
+			\end{prp}
+			
+			\begin{cor} Si $f$ est abs-int sur $I$ et de classe $C^k$ sur un voisinage de $x_0 \in I$, alors $F$ est de classe $C^{k+1}$ sur un voisinage de $x_0$ et
+			on a, sur ce voisinage~:
+			\[\forall p \in \{0, \ldots, k\} : F^{(p+1)}(x) = f^{(p)}(x).\]
+			\end{cor}
+			
+			\begin{rmq} Si le voisinage est ouvert pour $f$, alors on a le même voisinage pour $F$.
+			\end{rmq}
+			
+			\begin{proof} $F(x) = F(x_0) + \int_{x_0}^x f(t)\dif t$.
+			\end{proof}
+			
+			\begin{rmq} C'est donc le théorème fondamental du calcul différentiel et intégral qui est revu ici.
+			\end{rmq}
+			
+		\subsection{Critères d'intégration absolue}
+			\begin{prp}[Critère de comparaison] Soit $I \subset \R$ un intervalle non-vide et $f, g : I \to \R$ avec~:
+			\begin{itemize}
+				\item $\forall x \in X : \abs {f(x)} \leq g(x)$~;
+				\item $f, g$ R-int sur tout segment de $I$.
+			\end{itemize}
+			
+			Si $g$ est abs-int sur $I$, alors $f$ l'est aussi, et on a~:
+			\[\int_I\abs f \leq \int_I g.\]
+			\end{prp}
+			
+			\begin{proof} Il existe $M_g \gneqq 0 \tq$~:
+			\[\forall [u, v] \subset I : \int_u^vg \leq M_g.\]
+			Ainsi, si $[a, b] \subset I$ est un segment, on a $f$ R-int sur $[a, b]$ et~:
+			\[\int_a^b\abs f \leq \int_a^b g \leq M_g,\]
+			avec $M_g$ donc indépendant de $[a, b]$. Ceci montre que $f$ est abs-int sur $I$ et que~:
+			\[\int_I \abs f \leq \int_I g.\]
+			\end{proof}
+			
+			\begin{rmq} Soient $f, g : [a, b) \to \R$. On dit que $f$ est \textit{équivalent} à $g$ en $b^-$ lorsque~:
+			\[\forall \varepsilon > 0 : \exists \eta > 0 \tq \forall x \in [b-\eta, b) : \abs {f(x)-g(x)} \leq \varepsilon \abs {f(x)}.\]
+			\end{rmq}
+			
+			\begin{prp} Soit $I = [a, b)$, et soit $f : I \to \R$, R-int sur tout segment de $I$. Alors~:
+			\begin{enumerate}
+				\item si $f \underset {b^-}\sim g(x)$, alors $f$ est abs-int sur $I$ si et seulement si $g$ l'est~;
+				\item dans le cas abs-int, on a~:
+				\[\int_x^b\abs f \underset {b^-}\sim \int_x^b g.\]
+				Dans le cas non-abs-int, on a~:
+				\[\int_a^x\abs f \underset {b^-}\sim \int_a^x g.\]
+			\end{enumerate}
+			\end{prp}
 \end{document}
