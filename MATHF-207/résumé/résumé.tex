@@ -20,7 +20,11 @@
 \DeclareMathOperator{\Unif}{Unif}  % uniform law
 \DeclareMathOperator{\Bern}{Bern}  % Bernoulli law
 \DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\MAE}{MAE}
 
 \renewcommand{\P}{\mathbb P}
 \newcommand{\E}{\mathbb E}
@@ -47,6 +51,10 @@
 \newcommand{\Brl}{\mathcal B}  % \sigma-algebra of borelians
 \newcommand{\charfun}[1]{I_{\left[#1\right]}}
 \newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
+
+\newcommand{\Xn}{{X^{(n)}}}
+\newcommand{\Tn}{{T^{(n)}}}
+\newcommand{\TnXn}{{\Tn(\Xn)}}
 
 \newtheorem{thm}{Théorème}[chapter]
 \newtheorem{lem}[thm]{Lemme}
@@ -104,7 +112,7 @@
 		\begin{déf} On appelle \textit{modèle d'échantillonnage} un modèle d'observations iid.  \end{déf}
 
 		\begin{déf} Soit un modèle statistique $\statmod E\Brl{\mathcal P}n$ où $\mathcal P^{(n)} =
-		\left\{P_\theta^{(n)} \tq \theta \in \Theta \subset \R^k\right\}$. On note ici $\P^{(n)}_\theta$ une loi possible pour $(X_1, \ldots, X_n)$ et $\P_\theta$
+		\left\{\P_\theta^{(n)} \tq \theta \in \Theta \subset \R^k\right\}$. On note ici $\P^{(n)}_\theta$ une loi possible pour $(X_1, \ldots, X_n)$ et $\P_\theta$
 		une loi possible pour $X_i$ avec $i$ fixé. On dit alors que $\P^{(n)}_\theta$ est déterminé par $\P_\theta$.
 		\end{déf}
 
@@ -381,9 +389,9 @@
 		\end{rmq}
 		
 	\section{Critères d'estimation}
-			\begin{rmq} Afin de définir les estimateurs convergents, il faut définir la notion de convergence, or il n'existe pas une manière canonique de la définir.
-			Il existe donc plusieurs définitions de convergences différentes.
-			\end{rmq}
+		\begin{rmq} Afin de définir les estimateurs convergents, il faut définir la notion de convergence, or il n'existe pas une manière canonique de la définir.
+		Il existe donc plusieurs définitions de convergences différentes.
+		\end{rmq}
 		
 		\subsection{Définitions de convergence}
 			Soient $Z^{(n)} = (Z_1, \ldots, Z_n)$ définis pour $n \geq 1$ et sur $\probspace \Omega{\mathcal F}\P$.
@@ -503,7 +511,7 @@
 				\P_\theta^{(n)}\left[\abs {X_{(n)} - \theta} > \varepsilon\right] &= \P_\theta^{(n)}\left[X_{(n)} \leq \theta - \varepsilon\right] 
 					+ \P_\theta^{(n)}\left[X_{(n)} \geq \theta + \varepsilon\right] = \P_\theta^{(n)}\left[X_{(n)} \leq \theta - \varepsilon\right]
 					= F_\theta^{X_{(n)}}(\theta - \varepsilon) \\
-				&=\begin{cases}0 &\text{ si }\varepsilon \geq \theta \\ \left(\frac {\theta-\varepsilon}{\theta}\right)^n &\text{ si } 0 < \varepsilon < \theta\end{cases}
+				&=\begin{cases}0 &\text{ si }\varepsilon \geq \theta \\\left(\frac {\theta-\varepsilon}{\theta}\right)^n &\text{ si } 0 < \varepsilon < \theta\end{cases}
 					\longrightarrow 0
 			\end{align*}
 			on a alors convergence en probabilité de $X_{(n)}$ vers $\theta$. On en déduit que $T_3^{(n)}(X^{(n)})$ est un estimateur faiblement convergent.
@@ -550,7 +558,8 @@
 		\end{rmq}
 		
 		\begin{déf} Soit $X^{(n)} = (X_1, \ldots, X_n)$. On appelle la \textit{fonction de vraissemblance de $X^{(n)}$} la fonction~:
-		\[L_\theta^{(n)} : \R^n \to \R : x^{(n)} \mapsto \begin{cases}\P[X^{(n)} = x^{(n)}] &\text{ si $X^{(n)}$ est de loi discrète} \\f_\theta^{X^{(n)}}(x^{(n)} &\text{ sinon}\end{cases}.\]
+		\[L_\theta^{(n)} : \R^n \to \R : x^{(n)} \mapsto \begin{cases}\P[X^{(n)}
+			= x^{(n)}] &\text{ si $X^{(n)}$ est de loi discrète} \\f_\theta^{X^{(n)}}(x^{(n)} &\text{ sinon}\end{cases}.\]
 		\end{déf}
 		
 		\begin{rmq} Dans le cas de variables $X_1, \ldots, X_n$ iid, la fonction de vraissemblance correspond toujours à un produit~:
@@ -606,76 +615,294 @@
 		qui est donc en quelque sorte contenue dans $x_{(n)}$.
 		\end{rmq}
 		
-	\subsection{Estimateurs non biaisés}
-		En se situant toujours dans un modèle statistique $\statmod \R\Brl{\mathcal P}n$, on veut estimer $g(\theta)$, avec $g : \Theta \to \R^m$.
+		\subsection{Estimateurs non biaisés}
+			En se situant toujours dans un modèle statistique $\statmod \R\Brl{\mathcal P}n$, on veut estimer $g(\theta)$, avec $g : \Theta \to \R^m$.
 		
-		\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{non biaisé} lorsque~:
-		\[\forall \theta \in \Theta : \E_\theta[T^{(n)}(X^{(n)})] = g(\theta).\]
-		\end{déf}
+			\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{non biaisé} lorsque~:
+			\[\forall \theta \in \Theta : \E_\theta[T^{(n)}(X^{(n)})] = g(\theta).\]
+			\end{déf}
 		
-		\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{asymptotiquement non biaisé} lorsque~:
-		\[\forall \theta \in \Theta : \E_\theta[T^{(n)}(X^{(n)})] \xrightarrow[n \to \pinfty]{} g(\theta).\]
-		\end{déf}
+			\begin{déf} Un estimateur $T^{(n)}(X^{(n)})$ de $g(\theta)$ est dit \textit{asymptotiquement non biaisé} lorsque~:
+			\[\forall \theta \in \Theta : \E_\theta[T^{(n)}(X^{(n)})] \xrightarrow[n \to \pinfty]{} g(\theta).\]
+			\end{déf}
 		
-		\begin{déf} Le \textit{biais} d'un estimateur $T^{(n)}(X^ {(n)})$ est la quantité~:
-		\[b^{(n)}_\theta = b^{(n)}(\theta) = \E_\theta[T^{(n)}(X^{(n)})] - g(\theta).\]
-		\end{déf}
+			\begin{déf} Le \textit{biais} d'un estimateur $T^{(n)}(X^ {(n)})$ est la quantité~:
+			\[b^{(n)}_\theta = b^{(n)}(\theta) = \E_\theta[T^{(n)}(X^{(n)})] - g(\theta).\]
+			\end{déf}
 		
-		\begin{rmq} On remarque donc qu'un estimateur non biaisé a un biais de 0 et qu'un estimateur asymptotiquement non biaisé a un biais qui tend vers 0 pour
-		$n$ tendant vers $\pinfty$.
-		\end{rmq}
+			\begin{rmq} On remarque donc qu'un estimateur non biaisé a un biais de 0 et qu'un estimateur asymptotiquement non biaisé a un biais qui tend vers 0 pour
+			$n$ tendant vers $\pinfty$.
+			\end{rmq}
 		
-		\begin{ex} $X_1, \ldots, X_n$ iid $\Unif(0, \theta)$, avec $\theta \in \Theta = \Rp_0 \subset \R$.
-		\begin{itemize}
-			\item Si $T^{(n)}(X^{(n)}) = 2\overline X$, on a~:
-			\[\E_\theta^{(n)}\left[2\overline X\right] = \frac 2n\E_\theta^{(n)}\left[\sum_{i=1}^nX_i\right] = \frac 2n\sum_{i=2}^n\E_\theta[X_i]
-				= \frac 2n\frac {n\theta}2 = \theta.\]
-			\item Si $T^{(n)}(X^{(n)}) = X_{(n)}$, on a~:
-			\[\E_\theta^{(n)}[X_{(n)}] = \int_\R xf_\theta^{X_{(n)}}(x)\dif x = \int_0^\theta x\frac {nx^{n-1}}{\theta^n}\dif x
-				= \frac n{\theta^n}\int_0^\theta x^n\dif x = \frac n{\theta^n}\left[\frac {x^{n+1}}{n+1}\right]_0^\theta = \frac n{n+1}\theta.\]
-			On en déduit que $T^{(n)}(X^{(n)})$ est biaisé car il \textit{vise en moyenne trop à gauche} et a un biais de $-\frac \theta{n+1}$. Il est cependant
-			asymptotiquement non biaisé car $\frac n{n+1} \xrightarrow[n \to \pinfty]{} 1$.
-		\end{itemize}
-		\end{ex}
+			\begin{ex} $X_1, \ldots, X_n$ iid $\Unif(0, \theta)$, avec $\theta \in \Theta = \Rp_0 \subset \R$.
+			\begin{itemize}
+				\item Si $T^{(n)}(X^{(n)}) = 2\overline X$, on a~:
+				\[\E_\theta^{(n)}\left[2\overline X\right] = \frac 2n\E_\theta^{(n)}\left[\sum_{i=1}^nX_i\right] = \frac 2n\sum_{i=2}^n\E_\theta[X_i]
+					= \frac 2n\frac {n\theta}2 = \theta.\]
+				\item Si $T^{(n)}(X^{(n)}) = X_{(n)}$, on a~:
+				\[\E_\theta^{(n)}[X_{(n)}] = \int_\R xf_\theta^{X_{(n)}}(x)\dif x = \int_0^\theta x\frac {nx^{n-1}}{\theta^n}\dif x
+					= \frac n{\theta^n}\int_0^\theta x^n\dif x = \frac n{\theta^n}\left[\frac {x^{n+1}}{n+1}\right]_0^\theta = \frac n{n+1}\theta.\]
+				On en déduit que $T^{(n)}(X^{(n)})$ est biaisé car il \textit{vise en moyenne trop à gauche} et a un biais de $-\frac \theta{n+1}$. Il est cependant
+				asymptotiquement non biaisé car $\frac n{n+1} \xrightarrow[n \to \pinfty]{} 1$.
+			\end{itemize}
+			\end{ex}
 		
-		\begin{rmq} Si le biais d'un estimateur est négatif, alors c'est que l'estimateur sous-estime en moyenne, alors que si le biais est positif, c'est que
-		l'estimateur surestime.
-		\end{rmq}
-		
-		\begin{rmq} On peut tout de même dire que l'estimateur $\frac {n+1}nX_{(n)}$ est non biaisé car~:
-		\[\E_\theta^{(n)}\left[\frac {n+1}nX_{(n)}\right] = \frac {n+1}n\E_\theta^{(n)}[X_{(n)}] = \frac {n+1}n\frac n{n+1}\theta = \theta.\]
-		\end{rmq}
-		
-		\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$, avec $\theta = (\mu, \sigma^2)$.
-		\begin{itemize}
-			\item pour tout $\theta \in \Theta$, on a~: $\E_\theta[\overline X] = \frac 1n\sum_{i=1}^n\E(X_i) = \frac {n\mu}n = \mu$. $\overline X$ est donc un
-			estimateur sans biais de $\mu$~;
-			\item $\E_\theta[s^2] = \E_\theta[X_1^2] - \E_\theta[\overline X^2]$. On remarque que pour toute variable aléatoire $Z$, on a~:
-			\[\Var(Z) = \E[Z^2] - \E[Z]^2 \qquad \iff \qquad \E[Z^2] = \Var(Z) + \E[Z]^2.\]
-			On peut donc remplacer dans la formule de l'espérance de $s^2$, et on obtient~:
-			\[\E_\theta[s^2] = \Var_\theta(X_1) + \E(X_1)^2 - \Var_\theta(\overline X) - \E(\overline X)^2.\]
-			Or on sait $\E_\theta(X_1) = \E_\theta(\overline X) = \mu$. On a donc~:
-			\[\E_\theta[s^2] = \Var_\theta(X_1) - \Var_\theta(\overline X) = \sigma^2 - \frac 1{n^2}\Var_\theta\left(\sum_{i=1}^nX_i\right)
-				= \sigma^2 - \frac 1{n^2}\sum_{i=1}^n\Var_\theta(X_i) = \sigma^2 - \frac {n\sigma^2}{n^2} = \frac {n-1}n\sigma^2.\]
+			\begin{rmq} Si le biais d'un estimateur est négatif, alors c'est que l'estimateur sous-estime en moyenne, alors que si le biais est positif, c'est que
+			l'estimateur surestime.
+			\end{rmq}
 			
-			On en conclut que l'estimateur $s^2$ est biaisé pour $\sigma^2$ et de biais $\frac {-\sigma^2}n \xrightarrow[n \to \pinfty]{} 0$.
+			\begin{rmq} On peut tout de même dire que l'estimateur $\frac {n+1}nX_{(n)}$ est non biaisé car~:
+			\[\E_\theta^{(n)}\left[\frac {n+1}nX_{(n)}\right] = \frac {n+1}n\E_\theta^{(n)}[X_{(n)}] = \frac {n+1}n\frac n{n+1}\theta = \theta.\]
+			\end{rmq}
 			
-			Notons alors $S^2 \coloneqq \frac {n}{n-1}s^2$. On a que $\E_\theta[S^2] = \sigma^2$, et donc $S^2$ est un estimateur sans biais.
-		\end{itemize}
-		\end{ex}
-		
-		\begin{rmq} Le non biais est une propriété fragile. Soient $X_1, \ldots, X_n$ iid $\Nms$ où l'on veut estimer $g(\theta) = \sigma$ (et pas $\sigma^2$).
-		
-		Que vaut $\E_\theta[S]$~? On sait $\Var_\theta(S) = \E_\theta[S^2] - \E_\theta[S]^2 = \sigma^2 - \E_\theta[S]^2$. Or $\Var_\theta(S) \gneqq 0$, et donc
-		$\sigma^2 \gneqq \E_\theta[S]^2$. On en déduit $\E_\theta[S] \lneqq \sigma$.
-		\end{rmq}
-		
-		\begin{rmq} De plus, il n'existe pas toujours d'estimateur sans biais. Soit $X_1 \sim \Bern(p)$. On veut estimer $g(p) = p^2 \in [0, 1]$. L'estimateur
-		$T(X^{(n)})$ est entièrement déterminé par $T(0)$ et $T(1)$. Imposons donc pour tout $p \in [0, 1] : \E_\theta[T(X_1)] = p^2$. On a donc~:
-		\[p^2 = \E_\theta[T(X_1)] = T(0)\P[X_1 = 0] + T(1)\P[X_1 = 1] = T(0)(1-p) + T(1)p.\]
-		En réarrangeant cette équation du second degré, on obtient~:
-		\[\forall p \in [0, 1] : p^2 + (T(0) - T(1))p - T(0) = 0.\]
-		Or une telle équation ne peut avoir que 2 racines tout au plus, et ici, une infinité non-dénombrable est requise. Il n'existe donc pas de telle fonction $T$,
-		et donc par extension, il n'existe pas d'estimateur sans biais de $p^2$.
-		\end{rmq}
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$, avec $\theta = (\mu, \sigma^2)$.
+			\begin{itemize}
+				\item pour tout $\theta \in \Theta$, on a~: $\E_\theta[\overline X] = \frac 1n\sum_{i=1}^n\E(X_i) = \frac {n\mu}n = \mu$. $\overline X$ est donc un
+				estimateur sans biais de $\mu$~;
+				\item $\E_\theta[s^2] = \E_\theta[X_1^2] - \E_\theta[\overline X^2]$. On remarque que pour toute variable aléatoire $Z$, on a~:
+				\[\Var(Z) = \E[Z^2] - \E[Z]^2 \qquad \iff \qquad \E[Z^2] = \Var(Z) + \E[Z]^2.\]
+				On peut donc remplacer dans la formule de l'espérance de $s^2$, et on obtient~:
+				\[\E_\theta[s^2] = \Var_\theta(X_1) + \E(X_1)^2 - \Var_\theta(\overline X) - \E(\overline X)^2.\]
+				Or on sait $\E_\theta(X_1) = \E_\theta(\overline X) = \mu$. On a donc~:
+				\[\E_\theta[s^2] = \Var_\theta(X_1) - \Var_\theta(\overline X) = \sigma^2 - \frac 1{n^2}\Var_\theta\left(\sum_{i=1}^nX_i\right)
+					= \sigma^2 - \frac 1{n^2}\sum_{i=1}^n\Var_\theta(X_i) = \sigma^2 - \frac {n\sigma^2}{n^2} = \frac {n-1}n\sigma^2.\]
+				
+				On en conclut que l'estimateur $s^2$ est biaisé pour $\sigma^2$ et de biais $\frac {-\sigma^2}n \xrightarrow[n \to \pinfty]{} 0$.
+				
+				Notons alors $S^2 \coloneqq \frac {n}{n-1}s^2$. On a que $\E_\theta[S^2] = \sigma^2$, et donc $S^2$ est un estimateur sans biais.
+			\end{itemize}
+			\end{ex}
+			
+			\begin{rmq} Le non biais est une propriété fragile. Soient $X_1, \ldots, X_n$ iid $\Nms$ où l'on veut estimer $g(\theta) = \sigma$ (et pas $\sigma^2$).
+			
+			Que vaut $\E_\theta[S]$~? On sait $\Var_\theta(S) = \E_\theta[S^2] - \E_\theta[S]^2 = \sigma^2 - \E_\theta[S]^2$. Or $\Var_\theta(S) \gneqq 0$, et donc
+			$\sigma^2 \gneqq \E_\theta[S]^2$. On en déduit $\E_\theta[S] \lneqq \sigma$.
+			\end{rmq}
+			
+			\begin{rmq} De plus, il n'existe pas toujours d'estimateur sans biais. Soit $X_1 \sim \Bern(p)$. On veut estimer $g(p) = p^2 \in [0, 1]$. L'estimateur
+			$T(X^{(n)})$ est entièrement déterminé par $T(0)$ et $T(1)$. Imposons donc pour tout $p \in [0, 1] : \E_\theta[T(X_1)] = p^2$. On a donc~:
+			\[p^2 = \E_\theta[T(X_1)] = T(0)\P[X_1 = 0] + T(1)\P[X_1 = 1] = T(0)(1-p) + T(1)p.\]
+			En réarrangeant cette équation du second degré, on obtient~:
+			\[\forall p \in [0, 1] : p^2 + (T(0) - T(1))p - T(0) = 0.\]
+			Or une telle équation ne peut avoir que 2 racines tout au plus, et ici, une infinité non-dénombrable est requise. Il n'existe donc pas de telle fonction $T$,
+			et donc par extension, il n'existe pas d'estimateur sans biais de $p^2$.
+			\end{rmq}
+			
+			\begin{ex} Prenons $X_1, \ldots, X_n$ iid $\mathcal N(\mu, 1)$, $g(\theta) = g(\mu) = \mu$. Prenons $\TnXn = \overline \Xn  + Y$, où $Y = \pm 10^9$, avec
+			probabilité $\frac 12$ pour chaque. On a alors~:
+			\[\E_\mu[\TnXn] = \E_\mu[\overline \Xn] + \E_\mu[Y] = \mu + 0 = \mu.\]
+			L'estimateur $\TnXn$ est donc sans biais, mais est très mauvais~: sur-/sous-estime toujours à $\simeq 10^9$ près.
+			\end{ex}
+			
+		\subsection{Estimateurs à dispertion minimale}
+			\begin{déf} L'erreur quadratique moyenne d'un estimateur $\TnXn$ de $g(\theta)$ ($\in \R$) est la quantité~:
+			\[\MSE_\theta[\TnXn] \coloneqq \E_\theta\left[\abs {\TnXn - g(\theta)}^2\right].\]
+			\end{déf}
+			
+			\begin{déf} On appelle l'erreur absolue moyenne la quantité~:
+			\[MAE_\theta[\TnXn] = \E_\theta\left[\abs {\TnXn - g(\theta)}\right]\]
+			\end{déf}
+			
+			\begin{rmq}
+			\begin{align*}
+				\MSE_\theta[\TnXn] &= \E_\theta\left[\abs {\TnXn - g(\theta)}^2\right]
+					= \Var_\theta\left[\TnXn - g(\theta)\right] - \E_\theta\left[\TnXn - g(\theta)\right]^2 \\
+				&= \Var_\theta[\TnXn] - b_\theta^{(n)}(\TnXn)^2.
+			\end{align*}
+			
+			Puisque $\Var_\theta(\TnXn) \geq 0$ et $b_\theta^{(n)}(\TnXn) \geq 0$, pour avoir $\MSE[\TnXn] \xrightarrow[n \to \pinfty]{} 0$, il faut~:
+			\[\begin{cases}&\Var_\theta(\TnXn) \xrightarrow[n \to \pinfty]{} 0, \\&b_\theta^{(n)}(\TnXn) \xrightarrow[n \to \pinfty]{} 0.\end{cases}\]
+			
+			Cela dit que sous $\P_\theta^{(n)}$, on a $\TnXn \xrightarrow{L^2} g(\theta)$ (et également $\TnXn \cvgp g(\theta)$).
+			
+			On peut également dire que si $\MSE_\theta[\TnXn] \to 0$, alors $\TnXn$ est un estimateur faiblement convergent.
+			\end{rmq}
+			
+			\begin{rmq} Le MSE sert d'«~arbitrage~» entre la variance et le biais. Cet arbitrage est bien souvent nécessaire car il arrive fréquemment que baisser
+			le biais (respectivement la variance) augmente la variance (respectivement le biais).
+			\end{rmq}
+			
+			\begin{ex} $X_1, \ldots, X_n$ iid $\Unif(0, \theta)$. Prenons $\theta \in \Theta = \Rp_0 \subset \R$. Prenons $T_1^{(n)}(\Xn) = X_{(n)}$. On sait que~:
+			\[\E_\theta[T_1^{(n)}(\Xn)] = \frac n{n+1}\theta,\]
+			ce qui nous permet de calculer la variance~:
+			\[\Var_\theta(X_{(n)}) = \E_\theta(X_{(n)}^2) - \E_\theta(X_{(n)})^2,\]
+			où~:
+			\[\E_\theta(X_{(n)}^2) = \int_\R x^2f^{X_{(n)}}(x)\dif x = \int_0^\theta x^2\frac {nx^{n-1}}{\theta^2}\dif x = \frac n{\theta^n}\int_0^\theta x^{n+1}\dif x
+				= \frac n{\theta^n}\left[\frac {x^{n+2}}{n+2}\right]_0^\theta = \frac {n\theta^2}{n+2}.\]
+			On trouve finalement la variance donnée par~:
+			\[\frac {n\theta^2}{n+2} - \frac {n^2\theta^2}{(n+1)^2} = n\theta^2\left(\frac {(n+1)^2 - n(n+2)}{(n+2)(n+1)^2}\right) = \frac {n\theta^2}{(n+2)(n+1)^2}.\]
+			
+			On trouve finalement une erreur quadratique moyenne de~:
+			\[\MSE_\theta[T_1^{(n)}(\Xn)] = \frac {2\theta^2}{(n+1)(n+2)} \xrightarrow[n \to \pinfty]{} 0.\]
+			
+			En prenant $T_2^{(n)}(\Xn) = \frac {n+1}nX_{(n)}$, on annule le biais, mais on augmente la variance~:
+			\[\Var_\theta[T_2^{(n)}(\Xn)] = \left(\frac {n+1}n\right)^2\Var_\theta[X_{(n)}] = \frac {\theta^2}{n(n+2)}.\]
+			
+			On trouve alors~:
+			\[\forall \theta \in \Theta : \MSE_\theta[T_2^{(n)}(\Xn)] = \frac {\theta^2}{n(n+2)} \leq \MSE_\theta[T_1^{(n)}(\Xn)].\]
+			
+			Dans le cas présent, annuler le biais donne une erreur quadratique moyenne plus faible. Donc ici, la variance a «~moins augmenté que le biais n'a diminué~».
+			\end{ex}
+			
+			\begin{ex} Prenons maintenant $X_1, \ldots, X_n$ iid $\Nms$ et $g(\theta) = \sigma^2$.
+			
+			Pour $T_1^{(n)}(\Xn) = \frac 1n\sum_{i=1}^n(X_i - \overline X)^2$, on trouve~:
+			\[\MSE_\theta[T_1^{(n)}(\Xn)] = \frac {2(n-1)\sigma^4}{n^2}.\]
+			
+			À nouveau, il existe un estimateur sans-biais~:
+			\[T_2^{(n)}(\Xn) = \frac 1{n-1}\sum_{i=1}^n(X_i - \overline X)^2 = \frac {n-1}nT_1^{(n)}(\Xn).\]
+			Dans ce cas, on trouve~:
+			\[\forall \theta \in \Theta : \MSE_\theta[T_2^{(n)}(\Xn)] = \frac {2\sigma^4}{n-1} \geq \MSE_\theta[T_1^{(n)}(\Xn)].\]
+			\end{ex}
+			
+			\begin{rmq} Dans les deux exemples ci-dessus, l'inégalité est stricte pour $n \geq 2$.
+			
+			De plus, l'inégalité tient pour tout $\theta \in \Theta$. Cela permet de définir qu'un estimateur est meilleur que l'autre. Avoir deux estimateurs tels
+			que l'erreur quadratique moyenne de l'un est meilleure que l'autre pour certaines valeurs de $g(\theta)$, et inversement pour d'autres ne permet pas de dire
+			que l'un est meilleur que l'autre car la véritable valeur de $g(\theta)$ n'est pas connue. On ne peut donc pas savoir quel estimateur choisir.
+			\end{rmq}
+
+			\begin{déf} Soit $\mathcal C$, une classe d'estimateurs de $g(\theta)$. On dit que $T_*^{(n)}$ est à erreur quadratique moyenne minimale dans $\mathcal C$
+			lorsque~:
+			\begin{itemize}
+				\item $T_*^{(n)} \in \mathcal C$~;
+				\item $\forall \Tn \in \mathcal C : \forall \theta \in \Theta : \MSE_\theta[T_*^{(n)}] \leq \MSE_\theta[\Tn]$.
+			\end{itemize}
+			\end{déf}
+			
+			\begin{rmq} On peut prendre $\mathcal C = \{\Tn \tq \E_\theta[\Tn^2] < \pinfty\}$, mais on n'en prend qu'un sous-ensemble strict bien souvent car dans un tel
+			$\mathcal C$, on peut prendre $T_{\theta_0}^{(n)}$, pour un certain $\theta_0 \in \Theta$ défini par $T_{\theta_0}^{(n)}(\Xn) = g(\theta_0)$.
+			On trouve donc~:
+			\[\MSE_\theta[T_{\theta_0}^{(n)}(\Xn)] = \E_\theta[(g(\theta_0) ) g(\theta))^2] = (g(\theta_0) - g(\theta))^2.\]
+			La fonction d'erreur quadratique moyenne est donc une parabole qui s'annule en $\theta_0 = \theta$. Pour avoir un tel $T_*^{(n)}$, il faut que
+			$\MSE_{\theta_0}[T_*^{(n)}] \leq \MSE_{\theta_0}[T_{\theta_0}^{(n)}] = 0$. Et ce, pour tout $\theta_0 \in \Theta$. Il faut donc avoir~:
+			\[\forall \theta \in \Theta : T_*^{(n)} = g(\theta)\qquad\text{ sous }\P_\theta^{(n)}.\]
+			
+			Pour résoudre ce problème, il faut donc réduire $\mathcal C$ afin de ne plus avoir de tels estimateurs \textit{pathologiques}.
+			\end{rmq}
+			
+			\begin{déf} Soit $Z = (Z_1, \ldots, Z_m)^T$, un vecteur aléatoire (vecteur de variables aléatoires). On définit~:
+			\[\E_\theta(Z) \coloneqq (\E_\theta[Z_1], \ldots, \E_\theta[Z_m])^T.\]
+			
+			On définit également~:
+			\[\Var_\theta[Z] = \E\left[(Z - \E_\theta[Z])(Z - \E_\theta[Z])^T\right] \in \R^{m \times m}.\]
+			\end{déf}
+			
+			\begin{rmq} On observe que~:
+			\[\Var_\theta[Z]_{ij} = \E_\theta\left[(Z - \E_\theta[Z])_i(Z - \E_\theta[Z])_j^T\right] = \E_\theta\left[(Z_i - \E_\theta[Z_i])(Z_j - \E_\theta[Z_j])\right]
+				= \Cov[Z_i, Z_j].\]
+			Cela veut dire~:
+			\[\Var[Z] =
+				\begin{pmatrix}
+					\Var[Z_1]      & \Cov[Z_1, Z_2] & \ldots & \Cov[Z_1, Z_n] \\
+					\Cov[Z_2, Z_1] & \Var[Z_2]      & \ddots & \Cov[Z_2, Z_n] \\
+					\vdots         & \ddots         & \ddots & \vdots         \\
+					\Cov[Z_n, Z_1] & \ldots         & \ldots & \Var[Z_n]
+				\end{pmatrix}
+			\]
+			
+			On appelle cette matrice la \textit{matrice de variance/covariance} (pour des raisons évidentes). On voit donc que cette matrice est symétrique car
+			$\Cov[Z_i, Z_j] = \Cov[Z_j, Z_i]$.
+			\end{rmq}
+			
+			\begin{déf} Soit $A$ une matrice. On dit que $A \geq 0$ si la forme bilinéaire associée est semi-définie positive.
+			\end{déf}
+			
+			\begin{prp} Soit $Z$ un vecteur aléatoire, et soient $A \in \R^{k \times m}, b \in \R^k$. Alors~:
+			\begin{itemize}
+				\item $\E_\theta[AZ + b] = A\E_\theta[Z] + b$~;
+				\item $\Var_\theta[AZ + b] = A\Var_\theta[AZ + b]A^T$~;
+				\item $\Var_\theta[Z] \geq 0$.
+			\end{itemize}
+			\end{prp}
+			
+			\begin{proof}~
+			\begin{itemize}
+				\item On observe que $\E_\theta[AZ + b] = \left(\E_\theta[(AZ)_i + b_i]\right)_i$,
+				où~:
+				\begin{align*}
+					\E_\theta[(AZ)_i + b_i] &= \E_\theta[(AZ)_i] + b_i = \E_\theta\left[\sum_{j=1}^kA_{ij}Z_j\right] + b_i = \sum_{j=1}^k\E_\theta[A_{ij}Z_j] + b_i \\
+					&= \sum_{j=1}^kA_{ij}\E_\theta[Z_j] + b_i = \sum_{j=1}^kA_{ij}(\E_\theta[Z])_j + b_i= (A\E_\theta[Z] + b)_i.
+				\end{align*}
+				\item On remarque premièrement que $\Var_\theta(AZ+b) = \E_\theta\left[(AZ+b-A\E_\theta(Z)-b)(AZ+b-A\E_\theta(Z)-b)^T\right]
+					= \E_\theta\left[(AZ-A\E_\theta(Z))(AZ-A\E_\theta(Z))^T\right] = \Var_\theta[AZ]$.
+				De là, on trouve~:
+				\begin{align*}
+					\Var_\theta[AZ]_{ij} &= \E_\theta\left[(AZ-A\E_\theta(Z))_i(AZ-A\E_\theta(Z))_j\right]
+						= \E_\theta\left[((AZ)_i-\E_\theta((AZ)_i))((AZ)_j-\E_\theta((AZ)_j))\right] \\
+					&= \E_\theta[(AZ)_i(AZ)_j] - \E_\theta[(AZ)_i]\E_\theta[(AZ)_j] \\
+					&= \E_\theta\left[\left(\sum_{\delta=1}^mA_{i\delta}Z_\delta\right)\left(\sum_{\gamma=1}^mA_{j\gamma}Z_\gamma\right)\right]
+						- \E_\theta\left[\sum_{\delta=1}^mA_{i\delta}Z_\delta\right]\E_\theta\left[\sum_{\gamma=1}^mA_{j\gamma}Z_\gamma\right] \\
+					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\E_\theta[Z_\delta Z_\gamma]
+						- \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\E_\theta[Z_\delta]\E_\theta[Z_\gamma] \\
+					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\left(\E_\theta[Z_\delta Z_\gamma] - \E_\theta[Z_\delta]\E_\theta[Z_\gamma]\right) \\
+					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\Var[Z]_{\delta \gamma} \\
+					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}\Var[Z]_{\delta \gamma}(A^T)_{\gamma j} \\
+					&= \left(A\Var[Z]A^T\right)_{ij}
+				\end{align*}
+				\item soit $v \in \R^m$. On remarque que $v^T\Var[Z]v = \Var[v^TZ] \geq 0$.
+			\end{itemize}
+			\end{proof}
+			
+			\begin{déf} Soient $Z = (Z_1, \ldots, Z_m)^T$, et $Y = (Y_1, \ldots, Y_\ell)^T$. On définit la covariance de $Y$ et $Z$ par~:
+			\[\Cov[Y, Z] \coloneqq \E_\theta\left[(Y-\E_\theta[Y])(Z-\E_\theta[Z])\right].\]
+			\end{déf}
+			
+			\begin{prp} Soient $Z = (Z_1, \ldots, Z_m)^T$, et $Y = (Y_1, \ldots, Y_\ell)^T$. Alors~:
+			\begin{itemize}
+				\item $\Cov[Y, Z]_{ij} = \Cov[Y_i, Z_j]$~;
+				\item $\Cov[Z, Y] = \Cov[Y, Z]$~;
+				\item $\Cov[Z, Z] = \Var[Z]$~;
+				\item $\Cov[AY+b, CZ+d] = A\Cov[Y, Z]C^T$
+			\end{itemize}
+			\end{prp}
+			
+			\begin{déf} Soient $g(\theta) \in \R^m$ et $\TnXn$, un estimateur de $g(\theta)$. On définit~:
+			\[\MSE_\theta[\TnXn] \coloneqq \E_\theta\left[(\TnXn - g(\theta))(\TnXn - g(\theta))^T\right] \in \Mat(m, m).\]
+			\end{déf}
+			
+			\begin{rmq} $\MSE_\theta[\TnXn] = \E_\theta\left[\left(T_i^{(n)}(\Xn)-g(\theta)\right)\left(T_j^{(n)}(\Xn)-g(\theta)\right)^T\right]$. En particulier~:
+			\[\MSE_\theta[\TnXn]_{ii} = \MSE_\theta[T_i^{(n)}].\]
+			\end{rmq}
+			
+			\begin{déf} Soient $A, B \in \Mat(m, n)$. On dit que $A \geq B$ lorsque $A-B \geq 0$, c-à-d lorsque la forme bilinéaire définie par $(A-B)$ est semi définie
+			positive.
+			\end{déf}
+			
+			\begin{déf} Soit $\mathcal C$, une classe d'estimateurs de $g(\theta)$. Alors $T_*^{(n)}$ est à erreur quadratique moyenne minimale dans $\mathcal C$
+			lorsque~:
+			\begin{itemize}
+				\item[$(i)$]  $T_*^{(n)} \in \mathcal C$~;
+				\item[$(ii)$] $\forall \Tn \in \mathcal C : \forall \theta \in \Theta : \MSE_\theta[\Tn] \geq \MSE_\theta[T_*^{(n)}]$.
+			\end{itemize}
+			\end{déf}
+			
+			\begin{prp} Pour tout $\theta \in \Theta, \Tn \in \mathcal C$, on a~:
+			\[\MSE_\theta[\Tn] \geq 0.\]
+			\end{prp}
+			
+			\begin{proof} Soit $v \in \R^m$. On trouve~:
+			\begin{align*}
+				v^T\MSE_\theta[\Tn]v &=v^T\E_\theta\left[\left(\Tn-g(\theta)\right)\left(\Tn-g(\theta)\right)^T\right]v
+					= \E_\theta\left[v^T\left(\Tn-g(\theta)\right)\left(\Tn-g(\theta)\right)^Tv\right] \\
+				&= \E_\theta\left[\left(v^T(\Tn-g(\theta))\right)\left(v^T(\Tn-g(\theta))\right)^T\right] \\
+				&= \E_\theta\left[\left(v^T(\Tn-g(\theta))\right)^2\right] \geq 0.
+			\end{align*}
+			\end{proof}
+			
+			\begin{prp} Soient $T_1^{(n)}, T_2^{(n)}$, deux estimateurs de $g(\theta)$ tels que~:
+			\[\MSE_\theta[T_1^{(n)}] \geq \MSE_\theta[T_2^{(n)}].\]
+			Alors~:
+			\[\forall v \in \R^m : \MSE_\theta[v^TT_1^{(n)}] \geq \MSE_\theta[v^TT_2^{(n)}].\]
+			\end{prp}
+			\newpage
+			\begin{proof}
+			\begin{align*}
+				\MSE_\theta[v^TT_1^{(n)}] - \MSE_\theta[v^TT_2^{(n)}]
+					&= \E_\theta\left[\left(v^TT_1^{(n)} - v^Tg(\theta)\right)^2\right] - \E_\theta\left[\left(v^TT_2^{(n)}-v^Tg(\theta)\right)^2\right] \\
+				&= \E_\theta\left[v^T\left(T_1^{(n)}-g(\theta)\right)\right] - \E_\theta\left[v^T\left(T_2^{(n)}-g(\theta)\right)\right] \\
+				&= v^T\MSE_\theta[T_1^{(n)}]v - v^T\MSE_\theta[T_2^{(n)}]v = v^T\left(\MSE_\theta[T_1^{(n)}] - \MSE_\theta[T_2^{(n)}]\right)v \geq 0,
+			\end{align*}
+			par définition de semi-positivité.
+			\end{proof}
 \end{document}
