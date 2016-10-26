@@ -44,11 +44,11 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
 % sequence; parameters: sequence letter, sequence index, index set
-\newcommand{\seq}[3]{\left(#1_{#2}\right)_{#2 \in #3}} 
+\newcommand{\seq}[3]{\left(#1_{#2}\right)_{#2 \in #3}}
 % sequence of instanciated function; parameters: sequence function letter, sequence index, function variable name, index set
 \newcommand{\seqf}[4]{\left(#1_{#2}\left(#3\right)\right)_{#2 \in #4}}
 % metric set convergence; parameters: variable name, variable limit, distance function
-\newcommand{\mconv}[3]{\xrightarrow[#1 \to #2]{#3}}  
+\newcommand{\mconv}[3]{\xrightarrow[#1 \to #2]{#3}}
 % Convergence
 \newcommand{\CONV}[5]{\xrightarrow[#2 \to #3]{#4 \text{ #5 } #1}}
 % Simple convergence
@@ -572,7 +572,7 @@
 				\item $f_n \CVUc \Omega n\pinfty f$.
 			\end{enumerate}
 			\end{thm}
-			
+
 			\begin{proof} Soit $x \in \Omega$. Par ouverture de $\Omega$, on sait qu'il existe $\delta \gneqq 0$ tel que $B(x, \delta[ \subset \Omega$.
 			On en déduit que $B(x, \frac \delta2]$ est incluse dans $B(x, \delta[$. Or $B(x, \frac \delta2]$ est fermé et borné par définition.
 			$B(x \frac \delta2]$ est donc un compact de $\Omega$.
@@ -623,7 +623,7 @@
 			Finalement, on a~:
 			\[\forall x \in K : \forall n \geq N : \norm {f_n(x) - f(x)} \leq
 				\varepsilon + \frac {r_{a_k}}{2} \cdot \frac {2\varepsilon}{\displaystyle \max_{i \in \intint 1d}r_{a_i}} \leq 2\varepsilon.\]
-				
+
 			Ainsi, pour $n \geq N$, on a~:
 			\[\norm {f_n - f}_{\infty, K} \leq 2\varepsilon.\]
 			\end{proof}
@@ -791,7 +791,7 @@
 				= \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n}^{n+p-1}f_{k+1}G_k \\
 				&= \sum_{n+1}^{n+p-1}G_k(f_k - f_{k+1}) + f_{n+p}G_{n+p} - f_{n+1}G_n.
 			\end{align*}
-			
+
 			Ainsi~:
 			\begin{align*}
 				\norm {S_{n+p} - S_n}_Y &\leq M\sum_{k=n+1}^{n+p}(f_k-f_{k+1}) + Mf_{n+p} + Mf_{n+1} = M(f_{n+1}-f_{n+p}) + M(f_{n+p} + f_{n+1}) \\
@@ -800,51 +800,51 @@
 			et la convergence de dépend pas de $p$. On a alors que la suite $\seq Sn\N$ est de Cauchy, et par complétude de $Y$, $S_n$ converge, ce qui implique que la
 			série de terme général $f_ng_n$ converge.
 			\end{proof}
-			
+
 			\begin{thm} Soient $X$ un \evnc et $X \neq 0$. Soient~:
 			\begin{align*}
 				g_n &: X \to Y, \\
 				f_n &: X \to \Rp.
 			\end{align*}
-			
+
 			Supposons~:
 			\begin{itemize}
 				\item qu'il existe $M \gneqq 0$ tel que $\forall n \in \N : \norm {\sum_{k=1}^ng_k}_{\infty, X} \leq M$~;
 				\item que $f_n \CVU Xn\pinfty 0$ en décroissant.
 			\end{itemize}
-			
+
 			Alors $f_ng_n$ est le terme général d'une série qui converge uniformément sur $X$.
 			\end{thm}
-			
+
 			\begin{proof} Par la preuve précédente, on a~:
 			\[\norm {S_{n+p} - S_n}_Y \leq 2Mf_{n+1}(x) \leq 2M\norm {f_{n+1}}_{\infty, X}.\]
 			On déduit donc~:
 			\[\norm {S_{n+p}-S_n}_{\infty, X} \leq 2M\norm {f_{n+1}}_{\infty, X}.\]
-			
+
 			On sait donc que $\seq Sn\N$ est de Cauchy dans $B(X, Y)$. Par complétude de $Y$, la série de terme général $f_ng_n$ converge uniformément sur $X$.
-			
+
 			On remarque en effet que les $S_n$ sont bornés car $f_n \CVU Xn\pinfty 0$, ce qui implique $\norm {f_n}_{\infty, X}$ bornée, au moins à partir d'un certain
 			$n \in \N$. De plus, $\norm {\sum_kg_k} < M$ assure que $g_k$ est uniformément bornée.
 			\end{proof}
-			
+
 		\subsection{Exemple d'une fonction continue sur $\R$ nulle part dérivable}
 			Considérons la fonction $\varphi : \R \to \R : x \mapsto \abs x$ sur $[-1, 1]$ et 2-périodique. La fonction $\varphi$ est continue sur $\R$. Posons~:
 			\[\forall k \in \N : u_k : \R \to \R : x \mapsto \left(\frac 34\right)^k\varphi(4^kx).\]
-			
+
 			On sait que $\forall k \in \N : \norm {u_k}_\infty = \left(\frac 34\right)^k \in [0, 1]$. Ainsi, la série de terme général $u_k$ converge normalement
 			sur $\R$ par le critère de Weierstrass. Par le Théorème~\ref{thm:fncvusériecvg}, la fonction~:
 			\[f : \R \to \R : x \mapsto \sum_{k \geq 0}u_k(x)\]
 			est continue sur $\R$.
-			
+
 			Montrons maintenant la fonction $f$ n'est jamais dérivable.
-			
+
 			Construisons $\alpha_n$ et $\beta_n$ tels que~:
 			\begin{align*}\begin{cases}
 				&\forall n \in \N : \alpha_n \leq x \leq \beta_n, \\
 				&\beta_n - \alpha_n \xrightarrow[]{} 0, \\
 				&\forall n \in \N : \abs {\frac {f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}} \geq \frac 123^n.
 			\end{cases}\end{align*}
-			
+
 			Soit $n \in \Ns$. Choisissez $p \in \Z$ tel que $p = \floor {4^nx}$ (et donc $p \leq 4^nx < p+1$). Posons $\alpha_n = \frac p{4^n}$ et
 			$\beta_n = \frac {p+1}{4^n}$. On a alors~:
 			\[f(\beta_n) - f(\alpha_n) = \sum_{k \geq 0}\left(\varphi(4^k\beta_n)\left(\frac 34\right)^k - \varphi(4^k\alpha_n)\left(\frac 34\right)^k\right)
@@ -858,15 +858,15 @@
 				\item si $k \gneqq n$, alors $4^k\alpha_n = 4^{k-n}p \in 4\Z \subset 2\Z$ donc $\varphi(4^k\alpha_n) = 0$.
 					De même, on a $\varphi(4^k\beta_n) = 0$.
 			\end{itemize}
-			
+
 			Ainsi~:
 			\[f(\beta_n) - f(\alpha_n) = \sum_{k=0}^{n-1}\left(\frac 34\right)^k\left(\varphi(4^k\beta_n) - \varphi(4^k\alpha_n)\right) +
 				\left(\frac 34\right)^n\left(\varphi(4^n\beta_n) - \varphi(4^n\alpha_n)\right).\]
-			
+
 			Or, par inégalité triangulaire inversée, on a~:
 			\[\abs {f(\beta_n) - f(\alpha_n)} \geq \left(\frac 34\right)^n\abs {\varphi(4^n\beta_n) - \varphi(4^k\alpha_n)}
 				- \sum_{k=0}^{n-1}\left(\frac 34\right)^k4^{k-n} \geq \frac 12\left(\frac 34\right)^n.\]
-			
+
 			Et puisque $\beta_n - \alpha_n = 4^{-n}$, il vient~:
 			\[\abs {\frac {f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}} \geq \frac 123^n,\]
 			ce qui contredit la dérivabilité en $x$.
@@ -1002,7 +1002,7 @@
 			Puisque la série de terme général $z \mapsto a_k\abs {z-z_0}^k$ converge, la suite $(S_m)_n$ est de Cauchy dans $Y$. Soit $\varepsilon > 0$. On sait
 			qu'il existe $N \in \N \tq$~:
 			\[\forall k, n > N : \norm {S_k - S_{n-1}}_Y \leq \varepsilon.\]
-			
+
 			Soit un $n \geq N$, et $p \in \Ns$. Prenons $x \in [0, z]$. On a~:
 			\begin{align*}
 				\norm {\sum_{k=n}^{n+p}a_kx^k}_Y &\leq \sum_{k=n}^{n+p-1}\norm {(S_k-S_{n-1})\left(\left(\frac xz\right)^{k+1} - \left(\frac xz\right)^k\right)}_Y
@@ -1286,15 +1286,15 @@
 			$N_1 \gneqq 0 \tq \forall n \geq N_1 : [a_0, b_0] \subset [\widetilde a_n, \widetilde b_n]$. On pose ensuite
 			$[\bar a_1, \bar b_1] = [\widetilde a_{N_1}, \widetilde b_{N_1}]$. Il existe
 			$N_2 \gneqq N_1 \tq \forall n \geq N_2 : [\bar a_1, \bar b_1] \subset [a_n, b_n]$. On pose donc $[\bar a_2, \bar b_2] = [a_{N_2}, b_{N_2}]$.
-			
+
 			On construit donc $\varphi : \N \to \N$ strictement croissante telle que pour tout $p$~:
 			\begin{align*}
 				&[\bar a_{2p}, \bar b_{2p}] = [a_{\varphi(2p)}, b_{\varphi(2p)}], \\
 				&[\bar a_{2p+1}, \bar b_{2p+1}] = [\widetilde a_{\varphi(2p+1}, \widetilde b_{2p+1}].
 			\end{align*}
-			
+
 			Donc la suite $([\bar a_p, \bar b_p])_p$ est exhaustive. La suite $\left(\int_{\bar a_p}^{\bar b_p}f\right)_p$ converge vers $\bar \beta$ dans $\R$.
-			
+
 			Puisque~:
 			\begin{align*}
 				&\int_{\bar a_{2p}}^{\bar b_{2p}}f = \int_{a_{\varphi(2p)}}^{b_{\varphi(2p)}}f = \beta_{\varphi(2p)} \xrightarrow[p \to \pinfty]{} \beta = \bar \beta \\
@@ -1303,40 +1303,40 @@
 			\end{align*}
 			on déduit $\beta = \bar \beta = \widetilde \beta$. Les limites sont donc les mêmes, peu importe les suites exhaustives choisies.
 			\end{proof}
-			
+
 			\begin{prp} Soit $f : [a, b] \to \R$ R-int sur $[a, b]$. Alors $f$ est abs-int sur $[a, b]$, et on a~:
 			\[\int_{[a, b]} f = \int_a^b f.\]
 			\end{prp}
-			
+
 			\begin{proof} $f$ est R-int, et donc est R-int sur tout segment de $[a, b]$. Soit $([a_n, b_n])_n$, une suit exhaustive de segments de $[a, b]$. Il existe
 			$N \in \N \tq \forall n \geq N : [a_n, b_n] = [a, b]$. Ainsi, pour $n \geq N$, on a~:
 			\[\int_{a_n}^{b_n} f = \int_a^b f.\]
 			En passant à la limite pour $n \to \pinfty$, on a~:
 			\[\int_{[a, b]} f = \int_a^b f.\]
 			\end{proof}
-			
+
 			\begin{prp} L'ensemble $L^1(I) \coloneqq \{f : I \to \R \tq f \text{ est abs-int sur } I\}$ est un $\R-ev$. De plus, l'application~:
 			\[\int : L^1(I) \to \R : f \mapsto \int_I f\]
 			est une forme linéaire sur $L^1(I)$.
 			\end{prp}
-			
+
 			\begin{proof} EXERCICE.
 			\end{proof}
-			
+
 		\subsection{Fonctions absolument intégrables vues comme fonction des bornes}
 			\begin{prp} Soit $I \subset \R$, un intervalle non-vide de $\R$. Si la fonction $f : I \to \R$ est abs-int sur $I$, alors elle l'est sur
 			$I \cap (\minfty, a]$ et $[a, \pinfty)$ pour tout $a \in \R$, et on a~:
 			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
 			\end{prp}
-			
+
 			\begin{proof} Soit $[\alpha, \beta] \subset [a, \pinfty) \cap I$. $[\alpha, \beta]$ est un segment de $I$ et $f$ est abs-int sur $I$. $f$ est donc abs-int
 			sur tout segment de $I$, en particulier sur $[\alpha, \beta]$. De plus, il existe $M \gneqq 0$ tel que pour tout segment $[u, v]$ de $I$, on a~:
 			\[\int_u^v \abs f \leq M.\]
-			
+
 			Ainsi~:
 			\[\int_\alpha^\beta \abs f \leq M.\]
 			$f$ est donc abs-int sur $I \cap [a, \pinfty)$. On raisonne de manière similaire pour $(\minfty, a]$.
-			
+
 			Montrons maintenant l'égalité. Soit $[\alpha_n, \beta_n]$, une suite de segments de $I$. Il existe $N \in \N$ tel que~:
 			\[\forall n \geq N : \alpha_n \leq a \leq \beta_n.\]
 			Il vient alors que $([\alpha_n, a])_n$ est une suite exhaustive de $I \cap (\minfty, a]$, et $([a, \beta_n])_n$ est une suite exhaustive de
@@ -1345,14 +1345,14 @@
 			En passant à la limite pour $n \to \pinfty$, on trouve~:
 			\[\int_I f= \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
 			\end{proof}
-			
+
 			\begin{prp} Soient $I \subset \R$, $a \in I$, et $f : I \to \R$. Si $f$ est abs-int sur $I \cap (\minfty, a]$ et sur $I \cap [a, \pinfty)$, alors $f$
 			est abs-int sur $I$, et on a~:
 			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
 			\end{prp}
-			
+
 			\begin{proof} Soit $[\alpha, \beta]$ un segment de $I$. Si $a < \alpha$, ou $a > \beta$, c'est trivial.
-			
+
 			Supposons alors $\alpha \leq a \leq \beta$. $f$ est R-int sur $[\alpha, a]$ et sur $[a, \beta]$. $f$ est donc R-int sur $[\alpha, \beta]$. De plus, il existe
 			$M^+, M^- > 0$ tels que~:
 			\[\sum_{[u, v] \subset (\minfty, a] \cap I}\int_u^v f \leq M^-\qquad\qquad\text{ et }\qquad\qquad\sup_{[u, v] \subset I \cap [a, \pinfty)}\int_u^v\abs f
@@ -1360,53 +1360,53 @@
 			On peut donc dire que $\int_\alpha^\beta\abs f \leq M^+ + M^-$. On a alors $f$ abs-int sur $I$ et on peut appliquer la proposition précédente pour~:
 			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
 			\end{proof}
-			
+
 			\begin{prp} Soient $I \subset \R$, un intervalle non-vide, et $f : I \to \R$ abs-int. La fonction $F : I \to \R : x \to \int_{I \cap (-\minfty, x]} f$ est
 			localement lipschitizienne.
 			\end{prp}
-			
+
 			\begin{proof} Soit $x_0 \in I$. Supposons que $x_0$ n'est pas un bord de $I$ (sinon EXERCICE). Supposons qu'il existe
 			$\delta > 0 \tq (x_0 \pm \delta) \subset I$. La fonction $f$ est R-int sur $\left[x_0 \pm \frac \delta2\right]$ et donc sa valeur absolue est bornée sur
 			ce segment par $M(x_0, \delta)$. Pour $x, y \in \left[x_0 \pm \frac \delta2\right]$, avec $x < y$, on déduit~:
 			\[F(y) - F(x) = \int_{I \cap (\minfty, y]} f - \int_{I \cap (-\infty, x]} f
 				= \int_{I \cap (\minfty, x]} f + \int_x^y f - \int_{I \cap (\minfty, x]} f = \int_x^y f.\]
-			
+
 			D'où~:
 			\[\abs {F(y) - F(x)} = \int_x^y\abs f \leq M(x_0, \delta)(y-x).\]
 			\end{proof}
-			
+
 			\begin{cor} Si $f$ est abs-int sur $I$, alors $F$ est continue sur $I$.
 			\end{cor}
-			
+
 			\begin{prp} Si $f$ est abs-int sur $I$, et continue en $x_0 \in I$, alors $F$ est dérivable en $x_0$ et on a~:
 			\[F'(x_0) = f(x_0).\]
 			\end{prp}
-			
+
 			\begin{cor} Si $f$ est abs-int sur $I$ et de classe $C^k$ sur un voisinage de $x_0 \in I$, alors $F$ est de classe $C^{k+1}$ sur un voisinage de
 			$x_0$ et on a, sur ce voisinage~:
 			\[\forall p \in \{0, \ldots, k\} : F^{(p+1)}(x) = f^{(p)}(x).\]
 			\end{cor}
-			
+
 			\begin{rmq} Si le voisinage est ouvert pour $f$, alors on a le même voisinage pour $F$.
 			\end{rmq}
-			
+
 			\begin{proof} $F(x) = F(x_0) + \int_{x_0}^x f(t)\dif t$.
 			\end{proof}
-			
+
 			\begin{rmq} C'est donc le théorème fondamental du calcul différentiel et intégral qui est revu ici.
 			\end{rmq}
-			
+
 		\subsection{Critères d'intégration absolue}
 			\begin{prp}[Critère de comparaison]\label{prp:critèredecomparaison} Soit $I \subset \R$ un intervalle non-vide et $f, g : I \to \R$ avec~:
 			\begin{itemize}
 				\item $\forall x \in X : \abs {f(x)} \leq g(x)$~;
 				\item $f, g$ R-int sur tout segment de $I$.
 			\end{itemize}
-			
+
 			Si $g$ est abs-int sur $I$, alors $f$ l'est aussi, et on a~:
 			\[\int_I\abs f \leq \int_I g.\]
 			\end{prp}
-			
+
 			\begin{proof} Il existe $M_g \gneqq 0 \tq$~:
 			\[\forall [u, v] \subset I : \int_u^vg \leq M_g.\]
 			Ainsi, si $[a, b] \subset I$ est un segment, on a $f$ R-int sur $[a, b]$ et~:
@@ -1414,11 +1414,11 @@
 			avec $M_g$ donc indépendant de $[a, b]$. Ceci montre que $f$ est abs-int sur $I$ et que~:
 			\[\int_I \abs f \leq \int_I g.\]
 			\end{proof}
-			
+
 			\begin{rmq} Soient $f, g : [a, b) \to \R$. On dit que $f$ est \textit{équivalent} à $g$ en $b^-$ lorsque~:
 			\[\forall \varepsilon > 0 : \exists \eta > 0 \tq \forall x \in [b-\eta, b) : \abs {f(x)-g(x)} \leq \varepsilon \abs {f(x)}.\]
 			\end{rmq}
-			
+
 			\begin{prp} Soit $I = [a, b)$, et soit $f, g : I \to \R$, R-int sur tout segment de $I$. Alors~:
 			\begin{enumerate}
 				\item si $f \underset {b^-}\sim g(x)$, alors $f$ est abs-int sur $I$ si et seulement si $g$ l'est~;
@@ -1428,7 +1428,7 @@
 				\[\int_a^x\abs f \underset {b^-}\sim \int_a^x g.\]
 			\end{enumerate}
 			\end{prp}
-			
+
 			\begin{proof}~
 			\begin{itemize}
 				\item Supposons $f$ abs-int. Pour $\varepsilon = 1$, il existe $\eta > 0$ tel que~:
@@ -1440,7 +1440,7 @@
 				$\abs {\abs {f(x)}-g(x)} \leq \varepsilon g(x)$. Pour $x > b-\eta$, il vient~:
 				\[\abs {\int_x^b\abs f - \int_x^b g} \leq \int_x^b\abs {\abs f - g},\]
 				d'où $\int_x^b\abs {f(t)}\dif t$ abs-int.
-				
+
 				Dans le cas non-abs-int, fixons $\varepsilon > 0$. Il existe $\eta_1$ tel que pour $x \in [b-\eta_1, b)$, on a~:
 				\[\abs {\abs {f(x)} - g(x)} \leq \varepsilon g(x).\]
 				Pour $X \geq b-\eta_1$, on a~:
@@ -1451,11 +1451,11 @@
 				\[\abs {\int_a^x \abs f - \int_a^x g} \leq \varepsilon \int_a^xg + \varepsilon\int_{b-\eta_1}^x g \leq 2\varepsilon \int_a^x g.\]
 			\end{itemize}
 			\end{proof}
-			
+
 		\subsection{Fonctions de référence de Riemann}
 			\begin{prp} Soit $\alpha \in \R$. $x \mapsto x^{-\alpha}$ est abs-int sur $[1, \pinfty)$ si et seulement si $\alpha > 1$.
 			\end{prp}
-			
+
 			\begin{proof} Remarquons que $x \mapsto x$ est continue sur $[1, \pinfty)$, et donc R-int sur tout segment de $[1, \pinfty)$. De plus, elle est positive sur
 			$[1, \pinfty)$. Pour $X \gneqq 1$, on a~:
 			\[\int_1^X\abs {\frac 1{x^\alpha}}\dif x = \int_1^X \frac {\dif x}{x^\alpha} = \int_1^Xx^{-\alpha}\dif x.\]
@@ -1473,38 +1473,38 @@
 				Donc l'intégrale de $x \mapsto x^{-\alpha}$ sur les segments de $[1, \pinfty)$ n'est pas majorée indépendamment du segment, donc cette fonction n'est pas
 				abs-int sur $[1, \pinfty)$.
 			\end{itemize}
-			
+
 			Finalement, si $\alpha = 1$, alors~:
 			\[\int_1^X\frac {\dif x}x = \left[\ln x\right]_1^X = \ln X \xrightarrow[X \to \pinfty]{} \pinfty.\]
 			À nouveau, l'intégrale n'est pas bornée sur les segments de $[1, \pinfty)$, indépendamment du segment, et donc $x \mapsto x^{-1}$ n'est pas abs-int sur
 			$[1, \pinfty)$.
 			\end{proof}
-			
+
 			\begin{prp} Soit $\alpha \in \R$. $x \mapsto x^{-\alpha}$ est abs-int sur $(0, 1]$ si et seulement si $a \lneqq 1$.
 			\end{prp}
-			
+
 			\begin{proof} EXERCICE.
 			\end{proof}
-			
+
 			\begin{ex} La fonction $x \mapsto \frac 1{\sqrt x} = x^{-\frac 12}$ est absolument intégrable sur $(0, 1]$.
 			\end{ex}
-			
+
 		\subsection{Théorème du changement de variable}
 			\begin{thm} Soient $I, J$, deux intervalles non-vides de $\R$ et non réduits à un point. Soit $\varphi : I \to J$ bijective et strictement croissante de
 			classe $C^1$ sur $I$. Soit $f : J \to \R$ R-int sur tout segment de $J$. La fonction $f$ est abs-int sur $J$ si et seulement si
 			$(f \circ \varphi) \cdot \varphi' : I \to \R$ est abs-int sur $I$, et on a~:
 			\[\int_I\left((f \circ \varphi)\varphi'\right)(x)\dif x = \int_Jf(y)\dif y.\]
 			\end{thm}
-			
+
 			\begin{proof} Soit $([a_n, b_n])_n$ une suite exhaustive de segments de $I$. La suite $([\varphi(a_n), \varphi(b_n)])_n$ est une suite exhaustive de
 			segments de $J$ (car $\varphi$ est bijective). Puisque~:
 			\[\forall n \in \N : \int_{a_n}^{b_n}\abs {(f \circ \varphi)\varphi'} = \int_{a_n}^{b_n}\abs {(f \circ \varphi)}\varphi'
 				= \int_{\varphi(a_n)}^{\varphi(b_n)}\abs {f},\]
 				par \CDII, on conclut que $(f \circ \varphi)\varphi'$ est abs-int sur $I$ si $f$ l'est sur $J$.
-				
+
 				On raisonne de manière similaire avec $\varphi^{-1}$ (qui existe car $\varphi$ est une bijection) pour montrer que $f$ est abs-int sur $J$ si
 				$(f \circ \varphi)\varphi\prime$ l'est sur $I$.
-				
+
 				Dans ce cas, si $([a_n, b_n])_n$ est une suite exhaustive de segments de $I$, on a~:
 				\[\forall n \geq 0 : \int_{a_n}^{b_n}(f \circ \varphi)\varphi\prime = \int_{\varphi(a_n)}^{\varphi(b_n)}f.\]
 				En passant à la limite pour $n \to \pinfty$, on obtient~:
@@ -1520,20 +1520,20 @@
 				\item[$(i)$]  $\forall ([a_n, b_n])_n$ exhaustive de $I$ : $\left(\int_{a_n}^{b_n}f\right)_n$ converge dans $\R$~;
 				\item[$(ii)$] la limite ne dépend pas de la suit exhaustive choisie.
 			\end{itemize}
-			
+
 			On note cette limite $\int_I f$.
 			\end{déf}
-			
+
 			\begin{prp} Si $f$ est abs-int sur $I$, alors son intégrale sur $I$ converge et on a~:
 			\[\int_I f(x)\dif x = \int_I f(x)\dif x,\]
 			c-à-d, les deux notions ont le même sens pour la même notation.
 			\end{prp}
-			
+
 			\begin{proof} Par le résultat X % TODO: trouver le résultat associé
 			\end{proof}
-			
+
 			\begin{ex} La fonction $\mapsto \frac {sin x}x$ a une intégrale convergente sur $[1, \pinfty)$ mais n'est pas abs-int sur $[1, \pinfty)$.
-			
+
 			On remarque que $\frac {\sin x}x$ est continue sur $[1, \pinfty)$ et donc R-int sur tout segment de $I$. Soit $([a_n, b_n])_n$, une suite exhaustive de
 			segments de $[1, \pinfty)$. Pour $n \in \N$, écrivons~:
 			\[\int_{a_n}^{b_n}\frac {\sin x}x\dif x = \left[\frac{-\cos x}x\right]_{a_n}^{b_n} + \int_{a_n}^{b_n}\frac{\cos x}{x^2}\dif x.\]
@@ -1544,38 +1544,38 @@
 			\[\left[-\frac {\cos x}x\right]_{a_n}^{b_n} = \frac{-\cos b_n}{b_n} + \frac{\cos a_n}{a_n} \xrightarrow[{[a_n, b_n] \to [1, \pinfty)}]{} 0 + \cos 1.\]
 			Donc la suite $\left(\int_{a_n}^{b_n}\frac{\sin x}x\dif x\right)_n$ converge vers une limite indépendante de la suite exhaustive de segments choisie.
 			Donc l'intégrale de $x \mapsto \frac{\sin x}x$ converge dans $[1, \pinfty)$.
-			
+
 			Montrons maintenant que la fonction n'est pas abs-int. Soit $n \in \Ns$. On sait~:
 			\[\int_\pi^{n\pi}\abs {\frac{\sin x}x}\dif x = \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\abs {\frac{\sin x}x}\dif x
 				\geq \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\frac {\abs {\sin x}}{(k+1)\pi}\dif x \geq \sum_{k=1}^{n-1}\frac {\int_0^\pi\abs {\sin x}}{(k+1)\pi}
 				= \frac {\int_0^\pi\abs {\sin x}}{\pi}\sum_{k=1}^{n-1} \frac 1{k+1}\xrightarrow[n \to \pinfty]{} \pinfty.\]
-			
+
 			On a donc bien $x \mapsto \frac{\sin x}x$ non-abs-int sur $[1, \pinfty)$.
 			\end{ex}
-			
+
 			\begin{ex} $\sign : x \mapsto \begin{cases}1 &\text{ si } x > 0 \\0 &\text{ si }x = 0\\-1 &\text{ si } x < 0\end{cases}$ n'admet pas d'intégrale convergente
 			dans $\R$. Par exemple~:
 			\[\int_{-n}^{n^2}\sign(x)\dif x = n^2 - n \xrightarrow[n \to \pinfty]{} \pinfty.\]
 			\end{ex}
-			
+
 			\begin{prp} Soient $I \subset \R$, un intervalle non-vide, $f : I \to \R$, R-int sur tout segment de $I$. L'intégrale de $f$ converge sur $I$ si et seulement
 			si pour toute suite exhaustive de segments $([a_n, b_n])_n$ de $I$, la suite $\left(\int_{a_n}^{b_n}f(x)\dif x\right)_n$ est de Cauchy.
 			\end{prp}
-			
+
 			\begin{proof} TODO
 			\end{proof}
 
 		\subsection{Rappel : deuxième formule de la moyenne}
 			Pour rappel, la première formule de la moyenne et donnée par~:
-			
+
 			Soient $f, g : [a, b] \to \R$, de classe $C^0$ sur $[a, b]$, avec $g \geq 0$. Il existe $c \in [a, b]$ tel que~:
 			\[\int_a^b(fg)(t)\dif t = f(c)\int_a^bg(t)\dif t.\]
-			
+
 			\begin{prp} Soit $[a, b]$, un segment de $\R$, et soient $f, g : [a, b] \to \R$, avec $f$ R-int sur $[a, b]$, et $g \geq $, décroissante sur $[a, b]$.
 			Alors il existe $c \in [a, b]$ tel que~:
 			\[\int_a^b(fg)(t)\dif t = g(a)\int_a^cf(t)\dif t.\]
 			\end{prp}
-			
+
 			\begin{proof} On fixe $N \in \Ns$, et on pose $t_n \coloneqq a + n\frac {b-a}N$ pour $0 \leq n \leq N$. Écrivons~:
 			\[I_N \coloneqq \sum_{k=0}^{N-1}\int_{t_k}^{t_{k+1}}f(t)g(t_k)\dif t.\]
 			On observe alors~:
@@ -1586,7 +1586,7 @@
 					= \sum_{k=0}^{N-1}\int_{t_k}^{t_{k+1}}\abs {f(t)}(g(t_k) - g(t))\dif t \\
 				&\leq \sum_{k=0}^{N-1}\int_{t_k}^{t_{k+1}}\abs {f(t)}(g(t_k)-g(t_{k+1}))\dif t.
 			\end{align*}
-			
+
 			Rappelons que la fonction $K : [a, b] \to \R : x \mapsto \int_a^x\abs {f(t)}\dif t$ est lipschitzienne de constante $\norm f_{\infty, [a, b]} \eqqcolon M$.
 			Ainsi~:
 			\begin{align*}
@@ -1594,13 +1594,13 @@
 					\leq M\sum_{k=0}^{N-1}(t_{k+1}-t_k)(g(t_k)-g(t_{k+1})) \\
 				&= \frac {M(b-a)}N\sum_{k=0}^{N-1}(g(t_k) - g(t_{k+1})) \leq \frac {M(b-a)}N(g(a)-g(b)) \xrightarrow[N \to \pinfty]{} 0.
 			\end{align*}
-			
+
 			On en déduit que $(I_N)_{N > 1}$ converge, et~:
 			\[\lim_{N \to \pinfty}I_N = \int_a^b(fg)(t)\dif t.\]
-			
+
 			Par ailleurs, pour $N \geq 1$, on a~:
 			\[I_N = \sum_{k=0}^{N-1}\int_{t_k}^{t_{k+1}}f(x)\dif xg(t_k).\]
-			
+
 			Posons ensuite~:
 			\[F : [a, b] \to \R : x \mapsto \int_a^xf(t)\dif t.\]
 			On sait que $F$ est continue sur le segment $[a, b]$, donc minorée par $m$ et majorée par $M$. En appliquant une transformation d'Abel, on trouve~:
@@ -1609,29 +1609,29 @@
 					&= \sum_{k=1}^NF(t_k)g(t_{k-1}) - \sum_{k=0}^{N-1}F(t_k)g(t_k) \\
 					&= -F(t_0)g(t_0) + \sum_{k=1}^{N-1}F(t_k)\left(g(t_{k-1})-g(t_k)\right) + F(t_N)g(t_{N-1}).
 			\end{align*}
-			
+
 			Par suite, on sait que $F(t_0) = F(a) = \int_a^a f = 0$, on peut donc exprimer~:
 			\[m\sum_{k=1}^{N-1}\left(g(t_k-1)-g(t_k)\right)g(t_k) + mg(t_{N-1}) \leq I_N \leq M\sum_{k=1}^{N-1}\left(g(t_{k-1}) - g(t_k)\right) + Mg(t_{N-1}).\]
-			
+
 			En développant les sommes, on trouve~:
 			\[mg(a) \leq I_N \leq Mg(a).\]
-			
+
 			En passant à la limite pour $N \to \pinfty$, on trouve~:
 			\[mg(a) \leq \int_a^b(fg)(t)\dif t \leq Mg(a).\]
-			
+
 			Distinguons alors deux cas~:
 			\begin{itemize}
 				\item si $g(a) = 0$, alors $g \equiv 0$ sur $[a, b]$, et donc tout $c \in [a, b]$ convient~;
 				\item si $g(a) \neq 0$, alors~:
 				\[m \leq \frac 1{g(a)}\int_a^b(fg)(t)\dif t \leq M.\]
-				
+
 				La fonction $F$ étant continue sur le segment $[a, b]$, par le théorème des valeurs intermédiaires, il existe $c \in [a, b]$ tel que~:
 				\[F(c) = \frac 1{g(a)}\int_a^b(fg)(t)\dif t,\]
 				et donc en remultipliant par $g(a)$ de par et d'autre, on obtient~:
 				\[g(a)F(c) = g(a)\int_a^cf(t)\dif t = \int_a^b(fg)(t)\dif t.\]
 			\end{itemize}
 			\end{proof}
-			
+
 		\subsection{Critère d'Abel}
 			\begin{prp}[Critère d'Abel pour la convergence des intégrales] Soient $\minfty < a < b \leq \pinfty$, $f, b : [a, b] \to \R$ telles que~:
 			\begin{itemize}
@@ -1639,84 +1639,84 @@
 				\[\forall x \in [a, b] : \abs {\int_a^x f(t)\dif t} \leq M~;\]
 				\item $g$ est positive et décroissante vers $0$ en $b^-$ sur $[a, b]$.
 			\end{itemize}
-			
+
 			Alors l'intégrale de $fg$ converge sur $I$.
 			\end{prp}
-			
+
 			\begin{proof} Soit $([a_n, b_n])_n$ une suite exhaustive de segments de $[a, b)$. Posons, pour $n \in \N$~:
 			\[\alpha_n \coloneqq \int_{a_n}^{b_n}(fg)(t)\dif t.\]
 			Observons pour $n, p \in \N$~:
 			\[\alpha_{n+p} - \alpha_n = \int_{a_{n+p}}^{b_{n+p}}(fg)(t)\dif t - \int_{a_n}^{b_n}(fg)(t)\dif t.\]
-			
+
 			Puisque $a_n = a$ à partir d'un certain $N \in \N$, on peut écrire~:
 			\[\alpha_{n+p} - \alpha_n = \int_{b_n}^{b_{n+p}}(fg)(t)\dif t = g(b_n)\int_a^{c_{n+p}}f(t)\dif t,\]
 			pour un certain $c_{n+p} \in [b_n, b_{n+p}]$ par la deuxième formule de la moyenne. On trouve finalement~:
 			\[\abs {\alpha_{n+p} - \alpha_n} \leq g(b_n) \leq \abs {\int_a^{c_{n+p}}f(t)\dif t - \int_a^{b_n}f(t)\dif t} \leq 2Mg(b_n) \xrightarrow[n \to \pinfty]{} 0,\]
 			par décroissance de $g$ vers $0$.
-			
+
 			La suite $(\alpha_n)$ est donc une suite de Cauchy, ce qui implique que l'intégrale de $(fg)$ converge sur $[a, b)$, par le critère de Cauchy.
 			\end{proof}
-			
+
 			\begin{ex} Prenons $\beta \in (0, 1)$. La fonction $x \mapsto \frac {\sin x}{x^\beta}$ est d'intégrale convergente sur $[1, \pinfty)$ car~:
 			\begin{itemize}
 				\item $f : [1, \pinfty) : x \mapsto \sin x$ est R-int sur tous les segments de $[1, \pinfty)$, et pour $x \geq 1$, on a~:
 				\[\abs {\int_1^x\sin t\dif t} \leq 2~;\]
 				\item $g$ est positive et décroissante vers $0$ en $\pinfty$.
 			\end{itemize}
-			
+
 			La convergence est assurée par le critère d'Abel.
 			\end{ex}
-			
+
 			\begin{ex}Les fonctions $x \mapsto \sin(x^2)$ et $x \mapsto \cos(x^2)$ sont d'intégrale convergente sur $\Rp$. Soit $([\alpha_n, \beta_n])_n$, une suite
 			exhaustive de segments de $\Rp$. Pour $n \geq 0$, écrivons~:
 			\[\int_{\alpha_n}^{\beta_n}\sin(x^2)\dif x = \int_{\alpha_n^2}^{\beta_n^2}\sin t\frac {\dif t}{\sqrt t}\]
 			pour $t = x^2, \dif t = 2x\dif x$. On a donc~:
 			\[\frac 12\int_{\alpha_n^2}^{\beta_n^2}\sin t\frac {\dif t}{\sqrt t}
 				= \frac 12\int_{\alpha_n^2}^{\beta_n^2}\sin t \frac {\dif t}{\sqrt t} + \frac 12\int_{\alpha_n^2}^{\beta_n^2}\sin t\frac {\dif t}{\sqrt t}.\]
-				
+
 			La fonction $t \mapsto \frac {\sin t}{\sqrt t}$ est $C^0$ sur $(0, 1]$ et prolongeable en $0$ par continuité. Elle est donc abs-int sur $(0, 1]$. Donc
 			$\int_{\alpha_n^2}^1\sin t \frac {\dif t}{\sqrt t}$ converge et la limite ne dépend pas de la suite $\alpha_n \to 0$ choisie.
 			La fonction $t \mapsto \sin t$ est R-int sur tout segment de $[1, \pinfty)$, avec~:
 			\[\abs {\int_1^x\sin t\dif t} \leq 2.\]
 			La fonction $t \mapsto \frac 1{\sqrt t}$ est décroissante vers $0$ en $\pinfty$. Alors par le critère d'Abel,
 			$\int_1^{\beta_n^2}\sin t\frac {\dif t}{\sqrt t}$ converge et la limite ne dépend pas de la suite $\beta \to \pinfty$ choisie.
-			
+
 			On en déduit que $x \mapsto \sin(x^2)$ est d'intégrale convergente sur $\Rp$. On raisonne de manière similaire pour $x \mapsto \cos(x^2)$.
 			\end{ex}
-		
+
 \chapter{Intégrales à paramètres}
 	\section{Fonctions définies par une intégrale sur un segment fixe}
 		\subsection{Un résultat de continuité}
 			\begin{déf} L'ensemble $X$ est dit \textit{localement} compact lorsque~:
 			\[\forall x \in X : \forall O \text{ ouvert } : x \in O \Rightarrow \exists V \in \mathcal V(x) \tq O \subset V.\]
 			\end{déf}
-			
+
 			\begin{prp}\label{prp:intparamcontinuesidefsurcpct} Soit $[a, b]$ un segment de $\R$, et $(X, d)$ un espace métrique localement compact.
 			Si $f : X \times [a, b] \to \R : (x, t) \mapsto f(x, t)$ est continue sur $X \times [a, b]$, alors~:
 			\[F : X \to \R : x \mapsto \int_a^bf(x, t)\dif t\]
 			est définie, et continue sur $X$.
 			\end{prp}
-			
+
 			\begin{proof} Soit $x \in X$. $t \mapsto f(x, t)$ est continue sur $[a, b]$, donc R-int sur $[a, b]$. La fonction $F$ est donc en effet définie.
-			
+
 			Soit $x \in X$ et soit $V \in \mathcal V(x)$ compact dans $X$. La fonction~:
 			\[V \times [a, b] \to \R : (x, t) \mapsto f(x, t)\]
 			est continue sur $X \times [a, b]$. En particulier, par le théorème de Heine, elle est uniformément continue sur $V \times [a, b]$, car $V \times [a, b]$
 			est compact. Soit $\varepsilon > 0$ et soit $x_0 \in X$. Il existe $\eta > 0$ et $\delta > 0$ tels que~: $\forall x, y \in X : \forall t, t' \in [a, b]$,
 			si $d(x, y) < \eta$ et $\abs {t'-t} < \delta$, et $B(x_0, \eta[ \subset V$, alors $\abs {f(x, t) - f(y, t')} \leq \varepsilon$.
-			
+
 			En particulier, pour $x \in B(x_0, \eta[$ et $t \in [a, b]$, on a~:
 			\[\abs {f(x, t) - f(x_0, t)} < \varepsilon.\]
-			
+
 			Par intégration, on trouve~:
 			\[\abs {F(x) - F(x_0)} \leq \int_a^b\abs {f(x, t) - f(x_0, t)}\dif t \leq \varepsilon (b-a).\]
 			\end{proof}
-			
+
 			\begin{rmq} Cette proposition est encore vraie pour un compact $\prod_{i=1}^n[a_i, b_i]$, au lieu de $[a, b]$.
 			\end{rmq}
-			
+
 			\begin{ex} Que dire de $\lim_{x \to 0^+} \int_0^1\sin(\exp(-xt) - 1)\dif t$~?
-			
+
 			$f : [0, 1] \times [0, 1]  \to \R : (x, t) \mapsto \sin(\exp(-xt) - 1)$ est continue sur $[0, 1] \times [0, 1]$, d'où $F(x) = \int_0^1f(x, t)\dif t$
 			est de classe $C^0$ sur $[0, 1]$, avec la proposition précédente. Donc $F(x) \xrightarrow[x \to 0^+]{} 0$.
 			\end{ex}
@@ -1948,7 +1948,7 @@
 			\[\int_\alpha^\beta F(x) = H_1(\beta) = H_2(\beta) = \int_a^b\int_\alpha^\beta f(x, t)\dif x\dif t = \int_a^b G(t)\dif t.\]
 			\end{proof}
 
-			\begin{thm}[Théorème de Fubini, version \CDIII]\label{thm:FubiniCDI1} Soient $[\alpha, \beta]$, un segment, $I \subset \R$, un intervalle non-vide, et 
+			\begin{thm}[Théorème de Fubini, version \CDIII]\label{thm:FubiniCDI1} Soient $[\alpha, \beta]$, un segment, $I \subset \R$, un intervalle non-vide, et
 			$f : [\alpha, \beta] \tocont \R$ telle que l'intégrale sur $I$ de $t \mapsto f(x, t)$ converge uniformément sur $[\alpha, \beta]$. Alors~:
 			\begin{enumerate}
 				\item la fonction $F : [\alpha, \beta] \to \R : x \mapsto \int_I f(x, t)\dif t$ est continue sur $[\alpha, \beta]$~;
@@ -1982,7 +1982,7 @@
 			Cela fournit la convergence de l'intégrale de $G$ sur $I$, et le fait que~:
 			\[\int_I G(t)\dif t = \int_\alpha^\beta F(x)\dif x.\]
 			\end{proof}
-		
+
 		\subsection{Critères de convergence uniforme d'intégrales}
 			\begin{thm}[Équivalent du critère de Weierstrass des séries sur les intégrales] Soient $X \neq \emptyset$, $I \subset \R$, un intervalle non-vide,
 			et $f : X \times I \to \R$ telle que pour tout $x \in X$, on a $t \mapsto f(x, t)$ R-int sur tout segment de $I$. On suppose qu'il existe une
@@ -2037,5 +2037,5 @@
 
 			On en déduit alors que $t \mapsto f(x, t)g(x, t)$ admet une intégrale convergente.
 			\end{proof}
-		
+
 \end{document}
