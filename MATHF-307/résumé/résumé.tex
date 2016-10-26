@@ -796,36 +796,36 @@
 			Or $b$ doit être non nul, il y a contradiction. $a$ n'est pas inversible.
 
 			\paragraph{Proposition} Soient $k \in \mathbb N_0 \setminus \{1\}$, $k \in \Z$. $\overline z$ est inversible dans $\Z/k\Z \iff GCD(k, z) = 1$.
-			
+
 			\paragraph{Dém} Montrons que si $k$ et $z$ sont premiers entre eux, alors $\overline z$ est inversible.
-			
+
 			$\overline{t} \overline{\cdot} \overline{z} = \overline{tz} = \overline{1-sk} \in\Z / k\Z = \overline 1$ car $sk$ est un multiple de $k$, avec $t, s \in \Z \tq
 			sk + tl = 1$ (par Euclide). On a donc $\overline t$, l'inverse de $\overline z$.
-			
+
 			Montrons ensuite que si $\overline z$ est inversible, alors $k$ et $z$ sont premiers entre eux.
-			
+
 			$\overline z$ est inversible $\Rightarrow \exists t \in \Z \tq \overline t \overline \cdot \overline z = \overline 1 = \overline{tl}$. Donc $\exists t, s \in \Z
 			\tq tl - 1 = sk$ avec $s \in \Z$. Ou encore $tl + (-s)k = 1$. Par le lemme de Bézout, $k$ et $z$ sont premiers entre eux.
-			
+
 			\paragraph{Remarque} Nous avons vu l'algorithme qui permet de déterminer $s, t \in\Z \tq sk + tl = GCD(k, l)$. Si $GCD(k, l) = 1$, alors $\overline t$ est
 			l'inverse de $\overline z$ dans $\Z / k\Z$.
-			
+
 			\paragraph{Def} $(\mathbb K, +, \cdot)$ est un champ si $(\mathbb K, +,\cdot)$ est un anneau unital commutatif tel que $\forall k \neq 0 \in \mathbb K,
 			\exists k^{-1}\tq kk^{-1} = 1$.
-			
+
 			\paragraph{Exemple} $\Z/4\Z$ possède des diviseurs de $0$ donc ce n'est pas un champ.
-			
+
 			\paragraph{Proposition} Soit $k \in \mathbb N \setminus \{1\}$. Alors $\Z/k\Z$ est un champ $\iff$ $k$ est un nombre premier.
-			
+
 			\paragraph{Dém} Corollaire de la proposition précédente.
-			
+
 			\paragraph{Remarque} $\forall p \in \Z \tq p$ est premier, $\Z/p\Z$ est un champ à $p$ éléments.
-			
+
 			\subsubsection{Relations de congruence}
-			
+
 			\paragraph{Def} Soient $a, b, k\in \Z \tq |k| > 1$. On dit que $a$ est \textit{congru à $b$ modulo $k$} et on note $a \equiv b \cmod k$ $\iff a-b \in k\Z \iff
 			\overline a = \overline b$ dans $\Z/k\Z$.
-			
+
 			\paragraph{Propriétés}
 				\begin{enumerate}
 					\item La congruence modulo $k$ est une relation d'équivalence (réflexive, transitive et symétrique) ;
@@ -838,126 +838,126 @@
 				\end{enumerate}
 
 		\subsection{La cryptologie : le système RSA (Rivest, Shamir, Adlerman)}
-		
+
 			\paragraph{Lemme} $\forall n \in \mathbb N, (n+1)^p \equiv n^p + 1 \cmod p$ si $p$ est premier.
-			
+
 			\paragraph{Dém} Par le binôme de Newton,$(n+1)^p = \sum_{i=0}^p n^i\binom pi = n^p + 1 + \sum_{i=1}^{p-1}n^i\binom pi$.
-			
+
 			Montrons maintenant par récurrence sur $i$ que $p \, | \, \binom pi \forall 0 < i < p$.
-			
+
 			Quand $i = 1$, $\binom pi = p$, or $p \, | \, p$, donc ok.
-			
-			Supposons maintenant que $p \, | \, \binom pi$ et démontrons que donc $p \, | \, \binom p{i+1}$. $\binom p{i} = \frac {p!}{i!(p-i)!} \Rightarrow \binom p{i+1} = 
+
+			Supposons maintenant que $p \, | \, \binom pi$ et démontrons que donc $p \, | \, \binom p{i+1}$. $\binom p{i} = \frac {p!}{i!(p-i)!} \Rightarrow \binom p{i+1} =
 			\frac {p!}{(i+1)!(p-i-1)!} = \frac {p!(p-i)}{i!(i+1)(p-i-1)!(p-i)} = \binom pi \frac {p-i}{i+1}$. Or $p \, | \, \binom pi$, donc $\exists  \in \mathbb N \tq
 			\binom pi = pb$. De là, on a $\binom p{i+1} = pb\frac {p-i}{i+1}$. Et $\binom p{i+1} \in \mathbb N$ par définition. Donc comme $p$ est premier et $i < p$,
 			on sait $(i+1) \, \not | \, p$ et donc qu'il faut que $(i+1) \, | \, b(p-i)$. Donc $\exists t \in \mathbb N \tq b(p-i) = t(i+1)$, ou encore $\binom p{i+1} = pt$.
 			Et comme $p \, | \, pt$, on sait que $p \, | \, \binom p{i+1}$.
-			
+
 			Comme $p \, | \, \binom p{i+1} \Leftrightarrow \binom p{i+1} \equiv 0 \cmod p$. Donc $n^p + 1 + \sum_{i=1}^{p-1}\binom pi n^i \equiv n^p + 1 \cmod p$.
-		 
+
 			\paragraph{Théorème (Petit théorème de Fermat)} Soit $p \in \mathbb N$ un nombre premier. Et soit $a \in \mathbb N \tq p \, \not | \, a$.
 			Alors $a^p \equiv 1 \cmod p$.
-			
+
 			\paragraph{Dém} Montrons par récurrence sur $a$ que $a^p \equiv a \cmod p$.
-			
+
 			Pour $a = 1$, on a $a^p = 1^p \equiv 1 \cmod p$, donc ok.
-			
+
 			Supposons maintenant que $a^p \equiv a \cmod p$ et montrons que $(a+1)^p \equiv a+1 \cmod p$. Par le lemme précédent, nous avons
 			$(a+1)^p \equiv a^p + 1 \cmod p$.
 			Et par hypothèse de récurrence, nous avons $a^p \equiv a \cmod p$. Donc, en combinant les deux, nous obtenons $(a+1)^p \equiv (a+1) \cmod p$.
-			
+
 			Cela veut dire que dans $\Z/p\Z$, $\overline{a^p} = \overline a$. Mais comme $p \, \not | \, a$ et que $\Z/p\Z$ set un champ, $\exists \overline b$, un inverse
 			de $\overline a$. Donc en multipliant par $\overline b$ de part et d'autre, on obtient $\overline b \overline{a^p} = \overline b \overline{a}^p
 			= \overline b \overline a \overline a^{p-1} = \overline a^{p-1} = \overline b \overline a = \overline 1$. Autrement dit, $a^{p-1} \equiv 1 \cmod p$.
-			
+
 			\paragraph{Fonctionnement de RSA} deux personnes Alice et Bob veulent communiquer de manière sûre. Alice choisit deux nombres premiers $p, q \in \mathbb N$.
 			Ce couple est appelé la \textit{clef privée}. Ensuite Alice calcule $N := pq$ et $\phi(N) := (p-1)(q-1) = N - (p-q+1)$. Alice choisit également $e \in \Z \tq
 			GCD(\phi(N), e) = 1$. $e$ est appelé \textit{l'exposant de chiffrement}. Par le choix de $e$, $\exists 0 \leq s \leq \phi(N) \tq t\phi(N) + se = 1$.
 			Attention, $s$ doit rester secret pour la sécurité du fonctionnement ! Ensuite, Alice publie le couple $(N, e)$.
-			
+
 			Si Bob souhaite envoyer un message sûr à Alice, il doit transformer son message en un entier $M \in \Z \tq 0 < M < N$. Il utilise ensuite la clef publique de
 			pour publier à son tour $\widetilde M \equiv M^e \cmod N$.
-			
+
 			Pour déchiffrer ce message, Alice utilise $s$ (tel que $\overline s$ est l'inverse de $\overline e$ dans $\Z/\phi(N)\Z$) pour trouver
 			$(\widetilde M)^e \equiv M^{es} \cmod N \equiv M \cmod N$, par le théorème suivant.
-			
+
 			\paragraph{Théorème} $\forall 0 < M < N = pq \in \mathbb N \tq p, q$ sont premiers, soit $u \equiv 1 \cmod{\phi(N)}$. Alors $M^u \equiv M \cmod N$.
-			
+
 			\paragraph{Dém} $(0 < M < N = pq) \Rightarrow (p \not | \, M) \lor (q \not | \, M)$. Soit $u \tq u \equiv 1 \cmod{\phi(N)}$, donc
 			$u = 1 + t\phi(n) = 1 + t(p-1)(q-1)$.
-			
+
 				\subparagraph{cas 1 : $(p \not | \, M) \land (q \not | \, M)$} $M^u = M^{1 + t(p-1)(q-1)} = MM^{(p-1)(q-1)}$.
 				Comme $p \not | \, M$, par le PTF\footnote{Petit Théorème de Fermat.}, $(M^{t(q-1)})^{(p-1)} \equiv 1 \cmod p$, et comme $q \not | \, M$, par le PTF,
 				$(M^{t(p-1)})^{(q-1)} \equiv 1 \cmod q$.
 				Donc $(M^u \equiv M \cmod p) \land (M^u \equiv M \cmod q) \Rightarrow (p \, | \, (M^u - M)) \land (q \, | \, (M^u - M)) \Rightarrow (pq \, | \, (M^u - M))$.
 				Donc $\exists m \in \Z \tq M^u - M = mpq \iff M^u = M + mpq \equiv M \cmod{(pq=N)}$.
-				
+
 				\subparagraph{cas 2 : $(p \not | \, M) \land (q \, | \, M)$} $(q \not | \, M) \Rightarrow (M^{t(p-1)})^{(q-1)} \equiv 1 \cmod q \Rightarrow
 				M^{t(p-1)(q-1)} = 1 + lq$, pour $l \in \Z$. Donc $M^u = M(1 + lq) = M + Mlq$, et comme $p \, | M$, on a $M^u = M + pclq$ pour $c \in \Z$. En réorganisant,
 				on obtient $M^u = M + lcN$, ou encore $M^u \equiv M \cmod N$.
-								
+
 				\subparagraph{cas 3 : $(p \, | \, M) \land (q \not | \, M)$} Se prouve par symétrie du cas 2.
-	
+
 	\section{Combinatoire énumérative}
-	
+
 		\subsection{Comptage élémentaire}
-		
+
 			\subsubsection{Principes de base}
-			
+
 			\paragraph{Def} Une fonction $f : A \to B$ est dite :
 			\begin{itemize}
 				\item injective si $\forall a, a' \in A, f(a) = f(a') \iff a = a'$ ;
 				\item surjective si $\forall b \in B, \exists a \in A \tq f(a) = b$ ;
 				\item bijective si elle est injective et surjective.
 			\end{itemize}
-			
+
 			\paragraph{Remarque}
 			\begin{lst}
 				\item si $\#B < \#A, \not \exists f : A \to B$ injective ;
 				\item si $\#B > \#A, \not \exists f : A \to B$ surjective ;
 				\item si $\#B \neq \#A, \not \exists f : A \to B$ bijective.
 			\end{lst}
-			
+
 			\paragraph{Théorème} Soit $f : A \to B$. Alors $f$ est bijective $\iff \exists g : B \to A \tq ((g \circ f) = Id_A) \land ((f \circ g) = Id_B)$.
-			
+
 			\paragraph{Dém}
 			\begin{lst}
 
 				\item $(\Rightarrow)$ Si $f$ est bijective, elle admet un inverse $f^{-1} \tq (f \circ f^{-1}) = Id_B$ et $(f^{-1} \circ f) = Id_A$.
-			
+
 				\item $(\Leftarrow)$ S'$\exists $ une telle fonction $g$, prouvons que $f$ est bijective :
-				
+
 				\begin{itemize}
 					\item $\forall b \in B, \forall a, a' \in A, f(a) = f(a') \Rightarrow g(f(a)) = g(f(a')) \Rightarrow (g \circ f)(a) = (g \circ f)(a') \Rightarrow a = a'$
-					\item Posons $a = g(b)$. Donc $f(a) = f(g(b)) = (f \circ g)(b) = b$. 
+					\item Posons $a = g(b)$. Donc $f(a) = f(g(b)) = (f \circ g)(b) = b$.
 				\end{itemize}
 			\end{lst}
-			
+
 			La fonction $f$ est alors bien injective et surjective (donc bijective).
-			
+
 			\paragraph{Def} Soient deux ensembles $A$ et $B$. On note $B^A$ l'ensemble des fonctions allant de $A$ dans $B$. $B^A := \{f : A \to B\}$.
-			
+
 			\paragraph{Remarque} Le nombre d'éléments de cet ensemble (donc le nombre de fonctions allant de $A$ dans $B$ est $\#(B^A) = (\#B)^{\#A}$.
-			
+
 			\subsubsection{Cardinalité}
-			
+
 			\paragraph{Def} Pour $n \in \mathbb N_0$, on définit $[n] := \{k \in \mathbb N_0 \tq k \leq n\}$. On pose $[0] = \emptyset$.
-			
+
 			\paragraph{Def} Deux ensembles $A$ et $B$ sont de même cardinalité s'$\exists f : A \to B$ bijective. On note alors $\#A = \#B$ ou $|A| = |B|$.
-			
+
 			\paragraph{Def} Un ensemble $E$ est fini s'il est de même cardinalité que $[n]$ pour $n \in \mathbb N$. On note alors $\#E = n$.
-			
+
 			\paragraph{Théorème} Soient $A, B$ deux ensembles finis de même cardinalité, $f : A \to B$. Les conditions suivantes sont équivalentes :
-			
+
 			\begin{itemize}
 				\item[$(i)$]   $f$ est injective ;
 				\item[$(ii)$]  $f$ est surjective ;
 				\item[$(iii)$] $f$ est bijective.
 			\end{itemize}
-			
+
 			\paragraph{Dém} Soient $A$ et $B$ deux ensembles de cardinalité $n$, et soit $f : A \to B$. Montrons d'abord que $(i) \Rightarrow (ii)$. Montrons ensuite que
 			$(ii) \Rightarrow (i)$. Après avoir prouvé $(i) \iff (ii)$, il faut prouver que $(i) \land (ii) \iff (iii)$.
-			
+
 			\begin{itemize}
 				\item Par définition, $f$ injective $\Rightarrow \forall a, a' \in A, f(a) = f(a') \iff a = a'$. Donc $\forall a' \neq a \in A, f(a) \neq f(a')$.
 				Ce qui veut dire que le nombre d'éléments $b \in B$ n'admettant pas de préimage dans $A$ est $\#B - \#A$. Or $\#B = \#A$, donc
@@ -967,98 +967,98 @@
 				Autrement dit, $\forall a, a' \in A, f(a) = f(a') \iff a = a'$, ce qui est la définition d'une fonction injective.
 				\item Par définition, $f$ est bijective $\iff$ $f$ est injective $\land$ $f$ est surjective.
 			\end{itemize}
-			
+
 			\paragraph{Théorème (principe d'addition)} Soient $A_i, 0 < i \leq k$, des ensembles finis deux à deux disjoints. Alors $\#\left(\bigcup_{i=1}^kA_i\right) =
 			\sum_{i=1}^k\#A_i$.
-			
+
 			\paragraph{Dém} Démontrons cela par récurrence sur $k$, le nombre d'ensembles.
-			
+
 			Pour $i = 1$, $\#A_1 = \#A_1$, donc ok.
-			
+
 			Supposons que $\#\cup_{i=1}^kA_i = \sum_{i=1}^k\#A_i$ et prouvons que $\#\cup_{i=1}^{k+1} = \sum_{i=1}^{k+1}$.
-			
+
 			$\cup_{i=1}^{k+1} = \cup_{i=1}^kA_i \cup A_k$. Donc $\#\cup_{i=1}^{k+1} = \#(\cup_{i=1}^kA_i) + \#A_k - \#((\cup_{i=1}^kA_i) \cap A_{k+1})$.
 			Or, par définition, les $A_i$ sont disjoints deux à deux. Donc $((\cup_{i=1}^kA_i) \cap A_{k+1}) = \emptyset$. On a donc $\#(\cup_{i=1}^kA_i) + \#A_{k+1} - 0$.
 			Et par hypothèse de récurrence, $\#(\cup_{i=1}^kA_i) = \sum_{i=1}^k\#A_i$. Donc $\#(\cup_{i=1}^kA_i) + \#A_{k+1} = \sum_{i=1}^k\#A_i + \#A_{k+1} =
 			\sum_{i=1}^{k+1}\#A_i$.
-			
+
 			\paragraph{Def} Soient $A_i, 0 < i \leq k$, des ensembles. On définit leur produit cartésien par :
-			
+
 			\[\prod_{i=1}^kA_i := A_1 \times A_2 \times \ldots \times A_k = \{(a_i)_{i \in [k]} \tq a_i \in A_i\}.\]
-			
+
 			\paragraph{Théorème (principe de multiplication)} Soient $A_i, 0 < i \leq k$ des ensembles finis, pour $k \in \mathbb N_0$. Alors :
 			$\#\left(\prod_{i=1}^kA_i\right) = \prod_{i=1}^k\#A_i$.
-			
+
 			\subsubsection{Factorielle}
-			
+
 			\paragraph{Def} La factorielle de $n \in \mathbb N_0$ est le nombre $n! := \prod_{i=0}^ni$. On pose $0! := 1$.
-			
+
 			\paragraph{Théorème} Soient $A$ et $B$ deux ensembles tels que $\#A = \#B = n$. Il existe $n!$ bijections $f : A \to B$.
-			
+
 			\paragraph{Dém} Soit $A = \{a_1, \ldots, a_n\}$. Pour construire une bijection $f : A \to B$, on choisit les images des éléments de $A$ par $f$. Pour $a_1$,
 			on a $n$ choix ($\#B$). Pour $a_2$, on a $(n-1)$ choix ($\#(B \setminus \{a_1\})$). Pour $a_i$, le nombre de choix s'élève donc à $(n-i+1)$.
 			Le nombre de bijections est donc $\prod_{i=1}^ni = n!$.
-			
+
 			\paragraph{Proposition} Soient $A$ et $B$ deux ensembles finis de cardinalité respective $k$ et $n$ avec $k < n$. Alors le nombre de fonctions $f : A \to B$
 			injectives est $n(n-1)(n-2)\ldots(n-k+1) = \frac {n!}{(n-k)!}$.
-			
+
 			\paragraph{Dém} Soient $A = \{a_1, \ldots a_k\}$ et $B = \{b_1, \ldots a_n\}$ avec $k < n$. Pour construire une fonction $f : A \to B$, il faut
 			choisir $\forall a \in A$ une image $b \in B$. Pour que la fonction soit injective, lors du choix de $a_1$, on a $n$ choix, mais lors du choix de $a_2$,
 			on n'a plus que $(n-1)$ choix (pour garantir la propriété d'injection). Donc pour $a_k$, il restera $(n-k+1)$ choix. Le nombre total de fonctions injectives
 			est donc $n(n-1)(n-2)\ldots(n-k+1) = \frac {n!}{(n-k)!}$.
-			
+
 			\paragraph{Remarque} Une injection $f : [k] \to [n]$ revient à choisir $k$ éléments parmi $n$ (en tenant compte de l'ordre).
-			
+
 			\paragraph{Exemple} Soit $E$ un ensemble. Le nombre d'ordres totaux sur $E$ est $(\#E)!$.
-			
+
 			\subsubsection{Croissance de $n!$}
-			
+
 			\paragraph{Remarque} En regardant la fonction $n \mapsto (n!)^2 = n(n-1)\ldots 1n(n-1)\ldots 1 = \prod_{k=1}^nk(n-k+1)$.
 			Cette fonction est une fonction du second degré en $k$, donc une parabole. On sait donc déterminer son maximum (en $\frac {n+1}2$). De là, il est possible
 			de borner le carré de la factorielle de la sorte :
-			
+
 			\[\begin{aligned}
 				\forall k \in [n], n &\leq (n-k+1) &&\leq \left(\frac {n+1}2\right)^2 \\
 								   n^n &\leq \prod_{k=1}^nk(n-k+1) &&\leq \left(\frac {n+1}2\right)^{2n} \\
 								   n^n &\leq (n!)^2 &&\leq \left(\frac {n+1}2\right)^{2n} \\
 								   n^{\frac n2} &\leq n! &&\leq \left(\frac {n+1}2\right)^n.
 			\end{aligned}\]
-			
+
 			\subsubsection{Coefficients binomiaux}
-			
+
 			\paragraph{Def} Pour $n, k \in \mathbb N \tq k \leq n$, le coefficient binomial $\binom kn$ (se prononce $n$ choose $k$) est défini par
 			$\binom kn := \frac {n!}{k!(n-k)!}$ et représente le nombre de sous-ensembles à $k$ éléments dans $[n]$ (l'ordre n'a pas d'importance).
-			
+
 			\paragraph{Propriété (symétrie)} $\forall k \leq n \in \mathbb N, \binom kn = \binom n{n-k}$.
-			
+
 			\paragraph{Dém} Par définition, $\binom kn$ est le nombre de sous-ensembles de $[n]$ à $k$ éléments.
-			
+
 			Soit $S \subseteq [n] \tq \#S = k$. Alors $T := [n] \setminus S \subseteq [n] \tq \#T = n-k$. Soit $A := \{S \subseteq [n] \tq \#S = k\},
 			B := \{T \subseteq [n] \tq \#T = n-k\}$. On construit $f : A \to B : S \mapsto f(S)$, où $f(S) := [n] \setminus S$. En vérifiant que $f$ est bien une bijection,
 			on a $\#A = \#B$, donc, par définition du coefficient binomial, $\binom nk = \binom n{n-k}$.
-			
+
 			\paragraph{Propriété (induction)} Pour $n, k \in \mathbb N_0, k < n, \binom kn = \binom {n-1}{k-1} + \binom{n-1}{k}$.
-			
+
 			\paragraph{Dém} Soient $S \subseteq [n]$, $e \in [n]$. Il y a donc deux cas possibles : soit $e \in S$, soit $e \not \in S$.
-			
+
 			On a :
-			
+
 			\[\begin{aligned}
 				\{S \subseteq [n]\ \tq \#S = k\} &= \{S \subseteq [n] \tq (\#S = k) \land (e \in S)\} \cup \{S \subseteq [n] \tq (\#S = k) \land (e \not \in S)\} \\
 												 &= \{T \subseteq [n] \setminus \{e\} \tq \#T = k-1\} \cup \{S \subseteq [n] \setminus \{e\} \tq \#S = k\}.
 			\end{aligned}\]
-			
+
 			Si ces ensembles sont égaux, ils sont de même cardinalité. On a donc :
-			
+
 			\[\#\{S \subseteq [n]\ \tq \#S = k\} = \#(\{T \subseteq [n] \setminus \{e\} \tq \#T = k-1\} \cup \{S \subseteq [n] \setminus \{e\} \tq \#S = k\}).\]
-			
+
 			Comme les deux ensembles à droite de l'égalité sont d'intersection vide, on a :
-			
+
 			\[\begin{aligned}
 				\#\{S \subseteq [n]\ \tq \#S = k\} &= \#\{T \subseteq [n] \setminus \{e\} \tq \#T = k-1\} &&+ \#\{S \subseteq [n] \setminus \{e\} \tq \#S = k\} \\
 				\binom nk						  &= \binom {n-1}{k-1}								   &&+ \binom {n-1}k.
 			\end{aligned}\]
-			
+
 			\paragraph{Théorème (absorption)} Soient $k, n \in \mathbb N_0, k \leq n$.
 
 			\[k\binom nk = n\binom {n-1}{k-1}.\]
@@ -1158,7 +1158,7 @@
 				\[\binom {n}{(k_i){i\in[t]}} = \binom {n}{(k_{\pi(i)})_{i\in[t]}}.\]
 
 				\item
-				
+
 				\[\forall i \in [t], k_i \neq 0 \Rightarrow \binom {n}{(k_i)_{i\in[t]}} = \frac k{k_i} \binom {n-1}{k_1, k_2, \ldots, k_{i-1}, k_i-1, k_{i+1}, \ldots, k_t}.\]
 
 				\item Si $\forall j \in [t], k_j \neq 0$, alors
@@ -1172,7 +1172,7 @@
 			= \sum_{\underset {\tq \sum_ik_i=n}{(k_1, \ldots, k_t) \in \mathbb N^t}}\left[\binom {n}{(k_i)_{i \in [t]}} \prod_{j=1}^tx_j^{k_j}\right].\]
 
 		\subsection{Preuves bijectives}
-			
+
 			\paragraph{Intuition} Lorsque l'on a un ensemble fini $A$ d'objets mathématiques, et que l'on veut connaitre son cardinal, on peut trouver un autre
 			ensemble que l'on sait dénombrer, puis créer une bijection $f : A \to B$ afin de conclure $\#A = \#B$.
 
@@ -1203,21 +1203,21 @@
 					\item[$(i)$] $\vec {\Gamma_F}$ a exactement $n$ sommets ;
 					\item[$(ii)$] $\forall v \in V, \exists! e \in E \tq e = (v, x)$ pour $x \in V$ ;
 					\item[$(iii)$]  $\forall v \in V, \#\{(x, v) \in E \text{ pour $x \in V$}\} \leq n$ ;
-					\item[$(iv)$] Chaque composante a exactement un cycle dirigé. En effet, chaque sommet a exactement un arc sortant donc il n'y a pas de cycle non dirigé. 
+					\item[$(iv)$] Chaque composante a exactement un cycle dirigé. En effet, chaque sommet a exactement un arc sortant donc il n'y a pas de cycle non dirigé.
 								  De plus, $\vec {\Gamma_F}$ a $n$ sommets et $n$ arêtes, il ne peut donc être un arbre ou acyclique.
 					\item[$(v)$] Si$\widetilde C$ est un cycle, alors $f_{\sVert[0]_{\{\text{sommets de $\widetilde C$}\}}}$ est une bijection.
 				\end{lst}
 
 			\subparagraph{Étape 2 : }On définit $\mathcal M := \{i_1, i_2, \ldots, i_t\}$ tel que $\forall j \in [m], i_j$ est un cycle dirigé dans $\vec {\Gamma_F}$ avec
 			$i_1 < i_2 < \ldots < i_m$. La restriction $F_{\sVert[0]_{\mathcal M}}: \mathcal M \to \mathcal M$ est une bijection définie par :
-			
+
 			\[F_{\sVert[0]_{\mathcal M}}= \begin{pmatrix}i_1 & i_2 & \ldots & i_m \\f(i_1) & f(i_2) & \ldots & f(i_m)\end{pmatrix}.\]
 
 			De là, on construit un graphe dirigé $\vec {\Gamma_F}$ :
 
 				\begin{itemize}
 					\item on enlève les arcs $\mathcal M \times F(\mathcal M)$ ;
-					\item on construit un chemin d'arcs $\{(F(i_j), F(i_{j+1})) \tq i_j \in [\#\mathcal M - 1]\}$ (cela permet de réduire de 1 le nombre 
+					\item on construit un chemin d'arcs $\{(F(i_j), F(i_{j+1})) \tq i_j \in [\#\mathcal M - 1]\}$ (cela permet de réduire de 1 le nombre
 						  d'arêtes et de connecter le graphe) ;
 					\item on marque $F(i_1)$ par $\bigcirc$ et $F(i_m)$ par $\square$ ;
 						\item on supprime l'orientation des arcs.
@@ -1225,7 +1225,7 @@
 
 			$\vec {\Gamma_F}$ a donc $n-1$ arêtes, $n$ sommets et est simple (un arbre). Il est étiqueté (par la fonction $F$) et a 2 sommets particuliers
 			($\bigcirc$ et $\square$).
-			
+
 			Les deux étapes qui viennent d'être décrites donnent donc une fonction $f : [n]^{[n]} \to \mathcal A_n$. Il reste à montrer que cette fonction est bijective.
 			Pour cela, construisons $g : \mathcal A_n \to [n]^{[n]}$ telle que $(f \circ g) = Id_{\mathcal A_n}$ et $(g \circ f) = Id_{[n]^{[n]}}$.
 
@@ -1233,7 +1233,7 @@
 			$2 \times m$ où la première ligne est la permutation ordonnée de $C$ et la seconde est $C$ dans l'ordre de $\bigcirc$ à $\square$. On enlève tous les arcs de $C$.
 			On crée des arcs allant de $\Delta_{1j}$ à $\Delta_{2j} \forall j$. Il reste à orienter les arêtes restantes en direction des cycles. On a alors $\vec {\Gamma_F}$.
 			Définissons donc maintenant $G : [n] \to [n] : \Delta_{1j} \mapsto \Delta_{2j} \forall j$.
-			
+
 			On a donc bien construit $g : \mathcal A_n \to [n]^{[n]}$ respectant les bonnes propriétés d'identité. On en déduit $\#\mathcal A_n = \#[n]^{[n]} = n^n$,
 			ou encore $a_n = n^{n-2}$.
 
@@ -1251,7 +1251,7 @@
 						\item il n'y a pas d'autre adjacence.
 					\end{lst}
 			\end{itemize}
-			
+
 			\paragraph{Def} Les sommets de degré 1 sont appelés feuilles et les sommets de degré 3 sont appelés sommets internes.
 
 			\paragraph{Def} Une triangulation d'un polygone à $(n+1)$ côtés est une découpe du polygone en triangles dont les sommets sont les sommets du polygone.
@@ -1276,7 +1276,7 @@
 		\subsection{Relations de récurrence}
 
 			\subsubsection{Le tri fusion}
-			
+
 			\paragraph{Intro} Le tri fusion applique la notion de \textit{Divide \& conquer}, à savoir diviser le set de données à traiter afin de traiter
 			séparément des cas plus petits et unifier la solution à la fin.
 
@@ -1397,7 +1397,7 @@
 			\end{itemize}
 
 			\subsubsection{Récurrences linéaires à coefficients constants}
-			
+
 			\paragraph{Exemple} De combien de manières différentes peut-on paver un rectangle de dimensions $2 \times n$ avec des dominos (non-numérotés) ?
 
 			\paragraph{Def} Notons $P_n := $ le nombre de tels pavages d'un rectangle $2 \times n$. Dès lors :
@@ -1428,7 +1428,7 @@
 			\end{aligned}\right.\]
 
 			\paragraph{Def}
-			
+
 			\begin{lst}
 				\item Une récurrence linéaire homogène à coefficient constants est un système d'équations de la forme :
 
@@ -1485,7 +1485,7 @@
 
 			\begin{itemize}
 				\item montrons que $f$ est linéaire :
-				
+
 				\[f(\lambda (x_n) + \mu (y_n)) = f((\lambda x_n + \mu y_n)_n) = (\lambda x_i + \mu y_i)_{i\in[d-1]} = \lambda (x_i)_{i\in[d-1]} + \mu (y_i)_{i\in[d-1]} = \lambda f((x_n)) + \mu f((y_n)).\]
 
 				\item montrons que $f$ est bijective :
@@ -1505,7 +1505,7 @@
 						  \end{align*}
 				\end{itemize}
 			\end{itemize}
-			
+
 			\begin{flushright}$\square$\end{flushright}
 
 			\paragraph{Def} Soient $P(t)$ un polynôme à coefficients complexes, $a \in \mathbb C$ une racine de $P$ est de multiplicité $m(a)$ si $P(t)$ est divisible par
@@ -1553,7 +1553,7 @@
 			\end{enumerate}
 
 			\paragraph{Résolution générale d'une RLCC} Une RLCC non-homogène st un système d'équation sous la forme :
-			
+
 			\begin{equation}\label{eq:RLCCNH}
 				-x_n + c_{d-1}x_{n-1} + c_{d-2}x_{n-2} + \ldots + c_1x_{n-d+1} + c_0x_{n-d} = a_n
 			\end{equation}
@@ -1563,7 +1563,7 @@
 				\item déterminer $S^{EHA}$, l'ensemble des solutions de l'équation homogène associée \eqref{RLCCH};
 				\item trouver une solution particulière $(x^{SP}_n) \in \mathbb C^{\mathbb N}$ de la RLCC non-homogène \eqref{eq:RLCCNH} ;
 				\item exprimer l'ensemble des solutions de la RLCC non-homogène :
-					  
+
 					  \[S \coloneqq S^{EHA} + ((x^{SP}_n)).\]
 			\end{enumerate}
 
@@ -1641,7 +1641,7 @@
 			$\sum_{i=1}^{N-1}(\floor{\log_2 N} + 1) = \sum_{i=0}^{\floor{\log_2 N}}(N-2^i) = N(\floor{\log_2 N} + 1) - \sum_{i=0}^{\floor{\log_2 N}}2^i$.
 
 			Dès lors :
-			
+
 			\begin{align*}
 				C_N &= (N-1) + \sum_{i=1}^{N-1}(N-2^i) = (N-1) + N\floor{log_2 N} + N - (2^{\floor{\log_2 N} + 1} - 1) \\
 					&= 2N - 1 + N\floor{\log_2 N} - 2^{\floor{\log_2 N}+1} + 1 = 2N + N\floor{\log_2 N} + 2^{\floor{\log_2 N}+1}. \;\;\;\square
@@ -1698,9 +1698,9 @@
 
 			\begin{enumerate}
 				\item si $\alpha > \beta$ :
-					  
+
 					  \[a(x) = \Theta\left(x^{\log_\beta\alpha}\right) ;\]
-				
+
 				\item si $\alpha = \beta$ :
 
 					  \[a(x) \sim x\log_\beta x = \Theta(x\log_2 x) ;\]
@@ -1735,7 +1735,7 @@
 
 			\begin{align*}
 				a(x) &= \left[\frac {1 - \frac {\alpha^t}{\beta^t}}{1 - \frac \alpha\beta}\right]x = \frac {\alpha^t}{\beta^t}\left[\frac {\frac {\beta^t}{\alpha^t} - 1}{1 - \frac \alpha\beta}\right]x
-				= \left(\frac \alpha\beta\right)^\ceil{\log_\beta x}\left[\frac {\left(\frac \beta\alpha\right)^t - 1}{1 - \frac \alpha\beta}\right]x 
+				= \left(\frac \alpha\beta\right)^\ceil{\log_\beta x}\left[\frac {\left(\frac \beta\alpha\right)^t - 1}{1 - \frac \alpha\beta}\right]x
 				= \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} + \log_\beta x - \log_\beta x}\left[\frac {\left(\frac \beta\alpha\right) - 1}{1 - \frac \alpha\beta}\right]x \\
 					 &= \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}\frac {\alpha^{\log_\beta x}}{\beta^{\log_\beta x}}\left[\frac {\left(\frac \alpha\beta\right)^t - 1}{1 - \frac \alpha\beta}\right]x = \left(\frac \alpha\beta\right)^{\ceil{\log_\beta x} - \log_\beta x}\frac {\alpha^{\log_\beta x}}x\left[\frac {\left(\frac \beta\alpha\right)^t - 1}{1-\frac \alpha\beta}\right]x.
 			\end{align*}
@@ -1790,7 +1790,7 @@
 
 			\subparagraph{Idée pour $n = 2$} l'algo \textit{usuel} de multiplication ferait donc $2 \cdot 2^3 - 2^2 = 12$ opérations (8 multiplications et 4 additions).
 			L'algo de Strassen calcule préalablement 7 valeurs :
-			
+
 			\begin{align*}
 				S_1 &= (A_{11} - A_{22})(B_{21} + B_{22}) \\
 				S_2 &= (A_{11} + A_{22})(B_{11} + B_{22}) \\
@@ -1839,7 +1839,7 @@
 			être au moins égal à deux car tous les éléments de la matrices doivent se voir assigner une valeur et il y en a $n^2$.
 
 		\subsection{Fonctions génératrices}
-			
+
 			\paragraph{Idée} Transformer une suite $(a_n)$ en une fonction définie par une série.
 
 			\paragraph{Objectif} Trouver des formules pour les termes de la suite $(a_n)$.
@@ -1881,7 +1881,7 @@
 			Or on sait que $\frac 1{1-\varphi x} = \sum_{n=0}^\infty (\varphi x)^n$ et $\frac 1{1-\bar\varphi x} = \sum_{n=0}^\infty(\bar\varphi x)^n$. Donc :
 
 			\[f(x) = \frac 1{\sqrt 5}\left(\sum_{n=0}^\infty(\varphi x)^n - \sum_{n=0}^\infty(\bar\varphi x)^n\right) = \frac 1{\sqrt 5}\sum_{n=0}^\infty(\varphi^n - \bar\varphi^n)x^n.\]
-			
+
 			Or on sait que $f(x) = \sum_{n=0}^\infty F_Nx^n$. Dès lors, on sait que $F_n = (\varphi^n - \bar\varphi^n)$.
 
 			\subsubsection{Fonctions génératrices ordinaires}
@@ -1909,7 +1909,7 @@
 			\end{itemize}
 
 			\paragraph{Démonstration (partielle) du théorème}
-			
+
 			\begin{itemize}
 				\item[$(iii)$]  Étant donné que les séries sont traitées comme des séries formelles, les hypothèses de convergences ne sont pas considérées. Dès lors :
 
@@ -1927,7 +1927,7 @@
 
 			\begin{flushright}$\square$\end{flushright}
 
-			\paragraph{Exemple} Déterminer la FGO de la suite $(n)_n$. On sait que $\frac 1{1-x}$ est la FGO de $(1)_n$. Par le point $(viii)$ du théorème, on sait que 
+			\paragraph{Exemple} Déterminer la FGO de la suite $(n)_n$. On sait que $\frac 1{1-x}$ est la FGO de $(1)_n$. Par le point $(viii)$ du théorème, on sait que
 			$\left(\frac 1{1-x}\right)^2$ est la FGO de $\left(\sum_{k=0}^n1\right)_n = (n)_n$.
 
 			\paragraph{Proposition} Soit $k \in \mathbb N$ fixé. La FGO de la suite $\left(\binom nk\right)_n$ où $\binom nk \coloneqq 0$ si $n < k$ est :
@@ -2012,7 +2012,7 @@
 			\[C(x) = \frac {2^{2n}}{4n!}\left(\frac 12\right)^{n-1}\prod_{k=1}^{n-1}(2k-1) = \frac {2^n}{2n!}\prod_{k=1}^{n-1}(2k-1).\]
 
 			En utilisant $\frac {n!}{n!}$ pour artifice de calcul, on obtient $n!2^n = 2\cdot4\cdot6\cdot\ldots\cdot2n$ au numérateur. Dès lors, on a :
-			
+
 			\[\frac {2n}{2n!n!}\prod_{k=1}^{2n-2}k = \frac 1{n}\frac {(2n-2)!}{(n-1)!(n-1)!} = \frac 1n\binom {2(n-1)}{n-1}.\]
 
 \end{document}

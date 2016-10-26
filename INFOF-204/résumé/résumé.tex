@@ -51,7 +51,7 @@
 		Waterfall est qu'il est totalement inadapté à la réalisation d'un projet où le besoin du client évolue pendant le développement car les besoins sont récoltés au tout
 		début et le produit n'est livré qu'une fois toutes les étapes (sauf la maintenance) réalisées. Il peut y avoir plusieurs années entre la récolte et la fin du code. Si les besoins
 		ont changé, le client risque de recevoir un produit ne correspondant plus à ses attentes.
-	
+
 	\subsection{Procédé itératif}
 		Pour se débarrasser autant que possible des problèmes de communication et des risques de non-conformité aux besoins du client venant du Waterfall, d'autres méthodes ont
 		été trouvées. Par exemple, les procédés itératifs ont pour principe de récolter une première fois les besoins du client pour avoir une \textit{idée} du produit fini
@@ -83,7 +83,7 @@
 		d'adaptation et de maintenance seront simplifiées et accélérées. Il faut garder en tête que de multiplier le nombre d'appels de méthode peut avoir pour effet de ralentir
 		le programme final par rapport à un code optimisé au maximum mais dans la \textbf{grande majorité des cas}, on peut se permettre de perdre un peu en temps d'exécution pour gagner
 		beaucoup en lisibilité et en temps de maintenance.
-	
+
 	\subsection{Les objets}
 		Un objet est \textit{précisément} défini par ses trois caractéristiques : son \textbf{identité}, son \textbf{état} et son \textbf{comportement}. L'identité d'un objet représente
 		son unicité : il est possible d'avoir deux objets identiques, ayant le même état mais d'identité différente, étant deux entités différentes. L'état d'un objet permet de le
@@ -122,7 +122,7 @@
 			Le principe de base du polymorphisme est que plusieurs objets de classes différentes peuvent réagir (chacun à leur manière) au même message. Dès lors, on peut pousser
 			le découplage jusqu'au fait où l'envoyeur du message ne sait même pas précisément à qui il envoie le message, tout ce qu'il sait est que le récepteur du message sait le
 			traiter (comme il le veut). Le lien entre polymorphisme et héritage est le suivant.
-			
+
 			En considérant la hiérarchie suivante : soient A, B, C, D et E cinq classes telles que B, C et D héritent de A et E hérite de C. Supposons comme vu plus haut que A définit un
 			certain comportement de réaction à un message donné et que B, C, D et E redéfinissent chacun un nouveau comportement en rapport avec leur cohérence interne. Si une méthode
 			manipule une référence sur un objet de type A, on peut lui fournir soit un objet de type A, soit de type B, C, D ou encore E. Or chacune de ces classes a redéfini le comportement
@@ -155,7 +155,7 @@ class D inherits B {
 
 new D().m1();
 \end{verbatim}
-			
+
 			Il faut savoir que le mot-clef \texttt{this} est donc dynamique : ce qu'il représente n'est pas fixé lorsque le code est écrit. En effet, dans le code ci-dessus, \texttt{this} peut
 			signifier plusieurs choses différentes selon qui reçoit le message « m1 ». Il existe un autre mot-clef très important dans la notion d'orienté objet, c'est le mot-clef \texttt{super}.
 			Contrairement à \texttt{this} qui représente l'objet traitant le message, \texttt{super} représente la classe parente. Dès lors, super est statique car la classe parente peut être
@@ -183,7 +183,7 @@ new D().m1();
 
 		C'est la \textit{use case view} qui va être faite en première afin de diriger le développement et la création des autres vues. Cependant, la vue la plus utilisée et la plus complète
 		est la \textit{loical view}.
-	
+
 	\subsection{Les diagrammes}
 		Comme mentionné plus haut, les diagrammes sont au nombre de 9 et sont utilisés dans une ou plusieurs vue(s).
 
@@ -204,7 +204,7 @@ new D().m1();
 			\item Le \textbf{componenet diagram} représente les entités physiques finales nécessaires et leurs dépendances.
 			\item Le \textbf{deployment diagram} représente les différentes unités finales ainsi que leurs interactions.
 		\end{enumerate}
-	
+
 	\subsection{Les relations de classes}
 		Deux classes peuvent être en relation pour plusieurs raisons. En effet, il est possible qu'elles soient \textbf{associées} ce qui est le cas quand l'une utilise l'autre (exemple :
 		la classe \texttt{TextParser} utilise la classe \texttt{FileManager} pour traiter le message \texttt{read}), il est également possible qu'une soit \textbf{généralisation} de
@@ -224,7 +224,7 @@ new D().m1();
 			partie intégrante de l'autre (exemple : un livre peut avoir une couverture, donc il y a une relation d'agrégation entre le livre et la couverture). Une composition est une agrégation
 			encore plus forte dans le sens où la classe conteneur n'a de raison d'exister que si la classe contenue existe (exemple : un livre a des pages, et ces pages sont \textbf{physiquement}
 			directement dans le livre, donc il y a une relation de composition entre le livre et les pages).
-			
+
 			Concernant les notations, une association simple se note par une simple ligne, une agrégation se note par une ligne avec un diamant vide du côté du conteneur et une composition
 			se note par une ligne avec un diamant plein du côté du conteneur. De plus, une relation de généralisation se note par une ligne avec un triangle creux dirigé vers la classe générale
 			et un raffinement se note par une ligne en pointillés (ou tirets) avec un triangle creux dirigé vers la classe générale.
@@ -232,7 +232,7 @@ new D().m1();
 \section{Ingénierie des besoins}
 	Il existe plusieurs types de besoins : une classification s'opère en fonction de qui sera amené à lire ces spécifications et donc de leur objectif. Les besoins lus par le client ou ceux
 	lus par les architectes et les développeurs ne sont pas les mêmes : ils font preuve d'un niveau d'abstraction différent.
-	
+
 	\begin{itemize}
 		\item \textbf{Besoins de l'utilisateur} D'un niveau d'abstraction plus haut, les besoins de l'utilisateur sont \textit{a priori} majoritairement destinés au client ainsi qu'aux architectes.
 			Ils reprennent les fonctionnalités que doit pouvoir offrir l'application et dans quelles conditions celles-ci doivent se dérouler.
@@ -269,10 +269,10 @@ new D().m1();
 		Le SRD est le document relatif au projet dans lequel les détails sont expliqués. Il en existe plusieurs standards selon les cas de projets. Le but du SRD est à la fois d'avoir une
 		documentation complète du projet et à la fois d'avoir un support d'échange entre les différentes équipes de travail. Si le projet est de relativement petite amplitude ou est réalisé seul(e),
 		un SRD n'est pas nécessaire et un simple document de type \textit{compte-rendu} fait l'affaire.
-		
+
 		Un SRD est amené à changer, même après la fin de la première analyse. Lorsque le projet se modifie ou que l'analyse, l'architecture est modifiée, il faut mettre à jour le SRD. Il faut
 		donc en garder un historique en affichant les changements majeurs d'une version à l'autre.
-	
+
 \section{Modélisation dynamique}
 	L'UML offre plus que simplement une représentation \textit{statique} de l'application : il y a moyen de modéliser son aspect dynamique (son comportement, son évolution, etc.)
 	En effet, en UML, il y a quatre diagrammes destinés à la représentation dynamique. Deux concernant le dynamisme inter-objets et deux concernant le dynamisme intra-objet :
@@ -303,7 +303,7 @@ new D().m1();
 		concentre sur les canaux de communication et de collaboration entre les objets. Ce type de diagramme est \textbf{légèrement} plus bas niveau car des pseudo-instructions peuvent y être
 		exprimées. De plus, ce type de diagramme permet de représenter la \textit{visibilité} d'un objet par rapport à un autre : est-il connu car il est un attribut, un paramètre, une variable
 		locale, etc. ?
-	
+
 	\subsection{Diagrammes de structure interne et de synchronisation}
 		Les diagrammes d'état et d'activité servent à montrer le fonctionnement interne et la structure des objets.
 
@@ -321,11 +321,11 @@ new D().m1();
 
 		\underline{Remarque} : le branchement conditionnel (\textit{branch/merge}) représente un choix de branchement : l'un \textbf{ou} l'autre ; la (dé)synchronisation (\textit{fork/join})
 		représente une séparation \textbf{obligatoire} des traitements telle que l'ordre d'exécution n'est pas important.
-	
+
 	\subsection{Diagrammes restants}
 		Les component diagrams représentent les inter-dépendances entre les composants (modules, objets, systèmes, etc.) alors que les deployment diagrams représentent les différents nœuds d'exécution
 		(serveur, database, clients, etc.)
-	
+
 \section{Les tests}
 	Afin de \textit{s'assurer} (ou du moins afin de se convaincre) que le code produit est fonctionnel, il faut le tester. On peut soit tester l'application finie (la lancer puis tenter d'utiliser
 	toutes les fonctionnalités afin de trouver les bugs) ou on peut également faire des \textbf{tests unitaires} dont le but est de tester indépendamment un module en le soumettant à différents cas
@@ -342,14 +342,14 @@ new D().m1();
 		\textit{a priori}, si le code a bien été testé, les erreurs de pré/post-conditions ne devraient pas être là. Les assertions aident également à documenter les conditions d'exécution car elles
 		sont exprimées assez formellement et placées directement dans le code. Pour l'argument de clarté, une méthode \texttt{invariant} de signature \texttt{bool invariant(void)} peut être utilisée
 		pour exprimer l'invariant d'une classe.
-	
+
 	\subsection{L'écriture de tests}
 		Les tests doivent être écrits en même temps que le code pour s'assurer tout au long du développement qu'un module sur lequel reposeraient d'autres modules ne soit pas bancal. De plus, une
 		fois les tests écrits, il est important de lancer \textbf{l'entièreté} des tests régulièrement afin de voir si le nouveau code est correct \textbf{et} que le code produit précédemment fonctionne
 		toujours. En effet, les tests permettent également de vérifier la retrocompatibilité du code. Du code produit un an auparavant peut avoir été modifié ou ses conditions d'utilisation peuvent
 		avoir changé. Dès lors, il faut être sûr qu'il est toujours fonctionnel et cohérent avec l'architecture actuelle.
 
-		La structure générale d'un test se fait en trois points : 
+		La structure générale d'un test se fait en trois points :
 
 		\begin{enumerate}
 			\item la création de contexte ;
@@ -368,7 +368,7 @@ new D().m1();
 		pour désigner \textbf{un test unitaire} (une classe simple avec une méthode de test (et éventuellement des sous-méthodes de traitement)), de testfixture pour désigner un test plus
 		complet (avec création et destruction de contexte). Les tests sont basés sur le principe d'assertion afin que le framework puisse voir si la condition est vérifiée ou non. Il y a également
 		des procédés de vérifications d'exceptions lancées.
-	
+
 \section{Implémentation et théorie du design}
 	Cette dernière section traite des règles d'implémentation des problèmes rencontrés lors de l'implémentation des projets.
 
@@ -389,7 +389,7 @@ new D().m1();
 		que le nécessaire pour \textbf{utiliser} son module et pas plus. Autrement dit, un module ne doit donner comme seule information le nécessaire à son utilisation. Cela se rapproche assez fort
 		du principe d'encapsulation disant qu'il faut séparer la déclaration d'une classe (son interface) \textit{a priori} disponible à tous les objets l'utilisant de sa définition (son
 		implémentation) qui ne doit être disponible pour personne d'autre que l'objet lui-même (et éventuellement les classes en descendant dans la hiérarchie d'héritage).
-	
+
 		Concernant le code écrit, il faut savoir que ce code est relu beaucoup de fois, soit par le développeur du module soit par d'autres développeurs (projets open-source, équipe de maintenance,
 		large équipe de développement, etc.) Dès lors, il faut écrire \textit{proprement} afin que ceux qui sont amenés à lire le code ne perdent pas de temps en déchiffrage. Il existe pour cela
 		des \textit{conventions de nommage}. Certaines sont générales, d'autres sont propres aux langages. Par exemple, peu importe le langage, une variable doit porter pour nom un nom commun, une

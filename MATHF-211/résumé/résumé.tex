@@ -90,7 +90,7 @@
 
 		La fonction $F(t)$ est positive pour tout $t$ car c'est une somme de valeurs positives. Dès lors, son discriminant est négatif. On a alors~:
 		\[\left(2\sum_{j=1}^nr_js_j\right)^2 - 4\left(\sum_{j=1}^nr_j^2\right)\left(\sum_{j=1}^ns_j^2\right) \leq 0.\]
-		
+
 		En divisant par 4 de part et d'autre et en réarrangeant l'inégalité, on obtient~:
 		\[\left(\sum_{j=1}^nr_js_j\right)^2 \leq \left(\sum_{j=1}^nr_j^2\right)\left(\sum_{j=1}^ns_j^2\right).\]
 		\end{proof}
@@ -238,7 +238,7 @@
 
 		\begin{thm}[Bolzanno-Weierstrass] Soit $(x_n) \subset \R^m$. Si $(x_n)$ est bornée, alors il existe une sous-suite de $(x_n)$ convergente.
 		\end{thm}
-	
+
 	\section{Fonctions et applications continues}
 		\begin{déf} Soit $f : (M, d_M) \to (N, d_N)$, une application entre deux espaces métriques. On dit que $f$ est continue en $a \in M$ lorsque~:
 		\[\forall \varepsilon > 0 : \exists \delta > 0 \tq d_M(x, a) < \delta \Rightarrow d_N(f(x), f(a)) < \varepsilon.\]
@@ -261,32 +261,32 @@
 			\item fermé si son complémentaire $(M \setminus U)$ est ouvert.
 		\end{itemize}
 		\end{déf}
-		
+
 		\begin{lem}\label{lem:suiteconvouverts} Soit $(x_n) \subset M$. La suite $(x_n)$ converge en $a \in M$ lorsque $n \to \pinfty$ si et seulement si pour
 		tout ouvert $U \subseteq M$~: si $a \in U$, alors il existe $N \in \N$ tel que $\forall n > N : x_n \in U$.
 		\end{lem}
-		
+
 		\begin{lem}\label{lem:continuitéouverts} Soit $f : M \to N$ une application allant d'un espace métrique dans un autre. L'application $f$ est continue si
 		et seulement si pour tout ouvert $u \subseteq M : f^{-1}(U)$ est un ouvert.
 		\end{lem}
-		
+
 		\begin{proof} Supposons d'abord $f$ continue et prenons $U \subset N$ un ouvert et $a \in f^{-1}(U)$. Par ouverture de $U$, on a~:
 		\[\exists \varepsilon > 0 \tq B(f(a), \varepsilon) \subseteq U.\]
 		Également, par continuité de $f$, on sait que~
 		\[\exists \delta > 0 \tq \forall x \in f^{-1}(U) : d_M(x, a) < \delta \Rightarrow d_N(f(x), f(a)) < \varepsilon.\]
 		Autrement dit, si $x \in B(a, \delta)$, alors $f(x) \in B(f(a), \varepsilon)$. Et donc $f(x) \in U$, ou encore $B(a, \delta) \subseteq f^{-1}(U)$ qui est
 		donc ouvert.
-		
+
 		Supposons alors que pour tout ouvert $U \subseteq N$, $f^{-1}(U)$ est ouvert. Soient $a \in M$ et $\varepsilon > 0$.
 		On sait que $B(f(a), \varepsilon)$ est un ouvert, et donc $f^{-1}\left(B(f(a), \varepsilon\right)$ est également un ouvert. Or on sait que
 		$a \in f^{-1}\left(B(f(a), \varepsilon\right)$. Dès lors, il existe $\delta > 0$ tel que $B(a, \delta) \subseteq f^{-1}\left(B(f(a), \varepsilon\right)$.
 		Ou encore, de manière équivalente, si $d_M(x, a) < \delta$, alors $d_N(f(x), f(a)) < \varepsilon$. La fonction $f$ est donc continue.
 		\end{proof}
-		
+
 		\begin{rmq} L'intérêt de ces lemmes est d'avoir une caractérisation de la convergence et de la continuité ne dépendant pas de la métrique mais uniquement
 		de la notion d'ouvert.
 		\end{rmq}
-		
+
 		\begin{lem}\label{lem:espmetraxiomestop} Soit $(M, d)$ un espace métrique. Alors~:
 		\begin{enumerate}
 			\item $M$ et $\emptyset$ sont des ouverts~;
@@ -294,49 +294,49 @@
 			\item si $\{U_i \tq i \in I\}$ est une collection quelconque d'ouverts de $M$, alors $\bigcup_{i\in I}U_i$ est un ouvert de $M$.
 		\end{enumerate}
 		\end{lem}
-		
+
 		\begin{proof} Le point 1 est trivial.
-		
+
 		Pour le point 2, prenons $a \in \bigcap_{i=1}^nU_i$. On sait que pour tout $1 \leq i \leq n$, il existe $\varepsilon_i > 0$ tel que
 		$B(a, \varepsilon_i) \subseteq U_i$. Prenons donc $\varepsilon \coloneqq \min_i\{\varepsilon_i\}$, on sait donc que~:
 		\[\forall i \in \{1, \ldots, n\} : B(a, \varepsilon) \subseteq U_i.\]
 		On peut donc dire que $B(a, \varepsilon) \subseteq \bigcap_{i=1}^nU_i$.
-		
+
 		Pour le point 3, prenons $a \in \bigcup_{i\in I}U_i$. On sait donc qu'il existe $j \in I$ tel que $a \in U_j$, et donc, par ouverture de $U_j$, il existe
 		$\varepsilon > 0$ tel que $B(a, \varepsilon) \subseteq U_j \subseteq \bigcup_{i\in I}U_i$.
 		\end{proof}
-		
+
 	\section{Métriques équivalentes}
 		\begin{déf} Soit $M$ un ensemble non-vide et soient $d$ et $d'$, deux métriques sur $M$. On dit qu'elles sont \textit{topologiquement équivalentes} lorsqu'elles
 		déterminent les mêmes ouverts.
 		\end{déf}
-		
+
 		\begin{cor} Soit $M$ un ensemble non-vide et soient $d, d'$ deux métriques topologiquement équivalentes sur $M$. Une suite $(x_n) \subset M$ converge par
 		rapport à $d$ si et seulement si elle converge par rapport à $d'$.
 		\end{cor}
-		
+
 		\begin{proof} Les deux métriques $d$ et $d'$ déterminent les mêmes ouverts. Dès lors, par le Lemme~\ref{lem:suiteconvouverts}, on a la double implication
 		de la convergence.
 		\end{proof}
-		
+
 		\begin{thm} Les trois métriques $d_1, d_2, d_\infty$ sont topologiquement équivalentes.
 		\end{thm}
-		
+
 		\begin{proof} En notant $d$ l'une de ces métriques et $d'$ une autre, pour toute boule ouverte $B_d$ pour la métrique $d$, il est possible de déterminer une
 		boule ouverte $B_{d'}$ pour la métrique $d'$ telle que $B_{d'} \subseteq B_d$.
 		\end{proof}
-		
+
 		\begin{thm}\label{thm:d1d2dinflipschitzeq} Soit $M$ un espace métrique. Pour tout $x, y \in M$, on a~:
 		\[\frac 12 d_1(x, y) \leq \frac 1{\sqrt 2}d_2(x, y) \leq d_\infty(x, y) \leq d_2(x, y) \leq d_1(x, y).\]
 		\end{thm}
-		
+
 		\begin{déf} Soit $M$ un ensemble non-vide et soient $d, d'$ deux métriques sur $M$. Ces métriques sont dites \textit{Lipschtiz-équivalentes} lorsque~:
 		\[\exists A, B \gneqq 0 \tq \forall x, y \in M : Ad(x, y) \leq d'(x, y) \leq Bd(x, y).\]
 		\end{déf}
-		
+
 		\begin{rmq} Par le Théorème~\ref{thm:d1d2dinflipschitzeq}, on sait que les métriques $d_1, d_2, d_\infty$ sont Lipschitz-équivalentes.
 		\end{rmq}
-		
+
 		\begin{lem} Soit $M$ un ensemble non-vide et soient $d, d'$ deux métriques sur $M$. Si $d$ et $d'$ sont Lipschitz-équivalentes, alors elles sont topologiquement
 		équivalentes.
 		\end{lem}
@@ -655,7 +655,7 @@
 			$x \not \in \adh A$, il existe $U_x$ un ouvert tel que $x \in U_x$ et $U_x \cap A = \emptyset$. Donc~:
 			\[U_x \subset X \setminus A = \bigcup_{x \in X \setminus A}U_x,\]
 			on a donc bien $X \setminus A$ ouvert.
-			
+
 			\item[$(ii)$] Trivial.
 			\item[$(iii)$] Par $(ii)$, on sait que $\adh A \subseteq \adh(\adh(A))$. Montrons que $\adh(\adh(A)) \subseteq \adh A$. Soit $x \in \adh(\adh(A))$,
 			et soit $U$ ouvert tel que $x \in U$. Alors $U \cap \adh(A) \neq \emptyset$, par définition de l'adhérence. Soit $y \in U \cap \adh(A)$. On peut

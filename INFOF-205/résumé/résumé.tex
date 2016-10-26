@@ -627,7 +627,7 @@
 
 		En rajoutant à cela les $n^2$~flops de résolution de la matrice triangulaire, on obtient un coût total de résolution de
 		$\frac {2n^3}3 + \frac {3n^2}2 + \frac {7n}6$.
-	
+
 	\subsection{Factorisation de matrices}
 		\subsubsection{Factorisation LU}
 		\begin{déf} On définit l'application $\delta$ sur un ensemble quelconque $E$ telle que :
@@ -660,7 +660,7 @@
 		Cela est intuitivement vrai du fait que la matrice inverse représente l'application inverse. Et l'application inverse du fait de retirer $\alpha_{k\,i}$
 		fois la ligne $i$ est de l'ajouter $\alpha_{k\,i}$, où $\alpha_{k\,i}$ représente le coefficient $\frac {A_{k\,i}}{A_{i\,i}}$.
 		\end{rmq}
-		
+
 		On peut nommer les matrices intermédiaires $A^{(k)}$. On a donc $A^{(0)} = A$, $A^{(1)} = M^{(1)}A$, $A^{(2)} = M_2A^{(1)} = M_2M_1A$, etc. que l'on
 		peut généraliser en~:
 		\[A^{(k)} = M^{(k)}M^{(k-1)}\dotsm M^{(2)}M^{(1)}A = \left(\prod_{\gamma=0}^{k}M^{(k-\gamma)}\right)A.\]
@@ -881,7 +881,7 @@
 
 		On a pu remarquer que le calcul du $p$-conditionnement $\kappa_p(A)$ pour l'analyse du problème requiert le calcul de $\norm {A^{-1}}_p$, et donc de
 		$A^{-1}$ qui est assez coûteux. L'analyse directe de stabilité vue ci-dessus requiert le conditionnement et donc par extrapolation nécessite également
-		le calcul de $A^{-1}$. 
+		le calcul de $A^{-1}$.
 
 		\begin{rmq} Il y a moyen, d'effectuer des estimations du conditionnement, par exemple à l'aide de la méthode LAPACK\footnote{Algorithme implémenté dans
 		MATLAB.}. Ceci permet de déterminer une valeur approchée du conditionnement en $\mathcal O(n^2)$, ce qui est largement préférable à $\mathcal O(n^3)$
@@ -1768,7 +1768,7 @@
 			&= -\frac {M_i}2h_{i+1} + \frac {f_{i+1}-f_i}{h_{i+1}} - \frac {(M_{i+1}-M_i)h_{i+1}}6 \\
 			&= \od {s_3}x\bigg\rvert_{x=x_i^+} = \od {s_{3, i}}x(x_i)
 		\end{align*}
-		
+
 		On obtient l'équation suivante~:
 		\[-\frac {M_{i-1}}2h_i + \frac {f_i - f_{i-1}}{h_i} - \frac {(M_i - M_{i-1})h_i}6
 			= -\frac {M_i}2h_{i+1} + \frac {f_{i+1}-f_i}{h_{i+1}} - \frac {(M_{i+1}-M_i)h_{i+1}}6,\]

@@ -109,14 +109,14 @@
 
 		Si la suite commence à l'indice 0, on a~:
 		\[\sum_{n \geq 0}x^n = 1 + \sum_{n \geq 1}x^n = \begin{cases}1 + \frac x{1-x} = \frac 1{1-x} &\text { si } x \in [0, 1) \\ +\infty &\text{ sinon}\end{cases}.\]
-	
+
 	\subsection{Rappels d'analyse}
 		\begin{déf} Une fonction $f : X \to Y$ est dite mesurable si~:
 		\[\forall A \subset \mathcal B(Y) : \{\omega \in \Omega \tq X(\omega) \in A\} \in \mathcal F,\]
 		où $\mathcal B(Y)$ représente la tribu des boréliens (voir définition~\ref{boréliens}). \end{déf}
 
 		\begin{thm}\label{convabssérie} Dans $\R$, toute série absolument convergente est convergente. \end{thm}
-		
+
 		\begin{thm}\label{convabsintégrale} Dans $\R$, toute intégrale impropre absolument convergente est convergente. \end{thm}
 
 \newpage
@@ -136,7 +136,7 @@
 
 		\begin{rmq} L'ensemble $\mathcal P(\Omega)$ n'est pas toujours dénombrable. Et donc l'ensemble $\mathcal P(\Omega)$ est-il le bon ensemble pour décrire
 		les événements~?
-		
+
 		\begin{itemize}
 			\item Si $\abs \Omega \in \N$~: oui~;
 			\item si $\abs \Omega \not \in \N$~: non.
@@ -162,7 +162,7 @@
 		\subsubsection{Loi uniforme sur un ensemble fini (ou dénombrable)}
 		\begin{déf} Soient $m < n \in \N$. On définit l'\textbf{intervalle entier} $\iintv mn$ par~:
 		\[\iintv mn : \{x \in \N \tq m \leq x \leq n\}.\] \end{déf}
-		
+
 		\begin{déf} Soit $\Omega = \iintv 1n$. Soit $A \subseteq \Omega$. La loi uniforme est donnée par~:
 		\[\P(A) = \frac {\abs A}{\abs \Omega} = \frac {\abs A}n.\] \end{déf}
 
@@ -198,7 +198,7 @@
 
 		\begin{déf}\label{boréliens} Soit $I$ une partie de $\mathcal P(\Omega)$. On appelle la \emph{tribu engendrée par $I$} la plus petite tribu contenant
 		$I$ et on la note $\sigma(I)$.
-		
+
 		En prenant $I \coloneqq \{$ intervalles ouverts de $[0, 1]\}$, on obtient $\sigma(I)$ que l'on appelle \textbf{tribu des boréliens}.
 		\footnote{Le nom de \emph{borélien} vient du mathématicien français Émile Borel suite à ses travaux sur la théorie de la mesure.} \end{déf}
 
@@ -224,7 +224,7 @@
 			\item $\P$, la fonction d'ensembles sur $\mathcal F$.
 		\end{itemize}
 		\end{rmq}
-	
+
 	\subsection{Modèles}
 		\subsubsection{Modèles discrets}
 		\begin{rmq} On prend $\Omega$ un ensemble fini ou dénombrable. On prend également $\mathcal F = \mathcal P(\Omega)$.
@@ -320,14 +320,14 @@
 			                \left(\int_\R\exp\left(-\frac {y^2}2\right)\frac {\dif y}{\sqrt{2\pi}}\right) \\
 			             &= \iint_{\R^2}\exp\left(-\frac {x^2+y^2}2\right)\frac {\dif x\dif y}{2\pi}.
 		\end{aligned}\]
-		
+
 		En passant en coordonnées polaires, on obtient~:
 		\[\P(\Omega)^2 = \int_{-\pi}^{+\pi}\int_0^{+\infty}\exp\left(-\frac {r^2}2\right)\frac {r\dif r\dif \theta}{2\pi}
 		= \int_{-\pi}^{+\pi}\frac {\dif \theta}{2\pi}\int_0^{+\infty} r\exp\left(-\frac {r^2}2\right)\dif r
 		= \left[-\exp\left(-\frac {r^2}2\right)\right]_0^{+\infty} = 1.\]
 
 		On en déduit alors $\P(\Omega) = 1$ également. $\P$ est donc bien une probabilité. \end{rmq}
-		
+
 		\begin{déf} On a défini une probabilité sur $\left(R^+, \mathcal B(R^+)\right)$ via la fonction $f(r) = r\exp\left(-\frac {r^2}2\right)$.
 		On l'appelle la \emph{probabilité de Rayleigh}. \end{déf}
 
@@ -335,7 +335,7 @@
 
 		\begin{déf}[Fonction Gamma d'Euler] La fonction Gamma d'Euler est définie comme suit~:
 		\[\Gamma : \R_0^+ \to \R : x \mapsto \int_0^{+\infty}\exp(-x)x^{t-1}\dif x.\] \end{déf}
-		
+
 		\begin{rmq} On note $\gamma \coloneqq -\Gamma'(1) > 0$ la constante d'Euler-Mascheroni. La question $\gamma \stackrel{?}{\in} \Q$ est toujours ouverte.
 		\end{rmq}
 
@@ -382,9 +382,9 @@
 		valeur $k$. C'est équivalent à $\P\left(X(\omega) = k\right)$ pour $\omega \in \Omega$. \end{déf}
 
 		\begin{déf} Lorsqu'une v.a.d. $X$ suit une certaine loi $\mathcal L$, on note $X \sim \mathcal L$.
-		
+
 		Par exemple, une variable $Y$ suivant une poisson de paramètre $\lambda$ se note $Y \sim \mathcal P(\lambda)$. \end{déf}
-	
+
 		\subsubsection{Cas absolument continu}
 
 		\begin{déf} Soit $\Ofp$ un espace de probabilité. Une variable aléatoire absolument continue\footnote{Souvent écrite v.a.c. ou V.A.-C.} est une
@@ -453,7 +453,7 @@
 				  alors~:
 				  \[F_{X_4}(t) = \frac 12 + \frac 1\pi\arctan(t).\]
 		\end{enumerate}
-	
+
 	\subsection{Théorème de de Moivre-Laplace}
 		Soient $p \in (0, 1)$ et $n \geq 1$. On pose $X_{n, p} \sim \mathcal B(n, p)$.
 
@@ -467,7 +467,7 @@
 		\begin{rmq} La signification de ce théorème est qu'une binomiale renormalisée se comporte comme une gaussienne $\Nzu$ lorsque $n \to +\infty$. \end{rmq}
 
 		\begin{prp}[Formule de Stirling] \[n! \stackrel{n \to +\infty}\sim \sqrt{2\pi n}\left(\frac ne\right)^n.\] \end{prp}
-	
+
 	\subsection{Convergence en loi}
 		\begin{déf}~
 		\begin{itemize}
@@ -500,7 +500,7 @@
 		\[\bar X = p \cdot 0 + (1-p) \cdot +\infty.\]
 
 		Blaise Pascal a appelé cette valeur \textbf{espérance} et l'a noté $\E(X)$.
-	
+
 	\subsection{Espérance et variables aléatoires}
 		\begin{rmq} Il existe plusieurs méthodes pour décrire le comportement d'une variable aléatoire. On s'intéresse ici aux \textbf{indicateurs de position}.
 		Il existe d'autres types d'indicateurs dont les \textbf{indicateurs de répartition} qui seront vus plus loin. \end{rmq}
@@ -514,7 +514,7 @@
 
 			      Lorsque $X$ est continue, la médiane existe toujours. Si $X$ est discrète, la médiane n'existe pas obligatoirement et n'est pas forcément
 			      unique.
-			
+
 			\item \underline{Méthode de l'espérance~:}
 
 			      On évalue une \emph{moyenne pondérée} des valeurs que peut prendre $X$ par leur probabilité.
@@ -523,7 +523,7 @@
 
 	\subsection{Définition de l'espérance}
 		\subsubsection{Cas positif}
-			
+
 		\begin{déf}[Cas discret]\label{espposdisc} Soit $X$ une v.a.d. à valeurs positives. On note $p_k \coloneqq \P(X = x_k)$. On pose~:
 		\[\E(X) = \sum_{k \geq 0}p_kx_k.\]
 		\end{déf}
@@ -548,7 +548,7 @@
 		\end{rmq}
 
 		\subsubsection{Cas général}
-		
+
 		\begin{déf}[Cas discret] Soit $X$ une v.a.d. à valeurs dans $E = \{x_0, \dotsc, x_n\} \subset \R$ fini ou infini dénombrable (typiquement $E = \Z$).
 		On pose $p_n \coloneqq \P(X = x_n)$. On considère la série à termes positifs~:
 		\[\sum_{x_n \in E}\abs {x_n}p_n.\]
@@ -654,7 +654,7 @@
 
 		Une variable $X \sim \mathcal C$ Cauchy est paire, et donc $m = 0$.
 		\end{rmq}
-	
+
 	\subsection{Espérance de fonctions de variables aléatoires}
 		\begin{déf} Soit $X$ une v.a.c. réelle et $g : \R \to \R$ une fonction mesurable. La quantité $Y = g(X)$ est une variable aléatoire car c'est une
 		application~: $Y : \Omega \to \R : \omega \mapsto (g \circ X)(\omega)$. \end{déf}
@@ -801,7 +801,7 @@
 
 	\subsection{Moments de variables aléatoires}
 		\subsubsection{Cas discret}
-		\begin{déf} Soit $E = \{x_i\}_{i \in \N}$ un espace d'état fini ou infini dénombrable. Si $X$ est une variable aléatoire à valeurs dans $E$, alors sa 
+		\begin{déf} Soit $E = \{x_i\}_{i \in \N}$ un espace d'état fini ou infini dénombrable. Si $X$ est une variable aléatoire à valeurs dans $E$, alors sa
 		\emph{loi} est donnée par $\{p_i = \P(X = x_i)\}_{i \in \N}$. Les moments de $X$ sont les valeurs moyennes de $F(X)$ où $F : E \to \R$ est une fonction
 		donnée. \end{déf}
 
@@ -832,7 +832,7 @@
 		\end{déf}
 
 		\begin{rmq} Le calcul \emph{effectif} de $\E(F(X))$ est une intégrale impropre qui peut s'avérer compliquée. \end{rmq}
-	
+
 	\subsection{Fonctions génératrices}
 		L'objectif est de trouver un certain type de fonctions qui permet de retrouver la loi d'une variable aléatoire $X$.
 
@@ -895,7 +895,7 @@
 		quand $t$ croît vers $1$.
 
 		\begin{rmq} On remarque que $\{\E(X^n)\}_{n \in \N^*}$ se retrouve par linéarité à partir de $\{\E\left(\prod_{i=0}^{n-1}(X-i)\right)\}$.
-		
+
 		Les moments entiers peuvent donc s'écrire comme une combinaison linéaire d'instanciations de dérivées de fonction génératrices en $t=1$. \end{rmq}
 
 		\begin{ex} Prenons par exemple $\E(X^2)$. Par linéarité de l'opérateur $\E$, on sait que~:
@@ -1299,7 +1299,7 @@
 		= \frac 2\pi\frac \pi 2 = 1,\]
 		qui donne donc bien une probabilité.
 		\end{rmq}
-	
+
 	\subsection{Indépendance et fonctions caractéristiques}
 		\begin{prp} Soit $X$ une variable aléatoire à valeurs dans un ensemble $E$. Soit $A \subseteq E$. Alors $\E(1_A(X)) = \P(X \in A)$. \end{prp}
 
@@ -1400,7 +1400,7 @@
 		 &= \left[1 + \frac {it\mu}{\sigma\sqrt n} - \frac {t^2(\E(X_1)^2 + \Var(X_1))}{2\sigma^2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right]^n \\
 		 &= \left[1 + \frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right)\right]^n
 		\end{align*}
-		
+
 		En posant~:
 		\[\alpha \coloneqq \frac {it\mu}{\sigma\sqrt n} - \frac {t^2\mu^2}{2\sigma^2n} - \frac {t^2}{2n} + \psi\left(\frac {tX_1}{\sigma \sqrt n}\right),\]
 		on peut déterminer~:

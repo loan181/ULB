@@ -516,7 +516,7 @@
 				\[\lim_{t \to \pm \infty}u(t) = \pm 1,\]
 				et~:
 				\[\lim_{t \to \pm\infty}u'(t) = 0.\]
-				
+
 				L'intégration première nous donne $u'(t)^2 = \frac 12(u^2(t) - 1)^2$, ou encore~:
 				\[u'(t) = \frac {\sqrt{2}}{2}(u^2(t) - 1).\]
 
@@ -729,7 +729,7 @@
 
 			Soit $\epsilon > 0$. Par définition, on sait~:
 			\[\exists N_1, N_2 \, | \, (n \geq N_1 \Rightarrow |a_n - l| < \epsilon) \land (n \geq N_2 \Rightarrow |b_n - l| < \epsilon).\]
-			
+
 			Donc $\forall n \geq N = \max \{N_0, N_1, N_2\}, -\epsilon < a_n - l \leq x_n - l \leq b_n - l < \epsilon$. Autrement dit, $|x_n - l| < \epsilon$.
 
 			Il en découle un corollaire disant que si $(y_n)$ est une suite bornée (pas forcément convergente) et $z_n \to 0$, alors $y_nz_n \to 0$. Pour le prouver,
@@ -1009,7 +1009,7 @@
 			qu'$\exists N > 0$ tel que $n > N \Rightarrow |x_n - a| < \epsilon$. Si ceci est vrai pour tout $\epsilon$, ça l'est plus précisément pour $\delta$
 			déterminé par l'hypothèse. On a donc $\forall \epsilon > 0, \exists N > 0 \, | \, n > N \Rightarrow |f(x_n) - L| < \epsilon$ ou encore
 			$f(x_n) \to L$ pour $n \to \infty$.
-			
+
 			Montrons maintenant que si toutes les suites de $B$ convergentes en $a$ implique $f(x_n) \to L$, alors la limite de $f$ en $a$ existe et vaut $L$.
 			Fonctionnons par l'absurde~: soit $(x_n) \subseteq B$ une suite dans $B$ telle que $x_n \to a$ quand $n \to \infty$ et $(f(x_n)) \to L \in \R$ mais
 			alors que $f(x) \not \to L$ pour $x \to a$. On sait alors qu'$\exists \epsilon_0 > 0 \, | \, \forall \delta > 0$ il n'y a pas de convergence de
@@ -1061,35 +1061,35 @@
 			Soit $\epsilon = \frac {|L_g|}2$. On sait alors qu'il existe $\delta_V$ tel que $\forall x \in U, |x-a| < \delta_V \Rightarrow |g(x)-L_g| < \frac {|L_g|}2$.
 			Ou encore pour ce même $\delta_V$, $|g(x)| > \frac {|L_g|}2$. Donc $|g(x)|$ est strictement positif. Définissons alors $V := U \cap ]a-\delta_V, a+\delta_V[$,
 			un voisinage de $a$ sur lequel la fonction $\frac fg(x)$ est bien définie.
-			
+
 			Prouvons maintenant que $\frac 1g(x) \to \frac 1{L_g}$ quand $x \to a$, et le résultat découlera de la proposition précédente.
-			
+
 			Soit $\epsilon > 0$. On sait qu'il existe $\delta > 0$ tel que $\forall x \in U, |x-a| < \delta \Rightarrow |g(x) - L_g| < \frac {|L_g|^2\epsilon}2$.
 			On sait dès lors~:
 			\[\left|\frac 1{g(x)} - \frac 1{L_g}\right| = \frac {|g(x)-L_g|}{|g(x)||L_g|} < \frac {|g(x)-L_g|}{\frac {|L_g|}{2}|L_g|}
 			  = \frac {2|g(x)-L_g|}{|L_g|^2} < \frac {2(\frac {|L_g|^2\epsilon}{2})}{|L_g|^2} = \epsilon.\]
-			
+
 			\end{proof}
-			  
+
 			\begin{thm} le théorème du sandwich des suites a un homologue pour les fonctions~: soient $f, g, h : \R \to \R$ trois fonctions telles que
 			$\forall x \in \R, f(x) \leq g(x) \leq h(x)$ avec $\lim_{x \to a}f(x) = \lim_{x \to a}h(x) = L \in \R$. Alors $\lim_{x \to a}g(x) = L$.
 			\end{thm}
-			
+
 			\begin{proof} Définissons les suites $(f(x_n))_n, (g(x_n))_n$ et $(h(x_n))_n$. On sait que $\forall k \in {\R}^{\R}, \lim_{x \to a}k(x)$ existe
 			et vaut $L_k$ si et seulement si pour toute suite $(x_n) \subseteq \R$ convergente en $a \in \R$, on a $k(x_n) \to L_k$ quand $n \to \infty$.
-			
+
 			On sait dès lors que $f(x_n) \to L$ et $h(x_n) \to L$. Par le théorème du sandwich, on sait que $g(x_n) \to L$ également. \end{proof}
-			
+
 			\begin{thm}[Conservation des inégalités] Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$ et $a \in \adh(U \cap B)$.
 			Si $\exists \delta > 0$ tel que $\forall x \in ]a-\delta, a+\delta[ \cap U \cap B, f(x) \leq g(x)$ et $\lim_{x \to a}f(x)$ et $\lim_{x \to a}g(x)$
 			existent dans $\R$, alors $\lim_{x \to a}f(x) \leq \lim_{x \to a}g(x)$. \end{thm}
-			
+
 		\subsubsection{Limites infinies et limites à l'infini}
-			
+
 			\begin{déf} Soient $f, g : U \subseteq \R \to \R$, $B \subseteq \R$, $a \in \adh(U \cap B)$. La limite de $f$ dans $B$ en $a$ existe et vaut
 			$+\infty$ si $\forall K > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| < \delta \Rightarrow f(x) > K$. Cela se note~:
 			\[\lim_{x \to a}f(x) = \infty.\]
-			
+
 			De manière similaire, la limite de $f$ dans $B$ en $a$ vaut $-\infty$ si $\forall K > 0, \exists \delta > 0 \, | \, \forall x \in (U \cap B), |x-a| <
 			\delta \Rightarrow f(x) < -K$.
 			Ce la se note~:
@@ -1109,7 +1109,7 @@
 			\end{déf}
 
 	\subsection{Définition de la continuité}
-		\begin{déf} Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. La fonction $f$ est continue en $a$ si 
+		\begin{déf} Soient $a \in \R$, $f : I \subseteq \R \to \R$ une fonction définie sur un voisinage de $a$. La fonction $f$ est continue en $a$ si
 
 		\[\lim_{x \to a}f(x) = f(a).\]
 
@@ -1139,7 +1139,7 @@
 
 		\begin{déf} Une fonction $\fabr f$ est \textit{continue} si elle est continue en tout point $c \in ]a, b[$, continue à droite en
 		$a$ et à gauche en $b$. \end{déf}
-	
+
 	\subsection{Théorème des bornes atteintes}
 
 		\begin{thm} Soit $\fabr f$ une fonction continue. Alors $f$ est bornée \textbf{et} $f$ atteint ses bornes. Dès lors~:
@@ -1162,9 +1162,9 @@
 
 		Ce qui implique (du fait que $f(x) < A$ et $K > 0$) que $M-f(x) \geq \frac 1K$ ou encore $f(x) \leq M - \frac 1K$. Ce qui contredit le fait que $M$ est le
 		majorant de $\{f(x) \tq x \in \ab\}$. Idem pour la borne inférieure. \end{proof}
-	
+
 	\subsection{Théorème de la valeur intermédiaire}
-		
+
 		\begin{thm} Soit $\fabr f$ une fonction continue. Soit $\gamma$ strictement entre $f(a)$ et $f(b)$.
 		Alors $\exists c \in ]a, b[ \tq f(c) = \gamma$. \end{thm}
 
@@ -1188,9 +1188,9 @@
 		$P(x) \coloneqq \sum_{i=1}^{n}a_ix^i$. Prenons $Q(x) \coloneqq \frac {P(x)}{a_n}$. Dès lors, les limites en les infinis de $Q$ sont ces mêmes infinis~:
 		$\lim_{x\to\pm\infty}Q(x) = \pm\infty$. On sait dès lors qu'il existe deux réels $a$ et $b$ tels que $Q(a) < 0$ et $Q(b) > 0$. Par le théorème, on sait qu'il
 		existe un $c \in ]a, b[$ tel que $Q(c) = 0$. Si $Q(c) = 0$, alors $P(c) = 0$ par définition de $Q$.
-	
+
 	\subsection{Théorème de l'intervalle et de la réciproque}
-		
+
 		\begin{prp} Soit $I \subseteq \R$. Alors $I$ est un intervalle si et seulement si $\forall \alpha, \beta \in I : \interval \alpha\beta \subset I$.
 		\end{prp}
 
@@ -1215,7 +1215,7 @@
 		$f^{-1}(\interval {p-\delta}{p+\delta}) \subset \interval {q-\epsilon}{q+\epsilon}$. Nous avons donc $\delta$ tel que
 		$\abs{x-p} < \delta \Rightarrow \abs{f^{-1}(x)-f^{-1}(p)} < \epsilon$. Ce qui montre que $f^{-1}$, la réciproque de $f$ est continue en $p$. La continuité
 		à droite et à gauche de $f^{-1}$ aux extrémités de $f(I)$ se montrent de la même manière. \end{proof}
-	
+
 	\subsection{Continuité uniforme}
 		La notion de continuité de $f$ en $a$ est une notion locale. Il en existe une version globale~: la continuité uniforme.
 
@@ -1236,7 +1236,7 @@
 		plus, par l'équivalence des suites, on sait qu'il existe $N \in \N$ tel que $\abs{x_n-y_n} < \delta$. On a donc
 		$\abs{x_n-y_n} < \delta \Rightarrow \abs{f(x_n)-f(y_n)} < \epsilon$. Les deux suites sont bien équivalentes. Montrons maintenant que l'équivalence de
 		$(f(x_n))$ et $(f(y_n))$ implique l'uniforme continuité de $f$.
-		
+
 		Supposons par l'absurde qu'il existe $\epsilon_0 > 0$ tel qu'il n'existe pas de $\delta_0 > 0$. En particulier, $\delta_0 = \frac 1n$ ne convient pas,
 		quel que soit $n > 0$. Prenons donc $n > 0$. Alors il existe $x_n, y_n \in U$ tels que $\abs{x_n-y_n} < \frac 1n$ et $\abs{f(x_n)-f(y_n)} \geq \epsilon_0$.
 		On a donc les suites $(x_n), (y_n)$ équivalentes mais pas les suites $(f(x_n))$ et $(f(y_n))$ ce qui est une contradiction avec l'hypothèse. \end{proof}
@@ -1265,13 +1265,13 @@
 		\begin{thm} Soit $f : ]a, b[ \to \R$ une fonction uniformément continue. Alors il existe un \textit{prolongement continu} $\fabr {\bar f}$ de $f$.
 		\end{thm}
 
-		\begin{proof} Prenons la fonction 
+		\begin{proof} Prenons la fonction
 		\[\fabr {\bar f} : x \mapsto \left\{\begin{aligned}&\lim_{x \to a^+}f(x) &\text{ si } x = a\\&f(x) &\text{ si } x \in ]a, b[\\&\lim_{x \to b^-}f(x) &\text{ si } x = b\end{aligned}\right.\]
 
 		Dès lors, la fonction $\bar f$ est uniformément continue. \end{proof}
 
 		\begin{rmq} Soit $f : A \to \R$ une fonction uniformément continue. $\forall E \subset A$, $f_{|_E}$ est également uniformément continue. \end{rmq}
-	
+
 	\subsection{Fonctions à valeur vectorielle}
 
 		\begin{déf} Soient $x = (x_1, \ldots, x_n), y = (y_1, \ldots, y_n) \in \R^n$. On définit la distance entre $x$ et $y$ par~:
@@ -1361,7 +1361,7 @@
 \newpage
 \section{Fonctions dérivables}\label{sec:foncdérivables}
 	\subsection{Définitions}
-	
+
 		\begin{déf} Soit $f : I \to \R$ une fonction définie sur un intervalle ouvert $I$ contenant $a$. La fonction $f$ est dérivable en $a$ si la limite
 		suivante existe~:
 		\[\lim_{h \to 0}\frac {f(a+h)-f(a)}h.\]
@@ -1429,9 +1429,9 @@
 		Dès lors~:
 		\[\lim_{y \to f(a)} G(y) = \lim_{y \to f(a))}G(f(f^{-1}(y))) = \lim_{x \to \lim_{y \to f(a)}f^{-1}(y)}\frac {x-a}{f(x)-f(a)} = \frac 1{f'(a)}.\]
 		\end{proof}
-	
+
 	\subsection{Extrema}
-		
+
 		\begin{déf} Soient $f : U \subseteq \R \to \R$ et $a \in U$. Le point $a$ est un minimum local de $f$ si
 		$\exists \epsilon > 0 \tq \forall x \in U : \abs{x-a} < \epsilon \Rightarrow f(a) \leq f(x)$. De même, $a$ et un maximum local si
 		$\exists \epsilon > 0 \tq \forall x \in U : \abs{x-a} < \epsilon \Rightarrow f(a) \geq f(x)$. Si $a$ est un minimum local ou un maximum local, alors $a$ est
@@ -1492,9 +1492,9 @@
 		alors il existe $c \in ]a, b[$ tel que~:
 		\[\frac {f'(c)}{g'(c)} = \frac {f(b)-f(a)}{g(b)-g(a)}.\]
 		\end{thm}
-	
+
 	\subsection{Règle de l'Hospital}
-		
+
 		\begin{thm} Soient $f, g : \interval cd \to \R$ deux fonctions continues sur $\interval cd$ et dérivables sur $]c, d[$. Soit $a \in ]c, d[$.
 		Si $f(a) = g(a) = 0$, alors~:
 		\[\lim_{x \to a}\frac {f(x)}{g(x)} = \lim_{x \to a}\frac {f'(x)}{g'(x)}\]
@@ -1517,7 +1517,7 @@
 		Donc si les deux limites existent et sont égales, on a~:
 		\[\lim_{x \to a}\frac {f(x)}{g(x)} = \lim_{x \to a}\frac {f'(x)}{g'(x)}.\]
 		\end{proof}
-		
+
 		\begin{prp} Soient $f, g : \interval cd \to \R$ continues sur $\interval cd$ et dérivables sur $]c, d[$. Si $\lim_{x \to a^+}g(x) = \pm\infty$,
 		$\forall x : x \in ]a, d[ \Rightarrow g'(x) \neq 0$, et si $\lim_{x \to a^+}\frac {f'(x)}{g'(x)} = L \in \overline \R$ alors~:
 
@@ -1540,7 +1540,7 @@
 		$\abs{\frac {f(y)}{g(x)}} < \epsilon_3$.
 		Prenons $(\epsilon_1, \epsilon_2, \epsilon_3) = \left(\frac \epsilon6, \min\left\{\frac \epsilon{3|L|+1}, \frac 12\right\}, \frac \epsilon3\right)$.
 		Prenons $\delta \coloneqq \min \{\delta_1, \delta_2\}$. On a donc~:
-		
+
 		\begin{align*}
 			\forall x : x \in ]a, a+\delta[ : \abs{\frac {f(x)}{g(x)} - L}
 			&= \abs{\frac {f(y)}{g(x)} + \left(1 - \frac {g(y)}{g(x)}\right)\left(\frac {f'(\chi)}{g'(\chi)}-L+L\right) - L} \\
@@ -1549,9 +1549,9 @@
 			&< \frac \epsilon3 + \frac \epsilon6 + \frac \epsilon6 + \frac \epsilon3 = \epsilon.
 		\end{align*}
 		\end{proof}
-	
+
 	\subsection{Dérivées de fonctions à valeur dans $\R^n$}
-		
+
 		\begin{déf} Soit $\frrn fA$. Soit $a \in \intr A$. $f$ est dérivable en $a$ si~:
 		\[\lim_{h \to 0}\frac {f(a+h)-f(a)}h\]
 
@@ -1573,9 +1573,9 @@
 			\item $(g+h)'(a) = g'(a) + h'(a)$.
 		\end{enumerate}
 		\end{thm}
-	
+
 	\subsection{Dérivées de fonctions vectorielles}
-		
+
 		\begin{déf} Le graphe d'une fonction $\frmr fA$ est l'ensemble des couples~:
 		\[\Gamma_f \coloneqq \{((x, f(x)) \in \R^n \times \R \cong \R^{n+1} \tq x \in A\}.\]
 		\end{déf}
@@ -1625,7 +1625,7 @@
 \newpage
 \section{Intégrales de Riemann}
 		\subsection{Définitions}
-	
+
 		\begin{déf} une partition de $\ab$ est la donnée $\{x_i \tq 0 \leq i \leq n\} \subset \ab$ telle que $a = x_0 < \ldots < x_n = b$. \end{déf}
 
 		\begin{déf} Soit $\fabr f$ bornée. Soit $P = \{x_i\}_{i \in [n]}$  une partition de $\ab$. Pour tout $1 \leq i \leq n$, on définit~:
@@ -1636,14 +1636,14 @@
 		\end{align*}
 
 		On définit ensuite~:
-	
+
 		\begin{align*}
 			\mathcal L(f, P) &\coloneqq \sum_{i=1}^n(x_i-x_{i-1})m_i, \\
 			\mathcal U(f, P) &\coloneqq \sum_{i=1}^n(x_i-x_{i-1})M_i.
 		\end{align*}
 
 		Qui sont respectivement l'aire signée de la somme des rectangles inférieurs et supérieurs. À partir de cela, on définit~:
-	
+
 		\begin{align*}
 			\mathcal L(f) &\coloneqq \sup \{\mathcal L(f, P) \tq P \text{ est une partition de } \ab\}, \\
 			\mathcal U(f) &\coloneqq \inf \{\mathcal U(f, P) \tq P \text{ est une partition de } \ab\}.
@@ -1688,13 +1688,13 @@
 
 		\begin{proof} On sait que pour tout $P, P'$ partitions de $\ab$, $\Larea(f, P) \leq \Uarea(f, P')$. En particulier, en prenant le $\sup$
 		à gauche et l'$\inf$ à droite, l'inégalité reste vraie. Donc~:
-	
+
 		\begin{align*}
 			\sup \{\Larea(f, P) \tq P \text{ est une partition de } \ab\} &\leq \inf \{\Uarea(f, P) \tq P \text{ est une partition de } \ab\} \\
 			\Larea(f) &\leq \Uarea(f)
 		\end{align*}
 		\end{proof}
-	
+
 	\subsection{Fonctions intégrables}
 		\begin{prp}[Critère de Riemann] Soit $\fabr f$ bornée. Alors $f$ est intégrable si et seulement $\forall \epsilon > 0 : \exists P$ une partition
 		de $\ab$ telle que $\Uarea(f, P) - \Larea(f, P) < \epsilon$. \end{prp}
@@ -1728,7 +1728,7 @@
 		\end{proof}
 
 	\subsection{Propriétés des intégrales}
-		
+
 		\begin{déf} Soit $\fabr f$ intégrable. On définit~:
 		\[\int_a^bf(x)\dif x = -\int_b^af(x)\dif x.\]
 		\end{déf}
@@ -1742,7 +1742,7 @@
 			\item $\abs f$ est intégrable et $\abs{\int_a^bf(x)\dif x} \leq \abs{\int_a^b\abs{f(x)}\dif x}$.
 		\end{enumerate}
 		\end{prp}
-	
+
 	\subsection{Théorème fondamental de l'analyse}
 
 		\begin{thm}[Théorème fondamental du calcul et intégral] Soit $\fabr f$ continue (donc intégrable). Alors la fonction $\fabr F : x \mapsto \int_a^xf$
@@ -1851,7 +1851,7 @@
 		Dès lors, $F$ est majorée et bornée par $\int_a^{+\infty}g(x)\dif x$. La limite de $F(b)$ pour $b \to +\infty$ existe. \end{proof}
 
 	\subsection{Longueur de courbes}
-		
+
 		\begin{déf} Une courbe différentiable est une application $\gamma : \ab \subseteq \R \to \R^n$ de classe $C^1$ telle que
 		$\forall t : t \in \ab \Rightarrow \gamma'(t) \neq 0 \in \R^n$. \end{déf}
 
@@ -1878,7 +1878,7 @@
 			\int_a^b\norm{(\eta' \circ f)(t)}\abs{f'(t)}\dif t \\
 			          &= \int_a^b\norm{(\eta' \circ f)(t)}f'(t)\dif t = \int_{f(a)}^{f(b)}\norm{\eta'(u)}\dif u = \int_c^d\norm{\eta'(u)}\dif u = L(\eta).
 		\end{align*}
-		
+
 		Si $f$ était décroissant, il aurait fallu mettre un $-$ en sortant $f'(t)$ de la valeur absolue mais les bornes d'intégration $f(a)$ et $f(b)$ auraient
 		respectivement donné $d$ et $c$. Donc en rentrant le moins dans les bornes d'intégration, on obtient le même résultat. \end{proof}
 
@@ -1896,7 +1896,7 @@
 		Et comme, par définition, $\ell'(t) = \norm{\gamma'(t)}$, on a $\norm{\eta'(t)} = 1$. \end{proof}
 
 	\subsection{Intégrales curvilignes}
-		
+
 		\begin{déf} Soient $f : E \subseteq \R^n \to \R$ et $\gamma : \ab \to \R^n$ avec $\Imf \gamma \subseteq E$. On définit l'intégrale de $f$ le
 		long de la courbe $\gamma$ par~:
 		\[\int_\gamma f\dif s \coloneqq \int_a^bf(\gamma(t))\norm{f'(t)}\dif t.\]
@@ -1913,7 +1913,7 @@
 		Le signe moins peut apparaitre si $\gamma$ et $\eta$ dont d'orientation opposée. \end{prp}
 
 	\subsection{Champs conservatifs}
-		
+
 		\begin{déf} Soit $f : E \subseteq \R^n \to \R^n$ un champ de vecteurs. $f$ est conservatif si il existe $F : E \to \R$ tel que $f = \nabla F$.
 		\end{déf}
 
@@ -1964,7 +1964,7 @@
 		\end{prp}
 
 		\begin{proof} Soient $x, y, z \in \R^n$. Montrons les propriétés nécessaires pour une distance~:
-		
+
 		\begin{enumerate}
 			\item $d(x, y) = \norm {x-y} \geq 0$~;
 			\item $0 = d(x, y) = \norm {x-y} \iff x-y = 0 \iff x = y$~;
@@ -2066,7 +2066,7 @@
 
 		\begin{déf}[Adéhrence en dimension $n > 1$] Soit $A \subseteq \R^n$. Un point $a \in \R^n$ est dit \textbf{adhérent} à $A$ si
 		$\forall \delta > 0 : \exists x \in A \tq \norm {x-a} < \delta$.
-		
+
 		L'ensemble des points adhérents à $A$ s'appelle l'\emph{adhérence} de $A$ et se note $\adh A$. \end{déf}
 
 		\begin{lem} Soient $A \subseteq \R^n$ et $a \in \R^n$. $a \in \adh A$ si et seulement si $\exists (x_k) \subset A \tq x_k \to a$. \end{lem}
@@ -2219,7 +2219,7 @@
 		\begin{rmq} Pour déterminer la continuité de $f$, on peut déterminer la continuité de ses composantes. On ne peut cependant pas déterminer la continuité
 		des restrictions de la fonction selon les différents arguments !
 		\end{rmq}
-	
+
 	\subsection{Valeur intermédiaire et ensembles connexes par arcs}
 		\begin{déf} Soit $E \subset \R^n$. On dit que l'ensemble $E$ est \emph{connexe par arcs} s'il existe $\gamma : [0, 1] \to E$ une application continue
 		telle que $\gamma(0) = p$ et $\gamma(1) = q$ pour tout $p, q \in E$.
@@ -2666,7 +2666,7 @@
 		\end{proof}
 
 		\begin{prp} Si $R \subset \R^m$ est un rectangle et $f : E \to \R$ est continue, alors $f$ est intégrable. \end{prp}
-		
+
 		\begin{proof} Puisque $E$ est un rectangle, il est fermé borné, et donc $f$ est bornée également (par sa continuité). $f$ est également uniformément
 		continue (puisque continue sur un ensemble fermé borné). Dès lors, pour tout $\epsilon > 0$, il existe $\delta > 0$ tel que~:
 		\[\forall x, x' \in R : \norm{x-x'} < \delta \Rightarrow \abs{f(x)-f(x')} < \frac \epsilon{\vol(R)}.\]
@@ -3338,7 +3338,7 @@
 			S_i' &\coloneqq S_i \cup \bigcup_{R \in \mathcal B_i}R
 		\end{align*}
 		sont respectivement un ensemble simple contenu dans $D_i$ et un ensemble simple contenant $D_i$.
-		
+
 		On observe que~:
 		\[\lim_{\alpha \to +\infty}\aire(S_i \setminus S_i') = 0.\]
 
