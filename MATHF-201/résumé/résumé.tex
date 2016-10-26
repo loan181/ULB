@@ -66,11 +66,15 @@
 \newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
 \newcommand{\scpr}[2]{\left\langle #1, #2\right\rangle}
 
+\newcommand{\toC}[1]{\xrightarrow{C^{#1}}}
+\newcommand{\tocont}{\toC 0}
 \newcommand{\minfty}{{-\infty}}
 \newcommand{\pinfty}{{+\infty}}
 \newcommand{\grantedproof}{\begin{proof} \underline{Admis.} \end{proof}}
 \newcommand{\evn}{espace vectoriel normé}
 \newcommand{\evnc}{{\evn} complet}
+\newcommand{\CDII}{{CDI 1}}
+\newcommand{\CDIII}{{CDI 2}}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -1020,12 +1024,12 @@
 			\[c_n \coloneqq \sum_{k=0}^na_kb_{n-k}.\]
 			\end{rmq}
 
-			\begin{thm}[Théorème de Cauchy, version CDI1]\label{thm:CauchyCDI1} Si $\sum_{n \geq 0}a_n$ et $\sum_{n \geq 0}b_n$ convergent absolument,
+			\begin{thm}[Théorème de Cauchy, version \CDII]\label{thm:CauchyCDI1} Si $\sum_{n \geq 0}a_n$ et $\sum_{n \geq 0}b_n$ convergent absolument,
 			alors $\sum_{n \geq 0}c_n$ converge absolument, et on a~:
 			\[\left(\sum_{n \geq 0}a_n\right)\left(\sum_{n \geq 0}b_n\right) = \sum_{n \geq 0}c_n.\]
 			\end{thm}
 
-			\begin{thm}[Théorème de Cauchy, version CDI2] Si $\sum_{n \geq 0}a_n$, $\sum_{n \geq 0}b_n$, et $\sum_{n \geq 0}c_n$ convergent, alors~:
+			\begin{thm}[Théorème de Cauchy, version \CDIII] Si $\sum_{n \geq 0}a_n$, $\sum_{n \geq 0}b_n$, et $\sum_{n \geq 0}c_n$ convergent, alors~:
 			\[\left(\sum_{n \geq 0}a_n\right)\left(\sum_{n \geq 0}b_n\right) = \sum_{n \geq 0}c_n.\]
 			\end{thm}
 
@@ -1378,8 +1382,8 @@
 			\[F'(x_0) = f(x_0).\]
 			\end{prp}
 			
-			\begin{cor} Si $f$ est abs-int sur $I$ et de classe $C^k$ sur un voisinage de $x_0 \in I$, alors $F$ est de classe $C^{k+1}$ sur un voisinage de $x_0$ et
-			on a, sur ce voisinage~:
+			\begin{cor} Si $f$ est abs-int sur $I$ et de classe $C^k$ sur un voisinage de $x_0 \in I$, alors $F$ est de classe $C^{k+1}$ sur un voisinage de
+			$x_0$ et on a, sur ce voisinage~:
 			\[\forall p \in \{0, \ldots, k\} : F^{(p+1)}(x) = f^{(p)}(x).\]
 			\end{cor}
 			
@@ -1393,7 +1397,7 @@
 			\end{rmq}
 			
 		\subsection{Critères d'intégration absolue}
-			\begin{prp}[Critère de comparaison] Soit $I \subset \R$ un intervalle non-vide et $f, g : I \to \R$ avec~:
+			\begin{prp}[Critère de comparaison]\label{prp:critèredecomparaison} Soit $I \subset \R$ un intervalle non-vide et $f, g : I \to \R$ avec~:
 			\begin{itemize}
 				\item $\forall x \in X : \abs {f(x)} \leq g(x)$~;
 				\item $f, g$ R-int sur tout segment de $I$.
@@ -1496,7 +1500,7 @@
 			segments de $J$ (car $\varphi$ est bijective). Puisque~:
 			\[\forall n \in \N : \int_{a_n}^{b_n}\abs {(f \circ \varphi)\varphi'} = \int_{a_n}^{b_n}\abs {(f \circ \varphi)}\varphi'
 				= \int_{\varphi(a_n)}^{\varphi(b_n)}\abs {f},\]
-				par CDI1, on conclut que $(f \circ \varphi)\varphi'$ est abs-int sur $I$ si $f$ l'est sur $J$.
+				par \CDII, on conclut que $(f \circ \varphi)\varphi'$ est abs-int sur $I$ si $f$ l'est sur $J$.
 				
 				On raisonne de manière similaire avec $\varphi^{-1}$ (qui existe car $\varphi$ est une bijection) pour montrer que $f$ est abs-int sur $J$ si
 				$(f \circ \varphi)\varphi\prime$ l'est sur $I$.
@@ -1682,13 +1686,13 @@
 		
 \chapter{Intégrales à paramètres}
 	\section{Fonctions définies par une intégrale sur un segment fixe}
-		\subsection{Résultats de continuité}
+		\subsection{Un résultat de continuité}
 			\begin{déf} L'ensemble $X$ est dit \textit{localement} compact lorsque~:
 			\[\forall x \in X : \forall O \text{ ouvert } : x \in O \Rightarrow \exists V \in \mathcal V(x) \tq O \subset V.\]
 			\end{déf}
 			
-			\begin{prp} Soit $[a, b]$ un segment de $\R$, et $(X, d)$ un espace métrique localement compact. Si $f : X \times [a, b] \to \R : (x, t) \mapsto f(x, t)$ est
-			continue sur $X \times [a, b]$, alors~:
+			\begin{prp}\label{prp:intparamcontinuesidefsurcpct} Soit $[a, b]$ un segment de $\R$, et $(X, d)$ un espace métrique localement compact.
+			Si $f : X \times [a, b] \to \R : (x, t) \mapsto f(x, t)$ est continue sur $X \times [a, b]$, alors~:
 			\[F : X \to \R : x \mapsto \int_a^bf(x, t)\dif t\]
 			est définie, et continue sur $X$.
 			\end{prp}
@@ -1716,5 +1720,322 @@
 			$f : [0, 1] \times [0, 1]  \to \R : (x, t) \mapsto \sin(\exp(-xt) - 1)$ est continue sur $[0, 1] \times [0, 1]$, d'où $F(x) = \int_0^1f(x, t)\dif t$
 			est de classe $C^0$ sur $[0, 1]$, avec la proposition précédente. Donc $F(x) \xrightarrow[x \to 0^+]{} 0$.
 			\end{ex}
+
+		\subsection{Un résultat de dérivabilité}
+			\begin{prp}\label{prp:dérivabilitésegmentfixe} Soient $X \subset \R^d$, un ouvert non-vide, $[a, b] \subset \R$, un segment, et
+			$f : X \times [a, b] \to \R$, continue sur $X \times [a, b]$ admettant une dérivée partielle par rapport à tout $x_i$ en tout point de $X$ tel que~:
+			\[\forall i \in \intint 1d : X \times [a, b] \to \R : \pd f{x_i}(x, t) \in C^0(X \times [a, b], \R).\]
+			Alors la fonction $F : X \to \R : x \mapsto \int_a^b f(x, t)\dif t$ est de classe $C^1$ sur $X \times [a, b]$, et on a~:
+			\[\forall i \in \intint 1d : \pd F{x_i}(x) = \int_a^b \pd f{x_i}(x, t)\dif t.\]
+			\end{prp}
+
+			\begin{proof} Pour $x_0 \in X, \delta > 0 \tq B(x_0, \delta[ \subset X$, puisque $x \mapsto f(x, t)$ est de classe $C^1$ sur $B(x_0, \delta[$,
+			pour $t \in [a, b]$, on peut écrire~:
+			\[f(x_0 + he_i, t) - f(x_0, t) = \int_0^h \pd f{x_i}(x_0 + se_i, t)\dif s.\]
+
+			Ces fonctions étant continues, elles sont R-int, et on a~:
+			\[\int_a^b\left(f(x_0 + he_i, t) - f(x_0, t)\right)\dif t = \int_a^b\int_0^h \pd f{x_i}(x_0 + se_i, t)\dif s\dif t
+				= \int_a^b h\int_0^1\pd f{x_i}(x_0 + hse_i, t)\dif s\dif t.\]
+
+			Pour $h \in \left[-\frac \delta2, \frac \delta2\right] \setminus \{0\}$, et en posant~:
+			\[g = \left[-\frac \delta2, \frac \delta2\right] \times \left([0, 1] \times [a, b]\right) : (h, (s, t)) \mapsto \pd f{x_i}(x_0 + hse_i, t),\]
+			on a~:
+			\[\frac 1h\int_a^b \left(f(x_0 + he_i, t) - f(x_0, t)\right)\dif t = \int_a^b\int_0^1g(h, (s, t))\dif s\dif t.\]
+
+			Or la fonction $g$ est continue sur son compact de définition, par continuité de $f$. Par la Proposition~\ref{prp:intparamcontinuesidefsurcpct}, on
+			sait que la fonction~:
+			\[h \mapsto \int_a^b\int_0^1g(h, (s, t))\dif s\dif t \in C^0([-\frac \delta2, \frac \delta2], \R).\]
+			Par cette continuité, on déduit que la fonction $h \mapsto \frac 1h\left(F(x_0 + he_i) - F(x_0)\right)$ admet une limite finie en $h=0$ qui est
+			$\int_a^b\int_0^1g(0, (s, t))\dif s\dif t$. On en déduit que $f$ admet une dérivée partielle par rapport à $x_i$ en $x_0$, et on a~:
+			\[\pd F{x_i} = \int_a^b\int_0^1\pd f{x_i}(x_0 + 0, t)\dif s\dif t = \int_a^b\pd f{x_i}(x_0, t)\int_0^1\dif s\dif t = \int_a^b\pd f{x_i}(x_0, t)\dif t.\]
+
+			À nouveau, par la Proposition~\ref{prp:intparamcontinuesidefsurcpct} appliquée à $(x, t) \mapsto \pd f{x_i}(x, t)$, on obtient
+			$\pd F{x_i} \in C^0(X, \R)$, ce qui implique $F \in C^1(X, \R)$, et on a bien la formule ci-dessus.
+			\end{proof}
+
+	\section{Fonction définies par des intégrales sur un segment variable}
+		\subsection{Un résultat de continuité}
+			\begin{thm}\label{thm:continuitésegmentvariable} Soit $f : [\alpha, \beta] \times [a, b] \tocont \R$. La fonction
+			$F : [\alpha, \beta] \times [a, b] \to \R : (x, T) \mapsto \int_a^Tf(x, t)\dif t$ est continue sur $[\alpha, \beta] \times [a, b]$.
+			\end{thm}
+
+			\begin{proof} Soient $(x, T) \in [\alpha, \beta] \times [a, b]$, $(\Delta x, \Delta T) \in \R^2$ tels que~:
+			\[(x + \Delta x, T + \Delta T) \in [\alpha, \beta] \times [a, b].\]
+			Écrivons alors~:
+			\begin{align*}
+				F(x + \Delta x, T + \Delta T) - F(x, T) &= \int_a^{T+\Delta T}f(x+\Delta x, t)\dif t - \int_a^Tf(x, t)\dif t \\
+				&= \int_a^Tf(x+\Delta x, t)\dif t + \int_T^{T+\Delta T}f(x +\Delta x, t)\dif t - \int_a^Tf(x, t)\dif t \\
+				&= \int_a^T\left(f(x+\Delta x, t) - f(x, t)\right)\dif t + \int_T^{T + \Delta T}f(x+\Delta x, t)\dif t.
+			\end{align*}
+
+			Par continuité de $f$ sur le compact $[\alpha, \beta] \times [a, b]$ et le théorème de Heine, on peut dire que $f$ est uniformément continue sur
+			ce compact. On a alors pour $\varepsilon > 0$, il existe $\eta > 0$ tel que si $\abs {\Delta x} \lneqq \eta$, alors~:
+			\[\forall t \in [a, b] : \abs {f(x+\Delta x, t) - f(x, t)} < \frac \varepsilon{b-a},\]
+			et donc~:
+			\[\abs {\int_a^T\left(f(x+\Delta x, t) - f(x, t)\right)\dif t} \leq (T-a)\max_{t \in [a, b]}\abs {f(x+\Delta x, t) - f(x, t)} \leq \varepsilon.\]
+
+			Par ailleurs, la fonction $f$ est bornée sur son compact de définition. Donc il existe $M > 0$ tel que
+			$\forall (y, t) \in [\alpha, \beta] \times [a, b] : \abs {f(y, t)} \leq M$. Si $\abs {\Delta T} < \frac \varepsilon M$ , on observe~:
+			\[\abs {\int_T^{T + \Delta T}f(x + \Delta x, t)\dif t} \leq M\abs {\Delta T} < M.\]
+
+			Dès lors, pour $\abs {\Delta x} < \eta$ et $\abs {\Delta T} < \frac \varepsilon M$, on a~:
+			\[\abs {F(x+\Delta x, T) - F(x, T)} < \varepsilon.\]
+
+			On a en effet trouvé un voisinage de $(x, T)$ qui est envoyé sur un voisinage de $F(x, T)$. La fonction $F$ est donc continue.
+			\end{proof}
+
+			\begin{cor} Soit $f : [\alpha, \beta] \times [a, b] \to \R$ continue. Soient $\phi, \psi = [\alpha, \beta] \to [a, b]$ continues sur $[\alpha, \beta]$.
+			La fonction $F : [\alpha, \beta] \to \R : x \mapsto \int_{\phi(x)}^{\psi(x)}f(x, t)\dif t$ est continue sur $[\alpha, \beta]$.
+			\end{cor}
+
+			\begin{proof} Posons $G : [\alpha, \beta] \times [a, b] \to \R : (x, T) \mapsto \int_a^T f(x, t)\dif t$. Par le théorème précédent, on peut dire
+			$G \in C^0([\alpha, \beta] \times [a, b], \R)$. De plus, pour $x \in [a, b]$, on peut écrire~:
+			\[F(x) = \int_a^{\psi(x)}f(x, t)\dif t - \int_a^{\phi(x)}f(x, t)\dif t = G(x, \psi(x)) - G(x, \psi(x)).\]
+
+			Par continuité des fonctions $G, \psi, \phi$, on sait que $x \mapsto G(x, \psi(x))$ et $x \mapsto G(x, \phi(x))$ sont continues sur $[\alpha, \beta]$
+			par composition de fonctions continues. Ensuite, on peut dire que $F$ est continue sur $[\alpha, \beta]$ par différence de fonctions continues.
+			\end{proof}
+
+		\subsection{Un résultat de dérivabilité}
+			\begin{thm}\label{thm:dérivabilitésegmentvariable} Soit $f : [\alpha, \beta] \times [a, b] \to \R$ continue sur $[\alpha, \beta] \times [a, b]$
+			telle que $\pd fx$ existe en tout point de $[\alpha, \beta] \times [a, b]$ et $(x, t) \mapsto \pd fx(x, t)$ est continue sur
+			$[\alpha, \beta] \times [a, b]$. Alors la fonction $F : [\alpha, \beta] \times [a, b] \to \R : (x, T) \mapsto \int_a^Tf(x, t)\dif t$ est de classe
+			$C^1$ sur $[\alpha, \beta] \times [a, b]$ avec~:
+			\[\pd Fx(x, t) = \int_a^T\pd fx(x, t)\dif t \qquad\qquad\text{ et }\qquad\qquad \pd FT(x, T) = f(x, T).\]
+			\end{thm}
+
+			\begin{proof} Avec le résultat de dérivabilité sur segment fixe (Proposition~\ref{prp:dérivabilitésegmentfixe}), on sait que $\pd Fx(x, T)$ existe
+			en tout point et vaut $\pd Fx(x, T) = \int_a^T\pd fx(x, t)\dif t$, avec $\pd fx(x, T) \in C^0([\alpha, \beta] \times [a, b], \R)$ par le
+			Théorème~\ref{thm:continuitésegmentvariable}.
+
+			De plus, par \CDII, on sait que $\pd FT(x, T)$ existe et vaut $f(x, T)$ (continue par hypothèse) car $f(x, \cdot) \in C^0([a, b], \R)$. On sait
+			également que $T \mapsto \int_a^T \pd fT(x, t)\dif t \in C^1([\alpha, \beta] \times [a, b], \R)$.
+
+			On a donc bien $F \in C^1([\alpha, \beta] \times [a, b], \R)$.
+			\end{proof}
+
+			\begin{prp} Soit $f : [\alpha, \beta] \times [a, b] \tocont \R$ telle que $\pd fx$ existe et est continue en tout point du compact de définition de
+			$f$. Soient $\psi, \phi : [\alpha, \beta] \toC1 [a, b]$. La fonction $F : [\alpha, \beta] \to \R : x \mapsto \int_{\phi(x)}^{\psi(x)}f(x, t)\dif t$
+			est de classe $C^1$ sur $[\alpha, \beta]$ et on a~:
+			\[\forall x \in [\alpha, \beta] : F'(x) = \psi'(x)f(x, \psi(x)) - \phi'(x)f(x, \phi(x)) + \int_{\phi(x)}^{\psi(x)}\pd fx(x, t)\dif t.\]
+			\end{prp}
+
+			\begin{proof} La fonction $G : [\alpha, \beta] \times [a, b] \to \R : (x, T) \to \int_a^Tf(x, t)\dif t$ est de classe $C^1$ par le
+			Théorème~\ref{thm:dérivabilitésegmentvariable}, et on a~:
+			\[\pd Gx(x, T) = \int_a^T\pd Gx(x, t)\dif t\ \qquad\qquad\text{ et }\qquad\qquad \pd GT(x, T) = f(x, T).\]
+
+			Par composition de fonctions de classe $C^1$, on sait que $x \mapsto G(x, \phi(x))$ et $x \mapsto G(x, \psi(x))$ sont de classe $C^1$ sur
+			$[\alpha, \beta]$. Par ailleurs, pour $x \in [\alpha, \beta]$, on a~:
+			\[F(x) = G(x, \psi(x)) - G(x, \phi(x)).\]
+
+			Par différence, on trouve donc $F \in C^1([\alpha, \beta], \R)$, et pour $x \in [\alpha, \beta]$, on trouve~:
+			\begin{align*}
+				F'(x) &= \pd Gx(x, \psi(x)) + \pd GT(x, \psi(x))\psi'(x) - \pd Gx(x, \phi(x)) - \pd GT(x, \phi(x))\phi'(x) \\
+				&= \int_a^{\psi(x)}\pd fx(x, t)\dif t + \psi'(x)f(x, \psi(x)) - \int_a^{\phi(x)}\pd fx(x, t)\dif t - \phi'(x)f(x, \phi(x)) \\
+				&= \int_{\phi(x)}^{\psi(x)}\pd fx(x, t)\dif t + \psi'(x)f(x, \psi(x)) - \phi'(x)f(x, \phi(x)).
+			\end{align*}
+			\end{proof}
+
+	\section{Fonctions définies par des intégrales convergentes}
+		\subsection{Exemple}\label{subsec:exempleintconv}
+			Soit $f : \Rp \times \Rp \to \Rp : (x, t) \mapsto x\exp(-xt)$. Que dire de $F(x) = \int_0^\pinfty f(x, t)\dif t$ ?
+
+			Fixons $x \in \Rp$. La fonction $t \mapsto x\exp(-xt)$est R-int sur tout segment de $\Rp$. De plus, $\abs {f(x, t)}t^2 \xrightarrow[t \to \pinfty]{} 0$
+			si $x > 0$.Donc il existe $A_n \gneqq 0$ tel que~:
+			\[\forall t \geq A_n : \abs {f(x, t)} \leq \frac 1{t^2}.\]
+
+			Par le critère de comparaison, la fonction $t \mapsto f(\cdot, t)$ est abs-int sur $[A_n, \pinfty)$. Si la fonction est abs-int sur $[0, A_n]$, alors
+			elle l'est sur $[0, \pinfty)$. Lorsque $x = 0$, alors la fonction $t \mapsto f(x, t) = 0$, donc $F(0) = 0$ est bien défini.
+
+			Pour tout $x \gneqq 0$, on trouve~:
+			\[F(x) = \lim_{T \to \pinfty}-\int_0^Tx\exp(-xt)\dif t = \lim_{T \to \pinfty}-\left[\exp(-xt)\right]_0^T
+				= \lim_{T \to \pinfty} -\left(\exp(-xT) - 1\right) = 1.\]
+
+			On en déduit que la fonction $F$ est discontinue en $0$. La fonction $f$ est en fait de classe $C^\infty$, mais
+			$F(x) \coloneqq \int_0^\pinfty f(x, t)\dif t$ admet un point de discontinuité en $x = 0$.
+
+		\subsection{Notion d'intégrales uniformément convergentes}
+			\begin{déf} Soient $X \neq \emptyset, I \subset \R$, un intervalle non-vide. Soit $f : X \times I \to \R$ telle que~:
+			\[\forall x \in X : t \mapsto f(x, t) \text{ est d'intégrale convergente sur } I,\]
+			à savoir~:
+			\[\forall x \in X : \forall \varepsilon > 0 : \exists K_{\varepsilon, x} \subset I \text{ segment } \tq
+				\forall \widetilde K \subset I \text{ segment } :
+					\left[K_{\varepsilon, x} \subset \widetilde K \Rightarrow \abs {\int_{\widetilde K}f(x, t)\dif t - \int_If(x, t)\dif t} < \varepsilon.\right]\]
+
+			On dit que l'intégrale de $f$ sur $I$ converge uniformément sur $X$ lorsque $K_{\varepsilon, x}$ ne dépend pas de $x$, c'est-à-dire lorsque~:
+			\[\forall \varepsilon > 0 : \exists K_\varepsilon \subset I \text{ segment } \tq \forall \widetilde K \subset I \text{ segment } :
+				\left[K_\varepsilon \subset \widetilde K \Rightarrow
+					\forall x \in X : \abs {\int_{\widetilde K}f(x, t)\dif t - \int_I f(x, t)\dif t} < \varepsilon\right].\]
+			\end{déf}
+
+			\begin{rmq} Lorsque $I = [a, \pinfty)$, cela revient à avoir~:
+			\[\forall \varepsilon > 0 : \exists Y > 0 \tq \forall x \in X : \abs {\int_Y^\pinfty f(x, t)\dif t} < \varepsilon.\]
+
+			Lorsque $I = [a, b]$, avec $a < b < \pinfty$, cela revient à avoir~:
+			\[\forall \varepsilon > 0 : \exists \delta \in (0, b-a) \tq \forall x \in X : \abs {\int_{b-\delta}^bf(x, t)\dif t} < \varepsilon.\]
+
+			Dans l'exemple~\ref{subsec:exempleintconv}, $f(x, t) = x\exp(-xt)$, $X = I = \Rp$, on pouvait dire~:
+			\[\int_Y^\pinfty f(x, t)\dif t = \begin{cases}-\exp(-xt) &\text{ si } x > 0, \\0 &\text{ sinon}.\end{cases}\]
+
+			On en déduit~:
+			\[\sup_{x \in X}\abs {\int_Y^\pinfty f(x, t)\dif t} = 1.\]
+			On en déduit que l'intégrale de $t \mapsto x\exp(-xt)$ n'est pas convergente uniformément sur $\Rp$.
+			\end{rmq}
+
+			\begin{thm} Soient $(X, d)$ un espace métrique, $I \subset \R$, un intervalle non-vide Soit $f : X \times I \tocont \R$. On suppose que l'intégrale
+			de $t \mapsto f(x, t)$ converge sur $I$ uniformément sur $X$. Alors la fonction $F : X \to \R : x \mapsto \int_I f(x, t)\dif t$ est continue sur $X$.
+			\end{thm}
+
+			\begin{proof} Soit $([a_n, b_n])_n$, une suite exhaustive de segments de $I$. Pour tout $n \in \N$, on pose~:
+			\[F_n : X \to \R : x \mapsto \int_{a_n}^{b_n}f(x, t)\dif t.\]
+			On observe que ces $F_n$ sont sont continues par le Théorème~\ref{prp:intparamcontinuesidefsurcpct} car $[a_n, b_n]$ est un segment fixe (compact)
+			et $f \in C^0(X \times I, \R)$ par hypothèse.
+
+			Prenons, $n, p \in \N, x \in X$. Calculons~:
+			\begin{align*}
+				F_{n+p}(x) - F_n(x) &= \int_{a_{n+p}}^{b_{n+p}}f(x, t)\dif t - \int_{a_n}^{b_n}f(x, t)\dif t \\
+				&= \int_{a_{n+p}}^{b_{n+p}}f(x, t)\dif t - \int_If(x, t)\dif t + \int_If(x, t)\dif t - \int_{a_n}^{b_n}f(x, t)\dif t.
+			\end{align*}
+
+			Pour $\varepsilon > 0$, il existe $N_\varepsilon \in \N$ tel que pour $n, p \in \N$ et $x \in X$, par continuité des $F_n$ et puisque
+			$[a_n, b_n]~\xrightarrow[n \to \pinfty]{}~I$, on peut dire~:
+			\[\abs {F_{n+p}(x) - F_n(x)}
+				\leq \abs {\int_{a_{n+p}}^{b_{n+p}}f(x, t)\dif t - \int_If(x, t)\dif t} + \abs {\int_If(x, t)\dif t - \int_{a_n}^{b_n}f(x, t)\dif t}
+				\leq 2\varepsilon.\]
+
+			La suite $(F_n)_n$ est donc uniformément de Cauchy, on en déduit qu'elle converge uniformément sur $X$. Sa limite simple (limite de convergence
+			simple) étant $F$, il vient que $f \in C^0(X, \R)$.
+			\end{proof}
+
+			\begin{thm} Soient $X \subset \R^d$, un ouvert non-vide, , $I \subset \R$, un intervalle non-vide, et $f : X \times I \tocont \R$ telle que pour
+			tout $i \in \intint 1d$, $f$ admet une dérivée partielle continue par rapport à $x_i$ pour tout point de $X \times I$. Si l'intégrale sur $I$ de
+			$t \mapsto f(x, t)$ converge uniformément sur $X$ et si pour tout $i \in \intint 1d$, l'intégrale sur $I$ de $t \mapsto \pd f{x_i}(x, t)$ converge
+			uniformément sur $X$, alors la fonction définie par~:
+			\[F : X \times \R : x \mapsto \int_If(x, t)\dif t\]
+			est de classe $C^1$ sur $X$, et on a~:
+			\[\pd F{x_i}(x) = \int_I\pd f{x_i}(x, t)\dif t.\]
+			\end{thm}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+		\subsection{Théorème de Fubini}
+			\begin{thm}[Théorème de Fubini, version \CDII] Soit $f : [\alpha, \beta] \times [a, b] \tocont \R$. Les fonctions~:
+			\[
+				\begin{cases}
+					&\displaystyle F : [\alpha, \beta] \to \R : x \mapsto \int_a^bf(x, t)\dif t \\
+					&\displaystyle G : [a, b] \to \R : t \mapsto \int_\alpha^\beta f(x, t)\dif x
+				\end{cases}
+			\]
+			sont continues sur leur segment de définition, et on a~:
+			\[\int_\alpha^\beta F(x)\dif x = \int_a^b G(t)\dif t.\]
+			\end{thm}
+
+			\begin{proof} Par la Proposition~\ref{prp:intparamcontinuesidefsurcpct}, on sait que $F, G$ sont continues sur leur segment de définition. On pose~:
+			\[
+				\begin{cases}
+					&\displaystyle H_1 : [\alpha, \beta] \to \R : X \mapsto \int_\alpha^X F(x)\dif x \\
+					&\displaystyle H_2 : [\alpha, \beta] \to \R : X \mapsto \int_a^b\int_\alpha^X f(x, t)\dif x\dif t
+				\end{cases}
+			\]
+			Par \CDII, on sait que $H_1~\in~C^1([\alpha, \beta], \R)$ avec $H_1'(x) = F(x)$. Par la Proposition~\ref{prp:dérivabilitésegmentfixe}, on trouve
+			$H_2~\in~C^1([\alpha, \beta], \R)$ avec $H_2'(X) = \int_a^b\pd {}{x_i}\int_\alpha^X f(x, t)\dif x\dif t = \int_a^b f(X, t)\dif t = F(X)$.
+
+			On en déduit $H_1'(x) = H_2'(x)$, ou encore $H_1'(x)-H_2'(x) = 0$, ce qui indique que la fonction $H_1-H_2$ est constante sur le segment
+			$[\alpha, \beta]$. De plus, on trouve~:
+			\[H_1(\alpha) = \int_\alpha^\alpha F(x)\dif x = 0 = \int_a^b0\dif t = H_2(\alpha).\]
+			On a donc $H_1-H_2 = 0$, ou encore $H_1=H_2$ sur $[\alpha, \beta]$. En particulier, $H_1(\beta) = H_2(\beta)$, ce qui est précisément~:
+			\[\int_\alpha^\beta F(x) = H_1(\beta) = H_2(\beta) = \int_a^b\int_\alpha^\beta f(x, t)\dif x\dif t = \int_a^b G(t)\dif t.\]
+			\end{proof}
+
+			\begin{thm}[Théorème de Fubini, version \CDIII]\label{thm:FubiniCDI1} Soient $[\alpha, \beta]$, un segment, $I \subset \R$, un intervalle non-vide, et 
+			$f : [\alpha, \beta] \tocont \R$ telle que l'intégrale sur $I$ de $t \mapsto f(x, t)$ converge uniformément sur $[\alpha, \beta]$. Alors~:
+			\begin{enumerate}
+				\item la fonction $F : [\alpha, \beta] \to \R : x \mapsto \int_I f(x, t)\dif t$ est continue sur $[\alpha, \beta]$~;
+				\item la fonction $G : I \to \R : t \mapsto \int_\alpha^\beta f(x, t)\dif x$ est continue sur $I$~;
+				\item $G$ est d'intégrale convergente sur $I$.
+			\end{enumerate}
+
+			De plus, on a~:
+			\[\int_\alpha^\beta F(x)\dif x = \int_I G(t)\dif t.\]
+			\end{thm}
+
+			\begin{proof} $F$ et $G$ sont continues sur $[\alpha, \beta]$ par la Proposition~\ref{prp:intparamcontinuesidefsurcpct}.Fixons $\varepsilon > 0$.
+			Soit $([a_n, b_n])_n$ une suite exhaustive de segments de $I$. Par convergence sur $I$ uniforme sur $[\alpha, \beta]$ de l'intégrale de
+			$t \mapsto f(x, t)$, il existe $N_\varepsilon \in \N$ tel que~:
+			\[\forall n \geq N_\varepsilon : \forall x \in [\alpha, \beta] : \abs {\int_{a_n}^{b_n} f(x, t)\dif t - \int_I f(x, t)\dif t}
+				\leq \frac \varepsilon{\beta-\alpha}.\]
+
+			On en déduit~:
+			\[\abs {\int_\alpha^\beta\int_{a_n}^{b_n} f(x, t)\dif t\dif x - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x}
+				\leq \int_\alpha^\beta\abs {\int_{a_n}^{b_n}f(x, t)\dif t - \int_I f(x, t)\dif t}\dif x
+				\leq (\beta-\alpha)\frac \varepsilon{\beta-\alpha} = \varepsilon.\]
+
+			Par le théorème~\ref{thm:FubiniCDI1}, on peut écrire~:
+			\[\int_\alpha^\beta\int_{a_n}^{b_n}f(x, t)\dif t\dif x = \int_{a_n}^{b_n}\int_\alpha^\beta f(x, t)\dif x\dif t.\]
+
+			Prenons alors $n \geq N_\varepsilon$, on observe~:
+			\[\varepsilon \geq \abs {\int_\alpha^\beta\int_{a_n}^{b_n} f(x, t)\dif t\dif x - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x}
+				= \abs {\int_{a_n}^{b_n}\int_\alpha^\beta f(x, t)\dif x\dif t - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x}
+				= \abs {\int_{a_n}^{b_n}G(t)\dif t - \int_\alpha^\beta F(x)\dif x}.\]
+
+			Cela fournit la convergence de l'intégrale de $G$ sur $I$, et le fait que~:
+			\[\int_I G(t)\dif t = \int_\alpha^\beta F(x)\dif x.\]
+			\end{proof}
+		
+		\subsection{Critères de convergence uniforme d'intégrales}
+			\begin{thm}[Équivalent du critère de Weierstrass des séries sur les intégrales] Soient $X \neq \emptyset$, $I \subset \R$, un intervalle non-vide,
+			et $f : X \times I \to \R$ telle que pour tout $x \in X$, on a $t \mapsto f(x, t)$ R-int sur tout segment de $I$. On suppose qu'il existe une
+			fonction $\varphi : I \to \R$ abs-int sur $I$ telle que~:
+			\[\forall (x, t) \in X \times I : \abs {f(x, t)} \leq \varphi(t).\]
+
+			Alors l'intégrale de $t \mapsto f(x, t)$ converge sur $I$ uniformément sur $X$.
+			\end{thm}
+
+			\begin{proof} Fixons $x \in X$. La fonction $t \mapsto f(x, t)$ est abs-int sur $I$ par le critère de comparaison avec $\varphi$
+			(Proposition~\ref{prp:critèredecomparaison}). Puisque $\varphi$ est abs-int sur $I$, pour $\varepsilon > 0$ fixé, il existe $K_\varepsilon \subset I$
+			segment tel que~:
+			\[\forall K \subset I \text{ segment } : \left(K_\varepsilon \subset K \Rightarrow \abs {\int_K f(x, t)\dif t - \int_I f(x, t)\dif t}
+				\leq \varepsilon\right).\]
+
+			Pour $x \in X, K \subset I$ segment $\tq K_\varepsilon \subset K$, écrivons~:
+			\begin{align*}
+				\int_{K_\varepsilon} f(x, t)\dif t - \int_I f(x, t)\dif t &= \abs {\int_{a_\varepsilon}^{b_\varepsilon} f(x, t)\dif t - \int_I f(x, t)\dif t}
+					= \abs {\int_{\inf I}^{a_\varepsilon}f(x, t)\dif t + \int_{b_\varepsilon}^{\sup I}f(x, t)\dif t} \\
+				&\leq \int_{\inf I}^{a_\varepsilon}\abs {f(x, t)}\dif t + \int_{b_\varepsilon}^{\sup I}\abs {f(x, t)\dif t}
+					\leq \int_{\inf I}^{a_\varepsilon}\varphi(t)\dif t + \int_{b_\varepsilon}^{\sup I}\varphi(t)\dif t \\
+				&= \abs {\int_I\varphi(t)\dif t - \int_{K_\varepsilon}\varphi(t)\dif t} \leq \varepsilon,
+			\end{align*}
+			par choix de $\K_\varepsilon$. On a donc bien la convergence sur $I$ uniforme sur $X$ de $t \mapsto f(x, t)$.
+			\end{proof}
+
+			\begin{thm}[Équivalent du critère d'Abel des séries sur les intégrales] Soit $I = [a, b)$, où $a < b \leq \pinfty$. Soient $X \neq \emptyset$, et
+			$I \subset \R$, un intervalle non-vide, et $f, g : X \times I \to \R$ tels que~:
+			\begin{itemize}
+				\item $\forall x \in X : t \mapsto f(x, t)$ et $t \mapsto g(x, t)$ sont R-int sur tout segment de $I$~;
+				\item $\exists M \gneqq 0, a \in I \tq \forall T \in I : \forall x \in X : \abs {\int_a^T f(x, t)\dif t} \leq M$~;
+				\item $t \mapsto g(x, t)$ converge vers $0$ en décroissant en $b^-$ uniformément par rapport à $x$.
+			\end{itemize}
+
+			Alors $t \mapsto f(x, t)g(x, t)$ est d'intégrale convergente sur $I$ uniformément sur $X$.
+			\end{thm}
+
+			\begin{proof} Soit $([a_n, b_n])_n$ une suite exhaustive de segments de $I$. Puisque $I = [a, b)$, il existe $N \in \N$ tel que pour $n \geq N$, on
+			a $a_n \equiv a$. Pour $x \in X, n, p \in \N$, écrivons~:
+			\[\int_a^{b_{n+p}}f(x, t)g(x, t)\dif t - \int_a^{b_n}f(x, t)g(x, t)\dif t = \int_{b_n}^{b_{n+p}}f(x, t)g(x, t)\dif t
+				= g(x, b_n)\int_{b_n}^{c_{n, p}(x)}f(x, t)\dif t,\]
+			par la seconde formule de la moyenne. On en déduit alors~:
+			\[\abs {\int_a^{b_{n+p}}f(x, t)g(x, t)\dif t - \int_a^{b_n}f(x, t)g(x, t)\dif t} \leq 2g(x, b_n)M.\]
+
+			Par hypothèse, on sait que $g(\cdot, b_n)$ converge vers $0$ uniformément par rapport à $x$. On sait donc qu'il existe $N_\varepsilon \in \N$
+			tel que pour $x \in X, n \geq N_\varepsilon$, on a $0 \leq g(x, b_n) \leq \frac \varepsilon{2M}$. Finalement, on en déduit~:
+			\[\forall n \geq N_\varepsilon : \forall n, p \in \N : \forall x \in X : \abs {\int_a^{b_{n+p}}f(x, t)g(x, t)\dif t - \int_a^{b_n}f(x, t)g(x, t)\dif t}
+				\leq \varepsilon.\]
+
+			En faisant tendre $p \to \pinfty$, on obtient bien~:
+			\[\forall n \geq N_\varepsilon : \forall x \in X : \abs {\int_If(x, t)g(x, t)\dif t - \int_a^{b_n}f(x, t)g(x, t)\dif t} \leq \varepsilon.\]
+
+			On en déduit alors que $t \mapsto f(x, t)g(x, t)$ admet une intégrale convergente.
+			\end{proof}
 		
 \end{document}
