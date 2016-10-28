@@ -25,16 +25,20 @@
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\MSE}{MSE}
 \DeclareMathOperator{\MAE}{MAE}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Id}{Id}
 
 \renewcommand{\P}{\mathbb P}
 \newcommand{\E}{\mathbb E}
+
 
 \newcommand{\minfty}{{-\infty}}
 \newcommand{\pinfty}{{+\infty}}
 \newcommand{\cvgp}{\xrightarrow[n \to \pinfty]{\P}}
 \newcommand{\cvgLr}{\xrightarrow[n \to \pinfty]{L_r}}
 \newcommand{\cvgd}{\xrightarrow[n \to \pinfty]{\mathcal D}}
-\newcommand{\cvgps}{\xrightarrow[n \to \pinfty]{\text{p.s.}}}
+\newcommand{\ps}{{\text{p.s.}}}
+\newcommand{\cvgps}{\xrightarrow[n \to \pinfty]\ps}
 \newcommand{\distreq}{\overset {\mathcal D}=}
 \newcommand{\statmod}[4]{\left(#1^{#4}, #2\left(#1^{#4}\right), #3^{\left(#4\right)}\right)}
 \newcommand{\probspace}[3]{\left(#1, #2, #3\right)}
@@ -792,12 +796,12 @@
 			\[\Var_\theta[Z]_{ij} = \E_\theta\left[(Z - \E_\theta[Z])_i(Z - \E_\theta[Z])_j^T\right] = \E_\theta\left[(Z_i - \E_\theta[Z_i])(Z_j - \E_\theta[Z_j])\right]
 				= \Cov[Z_i, Z_j].\]
 			Cela veut dire~:
-			\[\Var[Z] =
+			\[\Var_\theta[Z] =
 				\begin{pmatrix}
-					\Var[Z_1]      & \Cov[Z_1, Z_2] & \ldots & \Cov[Z_1, Z_n] \\
-					\Cov[Z_2, Z_1] & \Var[Z_2]      & \ddots & \Cov[Z_2, Z_n] \\
+					\Var_\theta[Z_1]      & \Cov[Z_1, Z_2] & \ldots & \Cov[Z_1, Z_n] \\
+					\Cov[Z_2, Z_1] & \Var_\theta[Z_2]      & \ddots & \Cov[Z_2, Z_n] \\
 					\vdots         & \ddots         & \ddots & \vdots         \\
-					\Cov[Z_n, Z_1] & \ldots         & \ldots & \Var[Z_n]
+					\Cov[Z_n, Z_1] & \ldots         & \ldots & \Var_\theta[Z_n]
 				\end{pmatrix}
 			\]
 
@@ -836,11 +840,11 @@
 					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\E_\theta[Z_\delta Z_\gamma]
 						- \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\E_\theta[Z_\delta]\E_\theta[Z_\gamma] \\
 					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\left(\E_\theta[Z_\delta Z_\gamma] - \E_\theta[Z_\delta]\E_\theta[Z_\gamma]\right) \\
-					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\Var[Z]_{\delta \gamma} \\
-					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}\Var[Z]_{\delta \gamma}(A^T)_{\gamma j} \\
-					&= \left(A\Var[Z]A^T\right)_{ij}
+					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}A_{j\gamma}\Var_\theta[Z]_{\delta \gamma} \\
+					&= \sum_{\delta=1}^m\sum_{\gamma=1}^mA_{i\delta}\Var_\theta[Z]_{\delta \gamma}(A^T)_{\gamma j} \\
+					&= \left(A\Var_\theta[Z]A^T\right)_{ij}
 				\end{align*}
-				\item soit $v \in \R^m$. On remarque que $v^T\Var[Z]v = \Var[v^TZ] \geq 0$.
+				\item soit $v \in \R^m$. On remarque que $v^T\Var_\theta[Z]v = \Var_\theta[v^TZ] \geq 0$.
 			\end{itemize}
 			\end{proof}
 
@@ -852,7 +856,7 @@
 			\begin{itemize}
 				\item $\Cov[Y, Z]_{ij} = \Cov[Y_i, Z_j]$~;
 				\item $\Cov[Z, Y] = \Cov[Y, Z]$~;
-				\item $\Cov[Z, Z] = \Var[Z]$~;
+				\item $\Cov[Z, Z] = \Var_\theta[Z]$~;
 				\item $\Cov[AY+b, CZ+d] = A\Cov[Y, Z]C^T$
 			\end{itemize}
 			\end{prp}
@@ -905,4 +909,221 @@
 			\end{align*}
 			par définition de semi-positivité.
 			\end{proof}
+
+		\subsection{Estimateurs efficaces}
+			\begin{déf} On note l'ensemble des valeurs $x^{(n)}$ de $\R^n$ prises par $X^{(n)}$ avec probabilité non-nulle par l'ensemble~:
+			\[\mathcal X^{(n)} \coloneqq \{x^{(n)} \in \R^n \tq L_\theta^{(n)}(x^{(n)}) > 0\}.\]
+			\end{déf}
+
+			\begin{déf} Soit un modèle statistique. On définit la \textit{matrice d'information de Fisher} par~:
+			\[I^{(n)}(\theta) \coloneqq
+				\int_{\mathcal X^{(n)}}\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right]\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right]^TL_\theta^{(n)}(x^{(n)})\dif x^{(n)}.\]
+			\end{déf}
+
+			\begin{déf} Soit $\statmod \R\Brl{\mathcal P}n$, un modèle statistique. On le dit \textit{régulier} lorsque~:
+			\begin{itemize}
+				\item[H1] $\Theta$ est ouvert~;
+				\item[H2] $\mathcal X^{(n)}$ ne dépend pas de $\theta$~;
+				\item[H3] $\forall x^{(n)} \in \mathcal X^{(n)} : \theta \mapsto L_\theta^{(n)}(x^{(n)})$ est différentiable sur $\theta$~;
+				\item[H4] l'expression $\int_{\mathcal X^{(n)}}L_\theta^{(n)}(x^{(n)})\dif x^{(n)}$ est différentiable sous le signe~;
+				\item[H5] $\forall \theta \in \Theta : I^{(n)}(\theta)$ existe, est finie, et est inversible.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} Les intégrales doivent être comprises comme des sommes (voire des séries dans le cas infini) dans les cas discrets.
+			\end{rmq}
+
+			\begin{rmq} Un artifice fréquemment utilisé ici est le suivant~:
+			\[\pd {}{\theta_i}L_\theta^{(n)}(x^{(n)}) = \pd {}{\theta_i}L_\theta^{(n)}(x^{(n)})\frac {L_\theta^{(n)}(x^{(n)})}{L_\theta^{(n)}(x^{(n)})}
+				= \pd {}{\theta_i}\ln L_\theta^{(n)}(x^{(n)})L_\theta^{(n)}(x^{(n)}).\]
+			\end{rmq}
+
+			\begin{prp} Dans un modèle statistique régulier, on a~:
+			\[\E_\theta\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right] = 0.\]
+			\end{prp}
+
+			\begin{proof} Par définition de l'espérance~:
+			\[\E_\theta\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right]
+				= \int_{\mathcal X^{(n)}}\left(\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right)L_\theta^{(n)}(x^{(n)})\dif x^{(n)}
+				= \int_{\mathcal X^{(n)}}\nabla_\theta L_\theta^{(n)}(x^{(n)})\dif x^{(n)}.\]
+
+			Par hypothèse de régularité, on sait~:
+			\[\int_{\mathcal X^{(n)}}\nabla_\theta L_\theta^{(n)}(x^{(n)})\dif x^{(n)} = \nabla_\theta\int_{\mathcal X^{(n)}}L_\theta^{(n)}(x^{(n)})\dif x^{(n)}.\]
+
+			On trouve finalement~:
+			\[\E_\theta\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right] = \nabla_\theta\int_{\mathcal X^{(n)}}L_\theta^{(n)}(x^{(n)})\dif x^{(n)}
+				= \nabla_\theta 1 = 0.\]
+			\end{proof}
+
+			\begin{rmq} Par la proposition précédente, on peut dire~:
+			\[I^{(n)}(\theta) = \E_\theta\left[\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right]\left[\nabla_\theta\ln L_\theta^{(n)}(x^{(n)})\right]^T\right]
+				= \Var_\theta\left[\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right].\]
+			\end{rmq}
+
+			\begin{prp} Dans un modèle d'échantillonage, on a~:
+			\[I^{(n)}(\theta) = nI^{(1)}(\theta).\]
+			\end{prp}
+
+			\begin{proof} Les variables $X_1, \ldots, X_n$ étant iid (modèle d'échantillonage), on peut exprimer~:
+			\begin{align*}
+				I^{(n)}(\theta) &= \Var_\theta\left[\nabla_\theta \ln L_\theta^{(n)}(X^{(n)})\right]
+					= \Var_\theta\left[\nabla_\theta \ln\left(\prod_{i=1}^n L_\theta^{(1)}(X_i)\right)\right] \\
+				&= \Var_\theta\left[\sum_{i=1}^n\nabla_\theta \ln L_\theta^{(1)}(X_i)\right]
+					= \sum_{i=1}^n\Var_\theta\left[\nabla_\theta \ln L_\theta^{(1)}(X_i)\right] \\
+				&= n\Var_\theta\left[\nabla_\theta \ln L_\theta^{(1)}(X_1)\right] = nI^{(1)}(\theta).
+			\end{align*}
+			\end{proof}
+
+			\begin{rmq} On en déduit que $n$ variables aléatoires iid contiennent $n$ fois plus d'information qu'une seule d'entre elles.
+			\end{rmq}
+
+			\begin{rmq} pour comprendre l'importance de l'hypothèse H5, supposons $k=1$ et $\forall \theta \in \Theta : I^{(n)}(\theta) = 0$. $0$ n'est pas inversible,
+			ce qui viole H5. Alors par l'égalité d'une remarque précédente~:
+			\[\Var_\theta\left[\od {}\theta \ln L_\theta^{(n)}(X^{(n)})\right] = 0.\]
+			On en déduit que $\od {}\theta \ln L_\theta^{(n)}(X^{(n)}) = 0$, et donc que $\ln L_\theta^{(n)}(X^{(n)})$ est constante sur son espérance, c-à-d $0$.
+			On en déduit~:
+			\[\od{}\theta L_\theta^{(n)}(X^{(n)}) = 0 \qquad\forall \theta \in \Theta\quad \P_\theta-\ps.\]
+
+			Et donc, pour tout $\theta \in \Theta$, on a~:
+			\[\P[X^{(n)} \in B] = \int_B L_\theta^{(n)}\dif x^{(n)},\]
+			et en dérivant les deux membres de l'égalité~:
+			\[\od {}\theta\P[X^{(n)} \in B] = \int_B\od {}\theta L_\theta^{(n)}(x^{(n)})\dif x^{(n)}.\]
+
+			Cela veut dire que la probabilité $\P[X^{(n)} \in B]$ est constante pour toutes valeurs de $\theta$. Les $\P_\theta$ ne sont donc plus différenciables.
+			On a donc perdu toute information sur $\theta$.
+			\end{rmq}
+
+			\begin{déf} Dans un modèle statistique régulier, un estimateur $\TnXn$ de $g(\theta)$ est dit \textit{régulier} lorsque~:
+			\begin{itemize}
+				\item[$(i)$]  $\forall \theta \in \Theta : \E_\theta\left[\norm {\TnXn}^2\right] < \pinfty$~;
+				\item[$(ii)$] $\psi_\theta \coloneqq \E_\theta[\TnXn] = \int_{\mathcal X^{(n)}}\Tn(x^{(n)})L_\theta^{(n)}(x^{(n)})\dif x^{(n)}$
+				est différentiable sous le signe pour tout $\theta \in \Theta$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{thm}\label{thm:borneinfMSE} Soient un modèle statistique régulier, et $\TnXn$ un estimateur régulier de $g(\theta)$. Alors~:
+			\[\forall \theta \in \Theta : MSE_\theta(\TnXn) = \E_\theta\left[\left[\TnXn - g(\theta)\right]\left[\TnXn - g(\theta)\right]^T\right]
+				\geq \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T,\]
+			où $\Delta_\theta = \Jac \psi = \left[\pd {\psi_i}{\theta_j}(\theta)\right] \in \Mat(m, k)$.
+			\end{thm}
+
+			\begin{rmq} Dans le cas où $g(\theta) = \theta = \psi(\theta)$, on a un estimateur non-biaisé, et donc~:
+			\[\Jac \psi = \Jac \Id = \Id.\]
+			Et donc, on a~:
+			\[\forall \theta \in \Theta : \MSE_\theta(\TnXn) \geq {I^{(n)}(\theta)}^{-1}.\]
+			\end{rmq}
+
+			\begin{rmq} Dans le cas d'un modèle d'échantillonage, on a $(I^{(n)})^{-1} = n^{-1}{I^{(n)}(\theta)}^{-1}$, et donc~:
+			\[\forall \theta \in \Theta : \MSE_\theta(\TnXn) \geq n^{-1}\Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T \xrightarrow[n \to \pinfty]{} 0.\]
+			\end{rmq}
+
+			\begin{proof}[Preuve du Théorème~\ref{thm:borneinfMSE}] Notons d'abord~:
+			\begin{align*} (\Delta_\theta)_{ij} &= \pd {\psi_i}{\theta_j}(\theta) = \pd {}{\theta_j}\E_\theta[T_i^{(n)}(\Xn)
+				= \pd {}{\theta_j}\int_{\mathcal X^{(n)}}T_i^{(n)}(x^{(n)})L_\theta^{(n)}\dif x^{(n)} \\
+			&= \int_{\mathcal X^{(n)}}T_i(x^{(n)})\pd {}{\theta_j}L_\theta^{(n)}(x^{(n)})\dif x^{(n)}
+				= \int_{\mathcal X^{(n)}}T_i(x^{(n)})\pd {}{\theta_j}L_\theta^{(n)}(x^{(n)})\ln L_\theta^{(n)}(x^{(n)})\dif x^{(n)}.
+			\end{align*}
+
+			On a donc une espérance donnée par~:
+			\[(\Delta_\theta)_{ij} = \E_\theta\left[T_i(X^{(n)})\pd {}{\theta_j}\ln L_\theta^{(n)}(X^{(n)})\right]
+				= \E_\theta\left[\TnXn\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right]_{ij}.\]
+
+			On a alors l'égalité suivante~:
+			\[\Delta_\theta = \E_\theta\left[\TnXn\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right]_{ij}.\]
+
+			On veut ensuite montrer~:
+			\begin{align*}
+				\MSE_\theta[\Tn] = \E_\theta\left[\left(\Tn - g(\theta)\right)\left(\Tn - g(\theta)\right)^T\right] &\overset {(1)}=
+					Var[\Tn] + \left(\psi(\theta)-g(\theta)\right)\left(\psi(\theta)-g(\theta)\right)^T \\
+				&\overset{(2)}\geq \Var_\theta[\Tn] \\
+				&\overset{(3)}\geq \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T
+			\end{align*}
+
+			Montrons d'abord $(1)$. Pour cela~:
+			\begin{align*}
+				\MSE_\theta(\Tn) &= \E_\theta\left[\left((\Tn - \psi(\theta)) + (\psi(\theta) - g(\theta))\right)\left((\Tn - \psi(\theta)) + (\psi(\theta) - g(\theta))\right)^T\right] \\
+				&=\E_\theta[(\Tn - \psi(\theta))(\Tn - \psi(\theta))^T] + \E_\theta[(\Tn - \psi(\theta))](\psi(\theta) - g(\theta))^T \\
+				&\quad- (\psi(\theta) - g(\theta))\E_\theta[(\Tn - \psi(\theta))^T] + (\psi(\theta) - g(\theta))(\psi(\theta) - g(\theta))^T \\
+				&= \Var_\theta[\Tn] + 0 + 0 + (\psi(\theta) - g(\theta))(\psi(\theta) - g(\theta))^T.
+			\end{align*}
+
+			Pour montrer $(2)$, on voit bien que $(\psi(\theta) - g(\theta))(\psi(\theta) - g(\theta))^T$ est semi-définie positive par construction ($uu^T$ est toujours
+			semi-définie positive).
+
+			Montrons alors $(3)$. Posons pour cela~:
+			\[S_\theta \coloneqq \TnXn - \Delta_\theta{I^{(n)}(\theta)}^{-1}\nabla_\theta\ln L_\theta^{(n)}(X^{(n)}) \in \R^m.\]
+
+			Calculons ensuite~:
+			\[\E_\theta[S_\theta] = \E_\theta[\TnXn] - \Delta_\theta{I^{(n)}(\theta)}^{-1}\E_\theta[\nabla_\theta \ln L_\theta^{(n)}(X^{(n)})]
+				= \E_\theta[\TnXn] - \Delta_\theta{I^{(n)}(\theta)}^{-1} \cdot 0.\]
+
+			On sait également que~:
+			\begin{align*}
+				\Var_\theta[S_\theta] &= \E_\theta[S_\theta S_\theta^T] - \E_\theta[S_\theta]\E_\theta[S_\theta]^T \\
+				&= \E_\theta\left[\left(\Tn - \Delta_\theta{I^{(n)}(\theta)}^{-1}\nabla_\theta \ln L_\theta^{(n)}(X^{(n)})\right)\left(\Tn - \Delta_\theta{I^{(n)}(\theta)}^{-1}\nabla_\theta \ln L_\theta^{(n)}(X^{(n)})\right)^T\right] - \psi(\theta)\psi(\theta)^T \\
+				&= \Var_\theta[\Tn] - \E_\theta\left[\TnXn\left(\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right)\right]\left({I^{(n)}(\theta)}^{-1}\right)^T\Delta_\theta^T \\
+				&\quad-\Delta_\theta{I^{(n)}(\theta)}^{-1}\E_\theta\left[\left(\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right)\TnXn\right] \\
+				&\quad+\Delta_\theta{I^{(n)}(\theta)}^{-1}\E_\theta\left[\left(\nabla_\theta \ln L_\theta^{(n)}(X^{(n)})\right)\left(\nabla_\theta \ln L_\theta^{(n)}(X^{(n)})\right)^T\right]\left({I^{(n)}(\theta)}^{-1}\right)^T\Delta_\theta^T \\
+				&= \Var_\theta[\TnXn] - \Delta_\theta\left({I^{(n)}(\theta)}^{-1}\right)^T\Delta_\theta^T - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T
+					+ \Delta_\theta{I^{(n)}(\theta)}^{-1}I^{(n)}(\theta)\left({I^{(n)}(\theta)}^{-1}\right)^T\Delta_\theta^T,
+			\end{align*}
+			par définition de $I^{(n)}(\theta)$. Puisque $I^{(n)}(\theta)$ est symétrique et inversible, on sait que ${I^{(n)}(\theta)}^{-1}$ est également
+			symétrique. On trouve alors~:
+			\[\Var_\theta[S_\theta] = \Var_\theta[\TnXn] - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T
+				+ \Delta_\theta{I^{(n)}(\theta)}^{-1}I^{(n)}(\theta){I^{(n)}(\theta)}^{-1}\Delta_\theta^T.\]
+			En simplifiant les produits de matrice avec leur inverse, on obtient~:
+			\begin{align*}
+				\Var_\theta[S_\theta] &= \Var_\theta[\TnXn] - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T
+					+ \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T \\
+				&= \Var_\theta[\TnXn] - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T
+			\end{align*}
+
+			Or $\Var_\theta[S_\theta]$ est semi-définie positive par construction. Dès lors, on sait $\Var_\theta[\TnXn] - \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T~\geq~0$,
+			ou encore $\Var_\theta[\TnXn] \geq \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T$.
+			\end{proof}
+
+			\begin{déf} Dans un modèle statistique régulier, l'estimateur régulier $\TnXn$ de $g(\theta)$ est dit \textit{efficace} lorsque~:
+			\[\forall \theta \in \Theta : \MSE_\theta[\TnXn] = \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T.\]
+			\end{déf}
+
+			\begin{rmq} Pour avoir $\TnXn$ efficace, il faut $g(\theta) = \psi(\theta)$ et $\Var_\theta[\TnXn] = \Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta^T$.
+			L'estimateur doit donc être sans biais. De plus, la variance est définie par la borne de Cramer.
+			\end{rmq}
+
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\mathcal N(\mu, \sigma_0^2)$, $g(\theta = \mu) = \mu$. On a donc $k=m=1$. On sait que $\TnXn = \overline X^{(n)}$
+			est un estimateur sans biais. Comparons alors la variance de $\TnXn$ avec la borne de Cramer.
+			\[\Delta_\mu = \od {}\mu \psi(\mu) = \od {}\mu\E_\theta[\overline X^{(n)}] = \od {}\mu\mu = 1.\]
+
+			Calculons alors $I^{(n)}(\theta)$, qui est donné par~:
+			\[L_\mu^{(n)}(x^{(n)}) = \left(\frac 1{\sqrt {2\pi}\sigma_0}\right)^n\exp\left(-\frac 1{2\sigma_0^2}\sum_{i=1}^n(X_i-\mu)^2\right),\]
+			et donc~:
+			\begin{align*}
+				I^{(n)}(\theta) &= \Var_\mu\left[\od {}\mu \ln L_\mu^{(n)}(X^{(n)})\right]
+					= \Var_\mu\left[\od {}\mu\left(n\ln \frac 1{\sqrt {2\pi}\sigma_0} - \frac 1{2\sigma_0^2}\sum_{i=2}^n(X_i-\mu)^2\right)\right] \\
+				&=\frac 1{(2\sigma_0^2)^2}\Var_\mu\left[-2\sum_{i=1}^n(X_i-\mu)\right] = \frac 1{\sigma_0^4}\sum_{i=1}^n\Var_\mu(X_i)
+					= \frac {\sigma_0^2}{\sigma_0^4} = \frac n{\sigma_0^2} = {\Var[\TnXn]}^{-1} = \MSE_\theta[\TnXn].
+			\end{align*}
+
+			On en déduit que l'estimateur $\overline X^{(n)}$ est efficace pour $g(\theta) = \mu$.
+			\end{ex}
+
+			\begin{rmq} On observe que $I^{(n)}(\theta) \propto {\Var_\theta[\TnXn]}^{-1}$, ce qui est cohérent avec l'intuition de la notion d'information : au plus
+			la variance est faible, au plus les observations sont groupées, et au plus il y a d'information à déduire sur $\theta$, alors qu'au plus la variance est
+			élevée, au plus les observations sont dispersées, et au moins il y a d'information contenue sur $\theta$.
+			\end{rmq}
+
+			\begin{ex} $X_1, \ldots, X_n$ iid $\Bern(p)$, avec $p \in (0, 1)$. On sait que $\E_p[X_i] = p$ et $\Var_p[X_i] = p(1-p)$. On pose $g(p) = p$.
+			On calcule ensuite~:
+			\begin{align*}
+				I^{(n)}(\theta) &= \Var_p\left[\od {}p \ln L_p^{(n)}(X^{(n)})\right] = \Var_p\left[\od {}p\ln\left(p^{\sum_{i=1}^nX_i}(1-p)^{n-\sum_{i=1}^nX_i}\right)\right] \\
+				&= \Var_p\left[\od {}p\left(\sum_{i=1}^nX_i \ln p + \left(n - \sum_{i=1}^nX_i\right)\ln(1-p)\right)\right] \\
+				&= \Var_p\left[\frac 1p\sum_{i=1}^nX_i - \frac 1{1-p}\left(n-\sum_{i=1}^nX_i\right)\right]
+					= \Var_p\left[\left(\frac 1p+\frac 1{1-p}\right)\sum_{i=1}^nX_i -\frac n{1-p}\right] \\
+				&= \frac 1{(p(1-p)p^2}\sum_{i=1}^n\Var_p[X_i] = \frac 1{(p(1-p))^2}n(p(1-p)) = \frac n{p(1-p)}.
+			\end{align*}
+
+			En prenant $\TnXn = \overline X^{(n)}$, on a $\E_p[\TnXn] = p$, et $\Var_p[\TnXn] = \frac {\Var[X_1]}n = \frac {p(1-p)}n = {I^{(n)}(\theta)}^{-1}$.
+
+			À nouveau, on en déduit que $\overline X^{(n)}$ est un estimateur efficace.
+			\end{ex}
 \end{document}
