@@ -27,10 +27,12 @@
 \DeclareMathOperator{\MAE}{MAE}
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\intr}{int}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
 
 \renewcommand{\P}{\mathbb P}
 \newcommand{\E}{\mathbb E}
-
 
 \newcommand{\minfty}{{-\infty}}
 \newcommand{\pinfty}{{+\infty}}
@@ -56,8 +58,9 @@
 \newcommand{\charfun}[1]{I_{\left[#1\right]}}
 \newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
 
-\newcommand{\Xn}{{X^{(n)}}}
-\newcommand{\Tn}{{T^{(n)}}}
+\newcommand{\n}{{(n)}}
+\newcommand{\Xn}{{X^\n}}
+\newcommand{\Tn}{{T^\n}}
 \newcommand{\TnXn}{{\Tn(\Xn)}}
 
 \newtheorem{thm}{Théorème}[chapter]
@@ -561,17 +564,17 @@
 		l'information de manière à ce qu'elles soient plus facilement analysables.
 		\end{rmq}
 
-		\begin{déf} Soit $X^{(n)} = (X_1, \ldots, X_n)$. On appelle la \textit{fonction de vraissemblance de $X^{(n)}$} la fonction~:
+		\begin{déf} Soit $X^{(n)} = (X_1, \ldots, X_n)$. On appelle la \textit{fonction de vraisemblance de $X^{(n)}$} la fonction~:
 		\[L_\theta^{(n)} : \R^n \to \R : x^{(n)} \mapsto \begin{cases}\P[X^{(n)}
 			= x^{(n)}] &\text{ si $X^{(n)}$ est de loi discrète} \\f_\theta^{X^{(n)}}(x^{(n)} &\text{ sinon}\end{cases}.\]
 		\end{déf}
 
-		\begin{rmq} Dans le cas de variables $X_1, \ldots, X_n$ iid, la fonction de vraissemblance correspond toujours à un produit~:
+		\begin{rmq} Dans le cas de variables $X_1, \ldots, X_n$ iid, la fonction de vraisemblance correspond toujours à un produit~:
 		\[L_\theta^{(n)}(X^{(n)}) = \P[X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n] \overset \sqcup= \prod_{i=1}^n\P[X_i = x_i].\]
 		\end{rmq}
 
 		\begin{thm}[Critère de factorisation de Neymann-Fisher] Dans un modèle paramétrique $\statmod \R\Brl{\mathcal P}n$, une statistique $T^{(n)}(X^{(n)})$ est
-		exhaustive \textbf{si et seulement si} pour tout $\theta \in \Theta$, la fonction de vraissemblance $L_\theta^{(n)}(X^{(n)})$ est factorisable sous la forme~:
+		exhaustive \textbf{si et seulement si} pour tout $\theta \in \Theta$, la fonction de vraisemblance $L_\theta^{(n)}(X^{(n)})$ est factorisable sous la forme~:
 		\[L_\theta^{(n)}(X^{(n)}) \left(= g_\theta \circ T^{(n)}\right) h(x^{(n)}),\]
 		et ce $\P_\theta^{(n)}$-sûrement.
 		\end{thm}
@@ -1125,5 +1128,162 @@
 			En prenant $\TnXn = \overline X^{(n)}$, on a $\E_p[\TnXn] = p$, et $\Var_p[\TnXn] = \frac {\Var[X_1]}n = \frac {p(1-p)}n = {I^{(n)}(\theta)}^{-1}$.
 
 			À nouveau, on en déduit que $\overline X^{(n)}$ est un estimateur efficace.
+			\end{ex}
+
+	\section{Méthodes d'estimation}
+		\subsection{Méthode des moments}
+			Plaçons-nous dans un modèle paramétrique $\statmod \R\Brl{\mathcal P}n$, avec $\theta \in \Theta \subseteq \R^k$. On suppose que pour tout $1 \leq r \leq k$,
+			on a~: $\E_\theta[\abs {X_i}^r] < \pinfty$.
+
+			\begin{déf} Soit $M : \Theta \to M(\Theta) : \theta \mapsto \left[\mu_i'(\theta)\right]_{1 \leq i \leq k}$. Supposons $M$ inversible. Soit $\Xn$ un vecteur
+			d'observations de loi $\P_\theta^{(n)}$. On appelle \textit{estimateur de $\theta$ par la méthode des moments} la statistique~:
+			\[\TnXn = M^{-1}\left([m_i']_{1 \leq i \leq k}\right),\]
+			où $m_i'$ est le moment empirique d'ordre $i$ de $\theta$
+			\end{déf}
+
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$, avec $\theta \in \Theta \subset \R^2$. On connaît les moments d'ordre 1 et 2~:
+			\begin{align*}
+				\mu_1'(\theta) &= \E_\theta[X_1] = \mu \\
+				\mu_2'(\theta) &= \E_\theta[X_1^2] = \Var_\theta[X_i] + {\E_\theta[X_1]}^2 = \mu^2 + \sigma^2
+			\end{align*}
+
+			On a alors la fonction $M$ donnée par~:
+			\[M : \Theta \to M(\Theta) = \Theta : \theta = \begin{pmatrix}\mu \\ \sigma\end{pmatrix} \mapsto \begin{pmatrix}\mu \\ \mu^2 + \sigma^2\end{pmatrix},\]
+			qui est bien inversible. Il faut alors résoudre le système~:
+			\[\left\{\begin{aligned}
+				\mu_1'(\theta) &= m_1' \\
+				\mu_2'(\theta) &= m_2',
+			\end{aligned}\right.\]
+
+			ce qui donne~:
+			\[\left\{\begin{aligned}
+				\mu = \mu_1'(\theta) &= m_1' = \frac 1n\sum_{i=1}^nX_i = \overline X \\
+				\sigma^2 + \mu^2 = \mu_2'(\theta) &= m_2' = \frac 1n\sum_{i=1}^nX_i^2.
+			\end{aligned}\right.\]
+
+			On prend alors pour estimateur~:
+			\[\TnXn = \begin{pmatrix}\overline X \\\frac 1n\sum_{i=1}^nX_i^2 - {\overline X}^2\end{pmatrix} = \begin{pmatrix}\overline X \\ s^2\end{pmatrix}.\]
+
+			Cet estimateur est convergent (car convergent en chaque composante), est exhaustif, est biaisé (car $s^2$ est un estimateur biaisé de $\sigma^2$), et est
+			asymptotiquement efficace.
+			\end{ex}
+
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Bern(p)$, $p \in [0, 1] \subset \R$. On obtient~:
+			\[p = \mu = \mu_1'(\theta) = m_1'= \overline X,\]
+			et donc on prend l'estimateur $\TnXn = \overline X$.
+			\end{ex}
+
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Unif(0, \theta)$, $\theta \in \Rp_0 \subset \R$. Le système nous donne donc~:
+			\[\frac \theta2 = \E_\theta[X_1] = \mu_1'(\theta) = m_1' = \overline X.\]
+
+			L'estimateur de $\theta$ par la méthode des moments est alors donné par~:
+			\[\TnXn = 2\overline X.\]
+			\end{ex}
+
+			\begin{rmq}
+			\[\MSE_\theta[2\overline X] = 0^2 + \Var_\theta[2\overline X] = \frac 4n\Var[X_1] \propto \frac cn,\]
+			alors qu'un estimateur efficace a un $\MSE_\theta \propto \frac c{n^2}$.
+			\end{rmq}
+
+
+		\subsection{Méthode du maximum de vraisemblance}
+			\begin{rmq} Une notation usuelle pour noter un estimateur de $\theta$ est $\widehat \theta$. Cette notation remplace l'estimateur $\TnXn$ pour lequel il faut
+			explicitement préciser la variable estimée. $\widehat \theta$ est une statistique, et ne dépend aucunement de $\theta$~!
+			\end{rmq}
+
+			L'idée d'un tel estimateur est de se baser sur la maximisation (selon $\theta$) de la vraisemblance. On est donc tenté d'écrire~:
+			\[\widehat \theta = \argmax_{\theta \in \Theta}L_\theta^{(n)}(\Xn).\]
+
+			Or il peut arriver qu'un tel $\theta$ de soit pas unique, et donc qu'il existe plusieurs estimateurs de $\theta$ par le maximum de vraisemblance.
+
+			\begin{déf} L'estimateur $\widehat \theta$ est un estimateur de $\theta$ par la méthode du maximum de vraisemblance lorsque~:
+			\[\forall \theta \in \Theta : L_{\widehat \theta}^{(n)}(\Xn) \geq L_\theta^{(n)}(\Xn).\]
+			\end{déf}
+
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Unif\left(\left[\theta \pm \frac 12\right]\right)$, avec $\theta \in \R$. On peut écrire la vraisemblance~:
+			\[L_\theta^\n(\Xn) = \prod_{i=1}^nf^{X_i}_\theta(X_i) = \prod_{i=1}^n\charfun {\theta-\frac 12 \leq X_i \leq \theta+\frac 12}
+				= \charfun {\theta-\frac 12 \leq X_{(1)}}\charfun {X_\n \leq \theta+\frac 12} = \charfun {X_\n-\frac 12 \leq \theta \leq X_{(1)}+\frac 12}.\]
+
+			La fonction de vraisemblance valant ici soit 1 soit 0, toute valeur de $\theta$ telle que $\theta \in \left[X_\n-\frac 12, X_{(1)}+\frac 12\right]$ maximise
+			la vraisemblance.
+			\end{ex}
+
+			\begin{ex} Soient $X_1, \ldots X_n$ iid $\Unif(0, \theta)$, avec $\theta \in \Rp_0$. Ici, la fonction de vraisemblance ne vaut plus uniquement 0 ou 1~:
+			\[\L_\theta^\n(\Xn) = \frac 1{\theta^n}\charfun {0 \leq X_{(1)}}\charfun {X_\n \leq \theta} = \frac 1{\theta^n}\charfun {0 \lneqq \theta \leq X_\n}.\]
+			Pour $\theta \in [0, X_\n]$, la fonction de vraisemblance est nulle, et puis vaut $\theta^{-n}$ pour $\theta \geq X_\n$. Le maximum est donc en
+			$\theta = X_\n$.
+
+			De plus, la fonction $\theta \mapsto \theta^{-n}$ est strictement décroissante, donc le maximum de vraisemblance est unique.
+			\end{ex}
+
+			\begin{rmq} Par le critère de factorisation de Neymann-Fisher, si $S(\Xn)$ est une statistique exhaustive, on sait~:
+			\[L_\theta^\n(\Xn) = (g_\theta \circ S)(\Xn) \cdot h(\Xn).\]
+
+			Donc (en considérant $\argmax$ comme l'ensemble des arguments maximisant la valeur), on a~:
+			\[\widehat \theta \in \argmax_{\theta \in \Theta}L_\theta^\n(\Xn) = \argmax_{\theta \in \Theta}(g_\theta \circ S)(\Xn) = (\alpha \circ S)(\Xn).\]
+
+			Cela implique que dans le cas du maximum de vraisemblance, l'estimateur dépend toujours des observations à travers une statistique exhaustive.
+			\end{rmq}
+
+			\begin{prp} Si $\theta \mapsto L_\theta^\n(\Xn)$ est différentiable sur $\intr(\Theta$), alors tout estimateur du maximum de vraisemblance à valeurs dans
+			$\intr(\Theta)$ vérifie~:
+			\[\nabla_\theta L_\theta^\n(\Xn)\sVert[2]_{\theta=\widehat \theta} = 0.\]
+			\end{prp}
+
+			\begin{rmq} Par continuité et croissance stricte de $\ln(\cdot)$, on sait également que~:
+			\[\nabla_\theta \ln\left(L_\theta^\n(\Xn)\right)\sVert[2]_{\theta = \widehat \theta} = 0.\]
+
+			L'intérêt de passer par un logarithme est de transformer les produits en somme, ce qui est plus agréable à dériver.
+			\end{rmq}
+
+			\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Bern(p)$. On peut calculer la fonction de vraisemblance~:
+			\[L_p^\n(\Xn) = \prod_{i=1}^np^{X_i}(1-p)^{1-X_i} = p^{\sum_{i=1}^nX_i}(1-p)^{n-\sum_{i=1}^nX_i} = p^{n\overline X}(1-p)^{n(1-\overline X)}.\]
+
+			Annulons ensuite le gradient de $\ln \circ L_p^\n$~:
+			\[0 = \pd {}p = n\overline X\pd {}p\ln p  + n(1-\overline X)\pd {}p\ln(1-p) = n\overline X\frac 1p + n(\overline X - 1)\frac 1{1-p}.\]
+			En multipliant par $p(1-p)$ de part et d'autre ,on obtient~:
+			\[0 = n\overline X(1-p) + n(\overline X - 1)p = n\overline X - n\overline Xp + n\overline Xp - np = n\overline X - np,\]
+			ou encore $p = \overline X$. Dès lors, $\widehat p = \overline X$ est un estimateur de $p$ par le maximum de vraisemblance.
+			\end{ex}
+
+			\begin{prp} Soit $g : \Theta \to g(\Theta)$. Alors~:
+			\[\forall \theta \in \Theta : \widehat {g(\theta)} = g(\widehat \theta).\]
+			\end{prp}
+
+			\begin{proof} Distinguons les deux cas où $g$ est bijective, et où $g$ n'est pas bijective.
+
+			Si $g$ est bijective, alors c'est évident car $g(\theta)$ transforme juste le paramètre de manière univoque.
+
+			Si $g$ n'est pas bijective, on observe que $g$ est surjective par construction. Et donc $g$ n'est pas injective. On pose alors~:
+			\[G : \Theta \to g(\Theta) \times \Theta : \theta \mapsto \begin{pmatrix}g(\theta) \\ \theta\end{pmatrix}.\]
+
+			$G$ est injective par construction, et donc est bijective (car surjective en chaque composante). On sait donc que~:
+			\[\widehat {G(\theta)} = G(\widehat \theta),\]
+			ce qui implique l'égalité composante par composante, et donc~:
+			\[\widehat {g(\theta)} = g(\widehat \theta).\]
+			\end{proof}
+
+			\begin{déf} Soit $\widehat \theta$ un estimateur. On dit qu'il est \textit{asymptotiquement efficace} lorsque~:
+			\[\Var_\theta[\widehat \theta] = \frac 1{nI^{(1)}(\theta)}.\]
+			\end{déf}
+
+			\begin{ex} Prenons $X_1, \ldots, X_n$ iid $\P_\theta^{(1)}$, avec $\theta \in \Theta \subseteq \R$. Par la loi des grands nombres, on a~:
+			\[\forall \theta \in \Theta : \widehat \theta \cvgps \theta \quad \text{ sous } \P_\theta^{(1)}.\]
+
+			On a également~:
+			\[\sqrt n(\widehat \theta - \theta) \cvgd \mathcal N\left(0, \frac 1{I^{(1)}(\theta)}\right).\]
+
+			Pour $n \gg$, on a~:
+			\[\widehat \theta \approx \mathcal N\left(\theta, \frac 1{nI^{(1)}(\theta)}\right),\]
+			et donc~:
+			\begin{align*}
+				\E_\theta[\widehat \theta] &\approx \theta \\
+				\Var_\theta[\widehat \theta] &\approx \frac 1{nI^{(1)}(\theta)}.
+			\end{align*}
+
+			On sait dès lors que pour $n$ grand, on a~:
+			\[\MSE_\theta[\widehat \theta] \approx b_\theta(\widehat \theta)^2 + \Var_\theta[\widehat \theta] = \Var_\theta[\widehat \theta]
+				= \frac 1{nI^{(1)}(\theta)},\]
+			qui est la borne de Cramer-Rao. $\widehat \theta$ est donc asymptotiquement efficace.
 			\end{ex}
 \end{document}
