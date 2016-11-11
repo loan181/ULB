@@ -28,17 +28,20 @@
 \newtheorem*{rmq}{Remarque}
 \newtheorem{ex}{Exemple}[chapter]
 
-\DeclareMathOperator{\K}{\mathbb K}
-\DeclareMathOperator{\C}{\mathbb C}
-\DeclareMathOperator{\R}{\mathbb R}
-\DeclareMathOperator{\Rp}{\R^{+}}
-\DeclareMathOperator{\Rm}{\R^{-}}
-\DeclareMathOperator{\Z}{\mathbb Z}
-\DeclareMathOperator{\N}{\mathbb N}
-\DeclareMathOperator{\Ns}{\N^{*}}
-\DeclareMathOperator{\tq}{\text{t.q.}}
+\newcommand{\K}{\mathbb K}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Rp}{\R^{+}}
+\newcommand{\Rm}{\R^{-}}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Ns}{\N^{*}}
+\newcommand{\tq}{\text{ t.q. }}
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\adh}{adh}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -2037,5 +2040,348 @@
 
 			On en déduit alors que $t \mapsto f(x, t)g(x, t)$ admet une intégrale convergente.
 			\end{proof}
+
+	\section{Application à la régularisation et à l'approximation à une dimension}
+		\subsection{Fonctions à support compact}
+			\begin{déf} Soient $\Omega \subset \R$ ouvert non-vide, $f : \Omega \to \R$. On appelle le \textit{support de $f$} l'ensemble~:
+			\[\supp f \coloneqq \adh \left\{x \in \Omega \tq f(x) \neq 0\right\}\]
+			\end{déf}
+
+			\begin{rmq} Le support est le plus petit fermé contenant tous les points où $f$ ne s'annule pas. De même, $\Omega \setminus \supp f$ est le plus
+			grand ouvert inclus dans l'ensemble dans l'ensemble des points de $\Omega$ où $f$ s'annule.
+			\end{rmq}
+
+			\begin{prp} Il existe une fonction $\varphi : \R \to \R$ de classe $C^\infty$ sur $\R$, définie positive sur $\R$, de support $[-1, 1]$ et telle que~:
+			\[\int_R \varphi(x)\dif x = 1.\]
+			\end{prp}
+
+			\begin{proof} Soit la fonction $f$ définie par~:
+			\[h : \R \to \R : x \mapsto \begin{cases}\exp\left(-x^{-2}\right) &\text{ si } x > 0 \\0 &\text{ sinon }\end{cases}.\]
+			On observe que $h$ est de classe $C^\infty$ sur $\Rp_0$ et $\Rm_0$. Également, on a~:
+			\[h^{(k)}(x) = \frac {P_k(x)}{x^{3k}}\exp(-x^{-2}),\]
+			avec $P_k \in \R[x]$, et donc les dérivées sont telles que~:
+			\[\forall k \geq 1 : h^{(k)} \xrightarrow[x \to 0^+]{} 0 = h^{(k)}(0^-)\]
+
+			De plus, on a $\supp h = \Rp$. Posons alors~:
+			\[\rho : \R \to \R : x \mapsto h(1-x)h(1+x).\]
+
+			$\rho$ est toujours $C^\infty$ sur $\R$, et est de support $[-1, 1]$. Par positivité de $\rho$ et par minoration de $\rho$ par une fonction $\gneqq 0$
+			sur un fermé contenu dans $[-1, 1]$, on peut dire que~:
+			\[\alpha \coloneqq \int_{[-1, 1]}\rho(x)\dif x \gneqq 0.\]
+
+			Il suffit ensuite de poser~:
+			\[\varphi \coloneqq \frac \rho\alpha.\]
+			\end{proof}
+
+			\begin{cor}\label{cor:varphi_k}Soit $\alpha > 0$. La fonction $\varphi_\alpha$ définie par~:
+			\[\varphi_\alpha : \R \to \R : x \mapsto \alpha\varphi(\alpha x)\]
+			est positive, de support $\left[-\frac 1\alpha, \frac 1\alpha\right]$, de classe $C^\infty$, et d'intégrale valant $1$.
+			\end{cor}
+
+		\subsection{Produit de convolution}
+			\begin{prp} Soient $f, g : \R \to \R$ telles que~:
+			\begin{itemize}
+				\item $f$ est R-int sur tout segment de $\R$~;
+				\item $g$ est $C^0$ sur $\R$ et à support compact.
+			\end{itemize}
+
+			Alors, pour tout $x$ réel, les fonctions~:
+			\[t \mapsto f(x-t)g(t)\qquad\text{ et }\qquad t \mapsto f(t)g(x-t)\]
+			sont abs-int, et on a~:
+			\[\int_\R f(x-t)g(t)\dif t = \int_\R f(t)g(x-t)\dif t.\]
+			\end{prp}
+
+			\begin{proof} La fonction $g$ est de support compact. Donc il existe un segment $[a, b]$ tel que~:
+			\[\forall x \in \R \setminus [a, b] : g(x) = 0.\]
+			La fonction $g$ est de plus continue sur un compact, donc bornée par $M \gneqq 0$. On peut alors écrire pour tout $x, t \in \R$~:
+			\[\abs {f(x-t)g(t)} \leq M\abs {f(x-t)}I_{\left[a \leq t \leq b\right]}.\]
+
+			Par comparaison, on en déduit que $\abs {g(t)f(x-t)}$ est R-int sur $\R$. On sait alors que $f(x-t)g(t)$ est abs-int sur $\R$, et par changement de
+			variable, on trouve~:
+			\[\int_\R f(x-t)g(t)\dif t = \int_\R f(t)g(x-t)\dif t\]
+
+			\end{proof}
+
+			\begin{déf} On appelle \textit{produit de convolution de $f$ par $g$} la fonction définie par~:
+			\[f * g : \R \to \R : x \mapsto \int_\R f(x-t)g(t)\dif t = \int_\R f(t)g(x-t)\dif t.\]
+			\end{déf}
+
+			\begin{prp}\label{prp:(f*varphi)'=f*varphi'} Soient $k \in \Ns$ et $f : \R \toC0 \R$, R-int sur tout segment. La fonction $(f * \varphi_k)$ est
+			de classe $C^\infty$ sur $\R$, et on a~:
+			\[\forall n \in \N : (f * \varphi_k)^{(n)} = f * (\varphi_k)^{(n)}.\]
+			\end{prp}
+
+			\begin{proof} Fixons $[a, b]$ un segment de $\R$. Prenons $x \in [a, b]$ et $k \in \Ns$. On peut écrire~:
+			\[(f * \varphi_k)(x) = \int_\R f(x-t)\varphi_k(t)\dif t = \int_\R f(t)\varphi_k(x-t)\dif t = \int_{a-\frac 1k}^{b+\frac 1k}f(t)\varphi_k(x-t)\dif t.\]
+
+			On sait que $t \mapsto f(t)\varphi_k(x-t)$ est de classe $C^0$ car $f$ est $C^0$ par hypothèse, et $\varphi_k$ est de classe $C^\infty$. De plus, on
+			sait que $t \mapsto f(t)\varphi_k(x-t)$ est dérivable en $x$, ce qui donne~:
+			\[\od {}x(f(t)\varphi_k(x-t))\sVert[2]_x = f(t)\varphi_k'(x-t).\]
+			Par la Proposition~\ref{prp:dérivabilitésegmentfixe}, on sait que $(f*\varphi_k)$ est de classe $C^1$, et on peut écrire~:
+			\[\od {}x\left(\int_{a-\frac 1k}^{b+\frac 1k}f(t)\varphi(x-t)\dif t\right) = \int_{a-\frac 1k}^{b+\frac 1k}f(t)\varphi_k'(x-t)\dif t = (f * \varphi_k')(x).\]
+
+			En appliquant le résultat par récurrence, on obtient $(f*\varphi_k)$ de classe $C^\infty$ et~:
+			\[\left(f*\varphi_k\right)^{(n)}(x) = \left(f*\left(\varphi_k^{(n)}\right)\right)(x).\]
+			\end{proof}
+
+			\begin{prp}\label{prp:f*varphi_k CVUc f} Soit $f : \R \toC0 \R$. Alors~:
+			\[f*\varphi_k \CVUc \R k\pinfty f.\]
+			\end{prp}
+
+			\begin{proof} Fixons $[a, b]$, un segment de $\R$. Prenons $x \in [a, b]$ et $k \geq 1$, et calculons~:
+			\[(f*\varphi_k)(x)-f(x) = \int_\R f(x-t)\varphi_k(t)\dif t - f(x)\int_\R\varphi_k(t)\dif t,\]
+			car $\varphi_k(t)$ est d'intégrale valant $1$ par le Corollaire~\ref{cor:varphi_k}. On sait donc~:
+			\[(f*\varphi_k)(x) - f(x) = \int_\R \left(f(x-t)-f(x)\right)\varphi_k(t)\dif t.\]
+
+			On sait que $f$ est $C^0$ sur $[a-1, b+1] \ni x-t$ par hypothèse. Par le théorème de Heine, on sait que $f$ est uniformément continue sur $[a-1, b+1]$.
+			Soit $\varepsilon > 0$. Il existe $\eta > 0$ tel que~:
+			\[\forall z_1, z_2 \in [a-1, b+1] : \abs {z_1-z_2} < \eta \Rightarrow \abs {f(z_1)-f(z_2)} < \varepsilon.\]
+
+			On observe ensuite~:
+			\[\abs {(f*\varphi_k)(x)-f(x)} = \abs {\int_{-\frac 1k}^{\frac 1k}\left(f(x-t)-f(x)\right)\varphi_k(t)\dif t}.\]
+
+			Pour $k$ tel que $\frac 1k < \eta$, on a~:
+			\[\forall t \in \left(-\frac 1k, \frac 1k\right) : \abs {f(x)-f(x-t)} < \varepsilon.\]
+
+			Dès lors, pour de tels valeurs de $k$, on trouve~:
+			\[\abs {(f*\varphi_k)(x)-f(x)} = \int_{-\frac 1k}^{\frac 1k}\abs {f(x, t)-f(x)}\varphi_k(t)\dif t
+				\leq \varepsilon\int_{-\frac 1k}^{\frac 1k}\varphi_k(t)\dif t = \varepsilon.\]
+
+			Ainsi, quel que soit $[a, b] \subset \R$, on sait~:
+			\[\forall \varepsilon > 0 : \exists K_\varepsilon \in \N \tq \forall k \geq K_\varepsilon : \sup_{x \in [a, b]}\abs {(f*\varphi_k)(x)-f(x)} \leq \varepsilon.\]
+			\end{proof}
+
+			\begin{prp} Soit $f : \R \toC K \R$. Alors~:
+			\[\forall s \in \intint 0K : \left(f*\varphi_k\right)^{(s)} \CVUc \R k\pinfty f^{(s)}.\]
+			\end{prp}
+
+			\begin{proof} Remarquons par un raisonnement similaire à la Proposition~\ref{prp:(f*varphi)'=f*varphi'} que $(f*\varphi_k)^{(s)} = f^{(s)}*\varphi_k$, et
+			appliquons la Proposition~\ref{prp:f*varphi_k CVUc f}.
+			\end{proof}
+
+			\begin{thm} Soit $[a, b] \subseteq \R$, un segment et soit $f \in C^0([a, b], \R)$. Alors~:
+			\[\forall \varepsilon > 0 : \exists P \in \R[x] \tq \sup_{x \in [a, b]}\abs {f(x)-P(x)} < \varepsilon.\]
+			\end{thm}
+
+			\begin{proof} Premièrement, on étend $f$ sur $[a-1, b+1]$ en y ajoutant les segments définis par les couples $\left((a-1, 0), (a, f(a))\right)$ et
+			$\left((b, f(b)), (b+1, 0)\right)$. Ensuite, par translation et homothétie, on envoie $f$ sur le segment $\left[\pm \frac 12\right]$.
+
+			Pour $k \geq 1$, on pose~:
+			\[g_k : \R \to \R : x \mapsto \begin{cases}{(1-x^2)}^k &\text{ si } \abs x < 1 \\0 &\text{ sinon}\end{cases}.\]
+			On remarque que $g_k \in C^0(\R, \R)$ à support compact et $\int_\R g_k(x)\dif x \eqqcolon \alpha_k \gneqq 0$.
+
+			On peut alors définir~:
+			\[h_k \coloneqq \frac {g_k}{\alpha_k}.\]
+
+			$h_k$ est continue sur $\R$, à support compact et d'intégrale valant 1. Étant donné que pour $x \in [-1, 1]$, on a $x^2 \leq x$, et donc $-x^2 \geq -x$,
+			on peut écrire~:
+			\[\alpha_k = \int_{-1}^1(1-x^2)^k\dif x = 2\int_0^1(1-x^2)^k\dif x \geq 2\int_0^1(1-x)^k\dif x = \frac 2{k+1}.\]
+
+			De plus~:
+			\[\forall \delta \in (0, 1) : h_k \xrightarrow[{[-1, 1] \setminus [-\delta, \delta]}]{CVU} 0\]
+
+			En effet, pour $\abs x \in [\delta, 1]$, on a~: $x^2 \in [\delta^2, 1^2] = [\delta^2, 1] \supset [\delta, 1]$, et donc $1-x^2 \in [0, 1-\delta^2]$.
+			Et donc~:
+			\[h_k(x) = \frac {(1-x^2)^k}{\alpha_k} \leq \frac {(1-\delta^2)^k}{\alpha_k} \leq \frac {k+1}2(1-\delta^2)^k \xrightarrow[k \to \pinfty]{} 0,\]
+			avec le majorant $\frac {k+1}2(1-\delta^2)^k$ ne dépendant pas de $x$. La convergence est donc uniforme.
+
+			Pour $x \in \R, k \in \Ns$, posons~:
+			\[f_k(x) = f * h_k(x).\]
+
+			Observons que si $x \in \left[\pm \frac 12\right]$, alors~:
+			\[\forall t \in \left[\pm \frac 12\right] : (x-t) \in [-1, -1],\]
+			et donc~:
+			\[\forall t, x \in \left[\pm \frac 12\right] : h_k(x-t) = \frac {{(1-(x-t)^2)}^k}{\alpha_k} = \sum_{k=0}^{2p}a_{k\,p}(t)x^p,\]
+			avec les $a_{k\,p}(t)$ venant des coefficients du binôme de Newton.
+
+			Ainsi, $\restr {f_k}{\left[\pm\frac 12\right]}$ est une fonction polynômiale de degré inférieur ou égal à $2k$.
+
+			$f$ est continue sur $\R$ et à support dans $\left[\pm \frac 12\right]$, donc elle est~:
+			\begin{itemize}
+				\item bornée par $M \gneqq 0$ sur $\R$~;
+				\item uniformément continue sur $\R$\footnote{$\sim$ théorème de Heine.}.
+			\end{itemize}
+
+			Fixons $\varepsilon > 0$. Il existe $\eta > 0$ tel que~:
+			\[\forall x, y \in \R : \abs {x-y} < \eta \Rightarrow \abs {f(x)-f(y)} \leq \varepsilon.\]
+
+			Pour $x \in \left[\pm\frac 12\right]$ et $k \geq 1$, écrivons~:
+			\[f_k(x)-f(x) = \int_\R f(x-t)h_k(t)\dif t - f(x)\int_\R h_k(t)\dif t = \int_\R \left(f(x-t)-f(x)\right)h_k(t)\dif t.\]
+
+			En prenant la valeur absolue, on trouve~:
+			\begin{align*}
+				\abs {f_k(x)-f(x)}
+					&\leq \int_\minfty^{-\eta}\abs {f(x-t)-f(x)}h_k(t)\dif t + \int_{-\eta}^{\eta}\abs {f(x-t)-f(x)}h_k(t)\dif t + \int_\eta^\pinfty\abs {f(x-t)-f(x)}h_k(t)\dif t \\
+				&= \int_{-1}^{-\eta}\abs {f(x-t)-f(x)}h_k(t)\dif t + \int_{-\eta}^{\eta}\abs {f(x-t)-f(x)}h_k(t)\dif t + \int_\eta^1\abs {f(x-t)-f(x)}h_k(t)\dif t \\
+				&\leq 2M\norm {h_k}_{\infty, [-1, -\eta]} + \varepsilon\int_{-\eta}^\eta h_k(t)\dif t + 2M\norm {h_k}_{\infty, [\eta, 1]} \\
+				&\leq 4M\norm {h_k}_{\infty, [\eta, 1]} + \varepsilon,
+			\end{align*}
+			et le majorant ne dépend pas de $x \in \left[\pm\frac 12\right]$.
+
+			Dès lors, en choisissant $k_\varepsilon$ tel que $\forall k \geq k_\varepsilon : \norm {h_k}_{\infty, [\eta, 1]} \leq \frac \varepsilon{4M}$, alors il vient que~:
+			\[\forall k \geq k_\varepsilon : \sup_{x \in \left[-\frac 12, \frac 12\right]}\abs {f_k(x)-f(x)} \leq 2\varepsilon.\]
+			\end{proof}
+
+			% Exercice dans le cours
+
+\chapter{Critère de compacité en dimension infinie~: le théorème d'Arzela-Ascoli}
+	\section{Rappels de topologie métrique}
+		\subsection{Densité et séparabilité}
+			\begin{déf} Soit $(X, d)$ un espace métrique, et soit $A \subseteq X$. On appelle \textit{adhérence de $A$} l'ensemble~:
+			\[\adh A \coloneqq \bigcap_{\overset {F \text{ fermé }}{F \supset A}} F.\]
+
+			$\adh A$ est, par construction, le plus petit (au sens de l'inclusion) fermé de $X$ qui contient $A$.
+			\end{déf}
+
+			\begin{rmq}~
+			\begin{itemize}
+				\item $x \in X$ est dans $\adh A$ si et seulement si $\forall \varepsilon > 0 : B(x, \varepsilon[ \cap A \neq \emptyset$~;
+				\item l'ensemble $\adh A$ peut également être défini par l'ensemble des limites de suites de $A$ qui convergent dans $X$.
+			\end{itemize}
+			\end{rmq}
+
+			\begin{déf} Soient $X \neq \emptyset$ et $A \subseteq X$. On dit que $A$ est \textit{dense} dans $X$ lorsque $\adh A = X$.
+			\end{déf}
+
+			\begin{déf} L'ensemble $A$ est dit \textit{dénombrable} lorsqu'il existe $\varphi : \N \to A$ bijective.
+			\end{déf}
+
+			\begin{déf} Soit $(x_n)_n$ une suit de $X$. On dit que $x^*$ est une \textit{valeur d'adhérence de $(x_n)$} lorsqu'il existe une sous-suite
+			$(x_{\psi(n)})_n$ de $(x_n)$ qui converge en $x^*$.
+			\end{déf}
+
+			\begin{déf}Une suite $(x_n)_n$ est dite \textit{dense dans $X$} lorsque l'ensemble de ses valeurs d'adhérence dans $X$ est $X$.
+			\end{déf}
+
+			\begin{déf} Un espace métrique $(X, d)$ est dit \textit{séparable} lorsqu'il possède une suite dense.
+			\end{déf}
+
+			\begin{prp} Soit $(X, d)$ un espace métrique. Il est séparable si et seulement si il admet une partie dense finie ou dénombrable
+			\end{prp}
+
+			\begin{proof} Soit $(x_n)_n$ une suite dense dans $X$. La partie $A$ définie par~:
+			\[A \coloneqq \bigcup_{n \in \N}\{x_n\} = \left\{x_n \tq n \in \N\right\}\]
+			est finie ou dénombrable, dense dans $X$ par définition.
+
+			Soit maintenant $A$ dense dans $X$. Différencions les cas où $A$ est finie et où $A$ est dénombrable.
+			\begin{itemize}
+				\item si $A = \{x_1, \ldots, x_N\}$ est finie, alors $X = \{x_0, \ldots, x_N\} = A$, et la suite $(x_0, \ldots, x_N, x_0, \ldots, x_N, x_0, \ldots)$
+				est dense dans $X$~;
+				\item si $A = \{x_1, \ldots, x_N, \ldots\} = \bigcup_{n \in \N}\{x_n\}$ est dénombrable, alors la suite $(x_0, x_0, x_1, x_0, x_1, x_2, x_0, \ldots)$
+				est dense dans $X$.
+			\end{itemize}
+			\end{proof}
+
+			\begin{ex}~
+			\begin{itemize}
+				\item $A = \Q$ est dénombrable (et dense) dans $\R$, et donc $(\R, \abs .)$ est séparable~;
+				\item $A = \Q^d$ est dénombrable (et dense) dans $\R^d$, et donc $(\R, \norm .)$ est séparable\footnote{La norme n'est pas précisée ici car dans
+				$\R^n$, toutes les normes sont équivalentes.}.
+			\end{itemize}
+			\end{ex}
+
+			\begin{déf} Soit $X$ dénombrable. On appelle \textit{énumération} toute bijection $\varphi : X \to \N$
+			\end{déf}
+
+			\begin{prp} Soit $A \subset \R^d$. Alors $A$ est séparable.
+			\end{prp}
+
+			\begin{proof} Montrons qu'il existe une partie dense dans $A$ finie ou dénombrable. Soit $(x_q)_{q \in \N}$, une énumération de $\Q^d$. Pour $n \geq 1$,
+			on a~:
+			\[A \subset \bigcup_{q \in \N}B(x_q, n^{-1}[ = \R^d,\]
+			par densité de $\Q^d$ dans $\R^d$.
+
+			Pour $n \geq 1$, notons
+			\[C_n \coloneqq \left\{q \in \N \tq B(x_q, n^{-1}[ \, \cap A \neq 0\right\} \subseteq \N.\]
+			On sait donc que $C_n$ est fini ou dénombrable. Pour tout $n \geq 1$, et $q \in C_n$, on peut choisir~:
+			\[y_{n\,q} \in B(x_q, n^{-1}[ \, \cap A.\]
+
+			Pour $n \geq 1$, on pose alors~:
+			\[X_n \coloneqq \bigcup_{q \in C_n}\left\{y_{n\,q}\right\} \neq \emptyset,\]
+			fini ou dénombrable, et donc~:
+			\[X \coloneqq \bigcup_{n \in \N}X_n\]
+			est non-nul, fini ou dénombrable.
+
+			Il reste à montrer que $X$ est dense dans $A$.
+
+			Soient $x \in A$ et $\varepsilon > 0$ fixés. Il existe $n_0 \in \Ns$ tel que $n_0 > \frac 2\varepsilon$. Ainsi~:
+			\[x \in A \subset \bigcup_{q \in \N}B(x_q, {n_0}^{-1}[.\]
+
+			Donc, il existe $q_0 \in \N \tq \norm {x-x_{q_0}} < \frac 1{n_0} < \frac \varepsilon2$. De plus, on peut dire que $y_{n_0\,q_0} \in X_n \subset X$.
+			De plus, pour $y_{n\,q} \in X$~:
+			\[\norm {x-y_{n\,q}} \leq \norm {x-x_{q_0}} + \norm {x_{q_0} - y_{n\,q}} < \frac \varepsilon2 + \frac 1{n_0} < \varepsilon.\]
+			\end{proof}
+
+	\section{L'espace $C_b^0(X, \R)$}
+		\begin{déf} Soit $X \subset \R^d$ non-nul. On définit~:
+		\[C^0_b(X, \R) \coloneqq \{f \in C^0(X, \R) \tq f \text{ est bornée}\}.\]
+		\end{déf}
+
+		\begin{prp}~
+		\begin{enumerate}
+			\item $\left(C^0_b(X, \R), \norm ._\infty\right)$ est un \evn~;
+			\item $C^0_b(X, \R)$ est un fermé de $\left(B(X, \R), \norm \cdot_\infty\right)$~;
+			\item $C^0_b(X, \R)$ est complet.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof}~
+		\begin{enumerate}
+			\item EXERCICE.
+			\item Soit $f_n \in C^0_b(X, \R) \tq$~:
+			\[\exists f \in B(X, \R) \tq f_n \xrightarrow[n \to \pinfty]{\norm \cdot_\infty} f.\]
+			$f$ est limite sur $X$ d'une suite de fonctions continues sur $X$. Donc $f \in C^0_b(X, \R)$, et donc $C^0_b(X, \R)$ est fermé dans $B(X, \R)$.
+			\item $C^0_b(X, \R)$ est fermé dans $\left(B(X, \R), \norm \cdot_\infty\right)$ qui est complet, donc $C^0_b(X, \R)$ est complet.
+		\end{enumerate}
+		\end{proof}
+
+		\begin{prp} Soit $X \subset \R^d$. Si $X$ est compact, alors $C^0(X, \R) = C^0(X, \R)$.
+		\end{prp}
+
+		\begin{proof} On sait que $C^0_b(X, \R) \subseteq C^0(X, \R)$ pour tout ensemble $X$. Prenons $f \in C^0(X, \R)$. Une fonction continue sur un compact
+		est bornée, du coup $f \in C^0_b(X, \R)$, et donc $C^0(X, \R) \subseteq C^0_b(X, \R)$.
+		\end{proof}
+
+		\begin{déf} On note $\mathcal P([a, b])$ l'ensemble des fonctions polynômiales définies sur $[a, b]$ à valeur dans $\R$.
+		\end{déf}
+
+		\begin{prp}~
+		\begin{enumerate}
+			\item $\mathcal P([a, b]) \subset C^0([a, b], \R) = C^0_b([a, b], \R)$~;
+			\item $\mathcal P([a, b])$ est dense dans $\left(C^0([a, b], \R), \norm \cdot_\infty\right)$.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof}~
+		\begin{enumerate}
+			\item EXERCICE.
+			\item Weierstrass.
+		\end{enumerate}
+		\end{proof}
+
+		\begin{cor} $\left(C^0([a, b], \R), \norm \cdot_\infty\right)$ est séparable.
+		\end{cor}
+
+		\begin{proof} $\Q[x]$ est dénombrable et dense dans $\left(C^0([a, b], \R), \norm \cdot_\infty\right)$. En effet, si $f \in C^0([a, b], \R)$ et
+		$\varepsilon > 0$ sont fixés, alors par Weierstrass, il existe $P \in \R[x]$ tel que~:
+		\[\norm {f-P}_\infty < \frac \varepsilon2.\]
+
+		On peut écrire $P$ sous la forme~:
+		\[P = \sum_{k=0}^da_kx^k,\qquad\qquad a_k \in \R.\]
+
+		Par densité de $\Q$ dans $\R$, il existe $b_0, \ldots, b_k \in \Q$ tels que~:
+		\[\max_{i \in \intint 0d}\abs {a_i-b_i} \leq \frac \varepsilon{2\sum_{x \in [a, b]}\sum_{\gamma = 0}^d\abs x^k}.\]
+
+		Posons~:
+		\[Q \coloneqq \sum_{k=0}^db_kx^k,\]
+		le polynôme associé à ces coefficients. On trouve alors~:
+		\begin{align*}
+			\norm {P-Q}_\infty &\leq \sum_{x \in [a, b]}\abs {a_k-b_k}\abs x^k \leq \sup_{x \in [a, b]}\sum_{k=0}^d\frac \varepsilon{2\sup_{x' \in [a, b]}\sum_{\gamma=0}^d\abs {x'}^\gamma}\abs {x}^k \\
+			&= \frac \varepsilon{2\sup_{x \in [a, b]}\sum_{k=0}^d\abs x^k}\sup_{x \in [a, b]}\sum_{k=0}^d\abs x^k = \varepsilon.
+		\end{align*}
+
+		Et finalement, on a~:
+		\[\norm {f-Q}_\infty \leq \norm {f-P}_\infty + \norm {Q-P}_\infty \leq \varepsilon.\]
+		\end{proof}
 
 \end{document}
