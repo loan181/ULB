@@ -69,6 +69,9 @@
 \newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
 \newcommand{\scpr}[2]{\left\langle #1, #2\right\rangle}
 
+\newcommand{\evfn}[3]{\left(#1\left(#2, #3\right), \norm {\cdot}_{\infty}\right)}
+\newcommand{\evnC}[3]{{\evfn {C^{#1}}{#2}{#3}}}
+\newcommand{\evnCb}[3]{{\evfn {C_b^{#1}}{#2}{#3}}}
 \newcommand{\toC}[1]{\xrightarrow{C^{#1}}}
 \newcommand{\tocont}{\toC 0}
 \newcommand{\minfty}{{-\infty}}
@@ -91,6 +94,7 @@
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
+\part{Fonctions, séries et intégrales}
 \chapter{Suites et séries de fonctions}
 	\section{Rappels}
 		\subsection{Topologie métrique}
@@ -1365,7 +1369,7 @@
 			\end{proof}
 
 			\begin{prp} Soient $I \subset \R$, un intervalle non-vide, et $f : I \to \R$ abs-int. La fonction $F : I \to \R : x \to \int_{I \cap (-\minfty, x]} f$ est
-			localement lipschitizienne.
+			localement lipschitizenne.
 			\end{prp}
 
 			\begin{proof} Soit $x_0 \in I$. Supposons que $x_0$ n'est pas un bord de $I$ (sinon EXERCICE). Supposons qu'il existe
@@ -2319,7 +2323,7 @@
 
 		\begin{prp}~
 		\begin{enumerate}
-			\item $\left(C^0_b(X, \R), \norm ._\infty\right)$ est un \evn~;
+			\item $\evnCb0X\R$ est un \evn~;
 			\item $C^0_b(X, \R)$ est un fermé de $\left(B(X, \R), \norm \cdot_\infty\right)$~;
 			\item $C^0_b(X, \R)$ est complet.
 		\end{enumerate}
@@ -2348,7 +2352,7 @@
 		\begin{prp}~
 		\begin{enumerate}
 			\item $\mathcal P([a, b]) \subset C^0([a, b], \R) = C^0_b([a, b], \R)$~;
-			\item $\mathcal P([a, b])$ est dense dans $\left(C^0([a, b], \R), \norm \cdot_\infty\right)$.
+			\item $\mathcal P([a, b])$ est dense dans $\evnC0{[a, b]}\R$.
 		\end{enumerate}
 		\end{prp}
 
@@ -2359,11 +2363,11 @@
 		\end{enumerate}
 		\end{proof}
 
-		\begin{cor} $\left(C^0([a, b], \R), \norm \cdot_\infty\right)$ est séparable.
+		\begin{cor} $\evnC0{[a, b]}\R$ est séparable.
 		\end{cor}
 
-		\begin{proof} $\Q[x]$ est dénombrable et dense dans $\left(C^0([a, b], \R), \norm \cdot_\infty\right)$. En effet, si $f \in C^0([a, b], \R)$ et
-		$\varepsilon > 0$ sont fixés, alors par Weierstrass, il existe $P \in \R[x]$ tel que~:
+		\begin{proof} $\Q[x]$ est dénombrable et dense dans $\evnC0{[a, b]}\R$. En effet, si $f \in C^0([a, b], \R)$ et $\varepsilon > 0$ sont fixés, alors par
+		Weierstrass, il existe $P \in \R[x]$ tel que~:
 		\[\norm {f-P}_\infty < \frac \varepsilon2.\]
 
 		On peut écrire $P$ sous la forme~:
@@ -2376,7 +2380,8 @@
 		\[Q \coloneqq \sum_{k=0}^db_kx^k,\]
 		le polynôme associé à ces coefficients. On trouve alors~:
 		\begin{align*}
-			\norm {P-Q}_\infty &\leq \sum_{x \in [a, b]}\abs {a_k-b_k}\abs x^k \leq \sup_{x \in [a, b]}\sum_{k=0}^d\frac \varepsilon{2\sup_{x' \in [a, b]}\sum_{\gamma=0}^d\abs {x'}^\gamma}\abs {x}^k \\
+			\norm {P-Q}_\infty &\leq \sum_{x \in [a, b]}\abs {a_k-b_k}\abs x^k
+				\leq \sup_{x \in [a, b]}\sum_{k=0}^d\frac \varepsilon{2\sup_{x' \in [a, b]}\sum_{\gamma=0}^d\abs {x'}^\gamma}\abs {x}^k \\
 			&= \frac \varepsilon{2\sup_{x \in [a, b]}\sum_{k=0}^d\abs x^k}\sup_{x \in [a, b]}\sum_{k=0}^d\abs x^k = \varepsilon.
 		\end{align*}
 
@@ -2384,4 +2389,292 @@
 		\[\norm {f-Q}_\infty \leq \norm {f-P}_\infty + \norm {Q-P}_\infty \leq \varepsilon.\]
 		\end{proof}
 
+	\section{Théorème d'Arzela-Ascoli}
+		\subsection{Motivation}
+			Soit $X \subset \R^d$ non-vide. $X$ est compact si et seulement si il est fermé et borné.
+
+			Dans l'\evn $(E, \norm \cdot) = \evnC0{[a, b]}\R$, la suite~:
+			\[f_k : [0, 1] \to \R : x \mapsto x^k\]
+			est bornée car pour tout $k \in \N$, on a $\norm {f_k}_\infty \leq 1$. Cependant, elle n'a pas de sous-suite convergente dans $\evnC0{[a, b]}\R$.
+			En effet, s'il existe $\varphi : \N \to \N$ strictement croissante, $f \in C^0$ telle que~:
+			\[f_{\varphi(k)} \xrightarrow[k \to \pinfty]{\norm \cdot_\infty} f,\]
+			alors $f : [0, 1] \to \R : x \mapsto I_{[x=1]} \not \in C^0([0, 1])$, ce qui est une contradiction.
+
+			L'objectif du théorème d'Arzela-Ascoli est de donner un critère (condition suffisante) pour qu'une partie de $\evnC {0}{[0, 1]}{\R}$ soit d'adhérence
+			compacte.
+
+		\subsection{Énoncé et démonstration}
+			\begin{déf} Soient $X \subset \R^d$ non-vide, $B \subset \mathcal F(X, \R)$, une partie de l'ensemble des fonctions $X \to \R$. On dit que $B$ est
+			\textit{équicontinue} sur $X$ lorsque~:
+			\[\forall \varepsilon > 0 : \exists \eta > 0 \tq \forall f \in B : \forall x, y \in X :
+				\left(\norm {x-y} < \eta \Rightarrow \abs {f(x)-f(y)} < \varepsilon\right).\]
+			\end{déf}
+
+			\begin{rmq} Lorsque $X = [0, 1]$ et $B \subset \evnC1X\R$, si $\exists M \gneqq 0 \tq \forall f \in B : \norm {f'}_\infty < M$, alors $B$ est
+			équicontinue sur $X$. En effet~:
+			\[\forall f \in B : \forall x, y \in X : \abs {f(x)-f(y)} \leq M\abs {x-y},\]
+			par le théorème des accroissements finis. Dès lors, $\eta = \frac \varepsilon M$ convient.
+			\end{rmq}
+
+			\begin{thm}[Théorème d'Arzela-Ascoli] Soient $A \subset \R^d$ compact et $B \subset \evnC0A\R$ non-nul. Si $B$ est bornée
+			(pour $\norm \cdot_{\infty, A}$) et équicontinue, alors $B$ est d'adhérence compacte.
+			\end{thm}
+
+			\begin{rmq} Cela amène que pour toute suite de points de $B$, on peut extraire une sous-suite qui converge dans $\adh B \subset C^0(A, \R)$.
+			\end{rmq}
+
+			\begin{proof} $A \subset \R^d$ est compacte et donc séparable. Soit $C$ une partie dénombrable ou finie dense dans $A$.
+
+			\begin{itemize}
+				\item Si $C$ est finie, alors $C = \{x_1, \ldots, x_k\}$ pour $k \in \Ns$ et $A = C$. Soit $(f_n)_n \subset B$. La suite $(f_n(x_1))_n \subset \R$
+				est bornée (car $B$ est bornée) et admet une sous-suite $(f_{\varphi_1(n)}(x_1))_n \subset \R$ convergente dans $\R$.
+
+				La suite $(f_{\varphi_1(n)}(x_2))_n \subset \R$ est bornée donc admet une sous-suite $(f_{(\varphi_1 \circ \varphi_2)(n)}(x_2))$ convergente
+				dans $\R$. En réitérant jusque $k$, on trouve $\varphi_1, \ldots, \varphi_k : \N \to \N$ strictement croissantes et il existe $f(x_1), \ldots,
+				f(x_n) \in \R$ tels que~:
+				\[\forall i \in \intint 1k : f_{(\varphi_1 \circ \ldots \circ \varphi_k)(n)}(x_i) \xrightarrow[n \to \pinfty]{} f(x_i).\]
+
+				On a alors $f \in C^0(A, \R)$, et on a bien~:
+				\[\norm {f_{(\varphi_1 \circ \ldots \circ \varphi_k)(n)} - f}_{\infty, A} =
+					\max_{i \in \intint 1n}\abs {f_{(\varphi_1 \circ \ldots \circ \varphi_k)(n)}(x_i) - f(x_i)}
+					\xrightarrow[n \to \pinfty]{} 0.\]
+				\item Si $C$ est dénombrable, on pose $(x_n)$ une énumération de $C$. Soit $(f_n) \subset B$. La suite $(f_n(x_0))$ est bornée dans $\R$ car
+				$B$ est bornée et donc admet une sous-suite convergente , que l'on note $(f^{(0)}_n(x_0))_n$. Cette sous-suite est réelle et bornée donc admet
+				une sous-suite convergente que l'on note $(f^{(1)}_n(x_1))_n$. En réitérant, on trouve une suite d'extractions $(f^{(k)}_n)_k$ telle que
+				$f^{(k)}_n = f^{(k-1)}_{\varphi_k(n)}$, avec $\varphi_i$ strictement croissante pour $i \geq 0$. Pour tout $k$ naturel, on pose~:
+				\[g_k = f^{(k)}_k.\]
+				$(g_k)_k$ est une extraction diagonale de Cantor. De plus, la suite $(g_k)_k$ est une suite extraite de $(f_n)_n$. Pour tout $p$ naturel, la
+				suite $(g_k(x_p))_k$ converge donc vers $f(x_p)$ car~:
+				\[\forall \ell \geq p : g_\ell(x_p) = f^{(\ell)}_\ell(x_p),\]
+				et donc $(g_k(x_p))_k$ est extraite de $(f_k^{(p)}(x_p))_k$ avec~:
+				\[f_k^{(p)}(x_p) \xrightarrow[k \to \pinfty]{} f(x_p).\]
+
+				Montrons maintenant que la suite $(g_k)_k$ est uniformément de Cauchy sur $A$. Fixons $\varepsilon > 0$. Soit $\eta > 0$ le module d'équicontinuité
+				de $B$ pour $\varepsilon$. Écrivons~:
+				\[A \subset \bigcup_{y \in A}B\left(y, \frac \eta2\right[.\]
+
+				Par compacité de $A$, on sait qu'il existe un recouvrement fini, et donc $q \in \N$ et $y_1, \ldots y_q \in A$ tels que~:
+				\[A \subset \bigcup_{j=1}^qB\left(y_j, \frac \eta2\right[.\]
+
+				Par définition de $C$ (séparabilité de $A$), on sait~:
+				\[\forall j \in \intint 1q : \exists x_{p_j} \tq \norm {x_{p_j} - y_j} \leq \frac \eta2.\]
+
+				Les suites $(g_k(x_{p_i}))_k$ convergent dans $\R$ pour $i \in \intint 1q$ et donc de Cauchy. Puisqu'elles sont en nombre fini, il existe
+				$N \in \N$ tel que~:
+				\[\forall m, n \geq N : \abs {g_m(x_{p_j}-g_n(x_{p_j})} \leq \varepsilon.\]
+
+				Soit $x \in A$. Par compacité de $A$, il existe $j \in \intint 1q$ tel que $\norm {x-y_j} \leq \frac \eta2$, et~:
+				\[\norm {x-x_{p_j}} \leq \norm {x - y_j} + \norm {y_j - x_{p_j}} \leq 2\frac \eta2 = \eta.\]
+
+				Pour $m, n > N$, on trouve donc~:
+				\[\abs {g_m(x)-g_n(x)} \leq \abs {g_m(x) - g_m(x_{p_j})} + \abs {g_m(x_{p_j}) - g_n(x_{p_j})} + \abs {g_n(x_{p_j}) - g_n(x)} \leq 3\varepsilon,\]
+				par Cauchy et équicontinuité. On en déduit que la suite $(g_n)_n$ est de Cauchy dans $\evnC0A\R$.
+			\end{itemize}
+			\end{proof}
+
+\part{Équations différentielles}
+\chapter{Conditions suffisantes d'existence et d'unicité de solutions}
+	\section{Équations différentielles - forme normale - réduction à l'ordre 1}
+		\subsection{Généralités}
+			\begin{déf} On appelle \textit{équation différentielle} toute relation de la forme~:
+			\begin{equation}\label{eq:equadiff}\tag{*}
+			F(t, y(t), y^{(1)}(t), \ldots, y^{(p)}(t)) = 0\qquad\qquad t \in I,
+			\end{equation}
+			où~:
+			\begin{itemize}
+				\item $I$ est un intervalle de $\R$~;
+				\item $F : I \times \Omega_0 \times \Omega_1 \times \ldots \Omega_p \to \R$ est une fonction~;
+				\item $\Omega_0, \Omega_1, \ldots, \Omega_p$ sont des ouverts de $\R^d$.
+			\end{itemize}
+			$y : J \subset I \to \R^d$ est une fonction inconnue définie sur un intervalle $J$ inconnu également et $p$ fois dérivable sur $J$, telle que~:
+			\[\forall t \in J : \forall j \in \intint 0p : y^{(j)}(t) \in \Omega_j,\]
+			et dont les dérivées sont liées par l'équation~(\ref{eq:equadiff}).
+			\end{déf}
+
+			\begin{déf} Une équation différentielle est dite \textit{résoluble} lorsqu'elle peut être mise de manière équivalente sous forme normale~:
+			\begin{equation}\label{eq:equadiffnormale}\tag{\#}
+			y^{(p)}(t) - f(t, y(t), \ldots, y^{(p-1)}(t)) = 0,
+			\end{equation}
+			où $f : I \times \Omega_0 \times \ldots \times \Omega_{p-1} \to \Omega_p$.
+			\end{déf}
+
+		\subsection{Réduction à l'ordre 1}
+			\begin{rmq} Une équation sous forme normale~(\ref{eq:equadiffnormale}) est équivalente à l'équation d'ordre 1 $Y'(t) - G(t, Y(t)) = 0$, où~:
+			\[Y(t) = \begin{bmatrix}y(t) \\y^{(1)}(t) \\ \vdots \\ y^{(p-1)}(t)\end{bmatrix} \qquad\qquad \text{ et } \qquad\qquad
+			G(t, Y(t)) = \begin{bmatrix}Y_0(t) \\ Y_1(t) \\ \vdots \\ Y_{p-1}(t) \\ f(t, Y_0(t), \ldots, Y_{p-1}(t)\end{bmatrix}.\]
+			\end{rmq}
+
+			\begin{rmq} Toute équation différentielle résoluble étant équivalente à une équation différentielle d'ordre 1, on étudiera uniquement ces dernières,
+			et cela permettra de résoudre les autres, sans perte de généralité.
+			\end{rmq}
+
+		\subsection{Problème de Cauchy}
+			\begin{déf} On se donne un équation différentielle (ED) d'ordre 1 résoluble~:
+			\[y'(t) = f(t, y(t)),\]
+			avec~:
+			\begin{itemize}
+				\item $f : I \times \Omega \to \R^d$~;
+				\item $I \subset \R$ un intervalle~;
+				\item $\Omega \subset \R^d$, un ouvert.
+			\end{itemize}
+
+			On appelle \textit{donnée de Cauchy} tout couple $(t_0, y_0) \in I \times \Omega$.
+
+			On appelle \textit{problème de Cauchy} le fait de chercher $J \subset I$ un intervalle et $y : J \to \R^d$ tels que~:
+			\begin{equation}\label{eq:equadiffPC}\tag{PC}
+			\left\{\begin{aligned}
+				&\forall t \in J : y'(t) = f(t, y(t)) \\
+				&y(t_0) = y_0
+			\end{aligned}\right.
+			\end{equation}
+			\end{déf}
+
+		\subsection{Formulation intégrale}
+			\begin{prp} Si $f \in C^0(I \times \Omega, \R^d)$, alors $y : J \tocont \Omega$, avec $t_0 \in J$ est solution de~(\ref{eq:equadiffPC}) si et
+			seulement si~:
+			\begin{equation}\label{eq:prppcintégrale}
+				\forall t \in J : y(t) = y_0 + \int_{t_0}^tf(s, y(s))\dif s.
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} Supposons d'abord $y$ solution de~(\ref{eq:equadiffPC}). Alors~:
+			\[\forall t \in J : y'(t) = f(t, y(t)).\]
+			Par dérivabilité de $y$ sur $J$, on sait que $y \in C^0(J)$. Puisque $y$ est à valeurs dans $\Omega$, on sait que $f \in C^0(I \times \Omega)$ avec
+			$J \subset I$. La fonction $t \mapsto f(t, y(t))$ est donc continue sur $J$. Ainsi, $y'$ est continue sur $J$, et donc $y \in C^1(J, \R^d)$, et on a~:
+			\[y(t) - y(t_0) = \int_{t_0}^ty'(t)\dif t,\]
+			ou encore~:
+			\[y(t) = y_0 + \int_{t_0}^t f(s, y(s))\dif s.\]
+
+			Maintenant, supposons que $y$ vérifie~(\ref{eq:prppcintégrale}). Puisque $y \in C^0(J, \Omega)$, la fonction $s \mapsto f(s, y(s))$ est continue
+			sur $J$. Elle est donc intégrable, et $t \mapsto \int_{t_0}^t f(s, y(s))\dif s$ est de classe $C^1$ sur $J$. On a alors~:
+			\[\od {}t\int_{t_0}^tf(s, y(s))\dif s = f(t, y(t)).\]
+			Par hypothèse, on a~:
+			\[y(t) = y_0 + \int_{t_0}^tf(s, y(s))\dif s.\]
+			Dès lors, en dérivant terme à terme, on trouve~:
+			\[y'(t) = f(t, y(t)),\]
+			et on a de plus~:
+			\[y(t_0) = y_0 + \int_{t_0}^{t_0}f(s, y(s))\dif s = y_0 + 0 = y_0.\]
+			$y$ est donc bien solution de~(\ref{eq:equadiffPC}).
+			\end{proof}
+
+	\section{Existence et unicité locales}
+		\subsection{Théorème du point fixe de Banach}
+			\begin{déf} Soient $(X, d_X)$ et $(Y, d_Y)$ deux espaces métriques. $f : X \to Y$ est dite \textit{contractante} lorsque~:
+			\[\exists k \in [0, 1) \tq \forall x, y \in X : d_Y(f(x), f(y)) \leq kd_X(x, y).\]
+			\end{déf}
+
+			\begin{thm}[Théorème du point fixe de Banach] Soient $(X, d)$ un espace métrique, $A \subset X$ une partie complète non-vide et $f : A \to A$
+			contractante sur $A$. Alors~:
+			\begin{itemize}
+				\item $f$ admet un unique point fixe $a^* \in A$~;
+				\item $\forall x_0 \in A$, la suite $x_n = f(x_{n-1})$ converge dans $A$ en $a^*$.
+			\end{itemize}
+			\end{thm}
+
+			\begin{proof}~
+			\begin{itemize}
+				\item Montrons d'abord l'existence de $a^*$. Fixons $x_0 \in A$.  La suite $x_n = f(x_{n-1})$ est bien définie dans $A$ (car $f(A) \subseteq A$).
+				Observons que~:
+				\[\forall n \in \N : x_n = f^n(x_0).\]
+
+				Soient $n, p \in \N$. On calcule~:
+				\begin{align*}
+					d(x_{n+p}, x_n) &\leq d(x_{n+p}, x_{n+p-1}) + d(x_{n+p-1}, x_{n+p-2}) + \ldots + d(x_{n+1}, x_n) \\
+					&\leq k^{p-1}d(x_{n+1}, x_n) + k^{p-2}d(x_{n+1}, x_n) + \ldots + d(x_{n+1}, x_n) \\
+					&\leq \frac {1-k^p}{1-k}d(x_{n+1}, x_n) \leq \frac 1{1-k}d(x_{n+1}, x_n) \\
+					&\leq \frac 1{1-k}k^nd(x_1, x_0) \xrightarrow[n \to \pinfty]{} 0,
+				\end{align*}
+				et ce, indépendamment de $p$. La suite $(x_n)_n$ est donc de Cauchy, et par complétude de $A$ (hypothèse), on sait que $(x_n)_n$ converge dans $A$.
+				Appelons cette limite $a^*$. On a alors~:
+				\[a^* = \lim_{n \to \pinfty} x_n = \lim_{n \to \pinfty}f(x_{n-1}) = f(a^*).\]
+				Le point $a^*$ est donc un point fixe.
+
+				Montrons ensuite l'unicité de ce point fixe. Soient $x, y \in A$ deux points fixes de $f$. On sait alors~:
+				\[x = f(x) \qquad\qquad \text{ et } \qquad\qquad y = f(y).\]
+				Or, puisque $f$ est contractante, on sait~:
+				\[d(x, y) = d(f(x), f(y)) \leq kd(x, y),\]
+				ou encore~:
+				\[(1-k)d(x, y) \leq 0.\]
+
+				Or on sait que $1-k \gneqq 0$. Donc on a $d(x, y) \leq 0$, et donc $d(x, y) = 0$, ce qui par séparabilité des points d'une métrique implique $x=y$.
+				\item On a vu que $x_n = f(x_{n-1})$ était convergente pour toute valeur initiale de $x_0$. Or, on sait également que le point fixe de $f$ est
+				unique, et donc pour tout $x_0$, la suite $x_n = f(x_{n-1})$ converge vers $a^*$ cet unique point fixe.
+			\end{itemize}
+			\end{proof}
+
+			\begin{cor} Soit $A$ une partie non-vide et complète d'un espace métrique. Soit $f : A \to A$. Si $f$ admet une puissance contractante, alors $f$
+			admet un unique point fixe $a^*$ dans $A$.
+			\end{cor}
+
+			\begin{proof} Soit $n \in \Ns$ tel que $f^n$ est contractante. Par le théorème de Banach, on sait que $f^n$ admet un unique point fixe $a^*$ sur $A$.
+			On peut alors écrire $f^n(f(a^*)) = f(f^n(a^*)) = f(a^*)$. Donc $f(a^*)$ est un point fixe de $f^n$. Et par unicité, on sait que $f(a^*) = a^*$.
+
+			Soit $a \in A$ un point fixe de $f$. Cela veut dire $a = f(a) = f(f(a)) = \ldots = f^n(a)$. Donc $a$ est un point fixe de $f^n$. À nouveau, par
+			unicité, $a = a^*$.
+			\end{proof}
+
+		\subsection{Cylindres en espace-temps}
+			\begin{déf} Soit $f : I \times \Omega \to \R^d$, où $I \subset \R$ est un intervalle et $\Omega \subset \R^d$ est un ouvert.
+
+			On dit que $f$ est lipschitzienne en espace sur $I \times \Omega$ lorsqu'il existe $M \gneqq 0$ tel que~:
+			\[\forall t \in I : \forall x, y \in \Omega : \norm {f(t, x) - f(t, y)} \leq M\norm {x-y}.\]
+
+			On dit que $f$ est localement lipschitzienne en espace sur $I \times \Omega$ lorsque~:
+			\[\forall J \times K \subset I \times \Omega \text{ compact }\exists M(J, K) \tq \forall t \in J :
+				\forall x, y \in K : \norm {f(t, x) - f(t, y)} \leq M(J, K)\norm {x-y}.\]
+			\end{déf}
+
+			\begin{déf}[Définition équivalente de localement lipschitzien] $f : I \times \Omega \to \R^d$ est localement lipschitzienne en espace lorsque~:
+			\[\forall (t, x) \in I \times \Omega : \exists M \gneqq 0, \widetilde I \times \widetilde \Omega \text{ compacts } \subset I \times \Omega \tq
+				\forall t \in \widetilde I : \forall x, y \in \widetilde \Omega : \norm {f(t, x) - f(t, y)} \leq M\norm {x-y}.\]
+			\end{déf}
+
+			\begin{prp} Si $f \in C^1(I \times \Omega, \R)$, avec $I \subset \R$, et $\Omega \subset \R^d$, tous deux ouverts, alors $f$ est localement
+			lipschitzienne par rapport à $x$ (en espace).
+			\end{prp}
+
+			\begin{proof} Soient $t \in I, x \in \Omega$. On choisit $\delta \gneqq 0$ tel que $(t-\delta, t+\delta) \subset I$ et $\varepsilon > 0$ tel que
+			$B(x, \varepsilon[ \subset \Omega$. La fonction $(t, x) \mapsto \dif_xf(t, \cdot)$\footnote{La notation $\dif_xf(t, \cdot)$ correspond à la dérivée
+			partielle de $f$ par rapport à sa variable d'espace, évaluée en $x$. Donc $\dif_{x_0}f(t, \cdot) = \pd fx(t, x_0)$.}est continue sur
+			$\left[t-\frac \delta2, t+\frac \delta2\right] \times B\left(x, \frac \varepsilon2\right]$ compact car $f$ est $C^1$. En particulier, elle est bornée,
+			donc il existe $M \gneqq 0$ tel que~:
+			\[\norm {\dif_xf(t, \cdot)} \leq M.\]
+
+			Soient $y_1, y_2 \in B\left(x, \frac \varepsilon2\right[$ deux valeurs en espace, et $t \in \left[t_0 \pm \frac \delta2\right]$ une valeur en temps.
+			On a alors~:
+			\[f(t, y_2) - f(t, y_1) = \int_{y_1}^{y_2}\pd fx(t, y)\dif y = \int_0^1\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s,\]
+			que l'on peut majorer en norme par~:
+			\[\norm {f(t, y_2) - f(t, y_1)} \leq \int_0^1\norm {\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s} \leq \int_0^1M\norm {y_2-y_1}\dif s = M\norm {y_2-y_1}.\]
+			\end{proof}
+
+			\begin{déf} Pour tout $t_0 \in \R, y_0 \in \R^d$, $\ell, r \gneqq 0$, on appelle \textit{cylindre (en espace-temps)} centré en $(t_0, y_0)$ de rayon
+			$r$ et de demi-axe $\ell$ l'ensemble~:
+			\[S(t_0, y_0, \ell, r) \coloneqq \left\{(t, y) \in \R \times \R^d \tq \abs {t-t_0} \leq r, \norm {y-y_0} \leq \ell\right\}.\]
+			\end{déf}
+
+			\begin{rmq} $S(t_0, y_0, \ell, r)$ est un compact convexe de $\R \times \R^d$.
+			\end{rmq}
+
+			\begin{prp} Soit $f : I \times \Omega \to \R^d$ localement lipschitzienne en espace. Soient $(t_0, y_0) \in I \times \Omega, \ell, r \gneqq 0 \tq$~:
+			\[S(t_0, y_0, \ell, r) \subset I \times \Omega.\]
+			Alors $f$ est localement lipschitzienne sur $S(t_0, y_0, \ell, r)$.
+			\end{prp}
+
+		\subsection{Théorème d'existence et d'unicité locales}
+			\begin{prp} Soient $f : J \times \Omega \to \R^d$ localement lipschitzienne en espace, $(t_0, y_0) \in J \times \Omega$. Il existe $\ell, r \gneqq 0$
+			tels que~:
+			\begin{itemize}
+				\item[$(i)$]  $S \coloneqq S(t_0, y_0, \ell, r) \subset J \times \Omega$~;
+				\item[$(ii)$] $\ell\norm f_{\infty, S} \leq r$.
+			\end{itemize}
+			\end{prp}
+
+			\begin{proof} Puisque $J \times \Omega$ est ouvert, il existe $\delta, \varepsilon \gneqq 0$ tels que
+			$S(t_0, y_0, \delta, \varepsilon) \subset J \times \Omega$. Posons alors $\varepsilon \eqqcolon r$, et~:
+			\[\ell \coloneqq \min\left(\delta, \frac \varepsilon{\norm f_{\infty, S(t_0, y_0, \delta, \varepsilon)}}\right).\]
+
+			Alors $\ell > 0$, et on a donc~:
+			\[\ell \leq \frac \varepsilon{\norm f_{\infty, S(t_0, y_0, \delta, \varepsilon)}} \leq \frac \varepsilon{\norm f_{\infty, S(t_0, y_0, \ell, r)}},\]
+			car $\ell \leq \delta$.
+			\end{proof}
 \end{document}
