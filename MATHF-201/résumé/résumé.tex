@@ -42,6 +42,7 @@
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\adh}{adh}
+\DeclareMathOperator{\intr}{int}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -2488,7 +2489,7 @@
 			\end{itemize}
 			$y : J \subset I \to \R^d$ est une fonction inconnue définie sur un intervalle $J$ inconnu également et $p$ fois dérivable sur $J$, telle que~:
 			\[\forall t \in J : \forall j \in \intint 0p : y^{(j)}(t) \in \Omega_j,\]
-			et dont les dérivées sont liées par l'équation~(\ref{eq:equadiff}).
+			et dont les dérivées sont liées par l'équation~\eqref{eq:equadiff}.
 			\end{déf}
 
 			\begin{déf} Une équation différentielle est dite \textit{résoluble} lorsqu'elle peut être mise de manière équivalente sous forme normale~:
@@ -2499,7 +2500,7 @@
 			\end{déf}
 
 		\subsection{Réduction à l'ordre 1}
-			\begin{rmq} Une équation sous forme normale~(\ref{eq:equadiffnormale}) est équivalente à l'équation d'ordre 1 $Y'(t) - G(t, Y(t)) = 0$, où~:
+			\begin{rmq} Une équation sous forme normale~\eqref{eq:equadiffnormale} est équivalente à l'équation d'ordre 1 $Y'(t) - G(t, Y(t)) = 0$, où~:
 			\[Y(t) = \begin{bmatrix}y(t) \\y^{(1)}(t) \\ \vdots \\ y^{(p-1)}(t)\end{bmatrix} \qquad\qquad \text{ et } \qquad\qquad
 			G(t, Y(t)) = \begin{bmatrix}Y_0(t) \\ Y_1(t) \\ \vdots \\ Y_{p-1}(t) \\ f(t, Y_0(t), \ldots, Y_{p-1}(t)\end{bmatrix}.\]
 			\end{rmq}
@@ -2530,14 +2531,14 @@
 			\end{déf}
 
 		\subsection{Formulation intégrale}
-			\begin{prp} Si $f \in C^0(I \times \Omega, \R^d)$, alors $y : J \tocont \Omega$, avec $t_0 \in J$ est solution de~(\ref{eq:equadiffPC}) si et
-			seulement si~:
+			\begin{prp}\label{prp:PCintégrale} Si $f \in C^0(I \times \Omega, \R^d)$, alors $y : J \tocont \Omega$, avec $t_0 \in J$ est solution
+			de~\eqref{eq:equadiffPC} si et seulement si~:
 			\begin{equation}\label{eq:prppcintégrale}
 				\forall t \in J : y(t) = y_0 + \int_{t_0}^tf(s, y(s))\dif s.
 			\end{equation}
 			\end{prp}
 
-			\begin{proof} Supposons d'abord $y$ solution de~(\ref{eq:equadiffPC}). Alors~:
+			\begin{proof} Supposons d'abord $y$ solution de~\eqref{eq:equadiffPC}. Alors~:
 			\[\forall t \in J : y'(t) = f(t, y(t)).\]
 			Par dérivabilité de $y$ sur $J$, on sait que $y \in C^0(J)$. Puisque $y$ est à valeurs dans $\Omega$, on sait que $f \in C^0(I \times \Omega)$ avec
 			$J \subset I$. La fonction $t \mapsto f(t, y(t))$ est donc continue sur $J$. Ainsi, $y'$ est continue sur $J$, et donc $y \in C^1(J, \R^d)$, et on a~:
@@ -2545,7 +2546,7 @@
 			ou encore~:
 			\[y(t) = y_0 + \int_{t_0}^t f(s, y(s))\dif s.\]
 
-			Maintenant, supposons que $y$ vérifie~(\ref{eq:prppcintégrale}). Puisque $y \in C^0(J, \Omega)$, la fonction $s \mapsto f(s, y(s))$ est continue
+			Maintenant, supposons que $y$ vérifie~\eqref{eq:prppcintégrale}. Puisque $y \in C^0(J, \Omega)$, la fonction $s \mapsto f(s, y(s))$ est continue
 			sur $J$. Elle est donc intégrable, et $t \mapsto \int_{t_0}^t f(s, y(s))\dif s$ est de classe $C^1$ sur $J$. On a alors~:
 			\[\od {}t\int_{t_0}^tf(s, y(s))\dif s = f(t, y(t)).\]
 			Par hypothèse, on a~:
@@ -2554,7 +2555,7 @@
 			\[y'(t) = f(t, y(t)),\]
 			et on a de plus~:
 			\[y(t_0) = y_0 + \int_{t_0}^{t_0}f(s, y(s))\dif s = y_0 + 0 = y_0.\]
-			$y$ est donc bien solution de~(\ref{eq:equadiffPC}).
+			$y$ est donc bien solution de~\eqref{eq:equadiffPC}.
 			\end{proof}
 
 	\section{Existence et unicité locales}
@@ -2629,8 +2630,8 @@
 				\forall t \in \widetilde I : \forall x, y \in \widetilde \Omega : \norm {f(t, x) - f(t, y)} \leq M\norm {x-y}.\]
 			\end{déf}
 
-			\begin{prp} Si $f \in C^1(I \times \Omega, \R)$, avec $I \subset \R$, et $\Omega \subset \R^d$, tous deux ouverts, alors $f$ est localement
-			lipschitzienne par rapport à $x$ (en espace).
+			\begin{prp}\label{prp:C1=>loclipschitz} Si $f \in C^1(I \times \Omega, \R)$, avec $I \subset \R$, et $\Omega \subset \R^d$, tous deux ouverts,
+			alors $f$ est localement lipschitzienne par rapport à $x$ (en espace).
 			\end{prp}
 
 			\begin{proof} Soient $t \in I, x \in \Omega$. On choisit $\delta \gneqq 0$ tel que $(t-\delta, t+\delta) \subset I$ et $\varepsilon > 0$ tel que
@@ -2676,5 +2677,320 @@
 			Alors $\ell > 0$, et on a donc~:
 			\[\ell \leq \frac \varepsilon{\norm f_{\infty, S(t_0, y_0, \delta, \varepsilon)}} \leq \frac \varepsilon{\norm f_{\infty, S(t_0, y_0, \ell, r)}},\]
 			car $\ell \leq \delta$.
+			\end{proof}
+
+			\begin{thm}[de Cauchy-Lipschitz local (TCL local)]Soient $J \subset \R$ un intervalle non-vide et $\Omega \subset \R^d$ ouvert non-vide,
+			$f : J \times \Omega \tocont \R^d$ localement lipschitzienne en espace. Soit $(t_0, x_0) \in J \times \Omega$ et $\ell, r \gneqq 0$ tels que~:
+			\[S \coloneqq S(t_0, y_0, \ell, r) \subset J \times \Omega\qquad\qquad\text{ et }\qquad\qquad0 < \ell < \frac r{\norm f_{\infty, S}}.\]
+
+			Alors~:
+			\begin{itemize}
+				\item il existe $y \in C^1\left([t_0-\ell, t_0+\ell], \Omega\right)$ solution de~\eqref{eq:equadiffPC}~;
+				\item pour tout solution $\widetilde y$ de~\eqref{eq:equadiffPC} définie sur $\widetilde I$, intervalle tel que $t_0 \in \widetilde I$~:
+				\[\forall t \in \widetilde I \cap [t_0 \pm \ell] : y(t) = \widetilde y(t).\]
+			\end{itemize}
+			\end{thm}
+
+			\begin{rmq} Ce théorème affirme l'unicité locale de la solution au sein d'un cylindre de sécurité centré en $t_0$.
+			\end{rmq}
+
+			\begin{proof} Construisons une suite $(y_n)_n \subset C^1([t_0 \pm \ell], \Omega)$ qui converge uniformément sur $[t_0 \pm \ell]$ vers une solution
+			de~\eqref{eq:equadiffPC}.
+
+			Notons $I = [t_0 \pm \ell]$ et~:
+			\[A(I) \coloneqq \left\{y \in C^1(I, \Omega) \tq \forall t \in I : \norm {y(t) - y_0} \leq r\right\}.\]
+
+			On remarque $A(I) \subset C^0(I, \Omega)$ et $A(I)$ est fermé dans $\evnC0I{\R^d}$ (et donc complet car fermé dans un complet). Posons
+			$y_0 \equiv y_0$\footnote{C'est-à-dire que le premier élément de la suite $(y_n)_n$ est la fonction constante $t \mapsto y_0$.}. On en déduit donc
+			$A(I) \neq \emptyset$. Soit $y \in A(I)$. On pose~:
+			\[\forall t \in I : Ty(t) \coloneqq T(y)(t) \coloneqq y_0 + \int_{t_0}^tf(s, y(s))\dif s.\]
+
+			On remarque $T(A(I)) \subset A(I)$. En effet~: $Ty$ est continue sur $I$ car de classe $C^1$. De plus~:
+			\[\forall t \in I : \norm {Ty(t) - y_0} \leq \int_{\min(t_0, t)}^{\max(t_0, t)}\norm {f(s, y(s))}\dif s \leq \abs {t-t_0}\norm f_{\infty, S}
+				\leq \ell\frac r\ell = r.\]
+
+			Soient $y_1, y_2 \in A(I)$. Calculons pour $t \in I$~:
+			\[T(y_1)(t) - T(y_2)(t) = \int_{t_0}^t\left(f(s, y_1(s)) - f(s, y_2(s))\right)\dif s.\]
+
+			Soit $L$ une constante de Lipschitz pour $f$ sur $S$. On trouve alors~:
+			\[\norm {T(y_1)(t) - T(y_2)(t)} \leq \int_{\min(t_0, t)}^{\max(t_0, t)}L\abs {y_1(s)-y_2(s)}\dif s \leq L\ell\norm {y_2-y_1}_\infty.\]
+
+			Montrons alors par récurrence sur $p \in \Ns$ que~:
+			\begin{align}\label{eq:recTCllocal}
+				\forall t \in I : \norm {T^p(y_1)(t) - T^p(y_2)(t)} \leq \frac {L^p\abs {t-t_0}^p}{p!}\norm {y_1-y_2}_{\infty, I}.
+			\end{align}
+
+			Pour le cas initial $p=1$, on vient en effet d'obtenir le résultat. Pour le pas de récurrence, supposons que \eqref{eq:recTCllocal} est vrai pour un
+			certain $p \geq $ et estimons~:
+			\begin{align*}
+				\forall t \in I : \norm {T^{p+1}(y_1)(t) - T^{p+1}(y_2)(t)} &\leq \int_{\min(t_0, t}^{\max(t_0, t)}L\norm {T^p(y_1)(t) - T^p(y_2)(t)}\dif s \\
+				&\leq \int_{\min(t_0, t)}^{\max(t_0, t)}L\frac {L^p\abs {s-t_0}^p}{p!}\dif s\norm {y_1-y_2}_\infty \\
+				&= \frac {L^{p+1}\abs {t-t_0}^{p+1}}{p!}\norm {y_1-y_2}_\infty.
+			\end{align*}
+
+			Choisissons $p_0 \in \Ns$ tel que $L^{p_0}\ell^{p_0} < p_0!$. L'application $T^{p_0}$ est donc une contraction de $A(I)$ dans elle-même. Par le
+			théorème de Banach, elle admet un unique point fixe $y \in A(I)$. On a alors $T(y) = y$, et en particulier~:
+			\begin{align}\label{eq:TCLlocalPCintégrale}
+				\forall t \in I : y(t) = y_0 + \int_{t_0}^tf(s, y(s))\dif s,
+			\end{align}
+			donc $y \in C^1(I, \Omega)$ est solution de \eqref{eq:equadiffPC} par la Proposition~\ref{prp:PCintégrale}.
+
+			Soit $\widetilde I$ un intervalle tel que $t_0 \in \widetilde I$, et soit $\widetilde y : \widetilde I \to \Omega$ solution de \eqref{eq:equadiffPC}.
+			Notons $\overline I = \widetilde I \cap I$, un intervalle contenant $t_0$. Les fonctions $\restr yI$ et $\restr {\widetilde y}{\widetilde I}$ sont des solutions
+			de \eqref{eq:equadiffPC}, et donc de sa forme intégrale \eqref{eq:TCLlocalPCintégrale}. En particulier, elles sont fixes par
+			$T : A(\overline I) \to A(\overline I)$, donc elles coïncident sur $\overline I$ (unicité par Banach).
+			\end{proof}
+
+			\begin{prp} Si $f \in C^k(J \times \Omega)$ et $y$ est une sol de \eqref{eq:equadiffPC} sur $I \subset J$ tel que $t_0 \in I$, alors $y \in C^{k+1}(I, \Omega)$.
+			\end{prp}
+
+			\begin{proof} On sait que $y$ est de classe $C^1$ sur $I$, et donc $y'$ est de classe $C^1$ par composition de fonctions $C^1$. Similairement, on
+			trouve $y \in C^2(I)$, etc. jusque $y \in C^k$. À nouveau, par composition de fonctions $C^k$, on trouve $y \in C^{k+1}(I)$.
+			\end{proof}
+
+			\begin{rmq} On a donc montré que la suite $(y_n)_n$ de fonctions définie par~:
+			\[\begin{cases}
+				y_0 &\equiv y_0 \\
+				y_{n+1}(t) &= y_0 + \int_{t_0}^tf(s, y_n(s))\dif s
+			\end{cases}\]
+			vérifie~:
+			\[\forall n \geq 1 : \forall t \in [t_0 \pm \ell] : \norm {y_n(t) - y(t)} \leq \frac {L^n\abs {t-t_0}^n}{n!}2r.\]
+
+			Cette reformulation de la convergence des $y_n$  vers une solution unique au sein du cylindre permet de déterminer numériquement des solutions au
+			problème de Cauchy\footnote{Bien que ce ne soit pas le plus efficace.}.
+			\end{rmq}
+
+	\section{Existence et unicité locale}
+		\subsection{Motivation}
+			Soit $f \in C^0(J \times \Omega, \R^d$, localement lipschitzienne en espace. Soit $(t_0, y_0)\in J \times \Omega$. Appliquons le théorème de
+			Cauchy-Lipschitz (TCL) local à \eqref{eq:equadiffPC}. On obtient $Y$ une solution de \eqref{eq:equadiffPC} sur un certain segment $[t_0 \pm \ell]$.
+			On a $t_0 + \ell \in J$ et $Y(t_0 + \ell) \in \Omega$. On y applique le TCL local~:
+
+			Il existe $\delta > 0$ et $Z$ une solution du problème de Cauchy $(t_0+\ell, Y(t_0+\ell)) \in J \times \Omega$ sur $[(t_0+\ell) \pm \delta]$.
+			Les fonctions $Y$ et $Z$ coïncident sur $[(t_0 + \ell) \pm \delta] \cap [t_0 \pm \ell]$.
+
+			La fonction définie par~:
+			\[W : [t_0-\ell, t_0+\ell+\delta] \to \Omega : t \mapsto \begin{cases}Y(t) &\text{ si } t \leq t_0+\ell \\Z(t) &\text{ sinon }\end{cases}\]
+			est de classe $C^1$ sur $[t_0-\ell, t_0+\ell+\delta]$.
+
+			De plus, on remarque~:
+			\[Y'(t) \xrightarrow[t \mapsto (t_0+\ell)^-]{} f(t_0+\ell, Y(t_0+\ell)),\]
+			où~:
+			\[f(t_0+\ell, Z(t_0+\ell) = \lim_{t \mapsto (t_0+\ell)^+}f(t, Z(t)).\]
+
+			La solution initiale $Y$ a donc été \textit{prolongée} de $[t_0 \pm \ell]$ à $[t_0 \pm \ell] \cup [(t_0+\ell) \pm \delta]$.
+			Il vient cependant certaines questions~:
+			\begin{itemize}
+				\item La solution $y$ peut-elle être prolongée indéfiniment~?
+				\item Peut-elle être étendue à $J$ tout entier~?
+				\item Existe-t-il un comportement «~\textit{maximal}~» que l'on ne pourrait plus prolonger~?
+			\end{itemize}
+
+		\subsection{Exemples}
+			\begin{enumerate}
+				\item Prenons $J = \R, \Omega = \Rp_0$ et intéressons-nous au problème~:
+				\[y'(t) = -3\sin(y)y(t)^{\frac 43}.\]
+				Pour pouvoir appliquer le TCL local, il faut que $f : \R \times \Rp_0 : (t, y) \mapsto -3\sin(t)y^{\frac 43}$ soit localement lipschitzienne et
+				continue. On sait $f \in C^1(J \times \Omega)$, et donc par la Proposition~\ref{prp:C1=>loclipschitz}, on sait $f$ localement lipschitzienne en
+				espace, et est continue.
+
+				Par séparation des variables, on résout~:
+				\[-3\left[y^{-\frac 13}\right]_{y_0}^{y(t)} = -3\left[-\cos(t)\right]_{t_0}^t,\]
+				ou encore~:
+				\[y(t) = \frac 1{\left(y(t)^{-\frac 13} - \cos(t) + \cos(t_0)\right)^3}.\]
+
+				\begin{itemize}
+					\item Prenons $J \times \Omega \ni (t_0, y_0) = \left(\frac \pi2, \frac 18\right)$. On a alors~:
+					\[y(t) = \frac 1{\left(2-\cos(t)\right)^3},\]
+					où $y$ est une solution du problème de Cauchy sur $\R$.
+
+					\item Prenons $J \times \Omega \ni (t_0, y_0) = \left(\frac \pi2, 8\right)$. On a alors~:
+					\[y(t) = \frac 1{\left(\frac 12 - \cos(t)\right)^3},\]
+					où $y$ est une solution du problème de Cauchy sur $\left(\frac \pi3, \frac {5\pi}3\right)$.
+
+					En effet, on observe~:
+					\[y(t) \xrightarrow[t \to {\frac \pi3}^+]{} \pinfty\qquad\qquad\text{ et }\qquad\qquad y(t) \xrightarrow[t \to {\frac {5\pi}3}^-]{} \pinfty.\]
+				\end{itemize}
+
+				\item Prenons $J = \Rp_0, \Omega = \R$ et intéressons-nous au problème~:
+				\[y'(t) = \frac 1{t^2}\sin\left(\frac 1t\right).\]
+
+				Posons $f : \Rp_0 \times \R \to \R : (t, x) \mapsto t^{-2}\sin(t^{-1})$. $f \in C^0(\Rp_0 \times \R, \R)$ donc le TCL local s'applique.
+
+				\underline{Note~:} On remarque également que $f$ ne dépend pas de $y$. On observe donc que la théorie des équations différentielles et des
+				problèmes de Cauchy comprennent entre autres la théorie des primitives.
+
+				Prenons $J \times \Omega \ni (t_0, y_0) = \left(\frac 1{2\pi}, 1\right)$. On a alors $y(t) = \cos(t^{-1})$ est solution du problème de Cauchy
+				sur $\Rp_0$. On observe également que $y$ n'admet pas de limite en $t \to 0$, et que~:
+				\[y(t) \xrightarrow[t \to \pinfty]{} 1.\]
+			\end{enumerate}
+
+		\subsection{Bouts droites et bouts gauches}
+			\begin{déf} Soient $(X, d)$ un espace métrique et $A \subset X$ non-vide.
+
+			\begin{itemize}
+				\item $x \in X$ est dit \textit{adhérent} à $A$ lorsque~:
+				\[\forall \varepsilon > 0 : B(x, \varepsilon[ \cap A \neq \emptyset.\]
+				\item $x \in X$ est appelé \textit{point d'accumulation} de $A$ lorsque~:
+				\[\forall \varepsilon > 0 : \left(B(x, \varepsilon[ \setminus \{x\}\right) \cap A \neq \emptyset.\]
+			\end{itemize}
+			\end{déf}
+
+			\begin{déf} Soient $X, Y$ deux ensembles. Soit $f : X \to Y$. On appelle \textit{graphe de $f$} l'ensemble~:
+			\[\Gamma_f \coloneqq \left\{(x, f(x) \tq x \in X\right\} \subset X \times Y. \]
+			\end{déf}
+
+			\begin{déf} Soit $y : (\alpha, \beta) \to \Rp$ avec~:
+			\[\minfty \leq \alpha \leq \beta \leq \pinfty.\]
+
+			\begin{itemize}
+				\item On appelle \textit{bout droit}  de $y$ tout point d'accumulation de son graphe de la forme $(\beta, z)$, avec $z \in \R^d$~;
+				\item on appelle \textit{bout gauche} de $y$ tout point d'accumulation de son graphe de la forme $(\alpha, z)$, avec $z \in \R^d$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} Pour les exemples précédents, on remarque~:
+
+			\begin{center}
+				\begin{tabular}{|c|c|c|c|}
+				\hline
+				$I$ & $y(t)$ & bouts gauches & bouts droits \\ \hline  \hline
+				$I = \R$ & $y(t) = (2-\cos(t))^{-3}$ & $\emptyset$ & $\emptyset$ \\ \hline
+				$I = \left(\frac \pi3, \frac {5\pi}3\right)$ & $y(t) = \left(\frac 12 \cos(t)\right)^{-3}$ & $\emptyset$ & $\emptyset$ \\ \hline
+				$I = \Rp_0$ & $y(t) = \cos(t^{-1})$ & $\{0\} \times [-1, 1]$ & $\emptyset$ \\
+				\hline
+				\end{tabular}
+			\end{center}
+			\end{rmq}
+
+		\subsection{Solutions maximales}
+			Soit $f : J \times \Omega \to \R^d$, avec $\Omega \subset \R^d$ ouvert et $I \subset \R$ un intervalle ouvert.
+
+			\begin{déf} Soient $y_i : I_i \to \Omega, i=1, 2$, solutions de l'équation différentielle $y'(t) = f(t, y(t))$. Soit $(t_0, y_0) \in J \times \Omega$
+			tels que $y_1, y_2$ soient solutions du problème de Cauchy $y(t_0) = y_0$.
+
+			Sur $I_1$, on dit que $y_2$ est une sur-solution de $y_1$ lorsque~:
+			\begin{itemize}
+				\item $I_1 \subseteq I_2$~;
+				\item $y_1 = y_2$ sur $I_1$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} On remarque qu'une solution est toujours sur-solution d'elle-même.
+			\end{rmq}
+
+			\begin{déf} une solution $y$ de \eqref{eq:equadiffPC} définie sur $I$ est dite \textit{maximale} lorsque pour toute sur-solution $\widetilde y$ de
+			$y$ définie sur $\widetilde I$, on a $\widetilde I \subseteq I$.
+			\end{déf}
+
+		\subsection{Théorème de Cauchy-Lipschitz global}
+			\begin{thm}[Théorème de Cauchy-Lipschitz global] Soient $J \subset \R$ un intervalle ouvert non-vide, $\Omega \subset \R^d$ un ouvert non-vide, et
+			$f \in C^0(J \times \Omega, \R^d)$ localement lipschitzienne en espace.
+
+			Alors pour tout couple $(t_0, y_0) \in J \times \Omega$, il existe une unique solution maximale au problème de Cauchy.
+
+			De plus, les bouts gauches et droits sont des éléments de $\partial(J \times \Omega)$\footnote{Où $\partial X$ représente le \textit{bord} de l'ensemble $X$.}.
+			\end{thm}
+
+			\begin{proof}~
+
+			\textbf{1. Existence et unicité}
+
+				Notons~:
+				\begin{align*}
+					\mathcal I &\coloneqq \left\{I \subset J \tq \text{ \eqref{eq:equadiffPC} admet une solution sur } I\right\}, \\
+					N^- &\coloneqq \left\{\text{ extrémités gauches des éléments de } \mathcal I\right\}, \\
+					N^+ &\coloneqq \left\{\text{ extrémités droites des éléments de } \mathcal I\right\}.
+				\end{align*}
+
+				$f$ est continue et localement lipschitzienne par hypothèse, on peut alors appliquer le TCL local, par lequel on sait qu'il existe $\delta > 0$
+				tel que $[t_0 \pm \delta] \int \mathcal I$. Dès lors, $(t_0-\delta, t_0+\delta) \in N^- \times N^+$. Posons~:
+				\[\alpha \coloneqq \inf N^- \qquad\qquad \text{ et } \qquad\qquad \beta \coloneqq \sup N^+.\]
+
+				On a alors~:
+				\[\minfty \leq \alpha \leq t_0-\delta \leq \to+\delta \leq \beta \leq \pinfty.\]
+
+				\underline{1.1. Existence}
+
+					On va définir $y$ une solution de \eqref{eq:equadiffPC} sur $(\alpha, \beta)$ et ensuite montrer qu'elle est maximale. Procédons sur
+					$[t_0, \beta)$, le cas $(\alpha, t_0]$ se déduit similairement.
+
+					Soit $t \in (\alpha, \beta)$ et soient $y_1, y_2$ deux solutions de \eqref{eq:equadiffPC} définies respectivement sur $I_1$ et $I_2$ telles
+					que $t_0 \in I_1 \cap I_2$.
+
+					Posons~:
+					\[A \coloneqq \left\{s \in [t_0, t] \tq y_1 = y_2 \text { sur } [t_0, s]\right\}.\]
+
+					Par le TCL local, on sait que $t_0 + \delta \in A$, quitte à «~réduire~» $\delta$ afin que $t_0+\delta \leq t$. Posons ensuite~:
+					\[\tau \coloneqq \sup A \in [t_0+\delta, t].\]
+
+					On observe alors que $\tau \in A$. En effet, si $\varepsilon > 0$ est fixé, $\tau-\varepsilon$ n'est plus un majorant de $A$. Donc il existe
+					$t_\varepsilon \in [\tau-\varepsilon, \tau]$ tel que $t_\varepsilon \in A$. Donc $y_1(t_\varepsilon)=y_2(t_\varepsilon)$. De plus, on sait que~:
+					\[t_\varepsilon \xrightarrow[\varepsilon \to 0]{} \tau.\]
+
+					Dès lors, il vient par continuité de $y_1$ et $y_2$ en $\tau \in I_1 \cap I_2$ que $y_1(\tau) = y_2(\tau)$, et donc $\tau \in A$.
+
+					Supposons maintenant par l'absurde $\tau \lneqq t$.  On sait $y_1(\tau) = y_2(\tau)$. Appliquons alors le TCL local au problème de Cauchy suivant~:
+					\[\begin{cases}
+						y'(t) &= f(t, y(t)) \\
+						y(\tau) &= y_1(\tau) = y_2(\tau).
+					\end{cases}\]
+
+					On obtient $y_1$ et $y_2$ coïncident sur $(\tau \pm \ell)$ pour un certain $\ell > 0$. Par définition de $\tau$, cela implique que $y_1$ et
+					$y_2$ coïncident sur $[t_0, \tau+\ell)$. Or $\tau = \sup A$. Il y a donc une contradiction. On en déduit $\tau = t$, et dès lors
+					$y_1(t) = y_2(t)$.
+
+					On peut également définir~:
+					\[Y : (\alpha, \beta) \to \Omega : \hat t \mapsto Y(\hat t),\]
+					où $Y(\hat t)$ est la valeur de n'importe quelle solution du problème de Cauchy en $\hat t \in [t_0, t]$. La fonction $Y$ est bien définie
+					et est de plus de classe $C^1$ sur $(\alpha, \beta)$ (ainsi que solution du problème de Cauchy).
+
+					Soit $\widetilde Y$ une sur-solution de $Y$ sur un intervalle défini par $\widetilde \alpha$ et $\widetilde \beta$ (ouvert ou fermé) avec~:
+					\[\widetilde \alpha \leq \alpha \leq \beta \leq \widetilde \beta.\]
+
+					Par continuité de $Y$, on a $\alpha = \inf N^-$ et $\beta = \sup N^+$. Or $\widetilde \alpha \in N^-$ et $\widetilde \beta \in N^+$. Il en
+					découle que $\alpha = \widetilde \alpha$ et $\widetilde \beta = \beta$. Les seules possibilités pour $\widetilde I$ sont alors~:
+					\begin{itemize}
+						\item $\widetilde I = (\widetilde \alpha, \widetilde \beta)$~;
+						\item $\widetilde I = [\widetilde \alpha, \widetilde \beta)$~;
+						\item $\widetilde I = (\widetilde \alpha, \widetilde \beta]$~;
+						\item $\widetilde I = [\widetilde \alpha, \widetilde \beta]$.
+					\end{itemize}
+
+					Si $\widetilde \beta \in \widetilde I$, le TCL local permet de prolonger $\widetilde Y$ (et donc $Y$ par continuité) en une solution
+					au-delà strictement de $\beta = \widetilde \beta$. Il y a donc contradiction avec la définition même de $\beta$. Idem pour
+					$\widetilde \alpha \in \widetilde I$.
+
+					Donc $\widetilde I = (\widetilde \alpha, \widetilde \beta)$, et $Y = \widetilde Y$. $Y$ est donc maximale.
+
+				\underline{Unicité}
+
+					Idem, $Y$ est la solution maximale ci-dessus et $\widetilde Y$ est une solution maximale de \eqref{eq:equadiffPC}.  % Revoir...
+
+			\textbf{2. Appartenance des bouts au bord}
+
+				Soit $y$ une solution maximale de \eqref{eq:equadiffPC} sur $(\alpha, \beta)$ et soit $(\beta, z)$ un bout droit de $y$ (la démonstration pour
+				les bouts gauches se déduit similairement). On suppose par l'absurde $(\beta, z) \not \in \partial(J \times \Omega)$.
+
+				Il existe $\ell, r \gneqq 0$ tels que $S(\beta, z, \ell, r) \subset J \times \Omega$ est de sécurité pour $f$. Par définition de $(\beta, z)$,
+				il existe $(t_n)_n \in (\alpha, \beta)^\N$ injective telle que~:
+				\[t_n \xrightarrow[n \to \pinfty]{} \beta \qquad\qquad \text{ et } \qquad\qquad y(t_n) \xrightarrow[n \to \pinfty]{} z.\]
+
+				Pour $n$ suffisamment grand, on trouve alors $(t_n, y(t_n)) \in S\left(\beta, z, \frac \ell4, \frac r4\right)$. Ainsi~:
+				\[S' \coloneqq S\left(\beta, z, \frac \ell2, \frac r2\right) \subset S(\beta, z, \ell, r) \eqqcolon S,\]
+				et donc~:
+				\[\norm f_{\infty, S'} \leq \norm f_{\infty, S},\]
+				et on a $(\beta, z) \in \intr S'$. Puisque $0 < \ell < r{\norm f_{\infty, S}^{-1}}$ (car $S$ est de sécurité pour $f$), on sait~:
+				\[0 < \frac \ell2 < \frac r{2\norm f_{\infty, S}} \leq \frac r{2\norm f_{\infty, S'}}.\]
+
+				On en déduit que $S'$ est également de sécurité pour $f$. Le TCL local appliqué à~:
+				\begin{align}\label{eq:TCLglobalPCZ}\tag{$\natural$}
+					\begin{cases}
+						Z'(t) &= f(t, Z(t)) \\
+						Z(t_n) &= y(t_n)
+					\end{cases}
+				\end{align}
+				permet de s'assurer que la solution maximale de \eqref{eq:TCLglobalPCZ} vit encore en $t_n + \frac \ell2$. Or $t_n + \frac \ell2 \gneqq \beta$,
+				ce qui contredit le caractère maximal de $y$. Dès lors, $(\beta, z) \in \partial(J \times \Omega)$.
 			\end{proof}
 \end{document}
