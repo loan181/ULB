@@ -1,6 +1,5 @@
 \documentclass{report}
 
-\usepackage{hyperref}
 \usepackage[french]{babel}
 \usepackage{commath}
 \usepackage{palatino, eulervm}
@@ -12,6 +11,8 @@
 \usepackage{stmaryrd}
 \usepackage[bottom]{footmisc}
 \usepackage[parfill]{parskip}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{hyperref}
 
 \title{Calcul différentiel et intégral II}
 \author{R. Petit}
@@ -21,12 +22,33 @@
 \newtheorem{thm}{Théorème}[chapter]
 \newtheorem{prp}[thm]{Proposition}
 \newtheorem{cor}[thm]{Corollaire}
-\renewcommand{\proofname}{\it{Démonstration}}
+\newtheorem{lem}[thm]{Lemme}
+\addto\captionsfrench{\renewcommand\proofname{\underline{Démonstration}}}
 \theoremstyle{definition}
 \newtheorem{déf}[thm]{Définition}
 \theoremstyle{remark}
 \newtheorem*{rmq}{Remarque}
 \newtheorem{ex}{Exemple}[chapter]
+
+% link amsthm and mdframed
+\iftrue
+%\iffalse
+	% pre-amsthm
+	\mdfdefinestyle{resultstyle}{%
+		hidealllines=true,%
+		leftline=true,%
+		rightline=true,%
+		innerleftmargin=10pt,%
+		innerrightmargin=10pt,%
+		innertopmargin=10pt,%
+		innerbottommargin=8pt,%
+	}
+
+	\surroundwithmdframed[style=resultstyle]{thm}
+	\surroundwithmdframed[style=resultstyle]{prp}
+	\surroundwithmdframed[style=resultstyle]{cor}
+	\surroundwithmdframed[style=resultstyle]{lem}
+\fi
 
 \newcommand{\K}{\mathbb K}
 \newcommand{\C}{\mathbb C}
@@ -61,7 +83,7 @@
 \newcommand{\CVSc}[3]{\CONV{#1}{#2}{#3}{CVS}{sur tout cpct de}}
 % uniform convergence
 \newcommand{\CVU}[3]{\CONV{#1}{#2}{#3}{CVU}{sur}}
-% uniform convergence on compacts
+% uniform convergence on compacts; parameters: convergence set, index variable, destination value of index variable
 \newcommand{\CVUc}[3]{\CONV{#1}{#2}{#3}{CVU}{sur tout cpct de}}
 
 \newcommand{\El}[2]{\mathcal E\!\left(#1, #2\right)}
@@ -82,6 +104,7 @@
 \newcommand{\evnc}{{\evn} complet}
 \newcommand{\CDII}{{CDI 1}}
 \newcommand{\CDIII}{{CDI 2}}
+\newcommand{\subscpct}{\subset\subset}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -508,10 +531,9 @@
 			\begin{thm} Soit $f_n : X \to \R$ intégrables au sens de Riemann sur $X$. Supposons $f_n \CVU Xn\pinfty f$. Alors~:
 			\begin{itemize}
 				\item $f$ est intégrable au sens de Riemann~;
-				\item la $\left(\int_X f_n(x)\dif x\right)_n$ converge vers $\int_Xf(x)\dif x$.\footnote{Cela veut dire que~:
-					\[\lim_{n \to \pinfty}\int_X f_n(x)\dif x = \int_X \lim_{n \to \pinfty} f_n(x)\dif x.\]}
+				\item la $\left(\int_X f_n(x)\dif x\right)_n$ converge vers $\int_Xf(x)\dif x$.\footnotemark
 			\end{itemize}
-			\end{thm}
+			\end{thm}		\footnotetext{Cela veut dire que~:\[\lim_{n \to \pinfty}\int_X f_n(x)\dif x = \int_X \lim_{n \to \pinfty} f_n(x)\dif x.\]}
 
 			\begin{proof} On note $\mathcal E(X, \R) \coloneqq \{f : X \to \R \tq f \text{ est élémentaire}\}$.
 
@@ -795,8 +817,8 @@
 
 			Calculons, pour $n, p \in \Ns$~:
 			\begin{align*}
-				S_{n+p} - S_n &= \sum_{k=n+1}^{n+p}f_kg_k = \sum_{k=n+1}^{n+p}f_k(G_k - G_{k-1}) = \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n+1}^{n+p}f_kG_{k-1}
-				= \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n}^{n+p-1}f_{k+1}G_k \\
+				S_{n+p} - S_n &= \sum_{k=n+1}^{n+p}f_kg_k = \sum_{k=n+1}^{n+p}f_k(G_k - G_{k-1}) \\
+				&= \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n+1}^{n+p}f_kG_{k-1} = \sum_{k=n+1}^{n+p}f_kG_k - \sum_{k=n}^{n+p-1}f_{k+1}G_k \\
 				&= \sum_{n+1}^{n+p-1}G_k(f_k - f_{k+1}) + f_{n+p}G_{n+p} - f_{n+1}G_n.
 			\end{align*}
 
@@ -1097,8 +1119,10 @@
 			\[f : (x_0-R, x_0+R) \to Y : x \mapsto \sum_{n \geq 0}a_n(x-x_0)^n.\]
 
 			Alors la fonction $f$ est continue sur $(x_0 \pm R)$, et on a~:
-			\[\forall p \in \N : \forall x \in (x_0 \pm R) : f^{(p)}(x) = \sum_{n \geq p}\left(n(n-1)(n-2)\ldots(n-p+1)\right)a_n(x-x_0)^{n-p}
-				= \sum_{n \geq p}\frac {n!}{(n-p)!}a_n(x-x_0)^{n-p}.\]
+			\begin{align*}
+				\forall p \in \N : \forall x \in (x_0 \pm R) : f^{(p)}(x) &= \sum_{n \geq p}\left(n(n-1)(n-2)\ldots(n-p+1)\right)a_n(x-x_0)^{n-p} \\
+				&= \sum_{n \geq p}\frac {n!}{(n-p)!}a_n(x-x_0)^{n-p}.
+			\end{align*}
 			\end{prp}
 
 			\begin{proof} On observe que le terme général $u_n(x) = a_n(x-x_0)^n$ est de classe $C^\infty$ sur $(x_0 \pm R)$. La série
@@ -1235,7 +1259,7 @@
 			sur $I$ lorsque~:
 			\begin{itemize}
 				\item[$(i)$] $\forall [a, b] \subset U : \restr f{[a, b]}$ est R-int sur $[a, b]$~;
-				\item[$(ii)$] $\sup_{[a, b] \subset I} \int_a^b \abs f \leq \pinfty$.
+				\item[$(ii)$] $\sup_{[a, b] \subset I} \int_a^b \abs f \lneqq \pinfty$.
 			\end{itemize}
 			\end{déf}
 
@@ -1554,9 +1578,11 @@
 			Donc l'intégrale de $x \mapsto \frac{\sin x}x$ converge dans $[1, \pinfty)$.
 
 			Montrons maintenant que la fonction n'est pas abs-int. Soit $n \in \Ns$. On sait~:
-			\[\int_\pi^{n\pi}\abs {\frac{\sin x}x}\dif x = \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\abs {\frac{\sin x}x}\dif x
-				\geq \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\frac {\abs {\sin x}}{(k+1)\pi}\dif x \geq \sum_{k=1}^{n-1}\frac {\int_0^\pi\abs {\sin x}}{(k+1)\pi}
-				= \frac {\int_0^\pi\abs {\sin x}}{\pi}\sum_{k=1}^{n-1} \frac 1{k+1}\xrightarrow[n \to \pinfty]{} \pinfty.\]
+			\begin{align*}
+				\int_\pi^{n\pi}\abs {\frac{\sin x}x}\dif x &= \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\abs {\frac{\sin x}x}\dif x
+				\geq \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\frac {\abs {\sin x}}{(k+1)\pi}\dif x \geq \sum_{k=1}^{n-1}\frac {\int_0^\pi\abs {\sin x}}{(k+1)\pi} \\
+				&= \frac {\int_0^\pi\abs {\sin x}}{\pi}\sum_{k=1}^{n-1} \frac 1{k+1}\xrightarrow[n \to \pinfty]{} \pinfty.
+			\end{align*}
 
 			On a donc bien $x \mapsto \frac{\sin x}x$ non-abs-int sur $[1, \pinfty)$.
 			\end{ex}
@@ -1983,9 +2009,11 @@
 			\[\int_\alpha^\beta\int_{a_n}^{b_n}f(x, t)\dif t\dif x = \int_{a_n}^{b_n}\int_\alpha^\beta f(x, t)\dif x\dif t.\]
 
 			Prenons alors $n \geq N_\varepsilon$, on observe~:
-			\[\varepsilon \geq \abs {\int_\alpha^\beta\int_{a_n}^{b_n} f(x, t)\dif t\dif x - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x}
-				= \abs {\int_{a_n}^{b_n}\int_\alpha^\beta f(x, t)\dif x\dif t - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x}
-				= \abs {\int_{a_n}^{b_n}G(t)\dif t - \int_\alpha^\beta F(x)\dif x}.\]
+			\begin{align*}
+				\varepsilon &\geq \abs {\int_\alpha^\beta\int_{a_n}^{b_n} f(x, t)\dif t\dif x - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x}
+				= \abs {\int_{a_n}^{b_n}\int_\alpha^\beta f(x, t)\dif x\dif t - \int_\alpha^\beta\int_I f(x, t)\dif t\dif x} \\
+				&= \abs {\int_{a_n}^{b_n}G(t)\dif t - \int_\alpha^\beta F(x)\dif x}.
+			\end{align*}
 
 			Cela fournit la convergence de l'intégrale de $G$ sur $I$, et le fait que~:
 			\[\int_I G(t)\dif t = \int_\alpha^\beta F(x)\dif x.\]
@@ -2204,7 +2232,7 @@
 			$f$ est continue sur $\R$ et à support dans $\left[\pm \frac 12\right]$, donc elle est~:
 			\begin{itemize}
 				\item bornée par $M \gneqq 0$ sur $\R$~;
-				\item uniformément continue sur $\R$\footnote{$\sim$ théorème de Heine.}.
+				\item uniformément continue sur $\R$\footnotemark.
 			\end{itemize}
 
 			Fixons $\varepsilon > 0$. Il existe $\eta > 0$ tel que~:
@@ -2225,7 +2253,7 @@
 
 			Dès lors, en choisissant $k_\varepsilon$ tel que $\forall k \geq k_\varepsilon : \norm {h_k}_{\infty, [\eta, 1]} \leq \frac \varepsilon{4M}$, alors il vient que~:
 			\[\forall k \geq k_\varepsilon : \sup_{x \in \left[-\frac 12, \frac 12\right]}\abs {f_k(x)-f(x)} \leq 2\varepsilon.\]
-			\end{proof}
+			\end{proof}		\footnotetext{$\sim$ théorème de Heine.}
 
 			% Exercice dans le cours
 
@@ -2417,7 +2445,7 @@
 			par le théorème des accroissements finis. Dès lors, $\eta = \frac \varepsilon M$ convient.
 			\end{rmq}
 
-			\begin{thm}[Théorème d'Arzela-Ascoli] Soient $A \subset \R^d$ compact et $B \subset \evnC0A\R$ non-nul. Si $B$ est bornée
+			\begin{thm}[Théorème d'Arzela-Ascoli]\label{thm:Arzela-Ascoli} Soient $A \subset \R^d$ compact et $B \subset \evnC0A\R$ non-nul. Si $B$ est bornée
 			(pour $\norm \cdot_{\infty, A}$) et équicontinue, alors $B$ est d'adhérence compacte.
 			\end{thm}
 
@@ -2635,8 +2663,7 @@
 			\end{prp}
 
 			\begin{proof} Soient $t \in I, x \in \Omega$. On choisit $\delta \gneqq 0$ tel que $(t-\delta, t+\delta) \subset I$ et $\varepsilon > 0$ tel que
-			$B(x, \varepsilon[ \subset \Omega$. La fonction $(t, x) \mapsto \dif_xf(t, \cdot)$\footnote{La notation $\dif_xf(t, \cdot)$ correspond à la dérivée
-			partielle de $f$ par rapport à sa variable d'espace, évaluée en $x$. Donc $\dif_{x_0}f(t, \cdot) = \pd fx(t, x_0)$.}est continue sur
+			$B(x, \varepsilon[ \subset \Omega$. La fonction $(t, x) \mapsto \dif_xf(t, \cdot)$\footnotemark est continue sur
 			$\left[t-\frac \delta2, t+\frac \delta2\right] \times B\left(x, \frac \varepsilon2\right]$ compact car $f$ est $C^1$. En particulier, elle est bornée,
 			donc il existe $M \gneqq 0$ tel que~:
 			\[\norm {\dif_xf(t, \cdot)} \leq M.\]
@@ -2645,8 +2672,10 @@
 			On a alors~:
 			\[f(t, y_2) - f(t, y_1) = \int_{y_1}^{y_2}\pd fx(t, y)\dif y = \int_0^1\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s,\]
 			que l'on peut majorer en norme par~:
-			\[\norm {f(t, y_2) - f(t, y_1)} \leq \int_0^1\norm {\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s} \leq \int_0^1M\norm {y_2-y_1}\dif s = M\norm {y_2-y_1}.\]
-			\end{proof}
+			\[\norm {f(t, y_2) - f(t, y_1)} \leq \int_0^1\norm {\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s} \leq \int_0^1M\norm {y_2-y_1}\dif s
+				= M\norm {y_2-y_1}.\]
+			\end{proof}		\footnotetext{La notation $\dif_xf(t, \cdot)$ correspond à la dérivée partielle de $f$ par rapport à sa variable d'espace, évaluée
+			en $x$. Donc $\dif_{x_0}f(t, \cdot) = \pd fx(t, x_0)$.}
 
 			\begin{déf} Pour tout $t_0 \in \R, y_0 \in \R^d$, $\ell, r \gneqq 0$, on appelle \textit{cylindre (en espace-temps)} centré en $(t_0, y_0)$ de rayon
 			$r$ et de demi-axe $\ell$ l'ensemble~:
@@ -2701,7 +2730,7 @@
 			\[A(I) \coloneqq \left\{y \in C^1(I, \Omega) \tq \forall t \in I : \norm {y(t) - y_0} \leq r\right\}.\]
 
 			On remarque $A(I) \subset C^0(I, \Omega)$ et $A(I)$ est fermé dans $\evnC0I{\R^d}$ (et donc complet car fermé dans un complet). Posons
-			$y_0 \equiv y_0$\footnote{C'est-à-dire que le premier élément de la suite $(y_n)_n$ est la fonction constante $t \mapsto y_0$.}. On en déduit donc
+			$y_0 \equiv y_0$\footnotemark. On en déduit donc
 			$A(I) \neq \emptyset$. Soit $y \in A(I)$. On pose~:
 			\[\forall t \in I : Ty(t) \coloneqq T(y)(t) \coloneqq y_0 + \int_{t_0}^tf(s, y(s))\dif s.\]
 
@@ -2739,7 +2768,7 @@
 			Notons $\overline I = \widetilde I \cap I$, un intervalle contenant $t_0$. Les fonctions $\restr yI$ et $\restr {\widetilde y}{\widetilde I}$ sont des solutions
 			de \eqref{eq:equadiffPC}, et donc de sa forme intégrale \eqref{eq:TCLlocalPCintégrale}. En particulier, elles sont fixes par
 			$T : A(\overline I) \to A(\overline I)$, donc elles coïncident sur $\overline I$ (unicité par Banach).
-			\end{proof}
+			\end{proof}		\footnotetext{C'est-à-dire que le premier élément de la suite $(y_n)_n$ est la fonction constante $t \mapsto y_0$.}
 
 			\begin{prp} Si $f \in C^k(J \times \Omega)$ et $y$ est une sol de \eqref{eq:equadiffPC} sur $I \subset J$ tel que $t_0 \in I$, alors $y \in C^{k+1}(I, \Omega)$.
 			\end{prp}
@@ -2889,8 +2918,8 @@
 
 			Alors pour tout couple $(t_0, y_0) \in J \times \Omega$, il existe une unique solution maximale au problème de Cauchy.
 
-			De plus, les bouts gauches et droits sont des éléments de $\partial(J \times \Omega)$\footnote{Où $\partial X$ représente le \textit{bord} de l'ensemble $X$.}.
-			\end{thm}
+			De plus, les bouts gauches et droits sont des éléments de $\partial(J \times \Omega)$\footnotemark.
+			\end{thm}\footnotetext{Où $\partial X$ représente le \textit{bord} de l'ensemble $X$.}
 
 			\begin{proof}~
 
@@ -2908,7 +2937,7 @@
 				\[\alpha \coloneqq \inf N^- \qquad\qquad \text{ et } \qquad\qquad \beta \coloneqq \sup N^+.\]
 
 				On a alors~:
-				\[\minfty \leq \alpha \leq t_0-\delta \leq \to+\delta \leq \beta \leq \pinfty.\]
+				\[\minfty \leq \alpha \leq t_0-\delta \leq t_0+\delta \leq \beta \leq \pinfty.\]
 
 				\underline{1.1. Existence}
 
@@ -2993,4 +3022,331 @@
 				permet de s'assurer que la solution maximale de \eqref{eq:TCLglobalPCZ} vit encore en $t_n + \frac \ell2$. Or $t_n + \frac \ell2 \gneqq \beta$,
 				ce qui contredit le caractère maximal de $y$. Dès lors, $(\beta, z) \in \partial(J \times \Omega)$.
 			\end{proof}
+
+			\begin{rmq} Soit $\Omega \subset \R^d$. Notons~:
+			\[K \subscpct \Omega\]
+			lorsque $K$ est un compact inclus dans $\Omega$.
+			\end{rmq}
+
+			\begin{cor}[Théorème de sortie de tout compact] Soient $J$ un intervalle réel non-vide, $\Omega \subset \R^d$ ouvert non-vide, et soit~:
+			\[f : J \times \Omega \toC0 \R^d,\]
+			localement lipschitzienne en espace sur $J \times \Omega$. Soit $(t_0, y_0) \in J \times \Omega$ et soit $y$, la solution maximale de~:
+			\[\begin{cases}
+				y'(t) &= f(t, y(t)), \\
+				y(t_0) &= y_0.
+			\end{cases}\]
+
+			Notons $(\alpha, \beta) \subset (a, b)$ l'intervalle de définition de $y$.
+
+			\begin{itemize}
+				\item Si $a \lneqq \alpha$, alors pour tout suite $(t_n)_n \subset (\alpha, \beta)$ telle que $t_n \xrightarrow[n \to \pinfty]{} \alpha^+$~:
+				\[\forall K \subscpct \Omega : \abs {\left\{n \in \N \tq y(t_n) \in K\right\}} < \pinfty~;\]
+				\item si $\beta \lneqq b$, alors pour toute suite $(t_n)_n \subset (\alpha, \beta)$ telle que $t_n \xrightarrow[n \to \pinfty]{} \beta^-$~:
+				\[\forall K \subscpct \Omega : \abs {\left\{n \in \N \tq y(t_n) \in K\right\}} < \pinfty.\]
+			\end{itemize}
+			\end{cor}
+
+			\begin{proof} Notons tout d'abord que, par ouverture de $J \times \Omega$, on sait~:
+			\[\partial(J \times \Omega) = \adh(J \times \Omega) \setminus (J \times \Omega).\]
+
+			Montrons ici le cas $\beta \lneqq b$ (le cas $a \lneqq \alpha$ se déduit similairement). Supposons par l'absurde qu'il existe $(t_n)_n$, une suite dans
+			$(\alpha, \beta)$ qui tend vers $\beta^-$ pour $n \to \pinfty$ et $K \subscpct \Omega$ tels que~:
+			\[\left\{n \in \N \tq y(t_n) \in K\right\}\]
+			est infini dénombrable. Par compacité de $K$, il existe $\varphi : \N \to \N$ strictement croissante et $y^* \in K$ tels que~:
+			\[y(t_{\varphi(n)}) \xrightarrow[n \to \pinfty]{} y^*.\]
+
+			Ainsi, $(\beta, y^*)$ est un bout droit de $y$, qui est solution maximale. Par le théorème des bouts, on sait $(\beta, y^*) \in \partial (J \times \Omega)$.
+			Or $\beta \in (a, b)$ et $y^* \in K$, donc $(\beta, y^*) \in J \times \Omega$. Il y a donc une contradiction car le bord n'est pas contenu dans
+			$J \times \Omega$.
+			\end{proof}
+
+	\section{Flot d'une équation différentielle et intégrale première}
+		\subsection{Flot associé à une équation différentielle}
+			Soient $J \subset \R$ un intervalle non-vide, $\Omega \subset \R^d$ ouvert non-vide et $f \in C^0(J \times \Omega, \R^d)$ localement lipschitzienne
+			en espace. L'existence et l'unicité de solution maximale au problème de Cauchy~\eqref{eq:equadiffPC} pour $(t_0, y_0) \in J \times \Omega$ permet
+			de «~définir une fonction~» $\Phi$ associée à l'équation différentielle $y(t) = f(t, y(t))$ en posant~:
+			\[\Phi(t_0, y_0, t) = \hat y(t),\]
+			où $\hat y$ est la solution maximale de~\eqref{eq:equadiffPC}.
+
+			$\Phi : J \times \Omega \times J \to \Omega \subset \R^d$ n'est pas définie pour tous les triplets $(t_0, y_0, t) \in J \times \Omega \times J$.
+			En revanche, lorsque $(t_0, y_0) \in J \times \Omega$ est fixé, $t \mapsto \Phi(t_0, y_0, t)$ est définie sur un voisinage de $t_0$ dans $J$
+			par le TCL global.
+
+			Il y a même une certaine uniformité (par rapport à $y_0$).
+
+			\begin{prp} Soit $(t_0, y_0) \in J \times \Omega$ et soit $\varepsilon > 2$ tel que $B(y_0, \varepsilon] \subset \Omega$. Alors~:
+			\[\exists \ell > 0 \tq \forall y \in B(y_0, \varepsilon] : t \mapsto \Phi(t_0, y, t) \text{ est définie sur } [t_0 \pm \ell].\]
+			\end{prp}
+
+			\begin{rmq} Cela veut dire que l'intersection des intervalles de définition des $\Phi(t_0, y, t)$ pour $y$ arbitrairement proche de $y_0$ (au sens
+			d'inclusion dans la boule de centre $y_0$ et de rayon $\varepsilon$) n'est pas le singleton $\{t_0\}$ mais bien un intervalle de la forme $[t_0+\ell]$
+			pour un certain $\ell > 0$.
+			\end{rmq}
+
+			\begin{proof} $\R^d \setminus \Omega$ est un fermé, $B(y_0, \varepsilon]$ est un fermé de $\Omega$, et est borné, donc est compact, et
+			$\R^d \setminus \Omega \cap B(y_0, \varepsilon] = \emptyset$. Ainsi~:
+			\[\delta \coloneqq \inf_{(x, y) \in (\R^d \setminus \Omega) \times B(y_0, \varepsilon]}\norm {x-y} > 0.\]
+
+			En effet, si $(x_n)_n$ est un suite d'éléments de $\R^d \setminus \Omega$, et si $(y_n)_n$ est une suite d'éléments de $B(y_0, \varepsilon]$ telles
+			que ces suites minimisent $\norm {x-y}$, supposons par l'absurde que $\norm {x_n-y_n}_n$ tende vers 0. On a donc~:
+			\[\lim_{n \to \pinfty}x_n = X = \lim_{n \to \pinfty}y_n.\]
+
+			Par fermeture de $B(y, \varepsilon]$ et $\R^d \setminus \Omega$, on détermine $X \in B(y, \varepsilon]$ et $X \in \R^d \setminus \Omega$.
+			Et donc $B(y, \varepsilon] \cap \R^d \cap \Omega \ni X$, ce qui est une contradiction. Donc $\delta \gneqq 0$.
+
+			Notons alors~:
+			\[A \coloneqq \norm f_{\infty, [t_0 \pm \ell_0] \times B\left(y_0, \varepsilon+\frac \delta2\right]},\]
+			où $\ell_0 > 0$ est fixé tel que $[t_0 \pm \ell_0] \subset J$. On peut alors choisir $\ell > 0$ tel que~:
+			\[0 < \ell < \min\left(\ell_0, \frac \delta{4A}\right).\]
+
+			Alors pour tout $y \in B(y,_0, \varepsilon]$, le cylindre $S(t_0, y_0, \ell, \frac \delta4)$ est de sécurité pour $f$. En effet,
+			$S(t_0, y_0, \ell, \frac \delta 4) \subset J \times \Omega$ et~:
+			\[0 < \ell < \frac \delta{4A} \leq \frac \delta{4\norm f_{\infty, S}}.\]
+
+			Par le TCL local, on sait que la solution maximale de~:
+			\[\begin{cases}
+				Z'(t) &= f(t, Z(t)) \\
+				Z(t_0) &= Z_0
+			\end{cases}\]
+			existe au moins sur $[t_0 \pm \ell]$, avec $\ell$ qui dépend de $\varepsilon$ mais qui ne dépend pas de $y$.
+			\end{proof}
+
+			\begin{rmq} Une conséquence de cela est qu'au voisinage de tout point $y_0$ en espace, les solutions maximales aux problèmes de Cauchy sont
+			paramétrées par leur valeur en $t_0$.
+			\end{rmq}
+
+			\begin{prp}  Pour $y \in B(y_0, \varepsilon]$ et $t \in [t_0 \pm \ell]$ sous les hypothèses précédentes, on a~:
+			\[\Phi\left(t_0, \Phi(t, y, t_0), t\right) = y.\]
+			\end{prp}
+
+		\subsection{Intégrales premières}
+			\begin{déf} Soient $J \subset \R$ un intervalle non-vide, $\Omega \subset \R^d$ ouvert non-vide, et $f \in C^0(J \times \Omega, \R^d)$ localement
+			lipschitzienne en espace sur $J \times \Omega$. On appelle \textit{intégrale première de l'intégrale~\eqref{eq:equadiff}}~:
+			\begin{align}\tag{**}\label{eq:equadiff}
+				y'(t) = f(t, y(t))
+			\end{align}
+			toute fonction $H : J \times \Omega \to \R$ constante le long des solutions de l'équation différentielle, c-à-d~:
+			\[t \mapsto H(t, y(t))\]
+			est constante pour toute fonction $y$ solution de~\eqref{eq:equadiff}.
+			\end{déf}
+
+			\begin{prp} $H \in C^1(J \times \Omega, \R)$ est une intégrale première de~\eqref{eq:equadiff} si et seulement si~:
+			\[\forall (t, y) \in J \times \Omega : \pd Ht(t, y(t)) + \scpr {f(t, y)}{\nabla_yH(t, y(t))} = 0.\footnotemark\]
+			\end{prp}		\footnotetext{La notation $\nabla_yH(t, y(t))$ représente le gradient en espace de $H$, et donc $\nabla_yH(t, y(t)) = \pd Hy(t, y(t))$.}
+
+			\begin{proof} Soit $H \in C^1(J \times \Omega)$ une intégrale première de~\eqref{eq:equadiff}. Soit $(t_0, y_0) \in J \times \Omega$, et soit $y$
+			la solution maximale du problème de Cauchy $(t_0, y_0)$. On a $t \mapsto H(t, y(t))$ est de classe $C^1$ sur un intervalle $I \subset J$ et est
+			constante. On en déduit, sur cet intervalle~:
+			\[\od Ht(t, y(t)) = 0,\footnotemark\]
+			Ou encore~:
+			\[\pd Ht(t, y(t)) + \scpr {\od yt(t)}{\pd H(t, y(t))} = 0.\]
+
+			En particulier, en $t=t_0$, on trouve~:
+			\[\pd Ht(t_0, y(t_0)) + \scpr {f(t_0, y(t_0))}{\pd Ht(t_0, y(t_0))} = 0.\]
+
+			Supposons maintenant $H \in C(J \times \Omega)$ telle que pour toute solution $y$ de~\eqref{eq:equadiff}~:
+			\[t \mapsto H(t, y(t)) \in C^1(I \subset J, \R) \tq pd Ht(t, y(t)) + \scpr {f(t, y(t))}{\pd Ht(t, y(t))} = 0.\]
+
+			On en déduit que $t \mapsto H(t, (t))$ est constante sur $I$, son intervalle de définition.
+			\end{proof}  \footnotetext{La notation $\od Ht(t, y(t))$ représente la dérivée ordinaire (ou totale) de $H$ par rapport à $t$. On peut établir~:
+			\[\od Ht(t, y(t)) = \od \eta t(t),\]
+			où $\eta : J \to \R : t \mapsto H(t, y(t))$.}
+
+		\subsection{Exemple de système Hamiltonien}
+			TODO. %TODO
+
+	\section{Condition suffisante d'existence locale}
+		\begin{thm}[Théorème de Cauchy-Peano-Arzela] Soient $J \subset \R$ un intervalle et $\Omega \R^d$ ouverts. Soient $f \in C^0(J \times \Omega, \R^d)$ et
+		$(t_0, y_0) \in J \times \Omega$. Alors~\eqref{eq:equadiffPC} admet une solution sur un intervalle $[t_0 \pm \delta]$ pour $\delta > 0$.
+		\end{thm}
+
+		\begin{rmq}Par rapport au théorème de Cauchy-Lipschitz, en hypothèses, on a perdu le caractère lipschitzien en espace de $f$ (même localement), et on
+		a perdu l'unicité de la solution dans les conséquences.
+		\end{rmq}
+
+		\begin{proof} On prolonge $f$ par la valeur nulle de $\R^d$ à $J \times \Omega$. Soit une suite $\rho_k$ telle que $\rho_k : \R^d \to \R^+$ est
+		régularisante (donc pour tout $k \geq 1$, on a $\rho_k \in C^\infty(\R^d, \R^+)$, $\int_{\R^d}\rho_k(x)\dif x = 1$, et $\supp \rho_k \subset B(0, \frac 1k[$).
+
+		Pour $(t, x) \in J \times \R^d$ et $k \in \Ns$, on pose~:
+		\[f_k(t, x) = \left(f_k(t, \cdot) * \rho_k\right)(x).\]
+
+		Alors $\forall k \in \Ns$, on a (EXERCICE)~:
+		\[\begin{cases}
+			f_k &\in C^0(J \times \R^d, \R^d), \\
+			f_k(t, \cdot) &\CVUc {J \times \Omega}k\pinfty f(t, \cdot), \\
+			f_K &\CVUc {J \times \Omega}k\pinfty f.
+		\end{cases}\]
+
+		On choisit $r > 0$ et $\ell > 0$ tels que~:
+		\[S \coloneqq S(t_0, y_0, \ell, r) \subset J \times \Omega\]
+
+		$S$ est un compact de $J \times \Omega$, on donc~:
+		\[f_k \CVUc Sk\pinfty f.\]
+
+		Par inégalité triangulaire, on sait $\norm {f_k}_{\infty, S} \leq \norm {f_k - f}_{\infty, S} + \norm f_{\infty, S}$, avec
+		$\norm {f_k - f}_{\infty, S} \xrightarrow[k \to \pinfty]{} 0$ par convergence uniforme.
+
+		On sait qu'il existe $A \geq 0$ tel que~:
+		\[\forall k \geq 1 : \norm {f-f_k}_{\infty, S} \leq A.\]
+		Quitte à diminuer $S$ en diminuant $\ell$, on peut supposer~:
+		\[0 < \ell < \frac rA,\]
+		et donc $S$ est un cylindre de sécurité pour $f_k$ quel que soit $k \geq 1$.
+
+		Remarquons ensuite (EXERCICE) que pour tout $k \geq 1$, on a~:
+		\[\begin{cases}
+			f_k &\in C^0(J \times \Omega, \R^d), \\
+			\forall t \in J &: f_k(t, \cdot) \in C^\infty(\Omega, \R^d),
+		\end{cases}\]
+		et $(t, y) \mapsto d_yf(t, \cdot)$ est $C^0$ sur $J \times \Omega$.
+
+		On en déduit que $f_k$ vérifie les hypothèses du TCL. Fixons $k \geq 1$ et appliquons le TCL local pour obtenir une (unique) solution $y_k$
+		de~\eqref{eq:equadiffPC} sur $[t_0 \pm \ell]$ (car $S$ est de sécurité pour les $f_k$).
+
+		Montrons maintenant que la suite $(y_k)_k \subset \left(C^0\left([t_0 \pm \ell]\right), \R^d\right)$ vérifie les hypothèses du théorème d'Arzela-Ascoli
+		(Théorème~\ref{thm:Arzela-Ascoli}). En effet~:
+		\begin{itemize}
+			\item \[\forall t \in [t_0 \pm \ell] : \forall k \geq 1 : \left(t, y_k(t)\right) \in S,\]
+			par construction de $S$, et donc $\norm {y_k(t) - y_0} \leq r$~;
+
+			\item $B = \left\{y_k \tq k \in \Ns\right\}$ est équicontinue sur $[t_0 \pm \ell]$ car les $y_k$ sont équi-lipschitziennes.
+
+			En effet, prenons $t, s \in [t_0 \pm \ell]$, on trouve~:
+			\[\norm {y_k(t) - y_0} \leq \int_{\min(\ell, t)}^{\max(\ell, t)}\norm {f_k(\sigma, y_k(\sigma))}\dif \sigma \leq \abs {s-t}\norm {f_k}_{\infty, S}
+				\leq A\abs {s-t}.\]
+		\end{itemize}
+
+		Dès lors, par Arzela-Ascoli, il existe $y^* \in C^0([t_0 \pm \ell], \R^d)$ et $\varphi : \N \to \N$ strictement croissante tels que~:
+		\[y_{\varphi(k)} \CVU {[t_0 \pm \ell]}k\pinfty y^*.\]
+
+		Montrons alors maintenant que~:
+		\[f_k\left(t, y_k(t)\right) \CVU {[t_0 \pm \ell]}k\pinfty f\left(t, y^*(t)\right).\]
+
+		En effet, pour $t \in I = [t_0 \pm \ell]$ et $k \geq 1$, on trouve~:
+		\begin{align*}
+			\norm {f_k\left(t, y_{\varphi(k)}(t)\right) - f\left(t, y^*(t)\right)}
+				&\leq \norm {f_k\left(t, y_{\varphi(k)}(t)\right) - f\left(t, y_{\varphi(k)}(t)\right)} + \norm {f\left(t, y_{\varphi(k)}(t)\right) - f(t, y^*(t))} \\
+			&\leq \norm {f-f_k}_{\infty, S} + \sup_{t \in I}\norm {f\left(t, y_{\varphi(k)}(t)\right) - f(t, y^*(t))},
+		\end{align*}
+		qui tend vers $0$ pour $k \to \pinfty$ par CVU de $f_k$ vers $f$ et de $y_{\varphi(k)}$ vers $y^*$.
+
+		Finalement, par le TCL local, on observe~:
+		\[\forall k \geq 1 : \forall t \in I : y_{\varphi(k)} = y_0 + \int_{t_0}^tf(\sigma, y_{\varphi(k)}(\sigma))\dif \sigma,\]
+		et donc en passant à la limite $k \to \pinfty$, on obtient~:
+		\[\forall t \in I : y^*(t) = y_0 + \int_{t_0}^tf(\sigma, y^*(\sigma))\dif \sigma.\]
+
+		Ainsi, il existe au moins une solution de~\eqref{eq:equadiffPC}, à savoir $y^*$.
+		\end{proof}
+
+		\begin{ex} Considérons le problème de Cauchy suivant~:
+		\[\begin{cases}
+			y'(t) &= \sqrt {\abs {y(t)}} \\
+			y(0) &= 0
+		\end{cases}\]
+
+		On a $f : \R \times \R \to \R : (t, y) \mapsto \sqrt {\abs y}.$ $f$ est $C^0$ sur $\R^2$ donc le théorème de Cauchy-Peano s'applique. On sait alors
+		qu'il existe une solution $y$ définie sur $[-\delta, \delta]$.
+
+		On peut en effet trouver~:
+		\begin{enumerate}
+			\item $y \equiv 0$ est une sol sur $\R$~;
+			\item $y : \R \to \R : t \mapsto \begin{cases}0 &\text{ si } t \leq 0 \\\frac {t^2}4 &\text{ si } t > 0\end{cases}$ est également solution sur $\R$.
+			\item on peut généraliser cette dernière par~:
+			\[y : \R \to \R : t \mapsto \begin{cases}0 &\text{ si } t \leq \alpha \\ \frac {(t-\alpha)^2}4 &\text{ si } t > \alpha,\end{cases}\]
+			pour $\alpha \geq 0$.
+		\end{enumerate}
+		\end{ex}
+
+\chapter{Équations différentielles linéaires}
+	\section{Existence et unicité des solutions globales}
+		\subsection{Notations}
+			On se donne $J \subset \R$ un intervalle non-vide et $\Omega \subset \R^d$ ouvert non-vide et $d(d+1)$ fonctions~:
+			\[[a_{ij}]_{1 \leq i, j \leq d} \qquad\qquad \text{ et } \qquad\qquad [b_i]_{1 \leq i \leq g}\]
+			sur $J$ et à valeurs dans $\K \in \{\R, \C\}$. On souhaite résoudre le système~:
+			\[y_i'(t) = \sum_{j=1}^da_{ij}(t)y_j(t) + b_i(t)\]
+			pour $i \in \intint 1d$.
+
+			Posons~:
+			\[Y(t) = [y_i(t)]_{1 \leq i \leq d} \qquad A(t) = [a_{ij}(t)]_{1 \leq i, j \leq d} \quad B(t) = [b_i(t)]_{1 \leq i \leq d}.\]
+			Le système est équivalent à~:
+			\begin{align*}\label{eq:PCL}\tag{PCL}
+				Y'(t) = A(t)Y(t) + B(t).
+			\end{align*}
+
+		\subsection{Théorie de Cauchy}
+			\begin{lem}[Lemme de Gronwall] Soient $[a, b]$ un segment de $\R$ et $\alpha, \beta > 0$. Soit~:
+			\[u : [a, b] \toC0 \R^+.\]
+			Si~:
+			\[\forall t \in [a, b] : u(t) \leq \alpha + \beta\int_a^tu(s)\dif s,\]
+			alors~:
+			\[u(t) \leq \alpha\exp\left(\beta(t-a)\right).\]
+			\end{lem}
+
+			\begin{proof} Si $\beta = 0$, alors le lemme est trivial. Sinon, posons~:
+			\[f : [a, b] \to \R : t \mapsto \exp\left(-\beta(t-a)\right)\left[\frac \alpha\beta + \int_a^tu(s)\dif s\right].\]
+
+			On observe alors~:
+			\begin{align*}
+				\forall t \in [a, b] : f'(t) &= u(t)\exp\left(-\beta(t-a)\right) + \left[\frac \alpha\beta + \int_a^tu(s)\dif s\right]\exp\left(-\beta(t-a)\right) \\
+				&= \exp\left(-\beta(t-a)\right)\left(u(t) - \left(\alpha + \beta\int_a^tu(s)\dif s\right)\right) \leq 0.
+			\end{align*}
+
+			Ainsi~:
+			\[\forall t \in [a, b] : f(t) \leq f(a),\]
+			et donc~:
+			\begin{align*}
+				\left(\frac \alpha\beta + \int_a^tu(s)\dif s\right)\exp\left(-\beta(t-a)\right) &\leq \frac \alpha\beta \\
+				\frac \alpha\beta + \int_a^tu(s)\dif s &\leq \frac \alpha\beta \left(\beta(t-a)\right) \\
+				u(t) &\leq \alpha\exp\left(\beta(t-a)\right).
+			\end{align*}
+			\end{proof}
+
+
+			\begin{thm}[Théorème de Cauchy linéaire] Si les fonctions $a_{ij}$ et $b_i$ sont continues, alors pour tout $(t_0, Y_0) \in J \times \K^d$,
+			le problème de Cauchy~\eqref{eq:PCL} admet une unique solution définie sur $J$.
+			\end{thm}
+
+			\begin{proof} $J$ est un intervalle d'extrémités $a < b$ (ouvert ou fermé). Si $J$ est fermé en $a$, alors on prolonge $A$ et $B$ à gauche par $A(a)$
+			et $B(a)$. De même, si $J$ est fermé en $b$, on prolonge $A$ et $B$ à droite par $A(b)$ et $B(b)$. On a alors des fonctions continues sur $\R$.
+
+			On peut alors considérer $J$ ouvert sans perte de généralité. Montrons alors que l'on peut appliquer le TCL global à~\eqref{eq:PCL}.
+			Posons donc~:
+			\[f(t, Y) = A(t)Y + B(t).\]
+			On remarque aisément que $f \in C^0(J \times \K^d, \R^d)$. Soit $K \subset J$ compact. Il existe $M_A \gneqq 0$ tel que~:
+			\[\forall t \in K : \norm {A(t)} \leq M_A.\]
+			Ainsi pour tout $t \in K$~:
+			\begin{align*}
+				\forall Y, Z \in \R^d : \norm {f(t, Y) - f(t, Z)} &\leq \norm {A(t)(Y-Z)} \leq \norm {A(t)}\norm {Y-Z} \leq M_A\norm{Y-Z},
+			\end{align*}
+			car en posant la norme~:
+			\[\norm A \coloneqq \sup_{X \in \K^d \tq \norm X = 1}\norm {AX},\]
+			on a bien~:
+			\[\forall X \in \K^d : \norm {AX} \leq \norm A \norm X.\]
+
+			La fonction $f$ est donc localement en temps globalement lipschitzienne en espace, et donc localement lipschitzienne en espace.
+
+			Par le TCL global, il existe une unique solution maximale $Y$ de classe $C^1$ sur un intervalle de définition $(\alpha, \beta) \subset J$.
+
+			Supposons par l'absurde que $\beta$ n'est pas l'extrémité droite de $J$. Il existe alors $t_1 > \beta \tq t_1 \in J$. Puisque $[t_0, t_1]$ est un
+			segment de $J$, il existe $\mu, \gamma > 0$ tels que~:
+			\[\forall t \in [t_0, t_1] : \begin{cases}\norm {A(t)} &\leq \mu, \\\norm {B(t)} &\leq \gamma.\end{cases}\]
+
+			Ainsi, pour tout $t \in [t_0, \beta)$~:
+			\[Y(t) = Y_0 + \int_{t_0}^tf(s, Y(s))\dif s.\]
+			Et donc~:
+			\[\norm {Y(t)} \leq \norm {Y_0} + \int_{t_0}^t\norm {f(s, Y(s))}\dif s \leq \norm {Y_0} + \int_{t_0}^t\left(\norm {A(s)}\norm {Y(s)} + \norm {B(s)}\right)\dif s
+				\leq \norm {Y_0} + \gamma(t-t_0) + \mu\int_{t_0}^t\norm {Y(s)}\dif s.\]
+
+			Par le lemme de Gronwall, on peut écrire~:
+			\[\norm {Y(t)} \leq \left(\norm {Y_0} + \gamma(t-t_0)\right)\exp\left(\mu(t-t_0)\right)
+				\leq \left(\norm {Y_0} + \gamma(t-t_0)\right)\exp\left(\mu(\beta-t_0)\right).\]
+
+			Donc $Y$ est bornée sur $[t_0, \beta)$ et est solution maximale de~\eqref{eq:PCL} et $\beta$ n'est pas l'extrémité droite de $J$. Cela contredit le
+			théorème de sortie de tout compact. On en déduit que $\beta$ est l'extrémité droite de $J$. Par un argument similaire, on trouve $\alpha$ est
+			l'extrémité gauche de $J$. La solution $Y$ est donc l'unique solution maximale et est définie sur $(\alpha, \beta) = J$.
+			\end{proof}
+
+			\begin{rmq} L'unicité vient du théorème de Cauchy-Lipschitz~: la preuve fait appel au TCL global afin d'obtenir une solution $Y$ maximale du problème
+			de Cauchy et définie sur un intervalle inclus dans $J$. La seconde partie de la preuve est de montrer que ce sous-intervalle est $J$.
+			\end{rmq}
+
 \end{document}
