@@ -60,11 +60,18 @@
 \newcommand{\N}{\mathbb N}
 \newcommand{\Ns}{\N^{*}}
 \newcommand{\tq}{\text{ t.q. }}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Imf}{Im}
 \DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\MatBC}{\Mat_{B_C}}
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\adh}{adh}
 \DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\diag}{diag}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -900,7 +907,7 @@
 			Et puisque $\beta_n - \alpha_n = 4^{-n}$, il vient~:
 			\[\abs {\frac {f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}} \geq \frac 123^n,\]
 			ce qui contredit la dérivabilité en $x$.
-	\section{Séries de puissances}
+	\section{Séries de puissances}\label{sec:séries de puissances}
 		\subsection{Théorie du rayon}
 			On se donne $(Y, \norm \cdot)$, un $\C$-ev complet.
 
@@ -3348,5 +3355,536 @@
 			\begin{rmq} L'unicité vient du théorème de Cauchy-Lipschitz~: la preuve fait appel au TCL global afin d'obtenir une solution $Y$ maximale du problème
 			de Cauchy et définie sur un intervalle inclus dans $J$. La seconde partie de la preuve est de montrer que ce sous-intervalle est $J$.
 			\end{rmq}
+
+	\section{Systèmes différentiels linéaires homogènes --- matrice résolvante}
+		\begin{déf} Avec les notations précédentes, un système différentiel $Y'(t) = A(t)Y(t) + B(t)$ est dit \textit{homogène} lorsque $B \equiv 0$.
+		\end{déf}
+
+		\begin{rmq} Lorsque $A \in C^0(I, \Mat_d(\K))$, on note~:
+		\[\Phi(t, t_0, y_0) = y(t)\]
+		pour $t, t_0 \in I$ et $y_0 \in \K^d$ la valeur de la solution globale du problème de Cauchy à l'instant $t$~:
+		\[\begin{cases}
+			Y'(s) &= A(s)Y(s) \\
+			Y(t_0) &= y_0.
+		\end{cases}\]
+		\end{rmq}
+
+		\begin{déf} Notons $S_H$ l'ensemble des fonctions dérivables sur $I$, à valeurs dans $\K^d$, solutions de $Y'(t) = A(t)Y(t)$.
+		\end{déf}
+
+		\begin{prp} $S_H$ est un espace vectoriel.
+		\end{prp}
+
+		\begin{proof} EXERCICE.
+		\end{proof}
+
+		\begin{prp} Pour $t \in I$, l'application~:
+		\[\varphi_t : S_H \to \K^d : y \mapsto y(t)\]
+		est un isomorphisme d'espace vectoriel.
+		\end{prp}
+
+		\begin{proof} La linéarité est triviale par opérations sur les fonctions, et la bijection vient directement du théorème de Cauchy linéaire.
+		\end{proof}
+
+		\begin{cor} $\dim S_H = d$.
+		\end{cor}
+
+		\begin{déf} Pour $t, t_0 \in I$, on appelle \textit{matrice résolvante} $R(t, t_0)$ la matrice de $(\varphi_t \circ \varphi_{t_0}^{-1})$ dans la base
+		canonique de $\K^d$.
+		\end{déf}
+
+		\begin{rmq} Pour les notations précédentes, on a~:
+		\[(\varphi_t \circ \varphi_{t_0}^{-1})(y_0) = \Phi(t, t_0, y_0) = R(t, t_0)y_0.\]
+		\end{rmq}
+
+		\begin{prp} Soient $s, t, t_0 \in I$. Alors~:
+		\begin{enumerate}
+			\item $R(t, t_0) \in \GL_d(\K)$ et $R(t_0, t_0) = \Id$~;
+			\item $R(t, s)R(s, t_0) = R(t, t_0)$~;
+			\item $R(t, t_0)^{-1} = R(t_0, t)$.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof}~
+		\begin{enumerate}
+			\item $(\varphi_t \circ \varphi_{t_0}^{-1})$ est une application linéaire bijective de $\K^d \to \K^d$ donc $R(t, t_0) \in \GL_d(\K)$.
+			De plus, $R(t_0, t_0) = (\varphi_{t_0} \circ \varphi_{t_0}^{-1}) = \Id$.
+			\item Soit $y \in \K^d$. Calculons~:
+			\[R(t, s)R(s, t_0)y = \left(\left(\varphi_t \circ \varphi_s^{-1}\right) \circ \left(\varphi_s \circ \varphi_{t_0}^{-1}\right)\right)(y)
+				= \left(\varphi_t \circ \varphi_{t_0}^{-1}\right)(y) = R(t, t_0)y.\]
+
+			Et donc $R(t, s)R(s, t_0) = R(t, t_0)$.
+
+			\item On observe~:
+			\[R(t, t_0)^{-1} = \MatBC\left(\varphi_t \circ \varphi_{t_0}^{-1}\right)^{-1} = \Mat_{B_C}\left(\varphi_{t_0} \circ \varphi_t^{-1}\right) = R(t_0, t),\]
+			où $\MatBC(f)$ représente la matrice de l'application $f$ dans la base canonique de son ensemble d'arrivée.
+		\end{enumerate}
+		\end{proof}
+
+		\begin{déf} On appelle \textit{système fondamental de solutions} (abrégé \textit{SFS}) de $Y( = AY$ toute base de l'espace $S_H$.
+		\end{déf}
+
+		\begin{prp} Soient $v_1, \ldots, v_k \in S_H$. Les trois affirmations suivantes sont équivalentes~:
+		\begin{itemize}
+			\item $\{v_1, \ldots v_k\}$ forment un SFS~;
+			\item $\forall t \in I : \det(v_1(t), \ldots, v_k(t)) \neq 0$~;
+			\item $\exists t \in I : \det(v_1(t), \ldots, v_k(t)) \neq 0$.
+		\end{itemize}
+		\end{prp}
+
+		\begin{proof} Montrons d'abord que $(1) \Rightarrow (2)$. L'application $\varphi_t$ envoie $(v_i)_i$ sur une base de $\K^d$ car c'est un isomorphisme.
+		On en déduit que $(v_i(t))_i$ est une base de $\K^d$. Le déterminant ne peut donc pas être nul.
+
+		Il est trivial que $(2) \Rightarrow (3)$ car $I \neq \emptyset$.
+
+		Pour montrer que $(3) \Rightarrow (1)$, on sait que $\varphi_t$ envoie $(v_i(t))_i$ sur une base de $S_H$, et donc $(v_i)_i$ est une base de $S_H$, ou
+		encore un système fondamental de solutions.
+		\end{proof}
+
+		\begin{déf} On appelle \textit{matrice fondamentale} de l'équation $Y' = AY$ toute «~matrice~» $t \mapsto C(t)$ dont les colonnes $t \mapsto C_i(t)$
+		forment une base de $S_H$.
+		\end{déf}
+
+		\begin{prp} Si $t \mapsto C(t)$ est une matrice fondamentale de $Y' = AY$ et $R(t, t_0)$ en est la matrice résolvante, alors~:
+		\[\forall (s, t) \in I^2 : R(t, s)C(s) = C(t),\]
+		et par suite~:
+		\[\forall (t, s) \in I^2 : R(t, s) = C(t)C(s)^{-1}.\]
+		\end{prp}
+
+		\begin{proof} On prend $t \mapsto C_i(t)$ pour $i \in \intint 1d$ les colonnes de la matrice $t \mapsto C(t)$. On pose $D_i$ définie par~:
+		\[t : \mapsto D_i(t) \coloneqq \left[R(t, s)C(s)\right]_i.\]
+
+		On sait que $C_i$ est solution de $Y' = AY$ sur $I$ avec $C_i(s) = [C(s)]_i$.
+
+		$D_i$ est également solution de $Y' = AY$ sur $I$ avec $D_i(s) = [R(t, s)C(s)]_i$.
+
+		Par le théorème de Cauchy linéaire, on a unicité de la solution, et donc~:
+		\[\forall i \in \intint 1d : C_i = D_i,\]
+		d'où la formule suivante~:
+		\[R(t, s) = C(t)C(s)^{-1}.\]
+		\end{proof}
+
+		\begin{rmq} Chaque colonne de $t \mapsto R(t, t_0)$ est dérivable sur $I$, solution de $Y'=AY$. On en déduit que $R(t, t_0)$ est dérivable sur $I$
+		et vérifie le problème de Cauchy suivant~:
+		\[\begin{cases}
+			\forall t \in I : &Z'(t) = A(t)Z(t) \\
+			&Z(t_0) = \Id,
+		\end{cases}\]
+		avec $Z : I \to \Mat_d(\K)$.
+
+		Ainsi $t \mapsto R(t, t_0)$ est solution d'un problème de Cauchy linéaire d'ordre 1 dont la matrice à l'instant $t$ n'est (en général) par $A(t)$.
+		\end{rmq}
+
+		\begin{prp} Soit $A \in \Mat_d(\C)$. Alors~:
+		\[\det(I + hA) \underset{h \to 0}= 1 + h\Tr(A) + O(h^2).\]  % TODO: trouver comment mettre {h \to 0} en-dessous de '='
+		\end{prp}
+
+		\begin{proof} Il existe $P \in \GL_d(\C)$ tel que~:
+		\[P^{-1}AP = \begin{bmatrix}\lambda_1 & & ? \\& \ddots & \\0 & & \lambda_d\end{bmatrix}.\]
+
+		On en déduit~:
+		\begin{align*}
+			\det(I + hA) &= \det(I + hP(P^{-1}AP)P^{-1}) = \det\left(P(I + hP^{-1}AP)P^{-1}\right) = \det(I + hP^{-1}AP) \\
+			&=\prod_{i=1}^d\left(1 + h\lambda_i\right) = 1 + \sum_{i=1}^d\lambda_ih  + O(h^2).
+		\end{align*}
+
+		De plus~:
+		\begin{align*}
+			\Tr(A) &= \Tr\left(P\begin{bmatrix}\lambda_1 & & ?\\& \ddots & \\0 & & \lambda_d\end{bmatrix}P^{-1}\right) =
+				\Tr\left(\begin{bmatrix}\lambda_1 & & ? \\& \ddots & \\0 & & \lambda_d\end{bmatrix}P^{-1}P\right) \\
+			&= \Tr\left(\begin{bmatrix}\lambda_1 & & ? \\ & \ddots & \\0 & & \lambda_d\end{bmatrix}\right) = \sum_{i=1}^d\lambda_i.
+		\end{align*}
+
+		On a donc bien~:
+		\[\det(I + hA) = 1 + h\Tr(A) + O(h^2).\]
+		\end{proof}
+
+		\begin{prp} La fonction $t \mapsto \Delta(t) \coloneqq \det(R(t, t_0))$ est dérivable (en réalité de classe $C^1$) sur $I$ telle que~:
+		\begin{align}\tag{Équation de Jacobi}
+			\Delta'(t) = \Tr(A(t))\Delta(t),
+		\end{align}
+		et on en déduit~:
+		\begin{align}\tag{Équation de Liouville}
+			\Delta(t) = \exp\left(\int_{t_0}^t\Tr(A(s))\dif s\right)\Delta(t_0).
+		\end{align}
+		\end{prp}
+
+		\begin{proof} Prenons $t, t_0 \in I$, et $h \in \R$ tel que $h + t_0 \in I$. Calculons~:
+		\begin{align*}
+			\Delta(t+h) &= \det(R(t+h, t_0)) = \det(R(t+h, t_0)R(t_0, t)R(t, t_0)) = \det(R(t+h, t))\det(R(t, t_0)).
+		\end{align*}
+
+		Or, puisque $Z : t \mapsto R(t, t_0)$ satisfait $Z'(t) = A(t)Z(t)$, en développement d'ordre 1, on a~:
+		\[R(t+h, t) \underset{h \to 0}= R(t, t) + hA(t)R(t, t) + o(h).\]
+
+		D'où l'on déduit~:
+		\begin{align*}
+			\Delta(t+h) &\underset{h \to 0}= \Delta(t)\det(I + hA(t) + o(h)) \\
+			&\underset{h \to 0}= \Delta(t)\det(I + hA(t)) + o(h) \\
+			&\underset{h \to 0}= \Delta(t)\left(1 + h\Tr(A(t))\right) + O(h^2) + o(h).
+		\end{align*}
+
+		Puisque $f = O(h^2) \Rightarrow f = o(h)$, on trouve~:
+		\[\Delta(t+h) \underset{h \to 0}= \Delta(t) + h\Delta(t)\Tr(A(t)) + o(h).\]
+
+		Pour $h \neq 0$, on sait donc~:
+		\[\frac {\Delta(t+h)-\Delta(t)}h = \Tr(A(t))\Delta(t) + o(1).\]
+
+		Dès lors, $\Delta(t)$ est dérivable en $t$ et $\Delta'(t) = \Tr(A(t))\Delta(t)$.
+
+		De plus, les fonctions $t \mapsto \Delta(t)$ et $t \mapsto \Delta(t_0)\exp\left(\int_{t_0}^t\Tr(A(s))\dif s\right)$ sont solutions, sur $I$, de~:
+		\[\begin{cases}y'(t) &= \Tr(A(t))y(t) \\y(t_0) &= \Delta(t_0)\end{cases}.\]
+
+		Par le théorème de Cauchy linéaire, les équations de Jacobi et de Liouville coïncident sur $I$.
+		\end{proof}
+
+	\section{Systèmes linéaires linéaires inhomogènes --- variation des constantes}
+		\subsection{Structure de l'espace des solutions}
+			On revient au cas où $B \not \equiv 0$, et on considère~:
+			\[Y'(t) = A(t)Y(t) + B(t),\]
+			avec $A \in C^0(I, \Mat_d(\K))$ et $B \in C^0(I, \K^d)$ données et $Y : I \to \K^d$ dérivable et inconnue.
+
+			\begin{thm} Si $Y_p$ est une solution de $Y' = AY + B$ (que l'on appelle \textit{solution particulière}), alors~:
+			\[S = Y_p + S_H,\]
+			où $S$ est l'ensemble des fonctions dérivables solutions de $Y' = AY + B$, que l'on appelle également \textit{espace affine par $Y_p$ de
+			direction $S_H$}
+			\end{thm}
+
+			\begin{proof} Montrons que $S \subseteq S_H + Y_p$. Soit $Y \in S$. Alors, on sait que $Z \coloneqq Y-Y_p$ est dérivable sur $I$ tel que~:
+			\[Z'(t) = Y'(t) - Y_p'(t) = \left(A(t)Y(t) + B(t)\right) - \left(A(t)Y_p(t) + B(t)\right) = A(t)\left(Y(t)-Y_p(t)\right) = A(t)Z(t).\]
+
+			Donc on sait que $Z = Y-Y_p \in S_H$, ou encore $Y \in S_H + Y_p$.
+
+			Montrons ensuite que $S_H + Y_p \subseteq S$. Soit $Y \in S_H$. La fonction $Z \coloneqq Y_p + Y$ est dérivable sur $I$, et on a~:
+			\[Z'(t) = Y_p'(t) + Y'(t) = A(t)\left(Y(t) + Y_p(t)\right) + B(t).\]
+
+			On en déduit que la fonction $Z = Y + Y_p \in S$. Dès lors, on a bien~:
+			\[S_H + Y_p \subseteq S \subseteq S_H + Y_p,\]
+			ou encore $S_H + Y_p = S$.
+			\end{proof}
+
+		\subsection{Recherche d'une solution particulière --- variation de la constante}
+			Connaissant $R(t, t_0)$, soit un système fondamental de solutions où $R(t, t_0)$ est la matrice résolvante de $Y'= AY$. On cherche une solution
+			$t \mapsto y(t)$ dérivable sur $I$ de~:
+			\[Y'(t) = A(t)Y(t) + B(t)\]
+			sous la forme $y(t) = R(t, t_0)x(t)$.
+
+			Si $y$ est solution de $Y' = AY + B$, alors~:
+			\[y'(t) = A(t)y(t) + B(t) = \od{}t \left(R(t, t_0)x(t)\right) = \left(\od{}t R(t, t_0)\right)x(t) + R(t, t_0)x'(t).\]
+
+			Or $\od{}t R(t, t_0) = A(t)R(t, t_0)$. Ainsi~:
+			\[y'(t) = A(t)R(t, t_0)x(t) + R(t, t_0)x'(t) = A(t)y(t) + B(t).\]
+
+			D'où $R(t, t_0)x'(t) = B(t)$ par identité.
+
+			Soit $x'(t) = R(t_0, t)B(t)$. Ainsi~:
+			\[x(t) = x(t_0) + \int_{t_0}^tR(t_0, s)B(s)\dif s,\]
+			ou encore~:
+			\[R(t_0, t)y(t) = y(t_0) + \int_{t_0}^tR(t_0, s)B(s)\dif s.\]
+
+			On trouve finalement pour solution particulière~:
+			\begin{align}\tag{Formule de Duhamel}
+				y(t) = R(t, t_0)y(t_0) + \int_{t_0}^tR(t, s)B(s)\dif s.
+			\end{align}
+
+		\subsection{Équations scalaires --- Wronskien}
+			Considérons l'équation différentielle suivante~:
+			\[y^{(d)}(t) + u_{d-1}(t)y^{(d-1)}(t) + u_{d-2}(t)y^{(d-2)}(t) + \ldots + u_1(t)y'(t) + u_0(t)y(t) = b(t),\]
+			où $u_0, \ldots, u_{d-1} \in C^0(I, \K)$, $I$ un intervalle de $\R$ non-vide, $b \in C^0(I, \K)$ connus, et $y : I \to \K$ $d$ fois dérivable, inconnue.
+
+			Posons~:
+			\[Y(t)  = \begin{bmatrix}y(t) \\ \vdots \\ y^{(d-1)}(t)\end{bmatrix} \in \K^d.\]
+
+			Pour $A$ définie par~:
+			\[
+				\begin{bmatrix}
+					0 & 1 & 0 & \ldots & 0 \\
+					0 & 0 & 1 & \ldots & 0 \\
+					  &  \ddots & & \ddots \\
+					0 & 0 & \ldots & 0 & 1 \\
+					-u_0(t) & -u_1(t) & \ldots & -u_{d-2}(t) & -u_{d-1}(t)
+				\end{bmatrix},
+			\]
+			et $B(t)$ défini par~:
+			\[B(t) = \begin{bmatrix}0 \\ 0 \\ \vdots \\ b(t)\end{bmatrix},\]
+			on a~:
+			\[Y'(t) = A(t)Y(t) + B(t).\]
+
+			\begin{déf} Lorsque $b \equiv 0$, on appelle \textit{Wronskien de $y_1, \ldots, y_d$} la fonction~:
+			\[W : I \to \K : t \mapsto \det\left(y_1(t), \ldots, y_d(t)\right).\]
+			\end{déf}
+
+			\begin{prp} Les trois affirmations suivantes sont équivalentes~:
+			\begin{enumerate}
+				\item $y_1, \ldots, y_d$ forme un système fondamental de solutions~;
+				\item $\forall t \in I : W(t) \neq 0$~;
+				\item $\exists t \in I \tq W(t) \neq 0$.
+			\end{enumerate}
+			\end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{prp}~
+			\begin{align}\tag{Formule de Liouville pour le Wronskien}
+				\forall (t, t_0) \in I^2 : W(t) = \exp\left[-\int_{t_0}^tu_{d-1}(s)\dif s\right]W(t_0)
+			\end{align}
+			\end{prp}
+
+	\section{Systèmes différentiels à coefficients constants}
+		\subsection{Rappels d'algèbre linéaire --- forme normale de Jordan}
+			\begin{prp}[Réduction des matrices nilpotentes]Soit $M \in \Mat_d(\C)$ une matrice nilpotente. Il existe $(\epsilon_1, \ldots, \epsilon_{d-1}) \in
+			\{0, 1\}^d$ et $P \in \GL_d(\C)$ tels que~:
+			\[P^{-1}MP =
+			\begin{bmatrix}
+				0 & \epsilon_1 & 0 & \ldots & 0 \\
+				0 & 0 & \epsilon_2 & \ldots & 0 \\
+				0 & 0 & 0          & \ddots & 0 \\
+				  & &   &  \ddots   & \epsilon_{d-1} \\
+				0 & 0 & \ldots & \ldots & 0
+			\end{bmatrix}\]
+			\end{prp}
+
+			\grantedproof
+
+			\begin{déf} Soit $P \in \K[x]$ un polynôme. On dit que $P$ est \textit{scindé} lorsque $P$ est le produit de polynômes de degré 1.
+			\end{déf}
+
+			\begin{prp}[Décomposition de Dunford] Soit $M \in \Mat_d(\C)$. Il existe $D, N \in \Mat_d(\C)$ uniques telles que~:
+			\[\begin{cases}M &=D+N \\DN &= ND\end{cases},\]
+			et $D$ est diagonalisable et $N$, nilpotente.
+			\end{prp}
+
+			\begin{rmq} Les matrices $D$ et $N$ sont des polynômes en $M$.
+			\end{rmq}
+
+			\begin{proof} Pour prouver cela, trouvons d'abord une expression pour les matrices $D$ et $N$, et ensuite montrons qu'elles sont bien respectivement
+			diagonalisable et nilpotente. Il ne restera plus alors qu'à prouver leur unicité.
+
+			Prenons $\pi(M)$ le polynôme caractéristique de la matrice $M$\footnote{Que l'on peut également noter $\chi_M$.}. Le degré de $\pi(M)$ est
+			$d$. Par le théorème fondamental de l'algèbre (théorème de D'alembert-Gauß), $\pi(M)$ est scindé. En particulier, il existe $\lambda_1, \ldots, \lambda_p$
+			dans $\C$ deux à deux distincts et $n_1, \ldots, n_p \in \Ns$ tels que $\sum_{i=1}^pn_i = d$ et~:
+			\[P = \prod_{j=1}^p\left(x- \lambda_j\right)^{n_j}.\]
+
+			Par le théorème de Cayley-Hamilton, on sait que~:
+			\[\pi(M)(M) = 0.\]
+
+			Par le théorème de décomposition du noyau, on a~:
+			\[\C^d = \Ker\left(\pi(M)(M)\right) = \bigoplus_{j=1}^pC_j,\]
+			pour $C_j \coloneqq \Ker\left(\left(M - \lambda_jI\right)^{n_j}\right)$.
+
+			Pour $i \in \intint 1d$, on pose~:
+			\[Q_i \coloneqq \prod_{j \neq i} \left(\left(x-\lambda_j\right)^{n_j}\right).\]
+
+			Les $Q_i$ sont premiers entre eux dans leur ensemble. On peut donc y appliquer la relation de Bezout. Il existe $U_1, \ldots U_p \in \C[x]$ tels que~:
+			\[\sum_{i=1}^pU_iQ_i = 1.\]
+
+			Posons donc $P_i \coloneqq U_iQ_i$. On peut donc écrire~:
+			\begin{align}\tag{$\star$}\label{eq:Dunford sum_Pi = Id}
+				\sum_{i=1}^pP_i(M) = \Id.
+			\end{align}
+
+			Pour $i \neq j$, calculons~:
+			\[P_i(M)P_j(M) = U_i(M)P_i(M)U_j(M)P_j(M) = 0,\]
+			car $\pi(M) | Q_iQ_j$ et donc $Q_i(M)Q_j(M) = 0$.
+
+			En multipliant~\eqref{eq:Dunford sum_Pi = Id} par $P_j(M)$, on a~:
+			\[P_j(M)^2 = P_j(M).\]
+
+			$P_j(M)$ est donc un projecteur (une application égale à son carré).
+
+			On sait que~:
+			\[\begin{cases}
+				\Imf P_i(M) &\subset C_i \\\Ker P_i(M) &\subset \displaystyle \bigoplus_{j \neq i}C_j
+			\end{cases}.\]
+
+			Or, par le théorème du rang, on sait que $d = \dim \Ker P_i(M) + \dim \Imf P_i(M)$, avec~:
+			\[\begin{cases}
+				\dim \Ker P_i(M) &\leq \sum_{j \neq i} \dim C_j, \\
+				\dim \Imf P_i(M) &\leq \dim C_i.
+			\end{cases}\]
+
+			Cela force donc $\sum_{j=1}^p\dim C_j = d$, et donc cela force les inégalités en égalités~:
+			\[\begin{cases}
+				\Ker P_i(M) &= \displaystyle \bigoplus_{j \neq i}C_j, \\
+				\Imf P_i(M) &= C_i.
+			\end{cases}\]
+
+			$P_i$ est donc plus précisément le projecteur sur $C_i$ parallèlement à $\bigoplus_{j \neq i}C_j$.\footnote{Notons tout de même que les $C_i$ sont des
+			noyaux de polynômes en $M$. Ils sont donc $M$-stables, ou encore stables par la transformation linéaire associée à $M$.}
+
+			Posons~:
+			\[D \coloneqq \sum_{i=1}^p\lambda_iP_i(M).\]
+
+			Alors $D \in \K[M]$ et $\exists N \in \K[M] \tq M = D+N$ (prenons $N \coloneqq M-D$).
+
+			Il reste à voir que $D$ est diagonalisable et $N$ est nilpotente.
+
+			Soient $i \in \intint 1p$ et $x \in C_i$. Calculons~:
+			\[Dx = \sum_{j=1}^p\lambda_jP_j(M)x = \lambda_ix.\]
+
+			Puisque $\K^d = \bigoplus_{j = 1}^pC_i$, il vient $D$ diagonalisable avec $D = \diag(\lambda_1, \ldots, \lambda_p)$.
+
+			En posant $n \coloneqq \max\left(n_1, \ldots, n_p\right)$, on a $n \geq 1$, et en prenant $i \in \intint ip$ et $x \in C_i$, on trouve~:
+			\[N^nx = (M-D)^nx = (M-D)^{n-n_i}(M-D)^{n_i}x = (M-D)^{n-n_i}\left(M-\lambda_iI\right)^{n_i}x,\]
+			car $x \in C_i$. On a donc $N^nx = N^{n-n_i} \cdot 0 = 0$. La matrice $n$ est donc nilpotente d'ordre $\leq n$. Nous avons donc montré l'existence
+			d'un tel couple $(D, N)$ de matrices.
+
+			Prouvons maintenant l'unicité de ces matrices.
+
+			Supposons qu'il existe $N_1, D_1$ respectivement nilpotente et diagonalisable telles que~:
+			\[\begin{cases}
+				M &= D_1+N_1 \\
+				N_1D_1 &= D_1N_1.
+			\end{cases}\]
+
+			Alors ces matrices commutent à $M$, et donc à tout polynôme en $M$. Or $D$ et $N$ sont des polynômes en $M$. Donc $N_1$ et $D_1$ commutent à $N$ et $D$.
+
+			$D$ et $D_1$ commutent et sont diagonalisables. Elles sont donc diagonalisables dans la même base, et donc $D-D_1$ est diagonalisable également.
+			Or puisque $N+D = N_1+D_1$, on a $D-D_1 = N-N_1$. De plus, $N$ et $N_1$ commutent et sont nilpotentes. Donc la matrice $N-N_1$ est nilpotente.
+
+			On en déduit que la seule valeur propre admise par $D-D_1$ est 0, et donc $D-D_1 = 0$ car elle est diagonalisable. Dès lors, on a $D=D_1$ et $N=N_1$.
+			\end{proof}
+
+			\begin{déf} On appelle \textit{bloc de Jordan} pour $\lambda \in \C$ et $s \in \Ns$ les matrices de la forme~:
+			\[J_s(\lambda) =
+			\begin{bmatrix}
+					\lambda & 1 & \ldots & 0 \\
+				0 & \lambda & 1 & \vdots \\
+				0 & \ddots & \ddots & 1 \\
+				0 & \ldots & 0 & \lambda
+			\end{bmatrix}
+			\]
+			\end{déf}
+
+			\begin{thm}[Décomposition de Jordan] Soit $M \in \Mat_d(\C)$. Il existe $s_1, \ldots, s_p \in \Ns$ et $\lambda_1, \ldots, \lambda_p \in \C$
+			et $P \in \GL_d(\C)$ tels que~:
+			\[M = PJP^{-1},\]
+			avec~:
+			\[J =
+			\begin{bmatrix}
+				J_{s_1}(\lambda_1) & & 0 \\
+				& \ddots & \\
+				0 & & J_{s_p}(\lambda_p)
+			\end{bmatrix}.
+			\]
+			\end{thm}
+
+			\begin{rmq} La forme de la matrice $J$ est donc une matrice diagonale avec les valeurs propres et certaines valeurs 1 sur la diagonale supérieure.
+			C'est une matrice contenant des blocs de Jordan sur sa diagonale.
+			\end{rmq}
+
+			\begin{proof} Par Dunford et par réduction des matrices nilpotentes.
+			\end{proof}
+
+		\subsection{Exponentielle de matrice}
+			\begin{prp} Soit $A \in \Mat_d(\C)$. La série de puissances de terme général $\frac {t^kA^k}{k!}$ a un rayon de convergence infini.
+			\end{prp}
+
+			\begin{déf} On appelle cette série \textit{l'exponentielle de $A$}, et on la note~:
+			\[\exp\left(tA\right) = \sum_{k \geq 0}\frac {(tA)^k}{k!}.\]
+			\end{déf}
+
+			\begin{proof} Soit $\norm \cdot$ une norme d'algèbre sur $\Mat_d(\C)$ (par exemple une norme subordonnée à une norme sur $\C^d$), en particulier telle que~:
+			\[\forall M, N \in \Mat_d(\C) : \norm {MN} \leq \norm M\norm N.\]
+
+			Ainsi~:
+			\[\forall k \in N : \norm {A^k} \leq \norm A^k,\]
+			et donc~:
+			\[\forall k \in \N : \norm {\frac {(tA)^k}{k!}} \leq \frac {\abs t^k}{k!}\norm A^k,\]
+			qui est le terme général d'une série qui converge.
+
+			On en déduit que $\sum_{k \geq 0}\frac {(tA)^k}{k!}$ converge absolument quel que soit $t \in \C$. Dès lors, $R = \pinfty$.
+			\end{proof}
+
+			\begin{prp} La fonction $t \mapsto \exp(tA)$ est de classe $C^\infty$ sur $\R$ et on a~:
+			\[\forall t \in \R : \forall p \in \N : \od[p]{}t \exp(tA) = A^p\exp(tA) = \exp(tA)A^p.\]
+			\end{prp}
+
+			\begin{proof} La fonction $t \mapsto \frac {(tA)^p}{p!}$ est de classe $C^\infty$ sur $\R$ et la série converge normalement, et donc converge
+			uniformément  sur les segments de $\R$, de même que ses dérivées à tout ordre (cf Section~\ref{sec:séries de puissances}), et il suffit de dériver
+			terme à terme.
+			\end{proof}
+
+			\begin{prp} Soient $A, B \in \Mat_d(\C)$. On a~:
+			\[\left(\forall t \in \R : \exp\left((A+B)\right) = \exp(tA)\exp(tB)\right) \iff AB = BA.\]
+			\end{prp}
+
+			\begin{proof} Montrons d'abord que cette égalité implique que $A$ et $B$ commutent.
+
+			Par la proposition précédente, dérivons. On observe~:
+			\[\od {}t\exp\left(t(A+B)\right) = (A+B)\exp\left(t(A+B)\right) = A\exp(tA)\exp(tB) + B\exp(tA)\exp(tB).\]
+
+			De même, pour dérivée seconde, on a~:
+			\[\od[2]{}t \exp\left(t(A+B)\right) = (A+B)^2\exp\left(t(A+B)\right),\]
+			et également~:
+			\[\od[2]{}t \exp\left(t(A+B)\right) = A^2\exp(tA)\exp(tB) + A\exp(tA)B\exp(tB) + A\exp(tA)B\exp(tB) + \exp(tA)\exp(tB)B^2.\]
+
+			En évaluant ces deux dernières formules en $t=0$ et en les égalisant, on obtient~:
+			\[(A+B)^2I = A^2II + AIBI + AIBI + IIB^2.\]
+			On sait $(A+B)^2 = A^2 + AB + BA + B^2$. En simplifiant, on trouve alors~:
+			\[BA = AB.\]
+
+			Montrons alors que si $AB=BA$, alors l'égalité est vérifiée.
+
+			\[\exp\left(t(A+B)\right) = \sum_{k \geq 0}\frac {t^k}{k!}(A+B)^k = \sum_{k \geq 0}\frac {t^k}{k!}\sum_{p=0}^k\frac {k!}{p!(k-p)!}A^pB^{k-p}.\]
+			En effet, la formule du binôme de Newton est ici applicable car $AB = BA$.
+
+			En simplifiant les $k!$, et en «~rentrant~» $t^k$ dans la seconde sommation, on trouve~:
+			\[\sum_{k \geq 0}\sum_{k=0}^p\frac {t^k}{p!(k-p)!}A^pB^{k-p} = \sum_{k \geq 0}\sum_{k=0}^p\frac {t^p}{p!}A^p\frac {t^{k-p}}{(k-p)!}B^{k-p}.\]
+
+			On y reconnait le produit de Cauchy de~:
+			\[\exp(tA)\exp(tB).\]
+			\end{proof}
+
+			\begin{cor} Pour $s, t \in I$, et $A \in \Mat_d(\C)$, on a~:
+			\[\exp\left((t+s)A\right) = \exp(tA)\exp(sA).\]
+			\end{cor}
+
+		\subsection{Systèmes différentiels à coefficients constants}
+			Fixons $A \in \Mat_d(\C)$ et considérons un système différentiel $Y' = AY$. On a vu que $t \mapsto R(t, t_0)$ est solution de~:
+			\[\begin{cases}
+				Z'(t) &= A(t)Z(t) \\
+				Z(t_0) &= \Id.
+			\end{cases}\]
+
+			Or la fonction $t \mapsto \exp\left(t-t_0)A\right)$ est solution du même problème de Cauchy sur $\R$. On en déduit~:
+			\[\forall (t, t_0) \in \R^2 : R(t, t_0) = \exp\left((t-t_0)A\right).\]
+
+			\begin{rmq} Pour les équations différentielles linéaires homogènes à coefficient constant, calculer un système fondamental de solutions (ou la matrice
+			résolvante) revient à calculer $t \mapsto \exp(tA)$.
+			\end{rmq}
+
+			\begin{cor} $\det(\exp(A)) = \exp(\Tr(A))$
+			\end{cor}
+
+			\begin{proof} Prenons $\Delta(t) = \det(R(t, t_0))$. On sait également, par la formule de Liouville~:
+			\[\Delta(t) = \Delta(0)\exp\left(\int_{t_0}^t\Tr(A(s))\dif s\right).\]
+
+			or on a $\Delta(0) = \det(\Id) = 1$.
+
+			En $t=1$, on a~:
+			\[\det(R(1, 0)) = \det\left(\exp\left((1-0)A\right)\right) = \det\left(\exp(A)\right) = \exp\left(\int_0^1\Tr(A(s))\dif s\right).\]
+
+			Puisque $A$ ne dépend pas de $t$, on a~:
+			\[\det(R(1, 0)) = \exp\left(\Tr(A)\right).\]
+			\end{proof}
+
+			\begin{prp} Si $A$ et $J$ sont semblables (c-à-d qu'il existe $P \in \GL_d(\C) \tq A = PJP^{-1}$), alors~:
+			\[\forall s \in \R : \exp(sA) = P\exp(sJ)P^{-1}.\]
+			\end{prp}
+
+			\begin{proof} Passer à la limite dans~:
+			\[\sum_{k=0}^n\frac {s^kA^k}{k!} = \sum_{k=0}^n\frac {s^k\left(PJP^{-1}\right)^k}{k!} = P\left(\sum_{k=0}^n\frac {s^kJ^k}{k!}\right)P^{-1},\]
+			car $(PJP^{-1})^2 = (PJP^{-1})(PJP^{-1}) = PJ(P^{-1}P)JP^{-1} = PJP^{-1}$. Il reste à appliquer ce résultat par récurrence pour $k$.
+			\end{proof}
+
+			\begin{cor} Si l'on sait calculer~:
+			\begin{itemize}
+				\item une décomposition de Jordan de $A$ (c-à-d $A = PJP^{-1}$),
+				\item ou une exponentielle d'une matrice sous forme blocs de Jordan,
+			\end{itemize}
+			alors on sait résoudre $Y' = AY$ où $A \in \Mat_d(\C)$ est fixé.
+			\end{cor}
 
 \end{document}
