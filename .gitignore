@@ -1,3 +1,4 @@
+# LaTeX
 *.toc
 *.aux
 *.swp
@@ -11,5 +12,10 @@
 *.bak
 *.synctex.gz
 
-*/*/
+# Archives
+*.zip
+*.7z
+*.tar.gz
+
+**/*/
 !*/résumé/
