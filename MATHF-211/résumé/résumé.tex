@@ -668,79 +668,79 @@
 			\[\bigcap_{C \text{ fermé } \supseteq A}C \supseteq \adh A.\]
 		\end{itemize}
 		\end{proof}
-		
+
 		\begin{déf} Un sous-ensemble $D$ d'un espace topologique $X$ est dit \textit{dense} lorsque $\adh D = D$.
 		\end{déf}
-		
+
 		\begin{ex} Les ensembles $\Q$ et $\R \setminus \R$ sont denses dans $\R$.
 		\end{ex}
-		
+
 		\begin{lem} Soient $X$, un espace topologique, $M$, un espace métrique, et $f : X \to M$ continue. Soit $D \subseteq X$, un sous-espace dense. Si $\restr fD$
 		est constante, alors $f = \restr fX$ est constante.
 		\end{lem}
-		
+
 		\begin{proof} Soit $d \in D$. Posons $y \coloneqq f(d)$. Supposons par l'absurde qu'il existe $x \in X$ (en particulier dans $X \setminus D$) tel que
 		$f(x) \neq f(d) = y$. Posons alors $\varepsilon \coloneqq d(f(x), y)$. Par densité de $D$ dans $X$, on sait que $x \in \adh D$, et de plus~:
 		\[f^{-1}\left(B(f(x), \varepsilon)\right). \cap D \neq \emptyset.\]
 		On peut également dire que $B(f(x), \varepsilon)$ est un ouvert de $M$, et donc $f^{-1}\left(B(f(x), \varepsilon)\right)$ est un ouvert de $X$ qui contient $x$.
-		
+
 		Puisque $f^{-1}\left(B(f(x), \varepsilon)\right) \cap D \neq \emptyset$, prenons $\widetilde x \in f^{-1}\left(B(f(x), \varepsilon)\right) \cap D$. Puisque
 		$\widetilde x \in D$, on sait que $f(\widetilde x) = y$. Or $f(\widetilde x) \in B(f(x), \varepsilon)$, ce qui veut dire~:
 		\[d(f(x), y) = d(f(x), f(\widetilde x)) \lneqq \varepsilon = d(f(x), y),\]
 		ce qui est une contradiction. la fonction est donc bien constante sur $X$.
 		\end{proof}
-		
+
 		\begin{rmq} Il faut pour cela que $M$ soit un espace métrique. Sans cette hypothèse, on ne peut déterminer la constance de $f$.
 		\end{rmq}
-		
+
 \chapter{Espaces de Haussdorf}
 	\begin{déf} Soit $(X, \top_X)$ un espace topologique, et soit $(x_n) \subset X$ une suite. On dit que $(x_n)$ converge vers $x \in X$ lorsque~:
 	\[\forall U \in \top_X : x \in U \Rightarrow \exists N \in \N \tq \forall n \geq N : x_n \in U.\]
 	\end{déf}
-		
+
 	\begin{rmq} Avec cette définition, les limites ne sont pas forcément uniques. Par exemple, en prenant un espace muni de la topologie grossière, toute suite
 	converge vers tout point de l'espace.
 	\end{rmq}
-		
+
 	\begin{déf} Un espace topologique $X$ est dit \textit{séparé au sens de Haussdorff} (ou plus simplment \textit{Hausdorff} ou \textit{de Hausdorff}) lorsque~:
 	\[\forall x \neq y \in X : \exists U, V \in \top_X \tq U \cap V = \emptyset \quad \text{ et } \quad (x, y) \in U \times V.\]
 	\end{déf}
-		
+
 	\begin{lem} Si $(x_n) \subset X$ est une suite dans un espace de Hausdorff, et $x_n \to a$, $x_n \to b$ avec $a, b \in X$, alors $a = b$.
 	\end{lem}
-		
+
 	\begin{rmq} La définition de limite donnée ci-dessus n'assure l'unicité que lorsque l'espace est de Hausdorff.
 	\end{rmq}
-		
+
 	\begin{ex} Si $M$ est un espace métrique, alors il est topologique de Hausdorff.
-		
+
 	Par contre, si $X$ est un espace topologique, muni de la topologie grossière et $\abs X \geq 2$, alors $X$ n'est pas de Hausdorff.
 	\end{ex}
-		
+
 	\begin{ex} En reprenant l'exemple $\left(\N, \top \coloneqq \left\{U_n \coloneqq \intint 0n \tq n \in \N\right\}\right)$, on remarque que ce n'est pas un espace de
 	Hausdorff car $0$ n'est différenciable d'aucun autre point de $\N$ car il est dans tous les éléments de la topologie (excepté $\emptyset$).
-		
+
 	Soit $F : \R^2 \to \R^2 : (x, y) \mapsto (x, -y)$, un champ de vecteurs. une orbite de $F$ est une courbe $\gamma : \R \to \R^2$ telle que~:
 	\[(F \circ \gamma) = \gamma'.\]
 	Dans le cas de $F$, on a que toutes les orbites sont sous la forme~:
 	\[\gamma(t) = (a\exp(t), b\exp(-t))\qquad\qquad a, b \in \R.\]
-		
+
 	Les trajectoires sont donc les branches de l'hyperbole, les demi-axes, et l'origine. Posons $Y$, l'ensemble des trajectoires de $F$. On a la surjection~:
 	\[\pi : \R^2 \to Y : (x, y) \mapsto \text{ trajectoire de $F$ passant par $(x, y)$}.\]
 	On peut dès lors exprimer la topologie quotient $\top_\pi$ sur $Y$. Montrons que $Y$ n'est pas de Hausdorff, i.e. pas métrique.
-		
+
 	Considérons $\gamma_1 = \R^+_0 \times \{0\}$ et $\gamma_2 = \{0\} \times \R^+_0$. On sait $\gamma_1 \neq \gamma_2$. $\gamma_1$ est l'orbite contenant tous les
 	points sous la forme $\{(x, 0) \tq x \in \R^+_0\}$ et $\gamma_2$ est l'orbite contenant tous les points sous la forme $\{(0, x) \tq x \in \R^+_0\}$.
-		
+
 	Soient $U, V$ deux ouverts qui contiennent respectivement $\pi(1, 0)$ et $\pi(0, 1)$. Dès lors, on trouve $\pi^{-1}(U)$ contient $\gamma_1$, et de même, on
 	trouve $\pi^{-1}(V)$ contient $\gamma_2$.
-		
+
 	Remarquons également que pour tout $A$, $\pi^{-1}(A)$ est une union d'orbites, et donc il existe $\delta > 0$ tel que $B((1, 0), \delta) \subset \pi^{-1}(U)$, et de
 	même pour $B((0, 1), \delta) \subset \pi^{-1}(V)$. prenons $0 < q < \delta$. On a alors $\pi((1, q)) = \pi((q, 1))$ car les orbites correspondent au points
 	conservant $xy = c$. mais puisque $\pi((1, q)) \in U$ et $\pi((q, 1)) \in V$, on a $U \cap V \neq \emptyset$. $\gamma_1$ et $\gamma_2$ ne peuvent être séparés
 	dans $(Y, \top_\pi)$.
 	\end{ex}
-		
+
 	\begin{prp}~
 	\begin{enumerate}
 		\item Soient $X$ un espace topologique et $A \subset X$. Si $X$ est de Hausdorff, alors $A$ est de Hausdorff~;
@@ -749,51 +749,51 @@
 		\item si $X$ est de Hausdorff et $Y$ est homéomorphe à $X$, alors $Y$ est de Hausdorff.
 	\end{enumerate}
 	\end{prp}
-		
+
 \chapter{Espaces connexes}
 	\begin{déf} Un espace topologique $(X, \top_X)$ ests dit \textit{connexe} lorsque~:
 	\[\forall U, V \in \top_X : \left(X = U \cup V \land U \cap V = \emptyset\right) \Rightarrow \left(U = \emptyset \lor V = \emptyset\right)\]
 	\end{déf}
-	
+
 	\begin{lem} Un espace topologique $X$ est non-connexe si et seulement si il existe $f : X \to \{0, 1\}$ continue surjective où $\{0, 1\}$ est muni de la topologie
 	discrète.
 	\end{lem}
-	
+
 	\begin{proof} Supposons d'abord $X$ non-connexe. Il existe $U, V$ disjoints non-vides tels que $X = U \cup V$. On peut alors définir de manière univoque~:
 	\[f : X \to \{0, 1\} : x \mapsto \begin{cases} 0 &\text{ si } x \in U \\1 &\text{ si } x \in V\end{cases}.\]
 	$f$ est bien surjective car $U$ et $V$ recouvrent $X$ et continue car $f^{-1}(\{0\}) = U$ et $f^{-1}(\{1\}) = V$ qui sont des ouverts.
-	
+
 	Supposons maintenant qu'il existe une telle fonction $f$. En posant $U \coloneqq f^{-1}(\{0\}), V \coloneqq f^{-1}(\{1\})$. $U$ et $V$ sont bien définis car $U$ et
 	$V$ sont disjoints, et sont des ouverts par continuité de $f$. De plus, par surjection, ils sont tous deux non-vides.
 	\end{proof}
-	
+
 	\begin{prp} Soient $X, Y$ deux espaces topologiques et $f : X \to Y$ continue. Si $X$ est connexe, alors $f(X) \subseteq Y$ est connexe.
 	\end{prp}
 
 	\begin{proof} Montrons la contraposée. Si $f(X)$ n'est pas connexe, alors $\exists U, V \in \top_Y$ tels que $U \cup V = f(X)$ et tous deux non-vides.
-	
+
 	Il existe $U', V' \in \top_Y$ tels que $U' \cap f(X) = U$ et $V' \cap f(X) = V$. Alors $f^{-1}(V')$ et $f^{-1}(U')$ sont des ouverts par continuité de $f$ et
 	qui recouvrent $X$. De plus, on a~:
 	\[f^{-1}(U') \cap f^{-1}(V') = f^{-1}(U' \cap V') = f^{-1}(\emptyset) = \emptyset,\]
 	or $f^{-1}(U) \neq \emptyset \neq f^{-1}(V)$ puisque $U$ et $V$ ne sont pas vides. Dès lors $X$ n'est pas connexe.
 	\end{proof}
-	
+
 	\begin{rmq}Le théorème de la valeur intermédiaire dit~:
-	
+
 	Si $f : [a, b] \subset \R \to \R$ est continue et si $c$ appartient à l'intervalle d'extrémités $f(a)$ et $f(b)$, alors il existe $x \in [a, b] \tq f(x) = c$.
-	
+
 	En sachant que dans $\R$, les espaces connexes sont les les intervalles, on déduit ce théorème de la proposition précédente.
 	\end{rmq}
-	
+
 	\begin{prp} La connexité est une propriété topologique.
 	\end{prp}
-	
+
 	\begin{lem} Soit $X$ un espace topologique. Supposons qu'il existe une collection $\{A_i \subseteq X \tq i \in I\}$de sous-espaces de $X$ telle que~:
 	\[\forall i \in I : A_i \text{ est connexe et } \forall j \in I : (j \neq i) \Rightarrow (A_i \cap A_j \neq \emptyset).\]
 	Alors~:
 	\[\bigcup_{i \in I}A_i \text{ est connexe}.\]
 	\end{lem}
-	
+
 	\begin{proof} Soit $f : Y \to \{0, 1\}$ continue. Par connexité des $A_i$, on sait que $\restr f{A_i}$ est constante. Pour tout $j \in I$, puisque
 	$A_i \cap A_j \neq \emptyset$, on peut également dire que $\restr f{A_i \cup A_j}$ est constante. En posant~:
 	\[A \coloneqq \bigcup_{ik \in I}A_i,\]
