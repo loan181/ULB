@@ -687,7 +687,7 @@
 		Puisque $f^{-1}\left(B(f(x), \varepsilon)\right) \cap D \neq \emptyset$, prenons $\widetilde x \in f^{-1}\left(B(f(x), \varepsilon)\right) \cap D$. Puisque
 		$\widetilde x \in D$, on sait que $f(\widetilde x) = y$. Or $f(\widetilde x) \in B(f(x), \varepsilon)$, ce qui veut dire~:
 		\[d(f(x), y) = d(f(x), f(\widetilde x)) \lneqq \varepsilon = d(f(x), y),\]
-		ce qui est une contradiction. la fonction est donc bien constante sur $X$.
+		ce qui est une contradiction. La fonction est donc bien constante sur $X$.
 		\end{proof}
 
 		\begin{rmq} Il faut pour cela que $M$ soit un espace métrique. Sans cette hypothèse, on ne peut déterminer la constance de $f$.
@@ -702,7 +702,7 @@
 	converge vers tout point de l'espace.
 	\end{rmq}
 
-	\begin{déf} Un espace topologique $X$ est dit \textit{séparé au sens de Haussdorff} (ou plus simplment \textit{Hausdorff} ou \textit{de Hausdorff}) lorsque~:
+	\begin{déf} Un espace topologique $X$ est dit \textit{séparé au sens de Haussdorff} (ou plus simplement \textit{Hausdorff} ou \textit{de Hausdorff}) lorsque~:
 	\[\forall x \neq y \in X : \exists U, V \in \top_X \tq U \cap V = \emptyset \quad \text{ et } \quad (x, y) \in U \times V.\]
 	\end{déf}
 
@@ -720,7 +720,7 @@
 	\begin{ex} En reprenant l'exemple $\left(\N, \top \coloneqq \left\{U_n \coloneqq \intint 0n \tq n \in \N\right\}\right)$, on remarque que ce n'est pas un espace de
 	Hausdorff car $0$ n'est différenciable d'aucun autre point de $\N$ car il est dans tous les éléments de la topologie (excepté $\emptyset$).
 
-	Soit $F : \R^2 \to \R^2 : (x, y) \mapsto (x, -y)$, un champ de vecteurs. une orbite de $F$ est une courbe $\gamma : \R \to \R^2$ telle que~:
+	Soit $F : \R^2 \to \R^2 : (x, y) \mapsto (x, -y)$, un champ de vecteurs. Une orbite de $F$ est une courbe $\gamma : \R \to \R^2$ telle que~:
 	\[(F \circ \gamma) = \gamma'.\]
 	Dans le cas de $F$, on a que toutes les orbites sont sous la forme~:
 	\[\gamma(t) = (a\exp(t), b\exp(-t))\qquad\qquad a, b \in \R.\]
@@ -736,8 +736,8 @@
 	trouve $\pi^{-1}(V)$ contient $\gamma_2$.
 
 	Remarquons également que pour tout $A$, $\pi^{-1}(A)$ est une union d'orbites, et donc il existe $\delta > 0$ tel que $B((1, 0), \delta) \subset \pi^{-1}(U)$, et de
-	même pour $B((0, 1), \delta) \subset \pi^{-1}(V)$. prenons $0 < q < \delta$. On a alors $\pi((1, q)) = \pi((q, 1))$ car les orbites correspondent au points
-	conservant $xy = c$. mais puisque $\pi((1, q)) \in U$ et $\pi((q, 1)) \in V$, on a $U \cap V \neq \emptyset$. $\gamma_1$ et $\gamma_2$ ne peuvent être séparés
+	même pour $B((0, 1), \delta) \subset \pi^{-1}(V)$. Prenons $0 < q < \delta$. On a alors $\pi((1, q)) = \pi((q, 1))$ car les orbites correspondent au points
+	conservant $xy = c$. Mais puisque $\pi((1, q)) \in U$ et $\pi((q, 1)) \in V$, on a $U \cap V \neq \emptyset$. $\gamma_1$ et $\gamma_2$ ne peuvent être séparés
 	dans $(Y, \top_\pi)$.
 	\end{ex}
 
