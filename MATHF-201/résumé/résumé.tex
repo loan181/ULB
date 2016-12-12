@@ -3861,7 +3861,7 @@
 			\begin{proof} Prenons $\Delta(t) = \det(R(t, t_0))$. On sait également, par la formule de Liouville~:
 			\[\Delta(t) = \Delta(0)\exp\left(\int_{t_0}^t\Tr(A(s))\dif s\right).\]
 
-			or on a $\Delta(0) = \det(\Id) = 1$.
+			Or on a $\Delta(0) = \det(\Id) = 1$.
 
 			En $t=1$, on a~:
 			\[\det(R(1, 0)) = \det\left(\exp\left((1-0)A\right)\right) = \det\left(\exp(A)\right) = \exp\left(\int_0^1\Tr(A(s))\dif s\right).\]
@@ -3886,5 +3886,132 @@
 			\end{itemize}
 			alors on sait résoudre $Y' = AY$ où $A \in \Mat_d(\C)$ est fixé.
 			\end{cor}
+
+			\begin{prp} Le flot $\Phi$ de l'équation différentielle linéaire homogène à coefficients constants $Y'(t) =AY(t)$ est donné par~:
+			\[\forall (t, t_0) \in \R^2 : Y(t) = \Phi(t, t_0, y_0) = \exp\left((t-t_0)A\right)Y_0.\]
+
+			$\exp\left((t-t_0)A\right) \in \GL_d(\K)$ et $Y_0 \in \K^d$ et donc $Y(t) \in \K^d$.
+			\end{prp}
+
+		\subsection{Exponentielle d'une matrice de Jordan}
+			Soit $J$, une réduite de Jordan de $A \in \Mat_d(\C)$. On écrit $A = PJP^{-1}$, avec~:
+			\[J =
+			\begin{bmatrix}
+				J_1(\lambda_1) & & 0 \\
+				 & \ddots & \\
+				 0 &  & J_k(\lambda_p)
+			\end{bmatrix},\qquad\text{ et }\qquad J_i(\lambda_j) =
+			\begin{bmatrix}
+				\lambda_j & 1 & & 0 \\
+				 & \ddots & \ddots & \\
+				 & & \ddots & 1 \\
+				 0 & & & \lambda_j
+			\end{bmatrix}.\]
+
+			Pour $(t, \ell) \in \R \times \Ns$, on calcule~:
+			\[J^\ell =
+			\begin{bmatrix}
+				J_1^\ell(\lambda_1) & & 0 \\
+				& \ddots & &
+				0 & & J_k^\ell(\lambda_p)
+			\end{bmatrix},\]
+			car $J$ est diagonale par morceaux. On en déduit alors~:
+			\[\exp\left(tJ\right) =
+			\begin{bmatrix}
+				\exp\left(tJ_1(\lambda_1)\right) & & 0 \\
+				& \ddots & \\
+				0 & & \exp\left(tJ_k(\lambda_p)\right)
+			\end{bmatrix},\]
+			et puisque~:
+			\[\exp\left(tA\right) = P\exp\left(tJ\right)P^{-1},\]
+			il faut savoir calculer l'exponentielle d'un bloc de Jordan. On calcule~:
+			\begin{align*}
+				\exp\left(tJ_i(\lambda_j)\right) &= \sum_{\ell \geq 0}\frac {t^\ell}{\ell!}J_i^\ell(\lambda_j)
+					= \sum_{\ell \geq 0}\frac {t^\ell}{\ell!}\left(\lambda_jI_{n_i} +
+					\begin{bmatrix}
+						0 & 1 & & 0 \\
+						  & \ddots  & \ddots & \\
+						  &  & \ddots & 1 \\
+						0 & & & 0
+					\end{bmatrix}\right)^\ell \\
+				&= \sum_{\ell \geq 0}\frac {t^\ell}{\ell!}\left(\sum_{m = 0}^\ell\frac {\ell!}{m!(\ell-m)!}\lambda_j^mI_{n_i}^m
+				{\underbrace{\begin{bmatrix}
+					0 & 1 &  & 0 \\
+					  & \ddots & \ddots & \\
+					  & & \ddots & 1 \\
+					0 & & 0
+				\end{bmatrix}}_{\coloneqq D}}^{\ell-m}\right) \\
+				&= \sum_{\ell \geq 0}\frac {\ell!}{\ell!}\sum_{m=0}^\ell\frac {t^mt^{\ell-m}\lambda_j^m}{m!(\ell-m)!}D^{\ell-m} \\
+				&= \sum_{\ell \geq 0}\sum_{m=0}^\ell\frac {\left(t\lambda_j\right)^m}{m!(\ell-m)!}
+				{\underbrace{\begin{bmatrix}
+					0 & t & & 0 \\
+					  &  \ddots & \ddots & \\
+					  & & \ddots & t \\
+					0 & & & 0
+				\end{bmatrix}}_{\coloneqq D_t}}^{\ell-m}.
+			\end{align*}
+
+			On observe~:
+			\[{D_t}^2 =
+			\begin{bmatrix}
+				0 & t & & 0 \\
+				  & \ddots & \ddots & \\
+				  & & \ddots & t \\
+				0 & & & 0
+			\end{bmatrix}^2 =
+			\begin{bmatrix}
+				0 & 0 & t^2 & & 0 \\
+				& \ddots & \ddots & \ddots & \\
+				& & \ddots & \ddots & t^2 \\
+				& & & \ddots & 0 \\
+				0 & & & & 0
+			\end{bmatrix}.\]
+
+			De même, on observe~:
+			\[{D_t}^3 =
+			\begin{bmatrix}
+				0 & t & & 0 \\
+				  & \ddots & \ddots & \\
+				  & & \ddots & t \\
+				0 & & & 0
+			\end{bmatrix}^3 =
+			\begin{bmatrix}
+				0 & 0 & 0 & t^3 & & 0 \\
+				& \ddots & \ddots & \ddots & \ddots & \\
+				& & \ddots & \ddots & \ddots & t^3 \\
+				& & & \ddots & \ddots & 0 \\
+				& & & & \ddots & 0 \\
+				0 & & & & & 0
+			\end{bmatrix}.\]
+
+			On généralise pour $K \in \Ns$~:
+			\[{D_t}^K =
+			\begin{bmatrix}
+				0 & t & & 0 \\
+				  & \ddots & \ddots & \\
+				  & & \ddots & t \\
+				0 & & & 0
+			\end{bmatrix}^K =
+			\begin{bmatrix}
+				0 & \ldots & 0 & t^K & 0 & \ldots & 0 \\
+				& \ddots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+				& & \ddots & \ddots & \ddots & \ddots & 0 \\
+				& & & \ddots & \ddots & \ddots & t^K \\
+				& & & & \ddots & \ddots & 0 \\
+				 & & & & & \ddots & \vdots \\
+				0 & & & & & & 0
+			\end{bmatrix}.\]  % We like alignment in matrices so much...
+
+			On déduit l'expression suivante pour $\exp\left(tJ_i(\lambda_j)\right)$~:
+			\begin{align}\tag{@}\label{eq:exponentielle bloc Jordan}
+				\exp\left(tJ_i(\lambda_j)\right) = \exp(t\lambda_j) \cdot
+				\begin{bmatrix}
+					1 & t & \frac {t^2}2 & \ldots & \frac {t^{n_i-1}}{(n_i-1)!} \\
+					 & \ddots & \ddots & \ddots & \vdots \\
+					 & & \ddots & \ddots & \frac {t^2}2 \\
+					 & & & \ddots & t \\
+					0 & & & & 1
+				\end{bmatrix}
+			\end{align}
 
 \end{document}
