@@ -223,7 +223,7 @@
 				\[B(x, r] \coloneqq \{y \in X \tq d(x, y) \leq r\}.\]
 				\end{déf}
 
-				\begin{déf} Soit $(X, d)$ un espace métrique et soit $O \subset X$. On dit que $O$ est une partie \textit{ouvert} dans $X$ lorsque~:
+				\begin{déf} Soit $(X, d)$ un espace métrique et soit $O \subset X$. On dit que $O$ est une partie \textit{ouverte} dans $X$ lorsque~:
 				\[\forall x \in O : \exists r \gneqq 0 \tq B(x, r)  \subset O.\]
 				\end{déf}
 
@@ -297,13 +297,13 @@
 
 				De plus, les suites de Cauchy permettent, dans des espaces complets, de montrer que des suites convergent sans connaitre leur limite. \end{rmq}
 
-				\begin{ex} Les espaces métriques $(\R, \abs \cdot)$ et $(\C, \abs \cdot)$ sont des espaces de Banach. Et pour tout $p \in [1, \pinfty)$ et
+				\begin{ex} Les espaces métriques $(\R, \abs \cdot)$ et $(\C, \abs \cdot)$ sont des espaces de Banach. Et pour tout $p \in \Ns$ et
 				$q \in \N$, les espaces métriques $(\R^q, \norm \cdot_p)$ et $(\C^q, \norm \cdot_p)$ sont des espaces de Banach. \end{ex}
 
 			\subsubsection{Continuité}
 				\begin{déf} Soient $(X, d_X)$ et $(Y, d_Y)$ deux espaces métriques. Une application $f : X \to Y$ est dite continue en $x_0 \in X$ lorsque~:
 				\[\forall \varepsilon > 0 : \exists \delta \gneqq 0 \tq \forall x \in X :
-					\left(d_X(x, x_0) < \delta \Rightarrow d_X(f(x), f(x_0)) < \varepsilon\right).\]
+					\left(d_X(x, x_0) < \delta \Rightarrow d_Y(f(x), f(x_0)) < \varepsilon\right).\]
 
 				On dit que $f$ est continue sur $A \subset X$ lorsque $f$ est continue en tout $a \in A$.
 				\end{déf}
@@ -319,7 +319,7 @@
 				\grantedproof
 
 				\begin{déf} Soit $f : (X, d) \to (Y, d)$. $f$ est dite \textit{lipschitzienne} de constante $K \geq 0$ lorsque~
-				\[\forall (x, y) \in X^2 : d(f(x), f(y)) \leq d(x, y).\]
+				\[\forall (x, y) \in X^2 : d(f(x), f(y)) \leq Kd(x, y).\]
 				\end{déf}
 
 				\begin{prp} Si $f : (X, d) \to (Y, d)$ est lipschitzienne, alors elle est continue sur $X$. \end{prp}
@@ -407,7 +407,7 @@
 			\end{proof}
 
 			\begin{ex} Prenons $X = \R = Y$ et pour tout $n \geq 1$, définissons $f_n(x) = \sqrt{x^2 + \frac 1n}$. Fixons $x \in \R$. On trouve alors~:
-			\[\seqf fnx\N = \seq {\sqrt{x^2 + \frac 1n}}n\N \to \sqrt {x^2} = \abs x.\]
+			\[\seqf fnx\N = \left(\sqrt{x^2 + \frac 1n}\right)_{n \in \N} \to \sqrt {x^2} = \abs x.\]
 
 			Donc~:
 			\[f_n \CVS Xn\pinfty \abs \cdot.\]
@@ -432,7 +432,7 @@
 			\[d(f(x), f(a)) \leq d(f(x), f_N(x)) + d(f_N(x), f(a)) \leq d(f(x), f_N(x)) + d(f_N(x), f_N(a)) + d(f_N(a), f(a)) \leq 3\frac \varepsilon3 = \varepsilon.\]
 			\end{proof}
 
-			\begin{cor} Si $f_n \in C^0(X, Y)$ et $f_n \CVU Xn\pinfty$, alors $f \in C^0(X, Y)$. \end{cor}
+			\begin{cor} Si $f_n \in C^0(X, Y)$ et $f_n \CVU Xn\pinfty f$, alors $f \in C^0(X, Y)$. \end{cor}
 
 			\begin{proof} Les fonctions $f_n$ sont continues en tout point et $f_n \CVU Xn\pinfty$ par hypothèse. Dès lors, pour tout point $a \in X$, par le
 			théorème précédent, on peut dire $f$ continue en $a$. Dès lors $f \in C^0(X, Y)$.
@@ -489,7 +489,7 @@
 			Soit alors $\varepsilon > 0$. Pour tout $m, n \in \N$ et pour tout $x \in X$, on a~:
 			\[\norm {f_n(x) - f_m(x)}_E  \leq \norm {f_n - f_m}_\infty \leq \varepsilon.\]
 
-			Passons alors à la limite e $m$, ce qui donne~:
+			Passons alors à la limite en $m$, ce qui donne~:
 			\[\norm {f_n(x) - f(x)}_E \leq \norm {f_n - f}_\infty \leq \varepsilon.\]
 			Dès lors~:
 			\[\forall n \geq N : \norm {f_n - f}_\infty \leq \varepsilon.\]
@@ -508,6 +508,9 @@
 			Cela se note~:
 			\[f_n \CVUc Xn\pinfty f.\]
 			\end{déf}
+
+			\begin{rmq} ici, la notation $\restr fK$ désigne la restriction de la fonction $f$ au sous-domaine $K$.
+			\end{rmq}
 
 			\begin{prp}\label{prp:cvuccontinues} Si la suite $f_n$ converge uniformément sur tout compact de $X$ et si toutes les fonctions $f_n$ sont continues
 			en $a \in X$, alors $f$ est continue en $a$.
@@ -538,7 +541,7 @@
 			\begin{thm} Soit $f_n : X \to \R$ intégrables au sens de Riemann sur $X$. Supposons $f_n \CVU Xn\pinfty f$. Alors~:
 			\begin{itemize}
 				\item $f$ est intégrable au sens de Riemann~;
-				\item la $\left(\int_X f_n(x)\dif x\right)_n$ converge vers $\int_Xf(x)\dif x$.\footnotemark
+				\item la suite $\left(\int_X f_n(x)\dif x\right)_n$ converge vers $\int_Xf(x)\dif x$.\footnotemark
 			\end{itemize}
 			\end{thm}		\footnotetext{Cela veut dire que~:\[\lim_{n \to \pinfty}\int_X f_n(x)\dif x = \int_X \lim_{n \to \pinfty} f_n(x)\dif x.\]}
 
@@ -559,7 +562,7 @@
 			En posant $\overline \psi \coloneqq \psi - \frac \varepsilon{4\abs X}$ et $\overline \varphi \coloneqq \varphi + \frac \varepsilon{4\abs X}$, on a
 			$\overline \psi, \overline \varphi \in \mathcal E(X, \R)$. De plus~:
 			\[\int_X(\psi-\varphi) = \int_X\left(\psi + \frac \varepsilon{4\abs X} - \left(\varphi - \frac \varepsilon{4\abs X}\right)\right)
-				= \frac \varepsilon{2\abs X}\abs X + \int_X \psi - \varphi < 2\frac \varepsilon2 = \varepsilon.\]
+				= \frac \varepsilon{2\abs X}\abs X + \int_X (\psi - \varphi) < 2\frac \varepsilon2 = \varepsilon.\]
 
 			Dès lors, on en déduit $f$ intégrable au sens de Riemann.
 
@@ -614,7 +617,8 @@
 			On en déduit que $B(x, \frac \delta2]$ est incluse dans $B(x, \delta[$. Or $B(x, \frac \delta2]$ est fermé et borné par définition.
 			$B(x \frac \delta2]$ est donc un compact de $\Omega$.
 
-			Soient $i \in \intint 1d$ et $h \in [\pm \frac \delta2]$. On a alors~:
+			Soient $i \in \intint 1d$ et $h \in [\pm \frac \delta2]$\footnote{Pour $\delta \gneqq 0$, les notations $[\pm \delta]$ et $[\gamma \pm \delta]$
+			désignent respectivement les ensembles $[-\delta, +\delta]$ et $[\gamma-\delta, \gamma+\delta]$}. On a alors~:
 			\[\forall n \in \N : f_n(x + he_i) = f_n(x) + \int_0^h\pd f{x_i}(x+s e_i)\dif s.\]
 
 			Or comme $f_n \CVSc \Omega n\pinfty f$ et pour tout $i$, $\pd {f_n}{x_i}$ converge uniformément vers $g_i$ sur $B(x, \frac \delta2]$, il vient~:
@@ -637,7 +641,7 @@
 			Dès lors, on sait que~:
 			\[K \subset \bigcup_{a \in K}B\left(a, \frac {r_a}2\right[.\]
 
-			Par complétude, on sait qu'il existe un sous-recouvrement fini de $K$, c'est-à-dire $p \in \N^*$ et $(a_i)_{i \in \intint 1p} \in K^p$ tel que~:
+			Par compacité, on sait qu'il existe un sous-recouvrement fini de $K$, c'est-à-dire $p \in \N^*$ et $(a_i)_{i \in \intint 1p} \in K^p$ tel que~:
 			\[K \subset \bigcup_{i=1}^pB\left(a_i, \frac {r_{a_i}}2\right[.\]
 
 			Par convergence simple de $f_n$ vers $f$, et puisque les $a_i$ sont en nombre fini, on peut alors exprimer~:
@@ -922,7 +926,7 @@
 			\begin{déf} Définissons $\overline {\Rp} \coloneqq \Rp \cup \{\pinfty\}$.
 			\end{déf}
 
-			\begin{thm}\label{thm:rayondeconvergence} Soit $R \coloneqq \left(\limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n}\right)^{-1}$. Quelque soit
+			\begin{thm}\label{thm:rayondeconvergence} Soit $R \coloneqq \left(\limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n}\right)^{-1}$. Quel que soit
 			$z \in \C$~:
 			\begin{itemize}
 				\item si $\abs {z - z_0} \lneqq R$, alors $\sum_{n \geq 0}u_n(z)$ converge absolument~;
@@ -956,7 +960,7 @@
 
 			\begin{thm}\label{thm:cvnsurrayondeconvergence} Soit $a_n(z - z_0)^n$, le terme général d'une série de puissance. Alors~:
 			\begin{itemize}
-				\item lorsque $0 < R < \pinfty, \forall r \in (0, R) :$ la série de série de terme général~: $z \mapsto a_n(z - z_0)^n$ converge normalement
+				\item lorsque $0 < R < \pinfty, \forall r \in (0, R) :$ la série de fonctions de terme général~: $z \mapsto a_n(z - z_0)^n$ converge normalement
 				sur $B(z_0, r]$~;
 				\item lorsque $R = \pinfty$, la série de fonctions de terme général $z \mapsto a_n(z - z_0)^n$ converge normalement sur $B(z_0, r]$ pour tout $r$.
 			\end{itemize}
@@ -1057,7 +1061,7 @@
 			On en déduit que la série de terme général $x \mapsto a_kx^k$ est de Cauchy dans $B([0, z], Y)$, et donc, par complétude de $Y$, convergente.
 			\end{proof}
 
-			\begin{rmq} Soient $(a_n), (b_n) \subset \C$. On appelle la \textit{suite de Cauchy} de $(a_n)$ et $(b_n)$ la suite de terme général~:
+			\begin{rmq} Soient $(a_n), (b_n) \subset \C$. On appelle la \textit{série de Cauchy} de $(a_n)$ et $(b_n)$ la série de terme général~:
 			\[c_n \coloneqq \sum_{k=0}^na_kb_{n-k}.\]
 			\end{rmq}
 
@@ -1118,7 +1122,7 @@
 			\[R_1^{-1} = \limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n},\]
 			et donc~:
 			\[R_2^{-1} = \limsup_{n \to \pinfty}\norm {na_n}_Y^{\frac 1n} = \limsup_{n \to \pinfty}n^{\frac 1n}\norm {a_n}_Y^{\frac 1n}
-				= \limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n} = R_1^{-1},\]
+				= \limsup_{n \to \pinfty}\norm {a_n}_Y^{\frac 1n} = R_1^{n-1},\]
 			car $n^{\frac 1n} \xrightarrow[n \to \pinfty]{} 1$.
 			\end{proof}
 
@@ -1145,7 +1149,7 @@
 
 			\begin{proof} Si $f$ est somme de la série de puissance de terme général $a_n(x-x_0)^n$, alors $f \in C^\infty$ sur $(x_0 \pm R)$. Par la
 			Proposition~\ref{prp:formuledérivéepsdp}, on trouve~:
-			\[\forall p \in \N : f^{(p)}(x_0) = \sum_{n \geq p}\frac {n!}{(n-)!}a_n(x_0-x_0)^{n-p} = \frac {p!}{0!}a_p(x_0-x_0)^{p-p} + 0 = p!a_p1 = p!a_p,\]
+			\[\forall p \in \N : f^{(p)}(x_0) = \sum_{n \geq p}\frac {n!}{(n-p)!}a_n(x_0-x_0)^{n-p} = \frac {p!}{0!}a_p(x_0-x_0)^{p-p} + 0 = p!a_p1 = p!a_p,\]
 			et donc $a_p = \frac {f^{(p)}(x_0)}{p!}$.
 			\end{proof}
 
@@ -1220,10 +1224,10 @@
 
 			\begin{prp} Soient $f, g$ R-int, et $\lambda, \mu \in \R$. Alors les fonctions suivantes sont R-int~:
 			\begin{align*}
-				&\lambda f + \mu g \\
-				&\min(f, g) \\
-				&\max(f, g) \\
-				&\abs f
+				&x \mapsto \left(\lambda f + \mu g\right)(x) \\
+				&x \mapsto \min(f, g)(x) \\
+				&x \mapsto \max(f, g)(x) \\
+				&x \mapsto \abs f(x)
 			\end{align*}
 			Et on a~:
 			\begin{itemize}
@@ -1244,7 +1248,7 @@
 			\[\min(\varphi_f, \varphi_g) \leq f\qquad\qquad\min(\varphi_f, \varphi_g) \leq g,\]
 			et donc $\min(\varphi_f, \varphi_g) \leq \min(f, g)$.
 
-			Posons $\El {[a, b]}\R \ni \widetilde \varphi \coloneqq \min(\varphi_f, \varphi_g), \widetilde \psi \coloneq \min(\psi_f, \psi_g)$. On remarque alors~:
+			Posons $\El {[a, b]}\R \ni \widetilde \varphi \coloneqq \min(\varphi_f, \varphi_g), \widetilde \psi \coloneqq \min(\psi_f, \psi_g)$. On remarque alors~:
 			\[\widetilde \varphi \leq \min(f, g) \leq \widetilde \psi.\]
 
 			Prenons $x \in [a, b]$. On remarque~:
@@ -1261,6 +1265,12 @@
 
 			\begin{cor} $\abs {\int_a^b (\lambda f + \mu g)(x)\dif x} \leq \abs \lambda \int_a^b \abs {f(x)}\dif x + \abs \mu \int_a^b\abs {g(x)}\dif x$.
 			\end{cor}
+
+			\begin{proof} On calcule~:
+			\[\abs {\int_a^b \lambda f(x) + \mu g(x)\dif x} \leq \int_a^b\abs {\lambda f(x) + \mu g(x)}\dif x
+				= \abs \lambda\int_a^b\abs {f(x)}\dif x + \abs \mu\int_a^b\abs {g(x)}\dif x.\]
+			\end{proof}
+
 		\subsection{Fonctions absolument intégrables sur un intervalle}
 			\begin{déf} Soit $I \neq \emptyset$, un intervalle de $\R$, et $f : I \to \R$. On dit que $f$ est \textit{abs-int} (\textit{absolument intégrable})
 			sur $I$ lorsque~:
@@ -1291,8 +1301,8 @@
 			Si $I$ est ouvert d'un côté, et fermé de l'autre, les suites exhaustives $([a, b-\frac 1n])_n$ et $([a + \frac 1n, b])_n$ sont exhaustives.
 			\end{proof}
 
-			\begin{prp} Soit $I \neq \emptyset$ un intervalle de $\R$. Soit $f : I \to \R$ abs-int sur $I$. Soit $([a_n, b_n])_n$ une suite exhaustive de
-			segments de $I$. Alors~:
+			\begin{prp}\label{prp:abs-int => convergence} Soit $I \neq \emptyset$ un intervalle de $\R$. Soit $f : I \to \R$ abs-int sur $I$. Soit $([a_n, b_n])_n$
+			une suite exhaustive de 	segments de $I$. Alors~:
 			\begin{itemize}
 				\item[$(i)$]  la suite définie par~:
 				\[\left(\int_{a_n}^{b_n}f(x)\dif x\right)_n \subset \R\]
@@ -1400,7 +1410,7 @@
 			\[\int_I f = \int_{I \cap (\minfty, a]} f + \int_{I \cap [a, \pinfty)} f.\]
 			\end{proof}
 
-			\begin{prp} Soient $I \subset \R$, un intervalle non-vide, et $f : I \to \R$ abs-int. La fonction $F : I \to \R : x \to \int_{I \cap (-\minfty, x]} f$ est
+			\begin{prp} Soient $I \subset \R$, un intervalle non-vide, et $f : I \to \R$ abs-int. La fonction $F : I \to \R : x \to \int_{I \cap (\minfty, x]} f$ est
 			localement lipschitizenne.
 			\end{prp}
 
@@ -1495,8 +1505,8 @@
 			\begin{prp} Soit $\alpha \in \R$. $x \mapsto x^{-\alpha}$ est abs-int sur $[1, \pinfty)$ si et seulement si $\alpha > 1$.
 			\end{prp}
 
-			\begin{proof} Remarquons que $x \mapsto x$ est continue sur $[1, \pinfty)$, et donc R-int sur tout segment de $[1, \pinfty)$. De plus, elle est positive sur
-			$[1, \pinfty)$. Pour $X \gneqq 1$, on a~:
+			\begin{proof} Remarquons que $x \mapsto x^{-\alpha}$ est continue sur $[1, \pinfty)$, et donc R-int sur tout segment de $[1, \pinfty)$. De plus,
+			elle est positive sur $[1, \pinfty)$. Pour $X \gneqq 1$, on a~:
 			\[\int_1^X\abs {\frac 1{x^\alpha}}\dif x = \int_1^X \frac {\dif x}{x^\alpha} = \int_1^Xx^{-\alpha}\dif x.\]
 			\begin{itemize}
 				\item si $\alpha \neq 1$, alors~:
@@ -1568,7 +1578,7 @@
 			c-à-d, les deux notions ont le même sens pour la même notation.
 			\end{prp}
 
-			\begin{proof} Par le résultat X % TODO: trouver le résultat associé
+			\begin{proof} Par la Proposition~\ref{prp:abs-int => convergence}
 			\end{proof}
 
 			\begin{ex} La fonction $\mapsto \frac {sin x}x$ a une intégrale convergente sur $[1, \pinfty)$ mais n'est pas abs-int sur $[1, \pinfty)$.
@@ -1587,8 +1597,8 @@
 			Montrons maintenant que la fonction n'est pas abs-int. Soit $n \in \Ns$. On sait~:
 			\begin{align*}
 				\int_\pi^{n\pi}\abs {\frac{\sin x}x}\dif x &= \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\abs {\frac{\sin x}x}\dif x
-				\geq \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\frac {\abs {\sin x}}{(k+1)\pi}\dif x \geq \sum_{k=1}^{n-1}\frac {\int_0^\pi\abs {\sin x}}{(k+1)\pi} \\
-				&= \frac {\int_0^\pi\abs {\sin x}}{\pi}\sum_{k=1}^{n-1} \frac 1{k+1}\xrightarrow[n \to \pinfty]{} \pinfty.
+				\geq \sum_{k=1}^{n-1}\int_{k\pi}^{(k+1)\pi}\frac {\abs {\sin x}}{(k+1)\pi}\dif x \geq \sum_{k=1}^{n-1}\frac {\int_0^\pi\abs {\sin x}\dif x}{(k+1)\pi} \\
+				&= \frac {\int_0^\pi\abs {\sin x}\dif x}{\pi}\sum_{k=1}^{n-1} \frac 1{k+1}\xrightarrow[n \to \pinfty]{} \pinfty.
 			\end{align*}
 
 			On a donc bien $x \mapsto \frac{\sin x}x$ non-abs-int sur $[1, \pinfty)$.
@@ -1603,7 +1613,10 @@
 			si pour toute suite exhaustive de segments $([a_n, b_n])_n$ de $I$, la suite $\left(\int_{a_n}^{b_n}f(x)\dif x\right)_n$ est de Cauchy.
 			\end{prp}
 
-			\begin{proof} TODO
+			\begin{proof} Toute suite convergente est de Cauchy dans $\R$.
+
+			Pour montrer que si la suite d'intégrales sur une suite exhaustive de segments est de Cauchy, alors l'intégrale est convergente, on sait que toute
+			suite réelle de Cauchy converge, et par la Proposition~\ref{prp:abs-int => convergence}, on a la non-dépendance de la suite exhaustive.
 			\end{proof}
 
 		\subsection{Rappel : deuxième formule de la moyenne}
@@ -1612,7 +1625,7 @@
 			Soient $f, g : [a, b] \to \R$, de classe $C^0$ sur $[a, b]$, avec $g \geq 0$. Il existe $c \in [a, b]$ tel que~:
 			\[\int_a^b(fg)(t)\dif t = f(c)\int_a^bg(t)\dif t.\]
 
-			\begin{prp} Soit $[a, b]$, un segment de $\R$, et soient $f, g : [a, b] \to \R$, avec $f$ R-int sur $[a, b]$, et $g \geq $, décroissante sur $[a, b]$.
+			\begin{prp} Soit $[a, b]$, un segment de $\R$, et soient $f, g : [a, b] \to \R$, avec $f$ R-int sur $[a, b]$, et $g \geq 0$, décroissante sur $[a, b]$.
 			Alors il existe $c \in [a, b]$ tel que~:
 			\[\int_a^b(fg)(t)\dif t = g(a)\int_a^cf(t)\dif t.\]
 			\end{prp}
@@ -1668,7 +1681,7 @@
 
 				La fonction $F$ étant continue sur le segment $[a, b]$, par le théorème des valeurs intermédiaires, il existe $c \in [a, b]$ tel que~:
 				\[F(c) = \frac 1{g(a)}\int_a^b(fg)(t)\dif t,\]
-				et donc en remultipliant par $g(a)$ de par et d'autre, on obtient~:
+				et donc en remultipliant par $g(a)$ de part et d'autre, on obtient~:
 				\[g(a)F(c) = g(a)\int_a^cf(t)\dif t = \int_a^b(fg)(t)\dif t.\]
 			\end{itemize}
 			\end{proof}
@@ -1695,7 +1708,7 @@
 			\[\abs {\alpha_{n+p} - \alpha_n} \leq g(b_n) \leq \abs {\int_a^{c_{n+p}}f(t)\dif t - \int_a^{b_n}f(t)\dif t} \leq 2Mg(b_n) \xrightarrow[n \to \pinfty]{} 0,\]
 			par décroissance de $g$ vers $0$.
 
-			La suite $(\alpha_n)$ est donc une suite de Cauchy, ce qui implique que l'intégrale de $(fg)$ converge sur $[a, b)$, par le critère de Cauchy.
+			La suite $(\alpha_n)_n$ est donc une suite de Cauchy, ce qui implique que l'intégrale de $(fg)$ converge sur $[a, b)$, par le critère de Cauchy.
 			\end{proof}
 
 			\begin{ex} Prenons $\beta \in (0, 1)$. La fonction $x \mapsto \frac {\sin x}{x^\beta}$ est d'intégrale convergente sur $[1, \pinfty)$ car~:
@@ -1779,7 +1792,7 @@
 				= \int_a^b h\int_0^1\pd f{x_i}(x_0 + hse_i, t)\dif s\dif t.\]
 
 			Pour $h \in \left[-\frac \delta2, \frac \delta2\right] \setminus \{0\}$, et en posant~:
-			\[g = \left[-\frac \delta2, \frac \delta2\right] \times \left([0, 1] \times [a, b]\right) : (h, (s, t)) \mapsto \pd f{x_i}(x_0 + hse_i, t),\]
+			\[g : \left[-\frac \delta2, \frac \delta2\right] \times \left([0, 1] \times [a, b]\right) : (h, (s, t)) \mapsto \pd f{x_i}(x_0 + hse_i, t),\]
 			on a~:
 			\[\frac 1h\int_a^b \left(f(x_0 + he_i, t) - f(x_0, t)\right)\dif t = \int_a^b\int_0^1g(h, (s, t))\dif s\dif t.\]
 
@@ -1831,7 +1844,7 @@
 
 			\begin{proof} Posons $G : [\alpha, \beta] \times [a, b] \to \R : (x, T) \mapsto \int_a^T f(x, t)\dif t$. Par le théorème précédent, on peut dire
 			$G \in C^0([\alpha, \beta] \times [a, b], \R)$. De plus, pour $x \in [a, b]$, on peut écrire~:
-			\[F(x) = \int_a^{\psi(x)}f(x, t)\dif t - \int_a^{\phi(x)}f(x, t)\dif t = G(x, \psi(x)) - G(x, \psi(x)).\]
+			\[F(x) = \int_a^{\psi(x)}f(x, t)\dif t - \int_a^{\phi(x)}f(x, t)\dif t = G(x, \psi(x)) - G(x, \phi(x)).\]
 
 			Par continuité des fonctions $G, \psi, \phi$, on sait que $x \mapsto G(x, \psi(x))$ et $x \mapsto G(x, \phi(x))$ sont continues sur $[\alpha, \beta]$
 			par composition de fonctions continues. Ensuite, on peut dire que $F$ est continue sur $[\alpha, \beta]$ par différence de fonctions continues.
@@ -1929,7 +1942,7 @@
 
 			\begin{proof} Soit $([a_n, b_n])_n$, une suite exhaustive de segments de $I$. Pour tout $n \in \N$, on pose~:
 			\[F_n : X \to \R : x \mapsto \int_{a_n}^{b_n}f(x, t)\dif t.\]
-			On observe que ces $F_n$ sont sont continues par le Théorème~\ref{prp:intparamcontinuesidefsurcpct} car $[a_n, b_n]$ est un segment fixe (compact)
+			On observe que ces $F_n$ sont continues par le Théorème~\ref{prp:intparamcontinuesidefsurcpct} car $[a_n, b_n]$ est un segment fixe (compact)
 			et $f \in C^0(X \times I, \R)$ par hypothèse.
 
 			Prenons, $n, p \in \N, x \in X$. Calculons~:
@@ -2049,7 +2062,7 @@
 					\leq \int_{\inf I}^{a_\varepsilon}\varphi(t)\dif t + \int_{b_\varepsilon}^{\sup I}\varphi(t)\dif t \\
 				&= \abs {\int_I\varphi(t)\dif t - \int_{K_\varepsilon}\varphi(t)\dif t} \leq \varepsilon,
 			\end{align*}
-			par choix de $\K_\varepsilon$. On a donc bien la convergence sur $I$ uniforme sur $X$ de $t \mapsto f(x, t)$.
+			par choix de $K_\varepsilon$. On a donc bien la convergence sur $I$ uniforme sur $X$ de $t \mapsto f(x, t)$.
 			\end{proof}
 
 			\begin{thm}[Équivalent du critère d'Abel des séries sur les intégrales] Soit $I = [a, b)$, où $a < b \leq \pinfty$. Soient $X \neq \emptyset$, et
@@ -2513,7 +2526,7 @@
 	\section{Équations différentielles - forme normale - réduction à l'ordre 1}
 		\subsection{Généralités}
 			\begin{déf} On appelle \textit{équation différentielle} toute relation de la forme~:
-			\begin{equation}\label{eq:equadiff}\tag{*}
+			\begin{equation}\label{eq:equadiffF}\tag{*}
 			F(t, y(t), y^{(1)}(t), \ldots, y^{(p)}(t)) = 0\qquad\qquad t \in I,
 			\end{equation}
 			où~:
@@ -2524,7 +2537,7 @@
 			\end{itemize}
 			$y : J \subset I \to \R^d$ est une fonction inconnue définie sur un intervalle $J$ inconnu également et $p$ fois dérivable sur $J$, telle que~:
 			\[\forall t \in J : \forall j \in \intint 0p : y^{(j)}(t) \in \Omega_j,\]
-			et dont les dérivées sont liées par l'équation~\eqref{eq:equadiff}.
+			et dont les dérivées sont liées par l'équation~\eqref{eq:equadiffF}.
 			\end{déf}
 
 			\begin{déf} Une équation différentielle est dite \textit{résoluble} lorsqu'elle peut être mise de manière équivalente sous forme normale~:
