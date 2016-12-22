@@ -1,0 +1,235 @@
+\documentclass{article}
+
+\usepackage{commath}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{palatino, eulervm}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{mathtools}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{hyperref}
+
+%%%%%  amsthm  %%%%%
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{lem}[thm]{Lemme}
+\addto\captionsfrench{\renewcommand\proofname{\underline{Démonstration}}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}[section]
+
+% link amsthm and mdframed
+\iftrue
+%\iffalse
+	% pre-amsthm
+	\mdfdefinestyle{resultstyle}{%
+		hidealllines=true,%
+		leftline=true,%
+		rightline=true,%
+		innerleftmargin=10pt,%
+		innerrightmargin=10pt,%
+		innertopmargin=10pt,%
+		innerbottommargin=8pt,%
+	}
+
+	\surroundwithmdframed[style=resultstyle]{thm}
+	\surroundwithmdframed[style=resultstyle]{prp}
+	\surroundwithmdframed[style=resultstyle]{cor}
+	\surroundwithmdframed[style=resultstyle]{lem}
+\fi
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\tq}{\text{ t.q. }}
+\newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
+
+\title{Modélisation et simulation --- INFOF-305}
+\author{R. Petit}
+\date{Année académique 2016 - 2017}
+
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}1
+
+\section{Introduction aux systèmes dynamiques}
+	\subsection{Généralités}
+
+	\begin{déf} Soit $T$, \textit{l'ensemble de temps}. Selon la nature de $T$, on parle de \textit{système à temps discret}, ou de \textit{système à temps
+	continu}. Les applications~:
+	\[u : T \to U \subseteq \R^n \qquad\qquad \text{ et } \qquad\qquad y : T \to Y \subseteq \R^m\]
+	sont respectivement appelées \textit{fonction d'entrée} et \textit{fonction de sortie}. L'application $u$ correspond aux apports que subit le système, alors
+	que l'application $y$ correspond à l'observation du système.
+
+	Le couple d'applications $(u, y)$ appartient à $\Omega \times \Gamma$, où $\Omega$ est l'ensemble des fonctions d'entrées acceptables et $\Gamma$ est
+	l'ensemble des fonctions de sortie acceptables.
+	\end{déf}
+
+	\begin{rmq} $\forall (u, y) \in \Omega \times \Gamma : \forall t \in T : \left(u(t), y(t)\right) \in U \times Y$.
+	\end{rmq}
+
+	\begin{déf} On appelle variable d'état la variable $x : T \to X \subseteq \R^d$ représentant l'\textit{état interne du système} en fonction du temps.
+
+	L'évolution du système sera décrite comme un système d'équations différentielles ou d'équations aux différences par rapport à la variable d'état.
+	\end{déf}
+
+	\begin{rmq} Le fait qu'une variable supplémentaire soit introduite induit que la connaissance de $(t_0, u, y) \in T \times \Omega \times \Gamma$ ne permet
+	pas de prédire $y(t)$ pour $T \ni t > t_0$. Pour cela, il faut également connaître $x^0 \coloneqq x(t_0) \in \R^d$. Alors les théorèmes de Cauchy-Lipschitz
+	sont applicables (habituellement) pour affirmer que $t \mapsto x(t)$ est une solution.
+	\end{rmq}
+
+	\begin{déf} Un système est dit \textit{statique} (ou \textit{memoryless}) lorsque la sortie ne dépend que de l'entrée, et pas de la variable d'état.
+	\end{déf}
+
+	\begin{rmq} Dans un tel système, connaitre $(t_0, u, y)$ est suffisant pour connaitre $y(t)$ pour tout $t > t_0$.
+	\end{rmq}
+
+	\begin{déf} L'application~:
+	\[\varphi : T \times T \times X \times \Omega \to \R^d\]
+	telle que $\forall t \in T : x(t) = \varphi(t_0, t, x^0, u)$ est appelée \textit{fonction d'état}.
+
+	L'application~:
+	\[\eta : T \times X \to Y\]
+	telle que $\forall t \in T : y(t) = \eta(t, x(t))$ est appelée \textit{fonction de transformation de sortie}.
+	\end{déf}
+
+	\begin{déf} Un système dynamique se définit alors par le 8-uple suivant~:
+	\[S = \left(T, U, \Omega, X, Y, \Gamma, \varphi, \eta\right).\]
+	\end{déf}
+
+	\begin{rmq} On peut donc synthétiser un système dynamique par~:
+	\[u(t) \xrightarrow{\varphi(t)} x(t) \xrightarrow{\eta(t)} y(t).\]
+	\end{rmq}
+
+	\begin{prp} L'application $\varphi$ admet les propriétés suivantes~:
+	\begin{itemize}
+		\item consistance~: $\forall (t, x, u) \in T \times X \times \Omega : \varphi(t, t, x, u) = x$~;
+		\item irréversibilité~: $\varphi$ est définie sur $[t_0, +\infty) \cap T$~;
+		\item composition~: $\forall t_0 < t_1 < t_2 \in T : \forall (u, x) \in \Omega \times X : \varphi(t_2, t_0, x, u)
+			= \varphi\left(t_2, t_1, \varphi\left(t_1, t_0, x, u\right), u\right)$~;
+		\item causalité~: $\forall t_0 \in T : \forall u_1, u_2 \in \Omega : \left(\forall t \in T : u_1(t) = u_2(t)\right)
+			\Rightarrow \left(\forall t \in T : \varphi(t, t_0, x, u_) = \varphi(t, t_0, x, u_2)\right)$.
+	\end{itemize}
+	\end{prp}
+
+	\begin{déf} Soit un système dynamique régi par~:
+	\[x(t) = \varphi(t, t_0, x(t_0), u).\]
+
+	On appelle le \textit{mouvement du système} l'ensemble $\left\{(t, x(t)) \tq t \geq t_0\right\}$.
+
+	On appelle la \textit{trajectoire du système} l'ensemble $\left\{x(t) \tq t \geq t_0\right\}$.
+	\end{déf}
+
+	\begin{rmq} La trajectoire est donc la projection du mouvement parallèlement au temps.
+	\end{rmq}
+
+	\begin{déf} Soit $\overline x \in X$. On dit que $\overline x$ est un \textit{état d'équilibre (en temps infini)} lorsque~:
+	\[\exists u \in \Omega \tq \forall (t, t_0) \in T^2 : t \geq t_0 \Rightarrow \varphi(t, t_0, \overline x, u) = \overline x.\]
+	\end{déf}
+
+	\begin{déf} Soit $\overline y \in Y$. On dit que $\overline y$ est une \textit{sortie d'équilibre (en temps infini)} lorsque~:
+	\[\forall t_0 \in T : \exists (x, u) \in X \times \Omega \tq \forall t \geq t_0 : \eta\left(t, \varphi(t, t_0, x, u)\right) = \overline y.\]
+	\end{déf}
+
+	\begin{déf} Un système est dit \textit{invariant} lorsque~:
+	\begin{enumerate}
+		\item $T$ est stable par l'addition~;
+		\item $\forall (u, \delta) \in \Omega \times T : \Omega \ni u^{(\delta)} : T \to U : t \mapsto u(t-\delta)$~;
+		\item $\forall (t_0, \delta, x^0) \in T \times T \times X : \forall t \geq t_0 : \varphi\left(t, t_0, x^0, u\right)
+			= \varphi\left(t+\delta, t_0+\delta, x^0, u^{(\delta)}\right)$~;
+		\item $y$ est indépendante de $t$, c-à-d~: $y(t) = (\eta \circ x)(t))$.
+	\end{enumerate}
+	\end{déf}
+
+	\begin{déf} Soient $x^{(1)}, x^{(2)} \in X$. On dit que $x^{(2)}$ est \textit{accessible} à l'instant $t_2 \in T$ à partir de $x^{(1)}$ lorsque~:
+	\[\exists (t_1, u) \in T \times \Omega \tq t_1 < t_2 \text{ et } \varphi(t_2, t_1, x^{(1)}, u) = x^{(2)}.\]
+	\end{déf}
+
+	\begin{déf} Un système est dit \textit{connexe à l'instant $t \in T$} lorsque $\forall (x^{(1)}, x^{(2)}) \in X^2 : x^{(2)}$ est accessible à l'instant
+	$t$ à partir de $x^{(1)}$.
+
+	Si un système est connexe pour tout $t \in T$, alors il est dit connexe.
+	\end{déf}
+
+	\begin{déf} Soient $x^{(1)}, x^{(2)} \in X$. On dit que $x^{(1)}$ et $x^{(2)}$ sont équivalents à l'instant $t_0 \in T$ lorsque~:
+	\[\forall u \in \Omega : \forall t \geq t_0 : \eta\left(t, \varphi\left(t, t_0, x^{(1)}, u\right)\right)
+		= \eta\left(t, \varphi\left(t, t_0, x^{(2)}, u\right)\right).\]
+	\end{déf}
+
+	\begin{déf} Un système est dit en \textit{forme réduite} si $\forall (x^{(1)}, x^{(2)}) \in X^2 : x^{(1)} \neq x^{(2)} \Rightarrow x^{(1)}$ n'est pas
+	équivalent à $x^{(2)}$.
+	\end{déf}
+
+	\begin{déf} Soit $\hat x \in X$. L'état $\hat x$ est dit observable à l'instant $t_0 \in T$ lorsque $\exists (t, u) \in T \times \Omega \tq x(t_0)$ peut
+	être retrouvé de manière univoque à l'aide de $\restr u{[t_0, t)}$ et $\restr y{[t, t_0)}$.
+	\end{déf}
+
+	\subsection{Systèmes dynamiques complexes}
+
+	\begin{déf} Un \textit{sous-système dynamique} est un système dynamique faisant partie d'un système dynamique complexe.
+	\end{déf}
+
+	\begin{déf} Soient $S_1$ et $S_2$ deux systèmes dynamiques. $S_1$ et $S_2$ sont dits \textit{connectés en cascade} lorsque~:
+	\[y_1 = u_2,\]
+	c-à-d lorsque la sortie du premier système sert d'entrée au second.
+	\end{déf}
+
+	\begin{rmq} Pour que deux systèmes $S_1$ et $S_2$ soient connectés en cascade, il est nécessaire que $T_1 = T_2$, $\Gamma_1 \subseteq \Omega_2$
+	(et donc $Y_1 \subseteq U_2$).
+	\end{rmq}
+
+	\begin{prp} Soient les deux systèmes dynamiques suivants~:
+	\begin{align*}
+		S_1 &= \left(T, U_1, \Omega_1, X_1, Y_1, \Gamma_1, \varphi_1, \eta_1\right), \\
+		S_2 &= \left(T, U_2, \Omega_2, X_2, Y_2, \Gamma_2, \varphi_2, \eta_2\right).
+	\end{align*}
+
+	Le système dynamique résultant de la cascade de $S_1$ et $S_2$ est donné par~:
+	\[S = \left(T, U_1, \Omega_1, X_1 \times X_2, Y_2, \Gamma_2, \varphi, \eta_2\right),\]
+	où~:
+	\begin{align*}
+		&T = T_1 = T_2 \\
+		&\varphi : T \times T \times (X_1 \times X_2) \times \Omega_1 \to X : \\
+		&\qquad\left((t, t_0, \left(x_1(t_0), x_2(t_0)\right), u\right) \mapsto
+				\left(\varphi_1\left(t, t_0, x_1(t_0), u\right), \varphi_2\left(t, t_0, x_2(t_0), y_1(t_0, x_1, u)\right)\right), \\
+		&y_1(t_0, x_1, u) : T \to Y_1 \subseteq U_2 : t \mapsto \eta_1\left(t, \varphi_1\left(t, t_0 x_1(t_0), u\right)\right).
+	\end{align*}
+	\end{prp}
+
+	\begin{déf} Soient $S_1$ et $S_2$ deux systèmes dynamiques. $S_1$ et $S_2$ sont dits \textit{connectés en parallèle} lorsque~:
+	\[u_1 = u_2,\]
+	c-à-d lorsqu'ils ont la même fonction d'entrée.
+	\end{déf}
+
+	\begin{rmq} Pour que deux systèmes dynamiques soient connectés en parallèle, il est nécessaire que $T_1 = T_2$, $\Omega_1 = \Omega_2$ (et donc $U_1 = U_2$).
+	\end{rmq}
+
+	\begin{prp} Soient les deux systèmes dynamiques suivants~:
+	\begin{align*}
+		S_1 &= \left(T, U_1, \Omega_1, X_1, Y_1, \Gamma_1, \varphi_1, \eta_1\right), \\
+		S_2 &= \left(T, U_2, \Omega_2, X_2, Y_2, \Gamma_2, \varphi_2, \eta_2\right).
+	\end{align*}
+
+	Le système dynamique résultant des systèmes $S_1$ et $S_2$ en parallèle est donné par~:
+	\[S = \left(T, U, \Omega, X_1 \times X_2, Y_1 \times Y_2, \Gamma_1 \times \Gamma_2, \varphi, \eta\right),\]
+	où~:
+	\begin{align*}
+		T &= T_1 = T_2 \\
+		U &= U_1 = U_2 \\
+		\Omega &= \Omega_1 = \Omega_2 \\
+		\varphi &: (t, t_0, x, u) \mapsto \left(\varphi_1(t, t_0, x, u), \varphi_2(t, t_0, x, u)\right) \\
+		\eta &: \left(t, (x_1, x_2)\right) \mapsto \left(\eta_1(t, x_1), \eta_2(t, x_2)\right)
+	\end{align*}
+	\end{prp}
+
+	\subsection{Rétroaction}
+
+\end{document}
