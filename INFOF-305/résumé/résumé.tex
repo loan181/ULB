@@ -46,6 +46,8 @@
 	\surroundwithmdframed[style=resultstyle]{lem}
 \fi
 
+\DeclareMathOperator{\Tr}{Tr}
+
 \newcommand{\N}{\mathbb N}
 \newcommand{\R}{\mathbb R}
 \newcommand{\C}{\mathbb C}
@@ -487,7 +489,343 @@
 	S'il existe une fonction $V : X \to X$ continûment dérivable sur un voisinage de $\bar x$ telle que $V$ est définie positive en $\bar x$ et~:
 	\[\od Vt(x) = \scpr {\nabla V(x)}{f(x, \bar u)}\]
 	est définie positive en $\bar x$, alors $\bar x$ est instable.
-
 	\end{thm}
+
+\section{Systèmes dynamiques linéaires à temps continu}
+
+	\begin{déf} On définit le \textit{mouvement libre} d'un système comme étant la fonction~:
+	\[\varphi_\ell : T \times T \times X \to X : (t, t_0, x^{(0))} \mapsto \varphi(t, t_0, x^{(0)}, \mathbf{0}),\]
+	avec $\mathbf{0} : t \mapsto 0$, la fonction nulle.
+
+	On définit le \textit{mouvement forcé} d'un système comme étant la fonction~:
+	\[\varphi_f : T \times T \times \Omega \to X : (t, t_0, u) \mapsto \varphi(t, t_0, 0_X, u),\]
+	avec $0_X$, l'élément neutre de $X$ (qui existe car $X$ est un espace vectoriel).
+	\end{déf}
+
+	\begin{prp} Dans un système linéaire, la fonction de transition $\varphi$ est linéaire par rapport à $x \in X$, et $u \in \Omega$, et $\varphi$
+	est superposable par $\varphi_\ell$ et $\varphi_f$, i.e.~:
+	\begin{align*}
+		&\forall \lambda, \mu, \gamma, \delta \in \K : \forall (t, t_0) \in T^2 : \forall (x^{(1)}, x^{(2)}) \in X^2 : \forall (u_1, u_2) \in \Omega : \\
+		&\varphi\left(t, t_0, \lambda x^{(1)} + \mu x^{(2)}, \gamma u_1 + \delta u_2\right) =
+			\lambda \varphi_\ell(t, t_0, x^{(1)}) + \mu \varphi_\ell(t, t_0, x^{(2)}) + \gamma \varphi_f(t, t_0, u_1) + \delta \varphi_f(t, t_0, u_2).
+	\end{align*}
+	\end{prp}
+
+	\begin{prp} Dans un système linéaire, la fonction de transformation de sortie $\eta : X \to Y$ est linéaire par rapport à $x \in X$ pour tout $t \in T$, i.e.~:
+	\[\forall t \in T : \eta(x(t)) = H(t)x(t),\]
+	pour $H : T \to \K^{n \times n}$ et $n = \dim(X) \in \N^*$.
+	\end{prp}
+
+	\begin{thm} Tout système dynamique linéaire régulier à temps continu peut être exprimé sous la forme~:
+	\begin{align}
+		\begin{cases}
+			\od xt(t) &= A(t)x(t) + B(t)u(t) \\
+			y(t) &= C(t)x(t),
+		\end{cases}
+	\end{align}
+	avec $A : T \to \K^{\dim(X) \times \dim(X)}$, $B : T \to \K^{\dim(X) \times \dim(U)}$, et $C : T \to \K^{\dim(Y) \times \dim(X)}$, toutes trois continues
+	en temps.
+	\end{thm}
+
+	\begin{rmq} Le cas des systèmes linéaires autonomes (où les fonctions $A, B, C$ sont constantes) est \textit{simple} à résoudre analytiquement (au sens où
+	il existe une solution qu'il est possible de déterminer \textit{à la main}).
+	\end{rmq}
+
+	\begin{thm} Dans un système dynamique linéaire, la stabilité (respectivement instabilité) d'un mouvement en particulier implique la stabilité (respectivement
+	l'instabilité) de tous les mouvements.
+	\end{thm}
+
+	\begin{proof} Soient $\hat x : T \to X$ et $\tilde x : T \to X$, les mouvements associés à l'entrée $\bar u \in \Omega$ et à l'état initial respectivement
+	$x^{(1)} \in X$ et $x^{(2)} \in X$. On pose~:
+	\[z : T \to X : t \mapsto \hat x(t) - \tilde x(t).\]
+
+	Le mouvement $z$ correspond donc, par linéarité, à~:
+	\[z(t) = \varphi(t, t_0, x^{(1)}, \bar u) - \varphi(t, t_0, x^{(2)}, \bar u) = \varphi(t, t_0, x{(1)}-x^{(2)}, \mathbf{0}) = \varphi_f(t, t_0, x^{(1)}-x^{(2)}).\]
+
+	On sait cependant~:
+	\[\begin{cases}
+		\od {\hat x}t(t) &= A(t)\hat x(t) + B(t)\bar u(t) \\
+		\od {\tilde t}t(t) &= A(t)\tilde x(t) + B(t)\bar u(t).
+	\end{cases}\]
+
+	Dès lors, on détermine la dynamique de $z$~:
+	\[\od zt(t) = \od {\hat x}t(t) - \od {\tilde x}t(t) = A(t)\hat x(t) + B(t)\bar u(t) - A(t)\tilde x(t) - B(t)\bar u(t) = A(t)\left(\hat x(t) - \tilde x(t)\right) = A(t)z(t),\]
+	qui a l'origine pour point fixe.
+
+	Dès lors, en étudiant la stabilité de l'origine, on a la stabilité de tous les mouvements du système.
+	\end{proof}
+
+	\begin{cor} Dans un système dynamique linéaire, l'étude de stabilité ne dépend que de la matrice $A(t)$.
+	\end{cor}
+
+	\begin{déf} Un système dynamique linéaire est dit \textit{simplement stable} lorsque pour tout $x^{(0)} \in X$, le mouvement libre
+	$t \mapsto \varphi_\ell(t, t_0, x^{(0)})$ est borné.
+
+	Un système dynamique linéaire non stable est dit \textit{instable}.
+	\end{déf}
+
+	\begin{déf} Un système dynamique linéaire est dit \textit{asymptotiquement stable} lorsque~:
+	\[\forall x^{(0)} \in X : \lim_{t \to +\infty}\varphi_\ell(t, t_0, x^{(0)}) = 0_X.\]
+	\end{déf}
+
+	\subsection{Stabilité et valeurs propres}
+
+	\begin{déf} Soit $A \in \K^{n \times n}$ une matrice. On définit son polynôme caractéristique par~:
+	\[\pi(A) \coloneqq \det(A - \lambda I).\]
+
+	On appelle \textit{valeur propre} de $A$ tout $\lambda^* \in \K$ tel que $(\lambda - \lambda^*)$ divise $\pi(A)$.
+
+	On appelle \textit{vecteur propre} de $A$ tout $v \in \K^n$ tel qu'il existe une valeur propre $\lambda$ avec $Av = \lambda v$.
+	\end{déf}
+
+	\begin{thm}[Stabilité d'un système linéaire selon les valeurs propres] Soit le système dynamique linéaire $\od xt(t) = A(t)x(t)$. Alors~:
+	\begin{enumerate}
+		\item le système est asymptotiquement stable si et seulement si toutes les valeurs propres de $A$ sont de partie réelle négative~;
+		\item le système est simplement stable si toutes les valeurs propres ont soit une partie réelle négative, soit nulle mais sont de multiplicité 1~;
+		\item le système est instable sinon.
+	\end{enumerate}
+	\end{thm}
+
+	\begin{rmq} Il n'est pas toujours nécessaire de calculer toutes les valeurs propres de $A$ afin de déterminer la stabilité du système. Il existe certains
+	critères pour le signe des valeurs propres.
+	\end{rmq}
+
+	\begin{thm}[Test de Hurwitz] Soit $A \in \K^{n \times n}$, pour $n = \dim(X) \in \N^*$. Soit $\pi(A)$ le polynôme caractéristique de $A$ tel que~:
+	\[\pi(A)(\lambda) = \sum_{i=0}^na_i\lambda^{n-i},\]
+	avec $a_0 = (-1)^n$. En posant $a_k = 0$ pour tout $k \gneqq n = \dim(X)$ et pour tout $k < 0$, on a que les valeurs propres de $A$ sont toutes de partie
+	réelle négative si et seulement si~:
+	\[H = [a_{2i-j}]_{1 \leq i,j \leq n}\]
+	n'admet que des mineurs principaux positifs, i.e.~:
+	\[\forall k \in \intint 1n : \det\left([a_{2i-j}]_{1 \leq i, j \leq k}\right) > 0.\]
+	\end{thm}
+
+	\begin{prp} Si tous les $a_i$, coefficients du polynôme caractéristique $\pi(A)$ ne sont pas de même signe (i.e. s'il en existe deux de signe différent),
+	alors le système dynamique linéaire associé à $A$ n'est pas asymptotiquement stable.
+	\end{prp}
+
+	\begin{prp}[Formule de Souriau] Soit $A \in \K^{n \times n}$ une matrice. Les coefficients du polynôme~:
+	\[\det(\lambda I - A) = (-1)^n\det(A - \lambda I) = \lambda^n\sum_{i=1}^n\lambda^{n-i}a_i,\]
+	où $n = \dim(X)$, sont donnés par~:
+	\[a_n = -\frac 1n\left(\Tr(A^n) + \sum_{k=1}^{n-1}a_k\Tr(A^{n-k})\right)\]
+	\end{prp}
+
+	\begin{rmq} La formule de Souriau permet de ne pas calculer le déterminant (complexité $O(n^3)$) pour de grandes matrices.
+	\end{rmq}
+
+	\begin{prp} Soit $A \in \K^{n \times n}$. Si $\lambda_1, \ldots, \lambda_p$ sont les valeurs propres de $A$, alors~:
+	\[\sum_{i=1}^p\lambda_i = \Tr(A).\]
+	\end{prp}
+
+	\begin{proof} Par décomposition en blocs de Jordan (ou diagonalisation, si toutes les valeurs propres sont de multiplicité 1), on a~:
+	\[A = PJP^{-1}.\]
+	Par les propriétés de manipulation de trace, on a~:
+	\[\Tr(A) = \Tr(PJP^{-1}) = \Tr(JP^{-1}P) = \Tr(J) = \sum_{i=1}^n\lambda_i.\]
+	\end{proof}
+
+	\begin{cor} Si un système dynamique linéaire $\od xt(t) = A(t)x(t)$ est asymptotiquement stable, alors $\Re\Tr(A) < 0$.
+	\end{cor}
+
+	\begin{proof} Un système linéaire est asymptotiquement stable si et seulement si toutes ses valeurs propres sont de partie réelle négative.
+	On détermine donc~:
+	\[\Tr(A) = \sum_{j=1}^n\lambda_j = \sum_{j=1}^n\Re\lambda_j + i\Im\lambda_j = \sum_{j=1}^n\Re\lambda_i + i\sum_{j=1}^n\Im\lambda_j.\]
+
+	Et donc~:
+	\[\Re\Tr(A) = \sum_{j=1}^n\Re\lambda_j < 0.\]
+	\end{proof}
+
+	\subsection{Systèmes linéaires du premier ordre}
+
+	Soit $\od xt(t) = ax(t)$, pour $x : T \to R$ et $a \in \R$. La solution de cette équation est $x(t) = x(t_0)\exp(a(t-t_0))$. $x=0$ est un point d'équilibre du
+	système. Pour $a < 0$, ce point d'équilibre est asymptotiquement stable, pour $a=0$, le système est simplement stable, et pour $a > 0$, le système est
+	instable.
+
+	\begin{déf} Dans le cas de stabilité asymptotique, quand $a < 0$, on définit $\tau \coloneqq \frac {-1}a \in \R_0^+$, que l'on appelle
+	\textit{constante de temps}.
+	\end{déf}
+
+	\begin{rmq} Pour de grandes valeurs de $a$ (en valeur absolue), $\tau$ se rapprochera de 0, et donc le mouvement tend \textit{vite} vers l'origine, alors
+	que pour de faibles valeurs de $a$ (toujours en valeur absolue), $\tau$ sera grand, et donc le mouvement tendra \textit{lentement} vers l'origine.
+
+	On considère de manière générale que l'équilibre est atteint après un temps $\Delta t = 4\tau$. En effet~:
+	\[x(t_0 + 4\tau) = x(t_0)\exp(a(t_0+4\tau-t_0)) = x(t_0)\exp(4a\tau) = x(t_0)\exp(-4) \simeq \frac {x(t_0)}{50}.\]
+
+	On considère donc que proportionnellement, la valeur est suffisamment proche de l'origine.
+	\end{rmq}
+
+	Les comportements ici sont très restreints~: soit les trajectoires se rapprochent du point fixe ($x=0$), soit elles s'en éloignent, selon qu'il soit stable
+	ou instable.
+
+	\subsection{Systèmes linéaires autonomes du second ordre}
+
+	Soit le système dynamique linéaire du second ordre suivant~:
+	\[\begin{bmatrix}\od {x_1}t(t) \\\od {x_2}t(t)\end{bmatrix} = \od xt(t) = Ax(t)
+		= \begin{bmatrix}a_{11} & a_{12} \\a_{21} & a_{22}\end{bmatrix}\begin{bmatrix}x_1(t) \\ x_2(t)\end{bmatrix}.\]
+
+	\begin{déf} le système est dit \textit{simple} lorsque la matrice $A$ est non-singulière et est dit \textit{non-simple} sinon.
+	\end{déf}
+
+	\begin{prp} Un système dynamique linéaire du second ordre simple admet un unique point fixe, à savoir $(x_1, x_2) = (0, 0) = 0_X$.
+
+	Un système dynamique linéaire du second ordre non-simple admet une infinité de points fixes représentant une droite vectorielle passant par l'origine.
+	\end{prp}
+
+	\begin{proof} Soit $A$ non-singulière. On sait donc que $A^{-1}$ existe. Dès lors, en multipliant $\od xt(t) = Ax(t)$ par $A^{-1}$ à gauche, on trouve~:
+	\[A^{-1}\od xt(t) = x(t).\]
+
+	Or, si $x(t)$ est un point fixe, on sait $\od xt(t) = 0$. Donc $x(t) = A^{-1}\od xt(t) = A^{-1}[0, 0]^T = [0, 0]^T$ est l'unique solution.
+
+	Supposons maintenant $\det A = 0$. Ça implique que les deux lignes ou les deux colonnes de $A$ sont multiples l'une de l'autre. Il y a donc un degré de
+	liberté au système, mais $(0, 0)$ reste une solution. Le système admet donc une infinité de points fixes placés sur une droite vectorielle passant par
+	l'origine.
+	\end{proof}
+
+	\begin{prp} Le polynôme caractéristique de la matrice $A$ est équivalent à~:
+	\[\pi(A)(\lambda) = \lambda^2 - \Tr(A) + \det(A).\]
+	\end{prp}
+
+	\begin{proof} Le polynôme caractéristique est donné par~:
+	\[\pi(A)(\lambda) = (a_{11}-\lambda)(a_{22}-\lambda) - (a_{12}a_{21}) = \lambda^2 - (a_{11} + a_{22})\lambda + (a_{11}a_{22} - a_{21}a_{12}).\]
+
+	On observe donc~:
+	\[a_{11} + a_{22} = \Tr(A)\]
+	et~:
+	\[a_{11}a_{22} - a_{21}a_{12} = \det(A).\]
+
+	On a alors en effet~:
+	\[\pi(A)(\lambda) = \lambda^2 - \Tr(A)\lambda + \det(A).\]
+	\end{proof}
+
+	\begin{thm} Les solutions d'un système d'équations différentielles (pas nécessairement linéaires ou autonomes) est un espace vectoriel. En particulier,
+	la combinaison linéaire de solutions sont également solutions.
+	\end{thm}
+
+	\subsection{Trajectoires et valeurs propres distinctes}
+
+	Les axes des vecteurs propres sont des invariants. En effet, si $x(t)$ est un vecteur propre, alors $\od xt(t) = \lambda x(t)$, et donc $x(t)$
+	et $\od xt(t)$ \textit{pointent} dans la même direction. Les vecteurs propres évoluent donc dans une trajectoire rectiligne (et se dirigent soit vers l'infini
+	soit vers l'origine selon que l'origine soit stable ou non).
+
+	Si $\lambda_1$ et $\lambda_2$ sont les deux valeurs propres de la matrice $A$ et si $v_1$ et $v_2$ sont les vecteurs propres associés, alors on
+	a deux solutions distinctes et linéairement indépendantes~:
+	\[t \mapsto \exp(\lambda_1t)v_1 \qquad\qquad \text{ et } \qquad\qquad t \mapsto \exp(\lambda_2t)v_2.\]
+
+	La solution générale est donc~:
+	\[t \mapsto C_1\exp(\lambda_1t)v_1 + C_2\exp(\lambda_2t)v_2,\]
+	pour $C_1, C_2 \in \K$.
+
+	\begin{prp} Pour $t \to +\infty$ (respectivement $t \to -\infty$), la trajectoire s'aligne avec le vecteur propre le plus lent (respectivement le plus rapide).
+	\end{prp}
+
+	\begin{proof} Soient $\lambda_1, \lambda_2$ les deux valeurs propres de $A$, telles que $\lambda_1 < \lambda_2$ (changer les indices si nécessaire, donc
+	sans perte de généralité). On a alors~:
+	\[\lim_{t \to +\infty}\frac {x_1(t)}{x_2(t)} = \lim_{t \to +\infty}\frac {C_2\exp(\lambda_2t)v_{21}}{C_2\exp(\lambda_2t)v_{22}} = \frac {v_{21}}{v_{22}}.\]
+
+	De même, on trouve~:
+	\[\lim_{t \to -\infty}\frac {x_1(t)}{x_2(t)} = \lim_{t \to -\infty}\frac {C_1\exp(\lambda_1t)v_{11}}{C_1\exp(\lambda_1t)v_{12}} = \frac {v_{11}}{v_{12}}.\]
+
+	On en déduit donc qu'en $t \to +\infty$, la trajectoire s'aligne sur $v_2$, le vecteur propre lié à la valeur propre la plus lente, et pour $t \to -\infty$,
+	la trajectoire s'aligne sur $v_1$, le vecteur propre lié à la valeur propre la plus rapide.
+	\end{proof}
+
+	\begin{déf} Si les deux valeurs propres de la matrice $A$ sont de partie réelle de signe opposé, alors l'origine est un état d'équilibre instable, que l'on
+	appelle \textit{col} (ou encore \textit{nœud de selle}, \textit{saddle node} en anglais).
+
+	Si les deux valeurs propres sont de partie réelle négative, alors l'origine est un état d'équilibre stable appelé \textit{nœud stable}.
+
+	Si les deux valeurs propres sont de partie réelle positive, alors l'origine est un état d'équilibre instable et est appelé \textit{nœud instable}.
+	\end{déf}
+
+	\begin{rmq} Si le point d'équilibre est une selle, alors on trouve que $\det(A) = \lambda_1\lambda_2 < 0$ car les valeurs propres sont de signe opposé. Dans
+	les deux autres cas, le déterminant est de signe positif. Mais c'est le signe de la trace qui change. Dans le cas de la selle, on ne peut rien prévoir sur
+	le signe de la trace. La trace peut tout à fait être positive, négative, voire nulle.
+	\end{rmq}
+
+	\subsubsection{Systèmes non-simples}
+
+	Les systèmes non-simples sont de déterminant nul. Or, comme $\det(A) = \lambda_1\lambda_2$, on sait qu'une des valeurs propres est nulle. Posons
+	$\lambda_1 = 0$, et intéressons-nous à $\lambda_2$.
+
+	\begin{prp} Si une des deux valeurs propres est nulle, alors la droite de points fixes est donnée par~:
+	\[a_{11}x_1 + a_{12}x_2 = 0.\]
+
+	De plus, toutes les trajectoires sont parallèles à $v_2$, le vecteur propre associé à la valeur propre $\lambda_2$, et les points fixes sont stables si et
+	seulement si $\Re\lambda_2 < 0$.
+	\end{prp}
+
+	\subsection{Trajectoires et valeurs propres identiques (non-distinctes)}
+
+	\begin{déf} Si $A$ est diagonalisable (et donc tous les vecteurs sont des vecteurs propres), et $\lambda_1 = \lambda_2 = \lambda \neq 0$, alors l'origine
+	est un état d'équilibre que l'on appelle \textit{nœud singulier}.
+
+	Si $A$ n'est pas diagonalisable (et donc il existe un seul vecteur propre, et donc une seule trajectoire en droite), l'origine est un état d'équilibre
+	que l'on appelle \textit{nœud dégénéré}.
+	\end{déf}
+
+	\begin{rmq} Un nœud singulier ou un nœud dégénéré est stable si et seulement si $\lambda < 0$ (théorème de stabilité selon les valeurs propres, avec une
+	seule valeur propre de partie réelle nulle).
+	\end{rmq}
+
+
+	\begin{rmq} Si $\lambda_1 = \lambda_2 = \lambda = 0$ est l'unique valeur propre, et de multiplicité 2, alors il existe une infinité d'états d'équilibre
+	n'ayant pas de nom particulier mais dont toutes les trajectoires sont sur des droites parallèles.
+	\end{rmq}
+
+	\subsection{Trajectoires et valeurs propres complexes}
+
+	\begin{prp}\label{prp:polynômeracinecomplexeconjugée} Soit $P$ un polynôme à coefficients réels. Si $\lambda \in \C$ est tel que $P(\lambda) = 0$, alors
+	$P(\bar \lambda) = 0$.
+	\end{prp}
+
+	\begin{proof} Soit $n \in \N$ et soient $(a_i)_{0 \leq i \leq n} \in \R^n$ Notons $P : \C \to \C : x \mapsto \sum_{i=0}^na_ix^i$.
+	Soit $\lambda \in \C$, une racine de $P$. On a~:
+	\[P(\overline \lambda) = \sum_{i=1}^na_i\overline {\lambda^i} = \overline {\sum_{i=1}^na_i\lambda^i} = \overline {P(\lambda)} = \overline 0 = 0.\]
+	\end{proof}
+
+	\begin{cor} Tout polynôme de degré impair admet au moins une racine réelle.
+	\end{cor}
+
+	\begin{rmq} Ce qui peut également se démontrer par le théorème de Rolle, ou le théorème des accroissements finis.
+	\end{rmq}
+
+	On déduit de la Proposition~\ref{prp:polynômeracinecomplexeconjugée} que les deux racines propres sont obligatoirement deux complexes sous la forme~:
+	\[\lambda_1 = a+ib \qquad\qquad \text{ et } \qquad\qquad \lambda_2 = \overline {\lambda_1} = a - ib,\]
+	pour $a, b \in \R$.
+
+	La solution générale devient donc
+	\begin{align}\label{eq:solgénéralevalproprescomplexes}
+		\begin{cases}
+			x_1(t) &= \exp(at)\left( C_1\cos(bt) + C_2\sin(bt)\right) \\
+			x_2(t) &= \exp(at)\left(-C_1\sin(bt) + C_2\cos(bt)\right).
+		\end{cases}
+	\end{align}
+
+	\begin{déf} Dans un tel cas, lorsque $a = 0$, l'origine est un point d'équilibre que l'on appelle \textit{un centre} (les trajectoires forment des ellipses
+	concentriques).
+
+	Lorsque $a < 0$, l'origine est un point d'équilibre que l'on appelle \textit{un foyer stable}, et si $a > 0$, on l'appelle \textit{foyer instable}.
+	\end{déf}
+
+	\begin{prp} Un centre est un état d'équilibre simplement stable, un foyer stable est un état d'équilibre asymptotiquement stable, et un foyer instable est
+	un état d'équilibre instable.
+	\end{prp}
+
+	\begin{proof} Par les théorèmes de stabilité par la partie réelle des valeurs propres.
+	\end{proof}
+
+	\begin{rmq} On observe que ces trois formes de systèmes sont oscillants de nature, même pour une fonction d'entrée inexistante (nulle).
+
+	On observe également que l'équation~\eqref{eq:solgénéralevalproprescomplexes} montre bien que c'est de $a$ que dépend la stabilité, car $b$ n'intervient
+	qu'en composition dans une fonction bornée (selon les constantes).
+	\end{rmq}
+
+	\begin{déf} Soit un système dynamique linéaire de dimension $n \in \N^*$. On appelle \textit{isocline} tout lieu de point tel que $\od {x_k}t = 0$.
+	\end{déf}
+
+	\begin{rmq} Les isoclines forment un hyper-plan de dimension $n-1$ séparant à chaque fois l'espace des phases en deux régions disjointes telles que le signe
+	de la dérivée de $x_k$ y est opposé.
+
+	Lors d'un dessin qualitatif, les isoclines servent donc à représenter les courbes sur lesquelles le champ de vecteur vitesse est orthogonal aux axes, et
+	les parties de l'espace où ce champ de vecteurs est de signe constant (au sens de vecteur signe correspondant au signe de chaque composante).
+	\end{rmq}
 
 \end{document}
