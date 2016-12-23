@@ -9,7 +9,9 @@
 \usepackage{mathtools}
 \usepackage{fullpage}
 \usepackage[parfill]{parskip}
+\usepackage[bottom]{footmisc}
 \usepackage[framemethod=tikz]{mdframed}
+\usepackage{stmaryrd}
 \usepackage{hyperref}
 
 %%%%%  amsthm  %%%%%
@@ -46,8 +48,12 @@
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\K}{\mathbb K}
 \newcommand{\tq}{\text{ t.q. }}
 \newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
+\newcommand{\intint}[2]{{\left\llbracket#1, #2\right\rrbracket}}
+\newcommand{\scpr}[2]{{\left\langle#1, #2\right\rangle}}
 
 \title{Modélisation et simulation --- INFOF-305}
 \author{R. Petit}
@@ -305,5 +311,183 @@
 	prédire. En effet, un \textit{simple} automate cellulaire de dimension $(n_1, n_2) \in \N^* \times \N^*$ peut produire plusieurs comportements distincts
 	et simultanés dans plusieurs voisinages de cellules, certains périodiques, d'autres erratiques.
 	\end{rmq}
+
+\section{Systèmes continus}
+	Dans cette section, on considère l'espace $T = [t_0, +\infty) \subset \R$, pour $t_0 \in \R^+$, et donc continu.
+
+	\subsection{Systèmes réguliers}
+
+	\begin{déf} Un système dynamique $S$ est dit \textit{de dimensionnalité finie} lorsque les ensembles $U, X$ et $Y$ sont des espaces vectoriels de dimension
+	finie (pas nécessairement la même dimension), i.e. $\exists n_1, n_2, n_3 \in \N^*$ tels que $(U, X, Y) = (\K_1^{n_1}, \K_2^{n_2}, \K_3^{n_3})$, où
+	les $\K_i$ sont des corps (habituellement $\K \in \{\R, \C\}$).
+	\end{déf}
+
+	\begin{rmq} Nous ferons ici l'hypothèse que ces espaces vectoriels sont normés, afin de pouvoir définir une distance~:
+	\[\forall a, b \in \K^d : d_\K(a, b) = \norm {a-b}_\K,\]
+	où $\norm \cdot_\K : \K \to \R$ est la norme de l'espace vectoriel normé $(\K, \norm \cdot_\K)$.
+	\end{rmq}
+
+	\begin{déf} Un système dynamique continu de dimensionnalité finie est dit \textit {régulier} lorsque~:
+	\begin{itemize}
+		\item les espaces $U, X, Y, \Omega, \Gamma$ sont des espaces vectoriels normés~;
+		\item la fonction de transition $\varphi$ est continue sur $T \times T \times X \times \Omega$~;
+		\item la fonction de transition $\varphi$ est continûment dérivable par rapport au temps sur le sous-ensemble de définition de $u \in \Omega$ où
+			$u$ est continue~;
+		\item la fonction $\eta$ est continue sur $X \times T$.
+	\end{itemize}
+	\end{déf}
+
+	\begin{rmq} On fait ici les hypothèses de régularité suffisantes pour lier les systèmes dynamiques continus aux équations différentielles ordinaires, donc
+	ici en particulier, afin d'assurer l'existence d'une solution maximale unique, il est nécessaire de supposer $\od \varphi t$ localement lipschitzienne sur $X$
+	en plus de sa continuité (théorème de Cauchy-Lipschitz local).
+	\end{rmq}
+
+	L'équation différentielle vectorielle du premier ordre $\od xt = f(x(t), u(t), t)$ peut se réécrire indépendamment selon les composantes\footnote{Toute
+	équation vectorielle, peu importe son degré, peut se réécrire comme une équation différentielle vectorielle d'ordre 1.}~:
+	\[\begin{cases}
+		\od {x_1}t(t) &= f_1(x(t), u(t), t) \\
+		\od {x_2}t(t) &= f_2(x(t), u(t), t) \\
+		\vdots \\
+		\od {x_n}t(t) &= f_n(x(t), u(t), t),
+	\end{cases}\]
+	où $n$ est la dimension d'arrivée de $f$, et donc la dimensionnalité de $X$.
+
+	\begin{thm} Pour $t_0 \in T$ fixé, le mouvement $t \mapsto \varphi(t, t_0, x^{(0)}, u)$ pour $x^{(0)} = x(t_0)$ d'un système dynamique régulier est solution
+	unique maximale d'une équation différentielle de la forme~:
+	\begin{align}\label{eq:equadiffvec}
+		\od xt = f(x(t), u(t), t).
+	\end{align}
+	\end{thm}
+
+	\begin{déf} Dans l'équation~\eqref{eq:equadiffvec}, la fonction $f : X \times U \times T \to X$ est appelée \textit{fonction génératrice du système}.
+	\end{déf}
+
+	\begin{rmq} Il est souvent très difficile (voire impossible) de déterminer analytiquement la solution d'un système exprimé sous forme différentielle
+	(équation~\eqref{eq:equadiffvec}). Dans ces cas, la simulation numérique est requise.
+	\end{rmq}
+
+	\begin{déf} Un système régulier est dit \textit{autonome} lorsque $\od xt = f(x(t))$, c'est-à-dire lorsque $f$ ne fait pas intervenir le temps explicitement.
+	\end{déf}
+
+	\begin{prp} Tout système d'équations différentielles peut être mis sous forme autonome.
+	\end{prp}
+
+	\begin{proof} Le système suivant~:
+	\[\begin{cases}
+		\od {x_1}t(t) &= f_1(x(t), u(t), t) \\
+		\vdots \\
+		\od {x_n}t(t) &= f_n(x(t), u(t), t)
+	\end{cases}\]
+	peut être réécrit comme suit~:
+	\[\begin{cases}
+		\od {x_1}t(t) &= f_1(x(t), u(t)) \\
+		\vdots \\
+		\od {x_n}t(t) &= f_n(x(t), u(t)) \\
+		\od {x_{n+1}}t(t) &= \od tt = 1
+	\end{cases}\]
+	\end{proof}
+
+	\subsection{Espace et portrait de phases}
+
+	\begin{déf} L'espace d'états $X$ est également appelé \textit{espace des phases}, dans lequel tout état $x \in X$ représente un point $(x_1, \ldots, x_n) \in X$
+	de l'espace des phases.
+	\end{déf}
+
+	\begin{rmq} Selon cette définition, la trajectoire d'un système représente donc la projection du mouvement dans l'espace des phases, ce qui correspond à
+	une courbe de dimension 1 dans $X$.
+	\end{rmq}
+
+	\begin{déf} On appelle \textit{portrait de phases} la représentation du champ de vecteurs $f : X \times U \times T \to X$ dans l'espace des phases.
+	\end{déf}
+
+	\begin{rmq} Le portrait de phases d'un système donne une représentation qualitative de l'évolution du système. Cette représentation est très pratique du fait
+	qu'elle ne requiert rien d'autre que la fonction $f$, génératrice du système, qui est connue. Il est donc toujours possible de dessiner un portrait de phases,
+	même lorsqu'il est impossible de résoudre analytiquement l'équation.
+
+	Afin de rendre l'information encore plus qualitative, il est commun de renormaliser tous les vecteurs du champ lors de la représentation. Ainsi, toute
+	information sur $t$ est perdue (ce qui ne change rien dans le cas d'un système autonome).
+	\end{rmq}
+
+	\subsection{Stabilité des points d'équilibre}
+
+	La stabilité est la notion qui va permettre de classifier les points d'équilibre selon leur comportement induit suite à des perturbations.
+
+	\begin{déf} Soient $(\bar t, \bar x, \bar u) \in T \times X \times \Omega$. Le mouvement $t \mapsto \varphi(t, \bar t, \bar x, \bar u)$ d'un système $S$
+	est dit \textit{stable} lorsque~:
+	\[\forall \varepsilon > 0 : \exists \delta > 0 \tq \forall x \in X : \left(\norm {x-\bar x} < \delta\right) \Rightarrow
+		\left(\forall t \in T : t \geq \bar t \Rightarrow \norm {\varphi(t, \bar t, \bar x, \bar u) - \varphi(t, \bar t, x, \bar u)} < \varepsilon\right).\]
+
+	Si un mouvement n'est pas stable, il est dit \textit{instable}.
+	\end{déf}
+
+	\begin{déf} Soit $(\bar x, \bar u, \bar t) \in X \times \Omega \times T$, où $\bar x$ est un point d'équilibre pour $\bar u$ à l'instant $\bar t$.
+	Le point d'équilibre $\bar x$ est dit \textit{stable} lorsque~:
+	\[\forall \varepsilon > 0 : \exists \delta > 0 \tq \forall x \in X : \left(\norm {x-\bar x} < \delta\right) \Rightarrow
+		\left(\forall t \in T : t \geq \bar t \Rightarrow \norm {\varphi(t, \bar t, x, \bar u) - \bar x} < \varepsilon\right).\]
+	\end{déf}
+
+	\begin{déf} Un point d'équilibre $\bar x \in X$ pour une entrée $\bar u \in \Omega$ à l'instant $\bar t \in T$ est dit \textit{asymptotiquement stable}
+	lorsqu'il est stable, et~:
+	\[\lim_{t \to +\infty}\norm {\varphi(t, \bar t, x, \bar u) - \bar x} = 0,\]
+	ou encore~:
+	\[\lim_{t \to +\infty}\varphi(t, \bar t, x, \bar u) = \bar x,\]
+	pour $x \in X \tq \norm {x-\bar x} < \delta$ de la définition de stabilité.
+	\end{déf}
+
+		\subsubsection{Critère de Liapounov}
+
+	\begin{déf} Une fonction $V : X \to \R$ est dite définie positive (respectivement négative) en $\bar x \in X$ lorsqu'il existe $\mathcal V \subseteq X$, un
+	voisinage de $\bar x$ tel que~:
+	\[V(\bar x) = 0 \qquad\qquad \text{ et } \qquad\qquad \forall x \in \mathcal V : V(x) > 0 \text{ (respectivement $V(x) < 0$)}.\]
+	\end{déf}
+
+	\begin{déf} Une fonction $V : X \to \R$ est dite semi-définie positive (respectivement négative) lorsque les inégalités ci-dessus ne sont pas strictes.
+	\end{déf}
+
+	\begin{déf} Soit $A \in \K^{n \times n}$ pour $n \in \N^*$, une matrice symétrique sur un corps $\K$.
+
+	On dit que $A$ est définie positive (respectivement négative) lorsque la forme quadratique associée $x \mapsto x^TAx$ est définie positive
+	(respectivement négative).
+
+	On dit que $A$ est semi-définie positive (respectivement négative) lorsque la forme quadratique associée $x \mapsto x^TAx$ est semi-définie positive
+	(respectivement négative).
+	\end{déf}
+
+	\begin{thm}[Critère de Sylvester] Soit $A \in \K^{n \times n}$, pour $n \in \N^*$, une matrice symétrique sur un corps $\K$. $A$ est définie positive
+	si et seulement si~:
+	\[\forall k \in \intint 1n : \det
+	\begin{bmatrix}
+		a_{11} & \ldots & a_{1k} \\
+		\vdots & \ddots & \vdots \\
+		a_{k1} & \ldots & a_{kk}
+	\end{bmatrix} > 0\]
+	\end{thm}
+
+	\begin{cor} Soit $A \in \K^{n \times n}$ pour $n \in \N^*$. Si $A$ est définie positive, alors $\det(A) \neq 0$.
+	\end{cor}
+
+	\begin{thm}[Critère de stabilité de Liapounov] Soit une équation différentielle vectorielle d'ordre 1~:
+	\[\od xt(t) = f(x(t), u(t)).\]
+	Soit $\bar \in X$, un point d'équilibre pour l'entrée constante $t \mapsto \bar u \in U$.
+
+	S'il existe une fonction $V : X \xrightarrow{C^1} X$ telle que~:
+	\[\od Vt(x) = \scpr {\nabla V(x)}{f(x, \bar u)}\]
+	semi-définie négative (respectivement définie négative) en $\bar x$, alors $\bar x$ est asymptotiquement stable (respectivement stable).
+	\end{thm}
+
+	\begin{déf} Une telle fonction $V : X \to X$ est appelée une fonction de Liapounov.
+	\end{déf}
+
+	\newpage
+
+	\begin{thm}[Critère d'instbilité de Liapounov] Soit une équation différentielle vectorielle d'ordre 1~:
+	\[\od xt(t) = f(x(t), u(t)).\]
+	Soit $\bar x \in X$, un point d'équilibre pour l'entrée constante $t \mapsto \bar u \in U$.
+
+	S'il existe une fonction $V : X \to X$ continûment dérivable sur un voisinage de $\bar x$ telle que $V$ est définie positive en $\bar x$ et~:
+	\[\od Vt(x) = \scpr {\nabla V(x)}{f(x, \bar u)}\]
+	est définie positive en $\bar x$, alors $\bar x$ est instable.
+
+	\end{thm}
 
 \end{document}
