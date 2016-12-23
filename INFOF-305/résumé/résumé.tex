@@ -44,6 +44,7 @@
 	\surroundwithmdframed[style=resultstyle]{lem}
 \fi
 
+\newcommand{\N}{\mathbb N}
 \newcommand{\R}{\mathbb R}
 \newcommand{\tq}{\text{ t.q. }}
 \newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
@@ -231,5 +232,78 @@
 	\end{prp}
 
 	\subsection{Rétroaction}
+
+	\begin{déf} Deux systèmes $S_1 = (T, U_1, \Omega_1, X_1, Y_1, \Gamma_1, \varphi_1, \eta_1)$ et $S_2 = (T, U_2, \Omega_2, X_2, Y_2, \Gamma_2, \varphi_2, \eta_2)$
+	sont dits en rétroaction l'un sur l'autre lorsqu'il existe $v_1 : T \to U_1, v_2 : T \to U_2$ et~:
+	\[\psi_1 : Y_1 \times U_2 \times T \to U_2 \qquad\qquad \text{ et } \qquad\qquad \psi_2 : Y_2 \times U_1 \times T \to U_1\]
+	tels que~:
+	\begin{align*}
+		u_1(t) &= \psi_2\left(y_1(t), v_2(t), t\right) \\
+		u_2(t) &= \psi_1\left(y_2(t), v_1(t), t\right).
+	\end{align*}
+	\end{déf}
+
+	\begin{déf} On parle de \textit{rétroaction négative} lorsqu'une modification de $y_1(t)$ entraine une modification de $y_2(t)$ qui s'oppose au changement
+	de $y_1(t)$.
+
+	De même, on parle de \textit{rétroaction positive} lorsqu'une modification de $y_1(t)$ entraine une modification de $y_2(t)$ qui amplifie le changement de
+	$y_2(t)$.
+	\end{déf}
+
+	\begin{rmq} Ce type de construction est le plus simple contenant une boucle.
+
+	De plus, il est ici question de rétroaction sur la sortie. Il peut être plus intéressant de définir une rétroaction sur l'état.
+	\end{rmq}
+
+	\begin{déf} Un système est dit \textit{rétroactionné sur l'état} lorsqu'il existe $v : T \to U$ et $\psi : X \times U \times T \to U$ tels que~:
+	\[u(t) = \psi\left(x(t), v(t), t\right).\]
+
+	Cette fonction $\psi$ est appelée \textit{loi de contrôle}.
+	\end{déf}
+
+\section{Automates --- systèmes à temps discret et et à espace d'états discret}
+	\begin{déf} Un \textit{automate} est un système dynamique invariant à temps discret et avec un espace d'états discret, et où les ensembles d'entrée et de
+	sortie sont finis.
+	\end{déf}
+
+	\begin{déf} Un automate est dit \textit{fini} lorsque l'espace d'états est fini.
+	\end{déf}
+
+	\begin{prp} Dans un système dynamique invariant à temps discret, la fonction $\varphi$ de transition peut être remplacée par~:
+	\[x(t+1) = \delta(x(t), u(t)),\]
+	et la fonction de transformation de sortie peut être remplacée par~:
+	\[y(t) = \eta(x(t)),\]
+	ce qui implique que l'observation du système dépend uniquement de l'état, et que l'état à un certain instant ne dépend plus que de la valeur à l'état
+	précédent (modèle markovien).
+	\end{prp}
+
+	\begin{déf} Un automate \textit{cellulaire} de dimension $(n_1, \ldots, n_k) \in {\N^*}^k$ est un automate tel que $X = \chi^{\prod_{i=1}^kn_i}$, où $\chi$
+	est un ensemble fini d'états tel que~:
+	\[\forall \alpha \in {\N^*}^k : \left(\forall 1 \leq j \leq k : 1 \leq \alpha_j \leq n_k\right) \Rightarrow \left(\forall t \in T : x_\alpha(t) \in \chi\right),\]
+	et tel que $x(t+1) = (\delta \circ x)(t)$, à savoir, aucune entrée $u \in \Omega$ n'est présente.
+
+	Les telles valeurs $x_\alpha$ sont appelées les cellules de l'automate.
+	\end{déf}
+
+	\begin{rmq} Dans un automate cellulaire, la nombre de variables d'états est vite très grand, mais reste toute fois fini.
+	\end{rmq}
+
+	\begin{déf} la fonction de transition d'un automate cellulaire $\delta : X \times U \to X$ est une fonction à valeurs dans $X = \chi^{\prod_{i=1}^kn_i}$.
+	Chaque fonction $\delta_\alpha$ telle que $x_\alpha(t+1) = \delta_\alpha(x(t))$ est défini sur un \textit{voisinage} de $\alpha \in {\N^*}^k$. Et donc,
+	on peut écrire $x_\alpha(t+1) = \delta_\alpha\left(\gamma(x(t), \alpha)\right)$, où $\gamma : X \times {\N^*}^k$ est une fonction renvoyant uniquement
+	un sous-ensemble (non-strict) de $x(t) \in X$.
+	\end{déf}
+
+	\begin{ex} Un automate cellulaire de dimension $(n_1, n_2) \in \N^* \times \N^*$ représente donc une \textit{grille} de cellules, où l'état de chaque cellule
+	$x_{i\,j}$ à l'instant $t+1 \in T$ ne dépend que d'un voisinage de $(i, j) \in \N^* \times \N^*$. Par exemple, dans le jeu de la vie (J. Conway), le
+	voisinage de $(i, j)$ est défini par~:
+	\[\left\{(k, \ell) \in \N^* \times \N^* \tq \abs {k-i} = \abs {\ell-j} = 1\right\}.\]
+	\end{ex}
+
+	\begin{rmq} Ces systèmes dynamiques que représentent les automates cellulaires (finis) font partie des systèmes complexes suite à leur grand nombre de
+	variables d'état. Ils ont entre autre prouvé que des règles simples et déterministes pouvaient engendrer un comportement très compliqué à décrire et à
+	prédire. En effet, un \textit{simple} automate cellulaire de dimension $(n_1, n_2) \in \N^* \times \N^*$ peut produire plusieurs comportements distincts
+	et simultanés dans plusieurs voisinages de cellules, certains périodiques, d'autres erratiques.
+	\end{rmq}
 
 \end{document}
