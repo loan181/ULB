@@ -828,4 +828,165 @@
 	les parties de l'espace où ce champ de vecteurs est de signe constant (au sens de vecteur signe correspondant au signe de chaque composante).
 	\end{rmq}
 
+\section{Systèmes dynamiques non-linéaires à temps continu}
+
+	Le modélisation linéaire est efficace car résoluble analytiquement, mais correspond toujours à une simplification forte de la réalité. Ces systèmes ne
+	correspondent souvent à la réalité modélisée que dans certains cas, mais peut devenir très mauvaise tant dans l'explication que dans la prédiction.
+
+	\subsection{Bifurcations}
+
+	\begin{déf} Soit un système dynamique non-linéaire paramétrisé par $r \in \K^d$. On appelle \textit{bifurcation} le phénomène qui amène un changement
+	qualitatif de l'évolution du système suite à un changement du paramètre $r$. Ce changement peut être soit le changement de stabilité d'un ou plusieurs
+	état(s) d'équilibre, soit la création ou la suppression d'un ou plusieurs état(s) d'équilibre.
+
+	On appelle \textit{valeur critique} ou \textit{valeur de bifurcation} toute valeur de $r$ entraînant un tel changement.
+	\end{déf}
+
+	\begin{déf} On appelle \textit{diagramme de bifurcation} le graphique avec le paramètre $r$ sur l'axe horizontal et les points fixes $\bar x$ sur l'axe
+	vertical où la position de chaque état d'équilibre est représentée ainsi que sa stabilité (la trajectoire d'un état stable est représentée par une courbe
+	pleine alors que la trajectoire d'un état instable est représenté par une courbe en pointillés).
+	\end{déf}
+
+	\subsection{Linéarisation de systèmes non-linéaires}
+
+	\begin{déf} Soit $S$ un système dynamique autonome non-linéaire à temps continu régi par le problème de Cauchy suivant~:
+	\[\begin{cases}
+		\od {\bar x}t(t) &= f(x(t), u(t)) \\
+		\bar x(t_0) &= {\bar x}^{(0)}
+	\end{cases}\qquad\qquad (t_0, {\bar x}^{(0)}) \in T \times X,\]
+
+	Le mouvement de ce système est $\bar x : T \to X : t \mapsto \varphi(t, t_0, {\bar x}^{(0)}, u)$, avec $u \in \Omega$, l'entrée du système.
+
+	On appelle \textit{système linéarisé associé au système et au mouvement $t \mapsto \bar x(t) \in X$} le système~:
+	\[\od xt(t) = A(t)x(t) + B(t)u(t),\]
+	avec~:
+	\[A(t) = \pd fx(\bar x(t), u(t)) \qquad\qquad \text{ et } \qquad\qquad B(t) = \pd fu(\bar x(t), u(t)).\]
+	\end{déf}
+
+	\begin{prp} Le système linéarisé associé à un système $S$ autour d'un mouvement $t \mapsto \bar x(t)$ est une approximation du premier
+	ordre du système original autour de $\bar x(t)$.
+	\end{prp}
+
+	\begin{proof} Soient $(\delta u, \delta x^{(0)}) \in \Omega \times X$. Soit $\delta \bar x \in X^T$ tel que~:
+	\[\od {\bar x}t(t) + \od {\delta \bar x}t(t) = f\left(\bar x(t) + \delta \bar x(t), u(t) + \delta u(t)\right).\]
+
+	Par expansion de Taylor, on trouve~:
+	\[\od {\bar x}t(t) + \od {\delta \bar x}t(t) = f(\bar x(t), u(t), t) + \pd fx(\bar x(t), u(t))\delta \bar x(t) + \pd fu(\bar x(t), u(t))\delta u(t) + o(\bar x(t)) + o(u(t)).\]
+
+	En soustrayant $\od xt(t)$ de part et d'autre et en omettant les termes d'ordre supérieur, on obtient~:
+	\[\od {\delta \bar x}t(t) = \pd fx(\bar x(t), u(t))\delta \bar x(t) + \pd fu(\bar x(t), u(t))\delta u(t).\]
+
+	Posons alors~:
+	\[A(t) = \pd fx(\bar x(t), u(t)) \qquad\qquad \text{ et } \qquad\qquad B(t) = \pd fu(\bar x(t), u(t)).\]
+
+	Il s'ensuit~:
+	\[\od {\delta \bar x}t(t) = A(t)\delta \bar x(t) + B(t)\delta u(t).\]
+
+	Dès lors, le système linéarisé fournit bien une approximation (du premier ordre par Taylor) pour de faibles perturbations (proche de $\bar x(t)$).
+	\end{proof}
+
+	\begin{rmq} Il est intéressant d'étudier le système linéarisé proche des états d'équilibre car il y a alors moyen d'en inférer des propriétés de stabilité.
+	\end{rmq}
+
+		\subsubsection{Linéarisation et stabilité}
+
+	\begin{thm} Soit $S$ un système dynamique autonome non-linéaire, et soit $\bar x \in X$, un point d'équilibre de $S$ pour une entrée $\bar u \in \Omega$. Si
+	le système linéarisé associé au mouvement $t \mapsto \bar x(t)$ autour de $\bar x$ est asymptotiquement stable, alors $\bar x$ est asymptotiquement stable
+	pour $\od xt(t) = f(x(t), u(t))$.
+
+	De même si le système linéarisé est instable, alors $\bar x$ est instable pour $\od xt(t) = f(x(t), u(t))$.
+	\end{thm}
+
+	\begin{rmq} On ne peut donc rien déduire d'un système linéarisé simplement stable.
+	\end{rmq}
+
+	\subsection{Systèmes dynamiques non-linéaires à temps continu d'ordre 1}
+
+	On se concentre sur les systèmes définis par $\od xt(t) = f(x(t)) \in \R = X$.
+
+		\subsubsection{Méthode géométrique}
+
+	En traçant le graphique de $\od xt$ en fonction de $x$, on peut déduire les point d'équilibre, leur stabilité, et les trajectoires du système.
+
+	En effet, toutes les valeurs de $x$ telles que $f(x)$ s'annule donnent les points fixes du système. Également, le signe de $f(x)$ donne une information
+	sur la croissance ou décroissance de $x$, et donc de sa direction.
+
+	Sur base du graphique, on peut alors déduire quatre types d'états d'équilibre $\bar x$ (points fixes de $t \mapsto x(t)$) de $\bar x$~:
+	\begin{itemize}
+		\item si $f$ est négative à gauche\footnote{On appelle ici \textit{gauche} de $\bar x$ l'ensemble $(-\infty, \bar x)$ et \textit{droite} l'ensemble
+		$(x, +\infty)$.} de $\bar x$ et positive à droite de $\bar x$, alors l'état d'équilibre est instable~;
+		\item si $f$ est positive à gauche de $\bar x$ et négative à droite, alors $\bar x$ est un état d'équilibre asymptotiquement stable~;
+		\item si $f$ est négative à gauche de $\bar x$ et à droite de $\bar x$, alors l'état d'équilibre $\bar x$ est \textit{semi-asymptotiquement stable à
+		droite}~;
+		\item et si $f$ est positive à gauche et à droite de $\bar x$, alors l'état d'équilibre $\bar x$ est \textit{semi-asymptotiquement stable à gauche}.
+	\end{itemize}
+
+	\begin{rmq} Sur un graphique d'équilibre de $f$ en fonction de $x$, il est de convention de marquer les points stables par des cercles pleins, les points
+	instables par des cercles vides, et les points semi-stables par des cercles semi-remplis du côté stable.
+	\end{rmq}
+
+	\begin{prp} Dans le cas d'un système d'ordre 1, la trajectoire $x : T \subseteq \R \to X = \R$ suit un mouvement monotone pour tout état initial.
+	\end{prp}
+
+	\begin{proof} Les comportements sont, en dimension 1, très limités~: une trajectoire peut soit converger vers un point fixe, soit diverger vers l'infini.
+
+	En effet, en supposant $f$ continue, on oblige qu'un changement de signe de $f$ induise un point fixe (de stabilité asymptotique ou instable). Pour que la
+	trajectoire puisse «~rebrousser chemin~», il lui faudrait passer un point fixe, ce qui est impossible~: les points fixes ne sont atteints qu'en $t \to \pm \infty$
+	et ne sont jamais traversés en dimension 1.
+	\end{proof}
+
+	\begin{cor} Une trajectoire ne peut pas suivre de trajectoire périodique.
+	\end{cor}
+
+	\begin{thm} Soit un système dynamique (linéaire ou non-linéaire) autonome. Par un point de l'espace des phases passe au plus une trajectoire.
+	\end{thm}
+
+	\begin{proof} Soit un point tel qu'il existe une solution passant par ce point (Cauchy-Lipschitz dont le caractère lipschitzien de $f$ est supposé dans tous
+	les cas). $\od xt = f$ admet une unique valeur en ce point. Donc toute trajectoire passant par ce point doit suivre la même tangente, et donc la même trajectoire.
+
+	Supposons qu'il existe deux trajectoires (mouvements $t \mapsto \hat x(t)$ et $t \mapsto \tilde x(t)$) distinctes passant par ce point. On a bien une
+	contradiction car $f$ devrait admettre deux valeurs distinctes.
+	\end{proof}
+
+	\subsection{Systèmes dynamiques non-linéaires à temps continu d'ordre 2}
+
+	\begin{déf} Une trajectoire est dite \textit{isolée} lorsqu'elle n'est pas transformation de ses trajectoires avoisinantes.
+	\end{déf}
+
+	\begin{déf} Un \textit{cycle limite} est une trajectoire close isolée.
+	\end{déf}
+
+	\begin{déf} Soit $C$, un cycle limite.
+
+	\begin{itemize}
+		\item $C$ est dit \textit{simple} (ou \textit{attracteur}) lorsque les trajectoires avoisinantes convergent vers $C$~;
+		\item $C$ est dit \textit{instable} lorsque les trajectoires avoisinantes divergent de $C$~;
+		\item $C$ est dit \textit{semi-stable} lorsque les trajectoires internes (respectivement externes) à $C$ convergent vers $C$, alors que les trajectoires
+		externes (respectivement internes) à $C$ divergent de $C$.
+	\end{itemize}
+	\end{déf}
+
+	\begin{rmq} Un cycle limite stable implique des oscillations spontanées du système, même en l'absence d'entrée périodique. De plus, ces cycles ne peuvent
+	exister dans un système linéaire (bien que des oscillations soient possibles par des trajectoires circulaires en cas de valeurs propres complexes) car un
+	système linéaire a des propriétés générales~: des trajectoires isolées n'existent pas.
+	\end{rmq}
+
+	\begin{rmq} Il est difficile de déterminer si un système d'ordre 2 admet ou non un cycle limite.
+	\end{rmq}
+
+	\begin{thm}[Théorème de Bendixon] Soit $R$ une région close, connexe et bornée de l'espace des phases bidimensionnel. Si la fonction~:
+	\[t \mapsto \scpr {\nabla f}{\mathbf 1}(t),\]
+	pour $\mathbf 1 : t \mapsto 1$, est de signe constant sur $R$ et s'annule sur un ensemble de mesure nulle, alors $R$ ne contient aucun cycle limite.
+	\end{thm}
+
+	\begin{thm}[Théorème de Poincaré] Soit $R$, une région close, bornée et annulaire (au sens où $R \setminus D \simeq D$) de l'espace des phases
+	bidimensionnel. S'il n'existe aucun état d'équilibre dans $R$, et si toutes les trajectoires passant par $\partial R$ (le bord de $R$) sont entrantes dans
+	$R$, alors il existe au moins un cycle limite dans $R$.
+	\end{thm}
+
+	\begin{rmq} Ce théorème affirme à nouveau que la famille des trajectoires en dimension 2 est limité.
+	\end{rmq}
+
+	\subsection{Invariants}
+
 \end{document}
