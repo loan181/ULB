@@ -49,6 +49,7 @@
 \DeclareMathOperator{\Tr}{Tr}
 
 \newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
 \newcommand{\C}{\mathbb C}
 \newcommand{\K}{\mathbb K}
@@ -341,7 +342,8 @@
 
 	\begin{rmq} On fait ici les hypothèses de régularité suffisantes pour lier les systèmes dynamiques continus aux équations différentielles ordinaires, donc
 	ici en particulier, afin d'assurer l'existence d'une solution maximale unique, il est nécessaire de supposer $\od \varphi t$ localement lipschitzienne sur $X$
-	en plus de sa continuité (théorème de Cauchy-Lipschitz local).
+	en plus de sa continuité (théorème de Cauchy-Lipschitz local). De manière plus large, on suppose ici le champ de vecteur $f$ de $\od xt = f(x)$ continûment
+	différentiable (ce qui implique le caractère lipschitzien).
 	\end{rmq}
 
 	L'équation différentielle vectorielle du premier ordre $\od xt = f(x(t), u(t), t)$ peut se réécrire indépendamment selon les composantes\footnote{Toute
@@ -935,7 +937,7 @@
 	et ne sont jamais traversés en dimension 1.
 	\end{proof}
 
-	\begin{cor} Une trajectoire ne peut pas suivre de trajectoire périodique.
+	\begin{cor} Une trajectoire ne peut pas suivre de courbe périodique.
 	\end{cor}
 
 	\begin{thm} Soit un système dynamique (linéaire ou non-linéaire) autonome. Par un point de l'espace des phases passe au plus une trajectoire.
@@ -988,5 +990,159 @@
 	\end{rmq}
 
 	\subsection{Invariants}
+
+	\begin{déf} Un \textit{invariant} d'un système dynamique est un sous-ensemble $I$ de dimension $d \lneqq n$ de son espace des phases $X$ tel que~:
+	\[\forall x \in X^T : \forall t_0 \in T : \left(x(t_0) \in I \Rightarrow \left(\forall t \in T : t \geq t_0 \Rightarrow x(t) \in I\right)\right).\]
+	\end{déf}
+
+	\begin{rmq} On impose $\dim(I) \lneqq \dim(X)$ car le seul sous-ensemble (à isomorphisme près) de $X$ de même dimension que $X$ est $X$. $X$ est
+	donc un invariant trivial de $X$.
+	\end{rmq}
+
+		\subsubsection{Invariants dans un espace des phases de dimension 1}
+
+	Il n'existe que des points de $X$ comme sous-ensembles de dimension 0, les seuls invariants d'un système de dimension 1 sont les points fixes.
+
+		\subsubsection{Invariants dans un espace des phases de dimension 2}
+
+	Deux types d'invariants sont possibles~: les points d'équilibre, \textbf{et} les cycles. Il existe également des trajectoires dites respectivement
+	\textit{hétérocliniques} et \textit{homocliniques}. Les premières rejoignent un point fixe à un autre, et les secondes sont des trajectoires cycliques
+	contenant un point fixe.
+
+		\subsubsection{Invariants dans un espace des phases de dimension 3}
+
+	Les points fixes sont toujours des invariants, mais les cycles ont alors la possibilité d'être continûment déformés et donc de suivre plusieurs circuits
+	\textit{indépendants}.
+
+	En dimension 2, des surfaces de type ellipsoïdal ou torique peuvent être des invariants.
+
+	\begin{déf} Soient $\theta$ et $\phi$ les coordonnées angulaires permettant de reporter la trajectoire le long d'un tore. On note $T_\theta$ et $T_\phi$
+	la période relative à chacune des coordonnées.
+
+	Si $\frac {T_\theta}{T_\phi} \in \Q$, la trajectoire est une orbite close le long du tore. Si $\frac {T_\theta}{T_\phi} \in \R \setminus \Q$, les
+	trajectoires sont des hélices qui forment une partition de la surface du tore. On dit d'une telle trajectoire qu'elle est \textit{quasi-périodique}.
+	\end{déf}
+
+	\begin{rmq} Certains invariants en dimension $n = \dim(X) \geq 3$ peuvent être des fractales.
+	\end{rmq}
+
+	\subsection{Fractales}
+
+	Au sens algébrique strict du terme, la dimension représente le nombre de coordonnées minimum nécessaire pour exprimer chaque point de manière univoque.
+	Pour un espace vectoriel, c'est donc la cardinalité d'une base quelconque, et donc un nombre naturel. Les fractales sont des objets géométrique dimension
+	fractionnaire voire irrationnelle.
+
+	\begin{déf} Soit un espace euclidien $E \simeq \R^d$ pour un $d \in \N^*$. Pour $\varepsilon \in \R_0^+$, on définit $c_E(\varepsilon)$, le cube (de dimension
+	$d$) de côté $\varepsilon$. Considérons $E$ comme \textit{pavé} par des cubes $c_E(\varepsilon)$.
+
+	Soit $S$ une partie bornée de $\R^d$. On définit $\mathcal N_E^S(\varepsilon) \in \N$ le nombre maximal de cubes $c_E(\varepsilon)$ du pavage dont
+	l'intersection avec $S$ est non-nulle.
+	\end{déf}
+
+	\begin{déf} Soit un espace euclidien $\R^d$ pavé d'hyper-cubes $c_E(\varepsilon)$ pour $\varepsilon \in \R_0^+$. Soit $S$ une partie bornée de $\R^d$.
+	On appelle \textit{dimension de Hausdorff de $S$} la quantité~:
+	\[D_H(S) \coloneqq \lim_{\varepsilon \to 0}\frac {\log \mathcal N_E^S(\varepsilon)}{-\log\varepsilon}.\]
+	\end{déf}
+
+	\begin{rmq} Pour des parties de dimension $d$ dans l'espace euclidien $\R^d$, la dimension de Hausdorff correspond bien avec la notion de dimension
+	vectorielle associée aux espaces vectoriels. En effet, si $S$ est de dimension 2, la quantité $\mathcal N_E^S(\varepsilon)$ va croitre comme
+	$\varepsilon^{-2}$. Et donc $D_H(S)$ sera 2. De même, en dimension $d=3$, le volume croit comme le cube de $\varepsilon^{-1}$, et la dimension de
+	Hausdorff est 3.
+
+	Mais de manière plus générale, la dimension de Hausdorff est une valeur réelle et non une valeur naturelle.
+	\end{rmq}
+
+	\begin{déf} Un objet géométrique est appelé \textit{fractal} lorsqu'il possède au moins une des caractéristiques suivantes~:
+	\begin{enumerate}
+		\item il est invariant d'échelle (similarités à des échelles arbitraires)~;
+		\item il est trop compliqué pour être décrit par la géométrie traditionnelle~;
+		\item il est autosimilaire~;
+		\item sa dimension de Hausdorff n'est pas naturelle.
+	\end{enumerate}
+	\end{déf}
+
+	\begin{rmq} Lorsqu'un objet fractal est trop compliqué à décrire, on l'exprime par un processus itératif de fragmentation.
+
+	Soient un espace euclidien $\R^d$, un partie non-vide bornée $F \subset \R^d$, et $r \in (0, 1)$. Prenons $N \in \N^*$ copies conformes de $F$ telles que~:
+	\[Nr^d \in (0, 1),\]
+	et assemblons-les.
+	\end{rmq}
+
+	\begin{prp} Soient l'espace euclidien $\R^d$, et $F$ une partie non-vide bornée de $\R^d$. Soient $(N, r) \in \N^* \times (0, 1)$ les paramètres de
+	fragmentation de $F$. Alors~:
+	\[D_H(F) = \frac {\log N}{-\log r}.\]
+	\end{prp}
+
+	\begin{proof} En considérant l'espace comme pavé d'hyper-cubes $c_E(\varepsilon)$, posons $k \in \N^*$ l'étape de fragmentation. On trouve~:
+	\[\mathcal N_{\R^d}^F(\varepsilon) = N^k.\]
+
+	De même, à la $k$ème étape, on trouve~:
+	\[\varepsilon = r^k.\]
+
+	On trouve finalement~:
+	\[D_H(F) = \lim_{\varepsilon \to 0}\frac {\log \mathcal N_{\R^d}^F(\varepsilon)}{-\log\varepsilon} = \lim_{k \to +\infty}\frac {k\log N}{-k\log r}
+		= \frac {\log N}{-\log r}\]
+	\end{proof}
+
+	\begin{rmq} $r \in (0, 1)$, dès lors $\log r \in \R_0^-$. Donc $-\log r \in \R_0^+$, $D_H(F)$ reste bien une quantité positive.
+	\end{rmq}
+
+	\begin{rmq} \textbf{Attention: } cette formule alternative ne tient que pour les objets fractals auto-similaires, car sinon les paramètres $(N, r)$ ne
+	sont pas définis.
+	\end{rmq}
+
+		\subsubsection{Attracteurs}
+
+	\begin{déf} Soient $X \simeq \R^n$, un espace de phases, et $B \subseteq X$, une partie non-vide et bornée de $X$. Pour tout $x \in X$, on définit
+	la distance entre $x$ et $B$ par~:
+	\[d_X(x, C) \coloneqq \min\left\{d_X(x, c) \tq c \in C\right\}.\]
+	\end{déf}
+
+	\begin{déf} Une partie $A \subset X$ de l'espace des phases est un \textit{attracteur} lorsque~:
+	\begin{enumerate}
+		\item $A$ est un invariant~;
+		\item $\exists U \in \mathcal V(A)$ ouvert et $u \in \Omega$ tels que~:
+			\[\forall (t, t_0) \in T^2 : x(t_0) \in U \Rightarrow d_X(x(t), A) \xrightarrow[t \to +\infty]{} 0~;\]
+		\item $A$ est minimal.
+	\end{enumerate}
+	\end{déf}
+
+	\begin{déf} Un attracteur fractal est appelé \textit{attracteur étrange}.
+	\end{déf}
+
+		\subsubsection{Chaos et exposant de Liapounov}
+
+	Il est question de \textit{comportement chaotique} (ou plus simplement \textit{chaos}) lorsqu'un système déterministe devient impossible à prédire au-delà
+	d'un certain intervalle temporel, peu importe la précision de la condition initiale.
+
+	La \textit{dépendance sensible aux conditions initiales} (ou \textit{sensitive dependence on initial conditions} en anglais) est le fait que deux trajectoires
+	arbitrairement proches l'une de l'autre divergent l'une de l'autre et adoptent un comportement qualitativement différent, ce qui rend également les
+	prédictions impossibles à faire.
+
+	\begin{déf} Soient $S$ un système dynamique avec les mouvements $t \mapsto x(t)$ et $t \mapsto \bar x(t)$ tels que pour $\delta : T \to X$, on a~:
+	\[x(t) = \bar x(t) - \delta(t).\]
+
+	Si, pour $t \geq t_0$, on approxime $\delta(t)$ par $\norm {\delta(t)} \simeq \norm {\delta(t_0)}\exp\left(\lambda(t-t_0)\right)$, pour un certain $\lambda$
+	réel, on appelle ce paramètre l'\textit{exposant de Liapounov} du système.
+	\end{déf}
+
+	\begin{déf} Si l'exposant de Liapounov d'un système est strictement positif, alors on dit que ce système est fortement dépendant des conditions initiales.
+	\end{déf}
+
+	\begin{rmq} Si $t_0 = 0$, alors $\log \norm {\delta(t)} \simeq \log \norm {\delta(0)} + \lambda t$. L'exposant de Liapounov est alors la pente de la droite
+	$t \mapsto \log \norm {\delta(t)}$. On peut alors estimer $\lambda$ par régression linéaire de $\log \norm {\delta(t)}$.
+	\end{rmq}
+
+	\begin{déf} Soient un système dynamique $S$ dont l'exposant de Liapounov est positif, et $\delta : T \to X$. Soit $\Delta \in \R_0^+$ tel que les mesures
+	sont acceptables si $\norm {\delta(t)} \leq \Delta$. On définit l'\textit{horizon de prédictabilité induit par $\Delta$} l'intervalle de temps $[t_0, t_h]$,
+	avec~:
+	\[T \ni t_h = t_0 + \frac 1\lambda \log\frac \Delta{\norm {\delta(t)}}.\]
+	\end{déf}
+
+	\begin{rmq} Cet intervalle correspond à l'ensemble des instants $t$ tels que l'erreur induite par l'erreur initiale est acceptée.
+
+	La longueur de cet intervalle est inversement proportionnelle à l'exposant de Liapounov, et proportionnelle au $\log$ de $\Delta$. Dès lors, même en
+	augmentant l'ordre de grandeur de $\Delta$ et en diminuant celui de $\delta(t_0)$, cet intervalle ne s'agrandira que, proportionnellement, très peu.
+	\end{rmq}
 
 \end{document}
