@@ -1095,7 +1095,7 @@
 
 	\begin{déf} Soient $X \simeq \R^n$, un espace de phases, et $B \subseteq X$, une partie non-vide et bornée de $X$. Pour tout $x \in X$, on définit
 	la distance entre $x$ et $B$ par~:
-	\[d_X(x, C) \coloneqq \min\left\{d_X(x, c) \tq c \in C\right\}.\]
+	\[d_X(x, B) \coloneqq \min\left\{d_X(x, b) \tq c \in B\right\}.\]
 	\end{déf}
 
 	\begin{déf} Une partie $A \subset X$ de l'espace des phases est un \textit{attracteur} lorsque~:
@@ -1134,7 +1134,7 @@
 	\end{rmq}
 
 	\begin{déf} Soient un système dynamique $S$ dont l'exposant de Liapounov est positif, et $\delta : T \to X$. Soit $\Delta \in \R_0^+$ tel que les mesures
-	sont acceptables si $\norm {\delta(t)} \leq \Delta$. On définit l'\textit{horizon de prédictabilité induit par $\Delta$} l'intervalle de temps $[t_0, t_h]$,
+	sont acceptables si $\norm {\delta(t)} \leq \Delta$. On définit l'\textit{horizon de prédictibilité induit par $\Delta$} l'intervalle de temps $[t_0, t_h]$,
 	avec~:
 	\[T \ni t_h = t_0 + \frac 1\lambda \log\frac \Delta{\norm {\delta(t)}}.\]
 	\end{déf}
@@ -1144,5 +1144,237 @@
 	La longueur de cet intervalle est inversement proportionnelle à l'exposant de Liapounov, et proportionnelle au $\log$ de $\Delta$. Dès lors, même en
 	augmentant l'ordre de grandeur de $\Delta$ et en diminuant celui de $\delta(t_0)$, cet intervalle ne s'agrandira que, proportionnellement, très peu.
 	\end{rmq}
+
+\section{Systèmes dynamiques à temps discret}
+	Les systèmes à temps discret sont beaucoup plus simples à manipuler par ordinateurs car il n'est pas nécessaire d'avoir recours à des algorithmes
+	d'intégration numérique. De plus, ils peuvent être parfois plus adaptés que des modèles continus, et les dynamiques chaotiques y sont plus facilement
+	générées.
+
+	\begin{déf} Soit $S = (T, U, \Omega, X, Y, \Gamma, \varphi, \eta)$ un système dynamique où $T$ est un ensemble discret (dénombrable car infini).
+
+	Lorsque le système est décrit par l'\textit{équation vectorielle aux différences} suivante~:
+	\[\begin{cases}
+		x(t+1) &= f(x(t), u(t), t) \\
+		y(t) &= \eta(t, x(t)),
+	\end{cases}\]
+	on dit que le système est \textit{synchrone à temps discret}.
+	\end{déf}
+
+	\begin{rmq} Il est possible de changer l'\textit{échelle de temps} de manière à avoir toujours un écart $x(t+1) = f(\ldots)$ car on considère que tous les
+	points consécutifs de $T$ sont équidistants.
+	\end{rmq}
+
+	\begin{déf} Lorsque $f$ et $\eta$ ne dépendent pas explicitement du temps, le système est dit \textit{invariant}.
+	\end{déf}
+
+	\begin{déf} Un \textit{système synchrone à temps discret linéaire} est déterminé par les trois «~matrices~»~:
+	\[\begin{cases}
+		A &: T \to \R^{\dim(X) \times \dim(X)}, \\
+		B &: T \to \R^{\dim(X) \times \dim(U)}, \\
+		C &: T \to \R^{\dim(Y) \times \dim(X)},
+	\end{cases}\]
+	et est exprimé sous la forme~:
+	\[\begin{cases}
+		x(t+1) &= A(t)x(t) + B(t)u(t), \\
+		y(t) &= C(t)x(t).
+	\end{cases}\]
+	\end{déf}
+
+	\begin{rmq} Dans les systèmes à caractère continu, la représentation appropriée était les équations différentielles. Concernant les systèmes à caractère
+	discret, on préfère les équations aux différences.
+	\end{rmq}
+
+	\begin{déf} Pour tout $k \in T$, on pose $x_k \coloneqq x(k) \in X$. Soit $f : T \times X^n$. On appelle \textit{forme normale de l'équation aux différences
+	d'ordre $n$} l'équation récursive suivante~:
+	\begin{align}\label{eq:eqdifférences}\tag{\#}
+		x_{k+n} = f(k, x_{k+n-1}, \ldots, x_k).
+	\end{align}
+	\end{déf}
+
+	\subsection{Solutions d'une équation aux différences}
+
+	\begin{déf} Toute fonction $x : T \to X$ satisfaisant~\eqref{eq:eqdifférences} est appelée \textit{solution de~\eqref{eq:eqdifférences}}.
+
+	L'ensemble de toutes les solutions d'une équation aux différences est appelé sa solution générale.
+	\end{déf}
+
+	\begin{thm} Toute équation aux différences d'ordre $n \in \N^*$ admet exactement une solution pour tout $n$-uple $(x(t_0), x(t_0+1), \ldots, x(t_0+n-1)) \in X^n$.
+	\end{thm}
+
+	\begin{thm} Pour toute solution $x_p : T \to X$ d'une équation aux différences non-homogène, si $x_h : T \to X$ est solution de l'équation homogène associée,
+	alors $x_p+x_h : T \to X$ est solution de l'équation non-homogène.
+	\end{thm}
+
+	\begin{thm} L'ensemble de solution générale d'une équation aux différences est un espace vectoriel fonctionnel.
+	\end{thm}
+
+	\begin{déf} Soit l'équation aux différences linéaire homogène suivante~:
+	\[\sum_{k=0}^na_kx(t+k) = 0.\]
+	On appelle \textit{polynôme caractéristique} le polynôme suivant~:
+	\[P : \lambda \mapsto \sum_{k=0}^na_k\lambda^k.\]
+	\end{déf}
+
+	\begin{déf} Pour une équation aux différences linéaire et homogène et son polynôme caractéristique $P$, on appelle \textit{équation caractéristique}
+	l'équation suivante~:
+	\[P(\lambda) = 0.\]
+	\end{déf}
+
+	\begin{rmq} Et par le théorème fondamental de l'algèbre, il existe $n$ solutions complexes (multiplicité prise en compte).
+	\end{rmq}
+
+	\begin{prp} Soit $\lambda \in \R$, solution de l'équation caractéristique. Posons $m(\lambda)$ la multiplicité de cette racine. Alors~:
+	\[x : t \mapsto t^k\lambda^t\]
+	est une solution de l'équation aux différences pour $k = 0, \ldots, m(\lambda)-1$, et toutes ces solutions sont linéairement indépendantes.
+	\end{prp}
+
+	\begin{rmq} En travaillant avec des polynômes, on prend pour convention $0^0 = 1$.
+	\end{rmq}
+
+	\begin{prp} Soit $\lambda = \rho\exp(i\theta) \in \C$, solution de l'équation caractéristique. Alors~:
+	\[x_1 : t \mapsto t^k\rho\cos(t\theta) \qquad\qquad \text{ et } \qquad\qquad x_2 : t \mapsto t^k\rho\sin(t\theta)\]
+	sont solutions de l'équation aux différences pour $k = 0, \ldots m(\lambda)-1$, et toutes ces $2m(\lambda)$ solutions sont linéairement indépendantes.
+	\end{prp}
+
+	\subsection{États d'équilibre}
+
+	\begin{déf} Soit une équation aux différences linéaire et homogène~:
+	\[\sum_{k=0}^na_kx(t+k) = b.\]
+
+	Un état d'équilibre de l'équation est un état $\bar x \in X$ tel que la fonction constante $x : t \mapsto \bar x$ est une solution.
+	\end{déf}
+
+	\begin{prp} Soit l'équation aux différences linéaire homogène suivante~:
+	\[\sum_{k=0}^na_kx(t+k) = b.\]
+
+	Alors~:
+	\begin{itemize}
+		\item si $\sum_{k=0}^na_k \neq 0$, alors il existe un unique état fixe donné par~:
+		\[X \ni \bar x = \frac b{\sum_{k=0}^na_k}~;\]
+		\item sinon~:
+		\begin{itemize}
+			\item si $b = 0$, alors tout $\bar x \in X$ est un point d'équilibre~;
+			\item si $b \neq 0$, alors le système n'admet aucun point d'équilibre.
+		\end{itemize}
+	\end{itemize}
+	\end{prp}
+
+	\begin{déf} Soit $\bar x \in X$ un état d'équilibre. $\bar x$ est dit \textit{stable} lorsque~:
+	\[\forall \varepsilon > 0 : \exists \delta > 0, t_0 > 0 \tq \sum_{j=0}^{n-1}\abs {x(j)-\bar x} < \delta \Rightarrow
+		\forall t > t_0 : \abs {x(t)-\bar x} < \varepsilon.\]
+	\end{déf}
+
+	\begin{déf} Un équilibre $\bar x \in X$ est dit \textit{asymptotiquement stable} (ou \textit{attractif}) lorsque~:
+	\[\lim_{t \to +\infty}x(t) = \bar x.\]
+	\end{déf}
+
+	\begin{thm}[Équilibre d'une équation aux différences linéaire] Soit $P$ le polynôme caractéristique d'une équation aux différences et soit $\bar x \in X$ une
+	équilibre de cette équation. Alors $\bar x$ est~:
+	\begin{itemize}
+		\item stable si et seulement si toute solution $\lambda_i$ de $P$ est telle que
+		$\abs {\lambda_i} \leq 1$ et $\abs {\lambda_i} = 1 \Rightarrow m(\lambda_i) = 1$~;
+		\item asymptotiquement stable si et seulement si toute solution $\lambda_i$ de $P$ est telle que $\abs {\lambda_i} \lneqq 1$.
+	\end{itemize}
+	\end{thm}
+
+	\subsection{Équations non-linéaires homogènes d'ordre 1}
+
+	On parle ici d'équations aux différences sous la forme~:
+	\[x(t+1) = f(x(k)),\]
+	avec $f \in C^\infty(T, I \subset X)$. Ce système est noté par le couple $(f, I)$.
+
+	\begin{déf} La valeur $\bar x \in I$ est dite d'\textit{équilibre} pour le système $(f, I)$ lorsque~:
+	\[\bar x = f(\bar x).\]
+	\end{déf}
+
+	\begin{thm} Soient $I = [a, b]$ un intervalle réel et $f : I \to I$ continue. Alors il existe $\bar x \in I$ d'équilibre pour $(f, I)$.
+	\end{thm}
+
+	\begin{déf} L'équilibre $\bar x \in I$ est dit \textit{globalement attractif} (ou \textit{globalement asymptotiquement stable}) lorsque~:
+	\[\forall x^0 \in I : x(t_0) = x^0 \Rightarrow \lim_{t \to +\infty}x(t) = \bar x.\]
+
+	Et l'équilibre $\bar x$ est dit \textit{localement attractif} (ou \textit{localement asymptotiquement stable}) lorsque~:
+	\[\exists \delta > 0 \tq \forall x^0 \in I \cap [\bar x \pm \delta] : x(t_0) = x^0 \Rightarrow \lim_{t \to +\infty}x(t) = \bar x.\]
+	\end{déf}
+
+		\subsubsection{Cycles et stabilité}
+
+	\begin{déf} Soit $(f, I)$ un système discret d'ordre 1. On appelle \textit{cycle d'ordre $s \in \N^*$} tout ensemble $\{\bar x^{(k)} \tq 0 \leq k < s\}$
+	tel que~:
+	\[\bar x^{(0)} = f(\bar x^{(s-1)}) \qquad\qquad \text{ et } \qquad\qquad \forall 1 \leq k \lneqq s : \bar x^{(k)} = f(\bar x^{(k-1)}).\]
+
+	On dit également que $s$ est la \textit{période} du cycle.
+	\end{déf}
+
+	\begin{thm} Soit un système discret d'ordre 1 $(f, I)$. L'ensemble $\{\bar x^{(k)} \tq 0 \leq k \lneqq s\}$ pour $s \in \N^*$ est un cycle de période $s$
+	de $f$ si et seulement si les $\bar x^{(k)}$ sont des équilibres de $f^s$ et ne sont cycle d'aucun $f^\sigma$ pour $\sigma \in \{1, \ldots, s-1\}$.
+	\end{thm}
+
+	\begin{thm} Soit $(f, I)$ un système discret d'ordre 1 et soit $\bar x \in I$ un équilibre de $(f, I)$.
+
+	\begin{itemize}
+		\item Si $\abs {f'(\bar x)} \lneqq 1$, alors $\bar x$ est localement attractif~;
+		\item si $\abs {f'(\bar x)} \gneqq 1$, alors $\bar x$ est instable~;
+		\item si $\abs {f'(\bar x)} = 1$, $\bar x$ peut être soit stable soit instable.
+	\end{itemize}
+	\end{thm}
+
+	\begin{thm} Si selon les hypothèses précédentes, $\abs {f'(\bar x)} = 1$, alors~:
+	\begin{itemize}
+		\item si $f''(\bar x) \lneqq 0$, alors $\bar x$ est supérieurement attractif et inférieurement instable~;
+		\item si $f''(\bar x) \gneqq 0$, alors $\bar x$ est inférieurement attractif et supérieurement instable.
+	\end{itemize}
+	\end{thm}
+
+		\subsubsection{Attracteurs et bifurcations}
+
+	\begin{déf} Soit $(f, I)$ un système discret d'ordre 1. Un ensemble $A \subset I$ est appelé \textit{attracteur} lorsque~:
+	\begin{enumerate}
+		\item $f(A) = A$~;
+		\item $A$ est le plus petit ensemble (au sens de l'inclusion) tel qu'il existe $\delta > 0$ tel que~:
+		\[\left(\forall x(0) \in I : d_I(x(0), A) < \delta\right) \Rightarrow \lim_{t \to +\infty} d_I(x(t), A) = 0.\]
+	\end{enumerate}
+	\end{déf}
+
+	\begin{déf} L'ensemble $\{x(0) \in I \tq \lim_{t \to +\infty} d_I(x(t), A) = 0\}$ est appelé \textit{bassin d'attraction}.
+	\end{déf}
+
+	\begin{déf} Soit $(f_a, I)$ un système discret d'ordre 1 tel que la fonction $f$ dépend continûment d'un paramètre $a \in A \subset \R$.
+	La valeur $\bar a \in A$ est une \textit{valeur de bifurcation} si pour tout $\varepsilon > 0$, il existe une discontinuité dans
+	$\overline N_{f_a}(a)$ sur $(\bar a \pm \varepsilon)$, où $\overline N_{f_a} : A \to \N$ retourne le nombre d'équilibres de $f_a$ pour la valeur $a$
+	du paramètre.
+	\end{déf}
+
+	\begin{rmq} Des systèmes très simples tels que l'équation logistique discrète~:
+	\[x(t+1) = ax(t)(1 - x(t))\]
+	admettent une infinité de valeurs de bifurcations, et ont un comportement chaotique pour certaines valeurs de $a$.
+	\end{rmq}
+
+	\begin{déf} Soit $(f, I)$ un système discret d'ordre 1. Ce système est dit \textit{chaotique} lorsque~:
+	\begin{itemize}
+		\item $\forall (a, b) \subseteq I$, il existe au moins un cycle dans $(a, b)$~;
+		\item \[\forall (x, y, \varepsilon) \in I \times I \times \R_0^+ : \exists (z, k) \in I \times \N \tq
+			\abs {z-x} < \varepsilon \qquad \text{ et } \quad \abs {f^k(z) - y} < \varepsilon~;\]
+		\item \[\exists \delta > 0 \tq \forall (x, \varepsilon) \in I \times \R_0^+ :
+			\exists (z, k) \in I \times \N \tq \abs {z-x} < \varepsilon \quad \text{ et } \quad \abs {f^k(x)-f^k(z)} > \delta,\]
+		ce qui correspond à  la dépendance aux conditions initiales.
+	\end{itemize}
+	\end{déf}
+
+	\begin{rmq} Dans les systèmes discrets, le chaos peut apparaître dès l'ordre 1 (équation logistique), contrairement aux systèmes continus où il faut un
+	ordre $\geq 3$.
+	\end{rmq}
+
+	\begin{déf} Soit $(f, I)$ un système d'ordre 1. On définit l'\textit{exposant de Liapounov} par~:
+	\[L \coloneqq \lim_{N \to +\infty}\frac 1N\sum_{t=0}^{N-1}\ln \abs {\frac {\delta(t+1)}{\delta(t)}},\]
+	avec $\delta : T = \N \to I$ telle que~:
+	\[\forall t \in T : \delta(t) = f^t\left(x(0) + \delta(x(0))\right) - x(t),\]
+	et avec $\delta(0)$ une perturbation initiale.
+	\end{déf}
+
+	\begin{rmq} L'exposant $L$ de Liapounov représente le taux moyen de divergence par itération.
+	\end{rmq}
+
+	\begin{déf} Si un système discret d'ordre 1 $(f, I)$ a un exposant de Liapounov $L$ positif, alors il est dit chaotique.
+	\end{déf}
 
 \end{document}
