@@ -1,18 +1,18 @@
 \documentclass{article}
 
-\usepackage{hyperref}
-\usepackage{palatino, eulervm}
 \usepackage[french]{babel}
+\usepackage{commath}
+\usepackage{palatino, eulervm}
 \usepackage{fullpage}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsthm, amsmath, amsfonts, amssymb}
 \usepackage{mathtools}
-\usepackage{stmaryrd}
+%\usepackage{stmaryrd}
 \usepackage[bottom]{footmisc}
 \usepackage[parfill]{parskip}
 \usepackage[framemethod=tikz]{mdframed}
-\usepackage{commath}
+\usepackage{hyperref}
 
 \title{MATHF-203 -- Algèbre I}
 \date{Année académique 2016 - 2017}
@@ -50,9 +50,22 @@
 	\surroundwithmdframed[style=resultstyle]{lem}
 \fi
 
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\ord}{ord}
+
 \newcommand{\K}{\mathbb K}
 \newcommand{\C}{\mathbb C}
 \newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\tq}{\text{ t.q. }}
+
+\newcommand{\proofright}{{\framebox[1.5\width]{$\Rightarrow$}\hspace{.1cm}}}
+\newcommand{\proofleft}{{\framebox[1.5\width]{$\Leftarrow$}\hspace{.1cm}}}
+\newcommand{\simeqq}{\cong}
+
+\newcommand{\eng}[1]{\left\langle#1\right\rangle}
 
 \begin{document}
 \pagenumbering{Roman}
@@ -63,6 +76,211 @@
 \setcounter{page}{1}
 
 \section{Les groupes}
-	\begin{déf}
-	\end{déf}
+	\subsection{Définitions}
+		\begin{déf} Un \textit{groupe} $(G, *)$ est un ensemble non-vide $G$ muni d'une loi de composition $* : G \times G \to G$ tels que~:
+		\begin{itemize}
+			\item $*$ est associative~;
+			\item $G$ possède un élément neutre noté $e \in G$~;
+			\item chaque élément $g$ de $G$ possède un inverse noté $g^{-1}$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{déf} Un ensemble non-vide $M$ muni d'une loi de composition $* : M \times M \to M$ associative telle que $M$ admet un neutre par $*$ est appelé
+		un \textit{monoïde}.
+		\end{déf}
+
+		\begin{déf} Un monoïde $(M, *)$ est dit \textit{abélien} (ou \textit{commutatif}) lorsque $*$ est commutative.
+		\end{déf}
+
+		\begin{rmq} Un groupe est un monoïde admettant un inverse pour chaque élément. Dès lors, les résultats et définitions sur les monoïdes s'appliquent
+		également aux groupes.
+		\end{rmq}
+
+		\begin{prp} Dans un groupe $(G, *)$, les équations~:
+		\begin{align}\label{eq:xa=b}
+			x*a = b,
+		\end{align}
+		et~:
+		\begin{align}\label{eq:ay=b}
+			a*y = b
+		\end{align}
+		admettent une unique solution, i.e.~:
+		\[(x, y) = (b*a^{-1}, a^{-1}*b) \in G^2.\]
+		\end{prp}
+
+		\begin{proof} $G$ est un groupe, du coup $a$ et $b$ admettent un inverse. L'existence de la solution est donc triviale.
+
+		Soit $x$, solution de~\eqref{eq:xa=b}. On a alors~:
+		\[x = x*e = x*a*a^{-1} = b*a^{-1}.\]
+		Similairement pour $y$, solution de~\eqref{eq:ay=b}, on a~:
+		\[y = e*y = a^{-1}*a*y = a^{-1}*b.\]
+		\end{proof}
+
+		\begin{prp} Le neutre d'un groupe est unique, et l'inverse de tout élément l'est également.
+
+		De plus~:
+		\[\forall a, b, c, d \in G : \begin{cases}&c*a = d*a \Rightarrow c=d, \\&a*c=a*d \Rightarrow c=d.\end{cases}\]
+		\end{prp}
+
+		\begin{proof} EXERCICE. %TODO
+		\end{proof}
+
+		\begin{prp} Si $G$ est un ensemble non-vide muni d'une loi de composition $*$ associative telle que~\eqref{eq:xa=b} et~\eqref{eq:ay=b} admettent une
+		unique solution, alors $(G, *)$ est un groupe.
+		\end{prp}
+
+		\begin{proof} Pour chaque élément $a \in G$, prenons $e^L_a$ tel que $e^L_a*a = a$ et $e^R_a$ tel que $a*e^R_a = a$. Ces deux équations admettent une
+		unique solution par hypothèse. On trouve alors~:
+		\[e^L_a*a = a = a*e^R_a,\]
+		d'où l'on déduit~:
+		\[a*e^L_a*a = a*a=a*e^R_a*a,\]
+		et donc $e^L_a = e^R_a$ en multipliant à gauche et à droite par $a^{-1}$. On en déduit l'unicité d'un neutre pour $a$ et notons-le $e_a$. Montrons que
+		ce neutre l'est pour tous les éléments de $G$. Prenons $(a, b) \in G^2$ et leur neutre respectif $e_a$ et $e_b$. On peut écrire~:
+		\[a*e_b*b = a*b = a*e_a*b,\]
+		d'où l'on déduit $e_a = e_b$ en multipliant à gauche par $a^{-1}$ et à droite par $b^{-1}$.
+		\end{proof}
+
+		\begin{déf} Si $\abs G < \infty$, on peut définir la \textit{table de multiplication} de $(G, *)$ par un tableau de dimensions $\abs G \times \abs G$
+		reprenant tous les résultats de $g*h$ pour $g, h \in G$.
+		\end{déf}
+
+	\subsection{Groupes de transformation}
+		\begin{déf} Soit $S$ un ensemble non-vide. Soit $G$ l'ensemble des bijections de $S$ dans $S$. On définit la loi de composition~:
+		\[\circ : G \times G \to G : (\psi, \varphi) \mapsto (\psi \circ \varphi),\]
+		tels que $\forall s \in S : (\psi \circ \varphi)(s) = \psi(\varphi(s))$.
+		\end{déf}
+
+		\begin{prp} $(G, \circ)$ est un groupe (de permutation sur $S$).
+		\end{prp}
+
+		\begin{proof} Le neutre est donné par $\Id \in G$ où $\forall s \in S : \Id(s) = s$. La loi $\circ$ est trivialement associative, et l'inverse d'une
+		fonction est bien définie sur les bijections.
+		\end{proof}
+
+		\begin{ex} L'ensemble $\SO(3, \R)$ des rotations axiales passant par $\mathcal O$ forme un groupe de transformations.
+		\end{ex}
+
+		\begin{rmq} Un groupe de transformation est composé de fonctions bijectives. L'ensemble $G$ est donc un ensemble fonctionnel.
+		\end{rmq}
+
+	\subsection{Sous-groupes}
+		\begin{déf} Soit $(G, *)$ un groupe, et soit $S \subset G$. Si $(S, *)$ est un groupe, alors on dit que $(S, *)$ est un \textit{sous-groupe} de $(G, *)$.
+		\end{déf}
+
+		\begin{prp} Soit $(G, *)$ un groupe. $S \subseteq G$ est un sous-groupe de $G$ si et seulement si~:
+		\[\forall a, b \in S : a*b^{-1} \in S.\]
+		\end{prp}
+
+		\begin{proof} \proofright Trivial car $S$ est un groupe.
+
+		\proofleft $S$ est non-vide, donc $e \in S$ car si $a \in S$, alors par hypothèse $e = a*a^{-1} \in S$. De même, soit $a \in S$. On sait que
+		$a^{-1} = e*a^{-1} \in S$. Et $S$ est stable par $*$ car si $a, b \in S$, on sait que $b^{-1} \in S$, et donc $a*\left(b^{-1}\right)^{-1} \in S$.
+		\end{proof}
+
+		\begin{prp} Si $\{S_\alpha \tq \alpha \in I\}$ est une famille de sous-groupes de $(G, *)$, alors $S \coloneqq \bigcap_{\alpha \in I}S_\alpha$ est un
+		sous-groupe de $(G, *)$ également.
+		\end{prp}
+
+		\begin{proof} On sait que $e \in S$ car $e \in S_\alpha$ pour tout $\alpha \in I$. Donc $S \neq \emptyset$. Prenons $a, b \in S$. On sait que
+		$a, b \in S_\alpha$ pour tout $\alpha \in I$. Donc $b^{-1}$ et $a*b^{-1}$ sont dans $S_\alpha$ pour tout $\alpha \in I$ également. Donc $a*b^{-1} \in S$.
+		\end{proof}
+
+		\begin{déf} Soit $(G, *)$ un groupe et soit $P \subseteq G$. On appelle le \textit{sous-groupe de $G$ engendré par $P$} le plus petit sous-groupe de $G$
+		contenant $P$. On le note $\eng P$
+		\end{déf}
+
+		\begin{déf} Soit $(G, *)$ un groupe et soit $g \in G$. On appelle \textit{ordre de $g$} le plus petit $n \in \N^*$ tel que $g^n = e$.
+		On le note $\ord(e)$.
+
+		L'ordre de $(G, *)$ est $\abs G$.
+		\end{déf}
+
+		\begin{déf} Un groupe $(G, *)$ est dit \textit{cyclique} lorsqu'il existe $g \in G$ tel que $G = \eng g \coloneqq \eng {\{g\}}$.
+		\end{déf}
+
+	\subsection{Isomorphismes}
+		\begin{déf} Un \textit{isomorphisme} entre deux groupes $(G, *)$ et $(H, \star)$ est une bijection $\phi : G \to H$ telle que~:
+		\[\forall g_1, g_2 \in G : \phi(g_1 * g_2) = \phi(g_1) \star \phi(g_2).\]
+		\end{déf}
+
+		\begin{rmq} La relation «~\textit{être isomorphe}~» dans l'ensemble des groupes est une relation d'équivalence.
+
+		De plus, sis $G$ et $H$ sont deux groupes finis, $\phi : G \to H$ est un isomorphisme si et seulement si $\phi$ est bijective, et la table de
+		multiplication de $H$ par $\phi(G)$ est l'image de la table de multiplication de $G$ par $G$.
+		\end{rmq}
+
+		\begin{prp} Soit $\phi : (G, *) \to (H, \star)$ un isomorphisme de groupes. Alors~:
+		\begin{itemize}
+			\item $\phi(e_G) = e_H$~;
+			\item $\forall g \in G : \phi(g)^1 = \phi(g^{-1})$.
+		\end{itemize}
+		\end{prp}
+
+		\begin{proof} On sait que $\phi(e_G) = \phi(e_G * e_G) = \phi(e_G) \star \phi(e_G)$. Dès lors, il est évident que $\phi(e_G)$ est le neutre de $H$.
+
+		Soit $g \in G$. On sait également que $e_H = \phi(e_G) = \phi(g * g^{-1}) = \phi(g) \star \phi(g^{-1})$. On a donc bien, en multipliant par
+		$\phi(g)^{-1}$ à gauche que $\phi(g)^{-1} = \phi(g^{-1})$.
+		\end{proof}
+
+		\begin{thm} Tout groupe est isomorphe à un groupe de transformation.
+		\end{thm}
+
+		\begin{proof} Soit $(G, *)$ un groupe, et soit $g \in G$. On définit $\phi : G \to \{\ell_g \tq g \in G\}$, où $\ell_g : G \to G : h \mapsto g*h$.
+
+		Pour $g \in G$, montrons que $\ell_g$ est bijective~:
+		\begin{itemize}
+			\item il est évident que $\forall g, h, h' \in G : g*h = g*h' \iff h=h'$ par les règles de simplification~;
+			\item $\forall h \in G : \ell_g(g^{-1}*h) = g*g^{-1}*h = h$.
+		\end{itemize}
+
+		On a donc que $\ell_g$ est bien bijective pour tout $g \in G$.
+
+		Montrons maintenant que $\phi : g \mapsto \ell_g$ est un isomorphisme de groupes~:
+		\begin{itemize}
+			\item $\phi$ est surjective par définition.
+			\item soient $g, h \in G$. $\ell_g = \ell_h$ si et seulement si pour tout $\gamma \in G$, on a $g*\gamma = h*\gamma$, et donc si et seulement si
+			on a $g = h$. $\phi$ est donc injective.
+			\item Soient $g, h, \gamma \in G$. $\phi(g * h)(\gamma) = g*h*\gamma = g*\ell_h(\gamma) = (\ell_g \circ \ell_h)(\gamma)$.
+		\end{itemize}
+		\end{proof}
+
+		\begin{thm} Tout groupe cyclique est déterminé, à isomorphisme près, par l'ordre d'un élément $g$ qui l'engendre.
+
+		Plus précisément, si $(G, *)$ est un groupe engendré par un élément $g$ d'ordre $\ord(g)$ fini, alors $G \simeqq (\Z_{\ord(g)}, +)$~; et si $g$ est
+		d'ordre infini, alors $(G, *) \simeqq (\Z, +)$.
+		\end{thm}
+
+		\begin{proof} S'il existe $g \in G$ tel que $G = \eng g$ et $\ord(g) \lneqq +\infty$, alors $G = \{e, g, \ldots, g^{\ord(g)-1}\}$.
+
+		Soit $\phi : \Z_{\ord(g)} \to G : k \mapsto g^k$. $\phi$ est trivialement bijective, et on observe~:
+		\[\phi(k+l) = g^{k+l} = g^k * g^l = \phi(k) * \phi(l).\]
+
+		Supposons maintenant qu'il existe $g \in G$ tel que $\ord(g) = +\infty$ et $\eng g = G$. On pose~:
+		\[\forall p \in \N^* : g^{-p} \coloneqq g^{-1} * g^{1-p}.\]
+
+		Puisque $\ord(g) = +\infty$, si $g^x = g^y$ pour $x, y \in \Z$, alors $x=y$. En reprenant le même $\phi$ étendu à $\Z$, on a bien, à nouveau, un
+		isomorphisme de groupes.
+		\end{proof}
+
+		\begin{cor} Tout groupe cyclique est commutatif.
+		\end{cor}
+
+		\begin{proof} Étant isomorphe à $\Z_n$ pour un certain $n \in \N$ ou à $\Z$, par passage à l'isomorphisme, la propriété d'additivité est conservée.
+		\end{proof}
+
+		\begin{prp} Si $(G, *)$ est un groupe cyclique, tout sous-groupe $S$ de $G$ est cyclique.
+		\end{prp}
+
+		\begin{proof} Prenons $a \in G$ tel que $G = \eng a$. Posons $N \coloneqq \{n \in \Z \tq a^n \in S\}$. Dans le cas fini, prenons $\underline n$, le
+		plus petit entier positif de $N$. Supposons par l'absurde que $a^t \in S$ ne soit pas une puissance entière de $a^{\underline n}$. Par Euclide, on a~:
+		\[\exists (q, r) \in \Z \times \N \tq t = q\underline n + r,\]
+		et donc~:
+		\[a^t = a^{q\underline n} * a^r,\]
+		avec $0 \lneqq r \lneqq \underline n$. On sait que $a^t \in S$, et $a^{q\underline n} \in S$ (donc $a^{-q\underline n} \in S$). Dès lors, $a^r \in S$.
+		Or $\underline n$ est le plus petit entier positif tel que $a^{\underline n} \in S$. Il y a donc contradiction, et $a^t$ est une puissance entière de
+		$a^{\underline n}$. Dès lors, $S = \eng {a^{\underline n}}$.
+		\end{proof}
+
+	\subsection{Classes latérales et théorème de Lagrange}
+
 \end{document}
