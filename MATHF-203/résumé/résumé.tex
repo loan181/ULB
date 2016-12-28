@@ -53,6 +53,9 @@
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\SO}{SO}
 \DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Imf}{Im}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Aut}{Aut}
 
 \newcommand{\K}{\mathbb K}
 \newcommand{\C}{\mathbb C}
@@ -209,7 +212,7 @@
 		multiplication de $H$ par $\phi(G)$ est l'image de la table de multiplication de $G$ par $G$.
 		\end{rmq}
 
-		\begin{prp} Soit $\phi : (G, *) \to (H, \star)$ un isomorphisme de groupes. Alors~:
+		\begin{prp}\label{prp:prop_isomorphisme} Soit $\phi : (G, *) \to (H, \star)$ un isomorphisme de groupes. Alors~:
 		\begin{itemize}
 			\item $\phi(e_G) = e_H$~;
 			\item $\forall g \in G : \phi(g)^1 = \phi(g^{-1})$.
@@ -282,5 +285,273 @@
 		\end{proof}
 
 	\subsection{Classes latérales et théorème de Lagrange}
+		Dans cette sous-section, considérons que $(G, *)$ est un groupe, et que $S$ est un sous-groupe de $G$.
+
+		\begin{déf} Soient $(G, *)$ un groupe, et $S$ un sous-groupe de $G$. On appelle \textit{classe latérale gauche de $S$ par $a \in G$} l'ensemble~:
+		\[a*S \coloneqq \left\{a*s \tq s \in S\right\}.\]
+
+		Similairement, une classe latérale droite est sous la forme~:
+		\[S*a \coloneqq \left\{s*a \tq s \in S\right\},\]
+		pour un certain $a \in G$.
+		\end{déf}
+
+		\begin{prp} Deux classes latérales gauches $a*S$ et $b*S$ sont identiques ou sont d'intersection nulle.
+		\end{prp}
+
+		\begin{proof} Soient deux telles classes d'équivalences, telles que $a*S \cap b*S \neq \emptyset$. On sait alors qu'il existe $c \in a*S \cap b*S$.
+		On en déduit $u, v \in S$ tels que $a*u = c = b*v$. On a alors, pour $s \in S$~:
+		\[b*s = c*v^{-1}*s = a*u*v^{-1}*s.\]
+		Or $u$ et $v^{-1}$ sont dans $S$. Donc $b*S \subseteq a*S$.
+
+		Par un raisonnement similaire, on a $a*S \subseteq b*S$, et donc $a*S = b*S$.
+		\end{proof}
+
+		\begin{prp}\label{prp:prop_classes_lat} Deux éléments $a, b \in G$ ont la même classe latérale gauche, i.e.  $a*S = b*S$ si et seulement si
+		$a^{-1}*b \in S$.
+		\end{prp}
+
+		\begin{proof} \proofright $a*S = b*S = a*a^{-1}*b*S$. Donc $a^{-1}*b \in S$.
+
+		\proofleft On sait $S = e*S = s*S$ pour tout $s \in S$. Or $a^{-1}*b \in S$. Donc $S = a^{-1}*b*S$, ou encore $a*S = b*S$.
+		\end{proof}
+
+		\begin{déf} On appelle \textit{indice} d'un sous-groupe $S$ de $G$ le «~nombre~» de classes latérales gauches distinctes de $S$ dans $G$.
+		\end{déf}
+
+		\begin{prp} Il existe une bijection entre un sous-groupe $S$ et chacune de ses classes latérales.
+		\end{prp}
+
+		\begin{proof} Soit $a \in G$. On considère $\phi : S \to a*S : s \mapsto a*s$.
+
+		$\phi$ est surjective par définition, et est trivialement injective.
+		\end{proof}
+
+		\begin{cor} Il existe une bijection entre tout groupe $(G, *)$ et l'ensemble $S \times T$, pour $S$, un sous-groupe de $G$ et $T$ l'ensemble des classes
+		latérales gauches distinctes de $S$ dans $G$.
+		\end{cor}
+
+		\begin{thm}[Théorème de Lagrange] Soient $(G, *)$ un groupe fini, et $S$ un sous-groupe de $G$. L'ordre de $G$ est un multiple de l'ordre de $S$.
+		\end{thm}
+
+		\begin{proof} Trivial par le corollaire précédent.
+		\end{proof}
+
+		\begin{cor} Si $p$ est un nombre premier, tout groupe $(G, *)$ à $p$ éléments est isomorphe à $(\Z_p, +)$.
+		\end{cor}
+
+		\begin{proof} $p$ est premier, donc $\abs G \geq 2$. Soit $g$ tel que $\ord(g) > 1$ (c-à-d $g \neq e$). $S \coloneqq \eng g$ est un sous-groupe de $G$,
+		on en déduit par Lagrange que $\abs {\eng g}$ divise $\abs G$. Donc $\abs S \in \{1, p\}$. Et comme $e, g \in S$ pour $g \neq e$, on a $\abs S \geq 2$,
+		et donc $\abs S = p$.
+		\end{proof}
+
+		\begin{cor} Si $G$ est un groupe d'ordre fini $n$, pour tout $g \in G$, on a $\ord(g)$ divise $n$.
+		\end{cor}
+
+		\begin{cor} Il n'existe, à isomorphisme près, que deux groupes d'ordre 4, à savoir $\Z_4$ et $V_4 \coloneqq \Z_2 \times \Z_2$.
+		\end{cor}
+
+		\begin{cor} Tout groupe d'ordre fini $n  \leq 5$ est commutatif.
+		\end{cor}
+
+	\subsection{Sous-groupes normaux et homomorphismes}
+		\begin{déf} Un sous-groupe $N$ d'un groupe $(G, *)$ est dit \textit{normal} lorsque ses classes latérales gauches sont des classes latérales droites, i.e.~:
+		\[\forall a \in G : a*N = N*a.\]
+		\end{déf}
+
+		\begin{prp} Soit $N$, un sous-groupe d'un groupe $(G, *)$. Les assertions suivantes sont équivalentes~:
+		\begin{enumerate}
+			\item $N$ est normal~;
+			\item $\forall a \in G : a*N = N*a$~;
+			\item $\forall a \in G : a*N \subseteq N*a$~;
+			\item $\forall a \in G : a*N*a^{-1} \subseteq N$.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof} On sait, par définition, que $1 \iff 2$, et $2 \Rightarrow 3$. En multipliant par $a^{-1}$ à droite, on a $3 \iff 4$.
+
+		Montrons donc que $3 \Rightarrow 2$. En particulier, c'est vrai pour $a^{-1}$, et donc $a^{-1}*N \subseteq N*a^{-1}$, ou encore $N*a \subseteq a*N$.
+		Avec $3$, cela implique que $a*N = N*a$.
+		\end{proof}
+
+		\begin{déf} Un \textit{homomorphisme} d'un groupe $(G, *)$ dans un groupe $(H, \star)$ est une application $f : G \to H$ telle que~:
+		\[\forall g_1, g_2 \in G : f(g_1 * g_2) = f(g_1) \star f(g_2).\]
+		\end{déf}
+
+		\begin{prp} Si $f$ est un homomorphisme de $(G, *)$ dans $(H, \star)$, alors l'image du neutre par $f$ est le neutre de $H$, et l'inverse $g^{-1}$ d'un
+		élément $g \in G$ est envoyé sur $f(g)^{-1} \in H$.
+		\end{prp}
+
+		\begin{proof} Voir preuve de la Proposition~\ref{prp:prop_isomorphisme}.
+		\end{proof}
+
+		\begin{prp} Si $f$ est un homomorphisme de $(G, *)$ dans $(H, \star)$, alors~:
+		\begin{enumerate}
+			\item $\Imf f \coloneqq \{f(g) \tq g \in G\} \eqqcolon f(G)$ est un sous-groupe de $H$~;
+			\item $\Ker f \coloneqq \{g \in G \tq f(g) = e_H\}$ est un sous-groupe \textbf{normal} de $H$.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof} Montrons d'abord que $\Imf f \leq H$. Prenons donc $g, g' \in G$. On a alors $f(g) \star f(g')^{-1} = f(g*{g'}^{-1}) \in \Imf f$ car $f$
+		est un homomorphisme.
+
+		Montrons ensuite que $\Ker f \leq G$. Prenons $g_1, g_2 \in \Ker f$. On sait donc que~:
+		\[f(g_1 * g_2^{-1}) = f(g_1) \star f(g_2)^{-1} = e_H \star e_H^{-1} = e_H.\]
+		On en déduit que $g_1*g_2^{-1} \in \Ker f$.
+
+		Montrons alors que pour tout $a \in G$, on a $a*\Ker(f)*a^{-1} \subseteq \Ker f$. Soit $g \in \Ker f$. On calcule~:
+		\[f\left(a*g*a^{-1}\right) = f(a)*e_H*f(a)^{-1} = f(a)*f(a)^{-1} = e_H,\]
+		et donc $a*g*a^{-1} \in \Ker f$, ou encore $a*\Ker(f)*a^{-1} \subseteq \Ker f$. $\Ker f$ est donc bien un sous-groupe normal de $G$.
+		\end{proof}
+
+		\begin{rmq} Un isomorphisme est un homomorphisme tel que $\Ker f = \{e_G\}$ et $\Imf f = H$ car $f$ est respectivement injective et surjective.
+		\end{rmq}
+
+		\begin{déf} Un homomorphisme d'un groupe $(G, *)$ dans lui-même est appelé un \textit{automorphisme}.
+		\end{déf}
+
+		\begin{déf} Pour tout $g \in G$, on définit la \textit{conjugaison par $g$} comme la fonction~:
+		\[c(g) : G \to G : h \mapsto g*h*g^{-1}.\]
+		\end{déf}
+
+		\begin{prp} Pour $g \in G$, la conjugaison par $g$ est un automorphisme.
+		\end{prp}
+
+		\begin{proof} $c(g)$ est injective par les règles de simplification, et est surjective car pour tout $\gamma \in G$, on a~:
+		\[c(g)^{-1}(\gamma) = g^{-1}*\gamma*g,\]
+		en effet~:
+		\[c(g)(g^{-1}*\gamma*g) = g*\left(g^{-1}*\gamma*g\right)*g^{-1} = \gamma.\]
+		Donc $c(g)$ est bien surjective.
+
+		Et puisque $c(g)$ va de $G$ dans $G$, c'est bien un automorphisme.
+		\end{proof}
+
+		\begin{prp} L'application $C : G \to \Aut(G) \subset G^G : g \mapsto c(g)$ est un homomorphisme.
+		\end{prp}
+
+		\begin{proof} Soient $g, h, \gamma \in G$. On calcule~:
+		\begin{align*}
+			C(g*h)(\gamma) &= c(g*h)(\gamma) = (g*h)*\gamma*(g*h)^{-1} = g*h*\gamma*h^{-1}*g^{-1} = c(g)(h*\gamma*h^{-1}) \\
+			&= c(g)\left(c(h)(\gamma)\right) = \left(c(g) \circ c(h)\right)(\gamma).
+		\end{align*}
+		\end{proof}
+
+		\begin{prp} Soit $f$ un homomorphisme de groupe de $(G, *)$ dans $(H, \star)$. Deux éléments $x, y \in G$ ont la même image par $f$ si et seulement si
+		ils appartiennent à la même classe latérale de $\Ker f$ dans $G$.
+		\end{prp}
+
+		\begin{proof} Soient $x$ et $y$ tels que $f(x) = f(y)$. On calcule~:
+		\[f(x*y^{-1}) = f(x) \star f(y^{-1}) = f(y) \star f(y)^{-1} = e_H.\]
+		Donc $x*y^{-1} \in \Ker f$, et donc $x * \Ker f = y * \Ker f$ par la Proposition~\ref{prp:prop_classes_lat}.
+		\end{proof}
+
+	\subsection{Groupes quotients}
+		Soit $f : (G, *) \to (H, \star)$ un homomorphisme surjectif. Si $x' \in H$, alors il existe $x \in G$ tel que $f(x) = x'$. On a alors~:
+		\[f^{-1}(\{x'\}) = x*\Ker f.\]
+		Si $\abs {\Ker f} \geq 2$, prenons également $y' \in H$ et donc $y \in G$ tel que $f^{-1}(\{y'\}) = y*\Ker f$.
+
+		On peut ensuite calculer~:
+		\[x' \star y' = f(x) \star f(y) = f(x*y),\]
+		d'où l'on déduit~:
+		\[f^{-1}(\{x'*y'\}) = x*y*\Ker f.\]
+
+		\begin{déf} Soit $N$ un sous-groupe normal du groupe $(G, *)$. On désigne par $G/N$ l'ensemble des classes latérales de $N$ dans $G$. Cela se lit
+		\textit{$G$ quotienté $N$}.
+		\end{déf}
+
+		\begin{prp} Soient $x*N$ et $y*N$ deux éléments de $G/N$. Si $x' \in x*N$ et $y' \in y*N$, alors~:
+		\[x'*y' \in x*y*N.\]
+		\end{prp}
+
+		\begin{proof} On sait qu'il existe $m, n \in N$ tels que $x' = x*n$ et $y' = y*m$. Par normalité de $N$, on sait qu'il existe $m' \in N$ tel que
+		$y' = n*y = y*n'$. Dès lors~:
+		\[x'*y' = x*n*y*n'*m.\]
+		Or, $n'*m \in N$. Donc~:
+		\[x'*y' \in x*y*N.\]
+		\end{proof}
+
+		\begin{déf} On définit le produit $\bar * : G/N \times G/N \to G/N : (x*N, y*N) \mapsto (x*N) \bar * (y*N) \coloneqq x*y*N$.
+		\end{déf}
+
+		\begin{thm} Soient $(G, *)$ un groupe et $N$ un sous-groupe normal de $G$. Alors $(G/N, \bar *)$ est un groupe.
+		\end{thm}
+
+		\begin{proof} $\bar *$ est interne par définition et par la proposition précédente, et est associative par associativité de $*$.
+
+		$(G/N, \bar *)$ admet pour neutre $e*N = N$.
+
+		Soit $g*N \in G/N$. Il admet pour inverse $g^{-1}*N$ car $(g*N) \bar * (g^{-1}*N) = e*N = N$.
+		\end{proof}
+
+		\begin{déf} Le groupe $(G/N, \bar *)$ est appelé le \textit{groupe quotient de $G$ par $N$}.
+		\end{déf}
+
+		\begin{déf} Soient $(G, *)$ un groupe, et $N \leq G$. La projection $\pi_N : G \to G/N : g \mapsto g*N$ est appelée la \textit{projection canonique}.
+		\end{déf}
+
+		\begin{prp} $\pi_N : (G, *) \to (G/N, \bar *)$ est un homomorphisme.
+		\end{prp}
+
+		\begin{proof} Soient $g, h \in G$. $\pi_N(g*h) = g*h*N = (g*N) \bar * (h*N) = \pi_N(g) \bar * \pi_N(h)$.
+		\end{proof}
+
+		\begin{prp} Si $(G, *)$ et $(H, \star)$ sont deux groupes, $f : G \to H$ est un homomorphisme, et si $N$ est un sous-groupe normal de $G$ contenu dans
+		$\Ker f$, alors il existe un homomorphisme $\overline f : G/N \to H$ avec $\overline f(g*N) = f(g)$. De plus~:
+		\[\Imf \overline f = \Imf f \qquad\qquad \text{ et } \qquad\qquad \Ker \overline f = \Ker(f)/N.\]
+		\end{prp}
+
+		\begin{proof} $\overline f$ est bien définie. Soient $g, g' \in G$. On calcule~:
+		\[\overline f((g*N) \bar * (g'*N)) = \overline f(g*g'*N) = f(g*g').\]
+		Par propriétés de morphismes de $f$, on trouve donc~:
+		\[\overline g((g*N)\bar *(g'*N)) = f(g) \star f(g') = \overline f(g*N) \star \overline f(g'*N).\]
+
+		$\Imf f = \Imf \overline f$ de manière triviale.
+
+		$g*N \in \Ker \overline f$ si et seulement si $g \in \Ker f$. On a alors bien $\Ker \overline f = \{h*N \tq h \in \Ker f\} = \Ker(f)/N$.
+		\end{proof}
+
+	\subsection{Théorèmes d'isomorphisme}
+		\subsubsection{Premier théorème d'isomorphisme}
+			\begin{thm} Si $f : (G, *) \to (H, \star)$ est un homomorphisme de groupes, il induit un isomorphisme~:
+			\[G/\Ker(f) \simeqq \Imf f.\]
+			\end{thm}
+
+			\begin{proof} $(\Imf f, \star)$ est un groupe car $\Imf f$ est un sous-groupe de $H$. $f : G \to \Imf f$ est un homomorphisme.
+
+			Considérons $N = \Ker f$. $\overline f : G/\Ker(f) \to \Imf f$ est surjectif car $\Imf f = \Imf \overline f$ et est injectif car
+			$\Ker(\overline f) = \Ker(f)/\Ker(f) = \{e * \Ker f\} = \{e\}$. $\overline f$ est donc un homomorphisme bijectif, ou encore, un isomorphisme.
+			\end{proof}
+
+		\subsubsection{Deuxième théorème d'isomorphisme}
+			\begin{thm} Si $K, N$ sont des sous-groupes de $(G, *)$, alors $K/(N \cap K) \simeqq (N*K)/N$, où on définit~:
+			\[N*K \coloneqq \left\{n*k \tq (n, k) \in N \times K\right\}.\]
+			\end{thm}
+
+			\begin{proof} Montrons que $N*K$ est un sous-groupe de $G$, i.e. $\forall x, y \in N*K : x*y^{-1} \in N*K$. Prenons donc $(x, y) \in (N*K)^2$.
+			Il existe $n_x, n_y \in N$ et $k_x, k_y \in K$ tels que $(x, y) = (n_x*k_x, n_y*k_y)$. On a alors~:
+			\[x*y^{-1} = n_x*k_x*k_y^{-1}*n_y^{-1}.\]
+			En posant $k \coloneqq k_x*k_y^{-1} \in K$ (car $K$ est un sous-groupe), on trouve~:
+			\[x*y^{-1} = n_x*k*n_y.\]
+
+			Par normalité de $N$ on sait qu'il existe $n \in N$ tel que $k*n_y = n*k$. On trouve alors~:
+			\[x*y^{-1} = n_x*n*k = (n_x*n)*k \in N*K.\]
+
+			On observe maintenant que si $N$ est normal dans $G$, alors il l'est dans $N*K$.
+
+			L'application $f : K \to (N*K)/N : k \mapsto k*N$ est un homomorphisme. Son noyau est $\Ker f = \{k \in K \tq k*N = N\} = K \cap N$.
+			$K \cap N$ est donc un sous-groupe normal de $K$. Par le théorème précédent, on a~:
+			\[K/\Ker(f) \simeqq \Imf f = (N*K)/N.\]
+			\end{proof}
+
+		\subsubsection{Troisième théorème d'isomorphisme}
+			\begin{thm} Si $K$ et $N$ sont deux sous-groupes normaux de $(G, *)$ tels que $K \subseteq N$, alors $N/K$ est normal dans $G/K$ et~:
+			\[\left(G/K\right)/\left(N/K\right) \simeqq G/N.\]
+			\end{thm}
+
+			\begin{proof} Prenons $\pi_N : G \to G/N$ l'homomorphisme canonique. On a $K \subset \Ker \pi = N$. Par le théorème précédent, il existe un
+			homomorphisme $\overline \pi : G/K \to G/N : g*K \mapsto g*N$ surjectif de noyau $\Ker \overline \pi = N/K$.
+
+			Puisque l'on en déduit $G/K$ normal dans $N/K$, en appliquant le premier théorème d'isomorphisme à $\overline \pi$, on trouve~:
+			\[\left(G/K\right)/\left(N/K\right) \simeqq G/N.\]
+			\end{proof}
 
 \end{document}
