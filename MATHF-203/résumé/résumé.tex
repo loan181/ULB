@@ -1,0 +1,68 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\usepackage{palatino, eulervm}
+\usepackage[french]{babel}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsthm, amsmath, amsfonts, amssymb}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage[bottom]{footmisc}
+\usepackage[parfill]{parskip}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{commath}
+
+\title{MATHF-203 -- Algèbre I}
+\date{Année académique 2016 - 2017}
+\author{R. Petit}
+
+% amsthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{lem}[thm]{Lemme}
+\addto\captionsfrench{\renewcommand\proofname{\underline{Démonstration}}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}[section]
+
+% link amsthm and mdframed
+\iftrue
+%\iffalse
+	% pre-amsthm
+	\mdfdefinestyle{resultstyle}{%
+		hidealllines=true,%
+		leftline=true,%
+		rightline=true,%
+		innerleftmargin=10pt,%
+		innerrightmargin=10pt,%
+		innertopmargin=10pt,%
+		innerbottommargin=8pt,%
+	}
+
+	\surroundwithmdframed[style=resultstyle]{thm}
+	\surroundwithmdframed[style=resultstyle]{prp}
+	\surroundwithmdframed[style=resultstyle]{cor}
+	\surroundwithmdframed[style=resultstyle]{lem}
+\fi
+
+\newcommand{\K}{\mathbb K}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Les groupes}
+	\begin{déf}
+	\end{déf}
+\end{document}
