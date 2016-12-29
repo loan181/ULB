@@ -48,6 +48,9 @@
 
 \DeclareMathOperator{\Tr}{Tr}
 
+\renewcommand{\P}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+
 \newcommand{\N}{\mathbb N}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
@@ -1376,5 +1379,120 @@
 
 	\begin{déf} Si un système discret d'ordre 1 $(f, I)$ a un exposant de Liapounov $L$ positif, alors il est dit chaotique.
 	\end{déf}
+
+\section{Simulation statistique}
+	Dans des modèles où l'incertitude est trop présente, ou des modèles où les erreurs de mesures rendent les représentations déterministes insuffisantes, il
+	est nécessaire de formaliser cette incertitude. Les probabilités permettent un formalisme adapté.
+
+	\begin{déf} On appelle \textit{simulation statistique} toute méthode qui utilise des séquences de nombres aléatoires.
+	\end{déf}
+
+	\begin{rmq} Une solution analytique exacte de tels modèles est souvent impossible, et donc la meilleure solution reste la simulation.
+	\end{rmq}
+
+	\subsection{Méthode de Monte Carlo}
+
+	\begin{déf} Un système déterministe à paramètre ou entrée stochastique est dit \textit{de Monte Carlo}.
+	\end{déf}
+
+	\begin{rmq} Les fondateurs de cette théorie sont Fermi (physicien quantique), Von Neumann (logicien, analyste et mécanicien quantique), Ulam (algébriste et
+	mathématicien physique), et Metropolis (physicien quantique).
+	\end{rmq}
+
+	\begin{rmq} Les méthodes MC sont initialement prévues pour les problèmes stochastiques, mais peuvent être appliquées à des problèmes non-aléatoires. Elles
+	restent cependant des méthodes de dernier secours car elles demandent de grosses ressources computationnelles.
+	\end{rmq}
+
+	\begin{déf} Un algorithme MC se décompose en 7 composantes principales~:
+	\begin{enumerate}
+		\item \textbf{la description probabiliste} revient à écrire un modèle stochastique du problème~;
+		\item \textbf{le générateur aléatoire} de loi uniforme sur $[0, 1]$~;
+		\item \textbf{la loi d'échantillonage} pour \textit{transformer} la distribution précédente en toute distribution générique~;
+		\item \textbf{le simulateur déterministe} qui renvoie une sortie, une fois que tous les paramètres sont connus (générés)~;
+		\item \textbf{le collecteur de sorties} qui agrège les sorties de toutes les simulations successives~;
+		\item \textbf{l'analyseur d'output} qui est un ensemble de processus statistiques pour inférer des informations sur les simulations~;
+		\item \textbf{l'estimateur d'erreur} qui associe un indice de confiance à chaque valeur inférée.
+	\end{enumerate}
+	\end{déf}
+
+	\subsection{Génération de nombres aléatoires}
+
+	\begin{déf} Soit $Z$ une variable aléatoire réelle et continue. On appelle \textit{fonction de répartition de $Z$} la fonction
+	\[F^Z : I \subseteq \R \to [0, 1] : z \mapsto \P[Z \leq z].\]
+
+	On appelle \textit{fonction de densité de $Z$} la fonction~:
+	\[f^Z : I \subseteq \R \to \R^+ : z \mapsto f^Z(z) = \od {}zF^Z(z).\]
+	\end{déf}
+
+	\begin{rmq} Pour MC, il est nécessaire de pouvoir générer des nombres pseudo-aléatoires selon une loi donnée.
+
+	Le principe actuel de génération aléatoire est de générer des nombres qui ne soient pas indépendants, mais dont la dépendance est trop compliquée à déterminer.
+	Il vient directement de là qu'une distribution de nombres pseudo-aléatoires par un ordinateur est \textbf{obligatoirement} cyclique. On cherche à maximiser
+	cette période afin de pouvoir générer la plus longue séquence possible. En effet, une fois la période dépassée, la séquence n'est plus aléatoire
+	\textbf{du tout}.
+
+	De plus, les générateurs nombres de nombres utilisent une \textit{graine} (\textit{seed} en anglais), ce qui permet une répétabilité des opérations.
+	\end{rmq}
+
+	\begin{rmq} Suite aux différentes architectures d'ordinateurs et de processeurs existantes, il est très important qu'un générateur de nombre pseudo-aléatoires
+	produise toujours la même séquence, indépendamment de l'ordinateur sur lequel il tourne.
+	\end{rmq}
+
+		\subsubsection{Générer des nombres uniformes}
+
+	\begin{déf} La méthode de Von Neumann (\textit{middle square}) consiste à prendre un nombre initial à $2n$ chiffres, le mettre au carré, puis prendre les
+	$2n$ chiffres centraux du nombre, et réitérer afin de générer une «~séquence aléatoire~».
+	\end{déf}
+
+	\begin{rmq} Cette méthode présente comme gros problème d'avoir un état absorbant ($0$) et stable.
+	\end{rmq}
+
+	\begin{déf} Un \textit{générateur congruentiel linéaire} (\textit{linear congruential generator} en aglais, ou LGC) est un générateur sous la forme~:
+	\[z_{i+1} = \left(az_i + c\right) \mod m,\]
+	pour $a, c \in \R$ et $m \in \N^*$, avec la séquence $\left(\frac {z_i}m\right)_{1 \leq i \leq N}$ pour $N \in \N^*$.
+	\end{déf}
+
+	\begin{rmq} C'est à Derrick H. Lehmer que l'on doit cet algorithme.
+	\end{rmq}
+
+	\begin{rmq} Un choix commun pour l'algorithme de Lehmer est $(a, c, m) = (7^5, 0, 2^{31}-1)$.
+
+	Notons que $2^{31}-1$ est un nombre de Mersenne premier (\textit{prime Mersenne number}), et donc que $z_i \in \mathbb Z_{2^{31}-1}$, qui est un anneau additif.
+	\end{rmq}
+
+		\subsubsection{Tests du caractère aléatoire}
+
+	\begin{déf} Soit $X$ une variable aléatoire réelle continue. On définit son moment d'ordre $r \in \N^*$ par~:
+	\[\E[X^r] = \int_\R x^rf^X(x)\dif x.\]
+	\end{déf}
+
+	\begin{prp} Si $X$ suit une loi uniforme sur $[0, 1]$, alors son moment d'ordre $i$ pour $i=1, 2, 3$ est donné par $\frac 1{i+1}$.
+	\end{prp}
+
+	\begin{rmq} En utilisant le \textit{moment empirique d'ordre $r$} comme estimateur du moment d'ordre $r$, on peut établir un test disant si la distribution
+	ne suit pas une loi uniforme.
+	\end{rmq}
+
+		\subsubsection{Générer des nombres aléatoires d'une distribution donnée}
+
+	Soient $X$ et $Y$, deux variables aléatoires réelles continues de densité respective $f^X$ et $f^Y$ telles qu'il existe $F : Y \mapsto X$.
+	Soient $x, y \in \R$ tels que $x = F(y)$. On calcule~:
+	\begin{align*}
+		\P[X \leq x] &= \P[F(Y) \leq x] \\
+		\od {}x\P[X \leq x] &= \od {}x \P[Y \leq F^{-1}(x)] \\
+		f^X(x) &= f^Y(F^{-1}(x))\od{}xF^{-1}(x) = f^Y(y)\frac 1{\od {}x F[F^{-1}(x)]} = f^Y(y)\frac 1{\od {}xF(y)}.
+	\end{align*}
+
+	En prenant alors pour $F : Y \mapsto X$, la fonction $F^Y$, monotone croissante, la fonction de répartition de $Y$. On trouve~:
+	\[f^X = \frac {f^Y(y)}{f^Y(y)} = 1,\]
+	sur $[0, 1]$. Donc $X = F^Y(Y)$ est distribué comme une variable uniforme sur $[0, 1]$.
+
+	Pour générer une variable $Y$ de répartition $F^Y$ donnée, il suffit d'inverser cette fonction, et de poser~:
+	\[x = \left(F^{y}\right)^{-1}(x),\]
+	pour $x$ généré uniformément dans $[0, 1]$.
+
+	\begin{rmq} Dans certains cas, il n'existe pas de forme analytique (non intégrale) pour la fonction de répartition. Dans ces cas, il faut passer par des
+	méthodes d'interpolation pour estimer la réciproque de la fonction de répartition.
+	\end{rmq}
 
 \end{document}
