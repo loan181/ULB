@@ -56,6 +56,7 @@
 \DeclareMathOperator{\Imf}{Im}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Sym}{Sym}
 
 \newcommand{\K}{\mathbb K}
 \newcommand{\C}{\mathbb C}
@@ -553,5 +554,171 @@
 			Puisque l'on en déduit $G/K$ normal dans $N/K$, en appliquant le premier théorème d'isomorphisme à $\overline \pi$, on trouve~:
 			\[\left(G/K\right)/\left(N/K\right) \simeqq G/N.\]
 			\end{proof}
+
+\section{Actions de groupes}
+	\begin{déf} Une \textit{action} (à gauche) d'un groupe $(G, *)$ sur un ensemble $S$ est une application~:
+	\[\phi : G \times S \to S : (g, x) \mapsto \phi(g, x)\]
+	telle que~:
+	\begin{itemize}
+		\item $\forall x \in S : \phi(e_G, x) = x$~;
+		\item $\forall g_1, g_2 \in G : \forall x \in S : \phi(g_1 * g_2, x) = \phi\left(g_1, \phi(g_2, x)\right)$.
+	\end{itemize}
+
+	S'il existe une action entre un groupe $(G, *)$ et un ensemble $S$, on dit que $G$ agit sur $S$.
+	\end{déf}
+
+	\begin{rmq} Pour $g \in G, x \in S$ et $\phi$ une action de $G$ sur $S$, on note souvent $gx = \phi(g, x)$.
+	\end{rmq}
+
+	\begin{déf} Soit $(G, *)$ un groupe et $H \leq G$ un sous-groupe. Une action de $H$ sur $G$ est sous la forme $\phi(h, g) = h*g$. Une telle action est appelée
+	\textit{une translation à gauche} de $H$ par $G$.
+	\end{déf}
+
+	\begin{ex} La conjugaison $c(g)$ est une action.
+	\end{ex}
+
+	\begin{rmq} Soient $(G, *)$ un groupe et $H, K$ deux sous-groupes de $G$ avec $K$ normal. $H$ agit sur $G/K$ par translation gauche~:
+	\[(h, g*K) \mapsto (h*g)*K\]
+	\end{rmq}
+
+	\begin{déf} Soit $(G, *)$ un groupe agissant sur un ensemble $S$. Cette action $\phi$ définit une relation d'équivalence sur $S$~:
+	\[\forall x, x' \in S : x \sim x' \iff \exists g \in G \tq gx = x'.\]
+
+	Les classes d'équivalence induites par $\sim$ (donc les éléments de $S/\sim$) sont appelées les \textit{orbites de $S$ sous l'action de $G$}.
+
+	On note~:
+	\[\mathcal O_x \coloneqq \{gx \tq g \in G\}\]
+	l'orbite de $x \in S$.
+	\end{déf}
+
+	\begin{prp} Les orbites de $S$ sous l'action de $G$ forment une partition de $S$.
+	\end{prp}
+
+	\begin{déf} Si $\abs {S/\sim} = 1$, on dit que l'action est transitive.
+	\end{déf}
+
+	\begin{déf} Soit $(G, *)$ un groupe agissant sur un ensemble $S$, et soit $x \in S$. On définit le \textit{stabilisateur de $x$ dans $G$} par~:
+	\[G_x \coloneqq \{g \in G \tq gx = x\}\]
+	\end{déf}
+
+	\begin{prp} Le stabilisateur de $x \in S$ dans $G$ est un sous-groupe de $G$.
+	\end{prp}
+
+	\begin{proof} Soient $a, b \in G_x$. On observe que~:
+	\[\phi(b^{-1}, x) = \phi(b^{-1}, \phi(b, x))) = \phi(e_G, x) = x.\]
+	Dès lors, $b^{-1} \in G_x$. Montrons alors que $a*b^{-1} \in G_x$~:
+	\[\phi(a*b^{-1}, x) = \phi(a, \phi(b^{-1}, x)) = \phi(a, x) = x.\]
+	\end{proof}
+
+	\begin{déf} Soit $(G, *)$ un groupe. $G$ agit sur lui-même par conjugaison. Pour $x \in G$, on a~:
+	\[G_x = \{g \in G \tq gxg^{-1} = x\} \eqqcolon C_G(x),\]
+	que l'on appelle le \textit{centralisateur de $x$ dans $G$}.
+	\end{déf}
+
+	\begin{déf} Si $G$ agit sur l'ensemble de ses sous-groupe par conjugaison, pour $K \leq G$, on définit~:
+	\[G_K \coloneqq \{g \in G \tq gKg^{-1} = K\} \eqqcolon N_G(K),\]
+	que l'on appelle \textit{normalisateur de $K$ dans $G$}.
+	\end{déf}
+
+	\begin{rmq} On observe que $\eng x \leq C_G(x)$, et $K$ est un sous-groupe normal de $N_G(K)$.
+	\end{rmq}
+
+	\begin{rmq} Soient $(G, *)$ un groupe agissant sur un ensemble $S$, et $G_x$, le stabilisateur de $x$ dans $G$. L'indice de $G_x$ dans $G$ (noté $[G:G_x]$)
+	est égal à~:
+	\[[G:G_x] = \frac {\abs G}{\abs {G_x}}.\]
+	\end{rmq}
+
+	\begin{thm} Soit $(G, *)$ un groupe agissant sur un ensemble $S$. Alors $\forall x \in S$, on a~:
+	\[\abs {\mathcal O_x} = [G:G_x].\]
+	\end{thm}
+
+	\begin{proof} L'application $\varphi : G/G_x \to \mathcal O_x : gG_x \mapsto gx$ est une bijection car~:
+	\[gG_x = \phi(g, G_x) = \{\phi(g, hx) \tq h \in G \text{ et } hx = x\} = \{\phi(g, x)\} = \{gx\}.\]
+	\end{proof}
+
+	\begin{cor} Si $(G, *)$ est un groupe fini, alors~:
+	\begin{enumerate}
+		\item $\forall x \in G : \abs {\{gxg^{-1} \tq g \in G\}} = [G:C_G(x)]$~;
+		\item si $\mathcal O_{x_i}$ pour $i=1, \ldots, m$ sont les classes de conjugaison, distinctes deux à deux, d'éléments de $G$ (avec $x_i \in G$), alors~:
+		\[\abs G = \sum_{k=1}^m\abs {\mathcal O_{x_k}} = \sum_{k=1}^m[G:C_G(x_k)]~;\]
+		\item la cardinalité de l'ensemble des sous-groupes de $G$ qui sont conjugués à un sous-groupe $K$ de $G$ fixé, est égal à~:
+		\[[G:N_G(K)],\]
+		qui divise $\abs G$.
+	\end{enumerate}
+	\end{cor}
+
+	\begin{déf} On définit le \textit{centre du groupe $G$} par~:
+	\[Z(G) \coloneqq C(G) \coloneqq \{x \in G \tq \forall g \in G : gxg^{-1}\}.\]
+	\end{déf}
+
+	\begin{rmq} On observe que $\abs {\mathcal O_{x_i}} = 1 \iff x_i \in C(G)$. Cela amène à la \textit{formule des classes} qui dit que~:
+	\[\abs G = \abs {C(G)} + \sum_{j=1}^n\abs {\mathcal O_{x_j}},\]
+	où $\mathcal O_{x_j}$ sont les classes de conjugaison contenant au moins 2 éléments.
+	\end{rmq}
+
+	\begin{déf} Soit $\phi : G \to S$, une action d'un groupe $G$ sur un ensemble $S$. Pour $g \in G$ fixé, on définit~:
+	\[\phi : S \to S : x \mapsto \phi_g(x) = \phi(g, x) = gx.\]
+	\end{déf}
+
+	\begin{prp} Pour $g \in G$ fixé, $\phi_g$ est une bijection de $S$ dans $S$.
+	\end{prp}
+
+	\begin{proof} Soient $x, y \in S$. Si $\phi_g(x) = \phi_g(y)$, alors $x = \phi(g^{-1}, \phi_g(x)) = \phi(g^{-1}, \phi_g(y)) = y$.
+
+	De plus, soit $x \in S$. On sait que $\phi(g^{-1}, x) \in S$ par définition. Notons $y$ cette valeur. On a alors~:
+	\[\phi_g(y) = \phi_g(g^{-1}x) = x.\]
+
+	$\phi_g$ est donc injective et surjective.
+	\end{proof}
+
+	\begin{déf} Notons $A(S) = \Sym(S)$ le groupe des bijections de $S$ dans $S$ muni de la composition.
+	\end{déf}
+
+	\begin{thm} Soit $\phi : G \times S \to S$. L'application $\widetilde \phi : G \to A(S) : g \mapsto \phi_g$ est un homomorphisme de groupes.
+	\end{thm}
+
+	\begin{thm} Si $(G, *)$ est un groupe, alors il existe un homomorphisme de groupes $\widetilde \phi : G \to \Aut(G)$ tel que $\Ker \widetilde \phi = C(G)$.
+	\end{thm}
+
+	\begin{lem} Soit $G$, un groupe d'ordre fini $p^n$, pour $p$ premier, et $n \in \N^*$. Soit $S$ un ensemble fini sur lequel $G$ agit. Si $S_0$ est un
+	ensemble de points fixes de $S$ sous l'action de $G$~:
+	\[S_0 \coloneqq \{x \in S \tq \forall g \in G : gx = x\},\]
+	alors~:
+	\[\abs S = \abs {S_0} \mod p.\]
+	\end{lem}
+
+	\begin{proof} On écrit $S$ comme une union disjointe d'orbites sous l'action de $G$. On remarque que l'orbite $\mathcal O_x$ d'un point $x \in S$ ne
+	contient qu'un seul point (donc $x$) si et seulement si $x \in S_0$. Donc~:
+	\[S = S_0 \sqcup \mathcal O_{x_1} \sqcup \mathcal O_{x_2} \sqcup \ldots \sqcup \mathcal O_{x_n},\]
+	pour $\abs {\mathcal O_{x_i}} \geq 2$.
+
+	On sait que $\abs {\mathcal O_{x_i}}$ divise $\abs G$ pour tout $i$. Or, seules les puissances de $p$ divisent $\abs G$, donc $p$ divise $\mathcal O_{x_i}$.
+	Or~:
+	\[S \setminus S_0 = \mathcal O_{x_1} \sqcup \ldots \sqcup \mathcal O_{x_n}.\]
+
+	Du coup~:
+	\[\abs S - \abs {S_0} = pK,\]
+	pour un certain $K \in \N^*$, et donc~:
+	\[\abs S = \abs {S_0} + pK = \abs {S_0} \mod p.\]
+	\end{proof}
+
+	\begin{thm}[Théorème de Cauchy] Soit $(G, *)$ un groupe fini, et $p$ un nombre premier qui divise $\abs G$. Alors $G$ possède au moins un élément $g \in G$
+	tel que $\ord(g) = p$.
+	\end{thm}
+
+	\begin{proof} On pose~:
+	\[S \coloneqq \{(g_1, \ldots, g_p) \in G^p \tq g_1\ldots g_p = e_G\}.\]
+
+	Puisque $g_p = (g_1\ldots g_p)^{-1}$, on a $\abs S = \abs G^{p-1}$, et par hypothèse, $p$ divise $\abs G$. Soit $H \simeqq \Z_p$, le groupe cyclique d'ordre
+	$p$ agissant sur $S$ par permutations cycliques du type~:
+	\[\Z_p \times S \to S : \left(k, (g_1, \ldots, g_p)\right) \mapsto k(g_1, \ldots, g_p) \coloneq \left(§g_{k+1}, \ldots, g_p, g_1\ldots, g_k\right).\]
+
+	Posons alors~:
+	\[S_0 \coloneqq \{(g_1, \ldots, g_p) \in S \tq g_1 = \ldots = g_p\} = \{(g, \ldots, g) \in S \tq g^p = e\}.\]
+
+	On sait $\abs {S_0} \geq 1$ car $(e, \ldots, e) \in S_0$. De plus, par le lemme précédent, $p$ divise $\abs {S_0}$, donc $\abs {S_0} \geq 2$.
+
+	Il existe donc au moins une valeur $g \in G$ telle que $g \neq e_G$, et $g^p = e$.
+	\end{proof}
 
 \end{document}
