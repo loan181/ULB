@@ -47,6 +47,7 @@
 \fi
 
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Var}{Var}
 
 \renewcommand{\P}{\mathbb P}
 \newcommand{\E}{\mathbb E}
@@ -1494,5 +1495,206 @@
 	\begin{rmq} Dans certains cas, il n'existe pas de forme analytique (non intégrale) pour la fonction de répartition. Dans ces cas, il faut passer par des
 	méthodes d'interpolation pour estimer la réciproque de la fonction de répartition.
 	\end{rmq}
+
+\section{Simulations à événements discrets}
+	\begin{déf} Un système est dit \textit{à temps discret} si l'ensemble de temps $T$ est discret (dénombrable car infini).
+	\end{déf}
+
+	\begin{déf} Un système à temps discret est dit \textit{synchrone} si les éléments consécutifs de $T$ sont à distance constante.
+
+	Si les intervalles de temps suivent une distribution aléatoire, le système est dit \textit{asynchrone}, ou encore \textit{à événements discrets}.
+	\end{déf}
+
+	\begin{déf} Un \textit{événement} est une entrée qui \textbf{permet} un changement de l'état du système.
+	\end{déf}
+
+	\begin{rmq} Attention~: un événement n'induit pas forcément un changement de l'état. Par exemple, un événement de fin de simulation ne force pas l'état à
+	changer.
+	\end{rmq}
+
+	\subsection{Files d'attente}
+
+	La théorie des files d'attente représente l'accès séquentiel à un nombre limité de ressources.
+
+	\begin{déf} On appelle \textit{client} tout objet nécessitant un accès aux ressources.
+
+	On appelle \textit{service} tout accès aux ressources.
+	\end{déf}
+
+	\begin{rmq} Un service n'est pas desservi instantanément, on considère un intervalle de temps pour un service (qui peut être aléatoire).
+	\end{rmq}
+
+	L'idée des files d'attente est de trouver un compromis entre le nombre de services, l'utilisation moyenne des services, et la satisfaction moyenne des
+	clients.
+
+	\begin{déf} On appelle \textit{file d'attente} l'ensemble des clients qui attendent d'être servis, et on appelle \textit{système d'attente} l'union de la
+	file d'attente et des clients en service.
+	\end{déf}
+
+		\subsubsection{Distributions de probabilité liées aux files d'attentes}
+
+	\begin{déf} La loi de poisson est définie par $X \sim \mathcal P(\lambda)$ pour $\lambda \in \R_0^+$ tel que~:
+	\[\forall k \in \N : \P[X=k] = \exp(-\lambda)\frac {\lambda^k}{k!}.\]
+	\end{déf}
+
+	\begin{prp} Si $X \sim \mathcal P(\lambda)$ pour $\lambda \in \R_0^+$, alors~:
+	\[\E[X] = \lambda = \Var[X].\]
+	\end{prp}
+
+	\begin{déf} Si $t_i \in T$ pour $i \in \N^*$ représente l'instant d'arrivée du $i$ème client, alors, on définit~:
+	\[N(t) \coloneqq \max_{i \in \N^*}\{t_i \in T \tq t_i \leq t\}.\]
+	\end{déf}
+
+	\begin{rmq} $t \mapsto N(t)$ représente le nombre d'arrivées ont été comptabilisées à l'instant $t$, et pour $0 < s \in T $ fixé,
+	$t \mapsto N(t+s) - N(t)$ représente le nombre d'arrivées dans l'intervalle de temps $(t, t+s]$.
+	\end{rmq}
+
+	\begin{déf} Le processus $N : T \to \N^* : t \mapsto N(t)$ est appelé \textit{processus de Poisson} lorsque~:
+	\begin{enumerate}
+		\item les clients arrivent un à la fois (i.e. $\not \exists i \neq j \in \N^* \tq t_i = t_j$)~;
+		\item $\forall t, s \in T : s > 0 \Rightarrow \forall u \in T \tq u \in [0, t] : N(t+s)-N(t) \sqcup N(u)$, où $\sqcup$ désigne l'indépendance~;
+		\item pour $s > 0 \in T$ fixé, la distribution de $t \mapsto N(t+s)-N(t)$ ne dépend pas de $t$.
+	\end{enumerate}
+	\end{déf}
+
+	\begin{thm} Si $t \mapsto N(t)$ est un processus de Poisson, alors, pour $0 < s \in T$ fixé, $t \mapsto N(t+s)-N(t)$ suit une loi Poisson de paramètre
+	$\lambda s$, pour un certain $\lambda \in \R_0^+$.
+	\end{thm}
+
+	\begin{déf} une \textit{loi exponentielle de paramètre $\lambda \in \R_0^+$} est une loi de densité~:
+	\[f : x \mapsto \begin{cases}0 &\text{ si } x < 0 \\\lambda\exp(-\lambda x) &\text{ si } x \geq 0\end{cases}\]
+	\end{déf}
+
+	\begin{prp} Soit $X \sim \mathcal E(\lambda)$, une variable exponentielle de paramètre $\lambda \in \R_0^+$. Alors~:
+	\[\E[X] = \frac 1\lambda \qquad\qquad \text{ et } \qquad\qquad \Var[X] = \frac 1{\lambda^2}.\]
+	\end{prp}
+
+	\begin{thm} Si $t \mapsto N(t)$ est un processus de Poisson de paramètre $\lambda$, alors les variables aléatoires $A_i$ définies par~:
+	\[A_i \coloneqq t_i - t_{i-1},\]
+	pour $i > 0$ sont iid et suivent une loi exponentielle de paramètre $\lambda$.
+	\end{thm}
+
+	\begin{déf} Une distribution de probabilité $\mathcal D$ est dite \textit{sans mémoire} (\textit{memoryless} en anglais) lorsque~:
+	\[\forall X \sim \mathcal D : \P[X \geq x_1 + x_2 \, | \, X \geq A \geq a_1] = \P[X \geq a_2],\]
+	pour $a_1, a_2$ dans le domaine de $X$.
+	\end{déf}
+
+	\begin{prp} La distribution exponentielle est memoryless.
+	\end{prp}
+
+	\begin{rmq} Cette distribution exponentielle est utilisée pour modéliser des comportements de durée de vie sans vieillissement.
+	\end{rmq}
+
+		\subsubsection{Propriétés et notation des files d'attente}
+
+	\begin{rmq} La population de clients, tout comme la capacité du système peut être soit finie, soit infinie. De plus, le temps du service ainsi que le temps
+	entre deux arrivées peut être constant ou probabiliste (loi de Poisson par exemple).
+
+	Une file d'attente peut également modéliser plusieurs comportements de clients, ainsi que plusieurs algorithmes de sélection de client à servir.
+	\end{rmq}
+
+	\begin{déf} Une file d'attente se note (Kendall) sous la forme suivante~:
+	\[F = A/B/c/N_s/K,\]
+	avec~:
+	\begin{itemize}
+		\item $A$ dénotant la distribution du temps entre deux arrivées ($M$ signifie loi exponentielle, et $G$ signifie distribution générique)~;
+		\item $B$ dénotant la distribution du temps de service~;
+		\item $c \in \N^* \cup \{\abs {\N}\}$ dénotant le nombre de services~;
+		\item $N_s$ dénotant la capacité du système~;
+		\item $K$ dénotant la taille de la population de clients.
+	\end{itemize}
+	\end{déf}
+
+	\begin{rmq} Soit $S \in \N^* \cup \{\abs {\N}\}$. Prenons une file d'attente $F = M/M/S/\infty/\infty$. L'état du système peut être donné par~:
+	\begin{itemize}
+		\item $B \in \{0, 1\}^S$, un vecteur déterminant si chaque service est actif ou inactif~;
+		\item $Q_j \in \N^S$, un vecteur déterminant le nombre de clients en attente de chaque service~;
+		\item $S$ vecteurs $\mathcal T_i \in T^{Q_i}$ (taille dynamique/variable)~;
+		\item l'instant du dernier événement.
+	\end{itemize}
+	\end{rmq}
+
+	\begin{rmq} Le caractère extrêmement dynamique des systèmes à événements discrets demande un moyen de gérer l'évolution du temps, par événements.
+
+	Il y a deux méthodes pour gérer l'avancée de temps d'une telle simulation~: l'avancement par incrément fixe~; ou l'avancement jusqu'au prochain événement.
+	Dans le premier cas, il faut trouver un incrément suffisamment petit pour être précis dans les temps d'événements, ce qui peut rendre les simulations lentes,
+	et dans le second cas, il faut gérer un système qui s'occupe de générer les événements et de les déclencher successivement, dans l'ordre désiré.
+	\end{rmq}
+
+	\begin{déf} Les composantes essentielles d'un système à événements discrets sont les suivantes~:
+	\begin{itemize}
+		\item l'état du système~;
+		\item un gestionnaire de temps (\textit{clock})~;
+		\item une liste à priorité d'événements~;
+		\item un compteur statistique (structure conservant les données statistiques à analyser à la fin de la simulation)~;
+		\item gestionnaire d'état en fonction des événements~;
+		\item bibliothèques statistiques (pour analyser les données du compteur statistique)~;
+		\item un générateur de rapport présentant les résultats statistiques.
+	\end{itemize}
+	\end{déf}
+
+		\subsubsection{Indicateurs de performances}
+
+	\begin{déf} Soit $F$, une file d'attente dont l'événement d'arrêt est lancé après que le $n$ème client (pour $n \in \N^*$) soit servi. On définit~:
+	\begin{enumerate}
+		\item le \textit{temps moyen d'attente} $w_q : \N \to T$~;
+		\item le \textit{nombre moyen de clients en attente} $L_q : N \to T$~;
+		\item l'\textit{utilisation moyenne du système} $\rho : \N \to [0, 1]$.
+	\end{enumerate}
+	\end{déf}
+
+	On peut définir $L_q(n)$ par~:
+	\[L_q(n) \coloneqq \sum_{i \geq 0}ip_i,\]
+	où $p_i \in [0, 1]$ représente la proportion de temps où le nombre total de clients en attente était $i \in \N$.
+
+	\begin{prp}[Estimation des indicateurs] On estime $w_q(n)$ par $\hat {w_q}(n) = \overline D$, la moyenne arithmétique des $n$ délais d'attente mesurés.
+
+	On estime $L_q(n)$ par~:
+	\[\hat {L_q}(n) = \frac 1{T(n)} \sum_{i \geq 0}iT_i,\]
+	où $T(n) \in T$ est le temps total de simulation, et pour tout $i \geq 0$, $T_i \in T$ est le délai total où $i$ client étaient en attente.
+
+	On estime $\rho(n)$ par~:
+	\[\hat \rho(n) = \frac 1{T(n)}\int_0^{T(n)}B(t)\dif t,\]
+	avec $B : T \to \{0, \ldots, n\} : t \mapsto \sum_{k=1}^nB_k(t)$, et $B_k(t) \in \{0, 1\}$ est l'indicateur d'utilisation du service $k$.
+	\end{prp}
+
+	\begin{rmq} Si $Q : T \to \N$ est une fonction représentant le nombre de clients en attente à l'instant $t \in T$, $Q$ est constante par paliers (donc
+	intégrable), et on peut alors estimer~:
+	\[\hat {L_q}(n) = \frac 1{T(n)}\int_0^{T(n)}Q(t)\dif t.\]
+	\end{rmq}
+
+		\subsubsection{Résultats analytiques de $M/M/1$}
+
+	\begin{thm} Soit une file d'attente $F = M/M/1$, où le temps entre deux arrivées est une exponentielle de paramètre $\lambda \in \R_0^+$ et où le temps de
+	service suit une exponentielle de paramètre $\mu (> \lambda) \in \R_0^+$, alors~:
+	\[\forall i \geq 0 : \lim_{n \to +\infty}\P[Q(t)=i] = p_i \in [0, 1],\]
+	et~:
+	\[\lim_{n \to +\infty}\left(\hat {w_q}(n), \hat {L_q}(n), \hat \rho(n)\right) = (w_q, L_q, \rho)
+		= \left(\frac \rho{(1-\rho)\mu}, \frac {\rho^2}{1-\rho}, \frac \lambda\mu\right).\]
+
+	De plus, le nombre moyen de clients dans le système $L$, et le temps d'attente moyen dans le système $w$ sont donnés par (pour $n \to +\infty$)~:
+	\[(L, w) = \rho(L_q, w_q),\]
+	et la distribution $f^q : T \to \R^+_0$ du temps d'attente dans la file d'attente et la distribution $f : T \to \R^+_0$ du temps d'attente dans le système
+	sont donnés par~:
+	\[f(t) = (\mu-\lambda)\exp(-t(\mu-\lambda)) \qquad\qquad \text{ et } \qquad\qquad f^q(t) = \rho f(t).\]
+	\end{thm}
+
+	\subsection{Paradigmes et simulateurs}
+
+	\begin{déf} On distingue deux approches (paradigmes) pour programmer un simulateur à événements discrets~:
+	\begin{itemize}
+		\item \textbf{Event-based} où l'accent est mis sur la suite d'événements, indépendamment des entités concernées~;
+		\item \textbf{Process-based} où l'accent est mis sur les entités et leurs interactions.
+	\end{itemize}
+	\end{déf}
+
+	L'approche event-based est gérée par une file à priorité pour les événements qui sélectionne le nouvel événement, en génère un nouveau, le place dans la
+	file, et appelle la sous-routine adaptée à l'événement à gérer.
+
+	L'approche process-based associe une unité d'exécution (thread ou processus par exemple) à chaque entité, et ces entités gèrent mutuellement le temps, à
+	l'aide d'endormissement (sleep) et de réveils (notify). Le paradigme OO est donc adapté pour une telle approche.
+
+	Cette dernière approche permet de représenter plus simplement et de manière plus flexible un système à événements discrets car il suffit d'ajouter des
+	agents, et d'ajouter des méthodes de traitement pour enrichir la simulation.
 
 \end{document}
