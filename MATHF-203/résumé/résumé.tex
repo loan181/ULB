@@ -683,8 +683,8 @@
 	\begin{thm} Si $(G, *)$ est un groupe, alors il existe un homomorphisme de groupes $\widetilde \phi : G \to \Aut(G)$ tel que $\Ker \widetilde \phi = C(G)$.
 	\end{thm}
 
-	\begin{lem} Soit $G$, un groupe d'ordre fini $p^n$, pour $p$ premier, et $n \in \N^*$. Soit $S$ un ensemble fini sur lequel $G$ agit. Si $S_0$ est un
-	ensemble de points fixes de $S$ sous l'action de $G$~:
+	\begin{lem}\label{lem:|S|=|S_0|} Soit $G$, un groupe d'ordre fini $p^n$, pour $p$ premier, et $n \in \N^*$. Soit $S$ un ensemble fini sur lequel $G$ agit.
+	Si $S_0$ est un ensemble de points fixes de $S$ sous l'action de $G$~:
 	\[S_0 \coloneqq \{x \in S \tq \forall g \in G : gx = x\},\]
 	alors~:
 	\[\abs S = \abs {S_0} \mod p.\]
@@ -935,5 +935,100 @@
 
 		Par le lemme précédent et par le théorème fondamental des groupes abéliens finis, on a ce résultat ($T \simeqq \Z^{d(T) \eqqcolon \ell}$).
 		\end{proof}
+
+\section{Les théorèmes de Sylow}
+	\begin{déf} Soit $(G, *)$ un groupe fini, et soit $p$ un diviseur premier de $\abs G$. Si $H$ est un sous-groupe de $G$ tel que $\abs H = p^n$ pour un
+	certain $n \in \N^*$, on dit que $H$ est un \textit{$p$-sous-groupe de $G$}. Si de plus, $p$ ne divise pas $\frac {\abs G}{\abs H}$, on dit que $H$ est un
+	\textit{$p$(-sous-groupe de) Sylow de $G$}.
+	\end{déf}
+
+	\begin{thm}[Premier théorème de Sylow] Soit $G$ un groupe fini et soit $p \in \N$ premier tel que $p$ divise $\abs G$. Alors $G$ possède au moins un $p$-Sylow.
+	\end{thm}
+
+	\begin{proof} Montrons cela par récurrence sur $\abs G$. Si $\exists \alpha \in \N^*$ tel que $\abs G = p^\alpha$, alors $G$ est son propre $p$-Sylow.
+
+	Supposons que le théorème soit faux pour un $G$ d'ordre le plus petit possible. On a donc $\alpha \in \N$ et $m \in \N$ tels que $m > 1, \GCD(p, ,m) = 1$ et
+	$\abs G = p^\alpha m$. On sait de plus (formule des classes)~:
+	\[\abs G = \abs {Z(G)} + \sum_{k=1}^r[G:C_G(x_k)],\]
+	où $\mathcal O_{x_1}, \ldots, \mathcal O_{x_r}$ sont les orbites (classes de conjugaison) de cardinalité $\gneqq 1$.
+
+	\begin{itemize}
+		\item[Cas 1] Supposons qu'il existe un $j$ tel que $p^\alpha$ divise $\abs {C_G(x_j)}$. Puisque $\abs {C_G(x_j)} < \abs G$, l'hypothèse nous donne un
+		$p$-Sylow de $C_G(x_j)$, qui est également un $p$-Sylow de $G$, contradiction.
+
+		\item[Cas 2] Supposons que pour tout $1 \leq j \leq r : p^\alpha$ ne divise pas $\abs {C_G(x_j)}$. On sait~:
+		\[\forall 1 \leq j \leq r : \abs G = \abs {C_G(x_j)}[G:C_G(x_j)].\]
+		Or $p^\alpha$ divise $\abs G$, donc $p^\alpha$ divise $[G:C_G(x_j)]$ pour tout $j$. Par la formule des classes, on a alors $p$ divise $\abs {Z(G)}$.
+
+		De plus, $Z(G)$ est abélien. Par le théorème de Cauchy, il existe $x \in Z(G)$ tel que $\ord(x) = p$. Étant donné que $\eng x$ forme un sous-groupe
+		normal de $G$, on peut poser $G' \coloneqq G/\eng x$. On a $\abs {G'} = \frac {\abs G}p = p^{\alpha-1}m < p^\alpha = \abs G$. Donc par hypothèse de
+		récurrence, il existe $P'$, un $p$-Sylow de $G'$ d'ordre $p^{\alpha-1}$.
+
+		Or, tout sous-groupe de $G/\eng x$ est sous la forme $H/\eng x$, pour $H \leq G$. Il existe donc $P \leq G$ tel que $P/\eng x = P'$. Et donc~:
+		\[\abs {P'} = p^{\alpha-1} = \frac {\abs P}{\abs {\eng x}} = \frac {\abs P}p,\]
+		ou encore $\abs P = p^\alpha$, et donc $P$ est un $p$-Sylow de $G$, ce qui est une contradiction.
+	\end{itemize}
+	\end{proof}
+
+	\begin{rmq} Si $\abs G < +\infty$ et $p$ est premier tel que $p$ divise $\abs G$, alors tout sous-groupe conjugué $xPx^{-1}$ admet un $p$-Sylow.
+
+	Si un groupe $G$ n'admet qu'un seul $p$-Sylow $P$, alors $P$ est normal dans $G$.
+	\end{rmq}
+
+	\begin{thm}[Deuxième théorème de Sylow] Soit $H$, un $p$-sous-groupe d'un groupe fini $G$. Soit $P$, un $p$-Sylow de $G$. Alors il existe $x \in G$ tel que
+	$H \subseteq xPx^{-1}$.
+
+	En particulier, tous les $p$-Sylow sont conjugués.
+	\end{thm}
+
+	\begin{proof} On regarde l'action de $H$ par translation à gauche sur $S \coloneqq G/P$~:
+	\[\phi : H \times S \to S : (h, xP) \mapsto hxP.\]
+
+	Par le Lemme~\ref{lem:|S|=|S_0|}, pour~:
+	\[S_0 = \{x \in S \tq \forall h \in H : \phi(h, xP) = xP\},\]
+	on a~:
+	\[\abs {G/P} = [G:P] = \abs S = \abs {S_0} \mod p.\]
+
+	Or $p$ ne divise pas $\abs S$ car $P$ est un $p$-Sylow. Donc $\abs {S_0} \neq 0$. Donc il existe $xP \in S_0$. Or~:
+	\begin{align*}
+		xP \in S_0 &\iff \forall h \in H : hxP = \phi(h, xP) = xP \\
+		&\iff \forall h \in H : x^{-1}hxP = P \\
+		&\iff \forall h \in H : x^{-1}hx \in P \\
+		&\iff x^{-1}Hx \subseteq P \\
+		&\iff H \subseteq xPx^{-1}.
+	\end{align*}
+	\end{proof}
+
+	\begin{cor} Si $P$ est un $p$-Sylow de $G$, et $P$ est un sous-groupe normal de $G$, alors $P$ est l'unique $p$-Sylow de $G$.
+	\end{cor}
+
+	\begin{thm}[Troisième théorème de Sylow] Soit $G$ un groupe fini et soit $p$ premier tel que $p$ divise $\abs G$. Le nombre de $p$-Sylow de $G$ divise
+	$\abs G$ et est de la forme~:
+	\[[G:N_G(P)] = kp + 1,\]
+	avec $k \in \N$.
+	\end{thm}
+
+	\begin{proof} Par le deuxième théorème de Sylow, ce nombre de $p$-Sylow est égal au nombre de conjugués d'un $p$-Sylow.
+
+	Pour $P$ fixé, on a donc~:
+	\[\abs {\left\{xPx^{-1} \tq x \in G\right\}} = \abs {\mathcal O_P} \eqqcolon \abs {P^G}.\]
+
+	On considère l'action de $G$ sur les sous-groupes de $G$ par conjugaison. Le stabilisateur de $P$ dans cette action est $N_G(P)$.
+	De plus~:
+	\[\abs {\mathcal O_P} = \abs {\left\{xPx^{-1} \tq x \in G\right\}} = [G:N_G(P)] \text{ divise } \abs G.\]
+
+	On regarde l'action de $P$ sur l'ensemble des $p$-Sylow par conjugaison~:
+	\[\phi : P \times \mathcal O_P \to \mathcal O_P : (g, xPx^{-1}) \mapsto \phi(g, xPx^{-1}) = gxPx^{-1}.\]
+
+	Si $S_0$ désigne l'ensemble des $p$-Sylow fixes par cette action, on a~:
+	\begin{align*}
+		Q \in S_0 &\iff \forall g \in P : gQg^{-1} = Q \\
+		&\iff P \leq N_G(Q).
+	\end{align*}
+
+	$P$ et $Q$ sont des $p$-Sylow de $G$, et des sous-groupes de $N_G(Q)$. Dès lors, $P$ et $Q$ sont conjugués dans $N_G(Q)$. Ainsi, on a
+	$P = xQx^{-1}$, pour $x \in N_G(Q)$. Comme $Q$ est normal dans $N_G(Q)$, on a $xQx^{-1} = Q$, et donc $P=Q$. Il y a donc un unique élément dans $S_0$, et
+	par la formule $\abs S = \abs {S_0} \mod p = 1 \mod p$, on trouve $\abs S = 1 + kp$, pour $k \in \N$.
+	\end{proof}
 
 \end{document}
