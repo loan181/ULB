@@ -57,6 +57,8 @@
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\GCD}{GCD}
+\DeclareMathOperator{\LCM}{LCM}
 
 \newcommand{\K}{\mathbb K}
 \newcommand{\C}{\mathbb C}
@@ -70,6 +72,7 @@
 \newcommand{\simeqq}{\cong}
 
 \newcommand{\eng}[1]{\left\langle#1\right\rangle}
+\newcommand{\restr}[2]{\left.#1\vphantom{\big|}\right|_{#2}}
 
 \begin{document}
 \pagenumbering{Roman}
@@ -181,8 +184,8 @@
 		$a^{-1} = e*a^{-1} \in S$. Et $S$ est stable par $*$ car si $a, b \in S$, on sait que $b^{-1} \in S$, et donc $a*\left(b^{-1}\right)^{-1} \in S$.
 		\end{proof}
 
-		\begin{prp} Si $\{S_\alpha \tq \alpha \in I\}$ est une famille de sous-groupes de $(G, *)$, alors $S \coloneqq \bigcap_{\alpha \in I}S_\alpha$ est un
-		sous-groupe de $(G, *)$ également.
+		\begin{prp}\label{prp:intersection_sous-groupes} Si $\{S_\alpha \tq \alpha \in I\}$ est une famille de sous-groupes de $(G, *)$, alors
+		$S \coloneqq \bigcap_{\alpha \in I}S_\alpha$ est un sous-groupe de $(G, *)$ également.
 		\end{prp}
 
 		\begin{proof} On sait que $e \in S$ car $e \in S_\alpha$ pour tout $\alpha \in I$. Donc $S \neq \emptyset$. Prenons $a, b \in S$. On sait que
@@ -720,5 +723,217 @@
 
 	Il existe donc au moins une valeur $g \in G$ telle que $g \neq e_G$, et $g^p = e$.
 	\end{proof}
+
+\section{Groupes abéliens}
+	\begin{lem} Si $(G, *)$ est un groupe cyclique, alors tout sous-groupe de $G$ est cyclique.
+	\end{lem}
+
+	\begin{proof} Soit $g \in G$ tel que $G = \eng g$. Soit $H \leq G$, un sous-groupe de $G$. Posons~:
+	\[A \coloneqq \{\ell \in \Z \tq g^\ell \in H\}.\]
+
+	Prenons $\ell, m \in A$. On a alors $g^{\ell-m} = g^\ell*(g^m)^{-1}$, la composition de deux éléments de $H$. Donc $\ell-m \in A$, ce qui fait de $A$ un
+	sous-groupe de $\Z$. Si $A = \{0\}$, alors $A$ est trivialement cyclique, et sinon soit $n$, le plus petit entier strictement positif de $A$. On a alors
+	$A \simeqq n\Z$.
+	\end{proof}
+
+	\begin{lem} Soit $G = \eng g$, un groupe cyclique d'ordre $n \lneqq +\infty$, et soit $\ell \in \N^*$. Alors~:
+	\[\abs {\eng {g^\ell}} = \frac n{\GCD(n, \ell)}\]
+	\end{lem}
+
+	\begin{proof} On cherche le plus petit entier positif $k$ tel que $(g^\ell)^k = g^{k\ell} = e$. On a~:
+	\[\begin{cases}
+		\ell &= \GCD(\ell, n)r \\
+		n &= \GCD(\ell, n)s,
+	\end{cases}\]
+	pour $s, r \in \N$, avec $\GCD(r, s) = 1$. Si $g^{k\ell} = e$, c'est que $n$ divise $k\ell$, et donc $\frac n{\GCD(n, \ell} = s$ divise $k$. De plus~:
+	\[\left(g^{\ell}\right)^{\frac n{\GCD(n, \ell)}} = g^{\frac {\ell n}{\GCD(n, \ell)}} = g^{nr} = e^r = e.\]
+
+	On en déduit que $k = \ord(g^\ell)$ divise $\frac n{\GCD(n, \ell)}$. Donc $k = \frac n{\GCD(n, \ell)}$.
+	\end{proof}
+
+	\begin{ex} On sait que $\Z_{30} = \eng {1}$. Alors $\abs {\{5, 10, 15, 20, 25, 0\}} = \abs {\eng 5} = \frac {30}5 = 6$.
+	\end{ex}
+
+	\begin{déf} Dans un groupe abélien, on prend pour convention d'écrire la loi de composition $+$, de noter l'inverse par de $g \in G$ par $-g \in G$, et
+	de noter la composition $n$ fois par $g^n = ng$.
+	\end{déf}
+
+	\begin{lem} Soit $\varphi : H \to K$, un morphisme de groupes abéliens. Si $\Ker \varphi$ et $\Imf \varphi$ sont engendrés par un ensemble fini, alors $H$
+	l'est également.
+	\end{lem}
+
+	\begin{proof} Soient $\{k_1, \ldots, k_r\}$ et $\{i_1, \ldots, i_s\}$, ensembles générateurs respectivement de $\Ker \varphi$ et $\Imf \varphi$.
+	Pour $j = 1, \ldots, s$, on prend $h_j \in H \tq \varphi(h_j) = i_j$. Montrons que $\{k_1, \ldots, k_r\} \cup \{h_1, \ldots, h_s\}$ est un ensemble
+	générateur de $H$.
+
+	Soit $x \in H$. Il existe $(a_1, \ldots, a_s) \in \Z^s$, tel qu'on peut écrire~:
+	\[\varphi(x) = \sum_{k=1}^sa_ki_k.\]
+	Par définition des $h_j$ et par propriétés de morphismes, on peut écrire~:
+	\begin{align*}
+		\varphi(x) &= \sum_{k=1}^sa_k\varphi(h_k) = \varphi\left(\sum_{k=1}^sa_kh_k\right) \\
+		0 &= \varphi(x) - \varphi\left(\sum_{k=1}^sa_kh_k\right) = \varphi\left(x - \sum_{k=1}^sa_kh_k\right) \\
+		\Ker \varphi &\ni x - \sum_{k=1}^sa_kh_k,
+	\end{align*}
+	et donc il existe $(b_1, \ldots, b_r) \in \Z^r$ tel qu'on peut écrire~:
+	\[x - \sum_{k=1}^sa_kh_k = \sum_{t=1}^rb_tk_t,\]
+	ou encore~:
+	\[x = \sum_{k=1}^sa_kh_k + \sum_{t=1}^rb_tk_t.\]
+
+	$H$ est bien généré par $\{h_1, \ldots, h_s, k_1, \ldots, k_r\}$.
+	\end{proof}
+
+	\begin{prp} Tout sous-groupe d'un groupe abélien finiment engendré est finiment engendré.
+	\end{prp}
+
+	\begin{proof} Soit $\{g_1, \ldots, g_n\}$, un ensemble générateur de $G$. Pour $1 \leq k \leq n$, on définit~:
+	\[G_k \coloneqq \eng{g_1, \ldots, g_k}.\]
+
+	Soit $H$ un sous-groupe de $G$, et posons $H_i \coloneqq H \cap G_i$ pour $i = 1, \ldots, n$.
+
+	Montrons ce résultat par récurrence sur $G_k$.
+
+	Pour $k=1$, le groupe $G_k = G_1 = \eng {g_1}$ est un groupe cyclique, et par propriété d'intersection (Proposition~\ref{prp:intersection_sous-groupes}), on
+	sait que $H_1$ est un sous-groupe, et cyclique qui plus est.
+
+	Supposons alors pour $j < n$ que tout sous-groupe de $G_j$ est finiment engendré. Considérons alors la projection~:
+	\[\phi_j : G_{j+1} \to G_{j+1}/G_n,\]
+	un morphisme de groupes. Intéressons-nous à la restriction de $\phi_j$ à $H_{j+1}$. Puisque $\Ker \phi_j = G_j$, on trouve~:
+	\[\Ker \restr {\phi_j}{H_{j+1}} = H_{j+1} \cap G_j,\]
+	et $H_{j+1} \cap G_j$ est un sous-groupe de $G_j$. Or, par hypothèse, on suppose que tout sous-groupe de $G_j$ est finiment engendré. Donc
+	$\Ker \restr {\phi_k}{H_{j+1}}$ est finiment engendré.
+
+	De plus, $\Imf \phi_k \leq G_{j+1}/G_j = \eng {g_{j+1}+G_k}$. Donc $\Imf \restr {\phi_k}{H_{j+1}} \leq \Imf \phi_k$ est finiment engendré.
+
+	Par le lemme précédent, on trouve que $H_{j+1}$ est finiment engendré. La propriété est en particulier vraie pour $j=n$, et donc pour $G$.
+	\end{proof}
+
+	\begin{thm}[Théorème fondamental des groupes abéliens finis] Soit $(G, +)$ un groupe abélien fini. Alors il existe une unique suite
+	$(n_1, \ldots, n_{d(G)}) \in \Z^{d(G)}$ telle que~:
+	\[\prod_{i=1}^{d(G)}n_i = \abs G,\]
+	et~:
+	\[G \simeqq \prod_{k=1}^{d(G)}\Z_{n_k},\]
+	avec $d(G)$ la cardinalité du plus petit générateur de $G$ (au sens de l'inclusion), tel que $\forall 1 \leq k \lneqq d(G) : n_k$ divise $n_{k+1}$.
+	\end{thm}
+
+	\begin{proof} Montrons cela par récurrence. Si $d(G) = 1$, alors $G$ est cyclique, et donc isomorphe à $\Z_{n_1}$.
+
+	Supposons alors $d(G) \geq 2$ tel que pour tout groupe abélien $G'$ tel que $d(G') \lneqq d(G)$, le théorème est vrai. Soit $m$, le plus petit entier
+	strictement positif tel qu'il existe $\{g_1, \ldots, g_{d(G)}\}$, un ensemble générateur de $G$ satisfaisant~:
+	\begin{align}\label{eq:mg_1+...=0}
+		mg_1 + \sum_{k=2}^{d(G)}a_kg_k = 0.
+	\end{align}
+
+	Pour $i \in \{2, \ldots, d(G)\}$, on pose~:
+	\[a_i = mq_i + r_i,\]
+	pour $q_i \in \N$, et $r_i \in \N$ tel que $r_i \lneqq m$.
+
+	Posons ensuite~:
+	\[h_1 \coloneqq g_1 + \sum_{k=2}^{d(G)}q_kg_k.\]
+	L'équation~\eqref{eq:mg_1+...=0} devient alors~:
+	\[m\left(g_1 + q_2g_2 + \ldots + q_{d(G)}g_{d(G)}\right) + \sum_{k=2}^{d(G)}r_kg_k = mh_1 + \sum_{k=2}^{d(G)}r_kg_k = 0.\]
+
+	On trouve alors, par définition de $m$, $r_2 = \ldots = r_{d(G)} = 0$, et donc $mh_1 = 0$, avec $m \neq 0$, donc $m$ divise $\ord(h_1)$. Or $m$ est le
+	plus petit entier avec cette propriété. Donc $m = \ord(h_1)$.
+
+	On a un morphisme surjectif de groupes~: $\Theta : \eng {h_1} \times \eng {g_2, \ldots, g_{d(G)}} \to G : (a, b) \mapsto a+b$. On observe que $\Theta$
+	est injective car $(a, b) \in \Ker \Theta \iff a = b = e$ par~\eqref{eq:mg_1+...=0}. Donc $\Theta$ est un isomorphisme, et donc~:
+	\[\exists G' \tq G \simeqq Z_m \times G',\]
+	et par récurrence, on a $\exists (n_2, \ldots, n_{d(G)})$ tel que~:
+	\[G' \simeqq \Z_{n_1} \times \ldots \Z_{n_{d(G)}}.\]
+
+	Il reste alors à montrer que $m$ divise $n_2$. On pose $n_2 = mq + r$, et on observe que $mh_1 + n_2h_2 = 0$ si $h_2$ engendre $\Z_{n_2}$. On a donc~:
+	\[m\left(h_1 + qh_2\right) + rh_2 = 0 \Rightarrow r = 0.\]
+	\end{proof}
+
+	\subsection{Groupes abéliens de type fini}
+		\begin{déf} Un groupe abélien est dit \textit{de type fini} lorsqu'il est engendré par un ensemble fini.
+		\end{déf}
+
+		\begin{déf} La \textit{torsion} $T$ d'un groupe $(G, *)$ est définie par~:
+		\[T \coloneqq \{g \in G \tq \ord(g) \lneqq +\infty\}.\]
+		\end{déf}
+
+		\begin{rmq} On remarque que $e$ est toujours dans la torsion du groupe dont il est le neutre.
+		\end{rmq}
+
+		\begin{déf} Un groupe $(G, *)$ de torsion $T = \{e\}$ est dit \textit{sans torsion}, et un groupe de torsion $T=G$ est dit \textit{de torsion}.
+		\end{déf}
+
+		\begin{prp} La torsion $T$ d'un groupe abélien de type fini $G$ est un sous-groupe de $G$.
+		\end{prp}
+
+		\begin{proof} Soient $x, y \in T$. On sait que $y^{-1} \in T$ car $\ord(y) = \ord(y^{-1})$. Puisque $G$ est de type fini, on sait~:
+		\[x = \sum_{i=1}^{d(G)}a_ig_i \qquad\qquad \text{ et } \qquad\qquad y = \sum_{i=1}^{d(G)}b_ig_i,\]
+		pour $\{g_1, \ldots g_{d(G)}\} \subset G$ tel que $G = \eng {g_1, \ldots, g_{d(G)}}$. Dès lors~:
+		\[\ord(x)\ord(y)(x-y) = \ord(x)\ord(y)\sum_{i=1}^{d(G)}(a_i-b_i)g_i = \ord(y)\left(\ord(x)x\right) - \ord(x)\left(\ord(y)y\right) = \ord(x)e - \ord(y)e = e.\]
+
+		Dès lors, $x-y$ a un ordre fini qui divise $\ord(x)\ord(y)$ (à savoir $\LCM(\ord(x), \ord(y))$).
+		\end{proof}
+
+		\begin{thm}\label{thm:G simeqq Z^d(G)} Soit $(G, +)$ un groupe abélien sans torsion de type fini. Alors $G \simeqq \Z^{d(G)}$.
+		\end{thm}
+
+		\begin{proof} Soit $\hat g \coloneqq \{g_1, \ldots, g_{d(G)}\}$, une partie génératrice de $G$. On définit~:
+		\[\Pi : \Z^{d(G)} \to G : (a_1, \ldots, a_{d(G)}) \mapsto \sum_{i=1}^{d(G)}a_ig_i,\]
+		un morphisme de groupes surjectif.
+
+		Montrons que $\Pi$ est injectif. Si $(a_1, \ldots, a_{d(G)}) \in \Ker \Pi$, alors~:
+		\begin{align}\label{eq:a_ig_i}
+			\sum_{i=1}^{d(G)}a_ig_i = 0.
+		\end{align}
+
+		De plus, $G$ est sans torsion, donc tout $g \in G$ tel que $g \neq e_G$ est d'ordre infini. En considérant $(a_1, \ldots, a_{d(G)}) \neq (0, \ldots, 0)$,
+		on déduit qu'il existe au moins deux coefficients non-nuls. Prenons $a_1$ et $a_2$ (réorganisation des indices). Supposons $\abs {a_1} > \abs {a_2}$
+		sans perte de généralité.
+
+		Si $a_1a_2 > 0$ (même signe), alors $\abs {a_1-a_2} < \abs {a_1}$. L'équation~\eqref{eq:a_ig_i} devient alors~:
+		\[(a_1-a_2)g_1 + a_2(g_1+g_2) + \sum_{i=3}^{d(G)}a_ig_i = 0.\]
+
+		Si $a_1a_2 < 0$ (signe opposé), alors $\abs {a_1+a_2} < \abs {a_1} < \abs {a_1-a_2}$. L'équation~\eqref{eq:a_ig_i} devient alors~:
+		\[(a_1+a_2)g_1 + a_2(g_2-g_1) + \sum_{i=3}^{d(G)} = 0.\]
+
+		En réitérant un nombre fini de fois, on montre qu'il existe un élément différent de $e_G$ d'ordre fini, ce qui est une contradiction.
+
+		$\Pi$ est donc injective, donc bijective, et donc un isomorphisme.
+		\end{proof}
+
+		\begin{lem} Soit $(G, +)$ un groupe abélien de type fini. $G/T$ est un groupe sans torsion.
+		\end{lem}
+
+		\begin{proof} Soit $g \in G$ tel que $T \neq g+T \in G/T$. Dès lors, $g \not \in T$, et donc, $\nexists n \in \N \tq ng+T = T$.
+		\end{proof}
+
+		\begin{lem} Tout groupe abélien $(G, +)$ de type fini est isomorphe au produit direct d'un groupe abélien fini et d'un groupe abélien sans torsion de
+		type fini.
+		\end{lem}
+
+		\begin{proof} $T$ est un sous-groupe de $G$. Considérons $G/T$, qui est sans torsion (lemme précédent). Soit $\pi : G \to G/T$, la projection canonique.
+		Par le Théorème~\ref{thm:G simeqq Z^d(G)}, $G/T \simeqq \Z^\ell$, pour $\ell \coloneqq d(G/T)$. Soit $\{g_1+T, \ldots, g_\ell+T\}$ un ensemble
+		générateur de $G/T$.
+
+		Soit $f : G/T \to G : \sum_{i=1}^\ell a_ig_i \mapsto \sum_{i=1}^\ell a_ig_i$. $f$ est un morphisme injectif, et donc~:
+		\[\pi \circ f : G/T \to G/T = \Id_{G/T}.\]
+
+		Soit $O : T \times G/T \to G : (t, x) \mapsto O(t, x) = t+f(x)$. $O$ est surjectif. En effet~:
+		\[\forall g \in G : \pi(g-(f \circ \pi)(g)) = \pi(g) - (\pi \circ f)(\pi(g)) = \pi(g) - \pi(g) = 0,\]
+		et donc $t(g) \coloneqq g - (f \circ \pi)(g) \in \Ker \pi = T$. Or~:
+		\[g = g - (f \circ \pi)(g) + (f \circ \pi)(g) = t(g) + (f \circ \pi)(g) = O(g, \pi(g)).\]
+
+		De plus, $O$ est injective car $O(t, x) = 0$ si et seulement si $t = -f(x)$, donc $f(x) \in T$ car $0 \in T$. $f$ est un morphisme, donc si $f(x)$ est
+		d'ordre fini, alors $x$ est d'ordre fini car $f(nx) = nf(x)$. De plus, si $x$ est d'ordre fini et $f$ est injective, il faut $x=0$ car $x$ est dans
+		la torsion de $G/T$. On a donc $O(t, x) = 0 \iff (t, x) = (0_T, 0_{G/T})$.
+		\end{proof}
+
+		\begin{thm} Soit $(G, +)$ un groupe abélien de type fini. Alors il existe $\ell > 0$ et une suite unique d'entiers positifs $(n_1, \ldots, n_k)$
+		tel que $n_j$ divise $n_{j+1}$ pour $1  \leq j \lneqq k$ et $G \simeqq \Z^\ell \times \Z_{n_1} \times \ldots \times \Z_{n_k}$.
+		\end{thm}
+
+		\begin{proof} Montrons que $\abs T < +\infty$. $T$ est un groupe de torsion de type fini puisque $G$ est de type fini.
+		Il existe donc un générateur de $T$~: $\{t_1, \ldots, t_{d(T)}\}$ tel que pour $x \in T$~:
+		\[x = \sum_{i=1}^{d(T)}a_it_i.\]
+		Donc $\abs T \leq \LCM\left(a_1, \ldots, a_{d(T)}\right) < +\infty$.
+
+		Par le lemme précédent et par le théorème fondamental des groupes abéliens finis, on a ce résultat ($T \simeqq \Z^{d(T) \eqqcolon \ell}$).
+		\end{proof}
 
 \end{document}
