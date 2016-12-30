@@ -1031,4 +1031,208 @@
 	par la formule $\abs S = \abs {S_0} \mod p = 1 \mod p$, on trouve $\abs S = 1 + kp$, pour $k \in \N$.
 	\end{proof}
 
+\section{Classification des groupes finis}
+	\begin{déf} Un groupe fini $(G, *)$ est dit \textit{simple} s'il ne possède pas de sous-groupe normal non-trivial.
+	\end{déf}
+
+	\subsection{Produits direct et semi-direct de groupes}
+		\begin{déf} Le \textit{produit direct} de deux groupes $H$ et $K$ est le groupe~:
+		\[H \times K \coloneqq \{(h, k) \tq h \in H, k \in K\},\]
+		muni de la loi de groupe définie par~:
+		\[\forall (h, k), (h', k') \in H \times K : (h, k) \cdot (h', k') = (hh', kk').\]
+		\end{déf}
+
+		\begin{lem} Soit $(G, *)$ un groupe. Soient $H, K \leq G$ tels que~:
+		\begin{enumerate}
+			\item $H, K$ sont normaux dans $G$~;
+			\item $G = HK \coloneqq \{hk \tq (h, k) \in H \times K\}$~;
+			\item $H \cap K = \{e\}$.
+		\end{enumerate}
+		Alors $G \simeqq H \times K$.
+		\end{lem}
+
+		\begin{proof} $\psi : H \times K \to G : (h, k) \mapsto hk$ est un isomorphisme.
+
+		En effet~:
+		\begin{align*}
+			hkh^{-1}k^{-1} &= h(kh^{-1}k^{-1}) \in H (\text{ car $H$ est normal dans $G$}) \\
+			&= (hkh^{-1})k^{-1} \in K (\text{ car $K$ est normal dans $G$}).
+		\end{align*}
+
+		Donc $hkh^{-1}k^{-1} = e$, ou encore $hk = kh$. Donc~:
+		\[\psi\left((h, k)(h', k')\right) = \psi(hh', kk') = hh'kk' = hkh'k' = \psi(h, k)\psi(h', k').\]
+
+		Puisque $\psi$ est un morphisme, il reste à montrer que $\psi$ est bijective.
+
+		$\psi$ est surjective par la seconde hypothèse, et injective car $\psi(h, k) = hk = e \iff h=k^{-1} \in H \cap K$, donc $h=k=e$.
+		\end{proof}
+
+		\begin{déf} Soient $H$ et $K$ deux groupes et soit $\varphi : K \to \Aut(H)$, un morphisme de groupes défini par~:
+		\begin{align*}
+			\forall h, h' \in H : \forall k, k' \in K : &\varphi(k)(hh') = \varphi(k)(h)\varphi(k)(h'), \\
+			&\varphi(kk')(h) = (\varphi(k) \circ \varphi(k'))(h).
+		\end{align*}
+
+		Le \textit{produit semi-direct} de $H$ et $K$ (associé à $\varphi$), noté $H \rtimes_\varphi K$ est le groupe~:
+		\[H \rtimes_\varphi K \coloneqq \{(h, k) \in H \times K\},\]
+		avec la loi de groupe définie par~:
+		\[(h, k) \cdot_\varphi (h', k') = \left(h\varphi(k)(h'), kk'\right).\]
+		\end{déf}
+
+		\begin{rmq}~
+		\begin{enumerate}
+			\item On a bien l'associativité de la loi de groupe~:
+			\begin{align*}
+				\left((h, k)(h', k')\right)(h'', k'') &= \left((h\varphi(k)(h'), kk'\right)(h'', k'') = \left(h\varphi(k)(h')\varphi(kk')(h''), kk'k''\right) \\
+				&= \left(h\varphi(k)(h')\varphi(k)\left(\varphi(k')(h'')\right), kk'k''\right) = (h, k)\left(h'\varphi(k')(h''), k'k''\right) \\
+				&= (h, k)\left((h', k')(h'', k'')\right).
+			\end{align*}
+
+			De plus, le neutre est donné par~:
+			\[e_{H \rtimes_\varphi K} = (e_H, e_K) \in H \rtimes_\varphi K,\]
+			et l'inverse de $(h, k)$ est donné par~:
+			\[(h, k)^{-1} = \left(\varphi(k^{-1})(h^{-1}), k^{-1}\right).\]
+
+			\item Le sous-groupe $\widetilde H \coloneqq \{(h, e_K) \tq h \in H\}$ est isomorphe à $H$ et $\widetilde H$ est normal dans $H \rtimes_\varphi K$.
+
+			\item Le sous-groupe $\widetilde K \coloneqq \{(e_H, k) \tq k \in K\}$ est un sous-groupe de $H \rtimes_\varphi K$ isomorphe à $K$.
+
+			\item $G = H \rtimes_\varphi K$ est égal à $\widetilde H\widetilde K$, où $\widetilde H\widetilde K = \{(h, e_K)(e_H, k) \tq (h, k) \in H \times K\}$.
+
+			\item $\widetilde H \cap \widetilde K = \{(e_H, e_K)\}$.
+		\end{enumerate}
+		\end{rmq}
+
+		\begin{lem} Soit $(G, *)$ un groupe, et soient $H, K \leq G$ tels que~:
+		\begin{enumerate}
+			\item $H$ est normal dans $G$~;
+			\item $G = HK$~;
+			\item $H \cap K = \{e\}$.
+		\end{enumerate}
+
+		Alors $G \simeqq H \rtimes_\varphi K$ où $\varphi : K \to \Aut(H) : k \mapsto \varphi(k)$, avec~:
+		\[\varphi(k) : H \to H : h \mapsto \varphi(k)(h) = khk^{-1}.\]
+		\end{lem}
+
+		\begin{proof} $\psi : H \rtimes_\varphi K \to G : (h, k) \mapsto hk$ est un isomorphisme.
+
+		En effet~:
+		\[\psi\left((h, k)(h', k')\right) = \psi(h\varphi(k)(h'), kk') = \psi\left(hkh'k^{-1}, kk'\right)
+			= hkh'k^{-1}kk' = hkh'k' = \psi(h, k)\psi(h', k').\]
+
+		À nouveau, $\psi$ est surjective car $G = HK$, et injective car $H \cap K = \{e\}$.
+		\end{proof}
+
+		\begin{rmq} Si $\varphi : K \to \Aut(H) : k \mapsto \Id_H$ est le morphisme trivial, alors~:
+		\[H \rtimes_\varphi K \simeqq H \times K.\]
+		\end{rmq}
+
+		\begin{lem} Soient $H$ et $K$ deux groupes. Soit $\varphi : K \to \Aut(H)$, un morphisme de groupes.
+		\begin{itemize}
+			\item Si $\alpha \in \Aut(K)$, alors $\varphi \circ \alpha \eqqcolon \varphi' : K \to \Aut(H)$ est un morphisme de groupes et~:
+			\[H \rtimes_{\varphi'} K \simeqq H \rtimes_\varphi K.\]
+
+			\item Si $\beta \in \Aut(H)$, alors l'application $\widetilde \varphi : K \to \Aut(H) : k \mapsto \beta \circ \varphi(k) \circ \beta^{-1}$
+			est un morphisme de groupes et~:
+			\[H \rtimes_{\widetilde \varphi} K \simeqq H \rtimes_\varphi K.\]
+		\end{itemize}
+		\end{lem}
+
+		\begin{proof} Pour le premier point, prenons $\psi : H \rtimes_{\varphi'} K \to H \rtimes_\varphi K : (h, k) \mapsto (h, \alpha(k))$. On a~:
+		\[\psi\left((h, k) \cdot_{\varphi \circ \alpha} (h', k')\right) = \psi(h\varphi(\alpha(k))(h'), kk') = \left(h\varphi(\alpha(k))(h'), \alpha(kk')\right)
+			= \psi(h, k) \cdot_\varphi \psi(h', k').\]
+
+		Pour le second point, prenons $\psi' : H \rtimes_{\widetilde \varphi} K \to H \rtimes_\varphi K : (h, k) \mapsto (\beta^{-1}(h), k)$. On a~:
+		\begin{align*}
+			\psi'\left((h, k)\cdot_{\widetilde \varphi} (h', k')\right) &= \psi'\left(h\widetilde \varphi(k)(h'), kk'\right)
+				= \psi'\left(h\beta\left(\varphi(k)\left(\beta^{-1}(h')\right)\right), kk'\right) \\
+				&= \psi'\left(\beta^{-1}\left[h\beta\left(\varphi(k)\left(\beta^{-1}(h')\right)\right)\right], kk'\right) \\
+				&= \left(\beta^{-1}(h)\varphi(k)(\beta^{-1}(h')), kk'\right) = \left(\beta^{-1}(h), k\right) \cdot_\varphi \left(\beta^{-1}(h'), k'\right) \\
+				&= \psi(h, k) \cdot_\varphi \psi(h', k').
+		\end{align*}
+		\end{proof}
+
+		% TODO: faire le petit dessin (organigramme) à la main sur la feuille
+
+		\begin{lem} Soit $p$ premier. Le groupe $\Aut(\Z_p)$ est isomorphe à $\Z_{p-1} \simeqq \Z_p^*$.
+		\end{lem}
+
+		\begin{proof} Soit $\sigma \in \Aut(\Z_p)$. $\sigma$ est entièrement déterminé par $\sigma(1) \neq 0$. Réciproquement, pour $q \in \Z_p^*$,
+		on peut construire $\sigma_q \in \Aut(\Z_p)$ tel que $\sigma_q(1) = q$.
+
+		Pour $n \in \{0, \ldots, p-1\}$, on a $\sigma_q(n) = nq$, et donc $\sigma_q(n+m) = \sigma_q(n) + \sigma_q(m)$.
+
+		Pour $\psi : \Aut(\Z_p) \to \Z_p^* : \sigma_q \mapsto \sigma_q(1)$ est un morphisme. On a $\Ker \psi = \{\sigma_q \in \Aut(\Z_p) \tq \sigma_q(1) = 1\}$,
+		ou encore $\Ker \psi = \{1\}$, et donc $\Aut(\Z_p) \simeqq \Z_p^*$.
+		\end{proof}
+
+		\begin{lem} Soient $p, q$ deux nombres premiers, tels que $p < q$. Alors il existe un morphisme non-trivial de groupes~:
+		\[\varphi : \Z_p \to \Aut(\Z_q)\]
+		si et seulement si $p$ divise $q-1$.
+		\end{lem}
+
+		\begin{proof} \proofright Soit $\varphi$ un morphisme non-trivial (c-à-d $\Ker \varphi \neq \Z_p$). Puisque $\Ker \varphi \leq \Z_p$, on a $\Ker\varphi
+		= \{0_{\Z_p}\}$. On a alors~:
+		\[\varphi\left(\Z_p\right) = \Z_p \leq \Aut(\Z_p) \simeqq \Z_{q-1},\]
+		et donc $p$ divise $q-1$.
+
+		\proofleft Supposons que $p$ divise $q-1$. Dès lors, on a~:
+		\[\Aut(\Z_p) \simeqq \Z_{q-1}\]
+		possède un sous-groupe d'ordre $p$. On prend un générateur de $\Aut(\Z_p)$ donné par~:
+		\[\varphi_\beta : \Z_p \to \Aut(\Z_q) : k \mapsto \beta^{k\frac {q-1}p},\]
+		qui est un morphisme non-trivial.
+		\end{proof}
+
+		\begin{prp}~
+		\begin{enumerate}
+			\item Soit $\varphi_\beta$, le morphisme précédent (pour $p$ divise $q-1$). Alors $\Z_q \rtimes_{\varphi_\beta} \Z_p$ est un groupe non-abélien
+			d'ordre $p \cdot q$.
+
+			\item Si $\varphi$ et $\psi$ sont deux morphismes non-triviaux de $\Z_p$ dans $\Aut(\Z_q)$, alors~:
+			\[\Z_q \rtimes_\varphi \Z_p \simeqq \Z_q \rtimes_\psi \Z_p.\]
+			À isomorphisme près, il existe un unique produit semi-direct non-abélien de $\Z_q$ avec $\Z_p$ si $p$ divise $q-1$.
+		\end{enumerate}
+		\end{prp}
+
+		\begin{proof} Pour le premier point, $\Z_q \rtimes_{\varphi_\beta} \Z_p$ est non-commutatif~:
+		\begin{align*}
+			(h, 0_{\Z_p})(0_{\Z_q}, k) &= (h, k) \\
+			(0_{\Z_q}, k)(h, 0_{\Z_p}) &= (\varphi_\beta(k)(h), k),
+		\end{align*}
+		et $\varphi_\beta \neq \Id$ car $\varphi_\beta$ est un morphisme non-trivial.
+
+		Pour le second point, on a $\varphi$ et $\psi$ deux morphismes non-triviaux. Alors $\Imf \varphi = \Imf \psi$ est l'unique sous-groupe de $\Aut(\Z_q)$
+		engendré par $\beta^{\frac {q-1}p}$.
+
+		Si $\varphi(1) = \beta$ et $\psi(1) = \beta^k$, alors on a~:
+		\[\psi = \varphi \circ \alpha,\]
+		où~:
+		\[\alpha : \Z_p \to \Z_p : 1 \mapsto k.\]
+
+		On a donc l'isomorphisme entre les produits semi-directs.
+		\end{proof}
+
+		\begin{thm} Soient $p$ et $q$ deux nombres premiers avec $p < q$.
+		\begin{itemize}
+			\item Si $p$ ne divise pas $q-1$, alors tout groupe d'ordre $p \cdot q$ est $\simeq \Z_{pq} \simeqq \Z_p \times \Z_q$.
+
+			\item Si $p$ divise $q-1$, alors il existe, à isomorphisme près, exactement deux groupes distincts d'ordre $pq$~:
+			\begin{itemize}
+				\item le groupe cyclique $\Z_{pq} = \Z_p \times \Z_q$~;
+				\item le groupe non-abélien $\Z_q \rtimes_\varphi \Z_p$.
+			\end{itemize}
+		\end{itemize}
+		\end{thm}
+
+		\begin{proof} Pour le premier point, soit $G$ un groupe d'ordre $pq$. Il existe un unique $p$-Sylow $H$ de $G$. On a~:
+		\[\abs {\{q\text{-Sylow}\}} = 1 + kq \text { qui divise } \abs G = pq.\]
+
+		Comme $1+kq$ ne divise pas $q$, $1 + kq$ divise $p$, et donc $k = 0$. Le sous-groupe $H$ est donc normal dans $G$ ($H \simeqq \Z_q$).
+
+		Pour le second point, soit $H$ le $q$-Sylow de $G$ et $K$, un $p$-Sylow de $G$. Alors $G = HK$ et $H \cap K = \{e\}$ car $\abs {H \cap K}$ divise à la
+		fois $\abs H = q$ et $\abs K = p$ qui sont premiers entre eux.
+
+		$H$ possède $pq$ éléments distincts deux à deux. Supposons que $hk = h'k' \iff h'^{-1}h = k'k^{-1} \in H \cap K = \{e\}$, et donc $(h, k) = (h', k')$.
+		\end{proof}
+
 \end{document}
