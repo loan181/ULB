@@ -1489,8 +1489,8 @@
 		où $\Theta = \{\theta_0, \theta_1\}$. Pour $\alpha \in (0, 1)$, la classe $C_\alpha$ est donc~:
 		\[C_\alpha = \left\{\phi : \mathcal X^\n \to [0, 1] \tq \E_{\theta_0}^\n[\phi(X^\n)] \leq \alpha\right\}.\]
 
-		\begin{thm}[Lemme fondamental de Neyman] Soit le problème d'hypothèse~\eqref{eq:test_simple}. Soit $\alpha \in (0, 1)$ et notons $L_\theta^\n$ la
-		vraisemblance associée à $\P_\theta^\n$. Alors~:
+		\begin{thm}[Lemme fondamental de Neyman]\label{thm:test_simple} Soit le problème d'hypothèse~\eqref{eq:test_simple}. Soit $\alpha \in (0, 1)$ et notons
+		$L_\theta^\n$ la vraisemblance associée à $\P_\theta^\n$. Alors~:
 		\begin{itemize}
 			\item[$(i)$]  il existe $(k_\alpha, \gamma_\alpha) \in \R^+ \times [0, 1]$ tels que le test $\phi_*$ défini par~:
 			\[\phi_*(x^\n) =
@@ -1603,5 +1603,107 @@
 
 		Pour $B \in \Brl(\R^n)$, on a alors $\P_{\theta_0}[B] = \P_{\theta_1}[B]$, ce qui est une contradiction car $\theta_0 \neq \theta_1$.
 		\end{proof}
+
+	\section{Tests unilatéraux à puissance uniformément maximale}
+		\begin{déf} Soit le modèle statistique $\statmod \R\Brl{\mathcal P}n$, avec $\mathcal P = \{\P_\theta \tq \theta \in \Theta \subseteq \R\}$.
+		Ce modèle est dit \textit{à vraisemblance monotone en la statistique $T(x^\n)$} lorsque~:
+		\[\forall \theta', \theta'' \in \Theta : \theta' < \theta'' \Rightarrow \exists h_{\theta', \theta''} \text{ strict. croissante } \tq
+			h_{\theta', \theta''}(T(x^\n)) = \frac {L_{\theta''}^\n(x^\n)}{L_{\theta'}^\n(x^\n)}.\]
+		\end{déf}
+
+		\begin{thm} Soit un modèle statistique à vraisemblance monotone en une statistique $T(x^\n)$ et soit $\alpha \in (0, 1)$. Alors~:
+		\begin{itemize}
+			\item $\exists (t_\alpha^+, \gamma_\alpha) \in \R \times [0, 1] \tq \phi_{*T}^+$ défini par~:
+			\[\phi_{*T}^+(x^\n) =
+			\begin{cases}
+				1 &\text{ si } T(x^\n) > t_\alpha^+ \\
+				\gamma_\alpha &\text{ si } T(x^\n) = t_\alpha^+ \\
+				0 &\text{ sinon}
+			\end{cases}\]
+			vérifie $\E_{\theta_0}^\n[\phi_{*T}^+(\Xn)] = \alpha$~;
+			\item la fonction $\theta \mapsto \E_\theta[\phi_{*T}^+(\Xn)]$ est strictement croissante~;
+			\item le test $\phi_{*T}^+$ est à PUM dans la classe des tests de niveau $\alpha$ pour le problème d'hypothèse~:
+			\begin{align}\label{eq:test_hyp_leq_>}
+				\begin{cases}
+					&H_0 : \theta \leq \theta_0 \\
+					&H_1 : \theta > \theta_0
+				\end{cases}
+			\end{align}
+			avec $\theta_0 \in \intr \Theta$.
+		\end{itemize}
+		\end{thm}
+
+		\begin{proof} Soit $F_{\theta_0}^T$ la fonction de répartition de $T(X^\n)$ sous $\P_{\theta_0}$. Comme pour le Théorème~\ref{thm:test_simple}, on a~:
+		\[\E_{\theta_0}^\n[\phi_{*T}^+(X^\n)] =
+			1 - F_{\theta_0}^T(t_\alpha^+) + \gamma_\alpha(F_{\theta_0}(t_\alpha^+)-\lim_{\varepsilon \to 0}F_{\theta_0}^T(t_\alpha^+ - \varepsilon),\]
+		d'où on distingue deux cas~:
+		\begin{itemize}
+			\item s'il existe $z_\alpha \tq F_{\theta_0}^T(z_\alpha) = 1 - \alpha$, on prend~:
+			\[(t_\alpha^+, \gamma_\alpha) \coloneqq (z_\alpha, 0)),\]
+			\item et sinon, on pose~:
+			\[t_\alpha^+ \coloneqq \int\{z \in \R \tq F_{\theta_0}^T(z) \geq 1-\alpha\},\]
+			et~:
+			\[\gamma_\alpha \coloneqq \frac {F_{\theta_0}^T(t_\alpha^+)
+				- (1-\alpha)}{\lim_{\varepsilon \to 0}F_{\theta_0}^T(t_\alpha^+) - F_{\theta_0}^T(t_\alpha^+ - \varepsilon)} \in (0, 1).\]
+		\end{itemize}
+
+		Pour le second point, on prend $\theta', \theta'' \in \Theta$ tels que $\theta' < \theta''$. On réécrit~:
+		\begin{align*}
+			\phi_{*T}^+(x^\n) &=
+			\begin{cases}
+				1 &\text{ si } h_{\theta',\theta''}(T(x^\n)) > h_{\theta',\theta''}(t_\alpha^+) \\
+				\gamma_\alpha &\textit{ si } h_{\theta', \theta''}(T(x^\n)) = h_{\theta',\theta''}(t_\alpha^+) \\
+				0 &\text{ sinon}
+			\end{cases} \\
+			&=
+			\begin{cases}
+				1 &\text{ si } L_{\theta''}(x^\n) > h_{\theta',\theta''}(t_\alpha^+)L_{\theta'}(x^\n) \\
+				\gamma_\alpha &= \text{ si } L_{\theta''}(x^\n) = h_{\theta',\theta''}(t_\alpha^+)L_{\theta'}(x^\n) \\
+				0 &\text{ sinon}
+			\end{cases}
+		\end{align*}
+
+		On trouve que $\phi_{*T}^+$ est le test de Neyman du problème d'hypothèse~:
+		\[\begin{cases}
+			&H_0 : \theta = \theta' \\
+			&H_1 : \theta = \theta''
+		\end{cases}\]
+		au niveau $\E_{\theta'}[\phi_{*T}^+(\Xn)]$. Le Le théorème précédent donne donc~:
+		\[\E_{\theta'}[\phi_{*T}^+(\Xn)] < \E_{\theta''}[\phi_{*T}^+(\Xn)].\]
+
+		Pour le dernier point, soient $\theta_1 > \theta_0$ et $\phi$, un test de niveau $\alpha$ pour le problème d'hypothèse~\eqref{eq:test_hyp_leq_>}.
+		$\theta_1$ étant choisi arbitrairement, on a que $\phi_{*T}^+$ est de niveau $\alpha$ pour le problème d'hypothèse~:
+		\begin{align}\label{eq:test_hyp_=_>}
+			\begin{cases}
+				&H_0 : \theta = \theta_0 \\
+				&H_1 : \theta > \theta_0
+			\end{cases}
+		\end{align}
+		car $\phi_{*T}^+$ est à PUM de niveau $\alpha$ pour le problème d'hypothèse~\eqref{eq:test_simple}.
+
+		Par choix de $\phi$, on sait en particulier que $\phi$ est de niveau $\alpha$ pour~\eqref{eq:test_hyp_=_>}. $\phi_{*T}^+$ domine donc $\phi$ uniformément
+		en puissance. Puisque $\phi_{*T}^+$ est de niveau $\alpha$ pour~\eqref{eq:test_hyp_leq_>}, on a $\phi_{*T}^+$ à PUM pour~\eqref{eq:test_hyp_leq_>}.
+		\end{proof}
+
+		\begin{thm} Soit un modèle statistique à rapport de vraisemblance pour la statistique $T(x^\n)$ et soit $\alpha \in (0, 1)$. Alors~:
+		\begin{itemize}
+			\item $\exists (t_\alpha^-, \gamma_\alpha) \in \R \times [0, 1] \tq \phi_{*T}^-$ défini par~:
+			\[\phi_{*T}^-(x^\n) =
+			\begin{cases}
+				1 &\text{ si } T(x^\n) < t_\alpha^- \\
+				\gamma_\alpha &\text{ si } T(x^\n) = t_\alpha^- \\
+				0 &\text{ sinon}
+			\end{cases}\]
+			vérifie $\E_{\theta_0}^\n[\phi_{*T}^-(\Xn)] = \alpha$~;
+			\item la fonction $\theta \mapsto \E_\theta^\n[\phi_{*T}^-]$ est strictement décroissante~;
+			\item le test $\phi_{*T}^-$ est à PUM dans la classe des tests de niveau $\alpha$ pour le problème~:
+			\begin{align}\label{eq:test_hyp_geq_<}
+				\begin{cases}
+					&H_0 : \theta \geq \theta_0 \\
+					&H_1 : \theta < \theta_0
+				\end{cases}
+			\end{align}
+		\end{itemize}
+		\end{thm}
 
 \end{document}
