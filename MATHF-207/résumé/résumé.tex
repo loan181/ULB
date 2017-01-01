@@ -20,15 +20,15 @@
 \DeclareMathOperator{\tq}{\text{ t.q. }}
 \DeclareMathOperator{\Unif}{Unif}  % uniform law
 \DeclareMathOperator{\Bern}{Bern}  % Bernoulli law
-\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Bin}{Bin}  % Binomial law
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\MSE}{MSE}
 \DeclareMathOperator{\MAE}{MAE}
-\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Jac}{Jac}  % Jacobian
 \DeclareMathOperator{\Id}{Id}
-\DeclareMathOperator{\intr}{int}
+\DeclareMathOperator{\intr}{int}  % interior of set
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 
@@ -1466,4 +1466,142 @@
 
 	La \textit{puissance} d'un test $\phi^\n$ en $\theta \in \Theta_1$ est $\E_\theta[\phi^\n(X^\n)]$.
 	\end{déf}
+
+	\section{Principe de Neyman}
+		\begin{déf} Soit $\phi^\n$ un test (pur ou randomisé). On dit que $\phi^\n$ est de niveau $\alpha \in (0, 1)$ lorsque~:
+		\[\forall \theta \in \Theta : \E_\theta^\n[\phi^\n(X^\n)] \leq \alpha.\]
+		\end{déf}
+
+		\begin{déf} Le test $\phi_*$ est dit \textit{à puissance uniformément maximale} (PUM) dans la classe $C_\alpha$ lorsque~:
+		\begin{itemize}
+			\item $\phi_* \in C_\alpha$~;
+			\item $\forall \phi \in C_\alpha : \forall \phi \in \Theta_1 : \E_\theta^\n[\phi_*(X^\n)] \geq \E_\theta^\n[\phi^\n(X^\n)]$.
+		\end{itemize}
+		\end{déf}
+
+		Considérons ici le test le plus simple possible~:
+		\begin{align}\label{eq:test_simple}
+			\begin{cases}
+				&H_0 : \theta = \theta_0 \\
+				&H_1 : \theta = \theta_1
+			\end{cases}
+		\end{align}
+		où $\Theta = \{\theta_0, \theta_1\}$. Pour $\alpha \in (0, 1)$, la classe $C_\alpha$ est donc~:
+		\[C_\alpha = \left\{\phi : \mathcal X^\n \to [0, 1] \tq \E_{\theta_0}^\n[\phi(X^\n)] \leq \alpha\right\}.\]
+
+		\begin{thm}[Lemme fondamental de Neyman] Soit le problème d'hypothèse~\eqref{eq:test_simple}. Soit $\alpha \in (0, 1)$ et notons $L_\theta^\n$ la
+		vraisemblance associée à $\P_\theta^\n$. Alors~:
+		\begin{itemize}
+			\item[$(i)$]  il existe $(k_\alpha, \gamma_\alpha) \in \R^+ \times [0, 1]$ tels que le test $\phi_*$ défini par~:
+			\[\phi_*(x^\n) =
+			\begin{cases}
+				1 &\text{ si } L_{\theta_1}^\n(x^\n) > k_\alpha L_{\theta_0}^\n(x^\n) \\
+				\gamma_\alpha &\text{ si } L_{\theta_1}^\n(x^\n) = k_\alpha L_{\theta_0}^\n(x^\n) \\
+				0 &\text{ si } L_{\theta_1}^\n(x^\n) < k_\alpha L_{\theta_0}^\n(x^\n)
+			\end{cases}\]
+			vérifie $\E_{\theta_0}[\phi_*]$~;
+
+			\item $\phi_*$ est à puissance uniformément maximale dans $C_\alpha$.
+		\end{itemize}
+		\end{thm}
+
+		\begin{proof} Soit $F_{\theta_0}$ la fonction de répartition de la valeur aléatoire $Y^\n \coloneqq \frac {L_{\theta_1}^\n(\Xn)}{L_{\theta_0}^\n(\Xn)}$
+		sous $\P_{\theta_0}^\n$, et posons $L_{\theta_0}^\n(\Xn) = 0 \Rightarrow Y^\n = \pinfty$.
+
+		Pour $z \in \R$, on peut alors écrire~:
+		\[\E_{\theta_0}^\n[\phi_*] = \P_{\theta_0}[Y^\n > k_\alpha] + \gamma_\alpha\P[Y=k^\alpha]
+			= 1 - F_{\theta_0}(k_\alpha) + \lim_{\varepsilon \to 0}\gamma_\alpha\left(F_{\theta_0}(k_\alpha) - F_{\theta_0}(k_\alpha - \varepsilon)\right).\]
+
+		Distinguons deux cas~:
+		\begin{itemize}
+			\item s'il existe $x \in \R$ tel que $F_{\theta_0}(z) = 1-\alpha$, alors on pose=
+			\[(k_\alpha, \gamma_\alpha) = (z, 0).\]
+			On a alors bien~:
+			\[\E_{\theta_0}^\n[\phi_*(X^\n)] = 1 - F_{\theta_0}(z) + 0 = \alpha.\]
+
+			\item Sinon, on pose~:
+			\[k_\alpha \coloneqq \inf \{z \in \R \tq F_{\theta_0}(z) \geq 1-\alpha\}.\]
+
+			Puisque $Y \geq 0$ (quotient de vraisemblances, qui sont positives), on sait $k_\alpha \geq 0$. Par continuité de $F_{\theta_0}$ (induite par la
+			dérivabilité de $F_{\theta_0}$), on a~:
+			\[F_{\theta_0}(k_\alpha-\varepsilon) < 1-\alpha < F_{\theta_0}(k_\alpha).\]
+			On pose donc~:
+			\[\gamma_\alpha \coloneqq \lim_{\varepsilon \to 0}\frac {F_{\theta_0}(k_\alpha) - (1-\alpha)}{F_{\theta_0}(k_\alpha) - F_{\theta_0}(k_\alpha - \varepsilon)} \in (0, 1).\]
+
+			On a alors en effet~:
+			\begin{align*}
+				\E_{\theta_0}^\n[\phi_*(X^\n)] &= 1 - F_{\theta_0}(k_\alpha) +
+					\lim_{\varepsilon \to 0}\frac {F_{\theta_0}(k_\alpha) - (1-\alpha)}{F_{\theta_0}(k_\alpha) - F_{\theta_0}(k_\alpha-\varepsilon)}
+						\left(F_{\theta_0}(k_\alpha) - F_{\theta_0}(k_\alpha-\varepsilon)\right) \\
+				&= 1 - F_{\theta_0}(k_\alpha) + (F_{\theta_0}(k_\alpha) - (1-\alpha)) = 1 - 1 + \alpha = \alpha.
+			\end{align*}
+		\end{itemize}
+
+		Montrons alors le point 2. Prenons $\phi \in C_\alpha$, et considérons la fonction $g$ définie par~:
+		\[g : \mathcal X^\n \to \R : x^\n \mapsto \left((\phi_*-\phi)(x^\n)\right)\left((L_{\theta_1}-k_\alpha L_{\theta_0})(x^\n)\right).\]
+
+		Observons que $g$ est définie positive car~:
+		\begin{align*}
+			&\forall x^\n \in \mathcal X^\n : &\left(L_{\theta_1}^\n(x^\n) - k_\alpha L_{\theta_0}^\n(x^\n) \gneqq 0\right)
+				\Rightarrow \left(\phi_*(x^\n) - \phi(x^\n) = 1 - \phi(x^\n) \geq 0\right), \\
+			&\text{ et} &\left(L_{\theta_1}^\n(x^\n) - k_\alpha L_{\theta_0}^\n(x^\n) \lneqq 0\right) \Rightarrow
+				\left(\phi_*(x^\n) - \phi(x^\n) = 0 - \phi(x^\n) \leq 0\right).
+		\end{align*}
+
+		On peut dès lors écrire, en distribuant $g$~:
+		\begin{align*}
+			0 &\leq \int_{\mathcal X^\n}g(x^\n)\dif x^\n = \int_{\mathcal X^\n}\left(\phi_*(x^\n)-\phi(x^\n)\right)L_{\theta_1}(x^\n)\dif x^\n
+				- k_\alpha\left(\int_{\mathcal X^\n}\left(\phi_*(x^\n)-\phi(x^\n)\right)L_{\theta_0}\dif x^\n\right) \\
+			&= \E_{\theta_1}^\n[\phi_*(X^\n) - \phi(X^\n)] + k_\alpha(\E_{\theta_0}^\n[\phi_*(X^\n)-\phi(X^\n)]) \\
+			&= \E_{\theta_1}^\n[\phi_*(X^\n)] - \E_{\theta_1}[\phi(X^\n)] - k_\alpha(\alpha - \E_{\theta_0}[\phi(X^\n)]).
+		\end{align*}
+
+		Or, comme $\E_{\theta_0}[\phi(X^\n)] < \alpha$ (car $\phi \in C_\alpha$), on a~:
+		\[\E_{\theta_1}^\n[\phi_*(X^\n)] \geq \E_{\theta_0}^\n[\phi(X^\n)] + k_\alpha(\alpha-\E_{\theta_0}[\phi(X^\n)] \geq \E_{\theta_1}[\phi(X^\n)].\]
+		\end{proof}
+
+		\begin{thm} Dans le cadre du lemme fondamental de Neyman, si $\phi$ est de niveau $\alpha \in (0, 1)$ et est de même puissance que $\phi_*$, i.e.
+		ils ont la même espérance sous $\theta_1$, alors il existe une fonction $\gamma_\alpha : \mathcal X^\n \to [0, 1]$ telle que~:
+		\begin{align*} \forall x^\n \in \mathcal X^\n : \phi(x^\n) =
+			\begin{cases}
+				1 &\text{ si } L_{\theta_1}(x^\n) < k_\alpha L_{\theta_0}(x^\n) \\
+				\gamma_\alpha(x^\n) &\text{ si } L_{\theta_1}(x^\n) = k_\alpha L_{\theta_0}(x^\n) \\
+				0 &\text{ sinon},
+			\end{cases}
+		\end{align*}
+		où $k_\alpha$ est celui de $\phi_*$, et où le $\forall x^\n \in \mathcal X^\n$ signifie pour tout $x^\n$ dans $\mathcal X^\n$, sauf un ensemble
+		de mesure nulle.
+
+		De plus, $\E_{\theta_1}[\phi_*(X^\n)] > \alpha$.
+		\end{thm}
+
+		\begin{proof} On sait que~:
+		\[-k_\alpha(\alpha-\E_{\theta_0}[\phi(X^\n)] = \E_{\theta_1}^\n[\phi_*(X^\n)] - \E_{\theta_1}^\n[\phi(X^\n)] - k_\alpha(\alpha - \E_{\theta_0}^\n[\phi(X^\n)]
+			\geq 0.\]
+
+		Or, on sait que $k_\alpha(\alpha-\E_{\theta_0}^\n[\phi(X^\n)]) \geq 0$. On a donc $\E_{\theta_0}^\n[\phi(X^\n)] = \alpha$, et donc~:
+		\[\int_{\mathcal X^\n}g(x^\n)\dif x^\n = 0,\]
+		c'est à dire, pour tout $x^\n \in \mathcal X^\n \setminus T$, tel que $T$ est de mesure nulle, on a~:
+		\[\left(\phi_*(x^\n) - \phi(x^\n)\right) \cdot \left(L_{\theta_1}^\n(x^\n) - k_\alpha L_{\theta_0}^\n(x^\n)\right) = 0.\]
+
+		Soit un tel $x^\n \in \mathcal X^\n \setminus T$. Si $L_{\theta_1}^\n(x^\n) \neq k_\alpha L_{\theta_0}^\n(x^\n)$, alors~:
+		\[0 = \phi_*(x^\n) - \phi(x^\n).\]
+
+		De plus, on pose $\gamma_\alpha = \phi$ sur $\{x^\n \in \mathcal X^\n \tq L_{\theta_1}^\n(x^\n) = k_\alpha L_{\theta_0}^\n(x^\n)\}$.
+
+		Montrons que $\E_{\theta_1}[\phi_*(X^\n)] \gneqq \alpha$. Posons $\phi_\alpha : x^\n \mapsto \alpha$. On sait que $\phi_*$ est de puissance maximale,
+		donc~:
+		\[\E_{\theta_1}[\phi_*(X^\n)] \geq \E_{\theta_1}[\phi_\alpha(X^\n)] = \alpha.\]
+
+		Supposons par l'absurde que $\E_{\theta_1}[\phi_*(X^\n)] = \alpha \in (0, 1)$. Par la première partie du théorème, on a~:
+		\[\alpha = \phi_\alpha(x^\n) \not \in \{0, 1\}.\]
+		Donc~:
+		\[\forall x^\n \in \mathcal X^\n \setminus T : L_{\theta_1}^\n(x^\n) = k_\alpha L_{\theta_0}^\n(x^\n).\]
+		En intégrant, on trouve~:
+		\[1 = \int_{\mathcal X^\n}L_{\theta_1}^\n(x^\n)\dif x^\n = k_\alpha\int_{\mathcal X^\n}L_{\theta_0}^\n(x^\n)\dif x^\n = k_\alpha,\]
+		et donc $L_{\theta_0}^\n = L_{\theta_1}^\n$ sur $\mathcal X^\n \setminus T$.
+
+		Pour $B \in \Brl(\R^n)$, on a alors $\P_{\theta_0}[B] = \P_{\theta_1}[B]$, ce qui est une contradiction car $\theta_0 \neq \theta_1$.
+		\end{proof}
+
 \end{document}
