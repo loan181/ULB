@@ -11,6 +11,7 @@
 \usepackage{fullpage}
 \usepackage{amsmath, amsthm,amssymb, amsfonts}
 \usepackage{stmaryrd}
+\usepackage{ulem}
 
 \title{Statistiques mathématiques}
 \author{R. Petit}
@@ -701,7 +702,7 @@
 			L'estimateur $\TnXn$ est donc sans biais, mais est très mauvais~: sur-/sous-estime toujours à $\simeq 10^9$ près.
 			\end{ex}
 
-		\subsection{Estimateurs à dispertion minimale}
+		\subsection{Estimateurs à dispersion minimale}
 			\begin{déf} L'erreur quadratique moyenne d'un estimateur $\TnXn$ de $g(\theta)$ ($\in \R$) est la quantité~:
 			\[\MSE_\theta[\TnXn] \coloneqq \E_\theta\left[\abs {\TnXn - g(\theta)}^2\right].\]
 			\end{déf}
@@ -1286,4 +1287,183 @@
 				= \frac 1{nI^{(1)}(\theta)},\]
 			qui est la borne de Cramer-Rao. $\widehat \theta$ est donc asymptotiquement efficace.
 			\end{ex}
+
+		\subsection{Comportement asymptotique des estimateurs du maximum de vraisemblance}
+			On se place dans un modèle statistique $(\R^n, \Brl(\R^n), \mathcal P^\n = \{\P_\theta^\n \tq \theta \in \Theta \subseteq \R\})$ d'échantillonage.
+
+			On considère les hypothèses suivantes~:
+			\begin{itemize}
+				\item[H1] $\Theta$ est ouvert~;
+				\item[H2] $\mathcal X = \{x \in \R \tq L_\theta^{(1)}(x) > 0\}$ ne dépend pas de $\theta$~;
+				\item[H3] $\forall x \in \mathcal X : \theta \mapsto L_\theta^{(1)}(x)$ est dérivable sur $\Theta$ et $\theta \mapsto \od {}\theta L_\theta^{(1)}(x)$ est
+				dérivable sur $\Theta$~;
+				\item[H4] l'expression $\int_{\mathcal X}L_\theta^{(1)}(x)\dif x$ peut être dérivée sous le signe deux fois~;
+				\item[H5] $I^{(1)}(\theta) = \int_{\mathcal X}\left(\od {}\theta\ln L_\theta^{(1)}(x)\right)^2\dif x$ est fini et $\neq 0$~;
+				\item[H6] Pour toute suite $(\theta_n)_n$ convergente en $\theta \in \Theta$, on a~:
+				\[\sup_{x \in \mathcal X}\abs {B_{\theta_n}^{(1)}(x) - B_\theta^{(1)}(x)} \xrightarrow[n \to \pinfty]{} 0,\]
+				avec $B_\theta^{(1)}(x) = \od[2]{}\theta \ln L_\theta^{(1)}(x)$.
+			\end{itemize}
+
+			\begin{rmq} À nouveau~:
+			\[0 = \od {}\theta 1 = \od {}\theta\int_{\mathcal X}L_\theta^{(1)}(x)\dif x = \int_{\mathcal X}\od {}\theta L_\theta^{(1)}(x)\dif x
+				= \int_{\mathcal X}\left(\od {}\theta \ln L_\theta^{(1)}(x)\right)L_\theta^{(1)}(x)\dif x = \E_\theta\left[\od {}\theta\ln L_\theta^{(1)}(X_1)\right],\]
+			et donc~:
+			\[I^{(1)}(\theta) = \E_\theta\left[\left(\od {}\theta \ln L_\theta^{(1)}(X_1)\right)^2\right] = \Var_\theta\left[\od {}\theta \ln L_\theta^{(1)}(X)\right].\]
+
+			Également, on sait~:
+			\[0 = \od {}\theta \int_{\mathcal X}\left(\ln L_\theta^{(1)}(x)\right)L_\theta^{(1)}(x)\dif x
+				= \int_{\mathcal X}\left(\left(\od[2]{}\theta\ln L_\theta^{(1)}(x)\right)L_\theta^{(1)}(x)
+					+ \left(\od {}\theta\ln L_\theta^{(1)}(x)\right)\od {}\theta L_\theta^{(1)}(x)\right)\dif x.\]
+
+			On en déduit~:
+			\[0 = \E_\theta\left[\od[2] {}\theta \ln L_\theta^{(1)}(X_1)\right] + \E_\theta\left[\left(\od {}\theta \ln L_\theta^{(1)}(X_1)\right)^2\right]
+				= \E_\theta\left[\od[2] {}\theta \ln L_\theta^{(1)}(X_1)\right] + I^{(1)}(\theta),\]
+			ou encore~:
+			\[I^{(1)}(\theta) = -\E_\theta\left[\od[2] {}\theta \ln L_\theta^{(1)}(X_1)\right].\]
+			\end{rmq}
+
+			\begin{thm} Si le modèle satisfait (H1)-(H6), alors~:
+			\begin{itemize}
+				\item[$(i)$] il existe une suite $(\TnXn)_{n \in \N}$ de solutions de l'équation de vraisemblance~:
+				\[\od {}\theta \ln L_\theta^{(n)}(\Xn) = 0\]
+				qui est fortement convergente pour $\theta$, c-à-d~:
+				\[\forall \theta \in \Theta : \TnXn \cvgps \theta \text{ sous } \P_\theta^\n\]
+				\item[$(ii)$] pour toute telle suite $(\TnXn)_n$, on a~:
+				\[\forall \theta \in \Theta : \sqrt n(\TnXn - \theta) \cvgd \mathcal N(0, I^{(1)}(\theta)^{-1}).\]
+			\end{itemize}
+			\end{thm}
+
+			\begin{rmq} $(ii)$ implique que $\TnXn$ est asymptotiquement efficace.
+			\end{rmq}
+
+			\begin{proof} Supposons que $(i)$ est vrai et montrons $(ii)$. Posons~:
+			\begin{align*}
+				A^\n_\theta(x^\n) &\coloneqq \frac 1n \od {}\theta \ln L_\theta^\n(x^\n) \\
+				B^\n_\theta(x^\n) &\coloneqq \frac 1n \od[2] {}\theta \ln L_\theta^\n(x^\n).
+			\end{align*}
+
+			On remarque~:
+			\[A^\n_\theta(x^\n) = \frac 1n\sum_{i=1}^nA^{(1)}_\theta(x_i) \qquad\qquad\text{ et }\qquad\qquad B^\n_\theta(x^\n)
+				= \frac 1n\sum_{i=1}^nB^{(1)}_\theta(x_i).\]
+
+			Par définition de $\TnXn$, pour tout $n$, on a~:
+			\[\od {}\theta \ln L_\theta(\Xn)\sVert[3]_{\theta = \TnXn} = 0,\]
+			et donc~:
+			\[A_{\TnXn}(\Xn) = \frac 1n\od {}\theta\ln L_\theta(\Xn) = 0.\]
+
+			On en déduit~:
+			\[\forall n : 0 = A_{\TnXn}^{(n)}(\Xn) = A_\theta^{(n)}(\Xn) + \od {}\theta A_\theta^{(n)}(\Xn)\sVert[3]_{T_*^{(n)}(\Xn)}(\Xn) \cdot (\TnXn - \theta),\]
+			et donc (théorème des accroissements finis)~:
+			\[T_*^{(n)} = \frac {-A_\theta^{(n)}(\Xn)}{\od {}\theta A_\theta^{(n)}(\Xn)\sVert[3]_{\theta=T_*^{(n)}(\Xn)}}
+				= \frac {-A_\theta^{(n)}(\Xn)}{B_{T_*^{(n)}(\Xn)}^{(n)}(\Xn)},\]
+			pour $T_*^{(n)}(\Xn) \in [0, \TnXn]$
+
+			On a alors~:
+			\[\sqrt n\left(\TnXn - \theta\right) = \frac {-\sqrt nA_\theta^{(n)}(\Xn)}{B_{T_*^{(n)}(\Xn)}(\Xn)}.\]
+
+			Montrons indépendamment la convergence du numérateur et celle du dénominateur.
+
+			\textbf{Convergence du numérateur~:}
+
+			\[-\sqrt nA_\theta^{(n)}(\Xn) = \frac 1{\sqrt n}\sum_{i=1}^n\left(-A_\theta^{(n)}(\Xn)\right)
+				\xrightarrow[n \to \pinfty]{\mathcal D\text{ sous } \P_\theta^{(n)}} \mathcal N(-\E_\theta[A_\theta^{(1)}(X_1)], I^{(1)}(\theta))
+				= \mathcal N(0, \E_\theta[(A_\theta^{(1)}(\Xn))^2]).\]
+
+			\textbf{Convergence du dénominateur~:}
+
+			\begin{align*}
+				B_{T_*^{(n)}(\Xn)}^{(1)}(\Xn) &= \frac 1n\sum_{i=1}^nB_{T_*^{(n)}}^{(1)}(X_i)
+					= \frac 1n\sum_{i=1}^nB_\theta^{(1)}(X_i) + \frac 1n\sum_{i=1}^n\left(B_{T_*^{(n)}}^{(1)}(X_i) - B_\theta^{(1)}(X_i)\right) \\
+				&= -I^{(1)}(\theta) + \frac 1n\sum_{i=1}^n\left(B_{T_*^{(n)}(X_i)}^{(1)}(\Xn) - B_\theta^{(1)}(X_i)\right).
+			\end{align*}
+
+			Par inégalité triangulaire, on peut dire~:
+			\begin{align*}
+				\abs {\frac 1n \sum_{i=1}^n\left(B_{T_*^{(n)}(\Xn)}^{(1)}(X_i) - B_\theta^{(1)}(X_i)\right)}
+					&\leq \frac 1n\sum_{i=1}^n\abs {B_{T_*^{(n)}(\Xn)}^{(1)}(X_i) - B_\theta^{(1)}(X_i)} \\
+				&\leq \frac 1n\sum_{i=1}^n\sup_{x \in \mathcal X}\abs {B_{T_*^{(n)}(\Xn)}^{(1)}(x) - B_\theta^{(1)}(x)} \\
+				&= \sup_{x \in \mathcal X}\abs {B_{T_*^{(n)}(\Xn)}^{(1)}(x) - B_\theta^{(1)}(x)},
+			\end{align*}
+			ce qui, par (H6) converge presque sûrement vers 0.
+
+			Le lemme de Slutzky nous affirme alors que~:
+			\[\sqrt n\left(\TnXn - \theta\right) \xrightarrow[n \to \pinfty]{\mathcal D \text{ sous } \P_\theta{(n)}}
+				\frac {\mathcal N(0, I^{(1)}(\theta))}{\left(I^{(1)}(\theta)\right)^2} = \mathcal N(0, {I^{(1)}(\theta)}^{-1}).\]
+			\end{proof}
+
+\chapter{Tests d'hypothèse}
+	En se plaçant dans le modèle statistique $\statmod \R\Brl{\mathcal P}n$, avec $\mathcal P^{(n)} = \{\P_\theta^{(n)} \tq \theta \in \Theta\}$. On partitionne
+	$\Theta$ en $\Theta_0 \subseteq \Theta$ et $\Theta = \Theta \setminus \Theta_0$.
+
+	On parle de \textit{problème de test d'hypothèse} pour~:
+	\[\begin{cases}
+		&H_0 : \theta \in \Theta_0 \text{\; hypothèse nulle}, \\
+		&H_1 : \theta \in \Theta_1 \text{\; contre-hypothèse}.
+	\end{cases}\]
+	Il y a deux choix possibles, à savoir RH0, le rejet de $H_0$, et \sout {RH0}, le non-rejet de $H_0$.
+
+	\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$, avec $\theta = [\mu, \sigma^2]^T \in \Theta \subsetneq \R^2$. Voici une partition de $\Theta$~:
+	\[\Theta : \Theta_0 \sqcup \Theta_1 = \left\{[\mu, \sigma^2]^T \in \Theta \tq \mu > 15\right\}
+		\sqcup \left\{[\mu, \sigma^2]^T \in \Theta \tq \mu \leq 15\right\}.\]
+
+	\[\begin{cases}
+		&\theta \in \Theta_0 \\
+		&\theta \in \Theta_1
+	\end{cases}\]
+	\end{ex}
+
+	\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Bern(p)$, pour $p \in [0, 1] \subset \R$. Soit $p_0 \in [0, 1]$. Voici un test d'hypothèse~:
+	\[\begin{cases}
+		&H_0 : p \in [0, p_0], \\
+		&H_1 : p \in (p_0, 1].
+	\end{cases}\]
+	\end{ex}
+
+	\begin{déf} On dit que le problème est \textit{unilatéral} s'il est sous la forme~:
+	\[\begin{cases}
+		&H_0 : \theta \leq \theta_0 \\
+		&H_1 : \theta > \theta_0
+	\end{cases}\]
+	(une partition de $\Theta$ en deux espaces de mesure non-nulle).
+
+	On dit que le problème est \textit{bilatéral} s'il est sous la forme~:
+	\[\begin{cases}
+		&H_0 : \theta = \theta_0 \\
+		&H_1 : \theta \not \in \theta_0
+	\end{cases}\]
+	(une partition de $\Theta$ en un singleton et $\Theta$ moins un point).
+
+	Dans ce cas, on dit que $H_0 : \theta = \theta_0$ est l'\textit{hypothèse simple}, et $H_1 : \theta \not \in \theta_0$ est l'\textit{hypothèse composée}.
+	\end{déf}
+
+	\begin{déf} Un test pur est une fonction mesurable $\phi^\n : \mathcal X^\n \to \{0, 1\}$, où $\mathcal X$ est l'ensemble des valeurs observables pour $X^\n$.
+	\end{déf}
+
+	\begin{déf} On appelle \textit{zone critique} l'ensemble~:
+	\[\left(\phi^\n\right)^{-1}\left(\{1\}\right).\]
+	\end{déf}
+
+	\begin{déf} Un \textit{test randomisé} (ou \textit{test impur}) est une fonction mesurable $\phi^\n : \mathcal X^\n \to [0, 1]$.
+	\end{déf}
+
+	\begin{rmq} Soit $\gamma \coloneqq \phi^\n(x^\n)$. Si $\gamma = 0$, alors \sout {RH0}. Si $\gamma = 1$, alors RH0. Et si $\gamma \in (0, 1)$, alors
+	RH0 avec probabilité $\gamma$.
+
+	De plus~:
+	\[\E_\theta[\phi^\n(X^\n)] = \int_{\mathcal X^\n}\phi^\n(x^\n)L_\theta^\n(x^\n)\dif x^\n
+		= \int_{\mathcal X^\n}\P[\text{RH0} \, | \, X^\n = x^\n]L_\theta^\n(x^\n)\dif x^\n
+		= \P[\text{RH0}].\]
+	\end{rmq}
+
+	\begin{déf} Le \textit{risque de première espèce} en $\theta \in \Theta_0$ est la valeur~:
+	\[\P_\theta[\phi^\n(X^\n) \text{ rejette}] = \E_\theta[\phi^\n(X^\n)].\]
+
+	Le \textit{risque de seconde espèce} en $\theta \in \Theta_1$ est la valeur~:
+	\[\P_\theta[\phi^\n(X^\n) \text{ ne rejette pas}] = 1 - \E_\theta[\phi^\n(X^\n)].\]
+	\end{déf}
+
+	\begin{déf} La \textit{dimension} d'un test $\phi^\n$ en $\theta \in \Theta_0$ est $\E_\theta[\phi^\n(X^\n)]$.
+
+	La \textit{puissance} d'un test $\phi^\n$ en $\theta \in \Theta_1$ est $\E_\theta[\phi^\n(X^\n)]$.
+	\end{déf}
 \end{document}
