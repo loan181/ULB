@@ -21,6 +21,7 @@
 \DeclareMathOperator{\Unif}{Unif}  % uniform law
 \DeclareMathOperator{\Bern}{Bern}  % Bernoulli law
 \DeclareMathOperator{\Bin}{Bin}  % Binomial law
+\DeclareMathOperator{\Mult}{Mult}
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Cov}{Cov}
@@ -1396,10 +1397,12 @@
 	$\Theta$ en $\Theta_0 \subseteq \Theta$ et $\Theta = \Theta \setminus \Theta_0$.
 
 	On parle de \textit{problème de test d'hypothèse} pour~:
-	\[\begin{cases}
-		&H_0 : \theta \in \Theta_0 \text{\; hypothèse nulle}, \\
-		&H_1 : \theta \in \Theta_1 \text{\; contre-hypothèse}.
-	\end{cases}\]
+	\begin{align}\label{eq:test_hyp_general}
+		\begin{cases}
+			&H_0 : \theta \in \Theta_0 \text{\; hypothèse nulle}, \\
+			&H_1 : \theta \in \Theta_1 \text{\; contre-hypothèse}.
+		\end{cases}
+	\end{align}
 	Il y a deux choix possibles, à savoir RH0, le rejet de $H_0$, et \sout {RH0}, le non-rejet de $H_0$.
 
 	\begin{ex} Soient $X_1, \ldots, X_n$ iid $\Nms$, avec $\theta = [\mu, \sigma^2]^T \in \Theta \subsetneq \R^2$. Voici une partition de $\Theta$~:
@@ -1427,10 +1430,12 @@
 	(une partition de $\Theta$ en deux espaces de mesure non-nulle).
 
 	On dit que le problème est \textit{bilatéral} s'il est sous la forme~:
-	\[\begin{cases}
-		&H_0 : \theta = \theta_0 \\
-		&H_1 : \theta \neq \theta_0
-	\end{cases}\]
+	\begin{align}\label{eq:test_hyp_=_neq}
+		\begin{cases}
+			&H_0 : \theta = \theta_0 \\
+			&H_1 : \theta \neq \theta_0
+		\end{cases}
+	\end{align}
 	(une partition de $\Theta$ en un singleton et $\Theta$ moins un point).
 
 	Dans ce cas, on dit que $H_0 : \theta = \theta_0$ est l'\textit{hypothèse simple}, et $H_1 : \theta \neq \theta_0$ est l'\textit{hypothèse composée}.
@@ -1560,8 +1565,9 @@
 		\[\E_{\theta_1}^\n[\phi_*(X^\n)] \geq \E_{\theta_0}^\n[\phi(X^\n)] + k_\alpha(\alpha-\E_{\theta_0}[\phi(X^\n)] \geq \E_{\theta_1}[\phi(X^\n)].\]
 		\end{proof}
 
-		\begin{thm} Dans le cadre du lemme fondamental de Neyman, si $\phi$ est de niveau $\alpha \in (0, 1)$ et est de même puissance que $\phi_*$, i.e.
-		ils ont la même espérance sous $\theta_1$, alors il existe une fonction $\gamma_\alpha : \mathcal X^\n \to [0, 1]$ telle que~:
+		\begin{thm}\label{thm:exists_gamma_alpha} Selon les hypothèses du lemme fondamental de Neyman, si $\phi$ est de niveau $\alpha \in (0, 1)$ et est de
+		même puissance que $\phi_*$, i.e. ils ont la même espérance sous $\theta_1$, alors il existe une fonction $\gamma_\alpha : \mathcal X^\n \to [0, 1]$
+		telle que~:
 		\begin{align*} \forall x^\n \in \mathcal X^\n : \phi(x^\n) =
 			\begin{cases}
 				1 &\text{ si } L_{\theta_1}(x^\n) < k_\alpha L_{\theta_0}(x^\n) \\
@@ -1611,7 +1617,8 @@
 			h_{\theta', \theta''}(T(x^\n)) = \frac {L_{\theta''}^\n(x^\n)}{L_{\theta'}^\n(x^\n)}.\]
 		\end{déf}
 
-		\begin{thm} Soit un modèle statistique à vraisemblance monotone en une statistique $T(x^\n)$ et soit $\alpha \in (0, 1)$. Alors~:
+		\begin{thm}\label{thm:fct_puissance_strict_croissante} Soit un modèle statistique à vraisemblance monotone en une statistique $T(x^\n)$ et soit
+		$\alpha \in (0, 1)$. Alors~:
 		\begin{itemize}
 			\item $\exists (t_\alpha^+, \gamma_\alpha) \in \R \times [0, 1] \tq \phi_{*T}^+$ défini par~:
 			\[\phi_{*T}^+(x^\n) =
@@ -1707,13 +1714,119 @@
 		\end{thm}
 
 	\section{Tests bilatéraux}
-		\begin{thm} Pour tout $\alpha \in (0, 1)$, il n'existe pas de test à PUM au niveau $\alpha$ pour les problème~:
-		\begin{align}\label{eq:test_hyp_=_neq}
-			\begin{cases}
-				&H_0 : \theta = \theta_0 \\
-				&H_1 : \theta \neq \theta_0
-			\end{cases}
-		\end{align}
+		\begin{thm} En considérant un modèle à rapport de vraisemblance monotone, pour tout $\alpha \in (0, 1)$, il n'existe pas de test à PUM au niveau
+		$\alpha$ pour le problème d'hypothèse~\eqref{eq:test_hyp_=_neq}.
 		\end{thm}
+
+		\begin{proof} Supposons par l'absurde qu'il existe $\phi_{*T}$ à PUM maximal au niveau $\alpha$. On fixe $\theta_1 > \theta_0$. $\phi_{*T}$ est de
+		niveau $\alpha$ pour le problème, et donc, on a~:
+		\[\E_{\theta_1}[\phi_{*T}] \geq \E_{\theta_1}[\phi_{*T}^+],\]
+		avec $\phi_{*T}^+$, test de Neyman pour le problème~\eqref{eq:test_simple} au niveau $\alpha$. On déduit donc~:
+		\[\E_{\theta_1}[\phi_{*T}] = \E_{\theta_1}[\phi_{*T}^+].\]
+		Et puisque $\phi_{*T}$ est de niveau $\alpha$ pour le problème~\eqref{eq:test_simple}, et est de même puissance que $\phi_{*T}^+$, on déduit
+		(Théorème~\ref{thm:exists_gamma_alpha}) qu'il existe $\gamma_\alpha : \mathcal X^\n \to [0, 1]$ et $k_\alpha \in \R$ tels que~:
+		\[\phi_{*T}(x^\n) =
+		\begin{cases}
+			&1 \text{ si } L_{\theta_1}^\n(x^\n) > k_\alpha L_{\theta_0}^\n(x^\n) \\
+			\gamma_\alpha(x^\n) &\text{ si } L_{\theta_1}^\n(x^\n) = k_\alpha L_{\theta_0}^\n(x^\n) \\
+			0 &\text{ sinon}.
+		\end{cases}\]
+
+		Le modèle étant à RVM, on peut montrer que $\theta \mapsto \E_\theta[\phi_{*T}]$ est strictement croissante (voir
+		Théorème~\ref{thm:fct_puissance_strict_croissante}). Par conséquent, pour $\theta < \theta_0$~:
+		\[\E_\theta[\phi_{*T}] \lneqq \E_{\theta_0}[\phi_{*T}] = \alpha = \E_{\theta_0}[\phi_{*T}^+] < \E_\theta[\phi_{*T}^+],\]
+		ce qui contredit le fait que $\phi_{*T}$ soit de PUM.
+		\end{proof}
+
+		\subsection{Tests sans biais}
+
+			\begin{déf} Le test $\phi$ de niveau $\alpha \in (0, 1)$ pour le problème~\eqref{eq:test_hyp_general} est dit \textit{sans biais} lorsque~:
+			\[\forall \theta \in \Theta_1 : \E_\theta[\phi] \geq \alpha.\]
+			\end{déf}
+
+			\begin{rmq} Pour les problèmes considérés ici (tests bilatéraux sous la forme~\eqref{eq:test_hyp_=_neq}), les tests $\phi$ admissibles sont donc les
+			tests sans biais, c-à-d tels que $\E_{\theta_0}[\phi] \leq \alpha$ et pour tout $\theta \neq \theta_0$ (et donc
+			$\in \Theta_1 = \Theta_0 \setminus \{\theta_0\}$) $\E_\theta[\phi] \geq \alpha$. On note donc que $\theta \mapsto \E_\theta[\phi]$ continue implique
+			$\E_{\theta_0}[\phi] = 0$.
+
+			Cette définition permet de ne plus avoir les estimateurs $\phi_{*T}^+$ et $\phi_{*T}^-$. En effet, leur fonction de puissance
+			$\theta \mapsto E_\theta[\Phi]$ pour $\Phi \in \{\phi_{*T}^+, \phi_{*T}^-\}$ sont strictement croissantes. Donc pour tout $\theta < \theta_0$, on a
+			$\E_\theta[\Psi] < \alpha$.
+			\end{rmq}
+
+			\begin{rmq} Notons alors, pour $\alpha \in (0, 1)$, $\mathfrak B_\alpha$ la classe des tests sans biais au niveau $\alpha$.
+			\end{rmq}
+
+			\begin{thm} Soit un modèle statistique à RVM tel que les vraisemblances s'écrivent sous la forme~:
+			\[L_\theta^\n(x^\n) = c_\theta h(x^\n)\exp(\theta T(x^\n)).\]
+			Soit $\alpha \in (0, 1)$ et soit le problème~\eqref{eq:test_hyp_=_neq}. Alors~:
+			\begin{itemize}
+				\item $\exists (t_\alpha^1, t_\alpha^2) \in \R^2$ et $(\gamma_\alpha^1, \gamma_\alpha^2) \in [0, 1]^2$ tels que le test $\phi_{*T}$ défini par~:
+				\[\phi_{*T}(x^\n) =
+				\begin{cases}
+					1 &\text{ si } T(x^\n) \not \in [t_\alpha^1, t_\alpha^2] \\
+					\gamma_\alpha^1 &\text{ si } T(x^\n) = t_\alpha^1 \\
+					\gamma_\alpha^2 &\text{ si } T(x^\n) = t_\alpha^2 \\
+					0 &\text{ sinon}
+				\end{cases}\]
+				vérifie $\E_{\theta_0}[\phi_{*T}] = \alpha$ et $\E_{\theta_0}[\phi_{*T} \cdot T] = \alpha \cdot \E_{\theta_0}[T]$~;
+				\item $\phi_{*T}$ est à PUM dans $\mathfrak B_\alpha$ pour le problème donné.
+			\end{itemize}
+			\end{thm}
+
+			\begin{rmq} Un tel modèle paramétrique est donc à RVM en la statistique $T$.
+			\end{rmq}
+
+	\section{Tests de rapport de vraisemblance}
+		\begin{déf} On définit le rapport de vraisemblance suivant, noté $\Lambda$~:
+		\[\Lambda : \mathcal X^\n \to [0, 1] : x^\n \mapsto \Lambda(x^\n)
+			\coloneqq\frac {\displaystyle \sup_{\theta \in \Theta_0} L_\theta^\n(x^\n)}{\displaystyle \sup_{\theta \in \Theta} L_\theta^\n(x^\n)}.\]
+		\end{déf}
+
+		\begin{thm} Soit un modèle statistique avec $\Theta \subset \R^k$, avec $r \leq k$ paramètres indépendants. Sous certaines hypothèses de régularité, on a~:
+		\[\forall \theta \in \Theta_0 : -2\log \Lambda(\Xn) \cvgd \chi^2_{k-r}.\]
+		\end{thm}
+
+	\section{Tests $\chi^2$}
+		\subsection{Loi multinomiale}
+			Soit une expérience aléatoire $E$ à valeurs dans $\{A_1, \ldots, A_k\}$ de probabilités $p_1, \ldots, p_k$.
+
+			\begin{déf} Soit $N = (N_1, \ldots, N_k) \in \N^k$ tel que $\sum_{i=1}^kN_i = n$, où $n$ est le nombre d'expériences indépendantes de l'expérience $E$.
+			($N_i$ désigne le nombre d'occurrences de $A_i$). La loi du vecteur aléatoire $N$ est dite \textit{multinomiale} de paramètres $n, p_1, \ldots, p_{k-1}$.
+			On note alors~:
+			\[N \sim \Mult(n, p_1, \ldots, p_{k-1}).\]
+			\end{déf}
+
+			\begin{rmq} Pour $1 \leq i \leq k$, on a $N_i \sim \Bin(n, p_i)$, d'où le nom de multinomiale. On en déduit~:
+			\[\Var[N_i] = np_i(1-p_i).\]
+
+			Prenons $i \neq j$. Par stabilité des binomiales, on trouve~:
+			\[\Var[N_i + N_j] = n(p_i+p_j)(1 - (p_i+p_j)) = np_i - np_i^2 - 2np_ip_j + np_j - np_j^2,\]
+			et~:
+			\begin{align*}
+				\Var[N_i + \N_j] &= \Var[N_i] + \Var[N_j] + 2\Cov[N_i, N_j] = np_i(1-p_i) + np_j(1-p_j) + 2\Cov[N_i, N_j] \\
+				&= np_i - np_i^2 + np_j - np_j^2 + 2\Cov[N_i, N_j].
+			\end{align*}
+			On en déduit~:
+			\[\Cov[N_i, N_j] = -np_ip_j.\]
+			On observe alors une dépendance entre $N_i$ et $N_j$, et avec une corrélation négative.
+			\end{rmq}
+
+			\begin{thm} Soit $N \sim \Mult(n, p_1, \ldots, p_{k+1})$. Alors~:
+			\[\sum_{i=1}^k\frac {(N_i - np_i)^2}{np_i} \cvgd \chi_{k-1}^2.\]
+			\end{thm}
+
+			\begin{thm} Soit $N \sim \Mult(n, p_1(\theta), \ldots, p_{k-1}(\theta))$, avec $\theta \in \Theta \subseteq \R^d \tq \intr \Theta \neq \emptyset$.
+			Si $\hat \theta$ est l'estimateur du maximum de vraisemblance de $\theta$, alors~:
+			\[\sum_{i=1}^k\frac {(N_i - np_i(\hat \theta))^2}{np_i(\hat \theta)} \cvgd \chi^2_{k-1-d}\;\text{ sous } \P_\theta \; \forall \theta \in \Theta.\]
+			\end{thm}
+
+			\begin{rmq} Il est commun d'utiliser ces propriétés de convergence pour approximer $N$ à l'aide de $\chi^2$ à partir du moment où~:
+			\begin{itemize}
+				\item $n \geq 30$~;
+				\item $\forall i \in \{1, \ldots, k\} : np_i \geq 1$~;
+				\item $\abs {\left\{i \in \{1, \ldots, k\} \tq np_i \geq 5\right\}} \geq 0.8k$.
+			\end{itemize}
+			\end{rmq}
 
 \end{document}
