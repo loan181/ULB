@@ -49,6 +49,7 @@
 \newcommand{\Nms}{\mathcal N(\mu, \sigma^2)}
 \newcommand{\Nzo}{\mathcal N(0, 1)}
 \newcommand{\vvp}[2]{\begin{pmatrix}#1 \\ #2\end{pmatrix}}
+\newcommand{\scpr}[2]{\left\langle#1, #2\right\rangle}
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\Ns}{\N^{*}}
@@ -64,6 +65,8 @@
 \newcommand{\Xn}{{X^\n}}
 \newcommand{\Tn}{{T^\n}}
 \newcommand{\TnXn}{{\Tn(\Xn)}}
+
+\newcommand{\pval}{p\text{-valeur}}
 
 \newtheorem{thm}{Théorème}[chapter]
 \newtheorem{lem}[thm]{Lemme}
@@ -1812,12 +1815,12 @@
 			On observe alors une dépendance entre $N_i$ et $N_j$, et avec une corrélation négative.
 			\end{rmq}
 
-			\begin{thm} Soit $N \sim \Mult(n, p_1, \ldots, p_{k+1})$. Alors~:
+			\begin{thm}\label{thm:test_hyp_multi} Soit $N \sim \Mult(n, p_1, \ldots, p_{k+1})$. Alors~:
 			\[\sum_{i=1}^k\frac {(N_i - np_i)^2}{np_i} \cvgd \chi_{k-1}^2.\]
 			\end{thm}
 
-			\begin{thm} Soit $N \sim \Mult(n, p_1(\theta), \ldots, p_{k-1}(\theta))$, avec $\theta \in \Theta \subseteq \R^d \tq \intr \Theta \neq \emptyset$.
-			Si $\hat \theta$ est l'estimateur du maximum de vraisemblance de $\theta$, alors~:
+			\begin{thm}\label{thm:test_hyp_multi_param} Soit $N \sim \Mult(n, p_1(\theta), \ldots, p_{k-1}(\theta))$, avec
+			$\theta \in \Theta \subseteq \R^d \tq \intr \Theta \neq \emptyset$. Si $\hat \theta$ est l'estimateur du maximum de vraisemblance de $\theta$, alors~:
 			\[\sum_{i=1}^k\frac {(N_i - np_i(\hat \theta))^2}{np_i(\hat \theta)} \cvgd \chi^2_{k-1-d}\;\text{ sous } \P_\theta \; \forall \theta \in \Theta.\]
 			\end{thm}
 
@@ -1829,4 +1832,133 @@
 			\end{itemize}
 			\end{rmq}
 
+		\subsection{Tests d'ajustement et d'adéquation}
+			Notons $p = (p_1, \ldots, p_k)$ le vecteur de probabilités d'une variable multinomiale. On dénotera par $\overline p \in [0, 1]^k$ un vecteur de
+			probabilités fixé (donc tel que $\scpr {\overline p}{\mathbf 1} = 1$). Intéresons-nous au problème d'hypothèse~:
+			\begin{align}\label{eq:test_hyp_multi}
+				\begin{cases}
+					&H_0 : p = \overline p \\
+					&H_1 : p \neq \overline p
+				\end{cases}
+			\end{align}
+
+			\begin{déf} Désignons par $\chi^2_{\ell,\,\alpha}$ le quantile d'ordre $\alpha$ d'une variable $\chi^2$ à $\ell$ degrés de liberté.
+			\end{déf}
+
+			Par le Théorème~\ref{thm:test_hyp_multi}, on définit le statistique suivante~:
+			\[Q^\n = Q^\n(N) \coloneqq \sum_{i=1}^k\frac {(N_i - \overline p_i)^2}{n\overline p_i},\]
+			justifiée par le fait que sous $H_0$, $n\overline p_i = \E[N_i]$.
+
+			\begin{rmq} Cette statistique peut-être vue comme une certaine \textit{distance} entre $N$ et $H_0$.
+			\end{rmq}
+
+			Pour $\alpha \in (0, 1)$, on définit alors le test pur~:
+			\[\phi_{\alpha,\,Q^\n} : \mathcal N \to \{0, 1\} : N \mapsto
+			\begin{cases}
+				1 &\text{ si } Q^\n(N) > \chi^2_{k-1,\,1-\alpha} \\
+				0 &\text{ sinon},
+			\end{cases}\]
+			qui donc rejette $H_0$ lorsque la valeur de $Q^\n$ est \textit{trop grande}, c-à-d au-delà du seuil déterminé par le quantile d'ordre $1-\alpha$.
+
+			\begin{rmq} Le théorème~\ref{thm:test_hyp_multi} implique que ce test $\phi_{\alpha,\,Q^\n}$ est asymptotiquement de niveau $\alpha$.
+			\end{rmq}
+
+			Afin de ne pas recalculer systématiquement $\chi^2_{k-1,\,1-\alpha}$ pour différentes valeurs de $\alpha \in (0, 1)$, on définit la $\pval$.
+
+			\begin{déf} La $\pval$ définie par~:
+			\[\pval \coloneqq P_{H_0}^\n[Q^\n \geq q^\n],\]
+			avec $q^\n$ la valeur calculée de la statistique $Q^\n$ est un indicateur d'acceptation de l'hypothèse nulle.
+			\end{déf}
+
+			\begin{rmq} La $\pval \in [0, 1]$ donne une idée de la présomption d'une hypothèse nulle fausse. De faibles valeurs pour $\pval$ (de l'ordre de
+			$< 10^{-2}$) indiquent un très haute présomption d'hypothèse nulle fausse, alors que de hautes valeurs (de l'ordre de $> 10^{-1}$) indiquent qu'il
+			n'y a pas de présomption d'hypothèse nulle fausse.
+
+			Attention~: une haute $\pval$ ne veut pas dire que l'hypothèse nulle est vraie, mais qu'il est peu probable qu'elle soit à rejeter.
+			\end{rmq}
+
+			Le problème d'hypothèse~\eqref{eq:test_hyp_multi} peut être élargi à un modèle paramétrique de la forme~:
+			\begin{align}\label{eq:test_hyp_multi_param}
+				\begin{cases}
+					&H_0 : \exists \theta \in \Theta \tq p = p(\theta) \\
+					&H_1 : \forall \theta \in \Theta : p \neq p(\theta)
+				\end{cases}
+			\end{align}
+			avec $\Theta \subset \R^d$ tel que $\intr \Theta \neq \emptyset$.
+
+			On définit alors la statistique~:
+			\[Q^\n = Q^\n(N) \coloneqq \sum_{i=1}^k\frac {(N_i - np_i(\hat \theta))^2}{np_i(\hat \theta)}.\]
+			Pour cette nouvelle statistique, le test $\phi_{\alpha,\,Q^\n}$ est à nouveau asymptotiquement de niveau $\alpha$ pour le
+			problème~\eqref{eq:test_hyp_multi_param}, par le Théorème~\ref{thm:test_hyp_multi_param}.
+
+		\subsection{Tests d'homogénéité}
+			Les tests d'homogénéité correspondent aux situations de vecteurs de multinomiales~:
+			\[N = (N_1, \ldots, N_\ell) \quad \tq \forall 1 \leq j \leq \ell : N_j = (N_{1j}, \ldots, N_{kj}).\]
+
+			\begin{déf} Un test d'homogénéité est un problème d'hypothèse sous la forme~:
+			\begin{align}\label{eq:test_hyp_homo}
+				\begin{cases}
+					&H_0 : \forall i \in \intint 1k : \forall j \in \intint 2\ell : p_{i\,j-1} = p_{i\,j} \\
+					&H_1 : \exists (i, j) \in \intint 1k \times \intint 2\ell \tq p_{i\,j-1} \neq p_{ij}.
+				\end{cases}
+			\end{align}
+			\end{déf}
+
+			Dans un tel cas, par indépendance des $N_j$, on étend le Théorème~\ref{thm:test_hyp_multi} en~:
+			\[\sum_{j=1}^\ell\sum_{i=1}^k\frac {(N_{ij} - n_jp_{ij})^2}{n_jp_{ij}} \cvgd \chi^2_{\ell \cdot (k-1)}.\]
+			Les $\chi^2$ étant des sommes de normales, sommer des $\chi^2$, donne une $\chi^2$ avec pour nombre de degrés de libertés la somme des degrés de
+			libertés des variables sommées.
+
+			Sous l'hypothèse nulle, les $p_{ij}$ sont constantes selon $j$, et donc la convergence peut être reformulée en~:
+			\[\sum_{i=1}^k\sum_{j=1}^\ell \frac {(N_{ij}-n_jp_i)^2}{n_jp_i} \cvgd \chi^2_{\ell \cdot (k-1)},\]
+			avec $p_i$ l'unique valeur selon les $j$ tels que $\sum_ip_i = 1$.
+
+			Les estimateurs de maximum de vraisemblance des $p_i$ sont donnés par~:
+			\[\hat {p_i} = \frac {N_{i\cdot}}n \coloneqq \frac 1n\sum_{j=1}^\ell N_{i\,j}.\]
+
+			En considérant les $k-1$ valeurs $p_i$ comme indépendantes, sous $H_0$, et par le Théorème~\ref{thm:test_hyp_multi_param}, on a~:
+			\[\sum_{i=1}^k\sum_{j=1}^\ell\frac {(N_{ij} - n_j\hat {p_i})^2}{n_j\hat {p_i}}
+				= \sum_{i=1}^k\sum_{j=1}^\ell \frac {\left(N_{ij} - \dfrac {n_jN_{i\cdot}}n\right)^2}{\dfrac {n_jN_{i\cdot}}n} \cvgd \chi^2_{(k-1)(\ell-1)}.\]
+
+			On définit alors le test pur de niveau asymptotique $\alpha \in (0, 1)$~:
+			\[\phi_\alpha : N \mapsto
+			\begin{cases}
+				1 &\text{ si } \sum_{i=1}^k\sum_{j=1}^\ell \frac {n\left(N_{ij} - \frac {n_jN_{i\cdot}}n\right)^2}{n_jN_{i\cdot}}
+					> \chi^2_{(k-1)(\ell-1),\,1-\alpha} \\
+				0 &\text{ sinon}
+			\end{cases}	\]
+
+		\subsection{Tests d'indépendance}
+			Pour un test d'indépendance, il faut un vecteur aléatoire $(X, Y)$ avec $X$ ayant $k$ valeurs possibles, et $Y$, $\ell$ valeurs pour $k, \ell \geq 2$.
+
+			On définit la distribution jointe par les $p_{ij}$, $(i, j) \in \intint 1k \times \intint 1\ell$.
+
+			\begin{déf} On définit les distributions marginales par~:
+			\[p_{i\cdot} = \P[X = x_i] = \sum_{j=1}^\ell p_{ij} \qquad \text{ et } \qquad p_{\cdot j} = \P[Y = y_j] = \sum_{i=1}^kp_{ij}.\]
+			\end{déf}
+
+			Le but d'un test d'indépendance est d'avoir pour hypothèse nulle l'indépendance des $n$ observations iid $(X_t, Y_t), 1 \leq t \leq n$~:
+			\begin{align}\label{eq:test_hyp_ind}
+				\begin{cases}
+					&H_0 : \forall (i, j) \in \intint 1k \times \intint 1\ell : p_{ij} = p_{i \cdot}p_{\cdot j} \\
+					&H_1 : \exists (i, j) \in \intint 1k \times \intint 1\ell  \tq p_{ij} \neq p_{i \cdot}p_{\cdot j}.
+				\end{cases}
+			\end{align}
+
+			À nouveau, selon $H_0$, on a~:
+			\[\sum_{i=1}^k\sum_{j=1}^\ell \frac {(N_{ij} - np_{i\cdot}p_{\cdot j})^2}{np_{i\cdot}p_{\cdot j}} \cvgd \chi^2_{(k\ell)-1}.\]
+
+			Les estimateurs de maximum de vraisemblance étant~:
+			\[\hat {p_{i \cdot}} = \frac {N_{i \cdot}}n \qquad \text{ et } \qquad \hat {p_{\cdot j}} = \frac {N_{\cdot j}}n,\]
+			on a alors, sous $H_0$ toujours~:
+			\[\sum_{i=1}^k\sum_{j=1}^\ell \frac {N\left(N_{ij} - \dfrac {N_{i \cdot}N_{\cdot j}}N\right)^2}{N_{i \cdot}N_{\cdot j}} \cvgd \chi^2_{(k-1)(\ell-1)}.\]
+
+			Pour $\alpha \in (0, 1)$, le test est alors défini par~:
+			\[\phi_\alpha : N \mapsto
+			\begin{cases}
+				1 &\text{ si } \sum_{i=1}^k\sum_{j=1}^\ell \frac {N\left(N_{ij} - \frac {N_{i \cdot}N_{\cdot j}}N\right)^2}{N_{i \cdot}N_{\cdot j}}
+					> \chi^2_{(k-1)(\ell-1),\,1-\alpha} \\
+				0 &\text{ sinon}
+			\end{cases}\]
+			et est de niveau asymptotique $\alpha$.
 \end{document}
