@@ -119,7 +119,7 @@
 	\section{Terminologie et définitions}
 		\begin{déf} On appelle \textit{modèle d'échantillonnage} un modèle d'observations iid.  \end{déf}
 
-		\begin{déf} Soit un modèle statistique $\statmod E\Brl{\mathcal P}n$ où $\mathcal P^{(n)} =
+		\begin{déf} Soit un modèle statistique $\statmod \R\Brl{\mathcal P}n$ où $\mathcal P^{(n)} =
 		\left\{\P_\theta^{(n)} \tq \theta \in \Theta \subset \R^k\right\}$. On note ici $\P^{(n)}_\theta$ une loi possible pour $(X_1, \ldots, X_n)$ et $\P_\theta$
 		une loi possible pour $X_i$ avec $i$ fixé. On dit alors que $\P^{(n)}_\theta$ est déterminé par $\P_\theta$.
 		\end{déf}
@@ -248,7 +248,7 @@
 		\end{rmq}
 
 		\begin{déf} La loi échantillonnée de $T(X^{(n)})$ est la loi déterminée par~:
-		\[\P_\theta^{(n)}\left[T(X^{(n)}) \in B\right] = \P_\theta^{(n)}\left[\left\{x^{(n)} \in X^{(n)} \tq T(x^{(n)} \in B\right\}\right], B \in \Brl(\R^m).\]
+		\[\P_\theta^{(n)}\left[T(X^{(n)}) \in B\right] = \P_\theta^{(n)}\left[\left\{x^{(n)} \in \mathcal X^{(n)} \tq T(x^{(n)}) \in B\right\}\right], B \in \Brl(\R^m).\]
 		\end{déf}
 
 		\begin{ex}[Bernoulli] $X^{(n)} = (X_1, \ldots, X_n)$ où les $X_i$ sont iid $\Bern(p)$. On a alors~: $T(X^{(n)}) = \sum_{i=1}^nX_i$, sous
@@ -317,7 +317,7 @@
 		où $\Gamma$ est la fonction Gamma d'Euler définie par~:
 		\[\Gamma(x) = \int_0^\pinfty t^{x-1}\exp(-t)\dif t.\]
 
-		De plus, $\Var(Q) = 2k$, et $E(Q) = k$.
+		De plus, $\Var(Q) = 2k$, et $\E(Q) = k$.
 
 		On peut également noter que les $\chi^2$ sont stables par la somme~: si $Q_1 \sim \chi^2_{k_1}$ et $Q_2 \sim \chi^2_{k_2}$, alors~:
 		\[Q_1 + Q_2 \sim \chi^2_{k_1+k_2}.\]
@@ -382,10 +382,10 @@
 	\section{Introduction}
 		Considérons toujours un modèle statistique $\statmod \R\Brl{\mathcal P}n$ avec $\theta$ le paramètre vectoriel $\in \Theta \subset \R^k$.
 
-		\begin{déf} Soit $g : \Theta \to \R^km$. Une statistique est appelée \textit{estimateur de $g(\theta)$} lorsqu'elle est à valeurs dans $g(\Theta)$.
+		\begin{déf} Soit $g : \Theta \to \R^k$. Une statistique est appelée \textit{estimateur de $g(\theta)$} lorsqu'elle est à valeurs dans $g(\Theta)$.
 		\end{déf}
 
-		\begin{déf} Soit $\theta \in \Theta \subset \R^k$. Si $g : \Theta \to \R^m : \theta \mapsto (\theta_{\varphi(1), \ldots, \theta_{\varphi(m)}})$, on
+		\begin{déf} Soit $\theta \in \Theta \subset \R^k$. Si $g : \Theta \to \R^m : \theta \mapsto (\theta_{\varphi(1)}, \ldots, \theta_{\varphi(m)})$, on
 		appelle les paramètres $\theta_{\varphi(i)}$ les paramètres \textit{d'intérêt}, et on appelle les autres paramètres les paramètres \textit{de nuisance}.
 		\end{déf}
 
@@ -416,8 +416,8 @@
 			\[Z^{(n)} \cvgp Z.\]
 			\end{déf}
 
-			\begin{déf} On dit que $Z^{(n)}$ converge \textit{en $L_r$} vers $Z$ lorsque~:
-			\[\E\left[\abs {Z^{(n)} - Z}\right] \xrightarrow[n \to \pinfty]{} 0.\]
+			\begin{déf} On dit que $Z^{(n)}$ converge \textit{en $L_r$} pour $r \in \N^*$ vers $Z$ lorsque~:
+			\[\E\left[\abs {Z^{(n)} - Z}^r\right] \xrightarrow[n \to \pinfty]{} 0.\]
 			Cela se note~:
 			\[Z^{(n)} \cvgLr Z.\]
 			\end{déf}
@@ -491,7 +491,7 @@
 			\[T^{(n)}(X^{(n)}) = \overline X^{(n)} \cvgps \mu = \E[X_1] \qquad \text{ sur }\P_{\mu, \sigma^2}^{(n)}.\]
 			$T^{(n)}(X^{(n)})$ est donc un estimateur fortement convergent.
 
-			Prenons maintenant $T_2^{(n)}(X^{(n)}) = \sigma^2$. On ne peut pas appliquer la loi des grands nombres car les variables aléatoires $(X_i - \overline X)^2$
+			Prenons maintenant $T_2^{(n)}(X^{(n)}) = s^2$. On ne peut pas appliquer la loi des grands nombres car les variables aléatoires $(X_i - \overline X)^2$
 			sommées ne sont pas indépendantes. On a alors~:
 			\begin{align*}
 				T_2^{(n)}(X^{(n)}) &= s^2 = \frac 1n\sum_{i=1}^n(X_i-\overline X)^2
@@ -576,8 +576,8 @@
 
 		\begin{thm}[Critère de factorisation de Neymann-Fisher] Dans un modèle paramétrique $\statmod \R\Brl{\mathcal P}n$, une statistique $T^{(n)}(X^{(n)})$ est
 		exhaustive \textbf{si et seulement si} pour tout $\theta \in \Theta$, la fonction de vraisemblance $L_\theta^{(n)}(X^{(n)})$ est factorisable sous la forme~:
-		\[L_\theta^{(n)}(X^{(n)}) \left(= g_\theta \circ T^{(n)}\right) h(x^{(n)}),\]
-		et ce $\P_\theta^{(n)}$-sûrement.
+		\[L_\theta^{(n)}(X^{(n)}) = \left(g_\theta \circ T^{(n)}\right)(X^\n) h(X^\n),\]
+		et ce $\P_\theta^{(n)}$-presque sûrement.
 		\end{thm}
 
 		\begin{rmq} Dans cette factorisation, la fonction $h$ ne peut dépendre de $\theta$, et seule la fonction $g_\theta$ peut en dépendre, mais uniquement par
@@ -617,7 +617,7 @@
 		On a donc que la statistique d'ordre est une statistique exhaustive. Or, la condition $0 \leq x_{(1)}, \ldots, x_{(n)} \leq \theta$ revient à la condition
 		$0 \leq x_{(1)}, x_{(n)} \leq \theta$. La statistique $(x_{(1)}, x_{(n)})$ est donc également une statistique exhaustive. Pour aller plus loin, décomposant
 		la fonction caractéristique $\charfun {0 \leq x_{(1)}, x_{(n)} \leq \theta)}$ en $\charfun {0 \leq x_{(1)}}\charfun{x_{(n)} \leq \theta}$, on peut poser
-		$h(x^{(n)}) = \charfun{0 \leq x_{(1)}}$, ce qui amène à une nouvelle statistique exhaustive~: $x_{(n)}$.
+		$h(x^{(n)}) = \charfun{0 \leq x_{(1)}}$, ce qui amène à une nouvelle statistique exhaustive~: $x^\n \mapsto x_{(n)}$.
 
 		À chaque étape du raisonnement, la statistique exhaustive contient \textit{de moins en moins d'information} générale mais conserve l'information sur $\theta$
 		qui est donc en quelque sorte contenue dans $x_{(n)}$.
@@ -819,7 +819,7 @@
 			\begin{prp} Soit $Z$ un vecteur aléatoire, et soient $A \in \R^{k \times m}, b \in \R^k$. Alors~:
 			\begin{itemize}
 				\item $\E_\theta[AZ + b] = A\E_\theta[Z] + b$~;
-				\item $\Var_\theta[AZ + b] = A\Var_\theta[AZ + b]A^T$~;
+				\item $\Var_\theta[AZ + b] = A\Var_\theta[Z]A^T$~;
 				\item $\Var_\theta[Z] \geq 0$.
 			\end{itemize}
 			\end{prp}
@@ -1017,15 +1017,15 @@
 			\[\forall \theta \in \Theta : \MSE_\theta(\TnXn) \geq {I^{(n)}(\theta)}^{-1}.\]
 			\end{rmq}
 
-			\begin{rmq} Dans le cas d'un modèle d'échantillonage, on a $(I^{(n)})^{-1} = n^{-1}{I^{(n)}(\theta)}^{-1}$, et donc~:
-			\[\forall \theta \in \Theta : \MSE_\theta(\TnXn) \geq n^{-1}\Delta_\theta{I^{(n)}(\theta)}^{-1}\Delta_\theta^T \xrightarrow[n \to \pinfty]{} 0.\]
+			\begin{rmq} Dans le cas d'un modèle d'échantillonage, on a $(I^{(n)})^{-1} = n^{-1}{I^{(4)}(\theta)}^{-1}$, et donc~:
+			\[\forall \theta \in \Theta : \MSE_\theta(\TnXn) \geq n^{-1}\Delta_\theta{I^{(1)}(\theta)}^{-1}\Delta_\theta^T \xrightarrow[n \to \pinfty]{} 0.\]
 			\end{rmq}
 
 			\begin{proof}[Preuve du Théorème~\ref{thm:borneinfMSE}] Notons d'abord~:
 			\begin{align*} (\Delta_\theta)_{ij} &= \pd {\psi_i}{\theta_j}(\theta) = \pd {}{\theta_j}\E_\theta[T_i^{(n)}(\Xn)
 				= \pd {}{\theta_j}\int_{\mathcal X^{(n)}}T_i^{(n)}(x^{(n)})L_\theta^{(n)}\dif x^{(n)} \\
 			&= \int_{\mathcal X^{(n)}}T_i(x^{(n)})\pd {}{\theta_j}L_\theta^{(n)}(x^{(n)})\dif x^{(n)}
-				= \int_{\mathcal X^{(n)}}T_i(x^{(n)})\pd {}{\theta_j}L_\theta^{(n)}(x^{(n)})\ln L_\theta^{(n)}(x^{(n)})\dif x^{(n)}.
+				= \int_{\mathcal X^{(n)}}T_i(x^{(n)})\pd {}{\theta_j}\ln L_\theta^{(n)}(x^{(n)})L_\theta^{(n)}(x^{(n)})\dif x^{(n)}.
 			\end{align*}
 
 			On a donc une espérance donnée par~:
@@ -1033,7 +1033,7 @@
 				= \E_\theta\left[\TnXn\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right]_{ij}.\]
 
 			On a alors l'égalité suivante~:
-			\[\Delta_\theta = \E_\theta\left[\TnXn\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right]_{ij}.\]
+			\[\Delta_\theta = \E_\theta\left[\TnXn\nabla_\theta\ln L_\theta^{(n)}(X^{(n)})\right].\]
 
 			On veut ensuite montrer~:
 			\begin{align*}
@@ -1429,11 +1429,11 @@
 	On dit que le problème est \textit{bilatéral} s'il est sous la forme~:
 	\[\begin{cases}
 		&H_0 : \theta = \theta_0 \\
-		&H_1 : \theta \not \in \theta_0
+		&H_1 : \theta \neq \theta_0
 	\end{cases}\]
 	(une partition de $\Theta$ en un singleton et $\Theta$ moins un point).
 
-	Dans ce cas, on dit que $H_0 : \theta = \theta_0$ est l'\textit{hypothèse simple}, et $H_1 : \theta \not \in \theta_0$ est l'\textit{hypothèse composée}.
+	Dans ce cas, on dit que $H_0 : \theta = \theta_0$ est l'\textit{hypothèse simple}, et $H_1 : \theta \neq \theta_0$ est l'\textit{hypothèse composée}.
 	\end{déf}
 
 	\begin{déf} Un test pur est une fonction mesurable $\phi^\n : \mathcal X^\n \to \{0, 1\}$, où $\mathcal X$ est l'ensemble des valeurs observables pour $X^\n$.
@@ -1641,7 +1641,7 @@
 			\item s'il existe $z_\alpha \tq F_{\theta_0}^T(z_\alpha) = 1 - \alpha$, on prend~:
 			\[(t_\alpha^+, \gamma_\alpha) \coloneqq (z_\alpha, 0)),\]
 			\item et sinon, on pose~:
-			\[t_\alpha^+ \coloneqq \int\{z \in \R \tq F_{\theta_0}^T(z) \geq 1-\alpha\},\]
+			\[t_\alpha^+ \coloneqq \inf\{z \in \R \tq F_{\theta_0}^T(z) \geq 1-\alpha\},\]
 			et~:
 			\[\gamma_\alpha \coloneqq \frac {F_{\theta_0}^T(t_\alpha^+)
 				- (1-\alpha)}{\lim_{\varepsilon \to 0}F_{\theta_0}^T(t_\alpha^+) - F_{\theta_0}^T(t_\alpha^+ - \varepsilon)} \in (0, 1).\]
@@ -1658,7 +1658,7 @@
 			&=
 			\begin{cases}
 				1 &\text{ si } L_{\theta''}(x^\n) > h_{\theta',\theta''}(t_\alpha^+)L_{\theta'}(x^\n) \\
-				\gamma_\alpha &= \text{ si } L_{\theta''}(x^\n) = h_{\theta',\theta''}(t_\alpha^+)L_{\theta'}(x^\n) \\
+				\gamma_\alpha & \text{ si } L_{\theta''}(x^\n) = h_{\theta',\theta''}(t_\alpha^+)L_{\theta'}(x^\n) \\
 				0 &\text{ sinon}
 			\end{cases}
 		\end{align*}
@@ -1704,6 +1704,16 @@
 				\end{cases}
 			\end{align}
 		\end{itemize}
+		\end{thm}
+
+	\section{Tests bilatéraux}
+		\begin{thm} Pour tout $\alpha \in (0, 1)$, il n'existe pas de test à PUM au niveau $\alpha$ pour les problème~:
+		\begin{align}\label{eq:test_hyp_=_neq}
+			\begin{cases}
+				&H_0 : \theta = \theta_0 \\
+				&H_1 : \theta \neq \theta_0
+			\end{cases}
+		\end{align}
 		\end{thm}
 
 \end{document}
