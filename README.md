@@ -57,7 +57,7 @@ Les résumés disponibles sont les suivants :
 #### Q1
 
 + [MATH-F-211 : Topologie](https://github.com/RobinPetit/ULB/blob/master/MATHF-211/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) ;
-+ [MATH-F-207 : Statistiques mathématiques](https://github.com/RobinPetit/ULB/blob/master/MATHF-207/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf).
++ [MATH-F-207 : Statistiques mathématiques](https://github.com/RobinPetit/ULB/blob/master/MATHF-207/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**).
 
 #### Q1 et Q2
 
