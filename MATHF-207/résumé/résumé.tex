@@ -1961,4 +1961,140 @@
 				0 &\text{ sinon}
 			\end{cases}\]
 			et est de niveau asymptotique $\alpha$.
+
+\chapter{Intervalles de confiance}
+	\begin{déf} Soit le modèle statistique à paramètre $\theta$ scalaire $\statmod \R\Brl{\mathcal P}n$, où $\mathcal P^\n =
+	\{\P_\theta^\n \tq \theta \in \Theta \subset \R\}$ et fixons $\alpha \in (0, 1)$. Alors~:
+	\[\left[L(\Xn), U(\Xn)\right]\]
+	est un \textit{intervalle de confiance} pour $\theta$ au \textit{niveau de confiance} $1-\alpha$ lorsque les statistiques $L$ et $U$ vérifient~:
+	\begin{itemize}
+		\item $\forall \theta \in \Theta : U(\Xn) \leq U(\Xn)$ presque sûrement sous $\P_\theta^\n$~;
+		\item $\forall \theta \in \Theta : \P_\theta^\n\left[\theta \in \left[L(\Xn), U(\Xn)\right]\right] \geq 1-\alpha$.
+	\end{itemize}
+	\end{déf}
+
+	\section{Intervalles exacts}
+		\subsection{Intervalles sans paramètre de nuisance}
+			\begin{déf} La fonction $g : \mathcal X^\n \times \Theta \to \R$ est \textit{pivotale} pour $\theta$ lorsque~:
+			\begin{itemize}
+				\item $\forall \theta \in \Theta : x^\n \mapsto g(x^\n, \theta)$ est mesurable~;
+				\item $\forall x^\n \in \mathcal X^\n : \theta \mapsto g(x^\n, \theta)$ est inversible~;
+				\item la distribution de $g(\Xn, \theta$ sous $\P_\theta^\n$ ne dépend pas de $\theta$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} L'hypothèse d'inversibilité de $\theta \mapsto g(\Xn, \theta)$ permet de réécrire~:
+			\[\forall \theta \in \Theta : \P_\theta^\n\left[a \leq g(\Xn, \theta) \leq b\right] \geq 1-\alpha,\]
+			en~:
+			\[\forall \theta \in \Theta : \P_\theta^\n\left[\theta \in g^{-1}(\Xn, \cdot)([a, b])\right] \geq 1-\alpha,\]
+			où $g^{-1}(\Xn, \cdot)([a, b])$ est l'image de $[a, b]$ par la réciproque de $\theta \mapsto g(\Xn, \theta)$, que l'on peut également écrire~:
+			\[g^{-1}(\Xn, \cdot)([a, b]) = g^{-1}(\Xn, [a, b]).\]
+
+			On veut également pouvoir lever le degré de liberté dû à $a$ et $b$ en imposant que l'intervalle de confiance soit de longueur minimale.
+			\end{rmq}
+
+		\subsection{Intervalles avec paramètres de nuisance}
+			Considérons maintenant le modèle statistique où $\mathcal P^\n = \{\P_\theta^\n \tq \theta \in \Theta \subset \R^d\}$.
+
+			\begin{déf} Fixons $\alpha \in (0, 1)$. L'intervalle~:
+			\[\left[L(\Xn), U(\Xn)\right]\]
+			est un \textit{intervalle de confiance} pour $\theta_1$ au \textit{niveau de confiance $1-\alpha$} lorsque les statistiques $L$ et $U$ vérifient~:
+			\begin{itemize}
+				\item $\forall \theta \in \Theta : L(\Xn) \leq U(\Xn)$ presque sûrement sous $\P_\theta^\n$~;
+				\item $\forall \theta \in \Theta : \P_\theta^\n\left[\theta_1 \in \left[L(\Xn), U(\Xn)\right]\right] > 1-\alpha$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{déf} Notons $\Theta_1$ l'ensemble des valeurs prises par $\theta_1$ pour $\theta \in \Theta$ (donc $\pi(\Theta)$ pour $\pi :
+			\theta \mapsto \theta_1$). La fonction $g : \mathcal X^\n \times \Theta_1 \to \R$ est dite \textit{pivotale} pour $\theta_1$ lorsque~:
+			\begin{itemize}
+				\item $\forall \theta_1 \in \Theta_1 : x^\n \mapsto g(x^\n, \theta_1)$ est mesurable~;
+				\item $\forall x^\n \in \mathcal X^\n : \theta_1 \mapsto g(x^\n, \theta_1)$ est inversible~;
+				\item la distribution de $g(X^\n, \theta_1)$ sous $\P_\theta^\n$ ne dépend pas de $\theta$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq} Cela dit que dans le cas de $\theta$ de dimension $\gneqq 1$, on détermine séparément un intervalle de confiance pour chaque coordonnée,
+			ce qui permet d'avoir une estimation pour chacune des coordonnées, et donc détermine un pavé de $\R^k$.
+			\end{rmq}
+
+	\section{Intervalles asymptotiques}
+		Lorsqu'il n'est pas possible de construire explicitement une fonction pivotale, il est toujours possible de construire des intervalles de confiances dits
+		asymptotiques, qui sont, en pratique (en supposant que l'échantillon est suffisamment grand), aussi bon que leur équivalents exacts.
+
+		\begin{déf} Soit un modèle statistique paramétrique avec $\Theta \subseteq \R^k$ et fixons $\alpha \in (0, 1)$.
+		\[\left[L(\Xn), U(\Xn)\right]\]
+		est un \textit{intervalle de confiance asymptotique} pour $\theta_1$ au \textit{niveau de confiance $1-\alpha$} lorsque les statistiques $L$ et $U$ vérifient~:
+		\begin{itemize}
+			\item $\forall \theta \in \Theta : L(\Xn) \leq U(\Xn)$ presque sûrement sous $\P_\theta^\n$~;
+			\item $\forall \theta \in \Theta : \P_\theta^\n\left[\theta_1 \in \left[L(\Xn), U(\Xn)\right]\right] \xrightarrow[n \to \pinfty]{} 1-\alpha$.
+		\end{itemize}
+		\end{déf}
+
+		\begin{rmq} Dans le cas où on possède un estimateur $\TnXn$ de $\theta$ faiblement convergent et tel que~:
+		\[\forall \theta \in \Theta : \frac {\sqrt n\left(T_1^\n(\Xn) - \theta_1\right)}{\sigma(\theta)} \cvgd \Nzo \quad \text{ sous } \P_\theta^\n,\]
+		avec $\sigma : \Theta \to \R^+$ continue, on peut déterminer une fonction \textit{asymptotiquement pivotale pour $\theta_1$} par~:
+		\[g : \mathcal X^\n \times \Theta_1 : (x^\n, \theta_1) \mapsto \frac {\sqrt n\left(T_1^\n(x^\n) - \theta_1\right)}{\sigma(T^\n(x^\n))}.\]
+
+		On observe également que~:
+		\[g(\Xn, \theta) = \frac {\sigma(\theta)}{\sigma(T^\n(\Xn))} \frac {\sqrt n\left(T_1^\n(\Xn) - \theta_1\right)}{\sigma(\theta)}
+			\cvgd \Nzo \quad \text{ sous } \P_\theta^\n.\]
+
+		Pour $\alpha \in (0, 1)$, on a alors~:
+		\[\forall \theta \in \Theta :
+			\P_\theta^\n\left[-\Phi^{-1}\left(1 - \frac \alpha2\right) \leq g(\Xn, \theta_1) \leq \Phi^{-1}\left(1-\frac \alpha2\right)\right]
+			\xrightarrow[n \to \pinfty]{} 1 - \alpha,\]
+		ce qui donne pour intervalle de confiance \textbf{asymptotique} pour $\theta_1$ au niveau $1-\alpha$~:
+		\[\left[T_1^\n(\Xn) \pm \frac {\sigma(T_1^\n(\Xn))}{\sqrt n}\Phi^{-1}\left(1 - \frac \alpha2\right)\right].\]
+		\end{rmq}
+
+	\section{Liens avec les tests d'hypothèses}
+		On peut lier tests d'hypothèses et intervalles de confiance en considérant un problème d'hypothèse sous la forme~\eqref{eq:test_hyp_=_neq} pour lequel
+		on dispose d'un intervalle de confiance $[L(\Xn), U(\Xn)]$ pour $\theta$ au niveau $1-\alpha$. On peut construire un test~:
+		\[\phi : \mathcal X^\n \to \{0, 1\} : x^\n \mapsto
+		\begin{cases}
+			1 &\text{ si } \theta_0 \not \in [L(x^\n), U(x^\n)] \\
+			0 &\text{ sinon}.
+		\end{cases}\]
+
+		\begin{rmq} On peut calculer l'erreur de première espèce~:
+		\[\E_{\theta_0}[\phi(\Xn)] = \P_{\theta_0}^\n\left[\theta_0 \not \in \left[L(\Xn), U(\Xn)\right]\right]
+			= 1 - \P_\theta^\n\left[\theta_0 \in \left[L(\Xn), U(\Xn)\right]\right] \leq 1 - (1-\alpha) = \alpha.\]
+
+		Ce test est donc de niveau $\alpha$ pour le problème~\eqref{es:test_hyp_=_neq}.
+		\end{rmq}
+
+		Inversement, si $\phi_{\theta_0}$ est un test pur de niveau $\alpha \in (0, 1)$ pour ce même problème, on peut définir~:
+		\[A(x^\n) \coloneqq \{\theta_0 \in \Theta \tq \phi_{\theta_0}(x^\n) = 0\}.\]
+		Cet ensemble correspond à l'ensemble des valeurs de $\theta_0$ qui ne seront pas rejetées si $x^\n$ est observé.
+
+		En prenant $A(\Xn)$ pour intervalle de confiance (pour peu que $A(\Xn)$ soit un intervalle) pour $\theta$, on a un intervalle de confiance de niveau
+		$1-\alpha$ car~:
+		\[\P_\theta^\n\left[\theta \in A(\Xn)\right] = \P_\theta^\n[\phi_\theta(\Xn) = 0] = 1 - \P_\theta[\phi_\theta(\Xn) = 1] \geq 1-\alpha.\]
+
+		\begin{rmq} Ce lien permet de construire des intervalles de confiance \textit{optimaux} en un sens puisque au chapitre précédent, des tests optimaux
+		(à PUM) ont été définis et démontrés alors qu'il n'y a pas cette notion directement dans les intervalles de confiance.
+		\end{rmq}
+
+	\section{Zones de confiance}
+		\begin{déf} Soit un modèle statistique paramétrique à paramètre vectoriel dans $\Theta \subseteq \R^k$ et fixons $\alpha \in (0, 1)$.
+		La statistique $R^\n(\Xn)$ à valeurs dans $\mathcal P(\Theta)$ est une \textit{zone de confiance} pour $\theta \in \Theta \subset \R^k$ au niveau de
+		confiance $1-\alpha$ lorsque~:
+		\[\forall \theta \in \Theta : \P_\theta^\n[\theta \in R^\n(\Xn)] \geq 1-\alpha.\]
+		\end{déf}
+
+		\begin{rmq} Cette définition n'impose pas que $R(\Xn)$ soit connexe. En dimension 1, une zone de confiance n'est donc pas forcément un intervalle de
+		confiance. De plus, en dimension $\geq 2$, les zones de confiance ne sont pas forcément des produits d'intervalles.
+
+		Il peut alors être intéressant de prendre un hyper-rectangle défini par le produit des intervalles obtenus indépendamment pour les $\theta_i$.
+		Notons tout de même que souvent~:
+		\[\P_\theta^\n[\theta \in R(\Xn)] \lneqq \P_\theta^\n\left[\forall i \in \intint 1k : \theta_i \in [L_i(\Xn), U_i(\Xn)]\right].\]
+
+		Le niveau de confiance d'une telle zone de confiance est alors difficile à définir. Cependant, on observe que si tous les intervalles
+		$[L_i(\Xn), U_i(\Xn)]$ sont de niveau $1-\frac \alpha k$ pour $k$, la dimension de $\Theta$, on a une zone de confiance de niveau $1-\alpha$. En effet~:
+		\begin{align*}
+			\P_\theta^\n[\theta \in R(\Xn)] &= 1 - \P_\theta^\n\left[\bigcup_{i=1}^k\left(\theta_i \in \left[L_i(\Xn), U_i(\Xn)\right]\right)\right] \\
+			&\geq 1 - \sum_{i=1}^k\P_\theta^\n\left[\theta_i \in \left[L_i(\Xn), U_i(\Xn)\right]\right].
+		\end{align*}
+		\end{rmq}
 \end{document}
