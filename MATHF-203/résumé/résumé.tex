@@ -197,7 +197,7 @@
 		\end{déf}
 
 		\begin{déf} Soit $(G, *)$ un groupe et soit $g \in G$. On appelle \textit{ordre de $g$} le plus petit $n \in \N^*$ tel que $g^n = e$.
-		On le note $\ord(e)$.
+		On le note $\ord(g)$.
 
 		L'ordre de $(G, *)$ est $\abs G$.
 		\end{déf}
@@ -253,7 +253,7 @@
 
 		\begin{thm} Tout groupe cyclique est déterminé, à isomorphisme près, par l'ordre d'un élément $g$ qui l'engendre.
 
-		Plus précisément, si $(G, *)$ est un groupe engendré par un élément $g$ d'ordre $\ord(g)$ fini, alors $G \simeqq (\Z_{\ord(g)}, +)$~; et si $g$ est
+		Plus précisément, si $(G, *)$ est un groupe engendré par un élément $g$ d'ordre $\ord(g)$ fini, alors $(G, *) \simeqq (\Z_{\ord(g)}, +)$~; et si $g$ est
 		d'ordre infini, alors $(G, *) \simeqq (\Z, +)$.
 		\end{thm}
 
@@ -466,9 +466,9 @@
 		\[x'*y' \in x*y*N.\]
 		\end{prp}
 
-		\begin{proof} On sait qu'il existe $m, n \in N$ tels que $x' = x*n$ et $y' = y*m$. Par normalité de $N$, on sait qu'il existe $m' \in N$ tel que
+		\begin{proof} On sait qu'il existe $m, n \in N$ tels que $x' = x*n$ et $y' = y*m$. Par normalité de $N$, on sait qu'il existe $n' \in N$ tel que
 		$y' = n*y = y*n'$. Dès lors~:
-		\[x'*y' = x*n*y*n'*m.\]
+		\[x'*y' = x*n*y*m = x*y*n'*m.\]
 		Or, $n'*m \in N$. Donc~:
 		\[x'*y' \in x*y*N.\]
 		\end{proof}
@@ -506,7 +506,7 @@
 		\begin{proof} $\overline f$ est bien définie. Soient $g, g' \in G$. On calcule~:
 		\[\overline f((g*N) \bar * (g'*N)) = \overline f(g*g'*N) = f(g*g').\]
 		Par propriétés de morphismes de $f$, on trouve donc~:
-		\[\overline g((g*N)\bar *(g'*N)) = f(g) \star f(g') = \overline f(g*N) \star \overline f(g'*N).\]
+		\[\overline f((g*N)\bar *(g'*N)) = f(g) \star f(g') = \overline f(g*N) \star \overline f(g'*N).\]
 
 		$\Imf f = \Imf \overline f$ de manière triviale.
 
@@ -522,11 +522,11 @@
 			\begin{proof} $(\Imf f, \star)$ est un groupe car $\Imf f$ est un sous-groupe de $H$. $f : G \to \Imf f$ est un homomorphisme.
 
 			Considérons $N = \Ker f$. $\overline f : G/\Ker(f) \to \Imf f$ est surjectif car $\Imf f = \Imf \overline f$ et est injectif car
-			$\Ker(\overline f) = \Ker(f)/\Ker(f) = \{e * \Ker f\} = \{e\}$. $\overline f$ est donc un homomorphisme bijectif, ou encore, un isomorphisme.
+			$\Ker(\overline f) = \Ker(f)/\Ker(f) = \{e * \Ker f\} = \{\Ker f\}$. $\overline f$ est donc un homomorphisme bijectif, ou encore, un isomorphisme.
 			\end{proof}
 
 		\subsubsection{Deuxième théorème d'isomorphisme}
-			\begin{thm} Si $K, N$ sont des sous-groupes de $(G, *)$, alors $K/(N \cap K) \simeqq (N*K)/N$, où on définit~:
+			\begin{thm} Si $K, N$ sont des sous-groupes de $(G, *)$, avec $N$ normal, alors $K/(N \cap K) \simeqq (N*K)/N$, où on définit~:
 			\[N*K \coloneqq \left\{n*k \tq (n, k) \in N \times K\right\}.\]
 			\end{thm}
 
@@ -635,8 +635,10 @@
 	\[\abs {\mathcal O_x} = [G:G_x].\]
 	\end{thm}
 
-	\begin{proof} L'application $\varphi : G/G_x \to \mathcal O_x : gG_x \mapsto gx$ est une bijection car~:
-	\[gG_x = \phi(g, G_x) = \{\phi(g, hx) \tq h \in G \text{ et } hx = x\} = \{\phi(g, x)\} = \{gx\}.\]
+	\begin{proof} L'application $\varphi : G/G_x \to \mathcal O_x : gG_x \mapsto gx$ est trivialement surjective
+	De plus, soient $g*G_x$, $h*G_x$ dans $G/G_x$. Supposons $\varphi(g*G_x) = \varphi(h*G_x)$. On a donc $gx = hx$. On en déduit~:
+	\[h^{-1}gx = h^{-1}hx = x,\]
+	donc $h^{-1}*g \in G_x$. On a bien $g*G_x = h*G_x$. $\varphi$ est donc également injective, et donc bijective.
 	\end{proof}
 
 	\begin{cor} Si $(G, *)$ est un groupe fini, alors~:
@@ -651,7 +653,7 @@
 	\end{cor}
 
 	\begin{déf} On définit le \textit{centre du groupe $G$} par~:
-	\[Z(G) \coloneqq C(G) \coloneqq \{x \in G \tq \forall g \in G : gxg^{-1}\}.\]
+	\[Z(G) \coloneqq C(G) \coloneqq \{x \in G \tq \forall g \in G : gxg^{-1} = x\}.\]
 	\end{déf}
 
 	\begin{rmq} On observe que $\abs {\mathcal O_{x_i}} = 1 \iff x_i \in C(G)$. Cela amène à la \textit{formule des classes} qui dit que~:
@@ -659,8 +661,8 @@
 	où $\mathcal O_{x_j}$ sont les classes de conjugaison contenant au moins 2 éléments.
 	\end{rmq}
 
-	\begin{déf} Soit $\phi : G \to S$, une action d'un groupe $G$ sur un ensemble $S$. Pour $g \in G$ fixé, on définit~:
-	\[\phi : S \to S : x \mapsto \phi_g(x) = \phi(g, x) = gx.\]
+	\begin{déf} Soit $\phi : G \times S \to S$, une action d'un groupe $G$ sur un ensemble $S$. Pour $g \in G$ fixé, on définit~:
+	\[\phi_g : S \to S : x \mapsto \phi_g(x) = \phi(g, x) = gx.\]
 	\end{déf}
 
 	\begin{prp} Pour $g \in G$ fixé, $\phi_g$ est une bijection de $S$ dans $S$.
@@ -712,9 +714,9 @@
 	\begin{proof} On pose~:
 	\[S \coloneqq \{(g_1, \ldots, g_p) \in G^p \tq g_1\ldots g_p = e_G\}.\]
 
-	Puisque $g_p = (g_1\ldots g_p)^{-1}$, on a $\abs S = \abs G^{p-1}$, et par hypothèse, $p$ divise $\abs G$. Soit $H \simeqq \Z_p$, le groupe cyclique d'ordre
+	Puisque $g_p = (g_1\ldots g_{p-1})^{-1}$, on a $\abs S = \abs G^{p-1}$, et par hypothèse, $p$ divise $\abs G$. Soit $H \simeqq \Z_p$, le groupe cyclique d'ordre
 	$p$ agissant sur $S$ par permutations cycliques du type~:
-	\[\Z_p \times S \to S : \left(k, (g_1, \ldots, g_p)\right) \mapsto k(g_1, \ldots, g_p) \coloneq \left(§g_{k+1}, \ldots, g_p, g_1\ldots, g_k\right).\]
+	\[\Z_p \times S \to S : \left(k, (g_1, \ldots, g_p)\right) \mapsto k(g_1, \ldots, g_p) \coloneqq \left(§g_{k+1}, \ldots, g_p, g_1\ldots, g_k\right).\]
 
 	Posons alors~:
 	\[S_0 \coloneqq \{(g_1, \ldots, g_p) \in S \tq g_1 = \ldots = g_p\} = \{(g, \ldots, g) \in S \tq g^p = e\}.\]
@@ -733,7 +735,7 @@
 
 	Prenons $\ell, m \in A$. On a alors $g^{\ell-m} = g^\ell*(g^m)^{-1}$, la composition de deux éléments de $H$. Donc $\ell-m \in A$, ce qui fait de $A$ un
 	sous-groupe de $\Z$. Si $A = \{0\}$, alors $A$ est trivialement cyclique, et sinon soit $n$, le plus petit entier strictement positif de $A$. On a alors
-	$A \simeqq n\Z$.
+	$A = n\Z$, et donc $H = \eng {g^n}$.
 	\end{proof}
 
 	\begin{lem} Soit $G = \eng g$, un groupe cyclique d'ordre $n \lneqq +\infty$, et soit $\ell \in \N^*$. Alors~:
@@ -796,7 +798,7 @@
 	sait que $H_1$ est un sous-groupe, et cyclique qui plus est.
 
 	Supposons alors pour $j < n$ que tout sous-groupe de $G_j$ est finiment engendré. Considérons alors la projection~:
-	\[\phi_j : G_{j+1} \to G_{j+1}/G_n,\]
+	\[\phi_j : G_{j+1} \to G_{j+1}/G_j,\]
 	un morphisme de groupes. Intéressons-nous à la restriction de $\phi_j$ à $H_{j+1}$. Puisque $\Ker \phi_j = G_j$, on trouve~:
 	\[\Ker \restr {\phi_j}{H_{j+1}} = H_{j+1} \cap G_j,\]
 	et $H_{j+1} \cap G_j$ est un sous-groupe de $G_j$. Or, par hypothèse, on suppose que tout sous-groupe de $G_j$ est finiment engendré. Donc
@@ -839,7 +841,7 @@
 	est injective car $(a, b) \in \Ker \Theta \iff a = b = e$ par~\eqref{eq:mg_1+...=0}. Donc $\Theta$ est un isomorphisme, et donc~:
 	\[\exists G' \tq G \simeqq Z_m \times G',\]
 	et par récurrence, on a $\exists (n_2, \ldots, n_{d(G)})$ tel que~:
-	\[G' \simeqq \Z_{n_1} \times \ldots \Z_{n_{d(G)}}.\]
+	\[G' \simeqq \Z_{n_2} \times \ldots \Z_{n_{d(G)}}.\]
 
 	Il reste alors à montrer que $m$ divise $n_2$. On pose $n_2 = mq + r$, et on observe que $mh_1 + n_2h_2 = 0$ si $h_2$ engendre $\Z_{n_2}$. On a donc~:
 	\[m\left(h_1 + qh_2\right) + rh_2 = 0 \Rightarrow r = 0.\]
@@ -890,7 +892,7 @@
 		\[(a_1-a_2)g_1 + a_2(g_1+g_2) + \sum_{i=3}^{d(G)}a_ig_i = 0.\]
 
 		Si $a_1a_2 < 0$ (signe opposé), alors $\abs {a_1+a_2} < \abs {a_1} < \abs {a_1-a_2}$. L'équation~\eqref{eq:a_ig_i} devient alors~:
-		\[(a_1+a_2)g_1 + a_2(g_2-g_1) + \sum_{i=3}^{d(G)} = 0.\]
+		\[(a_1+a_2)g_1 + a_2(g_2-g_1) + \sum_{i=3}^{d(G)}a_ig_i = 0.\]
 
 		En réitérant un nombre fini de fois, on montre qu'il existe un élément différent de $e_G$ d'ordre fini, ce qui est une contradiction.
 
@@ -911,7 +913,7 @@
 		Par le Théorème~\ref{thm:G simeqq Z^d(G)}, $G/T \simeqq \Z^\ell$, pour $\ell \coloneqq d(G/T)$. Soit $\{g_1+T, \ldots, g_\ell+T\}$ un ensemble
 		générateur de $G/T$.
 
-		Soit $f : G/T \to G : \sum_{i=1}^\ell a_ig_i \mapsto \sum_{i=1}^\ell a_ig_i$. $f$ est un morphisme injectif, et donc~:
+		Soit $f : G/T \to G : \sum_{i=1}^\ell a_ig_i + T \mapsto \sum_{i=1}^\ell a_ig_i$. $f$ est un morphisme injectif, et donc~:
 		\[\pi \circ f : G/T \to G/T = \Id_{G/T}.\]
 
 		Soit $O : T \times G/T \to G : (t, x) \mapsto O(t, x) = t+f(x)$. $O$ est surjectif. En effet~:
@@ -931,7 +933,7 @@
 		\begin{proof} Montrons que $\abs T < +\infty$. $T$ est un groupe de torsion de type fini puisque $G$ est de type fini.
 		Il existe donc un générateur de $T$~: $\{t_1, \ldots, t_{d(T)}\}$ tel que pour $x \in T$~:
 		\[x = \sum_{i=1}^{d(T)}a_it_i.\]
-		Donc $\abs T \leq \LCM\left(a_1, \ldots, a_{d(T)}\right) < +\infty$.
+		Donc $\abs T \leq \LCM\left(\ord(t1,) \ldots, \ord(t_{d(T)})\right) < +\infty$.
 
 		Par le lemme précédent et par le théorème fondamental des groupes abéliens finis, on a ce résultat ($T \simeqq \Z^{d(T) \eqqcolon \ell}$).
 		\end{proof}
@@ -985,7 +987,7 @@
 	\[\phi : H \times S \to S : (h, xP) \mapsto hxP.\]
 
 	Par le Lemme~\ref{lem:|S|=|S_0|}, pour~:
-	\[S_0 = \{x \in S \tq \forall h \in H : \phi(h, xP) = xP\},\]
+	\[S_0 = \{xP \in S \tq \forall h \in H : \phi(h, xP) = xP\},\]
 	on a~:
 	\[\abs {G/P} = [G:P] = \abs S = \abs {S_0} \mod p.\]
 
@@ -1163,7 +1165,7 @@
 		Pour $n \in \{0, \ldots, p-1\}$, on a $\sigma_q(n) = nq$, et donc $\sigma_q(n+m) = \sigma_q(n) + \sigma_q(m)$.
 
 		Pour $\psi : \Aut(\Z_p) \to \Z_p^* : \sigma_q \mapsto \sigma_q(1)$ est un morphisme. On a $\Ker \psi = \{\sigma_q \in \Aut(\Z_p) \tq \sigma_q(1) = 1\}$,
-		ou encore $\Ker \psi = \{1\}$, et donc $\Aut(\Z_p) \simeqq \Z_p^*$.
+		ou encore $\Ker \psi = \{\Id_{\Z_p}\}$, et donc $\Aut(\Z_p) \simeqq \Z_p^*$.
 		\end{proof}
 
 		\begin{lem} Soient $p, q$ deux nombres premiers, tels que $p < q$. Alors il existe un morphisme non-trivial de groupes~:
@@ -1173,12 +1175,13 @@
 
 		\begin{proof} \proofright Soit $\varphi$ un morphisme non-trivial (c-à-d $\Ker \varphi \neq \Z_p$). Puisque $\Ker \varphi \leq \Z_p$, on a $\Ker\varphi
 		= \{0_{\Z_p}\}$. On a alors~:
-		\[\varphi\left(\Z_p\right) = \Z_p \leq \Aut(\Z_p) \simeqq \Z_{q-1},\]
+		\[\varphi\left(\Z_p\right) \simeqq \Z_p text{ et } \varphi(\Z_p) \leq \Aut(\Z_q) \simeqq \Z_{q-1},\]
 		et donc $p$ divise $q-1$.
 
 		\proofleft Supposons que $p$ divise $q-1$. Dès lors, on a~:
-		\[\Aut(\Z_p) \simeqq \Z_{q-1}\]
-		possède un sous-groupe d'ordre $p$. On prend un générateur de $\Aut(\Z_p)$ donné par~:
+		\[\Aut(\Z_q) \simeqq \Z_{q-1}\]
+		possède un sous-groupe d'ordre $p$. On prend $\{\beta\}$, un générateur de $\Aut(\Z_q)$ ($Z_{q-1}$ est cyvlique et isomorphe à $\Aut(\Z_q)$, donc ce
+		dernier est cyclique également, et a donc un générateur de cardinalité $1$) donné par~:
 		\[\varphi_\beta : \Z_p \to \Aut(\Z_q) : k \mapsto \beta^{k\frac {q-1}p},\]
 		qui est un morphisme non-trivial.
 		\end{proof}
@@ -1224,7 +1227,7 @@
 		\end{itemize}
 		\end{thm}
 
-		\begin{proof} Pour le premier point, soit $G$ un groupe d'ordre $pq$. Il existe un unique $p$-Sylow $H$ de $G$. On a~:
+		\begin{proof} Pour le premier point, soit $G$ un groupe d'ordre $pq$. Il existe un unique $q$-Sylow $H$ de $G$. On a~:
 		\[\abs {\{q\text{-Sylow}\}} = 1 + kq \text { qui divise } \abs G = pq.\]
 
 		Comme $1+kq$ ne divise pas $q$, $1 + kq$ divise $p$, et donc $k = 0$. Le sous-groupe $H$ est donc normal dans $G$ ($H \simeqq \Z_q$).
@@ -1232,7 +1235,7 @@
 		Pour le second point, soit $H$ le $q$-Sylow de $G$ et $K$, un $p$-Sylow de $G$. Alors $G = HK$ et $H \cap K = \{e\}$ car $\abs {H \cap K}$ divise à la
 		fois $\abs H = q$ et $\abs K = p$ qui sont premiers entre eux.
 
-		$H$ possède $pq$ éléments distincts deux à deux. Supposons que $hk = h'k' \iff h'^{-1}h = k'k^{-1} \in H \cap K = \{e\}$, et donc $(h, k) = (h', k')$.
+		$HK$ possède $pq$ éléments distincts deux à deux. Supposons que $hk = h'k' \iff h'^{-1}h = k'k^{-1} \in H \cap K = \{e\}$, et donc $(h, k) = (h', k')$.
 		\end{proof}
 
 \end{document}
