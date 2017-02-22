@@ -34,8 +34,8 @@
 \numberwithin{equation}{section}
 
 % link amsthm and mdframed
-%\iftrue
-\iffalse
+\iftrue
+%\iffalse
 	% pre-amsthm
 	\mdfdefinestyle{resultstyle}{%
 		hidealllines=true,%
@@ -5379,6 +5379,221 @@
 
 			On note les sommes partielles par $S_n(f) \coloneqq \sum_{k=-n}^nc_k(f)e_k$.
 			\end{déf}
+
+		\subsection{Inégalité de Bessel et lemme de Riemann-Lebesgue}
+			\begin{prp} Soit $f \in \Czm(\R, \C)$. Pour $n \geq 1$, on a~:
+			\begin{equation}
+				\norm {S_n(f)}_2^2 = \sum_{\abs k \leq n} \abs {c_k(f)}^2 = \frac {\abs {a_0}^2}4 + \frac 12\sum_{k=1}^n\left(\abs {a_k(f)}^2 + \abs {b_k(f)}^2\right).
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} Les fonctions $(e_k)_{\abs k \leq n}$ forment une base orthonormale de $T_n$. Pour $n \geq 1$, on a~:
+			\begin{equation}
+				S_n(f) = \sum_{\abs k \leq n}c_k(f)e_k.
+			\end{equation}
+
+			Donc $(c_k(f))_{\abs k \leq n}$ sont les coordonnées de $S_n(f)$ dans une base orthonormée.
+			\end{proof}
+
+			\begin{rmq} Vérifions quand même~:
+			\begin{equation}
+				\norm {S_n(f)}_2^2 = \scpr {S_n(f)}{S_n(f)} = \sum_{\abs k \leq n}\sum_{\abs p \leq n}c_k(f)c_p(f)\scpr {e_k}{e_p}
+					= \sum_{\abs k \leq n}\abs {c_k(f)}^2.
+			\end{equation}
+			\end{rmq}
+
+			\begin{prp} Soit $f \in \Czm(\R, \C)$ et $n \in \N$. Il existe une unique fonction $p_n \in T_n$ telle que~:
+			\begin{equation}
+				\norm {f-p_n}_2^2 = \inf_{p \in T_n}\norm {f-p}_2^2.
+			\end{equation}
+
+			Cette fonction est de plus caractérisée par~:
+			\begin{subnumcases}
+				p_n \in T_n \\
+				\forall p \in T_n : f-p_n \perp p \text{ ou } \forall p \in T_n : \scpr {f-p_n}p = 0.
+			\end{subnumcases}
+			\end{prp}
+
+			\begin{rmq} La norme $\norm \cdot_2$ est appelée \textit{norme en moyenne quadratique}. Donc le théorème donne l'existence et l'unicité d'un
+			polynôme trigonométrique de degré $\leq n$ approchant $f$ au mieux en moyenne quadratique.
+			\end{rmq}
+
+			\begin{rmq} Si $f \in \mathcal D$, alors $p_n$ est le projeté orthogonal défini sur $T_n$.
+			\end{rmq}
+
+			\begin{prp} Soient $f \in \Czm(\R, \C)$ et $n \in \N$. On a ~:
+			\begin{equation}
+				p_n = S_n(f).
+			\end{equation}
+
+			i.e. $S_n(f)$ est la meilleure approximation en moyenne quadratique de $f$ par un polynôme trigonométrique de degré $\leq n$.
+			\end{prp}
+
+			\begin{proof} Montrons que i) $S_n(f) \in T_n$ (par construction) et ii) $\forall p \in T_n : f-S_n(f) \perp p$. Soit $k \in \Z$ tel que
+			$\abs k \leq n$. On a~:
+			\begin{align}
+				\scpr {S_n(f)}{e_k} &= \frac 1{2\pi}\int_0^{2\pi}\left(f(t) - \sum_{\abs p \leq n}c_p(f)e^{ipt}\right)e^{-ikt}\dif t
+						= \frac 1{2\pi}\int_0^{2\pi}f(t)e^{-ikt}\dif t - \frac 1{2\pi}\sum_{\abs p \leq n}\int_0^{2\pi}e^{i(p-k)t}\dif t \\
+					&= c_k(f) - \sum_{\abs p \leq n}c_p(f)\frac 1{2\pi}\int_0^{2\pi}e^{i(p-k)t}\dif t = c_k(f) - c_k(f) = 0.
+			\end{align}
+
+			Par anti-linéarité, on a donc~:
+			\begin{equation}
+				\forall p \in T_n : \scpr {f-S_n(f)}p = 0,
+			\end{equation}
+			et donc $p_n = S_n(f)$ satisfait la caractérisation précédente.
+			\end{proof}
+
+			\begin{prp}[Inégalité de Bessel] Soit $f \in \Czm(\R, \C)$. Les séries numériques de termes généraux $\abs {c_k(f)}^2 + \abs {c_{-k}(f)}^2$
+			et $\abs {a_k(f)}^2 + \abs {b_k(f)}^2$ sont convergentes et on a~:
+			\begin{equation}
+				\forall n \geq 1 : \sum_{\abs k \leq n}\abs {c_k}^2 = \frac {\abs {a_0(f)}^2}4 + \frac 12\sum_{k=1}^2\left(\abs {a_k(f)}^2 + \abs {b_k(f)}^2\right) \leq \norm f_2^2.
+			\end{equation}
+			\end{prp}
+
+			\begin{rmq}~
+				\begin{itemize}
+					\item En passant à la limite $n \to \pinfty$, on a~:
+					\begin{equation}
+						\sum_{k \in \Z}\abs {c_k(f)}^2 \leq \norm f_2^2.
+					\end{equation}
+					\item L'identité de Parseval transforme l'inégalité de Bessel en égalité~:
+					\begin{equation}
+						\norm f_2^2 = \sum_{k \in \Z}\abs {c_k(f)}^2.
+					\end{equation}
+				\end{itemize}
+			\end{rmq}
+
+			\begin{proof} Soit $n \geq 1$. Observons que~:
+			\begin{equation}
+				\sum_{\abs k \leq n}\abs {c_k(f)}^2 = \norm {S_n(f)}^2.
+			\end{equation}
+
+			De plus~:
+			\begin{equation}
+				f = \underbrace {f - S_n(f)}_{\in T_n^\perp} + \underbrace {S_n(f)}_{\in T_n}.
+			\end{equation}
+			Donc $\norm f_2^2 = \norm {f-S_n(f)}_2^2 + \norm {S_n(f)}^2$, avec $\norm {f - S_n(f)}_2^2 \geq 0$, et donc $\norm f_2^2 \geq \norm {S_n(f)}_2^2$.
+			\end{proof}
+
+			\begin{cor}[Lemme de Riemann-Lebesgue] Soit $f \in \Czm(\R, \C)$. On a~:
+			\begin{itemize}
+				\item $c_n(f) \mconv {\abs n}\pinfty 0$~;
+				\item $a_n(f) \mconv n\pinfty 0$~;
+				\item $b_n(f) \mconv n\pinfty 0$.
+			\end{itemize}
+			\end{cor}
+
+			\begin{proof} Ces suites en carré du module sont les termes d'une série numérique qui convergent, donc tendent vers $0$.
+			\end{proof}
+
+		\subsection{Les théorèmes de Dirichlet}
+			\begin{déf} Soit $N \in \N$. On appelle \textit{noyau de Dirichlet d'ordre $N$} la fonction~:
+			\begin{equation}
+				T_n \ni D_N : \R \to \C : t \mapsto \sum_{\abs k \leq N}e^{ikt}.
+			\end{equation}
+			\end{déf}
+
+			\begin{prp}\label{prp:noyau de Dirichlet sin} Soient $N \in \N$ et $t \in \R \setminus 2\pi\Z$. On a~:
+			\begin{equation}
+				D_N(t) = \frac {\sin\left((2N+1)\frac t2\right)}{\sin\left(\frac t2\right)}.
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} Observons que, pour $N \in \N$ et $t \in \R \setminus 2\pi\Z$, on a $e^{it} \neq 1$. $D_N(t)$ est donc la somme d'une suite géométrique
+			de raison $\neq 1$. On applique alors la formule~:
+			\begin{equation}
+				D_N(t) = e^{-iNt}\frac {1 - e^{i(2N+1)t}}{1 - e^{it}} =
+					\underbrace {e^{-iNt}\frac {e^{i\frac {2N+1}2t}}{e^{\frac {it}2}}}_{=1}
+					\underbrace {\frac {e^{-i(2N+1)\frac t2} - e^{i(2N+1)\frac t2}}{e^{-i\frac t2} - e^{i\frac t2}}}_{\text{ à transformer en $\cos$ et $\sin$}} = \frac {\sin\left((2N+1)\frac t2\right)}{\sin\left(\frac t2\right)}.
+			\end{equation}
+			\end{proof}
+
+			\begin{thm}[Théorème de Dirichlet local] Soit $f \in \C^{1,m}_{2\pi}(\R, \C)$ et $x \in \R$. La série de Fourier de $f$ en $x$ converge vers $\frac 12(f(x^+) + f(x^-))$. i.e.~:
+			\begin{equation}
+				\frac {f(x^+) + f(x^-)}2 = \sum_{k \in \Z}c_k(f)e^{ikx}.
+			\end{equation}
+			\end{thm}
+
+			\begin{proof} Écrivons pour $(x, N) \in \R \times \N$ et $f \in C^{1,m}_{2\pi}(\R, \C)$.
+			\begin{align}
+				S_n(f)(x) &= \sum_{k=-N}^Nc_k(f)e^{iktx} = \sum_{k=-N}^N\frac 1{2\pi}\int_0^{2\pi}f(t)e^{-ikt}\dif te^{ikx} = \frac 1{2\pi}\int_0^{2\pi}f(t)\sum_{k=-N}^Ne^{ik(x-t)}\dif t \\
+				&= \frac 1{2\pi}\int_0^{2\pi}f(t)D_N(x-t)\dif t = \frac 1{2\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\dif t.
+			\end{align}
+			En posant $t \coloneqq x+u$, on trouve~:
+			\begin{align}
+				S_n(f)(x) &= \frac 1{2\pi}\int_{-\pi-x}^{\pi-x}f(x+u)D_N(u)\dif u  \\
+					&= \frac 1{2\pi}\int_{-\pi}^{\pi}f(x+u)D_N(u)\dif u \label{eq:S_n fD_N}\\
+					&= \frac 1{\pi}\int_{-\pi}^0 f(x+u)D_N(u)\dif u + \frac 1{2\pi}\int_0^\pi f(x+u)D_N(u)\dif u.
+			\end{align}
+
+			On remarque qu'en appliquant\eqref{eq:S_n fD_N} à ${\bf 1} : \R \to \C : t \mapsto 1$, on trouve~:
+			\begin{equation}
+				1 = S_n({\bf 1})(x) = \frac 1{2\pi}\int_{-\pi}^\pi D_N(u)\dif u.
+			\end{equation}
+
+			Ainsi~:
+			\begin{equation}
+				\frac 12(f(x^+) + f(x^-)) = \frac 1{2\pi}\int_{-\pi}^\pi\frac 12(f(x^+) + f(x^-))D_N(u)\dif u,
+			\end{equation}
+			d'où, par différence~:
+			\begin{align}
+				&S_n(f)(x) - \frac 12(f(x^+) + f(x^-)) = \frac 1{2\pi}\int_{-\pi}^\pi\left(f(x+u) - \frac 12(f(x^+)+f(x^-))\right)D_N(u)\dif u \\
+				&= \frac 1{2\pi}\int_{-\pi}^0f(x+u)D_N(u)\dif u - \frac 1{4\pi}\int_{-\pi}^\pi f(x^-)D_N(u)\dif u + \frac 1{2\pi}\int_0^\pi f(x+u)D_N(u)\dif u - \frac 1{4\pi}\int_{-\pi}^\pi f(x^+)D_N(u)\dif u \\
+				&= \frac 1{2\pi}\int_{-\pi}^0f(x+u)D_N(u)\dif u - \frac 1{2\pi}\int_{-\pi}^0 f(x^-)D_N(u)\dif u + \frac 1{2\pi}\int_0^\pi f(x+u)D_N(u)\dif u - \frac 1{2\pi}\int_0^\pi f(x^+)D_N(u)\dif u
+			\end{align}
+			par parité de $D_N$. On trouve alors~:
+			\begin{equation}
+				S_n(f) - \frac 12(f(x^+)+f(x^-)) = \frac 1{2\pi}\int_{-\pi}^0\left(f(x+u) - f(x^-)\right)D_N(u\dif u + \int_0^\pi\left(f(x+u) - f(x^+)\right)D_N(u)\dif u.
+			\end{equation}
+			En posant $v \coloneqq \frac u2$, on trouve~:
+			\begin{equation}
+				S_n(f) - \frac 12(f(x^+) - f(x^-)) = \frac 1\pi\int_{-\frac \pi2}^0\left(f(x+2v)-f(x^-)\right)D_N(2v)\dif v + \frac 1\pi\int_0^{\frac \pi2}\left(f(x+2v)-f(x^+)\right)D_N(2v)\dif v.
+			\end{equation}
+
+			Considérons les fonctions $2\pi$-périodiques dont la restriction à $[\pm \pi]$ est définie par~:
+			\begin{subnumcases}
+				{g : [\pm\pi] \to \C : t \mapsto}
+					\frac {f(x+2t)-f(x^-)}{\sin t} & si $\frac {-\pi}2 < t < 0$ \\
+					0 & sinon
+			\end{subnumcases}
+			et~:
+			\begin{subnumcases}
+				{h : [\pm\pi] \to \C : t \mapsto}
+					\frac {f(x+2t)-f(x^+)}2 & si $0 < t < \frac \pi2$ \\
+					0 & sinon
+			\end{subnumcases}
+
+			Pour $t \in [-\pi, 0]$, on a~:
+			\begin{equation}
+				f(x+2t) - f(x^-) = 2tf'(x^-) + o(t),
+			\end{equation}
+			et donc~:
+			\begin{equation}
+				\frac {f(x+2t) - f(x^-)}{\sin t} \stackrel ={t \to 0} 2f'(x^-) + o(1).
+			\end{equation}
+
+			Donc $g$ admet une limite finie en $0^-$ (et en $0^+$ par définition), donc en $0$. Par un argument similaire, on trouve~:
+			\begin{equation}
+				\frac {f(x+2t)-f(x^+)}{\sin t} \stackrel ={t \to 0} 2f'(x^+) + o(1).
+			\end{equation}
+			On en déduit donc que $h$ admet également une limite en $0$. $g$ et $h$ sont donc dans $\Czm(\R, \C)$. On trouve alors finalement, par la
+			Proposition~\ref{prp:noyau de Dirichlet sin}~:
+			\begin{align}
+				S_n(f)(x) - \frac 12(f(x^+)+f(x^-)) &= \frac 1\pi\int_{-\frac \pi2}^0g(v)\sin((2N+1)v)\dif v + \frac 1\pi\int_0^{\frac \pi2}h(v)\sin((2N+1)v)\dif v \\.
+				&\frac 1\pi\int_{-\pi}^\pi g(v)\sin((2N+1)v)\dif v + \frac 1\pi\int_{-\pi}^\pi h(v)\sin((2N+1)v)\dif v \\
+				&= 2b_{2N+1}(g) + 2b_{2N+1}(h).
+			\end{align}
+
+			Puisque $g, h \in \Czm(\R, \C)$, en appliquant le lemme de Riemann-Lebesgue, on a~:
+			\begin{equation}
+				S_n(f)(x) \xrightarrow[n \to \pinfty]{} \frac {f(x^+)+f(x^-)}2.
+			\end{equation}
+			\end{proof}
+
+			\begin{rmq} Puisque $\Czm(\R, \C) \ni f \xrightarrow{\text{Bessel}} c_n(f) \in \ell^2(\Z)$ et $c_n(f) \xrightarrow {\text{Dirichlet}} f$, la régularité
+			de $f$ se traduit en décroissance de $\abs {c_n(f)}$ et vice-versa.  % et je dis, et tu dis... Que le bonheur est irréductible !
+			\end{rmq}
 
 % \part{Fonctions d'une variable complexe}
 
