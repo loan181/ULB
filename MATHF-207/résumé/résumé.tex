@@ -100,7 +100,7 @@
 
 	Nous allons nous intéresser à des \textit{modèles statistiques} sous la forme $\statmod \R\Brl{\mathcal P}n$ où~:
 	\[\mathcal P^{(n)} = \left\{\P^{(n)}\right\} = \left\{\P^{(n)}_\theta \tq \theta \in \Theta \subset \R^k\right\},\]
-	et donc les $P^{(i)}$ sont chacun une loi possible pour $(X_1, \ldots, X_n)$.
+	et donc les $\P^{(i)}$ sont chacun une loi possible pour $(X_1, \ldots, X_n)$.
 
 	Ces modèles sont dits \textit{paramétriques} car les différentes lois sont les mêmes au paramètre $\theta$ près. Nous n'étudierons que des modèles
 	paramétriques où $\Theta$ est un espace de dimension $d \in \N$ finie.
@@ -176,14 +176,14 @@
 		\[\mu_r'(\theta) \coloneqq E_\theta[X_1^r].\]
 
 		On définit également $\mu_r(\theta)$, le \textit{moment \textbf{centré}} d'ordre $r$ avec $r \in \Ns$ par~:
-		\[\mu_r(\theta) \coloneqq E_\theta\left[\left(X_1 - \mu_r'(\theta)\right)^r\right].\]
+		\[\mu_r(\theta) \coloneqq E_\theta\left[\left(X_1 - \mu_1'(\theta)\right)^r\right].\]
 		\end{déf}
 
 		\begin{déf}[Moments pour échantillon] On définit $m_r'$, le \textit{moment \textbf{non}-centré} d'ordre $r$ avec $r \in \Ns$ par~:
 		\[m_r' \coloneqq \frac 1n\sum_{i=1}^n X_i^r.\]
 
 		On définit également le \textit{moment \textbf{centré}} d'ordre $r$ avec $r \in \Ns$ par~:
-		\[m_r \coloneqq \frac 1n\sum_{i=1}^n\left(X_i - m_r'\right)^r.\]
+		\[m_r \coloneqq \frac 1n\sum_{i=1}^n\left(X_i - m_1'\right)^r.\]
 		\end{déf}
 
 		\begin{rmq} La loi des grands nombres dit que~:
@@ -275,7 +275,7 @@
 
 		La seconde forme est plus agréable car on a une intersection d'événements indépendants. Donc~:
 		\[F_\theta^{(n)}(x) = \prod_{i=1}^n\P[X_i \leq x] = \prod_{i=1}^nF_\theta^{X_i}(x) =
-			\begin{cases}0 &\text{ si } x < 0 \\\left(\frac x\theta\right)^n &\text{ si } 0 \leq x \leq \theta \\0 &\text{ sinon}\end{cases}.\]
+			\begin{cases}0 &\text{ si } x < 0 \\\left(\frac x\theta\right)^n &\text{ si } 0 \leq x \leq \theta \\1 &\text{ sinon}\end{cases}.\]
 
 		On a alors la fonction de densité~:
 		\begin{align*}
@@ -351,7 +351,7 @@
 		\[ns^2 = \sum_{i=1}^n(X_i - \overline X)^2 = \sum_{i=1}^n\left(\left(\sigma Z_i + \mu\right) - \left(\sigma\overline Z + \mu\right)\right)^2
 			= \sigma^2\sum_{i=1}^n\left(Z_i - \overline Z\right)^2 = n\sigma^2s_Z^2.\]
 
-		Il nous faut alors montrer que $\overline Z \sim \Nzo$ et $ns_Z^2 \sim \chi^2_{n-1}$, avec $\overline Z \sqcup s_Z^2$.
+		Il nous faut alors montrer que $\overline Z \sim \mathcal N\left(0, \frac 1n\right)$ et $ns_Z^2 \sim \chi^2_{n-1}$, avec $\overline Z \sqcup s_Z^2$.
 
 		Pour cela, on sait que le vecteur $Z^{(n)} = (Z_1, \ldots, Z_n)$ a pour densité~:
 		\[f^{Z^{(n)}}(z^{(n)}) = \prod_{i=1}^nf^{Z_i}(z_i) = \prod_{i=1}^n\left(\frac 1{\sqrt {2\pi}}\exp\left(\frac {z_i^2}2\right)\right)
@@ -409,7 +409,7 @@
 			Soient $Z^{(n)} = (Z_1, \ldots, Z_n)$ définis pour $n \geq 1$ et sur $\probspace \Omega{\mathcal F}\P$.
 
 			\begin{déf} On dit que $Z^{(n)}$ converge \textit{presque sûrement} (ou \textit{stochastiquement}) vers $Z$ lorsque~:
-			\[\P\left[\left\{\omega \in \Omega \tq Z^{(n)} \xrightarrow[n \to \pinfty]{} Z(\omega)\right\}\right] = 1.\]
+			\[\P\left[\left\{\omega \in \Omega \tq Z^{(n)}(\omega) \xrightarrow[n \to \pinfty]{} Z(\omega)\right\}\right] = 1.\]
 			Cela se note~:
 			\[Z^{(n)} \cvgps Z.\]
 			\end{déf}

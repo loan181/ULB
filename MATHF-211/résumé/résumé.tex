@@ -347,14 +347,16 @@
 		\begin{itemize}
 			\item[T1] $\{X, \emptyset\} \subseteq \top_X$~;
 			\item[T2] si $U_1, \ldots, U_k \in \top_X$, alors $\bigcap_{i=}^kU_i \in \top_X$~;
-			\item[T3] si $\{U_i \tq i \in I\}$ est une collection quelconque d'éléments de $\top_X$, alors $\bigcup_{i=1}^kU_i \in \top_X$.
+			\item[T3] si $\{U_i \tq i \in I\}$ est une collection quelconque d'éléments de $\top_X$, alors $\bigcup_{i \in I}U_i \in \top_X$.
 		\end{itemize}
 
 		On appelle le couple $(X, \top_X)$ un \textit{espace topologique}. Les éléments de $\top_X$ sont appelés les \textit{ouverts} de $X$.
 		\end{déf}
 
 		\begin{déf} Soient $(X, \top_X), (Y, \top_Y)$ deux espaces topologiques et $f : X \to Y$. On dit que $f$ est $(\top_X, \top_Y)$-continue si~:
-		\[\forall U \in \top_Y : f^{-1}(U) \in \top_X.\]
+		\[\forall U \in \top_Y : f^{-1}(U) \in \top_X,\]
+		ou encore~:
+		\[f^{-1}(\top_X) \subseteq \top_X.\]
 		\end{déf}
 
 		\begin{ex} Si $(M, d_M)$ est un espace métrique, on définit $\top_{d_M}$ comme étant la collection de tous les ouverts de $(M, d_M)$. On a vérifié par
