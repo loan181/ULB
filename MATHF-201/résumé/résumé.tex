@@ -117,8 +117,11 @@
 \newcommand{\CDIII}{{CDI 2}}
 \newcommand{\subscpct}{\subset\subset}
 
-\newcommand{\CzmT}[1]{C^{0,m}_{#1}}
+\newcommand{\CmT}[2]{C^{#1,m}_{#2}}
+\newcommand{\CzmT}[1]{\CmT 0{#1}}
 \newcommand{\Czm}{\CzmT{2\pi}}
+\newcommand{\ComT}[1]{\CmT 1{#1}}
+\newcommand{\Com}{\ComT {2\pi}}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -5509,7 +5512,8 @@
 			\end{equation}
 			\end{proof}
 
-			\begin{thm}[Théorème de Dirichlet local] Soit $f \in \C^{1,m}_{2\pi}(\R, \C)$ et $x \in \R$. La série de Fourier de $f$ en $x$ converge vers $\frac 12(f(x^+) + f(x^-))$. i.e.~:
+			\begin{thm}[Théorème de Dirichlet local]\label{thm:Dirichlet local} Soit $f \in C^{1,m}_{2\pi}(\R, \C)$ et $x \in \R$. La série de Fourier de $f$ en $x$
+			converge vers $\frac 12(f(x^+) + f(x^-))$. i.e.~:
 			\begin{equation}
 				\frac {f(x^+) + f(x^-)}2 = \sum_{k \in \Z}c_k(f)e^{ikx}.
 			\end{equation}
@@ -5570,12 +5574,12 @@
 			\end{equation}
 			et donc~:
 			\begin{equation}
-				\frac {f(x+2t) - f(x^-)}{\sin t} \stackrel ={t \to 0} 2f'(x^-) + o(1).
+				\frac {f(x+2t) - f(x^-)}{\sin t} \underset {t \to 0}= 2f'(x^-) + o(1).
 			\end{equation}
 
 			Donc $g$ admet une limite finie en $0^-$ (et en $0^+$ par définition), donc en $0$. Par un argument similaire, on trouve~:
 			\begin{equation}
-				\frac {f(x+2t)-f(x^+)}{\sin t} \stackrel ={t \to 0} 2f'(x^+) + o(1).
+				\frac {f(x+2t)-f(x^+)}{\sin t} \underset {t \to 0}= 2f'(x^+) + o(1).
 			\end{equation}
 			On en déduit donc que $h$ admet également une limite en $0$. $g$ et $h$ sont donc dans $\Czm(\R, \C)$. On trouve alors finalement, par la
 			Proposition~\ref{prp:noyau de Dirichlet sin}~:
@@ -5595,6 +5599,221 @@
 			de $f$ se traduit en décroissance de $\abs {c_n(f)}$ et vice-versa.  % et je dis, et tu dis... Que le bonheur est irréductible !
 			\end{rmq}
 
-% \part{Fonctions d'une variable complexe}
+			\begin{lem}\label{lem:c_n(f')=inc_n(f)} Soit $f \in C^0_{2\pi}(\R, \C) \cap \Com(\R, \C)$. Pour tout $n \in \Z$, on a $c_n(f') = inc_n(f)$, où~:
+			\begin{subnumcases}
+				{f' : \R \to \C : x \mapsto}
+				f'(x) & si $f$ est dérivable en $x$ \\
+				\frac {f(x^+)+f(x^-)}2 & sinon.
+			\end{subnumcases}
+			\end{lem}
+
+			\begin{proof} Soit $0 = a_0 < a_1 < \ldots < a_p = 2\pi$, une subdivision de $[0, 2\pi]$, i.e. $f$ se prolonge en une fonction de classe $C^1$ sur les
+			segments $[a_k, a_{k+1}]$ pour $k \in \intint 0{p-1}$.
+
+			Fixons alors $k \in \intint 0{p-1}$, et $[a, b] \subset (a_k, a_{k+1})$. Par dérivabilité continue de $f$ sur $[a, b]$, on a pour $n \in \Z$~:
+			\begin{equation}
+				\int_a^b f(x)e^{-inx}\dif x = \left[f(x)\frac {e^{-inx}}{-in}\right]_a^b - \int_a^b f'(x)e^{-inx}\dif x.
+			\end{equation}
+
+			Faisons alors tendre $a \xrightarrow[n \to \pinfty]{} a_k$ et $b \xrightarrow[n \to \pinfty]{} a_{k+1}$. Il vient~:
+			\begin{equation}
+				\int_{a_k}^{a_{k+1}} f(x)e^{-inx}\dif x = \left[\frac in f(x)e^{-inx}\right]_{a_k}^{a_{k+1}} - \frac in\int_{a_k}^{a_{k+1}}f'(x)e^{-inx}\dif x.
+			\end{equation}
+
+			Sommons sur $k \in \intint 0{p-1}$, on obtient~:
+			\begin{equation}
+				\int_{a_0=0}^{a_p=2\pi}f(x)e^{-inx}\dif x = \frac in\left(f(2\pi)e^{-in2\pi} - f(0)e^{-in0}\right) - \frac in \int_0^{2\pi}f'(x)e^{-inx}\dif x.
+			\end{equation}
+
+			Dès lors, on a~:
+			\begin{equation}
+				c_n(f) = 0 - \frac inc_n(f') \iff c_n(f') = inc_n(f).
+			\end{equation}
+
+			Pour $n = 0$, on sait $f$ de classe $C^1$ sur $[a_k, a_{k+1}]$, donc~:
+			\begin{equation}
+				\int_{a_k}^{a_{k+1}}f'(x)e^{-inx}\dif x = \int_{a_k}^{a_{k+1}}f'(x)\dif x = f(a_{k+1}) - f(a_k).
+			\end{equation}
+
+			À nouveau, en sommant sur $k \in \intint 0{p-1}$, on trouve~:
+			\begin{equation}
+				c_0(f') = \frac 1{2\pi}\int_0^{2\pi}f'(x)\dif x = \frac 1{2\pi} \cdot 0 = 0 = i \cdot 0 \cdot c_n(f).
+			\end{equation}
+			\end{proof}
+
+			\begin{rmq} Toute autre valeur en les points non dérivables ne changerait pas $c_n(f')$ car c'est une valeur intégrale. Cependant, ici cela nous permet de
+			dire que $f' \in \mathcal D$.
+
+			Notons également que ce lemme peut se retrouver \textit{naïvement} en appliquant le théorème de Dirichlet qui dit que~:
+			\begin{equation}
+				f(x) = \sum_{n \in \Z}c_n(f)e^{inx},
+			\end{equation}
+			et en dérivant formellement puis en identifiant les termes en $e^{ikx}$. Cependant, cela requiert $f \in C^1_{2\pi}(\R, \C)$, ce qui est une hypothèse
+			plus restrictive que celle du lemme.
+			\end{rmq}
+
+			\begin{thm}[Théorème de Young] Soient $p, q > 1 \tq \frac 1p + \frac 1q = 1$. Alors~:
+			\begin{equation}
+				\forall u, v > 0 : uv \leq \frac {u^p}p + \frac {v^q}q.
+			\end{equation}
+			\end{thm}
+
+			\grantedproof
+
+			\begin{thm}[Dirichlet \textit{global}] Si $f \in C^0(\R, \C) \cap \Com(\R, \C)$, alors~:
+			\begin{enumerate}
+				\item la série de terme général $\abs {c_n(f)} + \abs {c_{-n}(f)}$ converge~;
+				\item la série de Fourier de $f$ converge normalement sur $\R$~;
+				\item la série de Fourier de $f$ converge uniformément vers $f$ sur $\R$.
+			\end{enumerate}
+			\end{thm}
+
+			\begin{proof} Montrons le premier point. Soit $n \in \Z_0$. Observons~:
+			\begin{equation}
+				c_n(f) = \frac {-i}nc_n(f').
+			\end{equation}
+
+			On en déduit, par Young pour $p=q=2$~:
+			\begin{equation}
+				\abs {c_n(f)} \leq \frac 1n\abs {c_n(f')} \leq \frac 12\frac 1{n^2} + \frac 12\abs {c_n(f')}^2.
+			\end{equation}
+
+			La série de terme général $\frac 1{n^2}$ converge, et l'inégalité de Bessel assure que la série de terme général $\abs {c_n(f')}$ converge car $f$ est
+			de classe $\Czm$ (et pour $f'$ défini au Lemme~\ref{lem:c_n(f')=inc_n(f)}). Ainsi, la série de terme général $\abs {c_n(f)} + \abs {c_{-n}(f)}$ converge.
+
+			Pour le second point, observons que pour $n \in \Z$ et $x \in \R$, on a~:
+			\begin{equation}
+				\abs {c_n(f)e^{inx} + c_{-n}(f)e^{-inx}} \leq \abs {c_n(f)} + \abs {c_{-n}(f)}.
+			\end{equation}
+			Par le premier point, on en déduit que $S_n(f)$ converge normalement sur $\R$.
+
+			Pour le dernier point, en appliquant Dirichlet local (Théorème~\ref{thm:Dirichlet local}), on trouve que $S_n(f)$ converge simplement en $x \in \R$
+			vers $\frac 12(f(x^+)+f(x^-))$. De plus, cette série converge normalement sur $\R$ qui est complet, la convergence est donc uniforme. Par continuité de $f$,
+			on sait que $\frac 12(f(x^+)+f(x^-)) = f(x)$. Donc~:
+			\begin{equation}
+				S_n \CVU \R n\pinfty f.
+			\end{equation}
+			\end{proof}
+
+			\begin{prp} Soient $k \in \N$ et $f \in C^k_{2\pi}(\R, \C)$. Alors~:
+			\begin{equation}
+				c_n(f) \underset {\abs n \to \pinfty}= o\left(\frac 1{n^k}\right).
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} On sait par récurrence que $c_n(f^{(k)}) = (in)^kc_n(f)$. Si $n \neq 0$, on a~:
+			\begin{equation}
+				\abs {(in)^k}\abs {c_n(f)} = \abs {c_n(f^{(k)})} \xrightarrow[\abs n \to \pinfty]{} 0,
+			\end{equation}
+			et donc $c_n(f) = o\left(\frac 1{n^k}\right)$.
+			\end{proof}
+
+		\subsection{Théorème de Parseval}  % C'est pas faux...
+			\begin{lem} Soient $f \in \Czm(\R, \C)$ et $\varepsilon > 0$ fixé. Il existe $g \in C^0_{2\pi}(\R, \C) \cap C^{1,m}(\R, \C)$ telle que~:
+			\begin{equation}
+				\norm {f-g}_2 < \varepsilon.
+			\end{equation}
+			\end{lem}
+
+			\begin{proof} Supposons d'abord que $f$ est élémentaire (\textit{en escaliers}). Notons $\lambda_j$ la valeur de $f$ sur $[a_j, a_{j+1}]$ pour
+			$0 = a_0 < a_1 < \ldots < a_p = 2\pi$ ($p \geq 1$) une subdivision adaptée à $f$. Posons~:
+			\begin{equation}
+				\eta \coloneqq \min_{0 \leq k < p}\abs {a_{k+1}-a_k}.
+			\end{equation}
+
+			On sait que $\eta > 0$. Choisissons $n \in \Ns$ tel que $\frac 1n < \frac \eta2$.
+
+			Posons $g_n$ la fonction continue et affine par morceaux définie par~:
+			\begin{itemize}
+				\item $\forall i \in \intint 0p : g_n(a_i) = 0$~;
+				\item $\forall i \in \intint 0{p-1} : g_n\left([a_i + \frac 1n, a_{i+1} - \frac 1n]\right) \equiv \lambda_i$~;
+				\item $\forall i \in \intint 0{p-1} : g_n$ est affine sur $(a_i, a_i+\frac 1n)$ et sur $(a_{i+1}-\frac 1n, a_{i+1})$.
+			\end{itemize}
+
+			Observons que~:
+			\begin{align}
+				\norm {f-g}_2 &= \frac 1{2\pi}\int_0^{2\pi}\abs {f(x)-g(x)}^2\dif x = \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_{k+1}}\abs {f(x)-g(x)}^2\dif x \\
+				&= \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_k+\frac 1n}\abs {f-g}^2\dif x + \int_{a_{k+1}-\frac 1n}^{a_{k+1}}\abs {f-g}^2\dif x \\
+				&\leq \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_k+\frac 1n}\abs {\lambda_k}^2\dif x + \int_{a_{k+1}-\frac 1n}^{a_{k+1}}\abs {\lambda}^2\dif x \\
+				&\leq \frac 1{2\pi}\sum_{k=0}^{p-1}\abs {\lambda_k}^2\frac 2n \leq \frac 1{n\pi}\sum_{k=0}^{p-1}\abs {\lambda_k}^2 \xrightarrow[n \to \pinfty]{} 0.
+			\end{align}
+
+			Donc si $\int \abs f^2 \neq 0$, et si $\varepsilon > 0$ est fixé, on peut choisir $n \in \Ns$ tel que~:
+			\begin{equation}
+				n > \max\left(\frac 2\eta, \frac {\pi\varepsilon^2}{\sum_{k=0}^{p-1}\abs {\lambda_k}^2}\right),
+			\end{equation}
+			pour avoir $\norm {f-g}_2^2 < \varepsilon^2$, et donc $\norm {f-g}_2 < \varepsilon$.
+
+			Si $\int \abs f^2 = 0$, alors $g \equiv 0$ convient.
+			Supposons maintenant que $f \in \Czm(\R, \C)$. Soit $\varepsilon > 0$. Il existe $g \in \El(\R, \C)$ telle que $\norm {f-g}_\infty < \frac \varepsilon2$.
+
+			Alors il existe $h \in C^0_{2\pi}(\R, \C) \cap C^{1,m}_{2\pi}(\R, \C)$ telle que $\norm {h-g}_2 < \frac \varepsilon2$. On trouve donc~:
+			\begin{equation}
+				\norm {f-h}_2 \leq \norm {f-g}_2 + \norm {g-h}_2 \leq \norm {f-g}_\infty + \norm {g-h}_2 < 2\frac \varepsilon2 = \varepsilon2.
+			\end{equation}
+			\end{proof}
+
+			\begin{rmq} pour $\norm \cdot_2 \leq \norm \cdot_\infty$, il faut remarquer que~:
+			\begin{equation}
+				\norm {f-g}_2^2 = \frac 1{2\pi}\int_0^{2\pi}\abs {f(x)-g(x)}^2\dif x \leq \frac 1{2\pi}\int_0^{2\pi}\norm {f-g}_\infty^2\dif x = \norm {f-g}_\infty.
+			\end{equation}
+			\end{rmq}
+
+			\begin{thm}[Théorème de Parseval]\label{thm:Parseval} Soit $f \in \Czm(\R, \C)$. On a~:
+			\begin{align}
+				\frac 1{2\pi}\int_0^{2\pi}\abs f^2 &= \sum_{n \in \Z}\abs {c_n(f)}^2\label{eq:Parseval exp} \\
+				&= \frac {\abs a_0(f)^2}4 + \frac 12\sum_{n=1}^\pinfty\abs {a_n(f)}^2 + \abs {b_n(f)}^2.
+			\end{align}
+			\end{thm}
+
+			\begin{proof} Nous ne montrons ici que~\eqref{eq:Parseval exp}, la seconde égalité ne se déduit que des identités entre coefficients trigonométriques
+			et exponentiels.
+
+			On sait pour $n \geq 1$~:
+			\begin{equation}
+				f = \underbrace {f-S_n(f)}_{\in T_n^\perp} + \underbrace {S_n(f)}_{\in T_n}.
+			\end{equation}
+
+			Donc par Pythagore, on sait $\norm f_2^2 = \norm {f-S_n(f)}_2^2 + \norm {S_n(f)}_2^2$. En particulier, par Bessel, on sait~:
+			\begin{equation}
+				\norm {S_n(f)}_2^2 = \sum_{\abs k \leq n}\abs {c_k(f)}^2 + \abs {c_{-k}(f)}^2 \leq \norm f_2^2.
+			\end{equation}
+
+			Remarquons donc que si $f \in C^1_{2\pi}(\R, \C)$, alors $S_n(f) \CVU \R n\pinfty f$ par Dirichlet global. Cela implique~:
+			\begin{equation}
+				S_n(f) \xrightarrow[n \to \pinfty]{\norm \cdot_2 \text{ sur } \R} f,
+			\end{equation}
+			d'où la convergence~:
+			\begin{equation}
+				\sum_{\abs k \leq n}\abs {c_k(f)}^2 \xrightarrow[n \to \pinfty]{} \norm f_2^2.
+			\end{equation}
+
+			Si $f \in \Czm(\R, \C)$ et $\varepsilon > 0$ est fixé, alors il existe $g \in C^0_{2\pi}(\R, \C) \cap C^1(\R, \C)$ telle que $\norm {f-g}_2 < \varepsilon$
+			par le lemme précédent. Ainsi, puisque $S_n(f)$ est la meilleure approximation de $f$ en moyenne quadratique dans $T_n$~:
+			\begin{equation}
+				\norm {f-S_n(f)}_2 \leq \norm {f-S_n(g)}_2 \leq \norm {f-g}_2 + \norm {g-S_n(g)}_2.
+			\end{equation}
+			par la remarque ci-dessus, on sait que $\norm {g-S_n(g)}_2 \xrightarrow[n \to \pinfty]{} 0$. Donc à partir d'un certain rang $N$, on a
+			$\norm {f-S_n(f)}_2 \leq 2\varepsilon$. On a donc bien~:
+			\begin{equation}
+				\norm {S_n(f)}_2 \xrightarrow[n \to \pinfty]{} \norm f_2.
+			\end{equation}
+			\end{proof}
+
+			\begin{cor} Soient $f, g \in \mathcal D$ telles que $\forall n \in \Z : c_n(f) = c_n(g)$. Alors $f=g$.
+			\end{cor}
+
+			\begin{proof} On sait que $f-g \in \mathcal D \subset \Czm(\R, \C)$. On a donc~:
+			\begin{equation}
+				\norm {f-g}_2^2 = \sum_{n \in \Z}\abs {c_n(f-g)}^2 = \sum_{n \in \Z}\abs {c_n(f) - c_n(g)}^2 = 0.
+			\end{equation}
+
+			Puisque $\norm {f-g}_2 = 0$ et que $\norm \cdot_2$ est une norme sur $\mathcal D$ (en particulier, elle satisfait la séparation des points), on sait que
+			$f = g$.
+			\end{proof}
+
+\part{Fonctions d'une variable complexe}
+	\chapter{Fonctions d'une variable complexe}
+		\section{Isomorphisme entre $\C$  et $\R^2$ --- Différentiabilité et $\C-$dérivabilité}
 
 \end{document}
