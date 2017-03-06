@@ -76,6 +76,8 @@
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Angle}{Angle}
+\DeclareMathOperator{\Arg}{Arg}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -122,6 +124,8 @@
 \newcommand{\Czm}{\CzmT{2\pi}}
 \newcommand{\ComT}[1]{\CmT 1{#1}}
 \newcommand{\Com}{\ComT {2\pi}}
+
+\newcommand{\poles}{{\{\text{pôles}\}}}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -5813,7 +5817,289 @@
 			\end{proof}
 
 \part{Fonctions d'une variable complexe}
-	\chapter{Fonctions d'une variable complexe}
-		\section{Isomorphisme entre $\C$  et $\R^2$ --- Différentiabilité et $\C-$dérivabilité}
+\chapter{Fonctions d'une variable complexe}
+	\section{Isomorphisme entre $\C$  et $\R^2$ --- Différentiabilité et $\C-$dérivabilité}
+		\subsection{Ouverts de $\C$ et de $\R^2$}
+			Notons $I : \R^2 \to \C : (x, y) \mapsto x + iy$.
+
+			\begin{prp} $I$ est un isomorphisme $\R$-linéaire et une isométrie. En particulier, $I$ induit une bijection entre les ouverts de $\C$ et ceux de $\R^2$.
+			\end{prp}
+
+			\begin{proof} $I$ est une isométrie car~:
+			\begin{equation}
+				\forall x, y \in \R : \norm {(x, y)}_2 = \sqrt {x^2 + y^2} = \abs {x+iy}
+			\end{equation}
+
+			$I$ est trivialement continue, idem pour $I^{-1}$. Si $\Omega_{\R^2}$ est un ouvert de $\R^2$, posons~:
+			\begin{equation}
+				\Omega_\C \coloneqq I(\Omega_{\R^2}).
+			\end{equation}
+
+			Par continuité de $I^{-1}$, $\Omega_\C$ est un ouvert de $\C$. Réciproquement, par continuité de $I$, pour tout $\Omega_\C$ ouvert de $\C$,
+			$\Omega_{\R^2} \coloneqq I^{-1}(\Omega_\C)$ est un ouvert de $\R^2$.
+			\end{proof}
+
+			\begin{prp} Soit $\Omega_\C \subset \C$, un ouvert de $\C$, et $f : \Omega_\C \to \C$. On associe à $f$ la fonction~:
+			\begin{equation}
+				F : \Omega_{\R^2} \to \R^2 : (x, y) \mapsto (I^{-1} \circ f \circ I)(x, y).
+			\end{equation}
+			Dès lors, la fonction $f$ est continue en $\C \ni z_0 = x_0 + iy_0 \iff I$ est continue en $I^{-1}(z_0) = (x_0, y_0)$.
+			\end{prp}
+
+			\begin{rmq}~
+				\begin{enumerate}
+					\item Pour $F : \Omega_{\R^2} \to \R^2$, on pose \textit{symétriquement} $f : \Omega_\C \to \C : x+iy \mapsto (I \circ F \circ I^{-1})(x+iy)$. On
+					a toujours la proposition précédente.
+					\item On note~:
+					\begin{equation}
+						F(x, y) = \begin{bmatrix}u(x, y) \\v(x, y)\end{bmatrix}.
+					\end{equation}
+					On peut alors noter $f(x+iy) = u(x, y) + iv(x, y)$.
+				\end{enumerate}
+			\end{rmq}
+
+			\begin{prp} Soit $F : \R^2 \to \R^2$, $\R$-linéaire. L'application associée $f = I \circ F \circ I^{-1}$ est $\C$-linéaire si et seulement si la matrice
+			de $F$ dans la base canonique de $\R^2$ est de la forme~:
+			\begin{equation}\label{eq:C-linéaire -> matrice rotation}
+				\MatBC(F) = \begin{bmatrix}\alpha & -\beta \\\beta & \alpha\end{bmatrix},
+			\end{equation}
+			avec $(\alpha, \beta) \in \R^2$.
+			\end{prp}
+
+			\begin{proof} Supposons $f$ $\C$-linéaire. On sait donc qu'il existe $a \in \C \tq \forall z \in \C : f(z) = az$. Prenons $\alpha, \beta \in \R$ tels que
+			$a = \alpha + i\beta$. On trouve alors pour $x, y \in \R$~:
+			\begin{align}
+				F(x, y) &= (I^{-1} \circ f \circ I)(x, y) = (I^{-1} \circ f)(x+iy) = I^{-1}(a(x+iy)) = I^{-1}((\alpha + i\beta)(x+iy)) \\
+				&= \left(\alpha x - \beta y, \alpha y + \beta x\right). = \begin{bmatrix}\alpha & -\beta \\\beta & \alpha\end{bmatrix}\begin{bmatrix}x \\ y\end{bmatrix}.
+			\end{align}
+
+			Supposons alors que la matrice est sous la forme~\eqref{eq:C-linéaire -> matrice rotation}, pour tout $z \in \C$, on a alors $f(z) = (\alpha + i\beta)z$,
+			et donc $f$ est $\C$-linéaire.
+			\end{proof}
+
+			\begin{rmq} Rappelons que pour $\Omega_{R^2} \subset \R^2$, un ouvert et $F : \Omega_{\R^2} \to \R^2$, on dit que $F$ est \textit{différentiable} en
+			$(x_0, y_0) \in \Omega_{\R^2}$ lorsqu'il existe $L : \R^2 \to \R^2$, une approximation $\R$-linéaire telle que~:
+			\begin{equation}
+				F(x_0+h, y_0+k) = F(x_0, y_0) + L(h, k) + o((h, k))
+			\end{equation}
+			pour $(h, k)$ au voisinage de $(0, 0)$. $L$ est alors unique et est appelée la \textit{différentielle de $F$ en $(x_0, y_0)$} noté $\dif_{(x_0, y_0)}F$.
+
+			Si $F$ est de classe $C^1$ sur $\Omega_{\R^2}$, alors $\dif F : \Omega_{\R^2} \to \L(\R^2, \R^2) : (x_0, y_0) \mapsto \dif_{(x_0, y_0)}F$ est continue.
+
+			Si $F$ est différentiable en $(x_0, y_0) \in \Omega_{\R^2}$, alors $F$ admet une dérivée partielle d'ordre 1 en $x$ et en $y$, et on a~:
+			\begin{equation}
+				\MatBC(\dif_{(x_0, y_0)}F) = \begin{bmatrix}\pd {F_1}x(x_0, y_0) & \pd {F_1}y(x_0, y_0) \\ \pd {F_2}x(x_0, y_0) & \pd {F_2}y(x_0, y_0)\end{bmatrix}.
+			\end{equation}
+			\end{rmq}
+
+		\subsection{Application $\C$-dérivable sur un ouvert de $\C$}
+			\begin{déf} Soient $\Omega_\C$ ouvert de $\C$ et $f : \Omega_\C \to \C$. Soit $z_0 \in \C$. On dit que $f$ est $\C$-dérivable (ou dérivable) en $z_0$
+			lorsqu'il existe $a \in \C$ tel que~:
+			\begin{equation}
+				f(z_0+h) = f(z_0) + ah + o(h)
+			\end{equation}
+			au voisinage de $O_\C$, ou de manière équivalente lorsque~:
+			\begin{equation}
+				\frac {f(z_0+h)-f(z_0)}h \xrightarrow[h \underset {\neq}{\to} 0]{} a.
+			\end{equation}
+			\end{déf}
+
+			\begin{prp} $f : \Omega \to \C$ est $\C$-dérivable ne $x_0+iy_0 \in \Omega$ si et seulement si l'application $F$ canoniquement associée est différentiable en
+			$(x_0, y_0)$, et l'on a~:
+			\begin{equation}\label{eq:Cauchy-Riemann}\tag{CR}
+				\pd ux(x_0, y_0) = \pd vy(x_0, y_0) \quad \text{ et } \quad \pd uy(x_0, y_0) = -\pd vx(x_0, y_0),
+			\end{equation}
+			que l'on appelle \textit{relation de Cauchy-Riemann}.
+			\end{prp}
+
+			\begin{proof} Si $f$ est $\C$-dérivable en $z_0 = x_0 + iy_0$, alors~:
+			\begin{equation}
+				f(x_0 + iy_0 + (h + ik)) = f(x_0 + iy_0) + a(h+ik) + o(h+ik),
+			\end{equation}
+			pour $\C \ni a = \alpha + i\beta$ avec $\alpha, \beta \in \R$. On a donc~:
+			\begin{align}
+				F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix} + \begin{bmatrix}h \\ k\end{bmatrix}\right)
+					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + I^{-1}\left((\alpha + i\beta)(h+ik)\right) + o\left(\begin{bmatrix}h\\k\end{bmatrix}\right) \\
+					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + \begin{bmatrix}\alpha h - \beta h \\\alpha k + \beta h\end{bmatrix} + o\left(\begin{bmatrix}h \\ k\end{bmatrix}\right) \\
+					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + \begin{bmatrix}\alpha & -\beta \\\beta & \alpha\end{bmatrix}\begin{bmatrix}h \\ k\end{bmatrix} + o\left(\begin{bmatrix}h \\ k\end{bmatrix}\right).
+			\end{align}
+			Ainsi, $F$ est différentiable en $(x_0, y_0)$, et on a bien~\eqref{eq:Cauchy-Riemann} en $(x_0, y_0)$.
+
+			L'autre implication est laissée en exercice.
+			\end{proof}
+
+			\begin{déf} Si $f : \Omega \to \C$ est dérivable en $z_0 \in \Omega$, le nombre unique $a \in \C$ est appelé \textit{nombre dérivé de $f$ en $z_0$}, noté $f'(z_0)$.
+			\end{déf}
+
+			\begin{déf} Une fonction $f : \Omega \to \C$ est dite dérivable sur l'ouvert $\Omega$ lorsqu'elle est dérivable en tout point $z_0 \in \Omega$.
+			\end{déf}
+
+			\begin{déf} Une fonction $f : \Omega \to \C$ est dite \textit{holomorphe} sur l'ouvert $\Omega$ lorsqu'elle est dérivable sur $\Omega$ et lorsque l'application~:
+			\begin{equation}
+				f' : \Omega \to \C : z \mapsto f'(z)
+			\end{equation}
+			est continue.
+			\end{déf}
+
+			\begin{rmq} La notion d'holomorphe sur $\C$ correspond plus ou moins à la notion de $\C^1$ sur $\R$).
+			\end{rmq}
+
+			\begin{prp} $f : \Omega \to \C$ est holomorphe si et seulement si~:
+			\begin{enumerate}
+				\item $F$ est de classe $C^1$ sur $\Omega$~;
+				\item les relations de Cauchy-Riemann sont vérifiées sur $\Omega$.
+			\end{enumerate}
+			\end{prp}
+
+			\begin{proof} Supposons d'abord $f$ holomorphe. $F$ est donc différentiable sur $\R$. Puisque $f'$ est continue sur $\Omega$, on sait que les applications
+			$\pd fx$ et $\pd fy$ sont continues sur $\R$. De plus, elles vérifient~\eqref{eq:Cauchy-Riemann} car $f$ est $\C$-dérivable.
+
+			Supposons maintenant $F$ différentiable en $(x_0, y_0)$ et vérifie~\eqref{eq:Cauchy-Riemann}. Alors $f$ est $\C$-dérivable en $x_0 + iy_0$. Ainsi, $f$
+			est dérivable sur $\Omega$. De plus, $\pd Fx$ et $\pd Fy$ sont des applications continues, qui induisent donc la continuité de $f'$.
+			\end{proof}
+
+			\begin{prp} Soient $\Omega \subset \C$, un ouvert, $f, g : \Omega \to \C$, $z_0 \in \Omega$, et $\lambda, \mu \in \C$.
+			\begin{itemize}
+				\item si $f$ et $g$ sont $\C$-dérivables en $z_0$, alors $\lambda f + \mu g : \Omega \to \C$ l'est aussi, et on a~:
+				\begin{equation}
+					(\lambda f + \mu g)'(z_0) = \lambda f'(z_0) + \mu g'(z_0)~;
+				\end{equation}
+				\item si $f$ et $g$ sont $\C$-dérivables en $z_0$, et $g(z_0) \neq 0$, alors $\frac fg$ est dérivable sur un voisinage de $z_0$, et on a~:
+				\begin{equation}
+					\left(\frac fg\right)'(z_0) = \frac {f'(z_0)g(z_0) - f(z_0)g'(z_0)}{g(z_0)^2}
+				\end{equation}
+			\end{itemize}
+			\end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{prp} Soient $\Omega_1, \Omega_2 \subset \C$, deux ouverts, et~:
+			\begin{align}
+				f : \Omega_1 \to \C, \\
+				g : \Omega_2 \to \C,
+			\end{align}
+			avec $f'(z_0) \in \Omega_2$. Si $f$ est $\C$-dérivable en $z_0$ et $g$ est $\C$-dérivable en $f(z_0)$, alors $g \circ f$ est $\C$-dérivable, et on a~:
+			\begin{equation}
+				(g \circ f)'(z_0) = f'(z_0)(g' \circ f)(z_0).
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{prp} La fonction $\Id_\C : \C \to \C : z \mapsto z$ est holomorphe sur $\C$ et sa dérivée est constante égale à $1$.
+			\end{prp}
+
+			\begin{proof} $\Id_\C$ est trivialement continue car $z \to x \in \C$ lorsque $z \to x$\ldots Et on a~:
+			\begin{equation}
+				\Id_\C(z+h) = z + h = z + 1h + o(h).
+			\end{equation}
+			\end{proof}
+
+			\begin{cor}~
+				\begin{enumerate}
+					\item Les fonction polynômiales sont holomorphes sur $\C$~;
+					\item Les fonctions rationnelles sont holomorphes sur $\C \setminus \poles$.
+				\end{enumerate}
+			\end{cor}
+
+			\begin{prp} La fonction $\Re : \C \to \C : z \mapsto \Re(z)$ n'est $\C$-dérivable en aucun point.
+			\end{prp}
+
+			\begin{proof} En effet, la fonction $F$ canoniquement associée est bien $C^\infty$, mais ne satisfait pas le critère de Cauchy-Riemann~:
+			\begin{equation}
+				\forall (x_0, y_0) \in \R^2 : \pd ux(x_0, y_0) = 1 \neq 0 = \pd vy(x_0, y_0).
+			\end{equation}
+			\end{proof}
+
+			\begin{rmq} On remarque que $\Im : z \mapsto \Im(z)$ n'est $\C$-dérivable en aucun point par un argument similaire.
+			\end{rmq}
+
+			\begin{prp} La fonction $\bar \cdot : \C \to \C : z \mapsto \bar z$ n'est dérivable en aucun point.
+			\end{prp}
+
+			\begin{proof} À nouveau, la fonction $F$ canoniquement associée est $C^\infty$ mais ne satisfait par Cauchy-Riemann~:
+			\begin{equation}
+				\forall (x_0, y_0) \in \R^2 : \pd ux(x_0, y_0) = 1 \neq -1 = \pd vy(x_0, y_0).
+			\end{equation}
+			\end{proof}
+
+			\begin{prp} L'application $\abs \cdot : \C \to \R : z \mapsto \abs z$ est dérivable en l'origine et nulle part ailleurs.
+			\end{prp}
+
+			\begin{proof} À nouveau, $F$ est $Cpp\infty$ mais ne respecte pas Cauchy-Riemann. En effet, soit $(x_0, y_0) \in \R$~:
+			\begin{equation}
+				\pd ux(x_0, y_0) = \pd vy(x_0, y_0) \text{ et } \pd uy(x_0, y_0) = \pd vx(x_0, y_0) \iff x_0 = y_0 = 0.
+			\end{equation}
+			\end{proof}
+
+			\begin{déf} Soient $f : \Omega \to \C$, et $z_0 \in \Omega$ tels que $f$ est $\C$-dérivable en $z_0$. On dit que $f$ est \textit{conforme} en $z_0$
+			lorsqu'elle conserve les angles, i.e.~:
+			\begin{equation}
+				\forall (u, v) \in \left(\C \setminus \poles\right)^2 : \Angle(f'(z_0)u, f'(z_0)v) = \Angle(u, v).
+			\end{equation}
+			\end{déf}
+
+			\begin{rmq} En définissant pour tout $z \in \C^*$~: $\Arg(z) \coloneqq \{\theta \in \R \tq \abs ze^{i\theta} = z\}$, on peut exprimer~:
+			\begin{equation}
+				\forall (u, v) \in \left(\C \setminus \poles\right) : \Angle(u, v) = \Arg(u\bar v).
+			\end{equation}
+			\end{rmq}
+
+			\begin{prp} Soient $f : \Omega \to \C$ et $z_0 \in \Omega$ tels que $f$ est $\C$-dérivable en $z_0$. $f$ est conforme en $z_0$ si et seulement si
+			$f'(z_0) \neq 0$.
+			\end{prp}
+
+			\begin{proof} Par la remarque précédente, pour $u, v \in \C \setminus \poles$, on a~:
+			\begin{equation}
+				\Angle(f'(z_0)u, f'(z_0)v) = \Arg\left(f'(z_0)u\overline {f'(z_0)v}\right) = \Arg\left(\abs {f'(z_0)}^2u\overline v\right).
+			\end{equation}
+
+			Or l'argument n'est défini que pour $z \in \C^*$. Il faut est suffisant d'avoir $f'(z_0)$.
+			\end{proof}
+
+			\begin{déf} Soit $f : \C \to \C$ telle que la fonction $F$  canoniquement associée admet des dérivées partielles d'ordre 1. On définit les opérateur
+			différentiels~:
+			\begin{numcases}{}
+				\pd fz : \Omega \to \C : x_0 + iy_0 \mapsto \frac 12\left(\pd fx - i\pd fy\right)(x_0 + iy_0) \\
+				\pd f{\overline z} : \Omega \to \C : x_0 + iy_0 \mapsto \frac 12\left(\pd fx + i\pd fy\right)(x_0 + iy_0),
+			\end{numcases}
+			et les éléments différentiels~:
+			\begin{numcases}{}
+				\dif z \coloneqq \dif x + i\dif y \\
+				\dif \bar z \coloneqq \dif x - i\dif y.
+			\end{numcases}
+			\end{déf}
+
+			\begin{prp} $f : \Omega \to \C$ est holomorphe sur $\Omega$ si et seulement si~:
+			\begin{enumerate}
+				\item $F \in C^1\left(I^{-1}(\Omega), \R^2\right)$~;
+				\item $\pd f{\bar z} \equiv 0$.
+			\end{enumerate}
+			\end{prp}
+
+			\begin{proof}
+			Il suffit de remarquer que~:
+			\begin{equation}
+				\pd f{\bar z} = \frac 12\left(\pd {(u+iv)}x + i\pd {(u+iv)}y\right) = \frac 12\left(\pd ux +i\pd uy\right) + \frac 12\left(i\pd uy - \pd vy\right)
+					= \frac 12\left(\pd ux - \pd vy\right) + \frac i2\left(\pd uy + \pd vx\right).
+			\end{equation}
+			Ainsi, on a bien $\pd f{\overline z} \equiv 0 \iff \eqref{eq:Cauchy-Riemann}$.
+			\end{proof}
+
+			\begin{rmq} En général $\pd fz\dif z + \pd f{\bar z}\dif \bar z = \dif f$.  % (avec des lunettes réelles)
+			En effet~:
+			\begin{align}\displaystyle
+				\pd fz\dif z + \pd f{\bar z}\dif \bar z &= \frac 12\left(\pd {(u+iv)}x - i\pd {(u+iv)}y\right)\left(\dif x + i\dif y\right) + \frac 12\left(\pd {(u+iv)}x + i\pd {(u+iv)}y\right)\left(\dif x - i\dif y\right) \\
+				&= \frac 12\left[\pd ux\dif x + i\pd vx\dif x - i\pd uy\dif x + i\pd vy\dif x + i\pd ux\dif y - \pd vx\dif y + \pd uy\dif y + i\pd vy\dif y\right] \\
+				&+ \frac 12\left[\pd ux\dif x + i\pd vx\dif x + i\pd uy\dif x - i\pd vy\dif x - i\pd ux\dif y + \pd vx\dif y + \pd uy\dif y + i\pd vy\dif y\right] \\
+				&= \pd ux\dif x + i\pd vx\dif x + \pd uy\dif y + i\pd vy\dif y = \pd fx\dif x + \pd fy\dif y = \dif f.
+			\end{align}
+			\end{rmq}
+
+			\begin{prp} Soient $f : \Omega \to \C$ et $z_0 = x_0 + iy_0 \in \Omega$ tels que $F$ admet des dérivées partielles d'ordre 1 en $(x_0, y_0)$. $f$
+			est $\C$-dérivable en $z_0$ si et seulement si $\pd f{\bar z}(z_0) = 0$, et dans ce cas, $f'(z_0) = \pd fz(z_0)$.
+			\end{prp}
 
 \end{document}
