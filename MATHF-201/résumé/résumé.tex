@@ -6102,4 +6102,279 @@
 			est $\C$-dérivable en $z_0$ si et seulement si $\pd f{\bar z}(z_0) = 0$, et dans ce cas, $f'(z_0) = \pd fz(z_0)$.
 			\end{prp}
 
+	\subsection{Les fonction développables en séries de puissances sont holomorphes}
+		\subsubsection{Résultat principal}
+			\begin{thm} Soit $(c_n)_{n \in \N} \in \C^\N \tq R\left(\sum c_nz^n\right) \gneqq 0$.
+			Soit $R = \begin{cases}a > 0 &\text{ quelconque si } R\left(\sum c_nz^n\right) = \pinfty \\R\left(\sum c_nz^n\right) &\text{ sinon}.\end{cases}$
+
+			La fonction~:
+			\begin{equation}\label{eq:f DSP}
+				f : D(z_0, R[ \to \C : z \mapsto \sum_{n \geq 0}c_n(z-z_0)^n
+			\end{equation}
+			est holomorphe sur $D(z_0, R[$ et~:
+			\begin{equation}\label{eq:DSP => holomorphe}
+				\forall z \in D(z_0, R[ : f'(z) = \sum_{n \geq 1}nc_n(z-z_0)^{n-1}.
+			\end{equation}
+			\end{thm}
+
+			\begin{proof} Soient $z \in D(z_0, R[$ et $\rho > 0$ tel que $\abs {z-z_0} < \rho < R$. Soit $y \in D(z_0, \rho[$ tel que $y \neq z$.
+
+			On veut montrer que~:
+			\begin{equation}
+				F(y, z) \coloneqq \frac {f(y)-f(z)}{y-z} - \sum_{nn \geq 1}n c_n(z-z_0)^{n-1} \xrightarrow[y \to z] 0.
+			\end{equation}
+
+			Les séries de puissances de terme général $c_n(z-z_0)^n$, $c_n(y-z_0)^n$, et $nc_n(z-z_0)^{n-1}$ sont absolument convergentes car
+			$\rho < R \leq R\left(\sum c_nz^n\right)$. Ainsi~:
+			\begin{equation}
+				F(y, z) = \frac 1{y-z}\left(\sum_{n \geq 0}c_n(y-z_0)^n - \sum_{n \geq 0}c_n(z-z_0)^n\right) - \sum_{n \geq 1}nc_n(z-z_0)^{n-1}.
+			\end{equation}
+
+			Pour $n=0$, on a $c_0 \cdot 1 - c_0 \cdot 1 = 0$. Pour $n \geq 0$, on a~:
+			\begin{equation}
+				\frac {(y-z_0)^n - (z-z_0)^n}{(y-y_0) - (z-z_0)} = \sum_{k=0}^{n-1}(y-z_0)^{n-k-1}(z-z_0)^k.
+			\end{equation}
+			Ainsi~:
+			\begin{align}
+				&\frac {(y-z_0)^n - (z-z_0)^n}{y-z} - n(z-z_0)^{n-1} = \sum_{k=0}^{n-1}\left((y-z_0)^{n-k-1}(z-z_0)^k\right) - n(z-z_0)^{n-1} \\
+				&= -n(z-z_0)^{n-1} + \sum_{k=0}^{n-1}(k+1)(y-z_0)^{n-k-1}(z-z_0)^k - \sum_{k=0}^{n-1}k(y-z_0)^{n-k-1}(z-z_0)^k \\
+				&= \sum_{k=0}^{n-2}(k+1)(y-z_0)^{n-k-1}(z-z_0)^k - \sum_{k=1}^{n-1}k(y-z_0)^{n-k-1}(z-z_0)^k \\
+				&= \sum_{k=1}^{n-1}(k)(y-z_0)^{n-k}(z-z_0)^{k-1} - \sum_{k=1}^{n-1}k(y-z_0)^{n-k-1}(z-z_0)^k \\
+				&= \left((y-y_0) - (z-z_0)\right)\sum_{k=1}^{n-1}k(y-z_0)^{n-k-1}(z-z_0)^{k-1} = (y-z)\sum_{k=1}^{n-1}k(y-z_0)^{n-k-1}(z-z_0)^{k-1}.
+			\end{align}
+
+			Dès lors~:
+			\begin{align}
+				\abs {F(y, z)} &\leq \sum_{n \geq 1}\abs {c_n}\abs {y-z}\sum_{k=1}^{n-1}k\abs {y-z_0}^{n-k-1}\abs {z-z_0}^{k-1} \\
+				&\leq \abs {y-z}\sum_{n \geq 1}\abs {c_n}\sum_{k=1}^{n-1}k\rho^{n-k-1}\rho^{k-1} \\
+				&\leq \abs {y-z}\sum_{n \geq 1}\rho^{n-2}\abs {c_n}\frac {n(n-1)}2 < \pinfty,
+			\end{align}
+			car $\rho < R$. On trouve donc bien que $F(y, z) \xrightarrow[y \underset \neq\to z]{} 0$, donc $f$ est $\C$-dérivable en $z$, et on
+			a~\eqref{eq:DSP => holomorphe}.
+
+			Et par les séries de puissances, on sait que $f' \in C^0\left(D(z_0, R[, \C\right)$, donc $f$ est holomorphe.
+			\end{proof}
+
+			\begin{cor} Sous les mêmes hypothèses, pour tout $k \in \N$, $f$ est de classe $C^k$ sur $D(z_0, R[$, et on a~:
+			\begin{equation}
+				\forall z \in D(z_0, R[ : f^{(k)}(z) = \sum_{n \geq k}\frac {n!}{(n-k)!}c_n(z-z_0)^{n-k}
+			\end{equation}
+			\end{cor}
+
+			\begin{cor} Si $(c_n)_{n \geq 0} \in \C^\N$ telle que $R\left(\sum c_nz^n\right) > 0$, alors les $c_n$ sont uniquement déterminés par~:
+			\begin{equation}
+				\forall n \in \N : c_n = \frac {f^{(n)}(z_0)}{n!},
+			\end{equation}
+			où $f$ est la fonction définie en~\eqref{eq:f DSP}.
+			\end{cor}
+
+		\subsubsection{Une condition suffisante de développement en série de puissances}
+			\begin{thm} Soit $[a, b]$, un segment de $\R$, et soient $\varphi, m \in C^{0,m}([a, b], \C)$. Soit $\Omega \subset \C$, un ouvert tel que
+			$\Omega \cap \varphi([a, b]) = \emptyset$. La fonction $f$ définie par~:
+			\begin{equation}
+				f : \Omega \to \C : z \mapsto \int_a^b\frac {m(s)}{\varphi(s) - z}\dif s
+			\end{equation}
+			est développable en série de puissances dans $\Omega$ (et est donc holomorphe par le théorème précédent).
+			\end{thm}
+
+			\begin{proof} Soient $z_0 \in \Omega, R > 0$ tels que $D(z_0, R[ \subset \Omega$. Pour $s \in [a, b]$, on a $\varphi(s) \not \in \Omega$, et donc
+			$\abs {z_0-s} > R$ par définition de $R$.
+
+			Ainsi, pour $z \in D(z_0, R[$, on a~:
+			\begin{equation}
+				\abs {\frac {z-z_0}{\varphi(s)-z_0}} \leq \frac {\abs {z-z_0}}R < 1.
+			\end{equation}
+
+			On en déduit que la série (géométrique) de fonctions de terme général $s \mapsto \frac {(z-z_0)^n}{(\varphi(s) - z_0)^{n+1}}$ converge normalement
+			sur $[a, b]$, et donc uniformément sur $[a, b]$ par complétude de $\C$.
+
+			Puisque $m$ est bornée sur $[a, b]$, il en est de même pour la série de terme général $s \mapsto m(s)\frac {(z-z_0)^n}{(\varphi(s) - z_0)^{n+1}}$.
+			Ce terme général est de classe $C^{0, m}$ sur $[a, b]$. De plus, la somme de cette série est, pour $s \in [a, b]$~:
+			\begin{align}
+				\sum_{n \geq 0}m(s)\frac {(z-z_0)^n}{(\varphi(s)-z_0)^{n+1}} &= \frac {m(s)}{\varphi(s)-z_0}\sum_{n \geq 0}\frac {(z-z_0)^n}{(\varphi()-z_0)^n}
+					= \frac {m(s)}{\varphi(s)-z_0}\frac 1{1-\frac {z-z_0}{\varphi(s)-z_0}} \\
+				&= \frac {m(s)}{\varphi(s)-z_0} \cdot \frac {\varphi(s)-z_0}{\varphi(s) - z_0 - (z-z_0)} = \frac {m(s)}{\varphi(s)-z}.
+			\end{align}
+
+			La somme étant $C^{0,m}$ est la convergence étant uniforme, il vient~:
+			\begin{align}
+				\int_a^b\frac {m(s)}{\varphi(s)-z}\dif s &= \int_a^b\sum_{n \geq 0}\frac {m(s)(z-z_0)^n}{(\varphi(s) - z_0)^{n+1}}\dif s
+				f(z) &= \sum_{n \geq 0}\left(\int_a^b\frac {m(s)}{(\varphi(s)-z_0)^{n+1}}\right)(z-z_0)^{n+1}.
+			\end{align}
+			\end{proof}
+
+	\subsection{Les fonctions holomorphes sont développables en séries de puissances}
+		\subsubsection{Intégration sur des chemins}
+			\begin{déf} Soit $\Omega \subset \C$, un ouvert. On appelle \textit{chemin tracé dans $\Omega$} toute application $\gamma : [a, b] \tocont \Omega$
+			telle que $\gamma \in C^{1,m}([a, b])$.
+
+			On dit que $\gamma$ est fermé lorsque $\gamma(a) = \gamma(b)$.
+			\end{déf}
+
+			\begin{déf} Lorsque $\gamma$ est un chemin fermé tracé dans $\C$, on appelle \textit{longueur} de $\gamma$, le réel positif~:
+			\begin{equation}
+				L(\gamma) \coloneqq \int_a^b\abs {\gamma'(t)}\dif t.
+			\end{equation}
+			\end{déf}
+
+			\begin{rmq} Avec les conventions que $\gamma'$ est définie sauf en un nombre fini de points (si $\gamma$ est $C^1$ par morceaux, elle peut être mal
+			définie aux points de jonctions), on peut poser $\gamma'(s_k) = z_k$ pour tous les $k$, par exemple $z_k = 0$. $\gamma'$ est alors de classe
+			$C^{0,m}([a, b], \C)$, et donc R-intégrable. De plus, le choix des $z_k$ ne change pas la valeur de $L(\gamma)$.
+			\end{rmq}
+
+			\begin{déf} Soit $\Omega \subset \C$, un ouvert de $\gamma : [a, b] \to \Omega$, un chemin tracé dans $\Omega$. On appelle \textit{image de $\gamma$}
+			l'ensemble~:
+			\begin{equation}
+				\gamma^* \coloneqq \gamma\left([a, b]\right).
+			\end{equation}
+			\end{déf}
+
+			\begin{déf} Soit $\Omega \subset \C$, un ouvert et soient $\gamma : [a, b] \to \Omega$, un chemin tracé dans $\Omega$, et $f : \gamma^* \to \C$.
+			On appelle \textit{intégrale de $f$ le long de $\gamma$} que l'on note~:
+			\begin{equation}
+				\int_\gamma f(\omega)\dif \omega
+			\end{equation}
+			le nombre complexe~:
+			\begin{equation}
+				\int_\gamma f(\omega)\dif \omega = \int_a^b(f \circ \gamma)(s) \gamma'(s)\dif s,
+			\end{equation}
+			avec la convention usuelle sur $\gamma'$.
+			\end{déf}
+
+			\begin{rmq} $\int_\gamma f(\omega)\dif \omega$ est bien défini car $f \in C^0(\gamma^*, \C)$ et $\gamma \in C^0([a, b], \gamma^*)$, et donc
+			$(f \circ \gamma) \in C^0([a, b], \C)$ et $\gamma' \in C^{0,m}([a, b], \C)$. Donc~:
+			\begin{equation}
+				\left(f \circ \gamma\right) \gamma' \in C^{0,m}\left([a, b], \C\right).
+			\end{equation}
+			\end{rmq}
+
+			\begin{prp} Soit $\gamma : [a, b] \to \Omega \subset \C$, un chemin tracé dans un ouvert $\Omega$. Alors $\gamma^*$ est un compact inclus dans $\Omega$.
+			\end{prp}
+
+			\begin{proof} Par continuité de $\gamma$ et compacité de $[a, b]$, on a $\gamma^* = \gamma([a, b])$ est compact.
+			\end{proof}
+
+			\begin{prp} Soit $\gamma$, un chemin tracé dans $\Omega \subset \C$, un ouvert. L'application~:
+			\begin{equation}
+				\int_\gamma \cdot(\omega) \dif \omega : \left(C^0(\gamma^*, \C), \norm \cdot_{\infty, \gamma^*}\right) \to \left(\C, \abs \cdot\right) : f \mapsto \int_\gamma f(\omega)\dif \omega
+			\end{equation}
+			est une forme linéaire continue.
+			\end{prp}
+
+			\begin{proof} Prenons $f, g \in C^0(\gamma^*, \C)$ et $\lambda, \mu \in \C$. On a bien~:
+			\begin{equation}
+				\int_\gamma \left(\lambda f + \mu g\right)(\omega)\dif \omega = \int_a^b \left(\lambda f(\gamma(s)) + \mu g(\gamma(s))\right)\gamma'(s)\dif s
+					= \lambda \int_\gamma f(\omega)\dif \omega + \mu \int_\gamma g(\omega)\dif \omega.
+			\end{equation}
+
+			Montrons alors que la forme linéaire est continue. Pour cela montrons qu'elle est Lipschitzienne. Soit $f \in C^0(\gamma^*, \C)$. On a~:
+			\begin{align}
+				\abs {\int_\gamma f(\omega)\dif \omega} &= \abs {\int_a^b (f \circ \gamma)(s)\gamma'(s)\dif s}
+					\leq \int_a^b\abs {(f \circ \gamma)(s)}\abs {\gamma'(s)}\dif s \\
+				&\leq \norm {f \circ \gamma}_{\infty, \gamma^*} \int_a^b\abs {\gamma'(s)}\dif s = L(\gamma)\norm {f \circ \gamma}_{\infty, \gamma^*}.
+			\end{align}
+			\end{proof}
+
+			\begin{déf} Soient $[a, b]$ et $[\tilde a, \tilde b]$, deux segments sur lesquels sont définis respectivement $\gamma$, et $\tilde \gamma$, deux
+			chemins tracés dans $\C$.
+
+			On appelle changement de paramétrage admissible entre $\gamma$ et $\tilde \gamma$ toute application bijective
+			$\varphi \in C^0([a, b], [\tilde a, \tilde b]) \cap C^{1,m}([a, b], [\tilde a, \tilde b])$ strictement croissante sur $[a, b]$.
+			\end{déf}
+
+			\begin{rmq} On impose que $\varphi$ soit strictement croissante car une bijection est obligatoirement monotone, ce qui ne laisse que deux
+			\textit{familles} de changement de paramétrages admissibles, à savoir les strictement croissantes et strictement décroissantes. N'accepter qu'une
+			seule de ces familles permet de donner un «~sens de parcours~» aux chemins.
+			\end{rmq}
+
+			\begin{prp} S'il existe un paramétrage admissible $\varphi$ entre deux chemins $\gamma$ et $\tilde \gamma$ tracés dans $\C$, alors~:
+			\begin{enumerate}
+				\item $\gamma^* = \tilde\gamma^*$~;
+				\item $\forall f \in C^0(\gamma^*, \C) : \int_\gamma f(\omega)\dif \omega = \int_{\tilde \gamma} f(\omega)\dif \omega$.
+			\end{enumerate}
+			\end{prp}
+
+			\begin{proof}~
+			\begin{enumerate}
+				\item EXERCICE~;
+				\item EXERCICE (avec changement de variable).
+			\end{enumerate}
+			\end{proof}
+
+			\begin{déf} Soient $\gamma : [a, b] \to \C$ et $\tilde \gamma : [\tilde a, \tilde b] \to \C$, deux chemins tracés dans $\C$ tels que
+			$\gamma(b) = \tilde \gamma(\tilde a)$. On appelle \textit{somme de ces chemins} le chemin~:
+			\begin{subnumcases}
+				{\gamma + \tilde \gamma : [a, b + (\tilde b - \tilde a)] \to \C : t \mapsto}
+					\gamma(t) & si $t \leq b$ \\
+					\tilde \gamma(t - b) & sinon
+			\end{subnumcases}
+			\end{déf}
+
+			\begin{ex}~
+			\begin{enumerate}
+				\item On appelle \textit{cercle orienté positivement de centre $a \in \C$ et de rayon $r > 0$} le chemin fermé~:
+				\begin{equation}
+					\gamma : [0, 1] \to \C : t \mapsto a + re^{2\pi it}.
+				\end{equation}
+
+				On a alors pour longueur~:
+				\begin{equation}
+					L(\gamma) = \int_0^1 \abs {2\pi i re^{2\pi it}}\dif t = \int_0^1\abs {2\pi r} = 2\pi r.
+				\end{equation}
+
+				\item Soient $a, b \in C$. On note $[a, b]$ et on appelle \textit{segment reliant $a$ à $b$} (attention à l'ordre~!) le chemin défini par~:
+				\begin{equation}
+					\bar \gamma : [0, 1] \to \C : t \mapsto a + t(b-a).
+				\end{equation}
+
+				La longueur vaut alors~:
+				\begin{equation}
+					L(\bar \gamma) = \int_0^1\abs {(b-a)}\dif t = b-a.
+				\end{equation}
+
+				\item Soient $a, b, c \in \C$. On appelle \textit{triangle $a \to b \to c$} la somme des chemins $[a, b]$, $[b, c]$, et $[c, a]$.
+				À nouveau, l'ordre a de l'importance~!
+			\end{enumerate}
+			\end{ex}
+
+		\subsubsection{Rappels de connexité dans $\C$}
+			\begin{déf} Une partie $E \subset \C$ est dite \textit{non-connexe} s'il existe deux ouverts $U$ et $V$ de $\C$ tels que $E \subset U \cup V$,
+			$E \cap U \neq \emptyset \neq E \cap V$ et $E \cap U \cap V$.
+
+			Elle est dite \textit{connexe} dans le cas contraire.
+			\end{déf}
+
+			\begin{déf} $E \subset \C$ est convexe lorsque $\forall a, b \in E : [0, 1] \to \C : t \mapsto a + t(b-a)$ est tracé dans $E$.
+			\end{déf}
+
+			\begin{prp} Soit $E \subset \C$ une partie convexe. Elle est alors connexe.
+			\end{prp}
+
+			\begin{proof} Par l'absurde, supposons que $E$ ne soit pas connexe. Alors il existe deux ouverts $U$ et $V$ de $\C$ tel que $E \cup U \cup V$,
+			$E \cap U \neq \emptyset \neq E \cap V$, mais $E \cap U \cap V = \emptyset$.
+
+			Soient $u \in E \cap U$, $v \in E \cap V$. $[u, v] : [0, 1] \to \C : t \mapsto u + t(v-u)$. Puisque $E$ est convexe, $\gamma^* \subset E$.
+
+			$\gamma^{-1}(U \cup V) = \gamma^{-1}(E) = [0, 1]$. De plus, $\gamma^{-1}(U)$ est un ouvert de $[0, 1]$ qui contient 0, et $\gamma^{-1}(V)$
+			est un ouvert de $[0, 1]$ qui contient 1.
+
+			Si $t \in \gamma^{-1}(U) \cap \gamma^{-1}(V)$, alors $\gamma(t) \in U$, $\gamma(t) \in V$ et $\gamma(t) \in E$. Or $E \cap U \cap V = \emptyset$.
+
+			Donc $\gamma^{-1}(U) \cap \gamma^{-1}(V) = \emptyset$. $\gamma^{-1}(U \cup V) = \gamma^{-1}(U) \cup \gamma^{-1}(V) = [0, 1]$.
+
+			Donc $[0, 1]$ n'est pas connexe. Il y a donc contradiction et $E$ est connexe.
+			\end{proof}
+
+			\begin{cor} les disques (ouverts ou fermés) de $\C$ sont donc connexes.
+			\end{cor}
+
+			\begin{prp} Lorsque $E = \Omega \subset \C$ est ouvert, $\Omega$ est non-connexe si et seulement si~:
+			\begin{itemize}
+				\item[$(i)$]   $\Omega = U \cup V$~;
+				\item[$(ii)$]  $\Omega \cap U \neq \emptyset$~;
+				\item[$(iii)$] $\Omega \cap V \neq \emptyset$~;
+				\item[$(iv)$]  $\Omega \cap U \cap V = \emptyset$.
+			\end{itemize}
+			\end{prp}
+
 \end{document}
