@@ -6597,7 +6597,286 @@
 			\end{equation}
 			\end{thm}
 
-			\begin{proof}
+			\begin{proof} % TODO
+			\end{proof}
+
+			\paragraph{Rappel~: théorème de Green-Riemann}
+				\begin{thm} Soient $f, g \in C^1\left(\Omega \subset \R^2, \K \in \{\R, \C\}\right)$. Soit $U$ un ouvert \textit{simple} et \textit{régulier} et son bord
+				$\partial U$ orienté positivement. Alors~:
+				\begin{equation}
+					\int_{\partial U}\left(f(x, y)\dif x + g(x, y)\dif y\right) = \iint_U\left(\pd gx(x, y) + \pd fy(x, y)\right)\dif x\dif y.
+				\end{equation}
+				\end{thm}
+
+				\begin{proof}[Preuve alternative de Cauchy dans un triangle pour $f \in H(\Omega)$] Pour $\Delta$ le triangle, on a, formellement~:
+				\begin{align}
+					\int_{\partial \Delta}f(z)\dif z &= \int_{\partial \Delta}\left(u(x, y) + iv(x, y)\right)\left(\dif x + i \dif y\right) \\
+						&= \int_{\partial \Delta}\left(u(x, y)\dif x - v(x, y)\dif y\right) + i\int_{\partial\Delta}\left(u(x, y)\dif y + v(x, y)\dif x\right) \\
+						&= \iint_\Delta \left[-\pd vx(x, y) - \pd ux(x, y)\right]\dif x\dif y + i\iint_\Delta\left[\pd ux - \pd vy\right]\dif x\dif y = 0,
+				\end{align}
+				par Cauchy-Riemann.
+				\end{proof}
+
+			\begin{thm}[Théorème de Cauchy dans un convexe] Soient $\Omega \subset \C$ un connexe ouvert et $p \in \Omega$.
+			Soit $f \in C^0(\Omega, \C) \cap H(\Omega \setminus \{p\})$. Alors il existe $F \in H(\Omega)$ telle que $F' = f$ dans $\Omega$.
+			\end{thm}
+
+			\begin{proof} Soient $a, z_0, z \in \Omega$. Par convexité de $\Omega$, le triangle (plein) $a \to z_0 \to z$ est dans $\Omega$. Posons~:
+			\begin{equation}
+				F(z) \coloneqq \int_{[a, z]}f(\omega)\dif \omega.
+			\end{equation}
+
+			On trouve donc~:
+			\begin{equation}
+				F(z) - F(z_0) = \int_{[a, z]}f(\omega)\dif \omega - \int_{[a, z_0]}f(\omega)\dif \omega = \int_{[z_0, z]}f(\omega)\dif \omega.
+			\end{equation}
+
+			En effet, on sait, par Cauchy dans un triangle~:
+			\begin{equation}
+				\int_{[a, z_0]} f(\omega)\dif \omega + \int_{[z_0, z]} f(\omega)\dif \omega + \int_{[z, a]} f(\omega)\dif \omega = 0.
+			\end{equation}
+
+			On en déduit~:
+			\begin{equation}
+				\int_{[a, z]} f(\omega)\dif \omega = - \int_{[z, a]} f(\omega)\dif \omega = \int_{[a, z_0]} f(\omega)\dif \omega + \int_{[z_0, z]} f(\omega)\dif \omega.
+			\end{equation}
+
+			Ainsi, lorsque $z \neq z_0$, on a~:
+			\begin{equation}
+				\frac {F(z)-F(z_0)}{z-z_0} = \frac 1{z-z_0}\int_{[z_0, z]}f(\omega)\dif \omega,
+			\end{equation}
+			et~:
+			\begin{equation}
+				\frac {F(z)-F(z_0)}{z-z_0} - f(z_0) = \frac 1{z-z_0}\int_{[z_0, z]}\left(f(\omega) - f(z_0)\right)\dif \omega.
+			\end{equation}
+
+			Or $f$ est continue en $z_0$. Donc soit $\varepsilon > 0$. Il existe $\delta > 0$ tel que $D(z_0, \delta[ \subset \Omega$, et~:
+			\begin{equation}
+				\forall \omega \in D(z_0, \delta[ : \abs {f(\omega) - f(z)} < \varepsilon.
+			\end{equation}
+
+			Ainsi, pour $z \neq z_0 \tq \abs {z_0-z} < \delta$, on a~:
+			\begin{equation}
+				\abs {\frac {F(z)-F(z_0)}{z-z_0} - f(z_0)} \leq \frac 1{\abs {z-z_0}}\abs {\int_{[z_0, z]}\left(f(\omega) - f(z_0)\right)\dif \omega}
+					\leq \frac 1{\abs {z-z_0}}\varepsilon\abs {z-z_0} = \varepsilon.
+			\end{equation}
+
+			On a donc $F$ $\C$-dérivable en $z_0$ et $F'(z_0) = f(z_0)$, et ce, pour tout $z_0 \in \Omega$. Par continuité de $f$, on a alors $F \in H(\Omega)$
+			avec $F' = f$ sur $\Omega$.
+			\end{proof}
+
+			\begin{cor} Pour tout $\gamma$ fermé tracé dans $\Omega$, on a~:
+			\begin{equation}
+				\int_\gamma f(\omega)\dif \omega = 0.
+			\end{equation}
+			\end{cor}
+
+			\begin{proof} Pour $\gamma : [a, b] \to \C$, un chemin fermé tracé dans $\Omega$, on trouve~:
+			\begin{equation}
+				\int_\gamma f(\omega)\dif \omega = \int_a^bF'(\gamma(s))\gamma'(s)\dif s = \left[F \circ \gamma\right]_a^b = 0.
+			\end{equation}
+			\end{proof}
+
+		\subsubsection{Formule de Cauchy dans un ouvert convexe}
+			\begin{thm} Soient $\Omega \subset \C$ un ouvert convexe, $f \in H(\Omega)$, $\gamma$ fermé tracé dans $\Omega$. Alors~:
+			\begin{equation}
+				\forall z \in \Omega \setminus \gamma^* : f(z)\Ind_\gamma(z) = \frac 1{2i\pi}\int_\gamma\frac {f(\omega)}{\omega - z}\dif \omega.
+			\end{equation}
+			\end{thm}
+
+			\begin{rmq} Ce théorème affirme donc que connaitre une fonction holomorphe sur un chemin fermé dans son domaine permet de la connaître partout à
+			l'intérieur de ce chemin.
+
+			Il est donc très restrictif d'être holomorphe~: on ne peut pas changer une fonction en certains points, ou sur un sous-ensemble de l'intérieur d'un
+			chemin fermé sans devoir la changer sur les bords de ce chemin.
+			\end{rmq}
+
+			\begin{proof} Soit $z \in \Omega \setminus \gamma^*$. Considérons la fonction~:
+			\begin{subnumcases}
+				{g_z : \Omega \to \C : \omega \mapsto}
+					\frac {f(\omega) - f(z)}{\omega-z} & si $\omega \neq z$ \\
+					f'(z) & sinon
+			\end{subnumcases}
+
+			$g_z$ est holomorphe sur $\Omega \setminus \{p\}$ car $f \in H(\Omega)$, et donc $g_z$ est continue sur $\Omega \setminus \{z\}$. Or $f$ est $\C$-dérivable
+			(car holomorphe), et donc $g-z$ est continue en $z$. $g_z$ est donc continue sur $\Omega$.
+
+			Par Cauchy dans un ouvert connexe, on a~:
+			\begin{equation}
+				\int_\gamma g_z(\omega)\dif \omega = 0.
+			\end{equation}
+
+			Ainsi, pour $z \not \in \gamma^*$, on a~:
+			\begin{align}
+				\frac 1{2i\pi}\int_\gamma\frac {f(\omega)-f(z)}{\omega - z}\dif \omega &= 0 \\
+				\frac 1{2i\pi}\int_\gamma\frac {f(\omega)}{\omega-z}\dif \omega &= \frac 1{2i\pi}\int_\gamma\frac {f(z)}{\omega - z}\dif \omega \\
+				\frac 1{2i\pi}\int_\gamma\frac {f(\omega)}{\omega-z}\dif \omega &= f(z)\Ind_\gamma(z).
+			\end{align}
+			\end{proof}
+
+			\begin{déf} Pour $z \in \C$ et $R > 0$, on définit $\mathcal C^+(z_0, R]$, le cercle centré en $z_0$ et de rayon $R$ orienté positivement.
+
+			Symétriquement, $\mathcal C^-(z_0, R]$ est le cercle centré en $z_0$ de rayon $R$ orienté négativement.
+			\end{déf}
+
+			\begin{thm}[Théorème de représentabilité en série de puissances] Soit $\Omega \subset \C$ un ouvert. Soit $f \in H(\Omega)$. Alors \textit{$f$ est
+			développable en série de puissances}, i.e.~:
+			\begin{equation}
+				\forall z_0 \in \Omega : \forall R > 0 \tq D(z_0, R[ \subset \Omega : \exists (c_n)_{n \in \N} \in \C^\N \tq R(\sum c_nz^n) \geq R,
+			\end{equation}
+			et~:
+			\begin{equation}
+				\forall z \in D(z_0, R[ : f(z) = \sum_{n \in \N}c_n(z-z_0)^n.
+			\end{equation}
+			\end{thm}
+
+			\begin{proof} Soient $z_0 \in \Omega$ et $R > 0$ tels que $D(z_0, R[ \subset \Omega$. Soit $r \in (0, R)$. Posons $\gamma = \mathcal C^+(z_0, r]$.
+
+			Appliquons la formule de Cauchy à $f$ sur $D(z_0, R[$ (qui est un convexe ouvert) par le chemin fermé $\gamma$. Pour $\abs {z-z_0} < r$, on a~:
+			\begin{equation}
+				f(z)\Ind_\gamma(z) = \frac 1{2i\pi}\int_\gamma \frac {f(\omega)}{\omega - z}\dif \omega.
+			\end{equation}
+
+			Or $\Ind_\gamma(z) = 1$. Donc $f(z) = \frac 1{2i\pi}\int_\gamma \frac {f(\omega)}{\omega - z}\dif \omega$. Or la fonction qui envoie $z$ sur
+			$\int_\gamma\frac {f(\omega)}{\omega-z}\dif \omega$ est développable en série de puissances par le théorème~\ref{thm:frac C0m DSP}.
+
+			Ainsi, il existe $(c_n)_{n \in \N} \in \C^\N \tq R(\sum c_nz^n) \geq r$, et~:
+			\begin{equation}
+				\forall z \in D(z_0, r[ : f(z) = \sum_{n \geq 0}c_n(z-z_0)^n.
+			\end{equation}
+
+			On en déduit que $f \in C^\infty(D(z_0, r[)$ et~:
+			\begin{equation}
+				\forall n \geq 0 : c_n = \frac {f^{(n)}(z_0)}{n!}.
+			\end{equation}
+
+			On a alors $\forall r \in (0, R) : R(\sum c_nz^n) \geq r$, et donc $R(\sum c_nz^n) \geq R$. Et on en conclut finalement~:
+			\begin{equation}
+				\forall z \in D(z_0, R[ : f(z) = \sum_{n \geq 0}\frac {f^{(n)}(z_0)}{n!}(z-z_0)^n.
+			\end{equation}
+			\end{proof}
+
+			\begin{cor} Si $f \in H(\Omega)$, alors $f' \in H(\Omega)$.
+			\end{cor}
+
+			\begin{proof} On sait que $f$ est développable en série de puissances sur $\Omega$ par le théorème de représentabilité. Donc $f$ est dérivable,
+			et de dérivée continue (par les théorèmes de séries de puissances). Dès lors, $f' \in H(\Omega)$.
+			\end{proof}
+
+			\begin{cor} $H(\Omega) = C^\infty(\Omega)$.
+			\end{cor}
+
+			\begin{thm}[Théorème de Morera] Soient $\Omega \subset \C$ ouvert et $f \in C^0(\Omega, \C)$. On suppose que pour tout triangle $\Delta \subset \Omega$,
+			on a~:
+			\begin{equation}
+				\int_{\partial \Delta} f(\omega)\dif \omega = 0.
+			\end{equation}
+
+			Alors $f \in H(\Omega)$.
+			\end{thm}
+
+			\begin{proof} Soient $z_0 \in \Omega$, $U \subset \Omega$, un ouvert convexe tel que $z_0 \in U$. On pose pour $z \in U$~:
+			\begin{equation}
+				F(z) \coloneqq \int_{[z_0, z]}f(\omega) \dif \omega.
+			\end{equation}
+
+			Pour $z \in U \setminus \{z_0\}$, on a~:
+			\begin{equation}
+				\frac {F(z) - F(z_0)}{z-z_0} - f(z_0) = \frac 1{z-z_0}\int_{[z_0, z]}\frac {f(\omega)}{\omega-z}\dif \omega.
+			\end{equation}
+
+			Comme précédemment, la continuité en $z_0$ de $f$ assure que $F$ est $\C$-dérivable en $z_0$, avec $f(z_0) = F'(z_0)$.
+
+			Par continuité de $f$, on a $F \in H(\Omega)$. Ainsi, par développement en série de puissances, on a $f = F' \in H(\Omega)$ par le corollaire précédent.
+			\end{proof}
+
+	\subsection{Conséquences du théorème de représentabilité en série de puissances}
+		\subsubsection{Ordre d'un zéro --- Principe des zéros isolés}
+			\begin{déf} Soit $A \subset \C$. On appelle \textit{point limite de $A$} tout $z \in \C$ tel que $\exists a : \N \to A : n \mapsto a_n$ injective
+			telle que $a_n \xrightarrow[n \to \pinfty]{} z$.
+			\end{déf}
+
+			\begin{prp} $z \in \C$ est un point limite de $A \subset \C$ lorsque~:
+			\begin{equation}
+				\forall \varepsilon > 0 : D(z, \varepsilon[ \cap \left(A \setminus \{z\}\right) \neq \emptyset,
+			\end{equation}
+			ou encore~:
+			\begin{equation}
+				\forall \varepsilon > 0 : \abs {D(z, \varepsilon[ \cap \left(A \setminus \{z\}\right)} \not \in \N.
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} EXERCICE.
+			\end{proof}
+
+			\begin{ex}~:
+			\begin{itemize}
+				\item Les points limites de $[0, 1] \cup \{i\}$ sont $[0, 1]$~;
+				\item les points limites de $(-i, 0)$ sont $[-i, 0]$.
+			\end{itemize}
+			\end{ex}
+
+			\begin{thm}[Principe des zéros isolés] Soient $\Omega \subset \C$, une région, et $f \in H(\Omega)$. On pose~:
+			\begin{equation}
+				Z(f) \coloneqq \left\{z \in \Omega \tq f(z) = 0\right\} = f^{-1}(\{0\}).
+			\end{equation}
+
+			On a deux possibilités~:
+			\begin{itemize}
+				\item soit $Z(f) = \Omega$ (i.e. $f \equiv 0$)~;
+				\item soit $Z(f)$ n'a pas de point limite dans $\Omega$.
+
+				Dans le second cas, on a~:
+				\begin{equation}
+					\forall z_0 \in Z(f) : \exists! (m, g) \in \N^* \times H(\Omega) \tq g(z_0) \neq 0 \text{ et } \forall z \in \Omega : f(z) = (z-z_0)^mg(z).
+				\end{equation}
+
+				$m$ est appelé \textit{l'ordre de $z_0$ en tant que zéro de la fonction $f$}.
+			\end{itemize}
+			\end{thm}
+
+			\begin{proof} Soit $A$ l'ensemble des points limites de $Z(f)$ dans $\Omega$. Par continuité de $f$, $Z(f) = f^{-1}(\{0\})$ est fermé. En particulier,
+			on a $A \subset Z(f)$.
+			Montrons que $A$ est fermé dans $\Omega$ (admis pour l'instant, en attente de la preuve).
+
+			Soit $a \in Z(f)$. Soit $r > 0 \tq D(a, r[ \subset \Omega$. Par le théorème de représentabilité~:
+			\begin{equation}
+				\exists (c_n)_{n \in \N} \in \C^\N \tq R(\sum c_nz^n) \geq r \text{ et } \forall z \in D(a, r[ : f(z) = \sum_{n \in \N}c_n(z-a)^n.
+			\end{equation}
+
+			On a alors deux possibilités~:
+			\begin{enumerate}
+				\item $\forall n \in \N : c_n = 0 \Rightarrow f \equiv 0$~;
+				\item $\exists n \in \N \tq c_n \neq 0$. De plus, $n \geq 1$ car $f(a) = 0 \Rightarrow c_0 = 0$.
+			\end{enumerate}
+
+			Posons $m \coloneqq \min\{n \geq 1 \tq c_n \neq 0\}$. Pour $z \in \Omega$, on pose~:
+			\begin{subnumcases}
+				{g(z) =}
+					(z-a)^{-m}f(z) & si $z \neq a$ \\
+					c_m & sinon.
+			\end{subnumcases}
+
+			On sait $g \in H(\Omega \setminus \{a\})$ et $f(z) = (z-a)^mg(z)$ pour $z \neq a$. Pour de tels $z$, on a~:
+			\begin{equation}
+				g(z) = (z-a)^{-m}f(z) = \sum_{n \in \N}c_{n+m}(z-a)^n.
+			\end{equation}
+
+			Cette formule est encore vraie en $z-a$ car~:
+			\begin{equation}
+				g(a) = c_m = \sum_{n \in \N}c_{n+m}\delta_{0,n} = \sum_{n \in \N}c_{n+m}(z-a)^n.
+			\end{equation}
+
+			Dès lors, on en déduit $g \in H(\Omega)$, et $g(a) \neq 0$. Donc un tel couple $(m, g)$ existe.
+
+			\textbf{L'unicité est laissée en exercice}.
+
+			Par continuité de $g$ sur $\Omega$, et puisque $g(a) \neq 0$, il existe $\delta > 0$ tel que~:
+			\begin{equation}
+				D(a, \delta[ \subset \Omega \text{ et } g(D(a, \delta[) \subset \C^*.
+			\end{equation}
+
+			Ainsi, $g$ ne s'annule pas sur $D(a, \delta[$, donc $f$ ne s'annule pas sur $D(a, \delta[ \setminus \{a\}$, et donc $a$ est un point isolé de $Z(f)$.
 			\end{proof}
 
 \end{document}
