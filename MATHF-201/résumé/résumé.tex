@@ -34,8 +34,8 @@
 \numberwithin{equation}{section}
 
 % link amsthm and mdframed
-\iftrue
-%\iffalse
+%\iftrue
+\iffalse
 	% pre-amsthm
 	\mdfdefinestyle{resultstyle}{%
 		hidealllines=true,%
@@ -78,6 +78,8 @@
 \DeclareMathOperator{\Vect}{Vect}
 \DeclareMathOperator{\Angle}{Angle}
 \DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Conv}{Conv}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -5238,7 +5240,7 @@
 			$C^0_{2\pi}(\R, \C)$.
 			\end{prp}
 
-			\begin{proof} Avec les formules précédentes, on sait que $b_0$ est arbitraire cas $\forall x \in \R : b_0\sin(nx) = 0$.
+			\begin{proof} Avec les formules précédentes, on sait que $b_0$ est arbitraire car $\forall x \in \R : b_0\sin(nx) = 0$.
 
 			Supposons d'abord que la série numérique de terme général $c_n$ converge absolument. Le cas symétrique est laissé en exercice. Par les identités
 			ci-dessus, on trouve~:
@@ -5254,7 +5256,7 @@
 			\begin{equation}
 				\forall n \geq 1 : \forall x \in \R : \abs {u_n(x)} \leq \abs {a_n} + \abs {b_n},
 			\end{equation}
-			or $a_n$ et $b_n$ sont des terme généraux de séries numériques convergentes. La série numérique de terme général $\norm {u_n}_\infty$ converge alors, et
+			or $a_n$ et $b_n$ sont des termes généraux de séries numériques convergentes. La série numérique de terme général $\norm {u_n}_\infty$ converge alors, et
 			donc la série de terme général $u_n$ converge normalement avec $\sum_{n \in \Z}u_n$ dans $C^0_{2\pi}(\R, \C)$.
 			\end{proof}
 
@@ -5262,7 +5264,7 @@
 			\begin{subnumcases}{}
 				\forall n \geq 0 : a_n = \frac 1\pi \int_0^{2\pi}f(t)\cos(nt)\dif t \\
 				\forall n \geq 1 : b_n = \frac 1\pi \int_0^{2\pi}f(t)\sin(nt)\dif t \\
-				\forall n \in \Z : c_n = \frac 1{2\pi}f(t)e^{-int}\dif t\label{eq:Fourier c_n}
+				\forall n \in \Z : c_n = \frac 1{2\pi}\int_0^{2\pi}f(t)e^{-int}\dif t\label{eq:Fourier c_n}
 			\end{subnumcases}
 			\end{prp}
 
@@ -5281,7 +5283,7 @@
 							+ \underbrace {\frac {c_{-n}}{2\pi}\int_0^{2\pi}e^{i(p-n)t}\dif t}_{\eqqcolon \gamma_{np}}\right]
 			\end{align}
 
-			On observe que $\alpha_p = c_0\delta_{p0}$ par~\eqref{eq:int exp(int) = delta n0}. De même, on a $\beta_{np} = c_n\delta{np}$, et $\gamma_{np}
+			On observe que $\alpha_p = c_0\delta_{p0}$ par~\eqref{eq:int exp(int) = delta n0}. De même, on a $\beta_{np} = c_n\delta_{np}$, et $\gamma_{np}
 				= c_{-n}\delta_{(-n)p}$.
 			On trouve finalement~:
 			\begin{equation}
@@ -5336,7 +5338,7 @@
 			\begin{proof}[Preuve de la Proposition~\ref{prp:prop scpr Czm}] Si $f, g \in \Czm(\R, \C)$, alors $t \mapsto f(t)\overline {g(t)} \in \Czm(\R, \C)$,
 			et est donc R-int sur $[0, 2\pi]$. La quantité $\scpr fg$ est alors bien définie. On montre alors que c'est une forme hermitienne par calcul (EXERCICE).
 
-			De plus, pour $f \in \Czm(\R, \C)$, on a $\forall x \in \R : \norm {f(x)}^2 \geq 0$. Donc la quantité $\scpr ff \geq 0$.
+			De plus, pour $f \in \Czm(\R, \C)$, on a $\forall x \in \R : \abs {f(x)}^2 \geq 0$. Donc la quantité $\scpr ff \geq 0$.
 
 			Montrons maintenant le point 2 de la proposition, i.e. montrons que $\scpr \cdot\cdot$ est défini positif sur $\mathcal D$. Soit $f \in \mathcal D$.
 			Alors~:
@@ -5347,16 +5349,16 @@
 			\begin{itemize}
 				\item soit $t$ est un point de continuité de $f$, et $f(t) = 0$ (en effet, sinon il existe $\eta > 0 \tq f > \frac 12f(t)$ sur $[t \pm \eta]$)~;
 				\item soit $t$ est un point de discontinuité de $f$, et donc $t$ est isolé. Il existe alors $\delta > 0$ tel que $[t \pm \delta]$ ne contient que des
-				points de continuité de $f$. $f$ admet donc une limite à gauche et à droite de $t$ tel que $f(x^+) = f(x^-) = 0$. On a donc bien $f(t) = 0$.
+				points de continuité de $f$. $f$ admet donc une limite à gauche et à droite de $t$ tel que $f(t^+) = f(t^-) = 0$. On a donc bien $f(t) = 0$.
 			\end{itemize}
 			\end{proof}
 
 			\begin{rmq} Pour $\xi \in (0, 2\pi)$, on a $f : \R \to \C : t \mapsto I_{[x \in \xi + 2\pi\Z]} \in \Czm(\R, \C)$ et $\scpr ff = 0$. Or, $f \not \equiv 0$.
-			En effet, dans $\Czm(\R, \C)$, on a $\scpr ff = 0 \Rightarrow \abs {x \in \R \tq f(x) \neq 0}$ est fini~; et pas $\scpr ff = 0 \Rightarrow f \equiv 0$.
+			En effet, dans $\Czm(\R, \C)$, on a $\scpr ff = 0 \Rightarrow \abs {\{x \in \R \tq f(x) \neq 0\}}$ est fini~; et pas $\scpr ff = 0 \Rightarrow f \equiv 0$.
 			\end{rmq}
 
 		\subsection{Coefficients de Fourier d'une fonction périodique}
-			\begin{déf} Soit $f \in Czm(\R, \C)$. On appelle \textit{coefficients de Fourier (exponentiels) de $f$} les nombres $(c_n)_{n \in \Z}$ définis par~:
+			\begin{déf} Soit $f \in \Czm(\R, \C)$. On appelle \textit{coefficients de Fourier (exponentiels) de $f$} les nombres $(c_n)_{n \in \Z}$ définis par~:
 			\begin{equation}
 				c_n(f) = \frac 1{2\pi}\int_0^{2\pi}f(t)\overline {e_n(t)}\dif t = \scpr f{e_n}.
 			\end{equation}
@@ -5381,7 +5383,7 @@
 
 			\begin{déf} Soit $f \in \Czm(\R, \C)$. On appelle \textit{série de Fourier associée à $f$} la série de terme général~:
 			\begin{equation}
-				u_n : c_ne_n + c_{-n}e_{-n} = a_n\cos(n\cdot) + b_n\sin(n\cdot).
+				u_n = c_ne_n + c_{-n}e_{-n} = a_n\cos(n\cdot) + b_n\sin(n\cdot).
 			\end{equation}
 
 			On note les sommes partielles par $S_n(f) \coloneqq \sum_{k=-n}^nc_k(f)e_k$.
@@ -5415,7 +5417,7 @@
 			\end{equation}
 
 			Cette fonction est de plus caractérisée par~:
-			\begin{subnumcases}
+			\begin{subnumcases}{}
 				p_n \in T_n \\
 				\forall p \in T_n : f-p_n \perp p \text{ ou } \forall p \in T_n : \scpr {f-p_n}p = 0.
 			\end{subnumcases}
@@ -5439,7 +5441,7 @@
 			\begin{proof} Montrons que i) $S_n(f) \in T_n$ (par construction) et ii) $\forall p \in T_n : f-S_n(f) \perp p$. Soit $k \in \Z$ tel que
 			$\abs k \leq n$. On a~:
 			\begin{align}
-				\scpr {S_n(f)}{e_k} &= \frac 1{2\pi}\int_0^{2\pi}\left(f(t) - \sum_{\abs p \leq n}c_p(f)e^{ipt}\right)e^{-ikt}\dif t
+				\scpr {f-S_n(f)}{e_k} &= \frac 1{2\pi}\int_0^{2\pi}\left(f(t) - \sum_{\abs p \leq n}c_p(f)e^{ipt}\right)e^{-ikt}\dif t
 						= \frac 1{2\pi}\int_0^{2\pi}f(t)e^{-ikt}\dif t - \frac 1{2\pi}\sum_{\abs p \leq n}\int_0^{2\pi}e^{i(p-k)t}\dif t \\
 					&= c_k(f) - \sum_{\abs p \leq n}c_p(f)\frac 1{2\pi}\int_0^{2\pi}e^{i(p-k)t}\dif t = c_k(f) - c_k(f) = 0.
 			\end{align}
@@ -5454,7 +5456,7 @@
 			\begin{prp}[Inégalité de Bessel] Soit $f \in \Czm(\R, \C)$. Les séries numériques de termes généraux $\abs {c_k(f)}^2 + \abs {c_{-k}(f)}^2$
 			et $\abs {a_k(f)}^2 + \abs {b_k(f)}^2$ sont convergentes et on a~:
 			\begin{equation}
-				\forall n \geq 1 : \sum_{\abs k \leq n}\abs {c_k}^2 = \frac {\abs {a_0(f)}^2}4 + \frac 12\sum_{k=1}^2\left(\abs {a_k(f)}^2 + \abs {b_k(f)}^2\right) \leq \norm f_2^2.
+				\forall n \geq 1 : \sum_{\abs k \leq n}\abs {c_k}^2 = \frac {\abs {a_0(f)}^2}4 + \frac 12\sum_{k=1}^n\left(\abs {a_k(f)}^2 + \abs {b_k(f)}^2\right) \leq \norm f_2^2.
 			\end{equation}
 			\end{prp}
 
@@ -5485,9 +5487,9 @@
 
 			\begin{cor}[Lemme de Riemann-Lebesgue] Soit $f \in \Czm(\R, \C)$. On a~:
 			\begin{itemize}
-				\item $c_n(f) \mconv {\abs n}\pinfty 0$~;
-				\item $a_n(f) \mconv n\pinfty 0$~;
-				\item $b_n(f) \mconv n\pinfty 0$.
+				\item $c_n(f) \mconv {\abs n}\pinfty{} 0$~;
+				\item $a_n(f) \mconv n\pinfty{} 0$~;
+				\item $b_n(f) \mconv n\pinfty{} 0$.
 			\end{itemize}
 			\end{cor}
 
@@ -5525,14 +5527,14 @@
 
 			\begin{proof} Écrivons pour $(x, N) \in \R \times \N$ et $f \in C^{1,m}_{2\pi}(\R, \C)$.
 			\begin{align}
-				S_n(f)(x) &= \sum_{k=-N}^Nc_k(f)e^{iktx} = \sum_{k=-N}^N\frac 1{2\pi}\int_0^{2\pi}f(t)e^{-ikt}\dif te^{ikx} = \frac 1{2\pi}\int_0^{2\pi}f(t)\sum_{k=-N}^Ne^{ik(x-t)}\dif t \\
+				S_n(f)(x) &= \sum_{k=-N}^Nc_k(f)e^{ikx} = \sum_{k=-N}^N\frac 1{2\pi}\int_0^{2\pi}f(t)e^{-ikt}\dif te^{ikx} = \frac 1{2\pi}\int_0^{2\pi}f(t)\sum_{k=-N}^Ne^{ik(x-t)}\dif t \\
 				&= \frac 1{2\pi}\int_0^{2\pi}f(t)D_N(x-t)\dif t = \frac 1{2\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\dif t.
 			\end{align}
 			En posant $t \coloneqq x+u$, on trouve~:
 			\begin{align}
 				S_n(f)(x) &= \frac 1{2\pi}\int_{-\pi-x}^{\pi-x}f(x+u)D_N(u)\dif u  \\
 					&= \frac 1{2\pi}\int_{-\pi}^{\pi}f(x+u)D_N(u)\dif u \label{eq:S_n fD_N}\\
-					&= \frac 1{\pi}\int_{-\pi}^0 f(x+u)D_N(u)\dif u + \frac 1{2\pi}\int_0^\pi f(x+u)D_N(u)\dif u.
+					&= \frac 1{2\pi}\int_{-\pi}^0 f(x+u)D_N(u)\dif u + \frac 1{2\pi}\int_0^\pi f(x+u)D_N(u)\dif u.
 			\end{align}
 
 			On remarque qu'en appliquant\eqref{eq:S_n fD_N} à ${\bf 1} : \R \to \C : t \mapsto 1$, on trouve~:
@@ -5552,7 +5554,7 @@
 			\end{align}
 			par parité de $D_N$. On trouve alors~:
 			\begin{equation}
-				S_n(f) - \frac 12(f(x^+)+f(x^-)) = \frac 1{2\pi}\int_{-\pi}^0\left(f(x+u) - f(x^-)\right)D_N(u\dif u + \int_0^\pi\left(f(x+u) - f(x^+)\right)D_N(u)\dif u.
+				S_n(f) - \frac 12(f(x^+)+f(x^-)) = \frac 1{2\pi}\int_{-\pi}^0\left(f(x+u) - f(x^-)\right)D_N(u)\dif u + \int_0^\pi\left(f(x+u) - f(x^+)\right)D_N(u)\dif u.
 			\end{equation}
 			En posant $v \coloneqq \frac u2$, on trouve~:
 			\begin{equation}
@@ -5619,7 +5621,7 @@
 				\int_a^b f(x)e^{-inx}\dif x = \left[f(x)\frac {e^{-inx}}{-in}\right]_a^b - \int_a^b f'(x)e^{-inx}\dif x.
 			\end{equation}
 
-			Faisons alors tendre $a \xrightarrow[n \to \pinfty]{} a_k$ et $b \xrightarrow[n \to \pinfty]{} a_{k+1}$. Il vient~:
+			Faisons alors tendre $a \to a_k$ et $b \to a_{k+1}$. Il vient~:
 			\begin{equation}
 				\int_{a_k}^{a_{k+1}} f(x)e^{-inx}\dif x = \left[\frac in f(x)e^{-inx}\right]_{a_k}^{a_{k+1}} - \frac in\int_{a_k}^{a_{k+1}}f'(x)e^{-inx}\dif x.
 			\end{equation}
@@ -5682,7 +5684,7 @@
 				\abs {c_n(f)} \leq \frac 1n\abs {c_n(f')} \leq \frac 12\frac 1{n^2} + \frac 12\abs {c_n(f')}^2.
 			\end{equation}
 
-			La série de terme général $\frac 1{n^2}$ converge, et l'inégalité de Bessel assure que la série de terme général $\abs {c_n(f')}$ converge car $f$ est
+			La série de terme général $\frac 1{n^2}$ converge, et l'inégalité de Bessel assure que la série de terme général $\abs {c_n(f')}$ converge car $f'$ est
 			de classe $\Czm$ (et pour $f'$ défini au Lemme~\ref{lem:c_n(f')=inc_n(f)}). Ainsi, la série de terme général $\abs {c_n(f)} + \abs {c_{-n}(f)}$ converge.
 
 			Pour le second point, observons que pour $n \in \Z$ et $x \in \R$, on a~:
@@ -5738,7 +5740,7 @@
 			\begin{align}
 				\norm {f-g}_2 &= \frac 1{2\pi}\int_0^{2\pi}\abs {f(x)-g(x)}^2\dif x = \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_{k+1}}\abs {f(x)-g(x)}^2\dif x \\
 				&= \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_k+\frac 1n}\abs {f-g}^2\dif x + \int_{a_{k+1}-\frac 1n}^{a_{k+1}}\abs {f-g}^2\dif x \\
-				&\leq \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_k+\frac 1n}\abs {\lambda_k}^2\dif x + \int_{a_{k+1}-\frac 1n}^{a_{k+1}}\abs {\lambda}^2\dif x \\
+				&\leq \frac 1{2\pi}\sum_{k=0}^{p-1}\int_{a_k}^{a_k+\frac 1n}\abs {\lambda_k}^2\dif x + \int_{a_{k+1}-\frac 1n}^{a_{k+1}}\abs {\lambda_k}^2\dif x \\
 				&\leq \frac 1{2\pi}\sum_{k=0}^{p-1}\abs {\lambda_k}^2\frac 2n \leq \frac 1{n\pi}\sum_{k=0}^{p-1}\abs {\lambda_k}^2 \xrightarrow[n \to \pinfty]{} 0.
 			\end{align}
 
@@ -5749,7 +5751,7 @@
 			pour avoir $\norm {f-g}_2^2 < \varepsilon^2$, et donc $\norm {f-g}_2 < \varepsilon$.
 
 			Si $\int \abs f^2 = 0$, alors $g \equiv 0$ convient.
-			Supposons maintenant que $f \in \Czm(\R, \C)$. Soit $\varepsilon > 0$. Il existe $g \in \El(\R, \C)$ telle que $\norm {f-g}_\infty < \frac \varepsilon2$.
+			Supposons maintenant que $f \in \Czm(\R, \C)$. Soit $\varepsilon > 0$. Il existe $g \in \El \R\C$ telle que $\norm {f-g}_\infty < \frac \varepsilon2$.
 
 			Alors il existe $h \in C^0_{2\pi}(\R, \C) \cap C^{1,m}_{2\pi}(\R, \C)$ telle que $\norm {h-g}_2 < \frac \varepsilon2$. On trouve donc~:
 			\begin{equation}
@@ -5792,7 +5794,7 @@
 				\sum_{\abs k \leq n}\abs {c_k(f)}^2 \xrightarrow[n \to \pinfty]{} \norm f_2^2.
 			\end{equation}
 
-			Si $f \in \Czm(\R, \C)$ et $\varepsilon > 0$ est fixé, alors il existe $g \in C^0_{2\pi}(\R, \C) \cap C^1(\R, \C)$ telle que $\norm {f-g}_2 < \varepsilon$
+			Si $f \in \Czm(\R, \C)$ et $\varepsilon > 0$ est fixé, alors il existe $g \in C^0_{2\pi}(\R, \C) \cap C^{1,m}(\R, \C)$ telle que $\norm {f-g}_2 < \varepsilon$
 			par le lemme précédent. Ainsi, puisque $S_n(f)$ est la meilleure approximation de $f$ en moyenne quadratique dans $T_n$~:
 			\begin{equation}
 				\norm {f-S_n(f)}_2 \leq \norm {f-S_n(g)}_2 \leq \norm {f-g}_2 + \norm {g-S_n(g)}_2.
@@ -5827,7 +5829,7 @@
 
 			\begin{proof} $I$ est une isométrie car~:
 			\begin{equation}
-				\forall x, y \in \R : \norm {(x, y)}_2 = \sqrt {x^2 + y^2} = \abs {x+iy}
+				\forall x, y \in \R : \norm {(x, y)} = \sqrt {x^2 + y^2} = \abs {x+iy}
 			\end{equation}
 
 			$I$ est trivialement continue, idem pour $I^{-1}$. Si $\Omega_{\R^2}$ est un ouvert de $\R^2$, posons~:
@@ -5843,7 +5845,7 @@
 			\begin{equation}
 				F : \Omega_{\R^2} \to \R^2 : (x, y) \mapsto (I^{-1} \circ f \circ I)(x, y).
 			\end{equation}
-			Dès lors, la fonction $f$ est continue en $\C \ni z_0 = x_0 + iy_0 \iff I$ est continue en $I^{-1}(z_0) = (x_0, y_0)$.
+			Dès lors, la fonction $f$ est continue en $\C \ni z_0 = x_0 + iy_0 \iff F$ est continue en $I^{-1}(z_0) = (x_0, y_0)$.
 			\end{prp}
 
 			\begin{rmq}~
@@ -5884,7 +5886,7 @@
 			\end{equation}
 			pour $(h, k)$ au voisinage de $(0, 0)$. $L$ est alors unique et est appelée la \textit{différentielle de $F$ en $(x_0, y_0)$} noté $\dif_{(x_0, y_0)}F$.
 
-			Si $F$ est de classe $C^1$ sur $\Omega_{\R^2}$, alors $\dif F : \Omega_{\R^2} \to \L(\R^2, \R^2) : (x_0, y_0) \mapsto \dif_{(x_0, y_0)}F$ est continue.
+			Si $F$ est de classe $C^1$ sur $\Omega_{\R^2}$, alors $\dif F : \Omega_{\R^2} \to L(\R^2, \R^2) : (x_0, y_0) \mapsto \dif_{(x_0, y_0)}F$ est continue.
 
 			Si $F$ est différentiable en $(x_0, y_0) \in \Omega_{\R^2}$, alors $F$ admet une dérivée partielle d'ordre 1 en $x$ et en $y$, et on a~:
 			\begin{equation}
@@ -5904,7 +5906,7 @@
 			\end{equation}
 			\end{déf}
 
-			\begin{prp} $f : \Omega \to \C$ est $\C$-dérivable ne $x_0+iy_0 \in \Omega$ si et seulement si l'application $F$ canoniquement associée est différentiable en
+			\begin{prp} $f : \Omega \to \C$ est $\C$-dérivable en $x_0+iy_0 \in \Omega$ si et seulement si l'application $F$ canoniquement associée est différentiable en
 			$(x_0, y_0)$, et l'on a~:
 			\begin{equation}\label{eq:Cauchy-Riemann}\tag{CR}
 				\pd ux(x_0, y_0) = \pd vy(x_0, y_0) \quad \text{ et } \quad \pd uy(x_0, y_0) = -\pd vx(x_0, y_0),
@@ -5920,7 +5922,7 @@
 			\begin{align}
 				F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix} + \begin{bmatrix}h \\ k\end{bmatrix}\right)
 					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + I^{-1}\left((\alpha + i\beta)(h+ik)\right) + o\left(\begin{bmatrix}h\\k\end{bmatrix}\right) \\
-					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + \begin{bmatrix}\alpha h - \beta h \\\alpha k + \beta h\end{bmatrix} + o\left(\begin{bmatrix}h \\ k\end{bmatrix}\right) \\
+					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + \begin{bmatrix}\alpha h - \beta k \\\alpha k + \beta h\end{bmatrix} + o\left(\begin{bmatrix}h \\ k\end{bmatrix}\right) \\
 					&= F\left(\begin{bmatrix}x_0 \\ y_0\end{bmatrix}\right) + \begin{bmatrix}\alpha & -\beta \\\beta & \alpha\end{bmatrix}\begin{bmatrix}h \\ k\end{bmatrix} + o\left(\begin{bmatrix}h \\ k\end{bmatrix}\right).
 			\end{align}
 			Ainsi, $F$ est différentiable en $(x_0, y_0)$, et on a bien~\eqref{eq:Cauchy-Riemann} en $(x_0, y_0)$.
@@ -5941,7 +5943,7 @@
 			est continue.
 			\end{déf}
 
-			\begin{rmq} La notion d'holomorphe sur $\C$ correspond plus ou moins à la notion de $\C^1$ sur $\R$).
+			\begin{rmq} La notion d'holomorphe sur $\C$ correspond plus ou moins à la notion de $\C^1$ sur $\R$.
 			\end{rmq}
 
 			\begin{prp} $f : \Omega \to \C$ est holomorphe si et seulement si~:
@@ -5974,12 +5976,12 @@
 			\begin{proof} EXERCICE.
 			\end{proof}
 
-			\begin{prp} Soient $\Omega_1, \Omega_2 \subset \C$, deux ouverts, et~:
+			\begin{prp} Soient $\Omega_1, \Omega_2 \subset \C$, deux ouverts, $z_0 \in \Omega_1$, et~:
 			\begin{align}
 				f : \Omega_1 \to \C, \\
 				g : \Omega_2 \to \C,
 			\end{align}
-			avec $f'(z_0) \in \Omega_2$. Si $f$ est $\C$-dérivable en $z_0$ et $g$ est $\C$-dérivable en $f(z_0)$, alors $g \circ f$ est $\C$-dérivable, et on a~:
+			avec $f(z_0) \in \Omega_2$. Si $f$ est $\C$-dérivable en $z_0$ et $g$ est $\C$-dérivable en $f(z_0)$, alors $g \circ f$ est $\C$-dérivable, et on a~:
 			\begin{equation}
 				(g \circ f)'(z_0) = f'(z_0)(g' \circ f)(z_0).
 			\end{equation}
@@ -6028,7 +6030,7 @@
 			\begin{prp} L'application $\abs \cdot : \C \to \R : z \mapsto \abs z$ est dérivable en l'origine et nulle part ailleurs.
 			\end{prp}
 
-			\begin{proof} À nouveau, $F$ est $Cpp\infty$ mais ne respecte pas Cauchy-Riemann. En effet, soit $(x_0, y_0) \in \R$~:
+			\begin{proof} À nouveau, $F$ est $C^\infty$ mais ne respecte pas Cauchy-Riemann sur $\C^*$. En effet, soit $(x_0, y_0) \in \R$~:
 			\begin{equation}
 				\pd ux(x_0, y_0) = \pd vy(x_0, y_0) \text{ et } \pd uy(x_0, y_0) = \pd vx(x_0, y_0) \iff x_0 = y_0 = 0.
 			\end{equation}
@@ -6082,7 +6084,7 @@
 			\begin{proof}
 			Il suffit de remarquer que~:
 			\begin{equation}
-				\pd f{\bar z} = \frac 12\left(\pd {(u+iv)}x + i\pd {(u+iv)}y\right) = \frac 12\left(\pd ux +i\pd uy\right) + \frac 12\left(i\pd uy - \pd vy\right)
+				\pd f{\bar z} = \frac 12\left(\pd {(u+iv)}x + i\pd {(u+iv)}y\right) = \frac 12\left(\pd ux +i\pd vx\right) + \frac 12\left(i\pd uy - \pd vy\right)
 					= \frac 12\left(\pd ux - \pd vy\right) + \frac i2\left(\pd uy + \pd vx\right).
 			\end{equation}
 			Ainsi, on a bien $\pd f{\overline z} \equiv 0 \iff \eqref{eq:Cauchy-Riemann}$.
@@ -6102,7 +6104,7 @@
 			est $\C$-dérivable en $z_0$ si et seulement si $\pd f{\bar z}(z_0) = 0$, et dans ce cas, $f'(z_0) = \pd fz(z_0)$.
 			\end{prp}
 
-	\subsection{Les fonction développables en séries de puissances sont holomorphes}
+	\subsection{Les fonctions développables en séries de puissances sont holomorphes}
 		\subsubsection{Résultat principal}
 			\begin{thm} Soit $(c_n)_{n \in \N} \in \C^\N \tq R\left(\sum c_nz^n\right) \gneqq 0$.
 			Soit $R = \begin{cases}a > 0 &\text{ quelconque si } R\left(\sum c_nz^n\right) = \pinfty \\R\left(\sum c_nz^n\right) &\text{ sinon}.\end{cases}$
@@ -6121,7 +6123,7 @@
 
 			On veut montrer que~:
 			\begin{equation}
-				F(y, z) \coloneqq \frac {f(y)-f(z)}{y-z} - \sum_{nn \geq 1}n c_n(z-z_0)^{n-1} \xrightarrow[y \to z] 0.
+				F(y, z) \coloneqq \frac {f(y)-f(z)}{y-z} - \sum_{nn \geq 1}n c_n(z-z_0)^{n-1} \xrightarrow[y \to z]{} 0.
 			\end{equation}
 
 			Les séries de puissances de terme général $c_n(z-z_0)^n$, $c_n(y-z_0)^n$, et $nc_n(z-z_0)^{n-1}$ sont absolument convergentes car
@@ -6130,7 +6132,7 @@
 				F(y, z) = \frac 1{y-z}\left(\sum_{n \geq 0}c_n(y-z_0)^n - \sum_{n \geq 0}c_n(z-z_0)^n\right) - \sum_{n \geq 1}nc_n(z-z_0)^{n-1}.
 			\end{equation}
 
-			Pour $n=0$, on a $c_0 \cdot 1 - c_0 \cdot 1 = 0$. Pour $n \geq 0$, on a~:
+			Pour $n=0$, on a $c_0 \cdot 1 - c_0 \cdot 1 = 0$. Pour $n \geq 1$, on a~:
 			\begin{equation}
 				\frac {(y-z_0)^n - (z-z_0)^n}{(y-y_0) - (z-z_0)} = \sum_{k=0}^{n-1}(y-z_0)^{n-k-1}(z-z_0)^k.
 			\end{equation}
@@ -6169,7 +6171,7 @@
 			\end{cor}
 
 		\subsubsection{Une condition suffisante de développement en série de puissances}
-			\begin{thm} Soit $[a, b]$, un segment de $\R$, et soient $\varphi, m \in C^{0,m}([a, b], \C)$. Soit $\Omega \subset \C$, un ouvert tel que
+			\begin{thm}\label{thm:frac C0m DSP} Soit $[a, b]$, un segment de $\R$, et soient $\varphi, m \in C^{0,m}([a, b], \C)$. Soit $\Omega \subset \C$, un ouvert tel que
 			$\Omega \cap \varphi([a, b]) = \emptyset$. La fonction $f$ définie par~:
 			\begin{equation}
 				f : \Omega \to \C : z \mapsto \int_a^b\frac {m(s)}{\varphi(s) - z}\dif s
@@ -6178,7 +6180,7 @@
 			\end{thm}
 
 			\begin{proof} Soient $z_0 \in \Omega, R > 0$ tels que $D(z_0, R[ \subset \Omega$. Pour $s \in [a, b]$, on a $\varphi(s) \not \in \Omega$, et donc
-			$\abs {z_0-s} > R$ par définition de $R$.
+			$\abs {z_0-\varphi(s)} \geq R$ par définition de $R$.
 
 			Ainsi, pour $z \in D(z_0, R[$, on a~:
 			\begin{equation}
@@ -6196,9 +6198,9 @@
 				&= \frac {m(s)}{\varphi(s)-z_0} \cdot \frac {\varphi(s)-z_0}{\varphi(s) - z_0 - (z-z_0)} = \frac {m(s)}{\varphi(s)-z}.
 			\end{align}
 
-			La somme étant $C^{0,m}$ est la convergence étant uniforme, il vient~:
+			La somme étant $C^{0,m}$ et la convergence étant uniforme, il vient~:
 			\begin{align}
-				\int_a^b\frac {m(s)}{\varphi(s)-z}\dif s &= \int_a^b\sum_{n \geq 0}\frac {m(s)(z-z_0)^n}{(\varphi(s) - z_0)^{n+1}}\dif s
+				\int_a^b\frac {m(s)}{\varphi(s)-z}\dif s &= \int_a^b\sum_{n \geq 0}\frac {m(s)(z-z_0)^n}{(\varphi(s) - z_0)^{n+1}}\dif s \\
 				f(z) &= \sum_{n \geq 0}\left(\int_a^b\frac {m(s)}{(\varphi(s)-z_0)^{n+1}}\right)(z-z_0)^{n+1}.
 			\end{align}
 			\end{proof}
@@ -6218,7 +6220,7 @@
 			\end{déf}
 
 			\begin{rmq} Avec les conventions que $\gamma'$ est définie sauf en un nombre fini de points (si $\gamma$ est $C^1$ par morceaux, elle peut être mal
-			définie aux points de jonctions), on peut poser $\gamma'(s_k) = z_k$ pour tous les $k$, par exemple $z_k = 0$. $\gamma'$ est alors de classe
+			définie aux points de jonctions), on peut poser $\gamma'(s_k) = z_k \in \C$ pour tous les $k$, par exemple $z_k = 0$. $\gamma'$ est alors de classe
 			$C^{0,m}([a, b], \C)$, et donc R-intégrable. De plus, le choix des $z_k$ ne change pas la valeur de $L(\gamma)$.
 			\end{rmq}
 
@@ -6236,7 +6238,7 @@
 			\end{equation}
 			le nombre complexe~:
 			\begin{equation}
-				\int_\gamma f(\omega)\dif \omega = \int_a^b(f \circ \gamma)(s) \gamma'(s)\dif s,
+				\int_\gamma f(\omega)\dif \omega \coloneqq \int_a^b(f \circ \gamma)(s) \gamma'(s)\dif s,
 			\end{equation}
 			avec la convention usuelle sur $\gamma'$.
 			\end{déf}
@@ -6271,7 +6273,7 @@
 			\begin{align}
 				\abs {\int_\gamma f(\omega)\dif \omega} &= \abs {\int_a^b (f \circ \gamma)(s)\gamma'(s)\dif s}
 					\leq \int_a^b\abs {(f \circ \gamma)(s)}\abs {\gamma'(s)}\dif s \\
-				&\leq \norm {f \circ \gamma}_{\infty, \gamma^*} \int_a^b\abs {\gamma'(s)}\dif s = L(\gamma)\norm {f \circ \gamma}_{\infty, \gamma^*}.
+				&\leq \norm {f \circ \gamma}_{\infty, [a, b]} \int_a^b\abs {\gamma'(s)}\dif s = L(\gamma)\norm f_{\infty, \gamma^*}.
 			\end{align}
 			\end{proof}
 
@@ -6279,10 +6281,11 @@
 			chemins tracés dans $\C$.
 
 			On appelle changement de paramétrage admissible entre $\gamma$ et $\tilde \gamma$ toute application bijective
-			$\varphi \in C^0([a, b], [\tilde a, \tilde b]) \cap C^{1,m}([a, b], [\tilde a, \tilde b])$ strictement croissante sur $[a, b]$.
+			$\varphi \in C^0([a, b], [\tilde a, \tilde b]) \cap C^{1,m}([a, b], [\tilde a, \tilde b])$ strictement croissante sur $[a, b]$ telle que
+			$\gamma = \tilde \gamma \circ \varphi$.
 			\end{déf}
 
-			\begin{rmq} On impose que $\varphi$ soit strictement croissante car une bijection est obligatoirement monotone, ce qui ne laisse que deux
+			\begin{rmq} On impose que $\varphi$ soit strictement croissante car une bijection est obligatoirement strictement monotone, ce qui ne laisse que deux
 			\textit{familles} de changement de paramétrages admissibles, à savoir les strictement croissantes et strictement décroissantes. N'accepter qu'une
 			seule de ces familles permet de donner un «~sens de parcours~» aux chemins.
 			\end{rmq}
@@ -6306,7 +6309,7 @@
 			\begin{subnumcases}
 				{\gamma + \tilde \gamma : [a, b + (\tilde b - \tilde a)] \to \C : t \mapsto}
 					\gamma(t) & si $t \leq b$ \\
-					\tilde \gamma(t - b) & sinon
+					\tilde \gamma(\tilde a + t - b) & sinon
 			\end{subnumcases}
 			\end{déf}
 
@@ -6339,21 +6342,21 @@
 
 		\subsubsection{Rappels de connexité dans $\C$}
 			\begin{déf} Une partie $E \subset \C$ est dite \textit{non-connexe} s'il existe deux ouverts $U$ et $V$ de $\C$ tels que $E \subset U \cup V$,
-			$E \cap U \neq \emptyset \neq E \cap V$ et $E \cap U \cap V$.
+			$E \cap U \neq \emptyset \neq E \cap V$ et $E \cap U \cap V = \emptyset$.
 
 			Elle est dite \textit{connexe} dans le cas contraire.
 			\end{déf}
 
-			\begin{déf} $E \subset \C$ est convexe lorsque $\forall a, b \in E : [0, 1] \to \C : t \mapsto a + t(b-a)$ est tracé dans $E$.
+			\begin{déf} $E \subset \C$ est convexe lorsque $\forall a, b \in E : [a, b] : [0, 1] \to \C : t \mapsto a + t(b-a)$ est tracé dans $E$.
 			\end{déf}
 
-			\begin{prp} Soit $E \subset \C$ une partie convexe. Elle est alors connexe.
+			\begin{prp}\label{prp:convexe => connexe} Soit $E \subset \C$ une partie convexe. Elle est alors connexe.
 			\end{prp}
 
 			\begin{proof} Par l'absurde, supposons que $E$ ne soit pas connexe. Alors il existe deux ouverts $U$ et $V$ de $\C$ tel que $E \cup U \cup V$,
 			$E \cap U \neq \emptyset \neq E \cap V$, mais $E \cap U \cap V = \emptyset$.
 
-			Soient $u \in E \cap U$, $v \in E \cap V$. $[u, v] : [0, 1] \to \C : t \mapsto u + t(v-u)$. Puisque $E$ est convexe, $\gamma^* \subset E$.
+			Soient $u \in E \cap U$, $v \in E \cap V$, $[u, v] : [0, 1] \to \C : t \mapsto u + t(v-u)$. Puisque $E$ est convexe, $\gamma^* \subset E$.
 
 			$\gamma^{-1}(U \cup V) = \gamma^{-1}(E) = [0, 1]$. De plus, $\gamma^{-1}(U)$ est un ouvert de $[0, 1]$ qui contient 0, et $\gamma^{-1}(V)$
 			est un ouvert de $[0, 1]$ qui contient 1.
@@ -6376,5 +6379,225 @@
 				\item[$(iv)$]  $\Omega \cap U \cap V = \emptyset$.
 			\end{itemize}
 			\end{prp}
+
+			\begin{prp} Soient $E \subset \C$, $x \in E$, $I \neq \emptyset$, $(f_i)_{i \in I}$, une famille de sous-ensembles connexes de $E$ tels que~:
+			\begin{equation}
+				\forall i \in I : F_i \ni x.
+			\end{equation}
+			Alors $F \coloneqq \bigcup_{i \in I}F_i$ est un connexe de $E$ contenant $x$.
+			\end{prp}
+
+			\begin{proof} Supposons par l'absurde que $F$ n'est pas connexe. Il existe alors deux ouverts $U$ et $V$ de $\C$ tels que~:
+			\begin{itemize}
+				\item $F \subset U \cup V$~;
+				\item $F \cap U \neq \emptyset \neq F \cap V$~;
+				\item $F \cap U \cap V = \emptyset$.
+			\end{itemize}
+
+			Puisque $\forall i \in I : x \in F_i$, on sait que $x \in F$. De plus, $U$ et $V$ recouvrent $F$. Donc $x \in U$ ou $x \in V$. Par symétrie des hypothèses
+			en $U$ et $V$, supposons sans perte de généralité que $x \in U$. Puisque $F \cap V \neq \emptyset$, on sait qu'il existe $x_0 \in F \cap V$. Il existe
+			alors un certain $i_0 \in I$ tel que $F_{i_0} \ni x$. On sait donc que $F_{i_0} \cap V \neq \emptyset$ car $x_0 \in F_{i_0} \cap V$ et que
+			$F_{i_0} \cap U \neq \emptyset$ car $x \in F_{i_0} \cap U$.
+
+			Or $F_{i_0} \cap U \cap V \subseteq F \cap U \cap V = \emptyset$. On en déduit que $F_{i_0}$ est non-connexe, ce qui est une contradiction.
+			\end{proof}
+
+			\begin{prp} Soient $E \subset \C$ et $x \in E$. L'ensemble des connexes de $E$ contenant $x$ est non-vide. De plus, la réunion de ses parties connexes
+			est connexe et contient $x$. Cette réunion est le plus grand connexe de $E$ contenant $x$.
+			\end{prp}
+
+			\begin{proof} $\{x\}$ est un connexe de $E$ contenant $x$. Donc~:
+			\begin{equation}
+				X(x) \coloneqq \{C \subset E \tq C \text{ est connexe et } x \in C\} \neq \emptyset.
+			\end{equation}
+
+			Notons $C(x) \coloneqq \bigcup_{C \in X(x)}C$. $C(x)$ est un connexe de $E$ contenant $x$ par la proposition précédente. De plus, si $C$ est un connexe de
+			$E$ qui contient $x$, alors $C \in X(x)$, et $C \subset C(x)$ par définition. $C(x)$ est donc bien le plus grand connexe de $E$ contenant $x$ au sens de
+			l'inclusion.
+			\end{proof}
+
+			\begin{déf} Ce plus grand connexe de $E$ contenant $x$ noté $C(x)$ est appelé \textit{composante connexe de $x$ dans $E$}
+			\end{déf}
+
+			\begin{ex} L'ensemble $E = \C \setminus \mathbb U$, où $\mathbb U$ est le cercle unitaire $\mathbb U = \{e^{i\theta} \tq \theta \in [0, 2\pi]\}$
+			contient deux composantes connexes~:
+			\begin{itemize}
+				\item $C(0) = \{z \in \C \tq \abs z < 1\} = \mathbb D$, le disque unitaire~;
+				\item $C(2i) = \{z \in \C \tq \abs z > 1\} = \C \setminus \overline {\mathbb D}$.
+			\end{itemize}
+			\end{ex}
+
+			% TODO: ajouter que deux éléments d'une composante connexe ont la même composante connexe.
+
+			\begin{prp} Soit $\Omega \subset \C$ un ouvert. Alors les composantes connexes de $\Omega$ sont des ouverts.
+			\end{prp}
+
+			\begin{proof} Soient $x \in E$ et $C(x)$ sa composante connexe. Prenons $y \in C(x)$. Il existe $\delta > 0$ tel que $D(y, \delta[ \subset \Omega$
+			par ouverture de $\Omega$. Or $D(y, \delta[$ est convexe, donc connexe par la proposition~\ref{prp:convexe => connexe}.
+
+			Donc $D(y, \delta[ \subset C(y)$. Or $C(x) = C(y)$. Ainsi, $D(y, \delta[ \subset C(x)$ et donc $C(x)$ est ouvert.
+			\end{proof}
+
+			\begin{prp}\label{prp:continuité conserve connexité} Soit $\varphi : E \tocont \C$ avec $E \subset \C$ connexe. Alors $\varphi(E) \subset \C$ est connexe.
+			\end{prp}
+
+			\grantedproof
+
+			\begin{déf} On appelle \textit{région} (ou \textit{domaine}) \textit{de $\C$} tout ouvert connexe de $\C$.
+			\end{déf}
+
+			\begin{déf} Soit $\Omega \subset \C$. On définit l'ensemble $H(\Omega)$ par l'ensemble des fonctions holomorphes de $\Omega$ dans $\C$~:
+			\begin{equation}
+				H(\Omega) \coloneqq \left\{f : \Omega \to \C \tq f \text{ est holomorphe}\right\}.
+			\end{equation}
+			\end{déf}
+
+		\subsubsection{Indice d'un point par rapport à un chemin fermé}
+			\begin{déf} Soit $\gamma : [a, b] \to \C$, un chemin fermé. Posons $\Omega \setminus \gamma^*$. $\Omega$ est ouvert (car $\gamma^*$ est compact donc fermé).
+			Pour $z \in \Omega$, on définit \textit{l'indice de $z$ par rapport à $\gamma$} par~:
+			\begin{equation}
+				\Ind_\gamma(z) \coloneqq \frac 1{2i\pi}\int_\gamma \frac {\dif \omega}{\omega - z}.
+			\end{equation}
+			\end{déf}
+
+			\begin{lem}\label{lem:e^z=1} Soit $z \in \C$. $\frac z{2i\pi} \in \Z \iff \exp(z) = 1$.
+			\end{lem}
+
+			\begin{proof} Soit $z = a + ib\in \C$. Supposons $e^z = 1$. On a donc $1 = e^ae^{ib}$. On a alors $a=0$ et $b=2k\pi$ pour $k \in \Z$. Dès lors~:
+			\begin{equation}
+				\frac z{2i\pi} = \frac {ib}{2i\pi} = \frac b{2\pi} = \frac {2k\pi}{2\pi} = k \in \Z.
+			\end{equation}
+
+			Supposons alors $\frac z{2i\pi} \eqqcolon k \in \Z$. On a bien $\Re(z) = 0$, et donc~:
+			\begin{equation}
+				e^z = e^{i\Im(z)} = e^{i \cdot 2ki\pi} = e^{-2k\pi} = 1.
+			\end{equation}
+			\end{proof}
+
+			\begin{thm} Sous les notations de la définition ci-dessus, on a~:
+			\begin{enumerate}
+				\item la fonction $\Ind_\gamma$ est définie sur $\Omega$~;  % définie sur $\C$ ?
+				\item $\Ind_\gamma \in H(\Omega)$~;
+				\item $\Ind_\gamma$ est à valeurs dans $\Z$~;
+				\item $\Ind_\gamma$ est constante sur les composantes connexes de $\Omega$~;
+				\item $\Ind_\gamma$ vaut $0$ sur la composante connexe non-bornée de $\Omega$
+			\end{enumerate}
+			\end{thm}
+
+			\begin{proof}~
+			\begin{enumerate}
+				\item La fonction $\gamma^* \to \C : \omega \mapsto \frac 1{\omega - z}$ est $C^0$ sur $\gamma^*$ car son dénominateur ne s'annule jamais (et est continu
+				sur $\gamma^*$) lorsque $z \in \Omega$. Ainsi~:
+				\begin{equation}
+					\Ind_\gamma(z) = \frac 1{2i\pi}\int_a^b\frac {\gamma'(s)}{\gamma(s)-z}\dif s
+				\end{equation}
+				est bien défini sur $\Omega$.
+				\item $s \mapsto \gamma'(s)$ est de classe $C^{0,m}$ sur $[a, b]$ (quitte à la définir en $0$ en un certain nombre de points) car $\gamma$ est un chemin
+				tracé dans $\Omega$. La fonction $s \mapsto \gamma(s) - z$ est de classe $C^{0,m}$ sur $[a, b]$ et ne s'annule pas. Donc par le
+				Théorème~\ref{thm:frac C0m DSP}, on a $\Ind_\gamma \in H(\Omega)$.
+				\item Soit $\omega \in \C$. On veut montrer que pour tout $z \in \Omega$, on a~:
+				\begin{equation}
+					\exp\left(\int_\gamma\frac {\dif \omega}{\omega-z}\right) = 1
+				\end{equation}
+				pour appliquer le Lemme~\ref{lem:e^z=1}.
+
+				Posons $\varphi : [a, b] \to \C^* : t \mapsto \int_a^t\frac {\gamma'(s)}{\gamma(s) - z}$ à $z \in \Omega$ fixé.
+
+				Observons que $\varphi \in C^0([a, b], \C) \cap C^{1,m}([a, b], \C)$,et sauf sur un nombre fini de points, on a~:
+				\begin{equation}\label{eq:phi'/phi = gamma'/gamma-z}
+					\frac {\varphi'(t)}{\varphi(t)} = \frac {\gamma'(t)}{\gamma(t) - z}.
+				\end{equation}
+
+				Observons que~:
+				\begin{equation}\label{eq:d/dt(phi/gamma-z)}
+					\od {}t\left(\frac {\varphi(t)}{\gamma(t) - z}\right) = \frac {\varphi'(t)(\gamma(t)-z) - \varphi(t)\gamma'(t)}{\left(\gamma(t) - z\right)^2},
+				\end{equation}
+				sauf en un nombre fini de points. Par~\eqref{eq:phi'/phi = gamma'/gamma-z}~et~\eqref{eq:d/dt(phi/gamma-z)}, on trouve~:
+				\begin{equation}
+					\od{}t\left(\frac {\varphi(t)}{\gamma(t)-z}\right) = 0,
+				\end{equation}
+				sauf en un nombre fini de points. Dès lors $t \mapsto \frac {\varphi(t)}{\gamma(t) - z}$ est constante sur $[a, b]$.
+
+				On sait $\varphi(a) = e^0 = 1$, et donc pour $t \in [a, b]$~:
+				\begin{equation}
+					\frac {\varphi(t)}{\gamma(t) - z} = \frac {\varphi(a)}{\gamma(a) - z} = \frac 1{\gamma(a) - z},
+				\end{equation}
+				d'où~:
+				\begin{equation}
+					\forall t \in [a, b] : \varphi(t) = \frac {\gamma(t) - z}{\gamma(a) - z},
+				\end{equation}
+				ainsi~:
+				\begin{equation}
+					\varphi(b) = \frac {\gamma(b) - z}{\gamma(a) - z} = \frac {\gamma(a) - z}{\gamma(a) - z} = 1,
+				\end{equation}
+				d'où $\Ind_\gamma(z) \in \Z$.
+				\item Soit $C(x) \subset \Omega$ une composante connexe de $x \in \Omega$. $\Ind_\gamma : \Omega \to \Z$ est continue. Donc $\Ind_\gamma(C(x))$ est un
+				connexe de $\Z$ par la Proposition~\eqref{prp:continuité conserve connexité}, et donc un singleton. $\Ind_\gamma$ est constante sur $C(x)$.
+				\item $\gamma^*$ est compact. En particulier, $\gamma^*$ est borné dans $\C$. Donc il existe $R > 0$ tel que $\gamma^* \subset D(0, R[$, d'où~:
+				\begin{equation}
+					\C \setminus D(0, R[ \subset \Omega.
+				\end{equation}
+
+				Donc $\Omega$ a exactement une composante connexe non-bornée. Pour $z$ dans cette composante connexe, on a~:
+				\begin{equation}
+					\abs {\Ind_\gamma(z)} = \abs {\frac 1{2\pi}}\abs {\int_\gamma \frac {\dif \omega}{\omega - z}}
+						\leq \frac 1{2\pi}\frac {\abs {\int_a^b\abs {\gamma'(s)\dif s}}}{d(z, \gamma^*)} = \frac {L(\gamma)}{2\pi d(z, \gamma^*)} \xrightarrow[\abs z \to \pinfty]{} 0.
+				\end{equation}
+
+				On en déduit $\Ind_\gamma(z) = 0$ pour $z$ assez grand, et donc $\Ind_\gamma(z) = 0$ sur la composante connexe.
+			\end{enumerate}
+			\end{proof}
+
+			\begin{ex} $\gamma : [0, 2\pi] \to \C : \theta \mapsto a + re^{i\theta}$, pour $a \in \C$ et $r > 0$. Donc~:
+			\begin{equation}
+				\Ind_\gamma(a) = \frac 1{2i\pi}\int_0^{2\pi}\frac {ire^{i\theta}}{(a + re^{i\theta}) - a}\dif \theta = \frac {2i\pi}{2i\pi} = 1.
+			\end{equation}
+
+			De plus, $\Ind_\gamma(a + i\frac 32r) = 0$ par le théorème.
+			\end{ex}
+
+		\subsubsection{Le théorème de Cauchy local}
+			\begin{lem} Soit $\Omega \subset \C$, un ouvert. Soient $f : \Omega \tocont \C$ admettant une primitive holomorphe dans $\Omega$, $\gamma : [a, b] \to \C$,
+			un chemin fermé tracé dans $\Omega$. Alors~:
+			\begin{equation}
+				\int_\gamma f(\omega)\dif \omega = 0.
+			\end{equation}
+			\end{lem}
+
+			\begin{proof} Soit $F \in H(\Omega)$ tel que $F' = f$ sur $\Omega$. Alors~:
+			\begin{equation}
+				\int_\gamma f(\omega)\dif \omega = \int_a^b F'(\gamma(s))\gamma'(s)\dif s = \int_a^b \od {}s\left(F \circ \gamma\right)(s)\dif s = \left[F \circ \gamma\right]_a^b = 0
+			\end{equation}
+			par fermeture de $\gamma$.
+			\end{proof}
+
+			\begin{cor} Pour $n \in \Z$~:
+			\begin{itemize}
+				\item si $n \leq -2$, alors $z \mapsto \frac {z^{n+1}}{n+1}$ est une primitive holomorphe de $z \mapsto z^n$ dans $\C^*$. Donc pour out chemin tracé dans
+				$\C^*$, on a $\int_\gamma \omega^n\dif \omega = 0$~;
+				\item si $n \geq 0$, alors $z \mapsto \frac {z^{n+1}}{n+1}$ est une primitive holomorphe de $z \mapsto z^n$ dans $\C$. Donc pour tout chemin $\gamma$
+				fermé tracé dans $\C$, on a $\int_\gamma \omega^n\dif \omega = 0$.
+			\end{itemize}
+			\end{cor}
+
+			\begin{rmq} Que dire pour $n=-1$ de $\int_\gamma \frac {\dif \omega}{\omega}$ pour $\gamma$, un chemin fermé tracé dans $\C^*$ ? On voit que~:
+			\begin{equation}
+				\int_\gamma\frac {\dif \omega}\omega = 2i\pi \Ind_\gamma(0).
+			\end{equation}
+
+			Donc la valeur dépend du chemin $\gamma$ choisi. On en déduit que $z \mapsto z^{-1}$ n'a pas de primitive holomorphe dans $\C^*$.
+			\end{rmq}
+
+			\begin{thm}[Cauchy dans un triangle] Soit $\Omega \subset \C$, un ouvert. Soient $p \in \Omega$ et $f : \Omega \tocont \C$ tel que
+			$f \in H(\Omega \setminus \{p\}, \C)$.
+
+			Soit $(a, b, c) \in \Omega^3$ tel que $\Delta \coloneqq \Conv(a, b, c)\subset \Omega$. On note $\gamma_\Delta \coloneqq a \to b \to c$. Alors~:
+			\begin{equation}
+				\int_{\gamma_\Delta} f(\omega)\dif \omega = 0.
+			\end{equation}
+			\end{thm}
+
+			\begin{proof}
+			\end{proof}
 
 \end{document}
