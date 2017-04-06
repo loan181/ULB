@@ -6603,7 +6603,74 @@
 			\end{equation}
 			\end{thm}
 
-			\begin{proof} % TODO
+			\begin{proof} Considérons les trois cas séparément~:
+			\begin{itemize}
+				\item[{[Cas 1]}] $p \not \in \Conv(a, b, c) = \Delta$~;
+				\item[{[Cas 2]}] $p \in \{a, b, c\}$~;
+				\item[{[Cas 3]}] $p \in \Conv(a, b) \setminus \{a, b, c\}$.
+			\end{itemize}
+
+			Pour le cas 1, notons $a'$, le milieu de $[b, c]$, $b'$, le milieu de $[a, c]$, et $c'$, le milieu de $[a, b]$.
+			On pose~:
+			\begin{equation}
+				J \coloneqq \int_{[a \to b \to c]}.
+			\end{equation}
+
+			Remarquons que~:
+			\begin{equation}
+				J = \int_{[a \to c' \to b']}f(\omega)\dif \omega) + \int_{[c' \to b \to a']} f(\omega)\dif \omega + \int_{[a' \to c \to b']} f(\omega)\dif \omega
+					+ \int_{[a' \to b' \to c']}f(\omega)\dif \omega.
+			\end{equation}
+
+			Dans la somme ci-dessus, un des termes est de module $\geq \frac {\abs J}4$. Pour ce triangle-là, on reproduit le découpage. On produit ainsi
+			une suite $(\gamma_{\Delta_n})_{n \in \N}$ de triangles tels que~:
+			\begin{equation}
+				\forall n \in \N : \abs {\int_{\gamma_{\Delta_n}} f(\omega)\dif \omega} \geq \frac {\abs J}4.
+			\end{equation}
+
+			De plus, $L(\gamma_{\Delta_n}) \leq 2^{-n}L(\gamma_\Delta)$.
+
+			Posons $z_0 \in \bigcap_{n \in \N} \Delta_n$. Puisque $z_0 \in \Omega \setminus \{p\}$, $f$ est holomorphe en $z_0$. Fixons $\varepsilon > 0$.
+			Il existe $r > 0$ tel que~:
+			\begin{equation}
+				\forall z \in \Omega : \abs {z-z_0} < r \Rightarrow \abs {f(z) - f(z_0) - (z-z_0)f'(z_0)} < \varepsilon\abs {z - z_0}.
+			\end{equation}
+
+			Choisissons $N \in \N$ assez grand pour que pour $z \in \Delta_n$~:
+			\begin{equation}
+				\forall n \geq N : \Delta_n \subset B(z_0, r[ \text{ et } \abs {z-z_0} \leq 2^{-n}L(\gamma_{\Delta_n}).
+			\end{equation}
+
+			On a alors pour $n \geq N$~:
+			\begin{equation}
+				\int_{\gamma_{\Delta_n}}f(\omega)\dif \omega = \int_{\gamma_{\Delta_n}}\left[f(\omega) - f(z) - (\omega-z_0)f'(z_0)\right]\dif \omega
+			\end{equation}
+			car~:
+			\begin{equation}
+				\int_{\gamma_{\Delta_n}}\left(f(z_0) - (\omega-z_0)f'(z_0)\right)\dif \omega = 0
+			\end{equation}
+			avec ce qui précède (existence d'une primitive holomorphe).
+
+			Ainsi, $\abs {\int_{\gamma_{\Delta_n}}f(\omega)\dif \omega} \leq L(\gamma_{\Delta_n})\cdot \norm {f-f(z_0) - (\cdot-z_0)f'(z_0)}_\infty
+			\leq 2^{-n}L(\gamma_\Delta)\varepsilon2^{-n}L(\gamma_\Delta)$.
+
+			Finalement~:
+			\begin{equation}
+				\abs J \leq 4^n\abs {\int_{\gamma_{\Delta_n}}f(\omega)\dif \omega} \leq L(\gamma_\Delta)^2\varepsilon.
+			\end{equation}
+
+			Ainsi, pour tout $\varepsilon > 0$, on a $\abs J \leq \varepsilon$. Donc $\abs J = 0$.
+
+			Pour le second cas, posons $p = c$ dans perte de généralité. On a alors~:
+			\begin{equation}
+				\int_{[a \to b \to c]}f(\omega)\dif \omega = \underbrace {\int_{[a \to y \to b]}f(\omega)\dif \omega}_{= 0}
+					+ \underbrace {\int_{[a \to y \to b]} f(\omega)\dif \omega}_{= 0}
+					+ \underbrace {\int_{[x \to c \to y]}f(\omega)\dif \omega}_{\xrightarrow[x, y \to p=c]{} 0} = 0,
+			\end{equation}
+			par continuité de $f$ en $c=p$.
+
+			Pour le cas 3, on divise le triangle $[a \to b \to c]$ en trois triangles $[a \to p \to b]$, $[b \to p \to c]$, et $[c \to p \to a]$.
+			Par le cas 2, on trouve $\int_{\gamma_\Delta} f(\omega)\dif \omega = 0$.
 			\end{proof}
 
 			\paragraph{Rappel~: théorème de Green-Riemann}
