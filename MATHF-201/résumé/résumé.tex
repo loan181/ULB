@@ -34,8 +34,8 @@
 \numberwithin{equation}{section}
 
 % link amsthm and mdframed
-%\iftrue
-\iffalse
+\iftrue
+%\iffalse
 	% pre-amsthm
 	\mdfdefinestyle{resultstyle}{%
 		hidealllines=true,%
@@ -115,8 +115,8 @@
 \newcommand{\minfty}{{-\infty}}
 \newcommand{\pinfty}{{+\infty}}
 \newcommand{\grantedproof}{\begin{proof} \underline{Admis.} \end{proof}}
-\newcommand{\evn}{espace vectoriel normé}
-\newcommand{\evnc}{{\evn} complet}
+\newcommand{\evn}{espace vectoriel normé }
+\newcommand{\evnc}{{\evn} complet }
 \newcommand{\CDII}{{CDI 1}}
 \newcommand{\CDIII}{{CDI 2}}
 \newcommand{\subscpct}{\subset\subset}
@@ -263,7 +263,7 @@
 
 				\begin{déf} Soit $(X, d)$ un espace métrique et soit $O \subset X$. On dit que $O$ est une partie \textit{ouverte} dans $X$ lorsque~:
 				\begin{equation}
-					\forall x \in O : \exists r \gneqq 0 \tq B(x, r)  \subset O.
+					\forall x \in O : \exists r \gneqq 0 \tq B(x, r[  \subset O.
 				\end{equation}
 				\end{déf}
 
@@ -684,7 +684,7 @@
 			En posant $\overline \psi \coloneqq \psi - \frac \varepsilon{4\abs X}$ et $\overline \varphi \coloneqq \varphi + \frac \varepsilon{4\abs X}$, on a
 			$\overline \psi, \overline \varphi \in \mathcal E(X, \R)$. De plus~:
 			\begin{equation}
-				\int_X(\psi-\varphi) = \int_X\left(\psi + \frac \varepsilon{4\abs X} - \left(\varphi - \frac \varepsilon{4\abs X}\right)\right)
+				\int_X(\overline \varphi - \overline\psi) = \int_X\left(\varphi + \frac \varepsilon{4\abs X} - \left(\psi - \frac \varepsilon{4\abs X}\right)\right)
 				= \frac \varepsilon{2\abs X}\abs X + \int_X (\psi - \varphi) < 2\frac \varepsilon2 = \varepsilon.
 			\end{equation}
 
@@ -771,7 +771,7 @@
 			De plus, les $f_n$ sont $C^1(\Omega, \R)$, et donc les dérivées partielles $\pd {f_n}{x_i}$ sont $C^0(\Omega, \R)$ pour tout $i$ et par convergence
 			uniforme sur les compacts, $g_i \in C^0(\Omega, \R)$ (Proposition~\ref{prp:cvuccontinues}).
 
-			On en déduit alors $f \in C^1(\Omega, \R)$ avec $\pd f{x_i} = g_i$ pour tout $i$ dans $\Omega$ (points 1 et 2 à montrer).
+			On en déduit alors $f \in C^1(\Omega, \R)$ avec $\pd f{x_i} = g_i$ pour tout $i$ dans $\intint 1d$ (points 1 et 2 à montrer).
 
 			Il reste donc à montrer le point 3.
 
@@ -792,7 +792,7 @@
 
 			Par convergence simple de $f_n$ vers $f$, et puisque les $a_i$ sont en nombre fini, on peut alors exprimer~:
 			\begin{equation}
-				\forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : \forall k \in \intint 1p\abs {f_n(a_i) - f(a_i)} < \varepsilon.
+				\forall \varepsilon > 0 : \exists N \in \N \tq \forall n \geq N : \forall i \in \intint 1p : \abs {f_n(a_i) - f(a_i)} < \varepsilon.
 			\end{equation}
 
 			Fixons donc $\varepsilon > 0$, soit $N$ correspondant et soit $x \in K$. Il existe $k \in \intint 1p$ tel que $x \in B(a_k, \frac {r_{a_k}}2[$ car
@@ -1018,11 +1018,11 @@
 				\norm {S_{n+p} - S_n}_Y &\leq M\sum_{k=n+1}^{n+p}(f_k-f_{k+1}) + Mf_{n+p} + Mf_{n+1} = M(f_{n+1}-f_{n+p}) + M(f_{n+p} + f_{n+1}) \\
 				&= 2Mf_{n+1} \xrightarrow [n \to \pinfty]{} 0,
 			\end{align}
-			et la convergence de dépend pas de $p$. On a alors que la suite $\seq Sn\N$ est de Cauchy, et par complétude de $Y$, $S_n$ converge, ce qui implique que la
+			et la convergence ne dépend pas de $p$. On a alors que la suite $\seq Sn\N$ est de Cauchy, et par complétude de $Y$, $S_n$ converge, ce qui implique que la
 			série de terme général $f_ng_n$ converge.
 			\end{proof}
 
-			\begin{thm} Soient $X$ un \evnc et $X \neq 0$. Soient~:
+			\begin{thm} Soient $Y$ un \evnc et $X \neq \emptyset$. Soient~:
 			\begin{align}
 				g_n &: X \to Y, \\
 				f_n &: X \to \Rp.
@@ -1145,7 +1145,7 @@
 				\forall n \geq N : \norm {a_n}_Y^{\frac 1n} \leq \limsup_{n \to \pinfty} \norm {a_n}_Y^{\frac 1n} = \frac 1R \leq \frac 1{R'}.
 			\end{equation}
 
-			Dès lors~: $\norm {a_n}_Y \leq \frac 1{(R')^n}$, ou encore $\abs {z - z_0}\norm {a_n}_Y \leq \frac {\abs {z - z_0}^n}{(R')^n}$. On a donc~:
+			Dès lors~: $\norm {a_n}_Y \leq \frac 1{(R')^n}$, ou encore $\abs {z - z_0}^n\norm {a_n}_Y \leq \frac {\abs {z - z_0}^n}{(R')^n}$. On a donc~:
 			\begin{equation}
 				\norm {(z-z_0)^na_n}_Y \leq \left(\frac {\abs {z - z_0}}{R'}\right)^n.
 			\end{equation}
@@ -1257,7 +1257,7 @@
 
 			\begin{proof} Prenons $z_0 = 0$ et $z \in \Rp_0$. Prenons $x \in [0, z], n, p \in \Ns$. Écrivons~:
 			\begin{equation}
-				\sum_{k=n}^{n+p}a_kx^k = \sum_{n=0}^{n+p}a_kz^k\left(\frac xz\right)^k.
+				\sum_{k=n}^{n+p}a_kx^k = \sum_{k=0}^{n+p}a_kz^k\left(\frac xz\right)^k.
 			\end{equation}
 			Notons alors $S_m \coloneqq \sum_{k=0}^ma_kz^k$, pour tout $m$. On obtient alors~:
 			\begin{align}
@@ -1565,12 +1565,12 @@
 			\begin{déf} Soit $I \neq \emptyset$, un intervalle de $\R$, et $f : I \to \R$. On dit que $f$ est \textit{abs-int} (\textit{absolument intégrable})
 			sur $I$ lorsque~:
 			\begin{itemize}
-				\item[$(i)$] $\forall [a, b] \subset U : \restr f{[a, b]}$ est R-int sur $[a, b]$~;
+				\item[$(i)$] $\forall [a, b] \subset I : \restr f{[a, b]}$ est R-int sur $[a, b]$~;
 				\item[$(ii)$] $\sup_{[a, b] \subset I} \int_a^b \abs f \lneqq \pinfty$.
 			\end{itemize}
 			\end{déf}
 
-			\begin{rmq} La condition $(ii)$ revient à dire que $\exists M > 0 \tq \forall [a, b] \subset U : \int_a^b \abs f \leq M$.
+			\begin{rmq} La condition $(ii)$ revient à dire que $\exists M > 0 \tq \forall [a, b] \subset I : \int_a^b \abs f \leq M$.
 			\end{rmq}
 
 			\begin{déf} Soit $I \subset \R$, un intervalle. On appelle \textit{suite exhaustive de segments de $I$} toute suite $([a_n, b_n])_{n \in \N}$ de
@@ -1637,7 +1637,7 @@
 			On construit donc $\varphi : \N \to \N$ strictement croissante telle que pour tout $p$~:
 			\begin{align}
 				&[\bar a_{2p}, \bar b_{2p}] = [a_{\varphi(2p)}, b_{\varphi(2p)}], \\
-				&[\bar a_{2p+1}, \bar b_{2p+1}] = [\widetilde a_{\varphi(2p+1}, \widetilde b_{2p+1}].
+				&[\bar a_{2p+1}, \bar b_{2p+1}] = [\widetilde a_{\varphi(2p+1)}, \widetilde b_{\varphi(2p+1)}].
 			\end{align}
 
 			Donc la suite $([\bar a_p, \bar b_p])_p$ est exhaustive. La suite $\left(\int_{\bar a_p}^{\bar b_p}f\right)_p$ converge vers $\bar \beta$ dans $\R$.
@@ -1778,9 +1778,9 @@
 			\end{rmq}
 
 		\subsection{Critères d'intégration absolue}
-			\begin{prp}[Critère de comparaison]\label{prp:critèredecomparaison} Soit $I \subset \R$ un intervalle non-vide et $f, g : I \to \R$ avec~:
+			\begin{prp}[Critère de comparaison]\label{prp:critèredecomparaison} Soient $I \subset \R$ un intervalle non-vide et $f, g : I \to \R$ avec~:
 			\begin{itemize}
-				\item $\forall x \in X : \abs {f(x)} \leq g(x)$~;
+				\item $\forall x \in I : \abs {f(x)} \leq g(x)$~;
 				\item $f, g$ R-int sur tout segment de $I$.
 			\end{itemize}
 
@@ -1812,7 +1812,7 @@
 
 			\begin{prp} Soit $I = [a, b)$, et soit $f, g : I \to \R$, R-int sur tout segment de $I$. Alors~:
 			\begin{enumerate}
-				\item si $f \underset {b^-}\sim g(x)$, alors $f$ est abs-int sur $I$ si et seulement si $g$ l'est~;
+				\item si $\abs f \underset {b^-}\sim g$, alors $f$ est abs-int sur $I$ si et seulement si $g$ l'est~;
 				\item dans le cas abs-int, on a~:
 				\begin{equation}
 					\int_x^b\abs f \underset {b^-}\sim \int_x^b g.
@@ -1836,19 +1836,18 @@
 				\item Dans le cas abs-int, fixons $\varepsilon > 0$. Il existe $\eta > 0$ tel que pour $x \in [b-\eta, b)$, on a
 				$\abs {\abs {f(x)}-g(x)} \leq \varepsilon g(x)$. Pour $x > b-\eta$, il vient~:
 				\begin{equation}
-					\abs {\int_x^b\abs f - \int_x^b g} \leq \int_x^b\abs {\abs f - g},
+					\abs {\int_x^b\abs f - \int_x^b g} \leq \int_x^b\abs {\abs f - g}.
 				\end{equation}
-				d'où $\int_x^b\abs {f(t)}\dif t$ abs-int.
 
 				Dans le cas non-abs-int, fixons $\varepsilon > 0$. Il existe $\eta_1$ tel que pour $x \in [b-\eta_1, b)$, on a~:
 				\begin{equation}
 					\abs {\abs {f(x)} - g(x)} \leq \varepsilon g(x).
 				\end{equation}
-				Pour $X \geq b-\eta_1$, on a~:
+				Pour $x \geq b-\eta_1$, on a~:
 				\begin{equation}
 					\abs {\int_a^x \abs f - \int_a^x g} \leq \int_a^{b- \eta}\abs {\abs {f(t)} - g(t)}\dif t + \int_{b-\eta}^b\abs {\abs {f(t)} - g(t)}\dif t.
 				\end{equation}
-				Puisque $g$ n'est pas abs-int sur $[a, b)$, il existe $\eta_2 \in (b, b+\eta_1)$ tel que pour $x \geq b-\eta_2$, on a~:
+				Puisque $g$ n'est pas abs-int sur $[a, b)$, il existe $\eta_2 \in (0, \eta_1)$ tel que pour $x \geq b-\eta_2$, on a~:
 				\begin{equation}
 					\frac {\int_a^{b-\eta_1}\abs {\abs f - g}}{\int_a^x g} \leq \varepsilon.
 				\end{equation}
@@ -1871,7 +1870,7 @@
 			\begin{itemize}
 				\item si $\alpha \neq 1$, alors~:
 				\begin{equation}
-					\int_1^Xx^{-\alpha}\dif x = \frac 1{1-\alpha}\left[x^{1-\alpha}\right]_1^X = \frac {X^{1-\alpha}}{1-\alpha} = \frac 1{1-\alpha}~;
+					\int_1^Xx^{-\alpha}\dif x = \frac 1{1-\alpha}\left[x^{1-\alpha}\right]_1^X = \frac {X^{1-\alpha}}{1-\alpha} - \frac 1{1-\alpha}~;
 				\end{equation}
 				\item si $\alpha \gneqq 1$, alors~:
 				\begin{equation}
@@ -2101,13 +2100,13 @@
 			\end{proof}
 
 		\subsection{Critère d'Abel}
-			\begin{prp}[Critère d'Abel pour la convergence des intégrales] Soient $\minfty < a < b \leq \pinfty$, $f, b : [a, b] \to \R$ telles que~:
+			\begin{prp}[Critère d'Abel pour la convergence des intégrales] Soient $\minfty < a < b \leq \pinfty$, $f, g : [a, b] \to \R$ telles que~:
 			\begin{itemize}
-				\item $f$ est R-int sur tout segment de $[a, b]$ et il existe $M \gneqq 0$ tel que~:
+				\item $f$ est R-int sur tout segment de $[a, b)$ et il existe $M \gneqq 0$ tel que~:
 				\begin{equation}
-					\forall x \in [a, b] : \abs {\int_a^x f(t)\dif t} \leq M~;
+					\forall x \in [a, b) : \abs {\int_a^x f(t)\dif t} \leq M~;
 				\end{equation}
-				\item $g$ est positive et décroissante vers $0$ en $b^-$ sur $[a, b]$.
+				\item $g$ est positive et décroissante vers $0$ en $b^-$ sur $[a, b)$.
 			\end{itemize}
 
 			Alors l'intégrale de $fg$ converge sur $I$.
@@ -2128,7 +2127,7 @@
 			\end{equation}
 			pour un certain $c_{n+p} \in [b_n, b_{n+p}]$ par la deuxième formule de la moyenne. On trouve finalement~:
 			\begin{equation}
-				\abs {\alpha_{n+p} - \alpha_n} \leq g(b_n) \leq \abs {\int_a^{c_{n+p}}f(t)\dif t - \int_a^{b_n}f(t)\dif t} \leq 2Mg(b_n) \xrightarrow[n \to \pinfty]{} 0,
+				\abs {\alpha_{n+p} - \alpha_n} \leq g(b_n) \cdot \abs {\int_a^{c_{n+p}}f(t)\dif t - \int_a^{b_n}f(t)\dif t} \leq 2Mg(b_n) \xrightarrow[n \to \pinfty]{} 0,
 			\end{equation}
 			par décroissance de $g$ vers $0$.
 
@@ -2175,7 +2174,7 @@
 		\subsection{Un résultat de continuité}
 			\begin{déf} L'ensemble $X$ est dit \textit{localement} compact lorsque~:
 			\begin{equation}
-				\forall x \in X : \forall O \text{ ouvert } : x \in O \Rightarrow \exists V \in \mathcal V(x) \tq O \subset V.
+				\forall x \in X : \forall O \text{ ouvert } : x \in O \Rightarrow \exists V \text{ compact } \in \mathcal V(x) \tq O \subset V.
 			\end{equation}
 			\end{déf}
 
@@ -2193,8 +2192,8 @@
 			\begin{equation}
 				V \times [a, b] \to \R : (x, t) \mapsto f(x, t)
 			\end{equation}
-			est continue sur $X \times [a, b]$. En particulier, par le théorème de Heine, elle est uniformément continue sur $V \times [a, b]$, car $V \times [a, b]$
-			est compact. Soit $\varepsilon > 0$ et soit $x_0 \in X$. Il existe $\eta > 0$ et $\delta > 0$ tels que~: $\forall x, y \in X : \forall t, t' \in [a, b]$,
+			est continue sur $V \times [a, b]$. En particulier, par le théorème de Heine, elle est uniformément continue sur $V \times [a, b]$, car $V \times [a, b]$
+			est compact. Soit $\varepsilon > 0$ et soit $x_0 \in X$. Il existe $\eta > 0$ et $\delta > 0$ tels que~: $\forall x, y \in V : \forall t, t' \in [a, b]$,
 			si $d(x, y) < \eta$ et $\abs {t'-t} < \delta$, et $B(x_0, \eta[ \subset V$, alors $\abs {f(x, t) - f(y, t')} \leq \varepsilon$.
 
 			En particulier, pour $x \in B(x_0, \eta[$ et $t \in [a, b]$, on a~:
@@ -2221,9 +2220,9 @@
 			\begin{prp}\label{prp:dérivabilitésegmentfixe} Soient $X \subset \R^d$, un ouvert non-vide, $[a, b] \subset \R$, un segment, et
 			$f : X \times [a, b] \to \R$, continue sur $X \times [a, b]$ admettant une dérivée partielle par rapport à tout $x_i$ en tout point de $X$ tel que~:
 			\begin{equation}
-				\forall i \in \intint 1d : X \times [a, b] \to \R : \pd f{x_i}(x, t) \in C^0(X \times [a, b], \R).
+				\forall i \in \intint 1d : X \times [a, b] \to \R : (x, t) \mapsto \pd f{x_i}(x, t) \in C^0(X \times [a, b], \R).
 			\end{equation}
-			Alors la fonction $F : X \to \R : x \mapsto \int_a^b f(x, t)\dif t$ est de classe $C^1$ sur $X \times [a, b]$, et on a~:
+			Alors la fonction $F : X \to \R : x \mapsto \int_a^b f(x, t)\dif t$ est de classe $C^1$ sur $X$, et on a~:
 			\begin{equation}
 				\forall i \in \intint 1d : \pd F{x_i}(x) = \int_a^b \pd f{x_i}(x, t)\dif t.
 			\end{equation}
@@ -2256,9 +2255,9 @@
 				h \mapsto \int_a^b\int_0^1g(h, (s, t))\dif s\dif t \in C^0([-\frac \delta2, \frac \delta2], \R).
 			\end{equation}
 			Par cette continuité, on déduit que la fonction $h \mapsto \frac 1h\left(F(x_0 + he_i) - F(x_0)\right)$ admet une limite finie en $h=0$ qui est
-			$\int_a^b\int_0^1g(0, (s, t))\dif s\dif t$. On en déduit que $f$ admet une dérivée partielle par rapport à $x_i$ en $x_0$, et on a~:
+			$\int_a^b\int_0^1g(0, (s, t))\dif s\dif t$. On en déduit que $F$ admet une dérivée partielle par rapport à $x_i$ en $x_0$, et on a~:
 			\begin{equation}
-				\pd F{x_i} = \int_a^b\int_0^1\pd f{x_i}(x_0 + 0, t)\dif s\dif t = \int_a^b\pd f{x_i}(x_0, t)\int_0^1\dif s\dif t = \int_a^b\pd f{x_i}(x_0, t)\dif t.
+				\pd F{x_i}(x) = \int_a^b\int_0^1\pd f{x_i}(x_0 + 0, t)\dif s\dif t = \int_a^b\pd f{x_i}(x_0, t)\int_0^1\dif s\dif t = \int_a^b\pd f{x_i}(x_0, t)\dif t.
 			\end{equation}
 
 			À nouveau, par la Proposition~\ref{prp:intparamcontinuesidefsurcpct} appliquée à $(x, t) \mapsto \pd f{x_i}(x, t)$, on obtient
@@ -2295,12 +2294,12 @@
 			Par ailleurs, la fonction $f$ est bornée sur son compact de définition. Donc il existe $M > 0$ tel que
 			$\forall (y, t) \in [\alpha, \beta] \times [a, b] : \abs {f(y, t)} \leq M$. Si $\abs {\Delta T} < \frac \varepsilon M$ , on observe~:
 			\begin{equation}
-				\abs {\int_T^{T + \Delta T}f(x + \Delta x, t)\dif t} \leq M\abs {\Delta T} < M.
+				\abs {\int_T^{T + \Delta T}f(x + \Delta x, t)\dif t} \leq M\abs {\Delta T} < \varepsilon.
 			\end{equation}
 
 			Dès lors, pour $\abs {\Delta x} < \eta$ et $\abs {\Delta T} < \frac \varepsilon M$, on a~:
 			\begin{equation}
-				\abs {F(x+\Delta x, T) - F(x, T)} < \varepsilon.
+				\abs {F(x+\Delta x, T + \Delta T) - F(x, T)} < \varepsilon.
 			\end{equation}
 
 			On a en effet trouvé un voisinage de $(x, T)$ qui est envoyé sur un voisinage de $F(x, T)$. La fonction $F$ est donc continue.
@@ -2326,7 +2325,7 @@
 			$[\alpha, \beta] \times [a, b]$. Alors la fonction $F : [\alpha, \beta] \times [a, b] \to \R : (x, T) \mapsto \int_a^Tf(x, t)\dif t$ est de classe
 			$C^1$ sur $[\alpha, \beta] \times [a, b]$ avec~:
 			\begin{equation}
-				\pd Fx(x, t) = \int_a^T\pd fx(x, t)\dif t \qquad\qquad\text{ et }\qquad\qquad \pd FT(x, T) = f(x, T).
+				\pd Fx(x, T) = \int_a^T\pd fx(x, t)\dif t \qquad\qquad\text{ et }\qquad\qquad \pd FT(x, T) = f(x, T).
 			\end{equation}
 			\end{thm}
 
@@ -2432,8 +2431,9 @@
 			On en déduit que l'intégrale de $t \mapsto x\exp(-xt)$ n'est pas convergente uniformément sur $\Rp$.
 			\end{rmq}
 
-			\begin{thm} Soient $(X, d)$ un espace métrique, $I \subset \R$, un intervalle non-vide Soit $f : X \times I \tocont \R$. On suppose que l'intégrale
-			de $t \mapsto f(x, t)$ converge sur $I$ uniformément sur $X$. Alors la fonction $F : X \to \R : x \mapsto \int_I f(x, t)\dif t$ est continue sur $X$.
+			\begin{thm}\label{thm:intparamcontinuesiconvunif} Soient $(X, d)$ un espace métrique, $I \subset \R$, un intervalle non-vide Soit
+			$f : X \times I \tocont \R$. On suppose que l'intégrale de $t \mapsto f(x, t)$ converge sur $I$ uniformément sur $X$. Alors la fonction
+			$F : X \to \R : x \mapsto \int_I f(x, t)\dif t$ est continue sur $X$.
 			\end{thm}
 
 			\begin{proof} Soit $([a_n, b_n])_n$, une suite exhaustive de segments de $I$. Pour tout $n \in \N$, on pose~:
@@ -2458,7 +2458,7 @@
 			\end{equation}
 
 			La suite $(F_n)_n$ est donc uniformément de Cauchy, on en déduit qu'elle converge uniformément sur $X$. Sa limite simple (limite de convergence
-			simple) étant $F$, il vient que $f \in C^0(X, \R)$.
+			simple) étant $F$, il vient que $F \in C^0(X, \R)$.
 			\end{proof}
 
 			\begin{thm} Soient $X \subset \R^d$, un ouvert non-vide, , $I \subset \R$, un intervalle non-vide, et $f : X \times I \tocont \R$ telle que pour
@@ -2511,7 +2511,7 @@
 			\end{proof}
 
 			\begin{thm}[Théorème de Fubini, version \CDIII]\label{thm:FubiniCDI1} Soient $[\alpha, \beta]$, un segment, $I \subset \R$, un intervalle non-vide, et
-			$f : [\alpha, \beta] \tocont \R$ telle que l'intégrale sur $I$ de $t \mapsto f(x, t)$ converge uniformément sur $[\alpha, \beta]$. Alors~:
+			$f : [\alpha, \beta] \times I \tocont \R$ telle que l'intégrale sur $I$ de $t \mapsto f(x, t)$ converge uniformément sur $[\alpha, \beta]$. Alors~:
 			\begin{enumerate}
 				\item la fonction $F : [\alpha, \beta] \to \R : x \mapsto \int_I f(x, t)\dif t$ est continue sur $[\alpha, \beta]$~;
 				\item la fonction $G : I \to \R : t \mapsto \int_\alpha^\beta f(x, t)\dif x$ est continue sur $I$~;
@@ -2524,9 +2524,9 @@
 			\end{equation}
 			\end{thm}
 
-			\begin{proof} $F$ et $G$ sont continues sur $[\alpha, \beta]$ par la Proposition~\ref{prp:intparamcontinuesidefsurcpct}.Fixons $\varepsilon > 0$.
-			Soit $([a_n, b_n])_n$ une suite exhaustive de segments de $I$. Par convergence sur $I$ uniforme sur $[\alpha, \beta]$ de l'intégrale de
-			$t \mapsto f(x, t)$, il existe $N_\varepsilon \in \N$ tel que~:
+			\begin{proof} $F$ et $G$ sont continues sur $[\alpha, \beta]$ par la Proposition~\ref{prp:intparamcontinuesidefsurcpct} et le
+			Théorème~\ref{thm:intparamcontinuesiconvunif}.Fixons $\varepsilon > 0$. Soit $([a_n, b_n])_n$ une suite exhaustive de segments de $I$. Par convergence
+			sur $I$ uniforme sur $[\alpha, \beta]$ de l'intégrale de $t \mapsto f(x, t)$, il existe $N_\varepsilon \in \N$ tel que~:
 			\begin{equation}
 				\forall n \geq N_\varepsilon : \forall x \in [\alpha, \beta] : \abs {\int_{a_n}^{b_n} f(x, t)\dif t - \int_I f(x, t)\dif t}
 				\leq \frac \varepsilon{\beta-\alpha}.
@@ -2572,13 +2572,13 @@
 			(Proposition~\ref{prp:critèredecomparaison}). Puisque $\varphi$ est abs-int sur $I$, pour $\varepsilon > 0$ fixé, il existe $K_\varepsilon \subset I$
 			segment tel que~:
 			\begin{equation}
-				\forall K \subset I \text{ segment } : \left(K_\varepsilon \subset K \Rightarrow \abs {\int_K f(x, t)\dif t - \int_I f(x, t)\dif t}
+				\forall K \subset I \text{ segment } : \left(K_\varepsilon \subset K \Rightarrow \abs {\int_K \varphi(t)\dif t - \int_I \varphi(t)\dif t}
 				\leq \varepsilon\right).
 			\end{equation}
 
 			Pour $x \in X, K \subset I$ segment $\tq K_\varepsilon \subset K$, écrivons~:
 			\begin{align}
-				\int_{K_\varepsilon} f(x, t)\dif t - \int_I f(x, t)\dif t &= \abs {\int_{a_\varepsilon}^{b_\varepsilon} f(x, t)\dif t - \int_I f(x, t)\dif t}
+				\abs {\int_{K_\varepsilon} f(x, t)\dif t - \int_I f(x, t)\dif t} &= \abs {\int_{a_\varepsilon}^{b_\varepsilon} f(x, t)\dif t - \int_I f(x, t)\dif t}
 					= \abs {\int_{\inf I}^{a_\varepsilon}f(x, t)\dif t + \int_{b_\varepsilon}^{\sup I}f(x, t)\dif t} \\
 				&\leq \int_{\inf I}^{a_\varepsilon}\abs {f(x, t)}\dif t + \int_{b_\varepsilon}^{\sup I}\abs {f(x, t)\dif t}
 					\leq \int_{\inf I}^{a_\varepsilon}\varphi(t)\dif t + \int_{b_\varepsilon}^{\sup I}\varphi(t)\dif t \\
@@ -2612,7 +2612,7 @@
 			Par hypothèse, on sait que $g(\cdot, b_n)$ converge vers $0$ uniformément par rapport à $x$. On sait donc qu'il existe $N_\varepsilon \in \N$
 			tel que pour $x \in X, n \geq N_\varepsilon$, on a $0 \leq g(x, b_n) \leq \frac \varepsilon{2M}$. Finalement, on en déduit~:
 			\begin{equation}
-				\forall n \geq N_\varepsilon : \forall n, p \in \N : \forall x \in X : \abs {\int_a^{b_{n+p}}f(x, t)g(x, t)\dif t - \int_a^{b_n}f(x, t)g(x, t)\dif t}
+				\forall n \geq N_\varepsilon : \forall p \in \N : \forall x \in X : \abs {\int_a^{b_{n+p}}f(x, t)g(x, t)\dif t - \int_a^{b_n}f(x, t)g(x, t)\dif t}
 				\leq \varepsilon.
 			\end{equation}
 
@@ -2642,7 +2642,7 @@
 			\end{equation}
 			\end{prp}
 
-			\begin{proof} Soit la fonction $f$ définie par~:
+			\begin{proof} Soit la fonction $h$ définie par~:
 			\begin{equation}
 				h : \R \to \R : x \mapsto \begin{cases}\exp\left(-x^{-2}\right) &\text{ si } x > 0 \\0 &\text{ sinon }\end{cases}.
 			\end{equation}
@@ -2652,7 +2652,7 @@
 			\end{equation}
 			avec $P_k \in \R[x]$, et donc les dérivées sont telles que~:
 			\begin{equation}
-				\forall k \geq 1 : h^{(k)} \xrightarrow[x \to 0^+]{} 0 = h^{(k)}(0^-)
+				\forall k \geq 1 : h^{(k)}(x) \xrightarrow[x \to 0^+]{} 0 = h^{(k)}(0^-)
 			\end{equation}
 
 			De plus, on a $\supp h = \Rp$. Posons alors~:
@@ -3022,7 +3022,7 @@
 		\end{enumerate}
 		\end{proof}
 
-		\begin{prp} Soit $X \subset \R^d$. Si $X$ est compact, alors $C^0(X, \R) = C^0(X, \R)$.
+		\begin{prp} Soit $X \subset \R^d$. Si $X$ est compact, alors $C_b^0(X, \R) = C^0(X, \R)$.
 		\end{prp}
 
 		\begin{proof} On sait que $C^0_b(X, \R) \subseteq C^0(X, \R)$ pour tout ensemble $X$. Prenons $f \in C^0(X, \R)$. Une fonction continue sur un compact
@@ -3179,7 +3179,7 @@
 				Les suites $(g_k(x_{p_i}))_k$ convergent dans $\R$ pour $i \in \intint 1q$ et donc de Cauchy. Puisqu'elles sont en nombre fini, il existe
 				$N \in \N$ tel que~:
 				\begin{equation}
-					\forall m, n \geq N : \abs {g_m(x_{p_j}-g_n(x_{p_j})} \leq \varepsilon.
+					\forall m, n \geq N : \abs {g_m(x_{p_j})-g_n(x_{p_j})} \leq \varepsilon.
 				\end{equation}
 
 				Soit $x \in A$. Par compacité de $A$, il existe $j \in \intint 1q$ tel que $\norm {x-y_j} \leq \frac \eta2$, et~:
@@ -3227,7 +3227,7 @@
 			\begin{rmq} Une équation sous forme normale~\eqref{eq:equadiffnormale} est équivalente à l'équation d'ordre 1 $Y'(t) - G(t, Y(t)) = 0$, où~:
 			\begin{equation}
 				Y(t) = \begin{bmatrix}y(t) \\y^{(1)}(t) \\ \vdots \\ y^{(p-1)}(t)\end{bmatrix} \qquad\qquad \text{ et } \qquad\qquad
-			G(t, Y(t)) = \begin{bmatrix}Y_0(t) \\ Y_1(t) \\ \vdots \\ Y_{p-1}(t) \\ f(t, Y_0(t), \ldots, Y_{p-1}(t)\end{bmatrix}.
+			G(t, Y(t)) = \begin{bmatrix}Y_0(t) \\ Y_1(t) \\ \vdots \\ Y_{p-1}(t) \\ f(t, Y_0(t), \ldots, Y_{p-1}(t))\end{bmatrix}.
 			\end{equation}
 			\end{rmq}
 
@@ -3273,7 +3273,7 @@
 			Par dérivabilité de $y$ sur $J$, on sait que $y \in C^0(J)$. Puisque $y$ est à valeurs dans $\Omega$, on sait que $f \in C^0(I \times \Omega)$ avec
 			$J \subset I$. La fonction $t \mapsto f(t, y(t))$ est donc continue sur $J$. Ainsi, $y'$ est continue sur $J$, et donc $y \in C^1(J, \R^d)$, et on a~:
 			\begin{equation}
-				y(t) - y(t_0) = \int_{t_0}^ty'(t)\dif t,
+				y(t) - y(t_0) = \int_{t_0}^ty'(s)\dif s,
 			\end{equation}
 			ou encore~:
 			\begin{equation}
@@ -3384,10 +3384,11 @@
 			\end{déf}
 
 			\begin{déf}[Définition équivalente de localement lipschitzien] $f : I \times \Omega \to \R^d$ est localement lipschitzienne en espace lorsque~:
-			\begin{equation}
-				\forall (t, x) \in I \times \Omega : \exists M \gneqq 0, \widetilde I \times \widetilde \Omega \text{ compacts } \subset I \times \Omega \tq
-				\forall t \in \widetilde I : \forall x, y \in \widetilde \Omega : \norm {f(t, x) - f(t, y)} \leq M\norm {x-y}.
-			\end{equation}
+			\begin{align}
+				&\forall (t, x) \in I \times \Omega : \exists M \gneqq 0, \widetilde I \times \widetilde \Omega \text{ compacts } \subset I \times \Omega \tq \\
+				&(t_0, x_0) \in \widetilde I \times \widetilde \Omega \text{ et } \forall t \in \widetilde I : \forall x, y \in \widetilde \Omega :
+				\norm {f(t, x) - f(t, y)} \leq M\norm {x-y}.
+			\end{align}
 			\end{déf}
 
 			\begin{prp}\label{prp:C1=>loclipschitz} Si $f \in C^1(I \times \Omega, \R)$, avec $I \subset \R$, et $\Omega \subset \R^d$, tous deux ouverts,
@@ -3402,10 +3403,10 @@
 				\norm {\dif_xf(t, \cdot)} \leq M.
 			\end{equation}
 
-			Soient $y_1, y_2 \in B\left(x, \frac \varepsilon2\right[$ deux valeurs en espace, et $t \in \left[t_0 \pm \frac \delta2\right]$ une valeur en temps.
+			Soient $y_1, y_2 \in B\left(x, \frac \varepsilon2\right]$ deux valeurs en espace, et $t \in \left[t_0 \pm \frac \delta2\right]$ une valeur en temps.
 			On a alors~:
 			\begin{equation}
-				f(t, y_2) - f(t, y_1) = \int_{y_1}^{y_2}\pd fx(t, y)\dif y = \int_0^1\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s,
+				f(t, y_2) - f(t, y_1) = (y_2-y_1)\int_{y_1}^{y_2}\pd fx(t, y)\dif y = \int_0^1\dif_{sy_2 + (1-s)y_1}f(t, \cdot)(y_2-y_1)\dif s,
 			\end{equation}
 			que l'on peut majorer en norme par~:
 			\begin{equation}
@@ -3510,11 +3511,11 @@
 			\end{align}
 
 			Pour le cas initial $p=1$, on vient en effet d'obtenir le résultat. Pour le pas de récurrence, supposons que \eqref{eq:recTCllocal} est vrai pour un
-			certain $p \geq $ et estimons~:
+			certain $p \geq 2$, et estimons~:
 			\begin{align}
-				\forall t \in I : \norm {T^{p+1}(y_1)(t) - T^{p+1}(y_2)(t)} &\leq \int_{\min(t_0, t}^{\max(t_0, t)}L\norm {T^p(y_1)(t) - T^p(y_2)(t)}\dif s \\
+				\forall t \in I : \norm {T^{p+1}(y_1)(t) - T^{p+1}(y_2)(t)} &\leq \int_{\min(t_0, t)}^{\max(t_0, t)}L\norm {T^p(y_1)(s) - T^p(y_2)(s)}\dif s \\
 				&\leq \int_{\min(t_0, t)}^{\max(t_0, t)}L\frac {L^p\abs {s-t_0}^p}{p!}\dif s\norm {y_1-y_2}_\infty \\
-				&= \frac {L^{p+1}\abs {t-t_0}^{p+1}}{p!}\norm {y_1-y_2}_\infty.
+				&= \frac {L^{p+1}\abs {t-t_0}^{p+1}}{(p+1)!}\norm {y_1-y_2}_\infty.
 			\end{align}
 
 			Choisissons $p_0 \in \Ns$ tel que $L^{p_0}\ell^{p_0} < p_0!$. L'application $T^{p_0}$ est donc une contraction de $A(I)$ dans elle-même. Par le
@@ -3525,8 +3526,8 @@
 			donc $y \in C^1(I, \Omega)$ est solution de \eqref{eq:equadiffPC} par la Proposition~\ref{prp:PCintégrale}.
 
 			Soit $\widetilde I$ un intervalle tel que $t_0 \in \widetilde I$, et soit $\widetilde y : \widetilde I \to \Omega$ solution de \eqref{eq:equadiffPC}.
-			Notons $\overline I = \widetilde I \cap I$, un intervalle contenant $t_0$. Les fonctions $\restr yI$ et $\restr {\widetilde y}{\widetilde I}$ sont des solutions
-			de \eqref{eq:equadiffPC}, et donc de sa forme intégrale \eqref{eq:TCLlocalPCintégrale}. En particulier, elles sont fixes par
+			Notons $\overline I = \widetilde I \cap I$, un intervalle contenant $t_0$. Les fonctions $\restr yi{\overline I}$ et $\restr {\widetilde y}{\overline I}$
+			sont des solutions de \eqref{eq:equadiffPC}, et donc de sa forme intégrale \eqref{eq:TCLlocalPCintégrale}. En particulier, elles sont fixes par
 			$T : A(\overline I) \to A(\overline I)$, donc elles coïncident sur $\overline I$ (unicité par Banach).
 			\end{proof}		\footnotetext{C'est-à-dire que le premier élément de la suite $(y_n)_n$ est la fonction constante $t \mapsto y_0$.}
 
@@ -3601,7 +3602,7 @@
 				\end{equation}
 				ou encore~:
 				\begin{equation}
-					y(t) = \frac 1{\left(y(t)^{-\frac 13} - \cos(t) + \cos(t_0)\right)^3}.
+					y(t) = \frac 1{\left(y_0^{-\frac 13} - \cos(t) + \cos(t_0)\right)^3}.
 				\end{equation}
 
 				\begin{itemize}
@@ -3712,7 +3713,7 @@
 
 			Alors pour tout couple $(t_0, y_0) \in J \times \Omega$, il existe une unique solution maximale au problème de Cauchy.
 
-			De plus, les bouts gauches et droits sont des éléments de $\partial(J \times \Omega)$\footnotemark.
+			De plus, les bouts gauches et droits de la solution sont des éléments de $\partial(J \times \Omega)$\footnotemark.
 			\end{thm}\footnotetext{Où $\partial X$ représente le \textit{bord} de l'ensemble $X$.}
 
 			\begin{proof}~
@@ -3727,7 +3728,7 @@
 				\end{align}
 
 				$f$ est continue et localement lipschitzienne par hypothèse, on peut alors appliquer le TCL local, par lequel on sait qu'il existe $\delta > 0$
-				tel que $[t_0 \pm \delta] \int \mathcal I$. Dès lors, $(t_0-\delta, t_0+\delta) \in N^- \times N^+$. Posons~:
+				tel que $[t_0 \pm \delta] \in \mathcal I$. Dès lors, $(t_0-\delta, t_0+\delta) \in N^- \times N^+$. Posons~:
 				\begin{equation}
 					\alpha \coloneqq \inf N^- \qquad\qquad \text{ et } \qquad\qquad \beta \coloneqq \sup N^+.
 				\end{equation}
@@ -3802,7 +3803,7 @@
 
 					Donc $\widetilde I = (\widetilde \alpha, \widetilde \beta)$, et $Y = \widetilde Y$. $Y$ est donc maximale.
 
-				\underline{Unicité}
+				\underline{1.2. Unicité}
 
 					Idem, $Y$ est la solution maximale ci-dessus et $\widetilde Y$ est une solution maximale de \eqref{eq:equadiffPC}.  % Revoir...
 
@@ -3848,7 +3849,7 @@
 			lorsque $K$ est un compact inclus dans $\Omega$.
 			\end{rmq}
 
-			\begin{cor}[Théorème de sortie de tout compact] Soient $J$ un intervalle réel non-vide, $\Omega \subset \R^d$ ouvert non-vide, et soit~:
+			\begin{cor}[Théorème de sortie de tout compact] Soient $J = (a, b)$ un intervalle réel non-vide, $\Omega \subset \R^d$ ouvert non-vide, et soit~:
 			\begin{equation}
 				f : J \times \Omega \toC0 \R^d,
 			\end{equation}
@@ -3886,7 +3887,7 @@
 			\end{equation}
 			est infini dénombrable. Par compacité de $K$, il existe $\varphi : \N \to \N$ strictement croissante et $y^* \in K$ tels que~:
 			\begin{equation}
-				y(t_{\varphi(n)}) \xrightarrow[n \to \pinfty]{} y^*.
+				y(t_{\varphi(n)}) \xrightarrow[n \to \pinfty]{} y^* \in K \subscpct \Omega.
 			\end{equation}
 
 			Ainsi, $(\beta, y^*)$ est un bout droit de $y$, qui est solution maximale. Par le théorème des bouts, on sait $(\beta, y^*) \in \partial (J \times \Omega)$.
@@ -3910,7 +3911,7 @@
 
 			Il y a même une certaine uniformité (par rapport à $y_0$).
 
-			\begin{prp} Soit $(t_0, y_0) \in J \times \Omega$ et soit $\varepsilon > 2$ tel que $B(y_0, \varepsilon] \subset \Omega$. Alors~:
+			\begin{prp} Soit $(t_0, y_0) \in J \times \Omega$ et soit $\varepsilon > 0$ tel que $B(y_0, \varepsilon] \subset \Omega$. Alors~:
 			\begin{equation}
 				\exists \ell > 0 \tq \forall y \in B(y_0, \varepsilon] : t \mapsto \Phi(t_0, y, t) \text{ est définie sur } [t_0 \pm \ell].
 			\end{equation}
@@ -3988,7 +3989,8 @@
 			\begin{equation}
 				\forall (t, y) \in J \times \Omega : \pd Ht(t, y(t)) + \scpr {f(t, y)}{\nabla_yH(t, y(t))} = 0.\footnotemark
 			\end{equation}
-			\end{prp}		\footnotetext{La notation $\nabla_yH(t, y(t))$ représente le gradient en espace de $H$, et donc $\nabla_yH(t, y(t)) = \pd Hy(t, y(t))$.}
+			\end{prp}		\footnotetext{La notation $\nabla_yH(t, y(t))$ représente le gradient en espace de $H$, et donc
+			$\nabla_yH(t, y(t)) = \pd Hy(t, y(t))$ mais pour $y$ à plusieurs dimensions. i.e.~: $\nabla_y H = [\pd H{y_i}]_i$.}
 
 			\begin{proof} Soit $H \in C^1(J \times \Omega)$ une intégrale première de~\eqref{eq:equadiff}. Soit $(t_0, y_0) \in J \times \Omega$, et soit $y$
 			la solution maximale du problème de Cauchy $(t_0, y_0)$. On a $t \mapsto H(t, y(t))$ est de classe $C^1$ sur un intervalle $I \subset J$ et est
@@ -4008,10 +4010,10 @@
 
 			Supposons maintenant $H \in C(J \times \Omega)$ telle que pour toute solution $y$ de~\eqref{eq:equadiff}~:
 			\begin{equation}
-				t \mapsto H(t, y(t)) \in C^1(I \subset J, \R) \tq pd Ht(t, y(t)) + \scpr {f(t, y(t))}{\pd Ht(t, y(t))} = 0.
+				t \mapsto H(t, y(t)) \in C^1(I \subset J, \R) \tq \pd Ht(t, y(t)) + \scpr {f(t, y(t))}{\pd Ht(t, y(t))} = 0.
 			\end{equation}
 
-			On en déduit que $t \mapsto H(t, (t))$ est constante sur $I$, son intervalle de définition.
+			On en déduit que $t \mapsto H(t, y(t))$ est constante sur $I$, son intervalle de définition.
 			\end{proof}  \footnotetext{La notation $\od Ht(t, y(t))$ représente la dérivée ordinaire (ou totale) de $H$ par rapport à $t$. On peut établir~:
 			\begin{equation}
 				\od Ht(t, y(t)) = \od \eta t(t),
@@ -4022,7 +4024,7 @@
 			TODO. %TODO
 
 	\section{Condition suffisante d'existence locale}
-		\begin{thm}[Théorème de Cauchy-Peano-Arzela] Soient $J \subset \R$ un intervalle et $\Omega \R^d$ ouverts. Soient $f \in C^0(J \times \Omega, \R^d)$ et
+		\begin{thm}[Théorème de Cauchy-Peano-Arzela] Soient $J \subset \R$ un intervalle et $\Omega \subset \R^d$ ouverts. Soient $f \in C^0(J \times \Omega, \R^d)$ et
 		$(t_0, y_0) \in J \times \Omega$. Alors~\eqref{eq:equadiffPC} admet une solution sur un intervalle $[t_0 \pm \delta]$ pour $\delta > 0$.
 		\end{thm}
 
@@ -4043,7 +4045,7 @@
 			\begin{cases}
 			f_k &\in C^0(J \times \R^d, \R^d), \\
 			f_k(t, \cdot) &\CVUc {J \times \Omega}k\pinfty f(t, \cdot), \\
-			f_K &\CVUc {J \times \Omega}k\pinfty f.
+			f_k &\CVUc {J \times \Omega}k\pinfty f.
 		\end{cases}
 		\end{equation}
 
@@ -4355,7 +4357,7 @@
 		\end{enumerate}
 		\end{proof}
 
-		\begin{déf} On appelle \textit{système fondamental de solutions} (abrégé \textit{SFS}) de $Y( = AY$ toute base de l'espace $S_H$.
+		\begin{déf} On appelle \textit{système fondamental de solutions} (abrégé \textit{SFS}) de $Y( = AY)$ toute base de l'espace $S_H$.
 		\end{déf}
 
 		\begin{prp} Soient $v_1, \ldots, v_k \in S_H$. Les trois affirmations suivantes sont équivalentes~:
@@ -4366,12 +4368,12 @@
 		\end{itemize}
 		\end{prp}
 
-		\begin{proof} Montrons d'abord que $(1) \Rightarrow (2)$. L'application $\varphi_t$ envoie $(v_i)_i$ sur une base de $\K^d$ car c'est un isomorphisme.
-		On en déduit que $(v_i(t))_i$ est une base de $\K^d$. Le déterminant ne peut donc pas être nul.
+		\begin{proof} Montrons d'abord que $(1) \Rightarrow (2)$. L'application $\varphi_t$ envoie $(v_i)_i$ sur une base de $\K^k$ car c'est un isomorphisme.
+		On en déduit que $(v_i(t))_i$ est une base de $\K^k$. Le déterminant ne peut donc pas être nul.
 
 		Il est trivial que $(2) \Rightarrow (3)$ car $I \neq \emptyset$.
 
-		Pour montrer que $(3) \Rightarrow (1)$, on sait que $\varphi_t$ envoie $(v_i(t))_i$ sur une base de $S_H$, et donc $(v_i)_i$ est une base de $S_H$, ou
+		Pour montrer que $(3) \Rightarrow (1)$, on sait que $\varphi_t^{-1}$ envoie $(v_i(t))_i$ sur une base de $S_H$, et donc $(v_i)_i$ est une base de $S_H$, ou
 		encore un système fondamental de solutions.
 		\end{proof}
 
@@ -4391,7 +4393,7 @@
 
 		\begin{proof} On prend $t \mapsto C_i(t)$ pour $i \in \intint 1d$ les colonnes de la matrice $t \mapsto C(t)$. On pose $D_i$ définie par~:
 		\begin{equation}
-			t : \mapsto D_i(t) \coloneqq \left[R(t, s)C(s)\right]_i.
+			t \mapsto D_i(t) \coloneqq \left[R(t, s)C(s)\right]_i.
 		\end{equation}
 
 		On sait que $C_i$ est solution de $Y' = AY$ sur $I$ avec $C_i(s) = [C(s)]_i$.
