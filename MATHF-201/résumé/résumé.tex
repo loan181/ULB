@@ -4424,7 +4424,7 @@
 		\begin{prp} Soit $A \in \Mat_d(\C)$. Alors~:
 		\begin{equation}
 			\det(I + hA) \underset{h \to 0}= 1 + h\Tr(A) + O(h^2).
-		\end{equation}  % TODO: trouver comment mettre {h \to 0} en-dessous de '='
+		\end{equation}
 		\end{prp}
 
 		\begin{proof} Il existe $P \in \GL_d(\C)$ tel que~:
@@ -5872,19 +5872,19 @@
 			$a = \alpha + i\beta$. On trouve alors pour $x, y \in \R$~:
 			\begin{align}
 				F(x, y) &= (I^{-1} \circ f \circ I)(x, y) = (I^{-1} \circ f)(x+iy) = I^{-1}(a(x+iy)) = I^{-1}((\alpha + i\beta)(x+iy)) \\
-				&= \left(\alpha x - \beta y, \alpha y + \beta x\right). = \begin{bmatrix}\alpha & -\beta \\\beta & \alpha\end{bmatrix}\begin{bmatrix}x \\ y\end{bmatrix}.
+				&= \left(\alpha x - \beta y, \alpha y + \beta x\right) = \begin{bmatrix}\alpha & -\beta \\\beta & \alpha\end{bmatrix}\begin{bmatrix}x \\ y\end{bmatrix}.
 			\end{align}
 
 			Supposons alors que la matrice est sous la forme~\eqref{eq:C-linéaire -> matrice rotation}, pour tout $z \in \C$, on a alors $f(z) = (\alpha + i\beta)z$,
 			et donc $f$ est $\C$-linéaire.
 			\end{proof}
 
-			\begin{rmq} Rappelons que pour $\Omega_{R^2} \subset \R^2$, un ouvert et $F : \Omega_{\R^2} \to \R^2$, on dit que $F$ est \textit{différentiable} en
+			\begin{rmq} Rappelons que pour $\Omega_{\R^2} \subset \R^2$, un ouvert et $F : \Omega_{\R^2} \to \R^2$, on dit que $F$ est \textit{différentiable} en
 			$(x_0, y_0) \in \Omega_{\R^2}$ lorsqu'il existe $L : \R^2 \to \R^2$, une approximation $\R$-linéaire telle que~:
 			\begin{equation}
 				F(x_0+h, y_0+k) = F(x_0, y_0) + L(h, k) + o((h, k))
 			\end{equation}
-			pour $(h, k)$ au voisinage de $(0, 0)$. $L$ est alors unique et est appelée la \textit{différentielle de $F$ en $(x_0, y_0)$} noté $\dif_{(x_0, y_0)}F$.
+			pour $(h, k)$ au voisinage de $(0, 0)$. $L$ est alors unique et est appelée la \textit{différentielle de $F$ en $(x_0, y_0)$} notée $\dif_{(x_0, y_0)}F$.
 
 			Si $F$ est de classe $C^1$ sur $\Omega_{\R^2}$, alors $\dif F : \Omega_{\R^2} \to L(\R^2, \R^2) : (x_0, y_0) \mapsto \dif_{(x_0, y_0)}F$ est continue.
 
@@ -5900,7 +5900,7 @@
 			\begin{equation}
 				f(z_0+h) = f(z_0) + ah + o(h)
 			\end{equation}
-			au voisinage de $O_\C$, ou de manière équivalente lorsque~:
+			au voisinage de $0_\C$, ou de manière équivalente lorsque~:
 			\begin{equation}
 				\frac {f(z_0+h)-f(z_0)}h \xrightarrow[h \underset {\neq}{\to} 0]{} a.
 			\end{equation}
@@ -5943,7 +5943,8 @@
 			est continue.
 			\end{déf}
 
-			\begin{rmq} La notion d'holomorphe sur $\C$ correspond plus ou moins à la notion de $\C^1$ sur $\R$.
+			\begin{rmq} La notion d'holomorphe sur $\C$ correspond à la notion de $\C^1$ sur $\R$. On peut donc dire $f : \Omega_\C \subset \C \to \C$ est
+			holomorphe sur $\Omega$ si et seulement si $f \in C^1(\Omega_\C, \C)$.
 			\end{rmq}
 
 			\begin{prp} $f : \Omega \to \C$ est holomorphe si et seulement si~:
@@ -6036,7 +6037,7 @@
 			\end{equation}
 			\end{proof}
 
-			\begin{déf} Soient $f : \Omega \to \C$, et $z_0 \in \Omega$ tels que $f$ est $\C$-dérivable en $z_0$. On dit que $f$ est \textit{conforme} en $z_0$
+			\begin{déf} Soient $f : \Omega \subset \C \to \C$, et $z_0 \in \Omega$ tels que $f$ est $\C$-dérivable en $z_0$. On dit que $f$ est \textit{conforme} en $z_0$
 			lorsqu'elle conserve les angles, i.e.~:
 			\begin{equation}
 				\forall (u, v) \in \left(\C \setminus \poles\right)^2 : \Angle(f'(z_0)u, f'(z_0)v) = \Angle(u, v).
@@ -6047,6 +6048,9 @@
 			\begin{equation}
 				\forall (u, v) \in \left(\C \setminus \poles\right) : \Angle(u, v) = \Arg(u\bar v).
 			\end{equation}
+
+			En effet, prenons $z_1, z_2 \in \C \tq z_1 = \rho_1e^{i\theta_1}$ et $z_2 = \rho_2e^{i\theta_2}$. $\Arg(z_1\bar {z_2}) = \Arg(\rho_1\rho_2e^{i(\theta_1-\theta_2)})$,
+			ce qui est précisément l'angle entre $z_1$ et $z_2$.
 			\end{rmq}
 
 			\begin{prp} Soient $f : \Omega \to \C$ et $z_0 \in \Omega$ tels que $f$ est $\C$-dérivable en $z_0$. $f$ est conforme en $z_0$ si et seulement si
