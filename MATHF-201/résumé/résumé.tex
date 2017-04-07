@@ -5303,18 +5303,18 @@
 			\begin{equation}
 				\forall x \in \R : f(x) = \frac 12(f(x^+)+f(x^-)),
 			\end{equation}
-			i.e. si $f \in \mathcal D \iff \forall p \in R : f$ est discontinue en $p \Rightarrow f(p)$ est la moyenne arithmétique de ses limites à gauche et à droite.
+			i.e. si $f \in \mathcal D \iff \forall p \in \R : f$ est discontinue en $p \Rightarrow f(p)$ est la moyenne arithmétique de ses limites à gauche et à droite.
 			\end{déf}
 
-			\begin{déf}[Produit scalaire dans $\Czm$] Soient $f, g \in \Czm$. On définit~:
+			\begin{déf}[Produit scalaire dans $\Czm(\R, \C)$] Soient $f, g \in \Czm(\R, \C)$. On définit~:
 			\begin{subnumcases}{}
 				\scpr fg \coloneqq \frac 1{2\pi}\int_0^{2\pi}f(t)\overline {g(t)}\dif t, \\
 				\norm f_2 \coloneqq \sqrt {\scpr ff}.
 			\end{subnumcases}
 			\end{déf}
 
-			\begin{déf} Une forme $\scpr \cdot\cdot : \Omega \subset \C^\R \to \C$ est dite \textit{hermitienne} lorsque
-			$\forall \lambda_1, \lambda_2, \mu_1, \mu_2 \in \C : \forall f_1, f_2, g_1, g_2 \in \Omega$~:
+			\begin{déf} Une forme $\scpr \cdot\cdot : \left(\Omega \subset \C^\R\right)^2 \to \C$ est dite \textit{hermitienne} lorsque
+			$\forall \lambda_1, \lambda_2, \mu_1, \mu_2 \in \C$ et $\forall f_1, f_2, g_1, g_2 \in \Omega$~:
 			\begin{equation}
 					\scpr {\lambda_1 f_1 + \lambda_2 f_2}{\mu_1 g_1 + \mu_2 g_2}
 						= \lambda_1\overline {\mu_1}\scpr {f_1}{g_1}
@@ -5342,8 +5342,7 @@
 
 			De plus, pour $f \in \Czm(\R, \C)$, on a $\forall x \in \R : \abs {f(x)}^2 \geq 0$. Donc la quantité $\scpr ff \geq 0$.
 
-			Montrons maintenant le point 2 de la proposition, i.e. montrons que $\scpr \cdot\cdot$ est défini positif sur $\mathcal D$. Soit $f \in \mathcal D$.
-			Alors~:
+			Montrons maintenant le point 2 de la proposition, i.e. montrons que $\scpr \cdot\cdot$ est défini positif sur $\mathcal D$. Soit $f \in \mathcal D \tq$~:
 			\begin{equation}
 				\frac 1{2\pi}\int_0^{2\pi}\abs {f(x)}^2\dif x = 0.
 			\end{equation}
@@ -5367,8 +5366,8 @@
 
 			On appelle \textit{coefficients de Fourier (trigonométriques) de $f$} les nombres $(a_n)_{n \geq 0}$ et $(b_n)_{n \geq 0}$ définis par~:
 			\begin{subnumcases}{}
-				a_n = \frac 1\pi\int_0^{2\pi}f(t)\cos(nt)\dif t, \\
-				b_n = \frac 1\pi\int_0^{2\pi}f(t)\sin(nt)\dif t.
+				a_n(f) = \frac 1\pi\int_0^{2\pi}f(t)\cos(nt)\dif t, \\
+				b_n(f) = \frac 1\pi\int_0^{2\pi}f(t)\sin(nt)\dif t.
 			\end{subnumcases}
 			\end{déf}
 
@@ -5385,7 +5384,7 @@
 
 			\begin{déf} Soit $f \in \Czm(\R, \C)$. On appelle \textit{série de Fourier associée à $f$} la série de terme général~:
 			\begin{equation}
-				u_n = c_ne_n + c_{-n}e_{-n} = a_n\cos(n\cdot) + b_n\sin(n\cdot).
+				u_n(f) = c_n(f)e_n + c_{-n}(f)e_{-n} = a_n(f)\cos(n\cdot) + b_n(f)\sin(n\cdot).
 			\end{equation}
 
 			On note les sommes partielles par $S_n(f) \coloneqq \sum_{k=-n}^nc_k(f)e_k$.
@@ -5572,7 +5571,7 @@
 			et~:
 			\begin{subnumcases}
 				{h : [\pm\pi] \to \C : t \mapsto}
-					\frac {f(x+2t)-f(x^+)}2 & si $0 < t < \frac \pi2$ \\
+					\frac {f(x+2t)-f(x^+)}{\sin t} & si $0 < t < \frac \pi2$ \\
 					0 & sinon
 			\end{subnumcases}
 
@@ -5611,7 +5610,7 @@
 			\begin{subnumcases}
 				{f' : \R \to \C : x \mapsto}
 				f'(x) & si $f$ est dérivable en $x$ \\
-				\frac {f(x^+)+f(x^-)}2 & sinon.
+				\frac {f'(x^+)+f'(x^-)}2 & sinon.
 			\end{subnumcases}
 			\end{lem}
 
@@ -5770,7 +5769,7 @@
 			\begin{thm}[Théorème de Parseval]\label{thm:Parseval} Soit $f \in \Czm(\R, \C)$. On a~:
 			\begin{align}
 				\frac 1{2\pi}\int_0^{2\pi}\abs f^2 &= \sum_{n \in \Z}\abs {c_n(f)}^2\label{eq:Parseval exp} \\
-				&= \frac {\abs a_0(f)^2}4 + \frac 12\sum_{n=1}^\pinfty\abs {a_n(f)}^2 + \abs {b_n(f)}^2.
+				&= \frac {\abs {a_0(f)}^2}4 + \frac 12\sum_{n=1}^\pinfty\abs {a_n(f)}^2 + \abs {b_n(f)}^2.
 			\end{align}
 			\end{thm}
 
@@ -6051,8 +6050,8 @@
 				\forall (u, v) \in \left(\C \setminus \poles\right) : \Angle(u, v) = \Arg(u\bar v).
 			\end{equation}
 
-			En effet, prenons $z_1, z_2 \in \C \tq z_1 = \rho_1e^{i\theta_1}$ et $z_2 = \rho_2e^{i\theta_2}$. $\Arg(z_1\bar {z_2}) = \Arg(\rho_1\rho_2e^{i(\theta_1-\theta_2)})$,
-			ce qui est précisément l'angle entre $z_1$ et $z_2$.
+			En effet, prenons $z_1, z_2 \in \C \tq z_1 = \rho_1e^{i\theta_1}$ et $z_2 = \rho_2e^{i\theta_2}$. $\Arg(z_1\bar {z_2}) = \Arg(\rho_1\rho_2e^{i(\theta_1-\theta_2)})
+			= \theta_1-\theta_2$, ce qui est précisément l'angle entre $z_1$ et $z_2$.
 			\end{rmq}
 
 			\begin{prp} Soient $f : \Omega \to \C$ et $z_0 \in \Omega$ tels que $f$ est $\C$-dérivable en $z_0$. $f$ est conforme en $z_0$ si et seulement si
@@ -6064,7 +6063,7 @@
 				\Angle(f'(z_0)u, f'(z_0)v) = \Arg\left(f'(z_0)u\overline {f'(z_0)v}\right) = \Arg\left(\abs {f'(z_0)}^2u\overline v\right).
 			\end{equation}
 
-			Or l'argument n'est défini que pour $z \in \C^*$. Il faut est suffisant d'avoir $f'(z_0)$.
+			Or l'argument n'est défini que pour $z \in \C^*$. Il faut et est suffisant d'avoir $f'(z_0) \neq 0$.
 			\end{proof}
 
 			\begin{déf} Soit $f : \C \to \C$ telle que la fonction $F$  canoniquement associée admet des dérivées partielles d'ordre 1. On définit les opérateur
