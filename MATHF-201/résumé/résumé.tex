@@ -80,6 +80,7 @@
 \DeclareMathOperator{\Arg}{Arg}
 \DeclareMathOperator{\Ind}{Ind}
 \DeclareMathOperator{\Conv}{Conv}
+\DeclareMathOperator{\dist}{dist}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -6896,7 +6897,7 @@
 			On a deux possibilités~:
 			\begin{itemize}
 				\item soit $Z(f) = \Omega$ (i.e. $f \equiv 0$)~;
-				\item soit $Z(f)$ n'a pas de point limite dans $\Omega$.
+				\item soit $Z(f)$ n'a pas de point limite dans $\Omega$ (i.e. il n'y a pas de suite injective de $Z(f)$ qui converge dans $\Omega$).
 
 				Dans le second cas, on a~:
 				\begin{equation}
@@ -6907,48 +6908,307 @@
 			\end{itemize}
 			\end{thm}
 
-			\begin{proof} Soit $A$ l'ensemble des points limites de $Z(f)$ dans $\Omega$. Par continuité de $f$, $Z(f) = f^{-1}(\{0\})$ est fermé. En particulier,
-			on a $A \subset Z(f)$.
-			Montrons que $A$ est fermé dans $\Omega$ (admis pour l'instant, en attente de la preuve).
+			\begin{proof} Posons $A \coloneqq \{a \in \Omega \tq a \text{ est un point limite de } Z(f)\}$. On observe que $Z(f)$ est fermé car $f^{-1}(\{0\})$, i.e.,
+			la préimage d'un fermé par une fonction continue. De plus, ,$A \subset Z(f)$ par continuité de $f$. Montrons d'abord que $A$ est fermé dans $\Omega$, et
+			montrons ensuite qu'il est ouvert.
 
-			Soit $a \in Z(f)$. Soit $r > 0 \tq D(a, r[ \subset \Omega$. Par le théorème de représentabilité~:
+			\paragraph{$A$ est fermé} Considérons $(a_n)_{n \in \N} \in A^\N$ et $a \in A$ tel que $a_n \xrightarrow[n \to \pinfty]{} a$. Montrons alors que $a \in A$.
+			Puisque $a_n \to a$, il existe $n_1 \in \N$ tel que $\abs {a_{n_1} - a} < 1$. $a_{n_1}$, et donc $D\left(a_{n_1}, \frac 12\right[$ contient une infinité de
+			points de $Z(f)$. Choisissons $z_1 \in D\left(a_{n_1}, \frac 12\right[ \cap Z(f)$. On a~:
 			\begin{equation}
-				\exists (c_n)_{n \in \N} \in \C^\N \tq R(\sum c_nz^n) \geq r \text{ et } \forall z \in D(a, r[ : f(z) = \sum_{n \in \N}c_n(z-a)^n.
+				\abs {z_1 - a} \leq \abs {z_1 - a_{n_1}} + \abs {a_{n_1} - a} \leq 1 + \frac 12 = \frac 32.
 			\end{equation}
 
-			On a alors deux possibilités~:
-			\begin{enumerate}
-				\item $\forall n \in \N : c_n = 0 \Rightarrow f \equiv 0$~;
-				\item $\exists n \in \N \tq c_n \neq 0$. De plus, $n \geq 1$ car $f(a) = 0 \Rightarrow c_0 = 0$.
-			\end{enumerate}
+			Par un même raisonnement, il existe $n_2 > n_1$ tel que $\abs {a_{n_2} - a} < \frac 12$. Puisque $a_{n_2} \in A$, on sait que $D\left(a_{n_2}, \frac 14\right[ \cap Z(f)$
+			est infini. Choisissons $z_2 \in D\left(a_{n_2}, \frac 14\right[ \cap Z(f) \setminus \{z_1\}$. On a alors~:
+			\begin{equation}
+				\abs {z_2 - a} \leq \abs {z_2 - a_{n_2}} + \abs {a_{n_2} - a} \leq \frac 12 + \frac 14 3 \frac 34.
+			\end{equation}
 
-			Posons $m \coloneqq \min\{n \geq 1 \tq c_n \neq 0\}$. Pour $z \in \Omega$, on pose~:
+			On construit ainsi une suite injective $(z_n)_{n \in \N} \in Z(f)^\N$ telle que~:
+			\begin{equation}
+				\forall n \in \N^* : \abs {z_2 - a} \leq \frac 3{2^n}.
+			\end{equation}
+
+			Ainsi, $a$ est un point limite de $Z(f)$, i.e. $a \in A$. On en déduit que $A$ est fermé.
+
+			\underline{Analyse des points de $Z(f)$~:} Soient $a \in Z(f)$ et $r > .$ tels que $D(a, r[ \Omega$. Il existe $(c_n)_{n \in \N} \in \C^\N$ tels que
+			$R(\sum c_nz^n) \geq r$ et~:
+			\begin{equation}
+				\forall z \in D(a, z[ : f(z) = \sum_{n \geq 0}c_n(z-a)^n.
+			\end{equation}
+
+			On a $c_0 = f(a) = 0$ car $a \in Z(f)$. On a donc deux possibilités en fonction de $\mathcal N(a)$ défini par~:
+			\begin{equation}
+				\mathcal N(a) \coloneqq \left\{n \in \N^* \tq c_n \neq 0 \text{ lorsque } f(z) = \sum_{n \geq 0}c_n(z-a)^n\right\},
+			\end{equation}
+			à savoir~:
+			\begin{itemize}
+				\item soit $\mathcal N(a) = \emptyset$ et $f \equiv 0$ dans $D(a, r[$ et on a $a \in A$~;
+				\item soit $\mathcal N(a) \neq \emptyset$ et alors $\mathcal N(a)$ admet un plus petit élément $n \in \N^*$.
+			\end{itemize}
+
+			Posons~:
 			\begin{subnumcases}
-				{g(z) =}
-					(z-a)^{-m}f(z) & si $z \neq a$ \\
-					c_m & sinon.
+				{g : \Omega \to \C : z \mapsto}
+					(z-a)^{-m}f(z) &si $z \neq a$, \\
+					c_n & si $z = a$.
 			\end{subnumcases}
 
-			On sait $g \in H(\Omega \setminus \{a\})$ et $f(z) = (z-a)^mg(z)$ pour $z \neq a$. Pour de tels $z$, on a~:
+			On a $g \in H(\Omega \setminus \{a\})$ et pour $z \in D(a, r[ \setminus \{a\}$~:
 			\begin{equation}
-				g(z) = (z-a)^{-m}f(z) = \sum_{n \in \N}c_{n+m}(z-a)^n.
+				g(z) = (z-a)^{-m}f(z) = (z-a)^{-m}\sum_{n \geq 0}c_n(z-a)^{-m} = \sum_{n \geq 0}c_{n+m}(z-a)^n.
 			\end{equation}
 
-			Cette formule est encore vraie en $z-a$ car~:
+			De plus, cette équation est toujours vraie en $z=a$~: $g(a) = c_{0+m} = c_m$. Ainsi, $g$ est la somme d'une série de puissance dans $D(a, r[$. Donc
+			$g \in H(D(a, r[)$, et donc $g \in H(\Omega)$. De plus, $g(a) = c_m \neq 0$, d'où l'existence du couple $(m, g)$.
+
+			\textbf{L'unicité est laissée en exercice.}
+
+			Puisque $g \in H(\Omega, \C)$, on a $g \in C^0(\Omega, \C)$, et puisque $g(a) = c_m \neq 0$, on a~:
 			\begin{equation}
-				g(a) = c_m = \sum_{n \in \N}c_{n+m}\delta_{0,n} = \sum_{n \in \N}c_{n+m}(z-a)^n.
+				\exists \delta \gneqq 0 \tq D(a, \delta[ \subset \Omega \qquad \text{ et } \qquad g\left(D(a, \delta[\right) \subset \C^*,
+			\end{equation}
+			et donc $g$ ne s'annule pas sur $D(a, \delta[$. Ainsi~:
+			\begin{equation}
+				\forall z \in D(a, \delta[ \setminus \{a\} : f(z) \neq 0,
+			\end{equation}
+			et donc $a \in A$.
+
+			\paragraph{$A$ est ouvert} Soit $a \in A$. On a alors $a \in Z(f)$. Si $\mathcal N(a) \neq \emptyset$, alors $a \not \in A$, ce qui est une contradiction,
+			et donc il faut $\mathcal N(a) = \emptyset$. Dès lors, il existe $r > 0$ tel que $f \equiv 0$ sur $D(a, r[$ avec ce qui précède. On en déduit que
+			$D(a, r[ \subset A$, et donc $A$ est ouvert.
+
+			Finalement, on déduit que~:
+			\begin{equation}
+				\Omega = A \cup (\Omega \setminus A).
 			\end{equation}
 
-			Dès lors, on en déduit $g \in H(\Omega)$, et $g(a) \neq 0$. Donc un tel couple $(m, g)$ existe.
+			Puisque $\Omega$ est un ouvert connexe, on sait que soit $A = \Omega$ (et donc $f \equiv 0$), soit $(\Omega \setminus A) = \Omega$ (et donc $A = \emptyset$).
+			\end{proof}
 
-			\textbf{L'unicité est laissée en exercice}.
+			\begin{rmq} Pour $\Omega \subset \C$, une région, et $f \in H(\Omega)$, lorsque $Z(f) \neq \emptyset$, alors $Z(f)$ est au plus dénombrable.
+			\end{rmq}
 
-			Par continuité de $g$ sur $\Omega$, et puisque $g(a) \neq 0$, il existe $\delta > 0$ tel que~:
+			\begin{lem} Soit $\Omega \subset \C$, un ouvert non-vide de $\C$. Il existe $(K_n) \subset \Omega$, une suite croissante de compacts telle que~:
 			\begin{equation}
-				D(a, \delta[ \subset \Omega \text{ et } g(D(a, \delta[) \subset \C^*.
+				\Omega = \bigcup_{n \in \N}K_n.
+			\end{equation}
+			\end{lem}
+
+			\begin{proof} Pour $n \in \N$, on pose~:
+			\begin{equation}
+				K_n \coloneqq D(0, n] \cap \left\{z \in \Omega \tq \dist(z, \C \setminus \Omega) \geq \frac 1n\right\}
 			\end{equation}
 
-			Ainsi, $g$ ne s'annule pas sur $D(a, \delta[$, donc $f$ ne s'annule pas sur $D(a, \delta[ \setminus \{a\}$, et donc $a$ est un point isolé de $Z(f)$.
+			Les $K_n$ sont fermés, bornés, et dans $\Omega$, et sont donc des compacts de $\Omega$ De plus, pour $n$ assez grand, on a $K_n \neq \emptyset$.
+			\end{proof}
+
+			% Pourquoi ? f : \C \to \C : z \mapsto 0 est holomorphe et telle que Z(f) = \C qui est indénombrable...
+			\begin{proof}[Preuve de la remarque] $Z(f) = \bigcup_{n \in \N}\left(K_n \cap Z(f)\right)$. Pour tout $n \in \N$, $K_n \cap Z(f)$ est fini. En effet,
+			s'il est infini, alors $A \cap K_n \cap Z(f) \neq \emptyset$, et donc $A \neq \emptyset$, et alors $f \equiv 0$, par le principe des zéros isolés.
+			Donc $Z(f) = \Omega$, et on a une contradiction.  % ?
+
+			Ainsi, $Z(f)$ est une union dénombrable d'ensembles finis. $Z(f)$ est alors fini ou défini.
+			\end{proof}
+
+			\begin{cor} Soient $\Omega$ est un ouvert connexe, et $f, g \in H(\Omega)$. Si $f$ et $g$ coïncident sur un ensemble ayant un point limite dans $\Omega$,
+			alors $f = g$ sur $\Omega$.
+			\end{cor}
+
+			\begin{proof} Si $A(f-g) \neq \emptyset$, alors $f-g \equiv 0$ dans $\Omega$.
+			\end{proof}
+
+			\begin{ex}~
+			\begin{enumerate}
+				\item L'hypothèse de connexité est importante~: prenons $\Omega_1, \Omega_2$, deux régions de $\C$ et $f$ et $g$ définies sur $\Omega_1 \cup \Omega_2$
+				à valeurs dans $\C$ telles que $f$ et $g$ coïncident sur $\Omega \subset \Omega_1$, avec un point limite dans $\Omega_1$. Rien ne force $f$ et $g$ à
+				coïncider sur $\Omega_2$.
+				\item $f$ et $g$ peuvent avoir des points limites en dehors de $\Omega$ sans que les fonctions ne soient égales~:
+				\begin{equation}
+					f(z) = \sin(z) \quad \text{ et } \quad g(z) = 0.
+				\end{equation}
+
+				On a $Z(f) = 2\pi\Z$ et $Z(f) = \C$. De plus $Z(f-g)$ admet un point limite à l'infini.
+				\item Pour $\Omega \coloneqq \{z \in \C \tq \Re(z) > 0\}$, et $f(z) = 0, g(z) = \sin(z^{-1})$, on a $Z(f-g)$ admet $0 \in \C$ comme point limite, mais qui
+				n'est pas dans l'ouvert connexe $\Omega$.
+			\end{enumerate}
+			\end{ex}
+
+		\subsubsection{Classification des singularités isolées}
+			\begin{déf}
+				Pour $a \in \C$, et $r > 0$, on introduit la notation suivante~:
+				\begin{equation}
+					D'(a, r[ \coloneqq D(a, r[ \setminus \{a\},
+				\end{equation}
+				appelé le \textit{disque pointé centré en $a$ et de rayon $r$}.
+			\end{déf}
+
+			\begin{déf} Soient $\Omega \subset \C$, un ouvert, et $a \in \Omega$, et $f \in H(\Omega \setminus \{a\})$. On dit que
+			\textit{$f$ a une singularité isolée en $a$}
+			\end{déf}
+
+			\begin{déf} $f \in H(\Omega \setminus \{a\})$ admet une singularité isolée \textit{effaçable} en $a$ lorsqu'elle se prolonge en une fonction holomorphe
+			sur $\Omega$, en particulier $\abs {f(z)} \xrightarrow[z \to a]{} \alpha \in \R^+$.
+			\end{déf}
+
+			\begin{thm} Supposons $f \in H(\Omega \setminus \{a\})$. S'il existe $r > 0 \tq D(a, r[ \subset \Omega$ et $f\left(D'(a, r[\right)$ est bornée, alors
+			$f$ a une singularité effaçable en $a$.
+			\end{thm}
+
+			\begin{proof} Considérons la fonction suivante~:
+			\begin{equation}
+				h : \Omega \to \C : z \mapsto (z-a)^2f(z).
+			\end{equation}
+
+			Par produit de fonctions holomorphes, on sait que $h \in H(\Omega \setminus \{a\})$. Pour $z \in \Omega \setminus \{a\}$~:
+			\begin{equation}
+				h(z) = 0 + 0(z-a) + f(z)(z-a)^2.
+			\end{equation}
+			Ainsi, $h$ est $\C$-dérivable en $a$ en posant $h(a) = 0$, on a $h'(a) = 0$. Ainsi, $h \in H(\Omega)$, et on déduit par le théorème de
+			représentabilité qu'il existe $(c_n)_{n \in \N}$ tel que $R(\sum c_nz^n) \geq r$ et $D(a, r[ \subset \Omega$ et~:
+			\begin{equation}
+				\forall z \in D(a, r[ : h(z) = \sum_{n \geq 0}c_n(z-a)^n.
+			\end{equation}
+			De plus, $h(a) = h'(a) = 0 = c_0 = c_1$. Donc~:
+			\begin{equation}
+				h(z) = (z-a)^2\sum_{n \geq 2}c_n(z-a)^{n-2}.
+			\end{equation}
+
+			On en déduit~:
+			\begin{equation}
+				(z-a)^2f(z) = (z-a)^2\sum_{n \geq 0}c_{n+2}(z-a)^n.
+			\end{equation}
+
+			Puisque $z-a \neq 0$, il vient que pour $z \in D'(a, r[$, on a~:
+			\begin{equation}
+				f(z) = \sum_{n \geq 0}c_{n+2}(z-a)^n.
+			\end{equation}
+
+			En posant $f(a) \coloneqq c_2$, on a $f \in H(\Omega)$.
+			\end{proof}
+
+			\begin{thm}[Théorème de classification des singularités isolées] Soient $\Omega \subset \C$ ouverts, $a \in \Omega$, et $f \in H(\Omega \setminus \{a\})$.
+			L'un des trois cas suivants a lieu~:
+			\begin{enumerate}
+				\item $f$ a une singularité effaçable en $a$ (i.e. $\abs f$ est bornée au voisinage de $a$)~;
+				\item $\exists! m \in \N^* \tq \exists! c_1, \ldots, c_m \in \C$ avec $c_m \neq 0$ tels que~:
+				\begin{equation}
+					z \mapsto f(z) - \sum_{k=0}^m\frac {c_k}{(z-a)^k}
+				\end{equation}
+				a une singularité efficace en $a$ (i.e. $\abs {f(z)} \xrightarrow[z \to a]{} \pinfty$)~; on dit alors que \textit{$f$ a un pôle d'ordre $m$ en $a$}~;
+				\item $f$ a une \textit{singularité essentielle} en $a$, i.e.~:
+				\begin{equation}
+					\forall \delta \gneqq 0 : D'(a, \delta[ \subset \Omega \Rightarrow f\left(D'(a, r[\right) \text{ est dense dans } \C,
+				\end{equation}
+				(i.e. $\abs {f(z)}$ n'a pas de limite pour $z \to a$).
+			\end{enumerate}
+			\end{thm}
+
+			\begin{rmq} Les trois cas ci-dessus s'excluent mutuellement par la caractérisation en module de $f(z)$.
+			\end{rmq}
+
+			\begin{proof} Supposons que l'on n'est pas dans le cas 3, et montrons que l'on est dans le cas 1 ou 2.
+
+			Si $f\left(D'(a, r[\right)$ n'est pas dense dans $\C$, c'est qu'il existe $\delta > 0, r > 0, \omega \in \C$ tels que~:
+			\begin{equation}
+				f\left(D'(a, r[\right) \cap D(\omega, \delta[ = \emptyset,
+			\end{equation}
+			i.e. $\forall z \in D'(a, r[ : \abs {f(z) - \omega} \geq \delta$. Posons~:
+			\begin{equation}
+				g : D'(a, r[ \to \C : z \mapsto \frac 1{f(z) - \omega}.
+			\end{equation}
+			$g \in H(D'(a, r[)$ car $f(z)-\omega$ l'est et ne s'annule pas sur $D'(a, r[$. De plus, pour $z \in D'(a, r[$~:
+			\begin{equation}
+				\abs {g(z)} = \frac 1{f(z)-\omega} \leq \frac 1\delta \qquad \text{ (borné).}
+			\end{equation}
+
+			On en déduit que la singularité est effaçable. On prolonge alors $g$ en $a$ de sorte que $g \in H(D(a, r[)$. Distinguons deux cas~:
+			\begin{itemize}
+				\item $g(a) \neq 0$, et pour $z \in D'(a, r[$~: $f(z) = \omega + \frac 1{g(z)}$ et ainsi $f$ a une singularité effaçable en $a$~;
+				\item $g(a) = 0 $, et donc $a$ est un zéro isolé de $g$ (i.e. $g\left(D'(a, r[\right) \subset \C^*$).
+			\end{itemize}
+
+			Dans le cas $g(a) = 0$, on déduit qu'il existe $(m, g_1) \in \N^* \times H(D'(a, r[)$ tels que $g_1(a) \neq 0$, et~:
+			\begin{equation}
+				g(z) = (z-a)^mg_1(z) \qquad \text{ avec } \qquad g\left(D(a, r[\right) \not \ni 0.
+			\end{equation}
+
+			De plus, $g_1 \in H(D(a, r[)$, donc $z \mapsto g(z)^{-1}$ est holomorphe sur $D(a, r[$. Pour $z \in D'(a, r[$~:
+			\begin{equation}
+				f(z) = \omega + \frac 1{g(z)} = \omega + \frac 1{(z-a)^mg_1(z)} = \omega + (z-a)^{-m}h(z),
+			\end{equation}
+			avec $H(D(a, r[) \ni h \coloneqq \frac 1{g_1}$.
+
+			Par le théorème de représentabilité, il existe $(d_n)_{n \in \N} \in \C^\N \tq R(\sum c_nz^n) \geq r$, et~:
+			\begin{equation}
+				\forall z \in D(a, r[ : h(z) = \sum_{n \geq 0}d_n(z-a)^n.
+			\end{equation}
+
+			Ainsi, pour $z \in D'(a, r[$, on trouve~:
+			\begin{align}
+				f(z) = \omega + (z-a)^{-m}\sum_{n \geq 0}d_n(z-a)^n &= \omega + \sum_{n=0}^{m-1}\frac {d_n}{(z-a)^{m-n}} + \sum_{n \geq 0}d_{n+m}(z-a)^n. \\
+				f(z) - \sum_{n=0}^{m-1}\frac {d_n}{(z-a)^{m-n}} &= \underbrace {\omega + \sum_{n \geq 0}d_{n+m}(z-a)^n.}_{\text{ admet une singularité effaçable en $a$}}
+			\end{align}
+
+			\underline{Note~:} Ici, $d_{m-1}$ est appelé le \textit{résidu de $f$ en $a$}.
+
+			On est alors dans le cas 2 en remarquant que $d_0 = c_m = h(a) = \frac 1{g(a)} \neq 0$.
+			\end{proof}
+
+			\begin{ex}~
+			\begin{enumerate}
+				\item $f : \C^* \to \C : z \exp(z)$ a une singularité isolée en $0$. Or $\abs {f(z)}$ est borné au voisinage de $0$. Donc $f$ admet une singularité
+				effaçable en $0$.
+				\item $f : \C^* \to \C : z \mapsto z^{-1}$ a une singularité isolée en $0$. Puisque $\abs {f(z)} \xrightarrow[z \to 0]{} \pinfty$, $0$ est un pôle.
+				\item $f : \C^* \to \C : e \mapsto \exp(z^{-1})$ admet une singularité isolée en $0$. Pour $z = i\varepsilon$, $\varepsilon > 0$, on a $\abs {f(z)} = 1$,
+				et pour $z = x$, $ > 0$, on a $\abs {f(z)} = e^{x^{-1}} \xrightarrow[x \to 0]{} \pinfty$. Donc $\abs {f(z)}$ n'a pas de limite en $z=0$. Donc $f$ a une
+				singularité essentielle en $z=0$.
+			\end{enumerate}
+			\end{ex}
+
+		\subsubsection{Théorème de Liouville}
+			\begin{thm} Soient $a \in \C$ et $R > 0$ et $f \in H(D(a, R[)$. Par le théorème de représentabilité, il existe $(c_n)_{n \in \N} \in \C^\N$ tel que
+			$R(\sum c_nz^n) \geq R$ et~:
+			\begin{equation}
+				\forall z \in D(a, R[ : f(z) = \sum_{n \geq 0}c_n(z-a)^n.
+			\end{equation}
+
+			Pour tout $r \in [0, R)$, la série de terme général $\abs {c_n}^2r^{2n}$ est (absolument) convergente, et on a~:
+			\begin{equation}
+				\sum_{n \geq 0}\abs {c_n}^2r^{2n} = \frac 1{2\pi}\int_0^{2\pi}\abs {f(a+re^{it})}^2\dif t.
+			\end{equation}
+			\end{thm}
+
+			\begin{proof} Fixons $r \in [0, R)$. La fonction $g : \R \to \R : t \mapsto f(a + re^{it})$ est $2\pi$-périodique et $C^\infty$ sur $\R$. Par Dirichlet,
+			sa série de Fourier $S_n(g)$ converge uniformément vers $g$ set $\R$. Ainsi, pour tout $p \in \Z$~:
+			\begin{equation}
+				t \mapsto S_n(g)(t)e^{-ipt}
+			\end{equation}
+			converge uniformément vers~:
+			\begin{equation}
+				t \mapsto g(t)e^{-ipt}
+			\end{equation}
+			sur $\R$.
+
+			Par suite~:
+			\begin{align}
+				d_p &= \frac 1{2\pi}\int_0^{2\pi}g(t)e^{-ipt}\dif t = \frac 1{2\pi}\int_0^{2\pi}f(a+re^{it})e^{-ipt}\dif t \\
+				&= \frac 1{2\pi}\int_0^{2\pi}\sum_{n \geq 0}c_n(re^{it})^ne^{-ipt}\dif t \\
+				&= \frac 1{2\pi}\int_0^{2\pi}\sum_{n \geq 0}\underbrace {c_nr^ne^{i(n-p)t}}_{\text{CVN sur } \R}\dif t \\
+				&= \sum_{n \geq 0}c_nr^n\frac 1{2\pi}\int_0^{2\pi}e^{i(n-p)t}\dif t = \sum_{n \geq 0}c_nr^n\delta_{n,p} \\
+				&= c_pr^p.
+			\end{align}
+
+			Puisque $g \in C^{0,m}_{2\pi}(\R, \C)$, l'identité de Parseval-Bessel assure que la série de terme général $\abs {d_n(g)}^2 = \abs {c_n}^2r^{2n}$ converge
+			(absolument), et on a~:
+			\begin{equation}
+				\sum_{n \in \Z}\abs {d_n(g)}^2 = \frac 1{2\pi}\int_0^{2\pi}\abs {g(t)}^2\dif t,
+			\end{equation}
+			i.e.~:
+			\begin{equation}
+				\sum_{n \geq 0}\abs {c_n}^2r^{2n} = \frac 1{2\pi}\int_0^{2\pi}\abs {f(a+re^{it})}^2\dif t.
+			\end{equation}
 			\end{proof}
 
 \end{document}
