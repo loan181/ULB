@@ -6113,7 +6113,12 @@
 	\subsection{Les fonctions développables en séries de puissances sont holomorphes}
 		\subsubsection{Résultat principal}
 			\begin{thm} Soit $(c_n)_{n \in \N} \in \C^\N \tq R\left(\sum c_nz^n\right) \gneqq 0$.
-			Soit $R = \begin{cases}a > 0 &\text{ quelconque si } R\left(\sum c_nz^n\right) = \pinfty \\R\left(\sum c_nz^n\right) &\text{ sinon}.\end{cases}$
+			Soit~:
+			\begin{subnumcases}
+				{R = }
+					a > 0 &quelconque si $R\left(\sum c_nz^n\right) = \pinfty$ \\
+					R\left(\sum c_nz^n\right) &sinon.
+			\end{subnumcases}
 
 			La fonction~:
 			\begin{equation}\label{eq:f DSP}
@@ -6476,7 +6481,7 @@
 
 			Supposons alors $\frac z{2i\pi} \eqqcolon k \in \Z$. On a bien $\Re(z) = 0$, et donc~:
 			\begin{equation}
-				e^z = e^{i\Im(z)} = e^{i \cdot 2ki\pi} = e^{-2k\pi} = 1.
+				e^z = e^{i\Im(z)} = e^{i \cdot 2k\pi} = e^{2ki\pi} = 1.
 			\end{equation}
 			\end{proof}
 
@@ -6987,7 +6992,7 @@
 			Puisque $\Omega$ est un ouvert connexe, on sait que soit $A = \Omega$ (et donc $f \equiv 0$), soit $(\Omega \setminus A) = \Omega$ (et donc $A = \emptyset$).
 			\end{proof}
 
-			\begin{rmq} Pour $\Omega \subset \C$, une région, et $f \in H(\Omega)$, lorsque $Z(f) \neq \emptyset$, alors $Z(f)$ est au plus dénombrable.
+			\begin{rmq} Pour $\Omega \subset \C$, une région, et $f \in H(\Omega)$, lorsque $Z(f) \neq \Omega$, alors $Z(f)$ est au plus dénombrable.
 			\end{rmq}
 
 			\begin{lem} Soit $\Omega \subset \C$, un ouvert non-vide de $\C$. Il existe $(K_n) \subset \Omega$, une suite croissante de compacts telle que~:
@@ -7004,10 +7009,9 @@
 			Les $K_n$ sont fermés, bornés, et dans $\Omega$, et sont donc des compacts de $\Omega$ De plus, pour $n$ assez grand, on a $K_n \neq \emptyset$.
 			\end{proof}
 
-			% Pourquoi ? f : \C \to \C : z \mapsto 0 est holomorphe et telle que Z(f) = \C qui est indénombrable...
 			\begin{proof}[Preuve de la remarque] $Z(f) = \bigcup_{n \in \N}\left(K_n \cap Z(f)\right)$. Pour tout $n \in \N$, $K_n \cap Z(f)$ est fini. En effet,
 			s'il est infini, alors $A \cap K_n \cap Z(f) \neq \emptyset$, et donc $A \neq \emptyset$, et alors $f \equiv 0$, par le principe des zéros isolés.
-			Donc $Z(f) = \Omega$, et on a une contradiction.  % ?
+			Donc $Z(f) = \Omega$, et on a une contradiction.
 
 			Ainsi, $Z(f)$ est une union dénombrable d'ensembles finis. $Z(f)$ est alors fini ou défini.
 			\end{proof}
