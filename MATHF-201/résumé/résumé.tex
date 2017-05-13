@@ -7458,5 +7458,265 @@
 
 			\begin{proof} Par récurrence avec le théorème précédent.
 			\end{proof}
+			
+	\section{Théorème de Cauchy global}
+		\subsection{Chaînes et cycles}
+			\begin{déf} Si $\gamma_1, \ldots,  \gamma_n$ sont $n$ lacets (chemins fermés) tracés dans $\Omega \subset \C$, un ouvert, on définit la forme linéaire~:
+			\begin{equation}
+				\widetilde \Gamma : C^0\left(\bigcup_{i=1}^n\gamma_n^*, \C\right) \to \C :
+				f \mapsto \sum_{j=1}^n\widetilde {\gamma_j}(f) = \sum_{j=1}^n\int_{\gamma_j}f(\omega)\dif \omega,
+			\end{equation}
+			qui est continue puisque~:
+			\begin{equation}
+				\abs {\widetilde \Gamma(f)} \leq \left(\sum_{j=1}^n\right)\norm f_{\infty, \bigcup_{i=1}\gamma_i^*}.
+			\end{equation}
+			\end{déf}
+
+			\begin{rmq} On note~:
+			\begin{itemize}
+				\item $\Gamma = \gamma_1 + \ldots + \gamma_n$ par analogie avec $\widetilde \Gamma = \widetilde {\gamma_1} + \ldots + \widetilde {\gamma_n}$~;
+				\item $\int_\Gamma f(\omega)\dif \omega \coloneqq \sum_{j=1}^n\int_{\gamma_j}f(\omega)\dif \omega = \widetilde \Gamma(f)$.
+			\end{itemize}
+			\end{rmq}
+
+			\begin{déf} Dans la situation ci-dessus, on appelle $\Gamma$ une \textit{chaîne tracée dans $\Omega$}.
+			\end{déf}
+
+			\begin{déf} Lorsque tous les $\gamma_i$ sont fermés, on dit que $\Gamma$ est un \textit{cycle} tracé dans $\Omega$.
+			\end{déf}
+
+			\begin{rmq} En général, il n'y a pas unicité dans l'écriture d'un cycle ou d'une chaîne. En effet, $\gamma [0, 2\pi] \to \C : t \mapsto e^{it}$ peut
+			s'écrire comme une somme de fractions de cercles.
+			\end{rmq}
+
+			\begin{déf} On appelle le \textit{support} de la chaîne $\Gamma = \gamma_1 + \ldots + \gamma_n$ l'ensemble $\Gamma^* \coloneqq \bigcup_{j=1}^n\gamma_j^*$.
+			\end{déf}
+
+			\begin{déf} Soit $\Gamma$ un cycle tracé dans $\Omega$, un ouvert de $\C$ et $a \in \C \setminus \Gamma^*$. On appelle l'\textit{indice de $a$ par
+			rapport} à $\Gamma$ la valeur~:
+			\begin{equation}
+				\Ind_\Gamma(a) \coloneqq \frac 1{2i\pi}\int_\Gamma\frac {\dif \omega}{\omega-a}.
+			\end{equation}
+			\end{déf}
+
+			\begin{prp} Selon les notations précédentes~:
+			\begin{equation}
+				\Ind_\Gamma(a) = \sum_{j=1}^n\Ind_{\gamma_j}(a).
+			\end{equation}
+			\end{prp}
+
+			\begin{rmq} On observe que si $a \not \in \Gamma^*$, alors $\forall j \in \intint 1n : a \not \in \gamma_j^*$.
+			\end{rmq}
+
+		\subsection{Deux lemmes}
+			\begin{lem}\label{lem:pré-Cauchy-1} Soient $\Omega \subset \C$, un ouvert et $f \in H(\Omega)$. La fonction~:
+			\begin{subnumcases}
+				{g : \Omega^2 \to \C : (\omega, z) \mapsto}
+					\frac {f(\omega)-f(z)}{\omega-z} & si $\omega \neq z$ \\
+					f'(\omega) = f'(z) & si $\omega = z$
+			\end{subnumcases}
+			est continue sur $\Omega^2$.
+			\end{lem}
+
+			\begin{proof} On pose $\Delta \coloneqq \{(z, z) \tq z \in \Omega\} = (1, 1)\Omega$. On sait que $g$ est continue sur $\Omega^2 \setminus \Delta$
+			car $f$ est continue sur $\Omega^2 \setminus \Delta$.
+
+			Soit $a \in \Omega$. On veut montrer que $g$ est continue en $(a, a)$. Puisque $f$ est holomorphe, pour $\varepsilon > 0$, on sait qu'il existe $r > 0 \tq$~:
+			\begin{equation}
+				D(a, r[ \subset \Omega \qquad \text{ et } \qquad \forall z \in D(a, r[ : \abs {f'(z) - f'(a)} < \varepsilon.
+			\end{equation}
+
+			Soient $b, c \in D(a, r[$. On pose $Z : [0, 1] \to D(a, r[ : t \mapsto tc + (1-t)b$. $Z \in C^\infty([0, 1], \C)$. On pose la fonction suivante~:
+			\begin{equation}
+				F : [0, 1] \to \C : t \mapsto (f \circ Z)(t).
+			\end{equation}
+
+			Par composition, on sait que $F = f \circ Z$ est de classe $C^1$ sur $[0, 1]$ telle que~:
+			\begin{equation}
+				\forall t \in [0, 1] : F'(t) = f'(Z(t))Z'(t) = (c-b)f'(Z(t)).
+			\end{equation}
+
+			De plus, on trouve~:
+			\begin{equation}
+				F(1) - F(0) = f(c) - f(b) = (c-b)\int_0^1F(t)\dif t.
+			\end{equation}
+
+			Puisque $c \neq b$, on sait~:
+			\begin{equation}
+				g(c, b) = \frac {f(c)-f(b)}{c-b} = \int_0^1f'(Z(t))\dif t,
+			\end{equation}
+			et donc~:
+			\begin{equation}
+				g(c, b) - g(a, a) = \int_0^1\left(f'(Z(t)) - f'(a)\right)\dif t.
+			\end{equation}
+
+			Notons que l'égalité tient toujours pour $b=c$ avec $Z$ la fonction constante $Z \equiv b = c$ sur $[0, 1]$.
+			Par convexité de $D(a, r[$, on sait que $Z([0, 1]) \subset D(a, r[$, dès lors pour $t \in [0, 1]$~:
+			\begin{equation}
+				f'(Z(t)) - f'(a) \leq \varepsilon.
+			\end{equation}
+
+			Dès lors~:
+			\begin{equation}
+				\abs {g(c, b) - g(a, a)} \leq \int_0^1\abs {f'(Z(t)) - f'(a)}\dif t \leq \int_0^1\varepsilon\dif t = \varepsilon.
+			\end{equation}
+
+			On en déduit que $g$ est continue sur $\Delta$, et alors $g \in C^0(\Omega^2, \C)$.
+			\end{proof}
+
+			\begin{rmq} L'hypothèse d'holomorphisme de $f$ peut être réduite à $f \in C^1(\Omega, \C)$, et le lemme reste vrai.
+			\end{rmq}
+
+			\begin{lem}\label{lem:pré-Cauchy-2} Soient $\Omega \subset \C$ un ouvert et $g : \Omega \tocont \C$. Soient $K \subscpct \Omega$, $(z_n)_{n \in \N} \in \Omega^\N$,
+			$z \in \Omega \tq z_n \xrightarrow[n \to \pinfty]{} z$. Alors la suite de fonctions $g(z_n, \cdot)$ converge vers $g(z, \cdot)$ uniformément
+			sur $K$.
+			\end{lem}
+
+			\begin{proof} Posons $\widetilde K \coloneqq \left\{z_n \tq n \in \N\right\} \cup \{z\}$. $\widetilde K$ est trivialement compact. Par suite
+			$\widetilde K \times K$ est compact (car est un produit fini de compacts). Par le théorème de Heine, une fonction continue sur un compact est
+			uniformément continue, et donc $\restr g{\widetilde K \times K}$ est uniformément continue.
+
+			Fixons $\varepsilon > 0$. Il existe $\eta > 0$ tel que pour $(x_1, y_1), (x_2, y_2) \in \widetilde K \times K$, on a~:
+			\begin{equation}
+				\abs {x_1 - x_2} + \abs {y_1 - y_2} < \eta \Rightarrow \abs {g(x_1, y_1) - g(x_2, y_2)} \leq \varepsilon.
+			\end{equation}
+
+			Il existe $N \in \N$ tel que $\forall n \geq N : \abs {z_n - z} < \eta$, et donc~:
+			\begin{equation}
+				\abs {g(z_n, y) - g(z, y)} < \varepsilon.
+			\end{equation}
+
+			Par suite~:
+			\begin{equation}
+				\norm {g(z_n, \cdot) - g(z, \cdot)}_{\infty, K} = \sup_{y \in K}\abs {g(z_n, y) - g(z, y)} \leq \varepsilon.
+			\end{equation}
+			\end{proof}
+
+		\subsection{Théorème de Cauchy global}
+			\begin{thm}[Théorème de Cauchy global] Soient $\Omega \subset \C$ ouvert, $f \in H(\Omega)$, $\Gamma$, un cycle tracé dans $\Omega$
+			et tels que $si a \not \in \Omega$, alors $\Ind_\Gamma(a) = 0$. On a~:
+			\begin{enumerate}
+				\item $\forall z \in \Omega \setminus \Gamma^* : f(z)\Ind_\Gamma(z) = \frac 1{2i\pi}\int_\Gamma\frac {f(\omega)\dif \omega}{\omega-z}\dif \omega$~;
+				\item $\int_\Gamma f(\omega)\dif \omega = 0$~;
+				\item si $\Gamma_0$ et $\Gamma_1$ sont deux cycles tracés dans $\Omega$ tels que~:
+				\begin{equation}
+					\forall \alpha \not \in \Omega : \Ind_{\Gamma_0}(\alpha) = \Ind_{\Gamma_1}(\alpha),
+				\end{equation}
+				alors~:
+				\begin{equation}
+					\int_{\Gamma_0}f(\omega)\dif \omega = \int_{\Gamma_1}f(\omega)\dif \omega.
+				\end{equation}
+			\end{enumerate}
+			\end{thm}
+
+			\begin{proof} Il y a trois étapes pour montrer le premier point, les deux suivants sont des conséquences simples du point 1.
+
+			\paragraph*{Étape 0}~
+
+			Posons~:
+			\begin{subnumcases}
+				{g : \Omega \times \Omega \to \C : (\omega, z) \mapsto}
+					\frac {f(\omega)-f(z)}{\omega-z} & si $\omega \neq z$ \\
+					f'(\omega) = f'(z) & si $\omega = z$.
+			\end{subnumcases}
+
+			Par le Lemme~\ref{lem:pré-Cauchy-1}, on sait que $g \in C^0(\Omega^2, \C)$. Pour $z \in \Omega$, on définit~:
+			\begin{equation}
+				h(z) \coloneqq \frac 1{2i\pi}\int_\Gamma g(z, \omega)\dif \omega.
+			\end{equation}
+
+			\paragraph*{Étape 1} Montrons que $h \in H(\Omega)$.
+
+			Soient $z \in \Omega$, et $(z_n)_{n \in \N} \in \Omega^\N$ tels que $z_n \xrightarrow[n \to \pinfty]{} z$. Par continuité de $g$ et par le
+			Lemme~\ref{lem:pré-Cauchy-2}, on a que $g(z_n, \cdot)$ converge vers $g(z, \cdot)$ uniformément sur $\Gamma^*$ qui est compact.
+
+			Par suite, il vient~:
+			\begin{equation}
+				h(z_n) = \int_\Gamma g(z_n, \omega)\dif \omega \xrightarrow[n \to \pinfty]{} \int_\Gamma g(z, \omega)\dif \omega = h(z).
+			\end{equation}
+
+			On en déduit la continuité de $h$ sur $\Omega$. Soit $\Delta \subset \Omega$, un triangle. Calculons~:
+			\begin{equation}
+				\int_{\partial \Delta}h(z)\dif z = \frac 1{2i\pi}\int_{\partial \Delta}\left(\int_\Gamma g(z, \omega)\dif \omega\right)\dif z.
+			\end{equation}
+
+			Par Fubini , on sait~:
+			\begin{equation}
+				\int_{\partial \Delta}h(z)\dif z = \int_\Gamma\int_{\partial \Delta}g(z, \omega)\dif z\dif\omega.
+			\end{equation}
+
+			En sachant que $f \in H(\Omega, \C)$, pour $\omega \in \Omega$ fixé, on sait que la fonction $z \mapsto g(z, \omega)$ est holomorphe sur $\Omega$,
+			en effet sa singularité en $\omega=z$ est effaçable. Par holomorphie de $g$, on a alors~:
+			\begin{equation}
+				\int_{\partial \Delta}g(z, \omega)\dif z = 0.
+			\end{equation}
+
+			Donc $h \in H(\Omega)$ par le théorème de Morera.
+
+			\paragraph*{Étape 2} Prolongeons $h$ en une fonction entière.
+
+			Posons $\Omega_1 \coloneqq \left\{z \in \C \setminus \Gamma^* \tq \Ind_\Gamma(z) = 0\right\}$.
+			Remarquons que $\Omega_1 = \Ind_\Gamma^{-1}\left(\left(-\frac 12, \frac 12\right)\right)$. Ainsi, par holomorphie de $z \mapsto \Ind_\Gamma(z)$,
+			on sait que $\Omega_1$ est un ouvert de $\C$.
+
+			Pour $z \in \Omega_1$, on définit~:
+			\begin{equation}
+				h_1(z) \coloneqq \frac 1{2i\pi}\int_\Gamma\frac {f(\omega)}{\omega-z}\dif \omega.
+			\end{equation}
+
+			Remarquons que pour $z \in \Omega_1 \cap \Omega$, on a~:
+			\begin{align}
+				h(z) &= \frac 1{2i\pi}\int_\Gamma \frac {f(\omega)-f(z)}{\omega-z}\dif \omega
+					= \frac 1{2i\pi}\int_\Gamma \frac {f(\omega)}{\omega-z}\dif \omega - \frac 1{2i\pi}\int_\Gamma\frac {f(z)}{\omega-z}\dif \omega \\
+					&= h_1(z) - f(z)\Ind_\Gamma(z) = h_1(z).
+			\end{align}
+
+			La fonction $\varphi$ définie par~:
+			\begin{subnumcases}
+				{\varphi : \Omega \cup \Omega_1 \to \C : z \mapsto}
+					h(z) & si $z \in \Omega$ \\
+					h_1(z) & si $z \in \Omega_1$
+			\end{subnumcases}
+			est alors bien définie. Remarquons que $\varphi$ est holomorphe sur $\Omega$ car $\restr \varphi\Omega = h$ et sur $\Omega_1$ par le
+			Théorème~\ref{thm:frac C0m DSP}. On en déduit que $\varphi \in H(\Omega \cup \Omega_1)$.
+
+			Par hypothèse et par définition de $\Omega_1$, on sait que $\C \setminus \Omega \subset \Omega_1$. Dès lors, $\varphi \in H(\C)$.
+
+			\paragraph*{Étape 3} Montrons que $\varphi \equiv 0$ sur $\C$.
+
+			Par le théorème de Liouville, il suffit de montrer que $\varphi(z) \xrightarrow[\abs z \to \pinfty]{} 0$.
+
+			En notant $\mathcal C$ la composante non bornée de $\C \setminus \Gamma^*$, on sait que $\Ind_\Gamma(\mathcal C) = \{0\}$. On en déduit que
+			$\mathcal C \subset \Omega_1$. Pour $z \in \mathcal C$, on détermine~:
+			\begin{equation}
+				\varphi(z) = h_1(z) = \frac 1{2i\pi}\int_\Gamma \frac {f(\omega)}{\omega-z}\dif \omega,
+			\end{equation}
+			d'où l'on déduit~:
+			\begin{equation}
+				\abs {\varphi(z)} \leq \frac 1{2\pi}\frac {\norm {f}_{\infty, \Gamma^*}}{\underbrace {\dist(z, \Gamma^*)}_{\xrightarrow[\abs z \to \pinfty]{} \pinfty}} \xrightarrow[\abs z \to \pinfty]{} 0.
+			\end{equation}
+
+			Dès lors, $h \equiv 0$, et donc~:
+			\begin{align}
+				\int_\Gamma\frac {f(\omega)-f(z)}{\omega-z}\dif \omega &= 0 \\
+				\int_\Gamma\frac {f(\omega)\dif \omega}{\omega-z} &= \int_\Gamma\frac {f(z)\dif \omega}{\omega-z} = f(z)\Ind_\Gamma(z),
+			\end{align}
+			ce qui conclut la démonstration du point~1.
+
+			Pour le point 2, montrons que $\int_\Gamma f(\omega)\dif \omega = 0$. Pour $z \in \Omega$, posons $F(z) \coloneqq (z-a)f(z)$. Par le point~1, on a alors~:
+			\begin{equation}
+				\frac 1{2i\pi}\int f(\omega)\dif \omega = \frac 1{2i\pi}\int_\Gamma\frac {(\omega-a)f(\omega)}{\omega-a}\dif \omega
+					= \frac 1{2i\pi}\int_\Gamma\frac {F(\omega)\dif \omega}{\omega-z} = F(z)\Ind_\Gamma(z) = 0.
+			\end{equation}
+
+			Pour montrer le point~3, il suffit d'appliquer le point~2 au chemin $\Gamma = \Gamma_0 - \Gamma_1$.
+			\end{proof}
+
+			\begin{rmq} On généralise ainsi le théorème de Cauchy dans un ouvert convexe. Si $\gamma = \Gamma$ est un lacet tracé dans l'ouvert convexe $\Omega$,
+			alors $\forall \alpha \in \C \setminus \Omega : f : z \mapsto (z-a)^{-1}$ est holomorphe sur $\Omega$, donc~:
+			\begin{equation}
+				\frac 1{2i\pi}\int_\Gamma f(\omega)\dif \omega = 0.
+			\end{equation}
+			\end{rmq}
 
 \end{document}
