@@ -1,7 +1,9 @@
-all:
-	pdflatex résumé.tex
-	pdflatex résumé.tex
+all: résumé.pdf
 	evince résumé.pdf &
+
+résumé.pdf: résumé.tex
+	pdflatex résumé.tex
+	pdflatex résumé.tex
 
 clean:
 	rm -f résumé.aux
