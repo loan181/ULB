@@ -6110,8 +6110,8 @@
 			est $\C$-dérivable en $z_0$ si et seulement si $\pd f{\bar z}(z_0) = 0$, et dans ce cas, $f'(z_0) = \pd fz(z_0)$.
 			\end{prp}
 
-	\subsection{Les fonctions développables en séries de puissances sont holomorphes}
-		\subsubsection{Résultat principal}
+	\section{Les fonctions développables en séries de puissances sont holomorphes}
+		\subsection{Résultat principal}
 			\begin{thm} Soit $(c_n)_{n \in \N} \in \C^\N \tq R\left(\sum c_nz^n\right) \gneqq 0$.
 			Soit~:
 			\begin{subnumcases}
@@ -6181,7 +6181,7 @@
 			où $f$ est la fonction définie en~\eqref{eq:f DSP}.
 			\end{cor}
 
-		\subsubsection{Une condition suffisante de développement en série de puissances}
+		\subsection{Une condition suffisante de développement en série de puissances}
 			\begin{thm}\label{thm:frac C0m DSP} Soit $[a, b]$, un segment de $\R$, et soient $\varphi, m \in C^{0,m}([a, b], \C)$. Soit $\Omega \subset \C$, un ouvert tel que
 			$\Omega \cap \varphi([a, b]) = \emptyset$. La fonction $f$ définie par~:
 			\begin{equation}
@@ -6216,8 +6216,8 @@
 			\end{align}
 			\end{proof}
 
-	\subsection{Les fonctions holomorphes sont développables en séries de puissances}
-		\subsubsection{Intégration sur des chemins}
+	\section{Les fonctions holomorphes sont développables en séries de puissances}
+		\subsection{Intégration sur des chemins}
 			\begin{déf} Soit $\Omega \subset \C$, un ouvert. On appelle \textit{chemin tracé dans $\Omega$} toute application $\gamma : [a, b] \tocont \Omega$
 			telle que $\gamma \in C^{1,m}([a, b])$.
 
@@ -6351,7 +6351,7 @@
 			\end{enumerate}
 			\end{ex}
 
-		\subsubsection{Rappels de connexité dans $\C$}
+		\subsection{Rappels de connexité dans $\C$}
 			\begin{déf} Une partie $E \subset \C$ est dite \textit{non-connexe} s'il existe deux ouverts $U$ et $V$ de $\C$ tels que $E \subset U \cup V$,
 			$E \cap U \neq \emptyset \neq E \cap V$ et $E \cap U \cap V = \emptyset$.
 
@@ -6463,7 +6463,7 @@
 			\end{equation}
 			\end{déf}
 
-		\subsubsection{Indice d'un point par rapport à un chemin fermé}
+		\subsection{Indice d'un point par rapport à un chemin fermé}
 			\begin{déf} Soit $\gamma : [a, b] \to \C$, un chemin fermé. Posons $\Omega \setminus \gamma^*$. $\Omega$ est ouvert (car $\gamma^*$ est compact donc fermé).
 			Pour $z \in \Omega$, on définit \textit{l'indice de $z$ par rapport à $\gamma$} par~:
 			\begin{equation}
@@ -6567,7 +6567,7 @@
 			De plus, $\Ind_\gamma(a + i\frac 32r) = 0$ par le théorème.
 			\end{ex}
 
-		\subsubsection{Le théorème de Cauchy local}
+		\subsection{Le théorème de Cauchy local}
 			\begin{lem} Soit $\Omega \subset \C$, un ouvert. Soient $f : \Omega \tocont \C$ admettant une primitive holomorphe dans $\Omega$, $\gamma : [a, b] \to \C$,
 			un chemin fermé tracé dans $\Omega$. Alors~:
 			\begin{equation}
@@ -6678,7 +6678,7 @@
 			Par le cas 2, on trouve $\int_{\gamma_\Delta} f(\omega)\dif \omega = 0$.
 			\end{proof}
 
-			\paragraph{Rappel~: théorème de Green-Riemann}
+			\subsubsection{Rappel~: théorème de Green-Riemann}
 				\begin{thm} Soient $f, g \in C^1\left(\Omega \subset \R^2, \K \in \{\R, \C\}\right)$. Soit $U$ un ouvert \textit{simple} et \textit{régulier} et son bord
 				$\partial U$ orienté positivement. Alors~:
 				\begin{equation}
@@ -6755,7 +6755,7 @@
 			\end{equation}
 			\end{proof}
 
-		\subsubsection{Formule de Cauchy dans un ouvert convexe}
+		\subsection{Formule de Cauchy dans un ouvert convexe}
 			\begin{thm} Soient $\Omega \subset \C$ un ouvert convexe, $f \in H(\Omega)$, $\gamma$ fermé tracé dans $\Omega$. Alors~:
 			\begin{equation}
 				\forall z \in \Omega \setminus \gamma^* : f(z)\Ind_\gamma(z) = \frac 1{2i\pi}\int_\gamma\frac {f(\omega)}{\omega - z}\dif \omega.
@@ -6868,8 +6868,8 @@
 			Par continuité de $f$, on a $F \in H(\Omega)$. Ainsi, par développement en série de puissances, on a $f = F' \in H(\Omega)$ par le corollaire précédent.
 			\end{proof}
 
-	\subsection{Conséquences du théorème de représentabilité en série de puissances}
-		\subsubsection{Ordre d'un zéro --- Principe des zéros isolés}
+	\section{Conséquences du théorème de représentabilité en série de puissances}
+		\subsection{Ordre d'un zéro --- Principe des zéros isolés}
 			\begin{déf} Soit $A \subset \C$. On appelle \textit{point limite de $A$} tout $z \in \C$ tel que $\exists a : \N \to A : n \mapsto a_n$ injective
 			telle que $a_n \xrightarrow[n \to \pinfty]{} z$.
 			\end{déf}
@@ -6917,7 +6917,7 @@
 			la préimage d'un fermé par une fonction continue. De plus, ,$A \subset Z(f)$ par continuité de $f$. Montrons d'abord que $A$ est fermé dans $\Omega$, et
 			montrons ensuite qu'il est ouvert.
 
-			\paragraph{$A$ est fermé} Considérons $(a_n)_{n \in \N} \in A^\N$ et $a \in A$ tel que $a_n \xrightarrow[n \to \pinfty]{} a$. Montrons alors que $a \in A$.
+			\paragraph*{$A$ est fermé} Considérons $(a_n)_{n \in \N} \in A^\N$ et $a \in A$ tel que $a_n \xrightarrow[n \to \pinfty]{} a$. Montrons alors que $a \in A$.
 			Puisque $a_n \to a$, il existe $n_1 \in \N$ tel que $\abs {a_{n_1} - a} < 1$. $a_{n_1}$, et donc $D\left(a_{n_1}, \frac 12\right[$ contient une infinité de
 			points de $Z(f)$. Choisissons $z_1 \in D\left(a_{n_1}, \frac 12\right[ \cap Z(f)$. On a~:
 			\begin{equation}
@@ -6980,7 +6980,7 @@
 			\end{equation}
 			et donc $a \in A$.
 
-			\paragraph{$A$ est ouvert} Soit $a \in A$. On a alors $a \in Z(f)$. Si $\mathcal N(a) \neq \emptyset$, alors $a \not \in A$, ce qui est une contradiction,
+			\paragraph*{$A$ est ouvert} Soit $a \in A$. On a alors $a \in Z(f)$. Si $\mathcal N(a) \neq \emptyset$, alors $a \not \in A$, ce qui est une contradiction,
 			et donc il faut $\mathcal N(a) = \emptyset$. Dès lors, il existe $r > 0$ tel que $f \equiv 0$ sur $D(a, r[$ avec ce qui précède. On en déduit que
 			$D(a, r[ \subset A$, et donc $A$ est ouvert.
 
@@ -7039,7 +7039,7 @@
 			\end{enumerate}
 			\end{ex}
 
-		\subsubsection{Classification des singularités isolées}
+		\subsection{Classification des singularités isolées}
 			\begin{déf}
 				Pour $a \in \C$, et $r > 0$, on introduit la notation suivante~:
 				\begin{equation}
@@ -7171,7 +7171,7 @@
 			\end{enumerate}
 			\end{ex}
 
-		\subsubsection{Théorème de Liouville}
+		\subsection{Théorème de Liouville}
 			\begin{thm}\label{thm:pré-Liouville} Soient $a \in \C$ et $R > 0$ et $f \in H(D(a, R[)$. Par le théorème de représentabilité, il existe
 			$(c_n)_{n \in \N} \in \C^\N$ tel que $R(\sum c_nz^n) \geq R$ et~:
 			\begin{equation}
@@ -7236,7 +7236,7 @@
 			et donc $c_n = 0$. Ainsi, pour $z \in \C$, on trouve $f(z) = c_0$, et donc $f$ est constante.
 			\end{proof}
 
-		\subsubsection{Principe du maximum}
+		\subsection{Principe du maximum}
 			\begin{thm}[Principe du maximum] Soit $\Omega \subset \C$, un ouvert convexe. Soient $a \in \C$ et $R > 0$ tels que $D(a, R] \subset \Omega$.
 			Soit $f \in H(\Omega)$. On a~:
 			\begin{itemize}
@@ -7323,7 +7323,7 @@
 			\end{equation}
 			\end{proof}
 
-		\subsubsection{Théorème de D'Alembert-Gauss --- Théorème fondamental de l'algèbre}
+		\subsection{Théorème de D'Alembert-Gauss --- Théorème fondamental de l'algèbre}
 			\begin{thm} Soit $P \in \C[x]$ tel que $\deg(P) \geq 1$. Alors il existe $z \in \C$ tel que $P(z) = 0$.
 			\end{thm}
 
@@ -7362,7 +7362,7 @@
 			\begin{proof} Trivial par récurrence avec le théorème précédent.
 			\end{proof}
 
-		\subsubsection{Estimations de Cauchy}
+		\subsection{Estimations de Cauchy}
 			\begin{prp} Soient $a \in \C$, $R > 0$, $f \in H(D(a, R[)$. Supposons que $M \coloneqq \sup_{z \in D(a, R[}\abs {f(z)} \lneqq \pinfty$. Alors~:
 			\begin{equation}
 				\forall n \in \N : \abs {f^{(n)}(a)} \leq \frac {Mn!}{R^n}.
