@@ -7172,8 +7172,8 @@
 			\end{ex}
 
 		\subsubsection{Théorème de Liouville}
-			\begin{thm} Soient $a \in \C$ et $R > 0$ et $f \in H(D(a, R[)$. Par le théorème de représentabilité, il existe $(c_n)_{n \in \N} \in \C^\N$ tel que
-			$R(\sum c_nz^n) \geq R$ et~:
+			\begin{thm}\label{thm:pré-Liouville} Soient $a \in \C$ et $R > 0$ et $f \in H(D(a, R[)$. Par le théorème de représentabilité, il existe
+			$(c_n)_{n \in \N} \in \C^\N$ tel que $R(\sum c_nz^n) \geq R$ et~:
 			\begin{equation}
 				\forall z \in D(a, R[ : f(z) = \sum_{n \geq 0}c_n(z-a)^n.
 			\end{equation}
@@ -7213,6 +7213,250 @@
 			\begin{equation}
 				\sum_{n \geq 0}\abs {c_n}^2r^{2n} = \frac 1{2\pi}\int_0^{2\pi}\abs {f(a+re^{it})}^2\dif t.
 			\end{equation}
+			\end{proof}
+
+			\begin{déf} Une fonction complexe est dite \textit{entière} lorsqu'elle est holomorphe sur $\C$.
+			\end{déf}
+
+			\begin{thm}[Théorème de Liouville]Soit $f \in H(\C)$, une fonction entière. $f$ est bornée si et seulement si elle est constante.
+			\end{thm}
+
+			\begin{proof} Supposons que $f$ est bornée, l'autre sens de l'implication est trivial. Prenons $a \in \C$. Par le TDSP, il existe $(c_n)_{n \in \N} \in \C^\N$
+			telle que $R(\sum_n c_nz^n) = \pinfty$ et $\forall z \in \C : f(z) = \sum_{n \in \N}c_n(z-a)^n$. Pour tout $R \in \R^+$, par le théorème précédent, on trouve~:
+			\begin{equation}
+				\sum_{n \in \N}\abs {c_n}R^2n = \frac 1{2\pi}\int_0^{2\pi}\abs {f(a+Re^{i\theta})}^2\dif \theta.
+			\end{equation}
+
+			Si $\abs f$ est majorée par $M \geq 0$ sur $\C$, alors~:
+			\begin{equation}
+				\sum_{n \in \N}\abs {c_n}^2R^{2n} \leq \frac 1{2\pi}\int_0^{2\pi}M^2\dif \theta = M^2.
+			\end{equation}
+
+			Pour $n \geq 1$, on sait que $\forall r > 0 : \abs {c_n}^2r^{2n} \leq M^2$. i.e., en faisant tendre $r$ vers $\pinfty$, il vient que $\abs {c_n}^2 = 0$,
+			et donc $c_n = 0$. Ainsi, pour $z \in \C$, on trouve $f(z) = c_0$, et donc $f$ est constante.
+			\end{proof}
+
+		\subsubsection{Principe du maximum}
+			\begin{thm}[Principe du maximum] Soit $\Omega \subset \C$, un ouvert convexe. Soient $a \in \C$ et $R > 0$ tels que $D(a, R] \subset \Omega$.
+			Soit $f \in H(\Omega)$. On a~:
+			\begin{itemize}
+				\item[$(i)$]  \begin{equation}\label{eq:principe max}\abs {f(a)} \leq \max_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})}~;\end{equation}
+				\item[$(ii)$] l'inégalité ci-dessus est une égalité si et seulement si $f$ est constante dans $\Omega$.
+			\end{itemize}
+			\end{thm}
+
+			\begin{proof} Par l'absurde, supposons~:
+			\begin{equation}
+				\max_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})} \lneqq f(a).
+			\end{equation}
+
+			On en déduit donc~:
+			\begin{equation}
+				\frac 1{2\pi}\int_0^{2\pi}\abs {f(a+Re^{i\theta})}^2\dif \theta \lneqq \abs {f(a)}^2.
+			\end{equation}
+
+			Soient $(c_n)_{n \in \N} \in \C^\N$ les coefficients de la série de puissance de $f$ en $a$. On a $R\left(\sum_nc_nz^n\right) \geq R$. Par le
+			Théorème~\ref{thm:pré-Liouville}, on sait~:
+			\begin{equation}
+				\sum_{n \in \N}\abs {c_n}^2r^{2n} = \frac 1{2\pi}\int_0^{2\pi}\abs {f(a+Re^{i\theta})}^2\dif \theta \lneqq \abs {f(a)}^2 = \abs {c_0}^2,
+			\end{equation}
+			ce qui est impossible car la somme ne contient que des éléments positifs, dont $\abs {c_0}^2$.
+
+			Traitons le cas d'égalité dans~\eqref{eq:principe max}. Si $f$ est constante, alors l'égalité dans~\eqref{eq:principe max} est vérifiée de manière triviale.
+
+			Si l'inégalité dans~\eqref{eq:principe max} est une égalité, alors en adaptant le raisonnement précédent, on trouve~:
+			\begin{equation}
+				\forall \theta \in [0, 2\pi] : \abs {f(a+Re^{i\theta})}^2 \leq \abs {f(a)}^2.
+			\end{equation}
+
+			À nouveau, pour $(c_n)_{n \in \N} \in \C^\N$ les coefficients du développement de $f$ en série de puissances autour de $a$, on trouve que pour $n > 0$,
+			$c_n = 0$, et donc $f \equiv c_0$ sur $D(a, R]$, et par le principe des zéros isolés, $f$ est constante sur $\Omega$.
+			\end{proof}
+
+			\begin{cor} Soient $\Omega \subset \C$, un ouvert connexe et $f \in H(\Omega)$. On a alors deux possibilités~:
+			\begin{itemize}
+				\item soit $f$ est constante sur $\Omega$~;
+				\item soit $\abs f$ n'a pas de maximum local dans $\Omega$.
+			\end{itemize}
+			\end{cor}
+
+			\begin{proof} Si $f$ n'est pas constante, et si $\abs f$ admet un maximum local en $a \in \Omega$, alors on sait qu'il existe $R > 0 \tq D(0, R] \subset \Omega$ et~:
+			\begin{equation}
+				\forall z \in D(a, R] : \abs {f(z)} \leq \abs {f(a)}.
+			\end{equation}
+
+			Par suite~:
+			\begin{equation}
+				\max_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})} \leq f(a).
+			\end{equation}
+
+			Par le principe du maximum, on déduit que $\max_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})} = \abs {f(a)}$, ce qui implique que $f$ est constante sur $\Omega$,
+			ce qui est une contradiction.
+			\end{proof}
+
+			\begin{cor} Soient $f \in H(\Omega), a \in \Omega, R > 0$ tels que $D(a, R[ \subset \Omega$. Si $\abs f$ ne s'annule pas sur $D(a, R[$, alors~:
+			\begin{equation}
+				\min_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})} \leq \abs {f(a)}.
+			\end{equation}
+			\end{cor}
+
+			\begin{proof} Si $f$ s'annule sur $D(a, R]$, alors elle s'annule sur $\mathcal C(a, R]$, et donc $0 \leq \abs {f(a)}$.
+
+			Sinon, $f$ ne s'annule pas sur $D(a, R]$. Par continuité de $f$ sur $\Omega$, il existe $r > R$ tel que $D(a, r] \subset \Omega$ et $f$
+			ne s'annule pas sur $D(a, r]$. Posons~:
+			\begin{equation}
+				g : D(a, r] \to \C \to z \mapsto \frac 1{f(z)}.
+			\end{equation}
+
+			On a alors $g \in H(D(a, r])$, et on peut lui appliquer le principe du maximum~:
+			\begin{equation}
+				\abs {g(a)} \leq \max_{\theta \in [0, 2\pi]}\abs {g(a+Re^{i\theta})},
+			\end{equation}
+			et donc~:
+			\begin{equation}
+				\frac 1{\abs {f(a)}} \leq \max_{\theta \in [0, 2\pi]} \frac 1{\abs {f(a+Re^{i\theta})}} = \frac 1{\min_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})}}.
+			\end{equation}
+
+			On en déduit finalement~:
+			\begin{equation}
+				\abs {f(a)} \geq \min_{\theta \in [0, 2\pi]}\abs {f(a+Re^{i\theta})}.
+			\end{equation}
+			\end{proof}
+
+		\subsubsection{Théorème de D'Alembert-Gauss --- Théorème fondamental de l'algèbre}
+			\begin{thm} Soit $P \in \C[x]$ tel que $\deg(P) \geq 1$. Alors il existe $z \in \C$ tel que $P(z) = 0$.
+			\end{thm}
+
+			\begin{proof} Sans perte de généralité, on écrit~:
+			\begin{equation}
+				P(z) = z^n + \sum_{k=0}^{n-1}a_kz^k,
+			\end{equation}
+			avec $(a_0, \ldots, a_{n-1}) \in \C^n$.
+
+			Observons alors (pour $z \neq 0$) que~:
+			\begin{equation}
+				P(z) = \geq \abs {z^n} - \abs {\sum_{k=0}^{n-1}a_kz^k} \geq \abs z^n - \sum_{k=0}^{n-1}\abs {a_k}\abs z^k
+					\geq \abs z^n\underbrace {\left(1 - \sum_{k=1}^n\frac {\abs {a_k}}{\abs z^{n-k}}\right)}_{\xrightarrow[\abs z \to \pinfty]{} 1}
+			\end{equation}
+
+			On en déduit alors qu'il existe $R > 0$ tel que $\forall z \in \C \setminus D(0, R[ : \abs {P(z)} \geq \abs {P(0)} + 1$. Supposons alors par l'absurde que $P$ ne
+			s'annule pas sur $\C$. On définit alors $g \coloneqq P^{-1} \in H(\C)$. Pour $z \in \C$, si $\abs z \geq R$, on a~:
+			\begin{equation}
+				\abs {g(z)} = \frac 1{\abs {P(z)}} \leq \frac 1{\abs {P(0)}+1} < \frac 1{P(0)} = \abs {g(0)}.
+			\end{equation}
+
+			On  en déduit alors~:
+			\begin{equation}
+				\max_{\theta \in [0, 2\pi]}\abs {g(Re^{i\theta})} < \abs {g(0)},
+			\end{equation}
+			ce qui contredit le principe du maximum. Dès lors, $P$ s'annule dans $\C$.
+			\end{proof}
+
+			\begin{cor} Soit $P \in \C[x]$ tel que $\deg(P) \geq 1$. Alors il existe $z_1, \ldots, z_{\deg(P)} \in \C$ et $\lambda \in \C^*$ tels que~:
+			\begin{equation}
+				P = \lambda \prod_{j=1}^{\deg(P)}(x-z_j),
+			\end{equation}
+			et les $z_j$ et leur multiplicité sont uniques.
+			\end{cor}
+
+			\begin{proof} Trivial par récurrence avec le théorème précédent.
+			\end{proof}
+
+		\subsubsection{Estimations de Cauchy}
+			\begin{prp} Soient $a \in \C$, $R > 0$, $f \in H(D(a, R[)$. Supposons que $M \coloneqq \sup_{z \in D(a, R[}\abs {f(z)} \lneqq \pinfty$. Alors~:
+			\begin{equation}
+				\forall n \in \N : \abs {f^{(n)}(a)} \leq \frac {Mn!}{R^n}.
+			\end{equation}
+			\end{prp}
+
+			\begin{proof} Par le théorème~\ref{thm:pré-Liouville}, on écrit~:
+			\begin{equation}
+				\forall r \in [0, R) : \sum_{n \in \N}\abs {c_n}^2r^{2n} = \frac 1{2\pi}\int_0^{2\pi}\abs {f(a+Re^{it}}\dif t \leq M^2.
+			\end{equation}
+
+			En particulier, pour $r \in [0, R)$, on a $\abs {c_n}^2r^{2n} \leq M^2$, i.e. $\abs {c_n}r^n \leq M$. Par continuité de $f$, on a~:
+			\begin{equation}
+				\forall n \in \N : \abs {c_n}R^n \leq M.
+			\end{equation}
+
+			Or, on sait que les coefficients $c_n$ sont définis par~:
+			\begin{equation}
+				c_n = \frac {f^{(n)}(a)}{n!}.
+			\end{equation}
+
+			On en déduit alors~:
+			\begin{equation}
+				\abs {f^{(n)}(a)} \leq \frac {Mn!}{R^n}.
+			\end{equation}
+			\end{proof}
+
+			\begin{thm} Soient $\Omega \subset \C$, un ouvert, $(f_n)_{n \in \N} \in H(\Omega)^\N$ et $f : \Omega \to \C$ tels que
+			$f_n \CVUc \Omega n\pinfty f$. Alors~:
+			\begin{enumerate}
+				\item $f \in H(\Omega)$~;
+				\item $f_n' \CVUc \Omega n\pinfty f'$.
+			\end{enumerate}
+			\end{thm}
+
+			\begin{proof} Soit $\Delta \subset \Omega$, un triangle ouvert. Puisque~:
+			\begin{equation}
+				\forall n \in \N : f_n \in C^0(\Omega, \C) \qquad \text{ et } \qquad f_n \CVUc \Omega n\pinfty f,
+			\end{equation}
+			on a $f \in C^0(\Omega, \C)$ Puisque $\partial \Delta$ est un compact inclus dans $\Omega$, on a~:
+			\begin{equation}
+				f_n \CVU {\partial \Delta} n\pinfty f.
+			\end{equation}
+
+			Par suite~:
+			\begin{equation}
+				\int_{\partial \Delta}f_n(\omega)\dif\omega \xrightarrow[n \to \pinfty]{} \int_{\partial \Delta}f(\omega)\dif \omega.
+			\end{equation}
+
+			Or, $\forall n \in \N : f_n \in H(\Omega)$. Ainsi, par Cauchy~:
+			\begin{equation}
+				\int_{\partial \Delta}f_n(\omega)\dif \omega = 0.
+			\end{equation}
+
+			On en déduit alors~:
+			\begin{equation}
+				\int_{\partial \Delta} f(\omega)\dif \omega = 0.
+			\end{equation}
+
+			Puisque $\Delta$ est un triangle quelconque, le Théorème de Morera assure que $f \in H(\Omega)$, ce qui montre le point~1.
+
+			Pour montrer le point 2, prenons $K \subscpct \Omega$. On note $\delta \coloneqq \dist(K, \C \setminus \Omega)$. $K$ est un compact
+			de $\Omega$, et $\C \setminus \C$ est un fermé. On en déduit que $\delta \gneqq 0$. On en déduit qu'il existe $\sigma > 0$ tel que~:
+			\begin{equation}
+				K_\sigma \coloneqq \left\{z \in \C \tq \dist(z, K) \leq \sigma\right\} \subscpct \Omega.
+			\end{equation}
+
+			$K_\sigma$ est compact, donc par hypothèse $f_n \CVU {K_\sigma} n\pinfty f$. On en déduit que pour $z \in K$ et $n \in \N$~:
+			\begin{equation}
+				\abs {f_n'(z)-f'(z)} \leq \frac {\norm {f_n-f}_{\infty,D(z, \sigma[}}{\sigma},
+			\end{equation}
+			par les estimations de Cauchy. Par suite, pour $(n, z) \in \N \times K$, on observe~:
+			\begin{equation}
+				\abs {f_n'(z)-f'(z)} \leq \frac {\norm {f_n-f}_{\infty, K_\sigma}}\sigma.
+			\end{equation}
+
+			La convergence uniforme dit que si $\varepsilon > 0$, alors il existe $N \in \N$ tel que pour
+			$n \geq N : \norm {f_n-f}_{\infty, K_\sigma} \leq \sigma\varepsilon$.
+
+			Ainsi, pour $n \geq N$ et pour $z \in K$, on a $\abs {f_n'(z)-f'(z)} \leq \varepsilon$, d'où~:
+			\begin{equation}
+				\forall n \geq N : \norm {f_n-f}_{\infty, K} \leq \varepsilon.
+			\end{equation}
+
+			On a alors bien convergence uniforme sur les compacts de $\Omega$ de $f_n$ vers $f$.
+			\end{proof}
+
+			\begin{cor} Sous les mêmes hypothèses~:
+			\begin{equation}
+				\forall k \geq 1 : f_n^{(k)} \CVUc \Omega n\pinfty f^{(k)}.
+			\end{equation}
+			\end{cor}
+
+			\begin{proof} Par récurrence avec le théorème précédent.
 			\end{proof}
 
 \end{document}
