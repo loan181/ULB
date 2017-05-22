@@ -81,6 +81,7 @@
 \DeclareMathOperator{\Ind}{Ind}
 \DeclareMathOperator{\Conv}{Conv}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\Res}{Res}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
@@ -7458,7 +7459,7 @@
 
 			\begin{proof} Par récurrence avec le théorème précédent.
 			\end{proof}
-			
+
 	\section{Théorème de Cauchy global}
 		\subsection{Chaînes et cycles}
 			\begin{déf} Si $\gamma_1, \ldots,  \gamma_n$ sont $n$ lacets (chemins fermés) tracés dans $\Omega \subset \C$, un ouvert, on définit la forme linéaire~:
@@ -7716,6 +7717,254 @@
 			alors $\forall \alpha \in \C \setminus \Omega : f : z \mapsto (z-a)^{-1}$ est holomorphe sur $\Omega$, donc~:
 			\begin{equation}
 				\frac 1{2i\pi}\int_\Gamma f(\omega)\dif \omega = 0.
+			\end{equation}
+			\end{rmq}
+
+		\subsection{Homotopie}
+			\begin{déf} Soient $\Omega \subset \C$, ouvert, $\gamma_1, \gamma_2$ deux chemins fermés tracés dans $\Omega$. $\gamma_1$ et $\gamma_2$ sont dits
+			\textit{homotopes dans $\Omega$} lorsqu'il existe une fonction $h \in C^0([0, 1]^2, \Omega)$ telle que~:
+			\begin{subnumcases}
+				{\forall (s, t) \in [0, 1]^2 : }
+					h(0, s) = \gamma_1(s) \\
+					h(1, s) = \gamma_2(s) \\
+					h(t, 0) = h(t, 1).
+			\end{subnumcases}
+			\end{déf}
+
+			\begin{rmq} Intuitivement, cela veut dire que l'on peut déformer continument $\gamma_1$ en $\gamma_2$ en restant dans $\Omega$.
+			\end{rmq}
+
+			\begin{rmq} Deux lacets homotopes peuvent être d'orientation différente.
+			\end{rmq}
+
+			\begin{déf} Soit $\gamma$, un chemin tracé dans $\Omega \subset \C$ un ouvert. On dit que $\gamma$ est homotope à un point s'il est homotope à un chemin
+			fermé constant dans $\Omega$.
+			\end{déf}
+
+			\begin{déf} Soit $\Omega \subset \C$, un ouvert. On dit que $\Omega$ est \textit{simplement connexe} lorsque~:
+			\begin{itemize}
+				\item $\Omega$ est connexe~;
+				\item tout chemin fermé tracé dans $\Omega$ est homotope à un point dans $\Omega$.
+			\end{itemize}
+			\end{déf}
+
+			\begin{ex}~
+			\begin{itemize}
+				\item $\C$ et $\emptyset$ sont simplement connexes~;
+				\item $\C \setminus \R$ n'est pas simplement connexe car pas connexe~;
+				\item $\C \setminus \R^-$ est simplement connexe~;
+				\item $D(0, 1[$ est simplement connexe~;
+				\item $\C \setminus \{0\}$ n'est pas simplement connexe.
+			\end{itemize}
+			\end{ex}
+
+			\begin{prp} Soit $\Omega \subset \C$ un ouvert convexe. Alors $\Omega$ est simplement connexe.
+			\end{prp}
+
+			\begin{proof} Si $\Omega = \emptyset$, $\Omega$ est simplement connexe. Sinon, il existe $a \in \Omega$ tel que
+			si $\gamma$ est un chemin fermé tracé dans $\Omega$, alors~:
+			\begin{equation}
+				h : [0, 1]^2 \to \Omega : (t, s) \mapsto (1-t)\gamma(s) + ta
+			\end{equation}
+			est une homotopie entre $\gamma$ et le chemin fermé constant $\gamma' \equiv a$. $h$ est continue et est une homotopie.
+			\end{proof}
+
+			\begin{lem} Soient $\Omega \subset \C$, un ouvert, $\gamma_1, \gamma_2$ deux chemins fermés tracés dans $\Omega$, et $\alpha \in \C$ tels que~:
+			\begin{equation}\label{eq:|gamma1-gamma2| < alpha-gamma2}
+				\forall s \in [0, 1] : \abs {\gamma_1(s) - \gamma_2(s)} \lneqq \abs {\alpha - \gamma_2(s)}.
+			\end{equation}
+
+			Alors~:
+			\begin{enumerate}
+				\item $\alpha \not \in \gamma_1^* \cap \gamma_2^*$~;
+				\item $\Ind_{\gamma_1}(\alpha) = \Ind_{\gamma_2}(\alpha)$.
+			\end{enumerate}
+			\end{lem}
+
+			\begin{proof} S'il existe $s \in [0, 1]$ tel que $\alpha = \gamma_2(s)$, alors $\abs {\gamma_1(s)-\alpha} < 0$, ce qui est une contradiction. Idem, s'il
+			existe $s \in [0, 1]$ tel que $\alpha = \gamma_1(s)$, alors $\abs {\gamma_2(s) - \alpha} \lneqq \abs {\gamma_2(s) - \alpha}$, ce qui est également
+			une contradiction. On en déduit alors $\alpha \in \gamma_1^* \cap \gamma_2^*$.
+
+			Posons~:
+			\begin{equation}
+				\gamma : [0, 1] \to \C : s \mapsto \frac {\gamma_1(s) - \alpha}{\gamma_2(s) - \alpha}.
+			\end{equation}
+
+			$\gamma$ est bien définie sur $[0, 1]$, est continue sur $[0, 1]$, et de classe $C^1$ sur $[0, 1]$.
+
+			Par suite, pour $s \in [0, 1] \setminus N$ pour $N$ est un ensemble fini, on observe~:
+			\begin{equation}
+				\gamma'(s) = \frac {\gamma_1'(s)(\gamma_2(s) - \alpha) - (\gamma_1(s) - \alpha)\gamma_2'(s)}{(\gamma_2(s) - \alpha)^2}.
+			\end{equation}
+
+			D'où~:
+			\begin{equation}
+				\frac {\gamma'(s)}{\gamma(s)} = \frac {\gamma_1'(s)}{\gamma_1(s) - \alpha} - \frac {\gamma_2'(s)}{\gamma_2(s) - \alpha}.
+			\end{equation}
+
+			Pour $s \in [0, 1]$, on trouve~:
+			\begin{equation}
+				1 - \gamma(s) = \frac {\gamma_2(s) - \alpha}{\gamma_2(s) - \alpha} - \frac {\gamma_1(s) - \alpha}{\gamma_1(s) - \alpha}
+					= \frac {\gamma_2(s) - \gamma_1(s)}{\gamma_2(s) - \alpha}.
+			\end{equation}
+
+			Par~\eqref{eq:|gamma1-gamma2| < alpha-gamma2}, on a $\abs {1 - \gamma(s)} < 1$. Ainsi, $\gamma$ est un chemin fermé tracé dans $D(1, 1[$.
+
+			Puisque $0$ est dans la composante connexe non-bornée de $\gamma$, on a~:
+			\begin{align}
+				\Ind_\gamma(0) &= 0 = \frac 1{2i\pi}\int_\gamma \frac {\dif \omega}{\omega} = \frac 1{2i\pi}\int_0^1\frac {\gamma'(s)}{\gamma(s)}\dif s
+					= \int_{\gamma_1}\frac {\dif \omega}{\omega-\alpha} - \int_{\gamma_2}\frac {\dif \omega}{\omega-\alpha}.
+			\end{align}
+
+			On en déduit donc~:
+			\begin{equation}
+				\Ind_{\gamma_1}(\alpha) = \Ind_{\gamma_2}(\alpha).
+			\end{equation}
+			\end{proof}
+
+			\begin{thm}\label{thm:Indice constant chemins homotopes} Soit $\Omega \subset \C$ un ouvert, soient $\Gamma_0, \Gamma_1$ deux chemins fermés tracés
+			dans $\Omega$ et homotopes dans $\Omega$, $\alpha \in \C \setminus \Omega$. On a~:
+			\begin{equation}
+				\Ind_{\Gamma_0}(\alpha) = \Ind_{\Gamma_1}(\alpha).
+			\end{equation}
+			\end{thm}
+
+			\begin{proof} Il existe, par hypothèse une homotopie $h \in C^0([0, 1]^2, \Omega)$. Puisque $\alpha \in \C \setminus \Omega$, on a que~:
+			\begin{equation}
+				g : [0, 1]^2 \to \R^+ : (s, t) \mapsto \abs {h(s, t)-\alpha)}
+			\end{equation}
+			est une application continue sur le compact $[0, 1]^2$ et ne s'annule pas sur ce compact. Alors il existe $\varepsilon > 0$ tel que~:
+			\begin{equation}
+				\abs {h(s, t) - \alpha} > 2\varepsilon.
+			\end{equation}
+
+			Par continuité de $h$ sur $[0, 1]^2$ compact, par le théorème de Heine, elle est uniformément continue sur $[0, 1]^2$. Ainsi, il existe $n \in \Ns$ tel que~:
+			\begin{equation}
+				\forall (s, t, \widetilde s, \widetilde t) \in [0, 1]^4 : \abs {s - \widetilde s} + \abs {t - \widetilde t} < \frac 1n
+					\Rightarrow \abs {h(s, t) - h(\widetilde s, \widetilde t)} < \varepsilon.
+			\end{equation}
+
+			On va définir $n+1$ chemins polygonaux $(\gamma_k)_{k \leq n}$ en posant pour $(k, j) \in \intint 0m \times \intint 1m$ et $ns \in \intint {j-1}j$~:
+			\begin{equation}
+				\gamma_k(s) \coloneqq h\left(\frac jn, \frac kn\right)\left(ns + 1 - j\right) + h\left(\frac {j-1}n, \frac kn\right)\left(j-ns\right).
+			\end{equation}
+
+			Pour $k \in \intint 0n$, $s \in [0, 1]$, $j \in \intint 1n$ tels que $ns \in \intint {j-1}j$, on a~:
+			\begin{align}
+				\abs {\gamma_k(s) - h\left(s, \frac kn\right)} &\leq \abs {h\left(\frac jn, \frac kn\right) - h\left(s, \frac kn\right)}\left(ns + 1 - j\right)
+					+ \abs {h\left(\frac {j-1}n, \frac kn\right) - h\left(s, \frac kn\right)}\left(j-ns\right) \\
+				&\leq \varepsilon\left(ns+1-j\right) + \varepsilon\left(j-ns\right) = \varepsilon.
+			\end{align}
+
+			En particulier, pour $k=0$ et $k=n$, on a~:
+			\begin{equation}
+				\forall i \in \intint 12 : \abs {\gamma_i(s) - \Gamma_i(s)} \leq \varepsilon.
+			\end{equation}
+
+			En outre, pour $k \in \intint 0n$, $s \in [0, 1]$, et $j \in \intint 1n$ tels que $ns \in \intint {j-1}j$~:
+			\begin{align}
+				\abs {\alpha - \gamma_k(s)} &= \abs {\alpha - h\left(s, \frac kn\right) - \left(\alpha - h\left(s, \frac kn\right)\right)} \\
+					&\geq \abs {\alpha - h\left(s, \frac kn\right)} - \abs {\gamma_k(s) - h\left(s, \frac kn\right)} \\
+					&\geq 2\varepsilon - \varepsilon = \varepsilon.
+			\end{align}
+
+			Par définition de $n$, de plus on a~:
+			\begin{equation}
+				\forall s \in [0, 1], k \in \intint 1n : \abs {\gamma_{k-1}(s)-\gamma_k(s)} < \varepsilon.
+			\end{equation}
+
+			Finalement, pour $s \in [0, 1]$, on a~:
+			\begin{equation}
+				\abs {\Gamma_0(s) - \alpha} \geq 2\varepsilon > \varepsilon \geq \abs {\Gamma_0(s) - \gamma_0(s)}.
+			\end{equation}
+
+			Dès lors, par le lemme précédent~:
+			\begin{equation}
+				\Ind_{\gamma_0}(\alpha) = \Ind_{\Gamma_0}(\alpha).
+			\end{equation}
+
+			En appliquant ce lemme sur tous les $\gamma_k$, on obtient au final~:
+			\begin{equation}
+				\Ind_{\Gamma_0}(\alpha) = \Ind_{\gamma_0}(\alpha) = \Ind_{\gamma_1}(\alpha) = \ldots = \Ind_{\gamma_n}(\alpha) = \Ind_{\Gamma_1}(\alpha).
+			\end{equation}
+			\end{proof}
+
+			\begin{cor} Soient $\Omega \subset \C$ ouvert, $\Gamma_1, \Gamma_2$ deux chemins fermés tracés dans $\Omega$, homotopes dans $\Omega$. Soit $f \in H(\Omega)$.
+			On a~:
+			\begin{equation}
+				\int_{\Gamma_1}f(\omega)\dif \omega = \int_{\Gamma_2}f(\omega)\dif \omega.
+			\end{equation}
+			\end{cor}
+
+			\begin{proof} Posons $\Gamma \coloneqq \Gamma_2 - \Gamma_1$. $\Gamma$ est un cycle tracé dans $\Omega$. Justifions que pour $\alpha \in \C \setminus \Omega$,
+			$\Ind_\Gamma(\alpha) = 0$. En effet, $\Gamma_1$ et $\Gamma_2$ sont homotopes dans $\Omega$. Par le Théorème~\ref{thm:Indice constant chemins homotopes}~:
+			\begin{equation}
+				\forall \alpha \in \C \setminus \Omega : \Ind_{\Gamma_1}(\alpha) = \Ind_{\Gamma_2}(\alpha),
+			\end{equation}
+			et donc $\Ind_\Gamma(\alpha) = 0$.
+
+			En appliquant le théorème de Cauchy global à $f \in H(\Omega)$, on obtient finalement~:\
+			\begin{equation}
+				\int_\Gamma f(\omega)\dif \omega = 0,
+			\end{equation}
+			i.e.~:
+			\begin{equation}
+				\int_{\Gamma_1}f(\omega)\dif \omega = \int_{\Gamma_2}f(\omega)\dif \omega.
+			\end{equation}
+			\end{proof}
+
+	\section{Théorème des résidus}
+		\subsection{Énoncé}
+			\begin{déf} Soit $\Omega \subset \C$. Une fonction $f : \Omega \to \C$ est dite méromorphe s'il existe $A \subset \Omega$ tel que~:
+			\begin{itemize}
+				\item $A$ n'a pas de point limite dans $\Omega$~;
+				\item $f \in H(\Omega \setminus A)$~;
+				\item $\forall a \in A$ : la singularité isolée de $f$ en $a$ est un pôle.
+			\end{itemize}
+			\end{déf}
+
+			\begin{rmq}~
+			\begin{itemize}
+				\item Avec $A \neq \emptyset$, on a $\forall f \in H(\Omega) : f$ est méromorphe.
+				\item Soit $z \in \Omega \setminus A$. Supposons par l'absurde que $\Omega \setminus A$ soir fermé, i.e. $\forall R > 0 : \exists y \in D(z, R[ \cap A$.
+				Alors on construit $(a_n)_{n \in \N} \tq$~:
+				\begin{equation}
+					\forall n \in \N : a_n \in A \qquad \text{ et } \qquad a_n \xrightarrow[n \to \pinfty]{} z.
+				\end{equation}
+
+				Ainsi, $A$ a un point limite dans $\Omega$, ce qui est une contradiction. Donc $\Omega \setminus A$ est ouvert.
+				\item En tout point $a \in A$, il existe $n_a \in \Ns, (c_1, \ldots, c_{n_a}) \in \C^{n_a} \tq$~:
+				\begin{equation}
+					z \mapsto f(z) - \underbrace {\sum_{k=2}^{n_a}\frac {c_k}{(z-a)^k}}_{\eqqcolon Q_a(f)(z)}.
+				\end{equation}
+				a une singularité effaçable en $a$. Rappel~: $\Res(f, a) \coloneqq c_1$.
+			\end{itemize}
+			\end{rmq}
+
+			\begin{rmq} Si $\Gamma$ est un chemin fermé tracé dans $\Omega \setminus A$, alors~:
+			\begin{align}
+				\frac 1{2i\pi}\int_\Gamma Q_a(f)(\omega)\dif \omega &= \frac 1{2i\pi}\int_\Gamma\sum_{k=1}^{n_a}\frac {c_k}{(\omega-a)^k}\dif \omega \\
+				&= \frac 1{2i\pi}\sum_{k=1}^{n_a}\frac {c_k}{(\omega-a)^k}\dif \omega \qquad \text{car $\omega \mapsto \frac {c_k}{(\omega-a)^k} \in C^0(\Gamma^*)$} \\
+				&= \frac {c_1}{2i\pi}\int_\Gamma \frac {\dif \omega}{\omega-a} \qquad \text{car $\omega \mapsto \frac 1{(\omega-a)^k}$ admet une prim. $\in H(\Omega)$ pour $k \geq 2$} \\
+				&= \Res(f, a)\Ind_\Gamma(a).
+			\end{align}
+			\end{rmq}
+
+			\begin{thm} Soient $\Omega \subset \C$, un ouvert, $f : \Omega \to \C$ méromorphe sur $\Omega$, et $A$, l'ensemble des pôles de $f$ dans $\Omega$. Soit $\Gamma$
+			un cycle tracé dans $\Omega \setminus A$ tel que $\forall z \in \C \setminus \Omega : \Ind_\Gamma(z) = 0$.
+			Alors~:
+			\begin{enumerate}
+				\item $B \coloneqq \left\{a \in A \tq \Ind_\Gamma(a) \neq 0\right\}$ est fini~;
+				\item
+				\begin{equation}\label{eq:thm résidus}
+					\frac 1{2i\pi}\int_\Gamma f(\omega)\dif \omega = \sum_{a \in B}\Ind_\Gamma(a)\Res(f, a).
+				\end{equation}
+			\end{enumerate}
+			\end{thm}
+
+			\begin{rmq} Le terme de droit de l'équation~\eqref{eq:thm résidus} est, par convention, usuellement noté~:
+			\begin{equation}
+				\sum_{a \in A}\Ind_\Gamma(a)\Res(f, a).
 			\end{equation}
 			\end{rmq}
 
