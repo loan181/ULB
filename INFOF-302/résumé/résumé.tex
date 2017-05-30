@@ -1,0 +1,247 @@
+\documentclass{article}
+
+\usepackage[french]{babel}
+\usepackage{commath}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage{eulervm}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+
+% amsthm
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{axiome}[thm]{Axiome}
+\addto\captionsfrench{\renewcommand\proofname{\underline{Démonstration}}}
+\theoremstyle{definition}
+\newtheorem{déf}[thm]{Définition}
+\theoremstyle{remark}
+\newtheorem*{rmq}{Remarque}
+\newtheorem{ex}{Exemple}[section]
+
+\title{INFOF-302 --- Informatique fondamentale}
+\author{R. Petit}
+\date{Année académique 2016 - 2017}
+
+\newcommand{\intint}[2]{\left\llbracket#1, #2\right\rrbracket}
+\newcommand{\logeval}[1]{\left\llbracket#1\right\rrbracket}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+
+\begin{document}
+\pagenumbering{Roman}
+\maketitle
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Introduction et Logique}
+	\begin{déf} \textit{Réduire} un problème de décision $A$ en un problème de décision $B$ correspond à trouver un algorithme permettant d'encoder toute
+	entrée $I_A$ du problème $A$ en une entrée $I_B$ du problème $B$ telle que $I_A$ a une solution pour le problème $A$ si et seulement si $I_B$
+	a une solution pour le problème $B$.
+	\end{déf}
+
+	\begin{déf} \textit{Réduire} un problème général $A$ en un problème $B$ correspond à trouver un algorithme d'encodage de toute entrée $I_A$ du problème
+	$A$ en une entrée $I_B$ du problème $B$ et de décodage de toute sortie $O_B$ en une sortie $O_A$.
+	\end{déf}
+
+	\begin{axiome} Pour $\prec$, une relation d'ordre sur la priorité des opérateurs logiques. On prend~:
+	\[\Leftrightarrow \quad\prec\quad \Rightarrow \quad\prec\quad \lor \quad\prec\quad \land \quad\prec\quad \lnot.\]
+	\end{axiome}
+
+	Afin d'étudier une formule logique, on peut construire son \textit{arbre de lecture} en séparant la formule aux opérateurs, par ordre
+	croissant de priorité.
+
+	\begin{déf} Pour $P$, un ensemble de propositions, on appelle \textit{fonction d'interprétation} (ou \textit{valuation}) toute fonction~:
+	\[V : P \to \{0, 1\} : p \mapsto V(p).\]
+	\end{déf}
+
+	\begin{déf} Soit $\phi$ une formule bien formée sur un ensemble de propositions $P$. On définit sa \textit{valeur de vérité} évaluée en $V \in \{0, 1\}^P$
+	par la fonction~:
+	\[\logeval \phi_\cdot : \{0, 1\}^P \to \{0, 1\} : V \mapsto \logeval \phi_V,\]
+	dont la	valeur est induite syntaxiquement.
+
+	Pour $V$ une valuation, lorsque $\logeval \phi_V = 1$, on note $V \models \phi$, que l'on lit \textit{$V$ satisfait $\phi$}.
+	\end{déf}
+
+	\begin{déf} Soit $\phi$, une formule sur $P$.
+	\begin{itemize}
+		\item lorsque $\logeval \phi_\cdot^{-1}(\{1\}) \neq \emptyset$, on dit que $\phi$ est \textit{satisfaisable}~;
+		\item lorsque $\logeval \phi_\cdot^{-1}(\{1\}) = \{0, 1\}^P$, on dit que $\phi$ est \textit{valide}.
+	\end{itemize}
+	\end{déf}
+
+	\begin{lem} Soit $\phi$, une formule sur $P$. Si $\phi$ est valide, alors $\phi$ est satisfaisable.
+	\end{lem}
+
+	\begin{déf} Soient $n \in \N^*$, $\{\phi_i\}_{i \in \intint 1n}$ et $\phi$, des formules sur $P$. On dit que $\phi$ est une conséquence logique de
+	$\{\phi_i\}_{i \in \intint 1n}$ lorsque la formule~:
+	\[\bigwedge_{i=1}^n\phi_i \Rightarrow \phi\]
+	est valide. On note cela $\phi_1, \ldots, \phi_n \models \phi$.
+	\end{déf}
+
+	\begin{déf} Deux formules $\phi$ et $\psi$ sur $P$ sont dites \textit{équivalentes} lorsque $\phi \Leftrightarrow \psi$ est valide. On note cela
+	$\phi \equiv \psi$.
+	\end{déf}
+
+	\begin{thm} Une formule $\phi$ sur $P$ est valide si et seulement si sa négation est non-satisfaisable.
+	\end{thm}
+
+	\begin{proof} Soit $\phi$, une formule valide sur $P$. On sait alors que $\logeval \phi_\cdot^{-1}(\{1\}) = \{0, 1\}^P$. On en déduit que~:
+	\[\logeval\phi_\cdot^{-1}(\{0\}) = \{0, 1\}^P \setminus \logeval \phi_\cdot^{-1}(\{1\}) = \emptyset.\]
+
+	Or $\forall V \in \{0, 1\}^P : \logeval \phi_V = 1-\logeval {\lnot\phi}_V$. On en déduit que~:
+	\[\logeval {\lnot \phi}_\cdot^{-1}(\{1\}) = \logeval {\phi}_\cdot^{-1}(\{0\}) = \emptyset.\]
+
+	Idem pour $\Leftarrow$
+	\end{proof}
+
+	\begin{rmq} On en déduit qu'un algorithme qui détermine la satisfaisabilité d'une expression permet également de déterminer la validité.
+	\end{rmq}
+
+	\begin{déf} Un \textit{littéral} est soit une proposition $x \in P$, soit la négation $\lnot x$ d'une proposition.
+	\end{déf}
+
+	\begin{déf} Un ensemble $S$ de littéraux est dit \textit{satisfaisable} lorsqu'il ne contient pas une paire de littéraux complémentaires, i.e.~:
+	\[\forall x \in S : \lnot x \not \in S.\]
+	\end{déf}
+
+	Pour déterminer la satisfaisabilité d'une formule, on peut créer son arbre sémantique par application des $\land$-règles et $\lor$-règles. Pour cela,
+	on part de de la formule, et on applique le pas de simplification soit dur une conjonction, soit sur une disjonction (en ayant transformé tous les
+	autres opérateurs en conjonctions/disjonctions au préalable).
+
+	\begin{ex}
+	\begin{align*}
+		\phi \coloneqq &(x \lor y) \land (\lnot x \land \lnot y) \\
+		&\left\{(x \lor y) \land (\lnot x \land \lnot y)\right\} \\
+		&\left\{(x \lor y, \lnot x \land y\right\} \\
+		&\left\{x \lor y, \lnot x, \lnot y\right\} \\
+		&\left\{x, \lnot x, \lnot y\right\} \quad  \left\{y, \lnot x, \lnot y\right\}.
+	\end{align*}
+
+	Tous les sous-ensembles de littéraux sont non-satisfaisables, donc la formule $\phi$ est non-satisfaisable (i.e. $\lnot \phi$ est valide).
+	\end{ex}
+
+	L'algorithme de création de tableau sémantique pour SAT est le suivant. Soit $\phi$ une formule sur $P$. On construit l'arbre $T_\phi$ comme suit~:
+	\begin{enumerate}
+		\item Initialisation~: l'arbre est défini par $T_\phi = \{\phi\}$.
+		\item Tant qu'il existe une feuille $\mathcal L \in T_\phi$ telle que $\exists \psi \in \mathcal L$, une formule simplifiable (donc contenant une
+		conjonction ou une disjonction)~:
+		\begin{itemize}
+			\item si $\psi$ est simplifiable par une $\land$-règle, on ajoute une feuille $\mathcal L'$ à $\mathcal L$ telle que~:
+			\[\mathcal L' = \left(\mathcal L \setminus \{\psi\}\right) \cup \{\psi_1, \psi_2\},\]
+			pour $\psi_1$ et $\psi_2$, les deux sous-formules simplifiées de $\psi$~;
+			\item si $\psi$ est simplifiable par une $\lor$-règle, on ajoute deux feuilles $\mathcal L_1$ et $\mathcal L_2$ à $\mathcal L$
+			telles que~:
+			\[\forall i \in \intint 12 : \mathcal L_i = \left(\mathcal L \setminus \{\psi\}\right) \cup \{\psi_i\},\]
+			avec $\psi_1$ et $\psi_2$, les deux sous-formules simplifiées de $\psi$.i
+		\end{itemize}
+		\item S'il existe $\mathcal L \in T_\phi$, une feuille telle que $\mathcal L$ est satisfaisable, alors retourner \texttt{SATISFAISABLE}, sinon retourner
+		\texttt{NON-SATISFAISABLE}.
+	\end{enumerate}
+
+\section{Déduction naturelle}
+	\begin{déf} Soient $n \in \N^*$, $\{\phi_i\}_{i \in \intint 1n}$, $\psi$ des formules sur $P$. Si $\psi$ peut être dérivé des $\{\phi_i\}_{i \in \intint 1n}$,
+	on appelle ces derniers des \textit{prémisses} et $\psi$ la \textit{conclusion}. On note cela~:
+	\[\phi_1, \ldots, \phi_n \vdash \psi.\]
+
+	On appelle cela un \textit{séquent}.
+	\end{déf}
+
+	La déduction naturelle fonctionne par élimination et introduction successives d'opérateurs.
+
+	\begin{itemize}
+		\item $\frac {\phi \quad \psi}{\phi \land \psi}\land_i$ se lit \textit{si $\phi$ et si $\psi$, alors $\phi$ et $\psi$}~;
+		\item $\frac {\phi \land \psi}{\psi}\land_{e_1}$ se lit \textit{si $\phi$ et $\psi$, alors en particulier $\psi$}.
+	\end{itemize}
+
+	De même pour $\land_{e_2}$, et $\lor_i$. La double négation fonctionne également par introduction et élimination.
+
+	La règle d'élimination de l'implication s'appelle \textit{Modus Ponens} (MP) et la règle d'élimination de l'implication par contraposée s'appelle
+	\textit{Modus Tollens} (MT)~:
+	\begin{itemize}
+		\item $\frac {\phi \quad \phi \Rightarrow \psi}{\psi}MP$ se lit \textit{si $\phi$ et si $\phi$ implique $\psi$, alors $\psi$}~;
+		\item $\frac {\lnot \psi \quad \phi \Rightarrow \psi}{\lnot \phi}MT$ se lit \textit{si $\phi$ implique $\psi$ et non-$\psi$, alors non-$\phi$}.
+	\end{itemize}
+
+	Afin d'introduire l'implication, on se sert du MT~:
+
+	\begin{tabular}{l l l}
+	1. & $x \Rightarrow y$ & prémisse \\
+	2. & $\lnot y$ & hyp. \\
+	3. & $\lnot x$ & MT 1, 2~; fin hyp. 2 \\
+	4. & $\lnot \Rightarrow \lnot y$ & $\Rightarrow_i$ 2, 3
+	\end{tabular}
+	\qquad On déduit donc $\lnot y \Rightarrow \lnot x$.
+
+	De manière plus générale, si en faisant l'hypothèse $\phi$, on arrive à la conclusion $\psi$, pour $\phi, \psi$ deux formules sur $P$, alors~:
+	\[\frac {\begin{tabular}{l l}$\phi$ & \text{hyp.}\\\vdots & \\$\psi$ & \text{fin hyp.}\end{tabular}}{\phi \Rightarrow \psi}\Rightarrow_i\]
+
+	\begin{rmq} Les prémisses et les hypothèses sont fondamentalement différentes~! Une hypothèse peut être émise même sans hypothèse, e.g.~:
+
+	\begin{tabular}{l l l}
+	1. & $p$ & hyp. \\
+	2. & $\lnot\lnot p$ & $\lnot\lnot_i$ 1~; fin hyp. 1 \\
+	3. & $p \Rightarrow \lnot\lnot p$ & $\Rightarrow_i$ 1, 2
+	\end{tabular}
+
+	On peut donc déduire de cela que $\vdash p \Rightarrow \lnot\lnot p$.
+	\end{rmq}
+
+	Afin d'éliminer la disjonction, on procède de la sorte~:
+
+	\[\frac {
+		\begin{tabular}{l l l l l}
+			& $\phi_1$ & hyp. & $\phi_2$ & hyp. \\
+			& \vdots   &       &  \vdots  & \\
+			$\phi_1 \lor \phi_2$ & $\psi$ & fin hyp. & $\psi$ & fin hyp.
+		\end{tabular}
+	}{\psi}\lor_e\]
+
+	\begin{déf} Toute formule $\phi$ sur $P$ telle que $\vdash \phi$ est appelée \textit{théorème}.
+	\end{déf}
+
+	Un théorème n'a donc pas besoin de prémisse. De plus, $\vdash \phi$ si et seulement si $\models \phi$, donc les théorèmes coïncident avec les formules valides.
+
+	\begin{lem} Soient $n \in \N^*$, $\{\phi_i\}_{i \in \intint 1n}$, $\psi$ des formules sur $P$. Alors~:
+	\[\phi_1, \ldots, \phi_n \vdash \psi \qquad \text{ si et seulement si }
+		\qquad \vdash \phi_1 \Rightarrow \phi_2 \Rightarrow \ldots \Rightarrow \phi_n \Rightarrow \psi.\]
+	\end{lem}
+
+	Afin d'introduire la négation, on suppose une formule, et on en dérive $\bot$, ce qui permet d'en déduire sa négation. Cela se formule~:
+	\[\frac {\begin{tabular}{l l}$\phi$ & hyp. \\ \vdots &\\$\bot$ & fin hyp.\end{tabular}}{\lnot\phi}\lnot_i\]
+
+	Un raisonnement par l'absurde (reductio ad absurdum) se formalise par une introduction de double négation~:
+
+	\[\frac {\begin{tabular}{l l}$\lnot \phi$ & hyp. \\ \vdots &\\ $\bot$ & fin hyp.\end{tabular}}{\lnot\lnot \phi}RAA,\]
+	qui se note~:
+	\[\frac {\phi}{\lnot\lnot\phi}\lnot\lnot_i.\]
+
+	Ce qui est également équivalent à la loi du tiers exclus, que l'on peut formuler $\phi \Rightarrow \lnot(\lnot\phi)$, ou encore~:
+	\[\frac {}{\phi \lor \lnot \phi}LEM.\]
+
+	\begin{thm}Soient $n \in \N^*$, $\{\phi_i\}_{i \in \intint 1n}$, $\psi$ des formules sur $P$. Alors~:
+	\begin{itemize}
+		\item[(Adéquation)] $\left(\phi_1, \ldots, \phi_n \vdash  \psi\right) \Rightarrow \left(\phi_1, \ldots, \phi_n \models \psi\right)~;$
+		\item[(Complétude)] $\left(\phi_1, \ldots, \phi_n \models \psi\right) \Rightarrow \left(\phi_1, \ldots, \phi_n \vdash  \psi\right).$
+	\end{itemize}
+	\end{thm}
+
+	\begin{déf} Une formule $\phi$ sur $P$ est dit en \textit{forme normale conjonctive} (FNC ou CNF) lorsqu'elle s'exprime comme suit~:
+	\[\phi \equiv \bigwedge_{i=1}^n\left(\bigvee_{j=1}^m\ell_{ij}\right),\]
+	et est dite en \textit{forme normale disjonctive} (FND ou DNF) lorsqu'elle s'exprime comme suit~:
+	\[\phi \equiv \bigvee_{i=1}^n\left(\bigwedge_{j=1}^m\ell_{ij}\right),\]
+	avec $\ell_{ij}$ des littéraux sur $P$.
+	\end{déf}
+\end{document}
