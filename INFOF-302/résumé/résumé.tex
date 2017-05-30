@@ -482,4 +482,116 @@
 	\end{proof}
 
 \section{Logique du premier ordre}
+	En logique propositionnelle, les valeurs sont définies dans $\{0, 1\}$. En logique des prédicats, on généralise à des ensembles quelconques et on définit
+	des \textit{prédicats} (relations) sur les variables.
+
+	\begin{déf} Un langage du premier ordre est un langage défini sur un vocabulaire (symboles de fonctions, de prédicats, de relations, etc.)
+	\end{déf}
+
+	L'alphabet d'un langage du premier ordre contient les éléments communs à tous langages (connecteurs, parenthèses, etc.), et un ensemble $\mathcal V$
+	\textbf{infini} de symboles de variables et muni de symboles de symboles de relations ($p, q, r, \ldots$), de fonctions ($f, g, h, \ldots$), et de
+	constantes ($a, b, c, \ldots$).
+
+	\begin{déf} Soit un prédicat ou une fonction $P$. On appelle \textit{arité} $n \in \N^*$ de $P$ le nombre de paramètres de $P$. On note son arité $P|_n$.
+	\end{déf}
+
+	\begin{déf} Si $=$ fait partie du vocabulaire du langage du premier ordre, il est dit \textit{égalitaire}.
+	\end{déf}
+
+	\begin{déf} L'ensemble $\mathcal T$ des termes d'un langage du premier ordre $\mathcal L$ est le plus petit ensemble (au sens de l'inclusion) tel que~:
+	\begin{itemize}
+		\item tous les symboles de variables ou constantes de $\mathcal L$ sont dans $\mathcal T$~;
+		\item si $f$ est un symbole de fonction d'arité $n$, alors $\forall (t_1, \ldots, t_n) \in \mathcal T^n : f(t_1, \ldots, t_n) \in \mathcal T$.
+	\end{itemize}
+	\end{déf}
+
+	\begin{rmq} Notons que les prédicats ne fournissent pas de termes.
+	\end{rmq}
+
+	\begin{déf} l'ensemble des formules atomiques $\mathcal A$ d'un langage du premier ordre $\mathcal L$ est l'ensemble des formules sur $\mathcal L$ telles que~:
+	\begin{itemize}
+		\item pour tout prédicat $p$ d'arité $n$ du vocabulaire de $\mathcal L$~:
+		\[\forall (t_1, \ldots, t_n) \in \mathcal T^n : p(t_1, \ldots, t_n) \in \mathcal A~;\]
+		\item si $\mathcal L$ est égalitaire, alors $\forall (t_1, t_2) \in \mathcal T^2 : (t_1=t_2) \in \mathcal A$.
+	\end{itemize}
+	\end{déf}
+
+	\begin{déf} Soit $\mathcal L$ un langage du premier ordre. On définit $\mathcal F(\mathcal L)$, l'ensemble des formules $\phi$ bien formées
+	obtenues sur $\mathcal L$, i.e. suivant la grammaire~:
+	\[\phi ::= p(t_1, \ldots, t_n) \mid \exists x \tq \psi \mid \forall x : \psi \mid \phi_p,\]
+	pour $p$ une relation, $t_1, \ldots, t_n$ des termes, $\psi \in \mathcal F(\mathcal L)$ et $\phi_p$, une formule de langage propositionnel.
+	\end{déf}
+
+	\begin{rmq} Les quantificateurs $\exists$ et $\forall$ ont la même précédence que $\lnot$.
+	\end{rmq}
+
+	\begin{déf} Une formule $\phi$ est une sous-formule de $\psi$ lorsque $\phi$ apparait dans une décomposition de $\psi$.
+	\end{déf}
+
+	\begin{déf} Une occurrence d'une variable dans un formule est un couple constitué de la variable et d'une place effective (i.e. ne suivant pas directement
+	un quantificateur).
+	\end{déf}
+
+	\begin{déf} Une occurrence d'une variable $x$ dans une formule $\phi$ est dite \textit{libre} si elle n'apparait dans aucune sous-formule commençant par
+	un quantificateur. Elle est dite \textit{liée} sinon.
+	\end{déf}
+
+	\begin{déf} Si une variable admet une occurrence libre dans une formule $\phi$, elle est dite libre dans $\phi$.
+	\end{déf}
+
+	\begin{déf} Une formule $\phi$ sans variable libre est dite \textit{close}.
+	\end{déf}
+
+	\begin{rmq} Une formule $\phi$ non-close est souvent notée $\phi(x_1, \ldots, x_n)$ pour $x_1, \ldots, x_n$ ses variables libres.
+	\end{rmq}
+
+	\begin{déf} Une structure $\mathcal M$ sur un langage $\mathcal L$ est un tuple contenant~:
+	\begin{itemize}
+		\item $M$, un ensemble non-vide appelé \textit{domaine}~;
+		\item une interprétation des symboles des prédicats par des relations sur $M$~;
+		\item une interprétation des symboles des fonctions par des fonctions de $M^n$ dans $M$~;
+		\item une interprétation des symboles de constantes par des éléments de $M$.
+	\end{itemize}
+
+	Pour tout prédicat $r|_n$, on note son interprétation $r^{\mathcal M} \subset M^n$. Pour toute fonction $f|_n$, on note $f^{\mathcal M} : M^n \to M$
+	son interprétation. Pour toute constante $c$, on note $c^{\mathcal M} \in M$ son interprétation.
+	\end{déf}
+
+	\begin{déf} Pour $\mathcal V$, un ensemble de variables et $M$, un domaine, on définit une valuation comme étant une fonction $V \in M^{\mathcal V}$.
+
+	Soit $\mathcal M$, une structure, et $\mathcal V$ un ensemble de variables. Pour $t \in \mathcal T$, on définit sa valuation par~:
+	\[t^{\mathcal M,V} = \begin{cases}
+		c^{\mathcal M} &\text{ si $t$ est une constante $c$} \\
+		V(x) &\text{ si } t=x \in \mathcal V\\
+		f^{\mathcal M}(t_1^{\mathcal M,V}, \ldots, t_n^{\mathcal M,V}) &\text{ si } t = f(t_1, \ldots, t_n).
+		\end{cases}\]
+	\end{déf}
+
+	\begin{déf} Une formule $\phi$ sur $\mathcal L$ est dite \textit{satisfaite} dans $\mathcal M$ par $V \in M^{\mathcal V}$ lorsque~:
+	\begin{itemize}
+		\item si $\mathcal L$ est égalitaire et $\phi \equiv t_1 = t_2$ et $t_1^{\mathcal M,V}=t_2^{\mathcal M,V}$~;
+		\item ou si $\phi \equiv r(t_1, \ldots, t_n)$ et $(t_i^{\mathcal M,V})_{i \in \intint 1n} \in r^{\mathcal M}$.
+	\end{itemize}
+	On note cela $\mathcal M,V \models \phi$.
+	\end{déf}
+
+	\begin{déf} On appelle \textit{valeur} d'une formule $\phi$ sur $\mathcal L$ dans $\mathcal M$ l'ensemble~:
+	\[\mathcal W \coloneqq \left\{V \in M^{\mathcal V} \tq \mathcal M,V \models \phi\right\}.\]
+	\end{déf}
+
+	Si $\phi$ est close, alors sa valeur de vérité dans $(\mathcal M, V)$ ne dépend pas de $V$. Dans le cas où une telle formule est vraie dans
+	une structure $\mathcal M$, on note $\mathcal M \models \phi$, et on dit que $\mathcal M$ est un \textit{modèle} pour $\phi$.
+
+	\begin{déf} Soit $\phi$ une formule ayant $x_1, \ldots, x_n$ pour variables libres. On définit sa \textit{cloture universelle} par~:
+	\[\overline \phi \equiv \forall x_1 : \forall x_2 : \ldots \forall x_n : \phi(x_1, \ldots, ,x_n).\]
+	\end{déf}
+
+	\begin{déf} Soient $\mathcal L$, un langage du premier ordre, $\mathcal M$, une structure sur $\mathcal L$, et $\phi$, une formule sur $\mathcal L$.
+	On dit que $\mathcal M$ satisfait $\phi$ lorsque $\mathcal M \models \overline \phi$.
+
+	Deux formules $\phi$ et $\psi$ sont \textit{équivalentes} si~:
+	\[\forall \mathcal M : \forall V \in M^{\mathcal V} : \mathcal M,V \models \phi \Leftrightarrow \mathcal M,V \models \psi.\]
+	\end{déf}
+
+\section{Indécidabilité}
 \end{document}
