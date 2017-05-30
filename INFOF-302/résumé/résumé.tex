@@ -43,6 +43,8 @@
 
 \newcommand{\NP}{\mathcal {NP}}
 
+\DeclareMathOperator{\ExpTime}{ExpTime}
+
 \begin{document}
 \pagenumbering{Roman}
 \maketitle
@@ -422,4 +424,62 @@
 		Un principe souvent valable pour les SAT-solvers est qu'il est préférable d'ajouter des variables afin de minimiser le nombre de clauses.
 
 \section{Complexité}
+	\begin{déf} Un alphabet $\Sigma$ est un ensemble fini de symboles. On note $\Sigma^*$ l'ensemble des mots sur $\Sigma$, i.e.~:
+	\[\Sigma^* = \lim_{n \to +\infty}\bigsqcup_{\ell=1}^n\Sigma^\ell.\]
+	\end{déf}
+
+	\begin{déf} Tout alphabet permet de former un mot commun appelé le \textit{mot vide}, noté $\epsilon$.
+	\end{déf}
+
+	\begin{déf} Un langage sur un alphabet est un sous-ensemble $L \subseteq \Sigma^*$.
+	\end{déf}
+
+	Un problème de décision est un langage $P$ sur un alphabet $\Sigma$. On peut alors définir~:
+	\[\chi_P : \Sigma^* \to \{0, 1\} : m \mapsto \begin{cases}1 &\text{ si } m \in P \\0 &\text{ sinon}.\end{cases}\]
+
+	La représentation abstraite du codage sert en théorie de la complexité et de la calculabilité, mais bien souvent, il n'est pas nécessaire de s'y restreindre.
+	Notons que l'encodage peut influencer la complexité.
+
+	\begin{déf} Un problème de décision $P \subset \Sigma^*$ est dit \textit{décidé par un algorithme $A$} si pour tout $m \in \Sigma^*$,
+	$A(m)$ termine et retourne 1 si $m \in P$ et 0 si $m \in \Sigma^* \setminus P$. Si un tel algorithme existe, $A$ est dit décidable.
+	\end{déf}
+
+	\begin{déf} La classe $\mathcal P$ définit les problèmes décidables en temps polynomial, i.e. $P \subset \Sigma^*$ est dans $\mathcal P$ s'il existe
+	$k \in \N^*$ et $A$, un algorithme tels que $\forall m \in \Sigma^n \subset \Sigma^* : A$ retourne 1 (resp. 0) en temps $O(n^k)$ si
+	$m \in P$ (resp. si $m \in \Sigma^* \setminus P$).
+	\end{déf}
+
+	\begin{déf} Un algorithme de vérification pour un problème $P \subseteq \Sigma^*$ est un algorithme~:
+	\[A : \Sigma^* \times \Sigma^* \to \{0, 1\} \tq P = \left\{u \in \Sigma^* \tq \exists v \in \Sigma^* \tq A(u, v) = 1\right\}.\]
+
+	Pour $u \in \Sigma^*$, tout $v \in \Sigma^*$ tel que $A(u, v) = 1$ est appelé \textit{certificat pour $u$}.
+	\end{déf}
+
+	\begin{déf} La classe $\NP$ définit les problèmes vérifiables en temps polynomial et la classe $\ExpTime$ définit les programmes qui sont décidables
+	en temps exponentiel.
+	\end{déf}
+
+	\begin{thm} $\mathcal P \subset \NP \subset \ExpTime$.
+	\end{thm}
+
+	\begin{déf} un problème $P \in \NP$ est dit \textit{$\NP$-complet} si tout problème $Q \in \NP$ peut être réduit à $P$ en temps polynomial.
+
+	Un problème $P$ est dit $\NP$-dur si tout problème $\NP$-complet $Q$ peut être réduit à $P$ en temps polynomial.
+	\end{déf}
+
+	\begin{rmq} Les problèmes $\NP$-complets sont donc $\NP$-durs, mais tout les problèmes $\NP$-durs ne sont pas forcément $\NP$.
+	\end{rmq}
+
+	\begin{thm}[Théorème de Cooke] Le problème SAT est $\NP$-complet.
+	\end{thm}
+
+	\begin{prp} Soient $P, Q \in \NP$. Si $P$ est $\NP$-complet et $P$ se réduit à $Q$ en temps polynomial, alors $Q$ est $\NP$-complet.
+	\end{prp}
+
+	\begin{proof} La composition de deux algorithmes polynomiaux en temps est polynomiale en temps. Un problème $P' \in \NP$ peut être
+	réduit en $P$ par un algorithme $R_{P'P}$ polynomial en temps par hypothèse, et il existe un algorithme $R_{PQ}$ polynomial en temps
+	qui réduit $P$ en $Q$. La composition $R_{PQ} \circ R_{P'P}$ réduit donc $P'$ en $Q$ en temps polynomial.
+	\end{proof}
+
+\section{Logique du premier ordre}
 \end{document}
