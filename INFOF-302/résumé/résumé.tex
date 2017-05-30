@@ -594,4 +594,91 @@
 	\end{déf}
 
 \section{Indécidabilité}
+	\begin{déf} Un problème de décision $P \subseteq \Sigma^*$ est \textit{indécidable} lorsqu'il n'existe aucun algorithme $A : \Sigma^* \to \{0, 1\}$
+	tel que pour tout $x \in \Sigma^*$ : $A$ retourne 1 si et seulement si $x \in P$ en un nombre fini d'étapes.
+	\end{déf}
+
+	\begin{thm} le problème de l'arrêt est indécidable.
+	\end{thm}
+
+	\begin{proof} Par l'absurde, supposons qu'il existe un programme \texttt{HALT(C, x)} qui détermine par \texttt{C}, le code d'un programme si l'entrée
+	\texttt{X} fera s'arrêter ledit programme. On définit le programme \texttt{PARADOX(C)} par~:
+	\begin{itemize}
+		\item si \texttt{HALT(C, C)} retourne 1, alors ne jamais s'arrêter~;
+		\item sinon, retourner 0.
+	\end{itemize}
+
+	On en déduit que si \texttt{C'} est le code du programme \texttt{PARADOX}, alors l'appel \texttt{PARADOC(C')} s'arrêtera si et seulement si il
+	ne s'arrête pas, ce qui est impossible. Il n'existe donc pas de tel programme \texttt{HALT}.
+	\end{proof}
+
+	\begin{prp} Soient $P_1, P_2$ deux problèmes tels que $P_1$ est indécidable. S'il existe une réduction de $P_1$ vers $P_2$, alors $P_2$ est indécidable.
+	\end{prp}
+
+	\begin{proof} Soit $R_{12}$, une réduction du problème $P_1$ en $P_2$. $R_{12}$ associe à toute entrée $I_1$ du problème $P_1$ une entrée $I_2$ du
+	problème $P_2$ telle que $I_1$ mène à une solution pour le problème $P_1$ si et seulement si $I_2$ mène à une solution pour le problème $P_2$.
+
+	Supposons par l'absurde qu'il existe un algorithme $A$ qui décide $P_2$. Dès lors, à l'aide de la réduction, le problème $P_1$ est décidable, ce qui
+	est une contradiction. Donc il n'existe pas de tel algorithme $A$, et $P_2$ est indécidable.
+	\end{proof}
+
+	\subsection{Problème de Correspondance de Post (PCP)}
+		Soit $\Sigma = \{0, 1\}$, un alphabet, et soient $u, v \in \Sigma^*$. On définit la \textit{concaténation} $uv$ par~:
+		\[uv = (u_1, \ldots, u_{n_1}, v_1, \ldots, v_{n_2})\qquad\text{ pour } (u, v) \in \Sigma^{n_1} \times \Sigma^{n_2}, n_1, n_2 \in \N.\]
+
+		Le PCP est défini par~:
+		\begin{itemize}
+			\item[ENTRÉE~:] $n \in \N$ couples de mots sur $\Sigma$, $\{(u_i, v_i)\}_{i \in \intint 1n}$.
+			\item[SORTIE~:] 1 s'il existe $k \in \N^*$ et $(i_1, \ldots, i_k) \in \intint 1n^k$ tels que $u_{i_1}u_{i_2}\ldots u_{i_k} = v_{i_1}v_{i_2}\ldots v_{i_k}$.
+		\end{itemize}
+
+		\begin{thm} Soit $\Sigma$ un alphabet. Si $\abs \Sigma < 2$, alors $PCP(\Sigma)$ est décidable, et si $\abs \Sigma > 6$, alors $PCP(\Sigma)$ est indécidable.
+		\end{thm}
+
+		\begin{proof} Admis.
+		\end{proof}
+
+		\begin{rmq} La décidabilité de $PCP$ pour $\abs \Sigma \in \intint 26$ est un problème ouvert.
+		\end{rmq}
+
+		\begin{thm} Le problème de validité en logique du premier ordre est indécidable.
+		\end{thm}
+
+		\begin{proof} Montrons cela par réduction du PCP en validité en logique du premier ordre.
+
+		Soit $\mathcal L = \{p, f_0, f_1, a\}$, un langage du premier ordre avec $p$, une relation, $f_0$ et $f_1$ des fonctions, et $a$ une constante.
+		Soit $u \in \Sigma^*$ un mot, et soit $g \in \mathcal T$. On définit~:
+		\[t_u(g) \coloneqq \begin{cases}g &\text{ si } u=\epsilon\\\left(\bigcirc_{i=1}^{\abs u}f_{u_{\abs u+1-i}}\right)(g) &\text{ sinon}\end{cases}.\]
+
+		Soit $I = \{(u_i, v_i)\}_{i \in \intint 1n}$, une instance de $PCP(\{0, 1\})$. On définit les formules $\rho, \sigma, \tau$ comme suit~:
+		\begin{align*}
+			\rho &\equiv \bigwedge_{i=1}^np(t_{u_i}(a), t_{v_i}(a)), \\
+			\sigma &\equiv \forall x \forall y : \left(p(x, y) \Rightarrow \bigwedge_{i=1}^np(t_{u_i}(x), t_{v_i}(y))\right), \\
+			\tau &\equiv \exists z \tq p(z, z).
+		\end{align*}
+
+		On définit alors la formule $\phi_I \coloneqq (\rho \land \sigma) \Rightarrow \tau$.
+
+		Supposons qu'il existe $\{i_j\}_{j \in \intint 1k}$ pour l'entrée $I$ pour PCP, et montrons que $\phi_I$ est valide. Soit $\mathcal M$, une structure sur
+		$\mathcal L$. On suppose que $\mathcal M \models \rho \land \sigma$. On sait que~:
+		\[u \coloneqq u_{i_1}u_{i_2}\ldots u_{i_k} = v_{i_1}v_{i_2}\ldots v_{i_k} \eqqcolon v,\]
+		donc, pour $n \coloneqq \sum_{j=1}^ki_j$~:
+		\[\left(f_{u_n} \circ f_{u_{n-1}} \circ \ldots \circ f_{u_1}\right)(a) \equiv \left(f_{v_n} \circ f_{v_{n-1}} \circ \ldots \circ f_{v_1}\right)(a).\]
+
+		Notons $g$ cette valeur (qui est dans $\mathcal T$). Puisque $\mathcal M \models \rho \land \sigma$, on a en particulier $\mathcal M \models \rho$
+		et $\mathcal M \models \sigma$. Par $\rho$, on a $\forall j \in \intint 1k : t_{u_{i_j}}(a) = t_{v_{i_j}}(a)$. Par induction, et par $\sigma$, on a~:
+		\[p\left(t_{u_{i_k}}( \ldots(t_{u_{i_1}}(a))), t_{v_{i_k}}(\ldots(t_{v_{i_1}}(a)))\right) = 1,\]
+		i.e. $p(g, g)$. On en déduit $\mathcal M \models \tau$ sous l'hypothèse $\mathcal M \models \rho \land \sigma$, donc on déduit $\mathcal M \models \phi_I$.
+
+		Supposons maintenant $\phi_I$ valide et montrons que $I$ admet une solution. Soit la structure $\mathcal H = (D,~f^{\mathcal H}~=~f,~p^{\mathcal H})$
+		telle que $p^{\mathcal H}(a, a)=1$ et
+		$\forall g, h \in \mathcal T : \forall (i, j) \in \intint 1k^2 : p^{\mathcal H}(t_{u_i}(g), t_{v_j}(h)) = \delta_i^jp^{\mathcal H}(g, h)$.
+
+		Par définition de $p^{\mathcal H}$, il vient aisément que $\mathcal H \models \rho$ et $\mathcal H \models \sigma$. Par validité de $\phi_I$, il vient
+		que $\mathcal H \models \tau$, i.e. $\mathcal H \models \exists z \tq p(z, z)$.
+
+		Par définition des $t_{\cdot}(\cdot)$, il vient que $\exists k$ et que $z$ se décompose en~:
+		\[z = t_{u_{i_k}}(\ldots(t_{u_1}(a))) = t_{v_{i_k}}(\ldots(t_{v_1}(a))).\]
+		Dès lors, $u_{i_k}u_{i_{k-1}}\ldots u_{i_1} = v_{i_k}v_{i{k-1}}\ldots v_{i_1}.$
+		\end{proof}
 \end{document}
