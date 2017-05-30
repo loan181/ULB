@@ -15,6 +15,7 @@
 \usepackage{amsthm}
 \usepackage{stmaryrd}
 \usepackage{mathtools}
+\usepackage{mathrsfs}
 
 % amsthm
 \newtheorem{thm}{Théorème}[section]
@@ -37,6 +38,10 @@
 \newcommand{\logeval}[1]{\left\llbracket#1\right\rrbracket}
 \newcommand{\N}{\mathbb N}
 \newcommand{\R}{\mathbb R}
+
+\newcommand{\tq}{\text{ t.q. }}
+
+\newcommand{\NP}{\mathcal {NP}}
 
 \begin{document}
 \pagenumbering{Roman}
@@ -244,4 +249,177 @@
 	\[\phi \equiv \bigvee_{i=1}^n\left(\bigwedge_{j=1}^m\ell_{ij}\right),\]
 	avec $\ell_{ij}$ des littéraux sur $P$.
 	\end{déf}
+
+	\begin{prp} Deux formules $\phi$ et $\psi$ sur $P$ sont équivalentes si et seulement si $\logeval \phi_\cdot \equiv \logeval \psi$ sur $\{0, 1\}^P$.
+	\end{prp}
+
+	\begin{thm} Soit $\phi$ une formule sur $P$. Il existe $\phi_C$ et $\phi_D$  respectivement sous forme conjonctive et disjonctive telles que~:
+	\[\phi \equiv \phi_C \equiv \phi_D.\]
+	\end{thm}
+
+\section{Coupures}
+	\begin{déf} Une formule $\phi$ sur $P$ est une \textit{clause} si $\phi = \bot$, ou si il existe $\ell_1, \ldots, \ell_n$ littéraux
+	tels que $\phi = \bigvee_{i=1}^n\ell_i$.
+	\end{déf}
+
+	\begin{déf} Une clause $C$ est dite \textit{positive} si tous les littéraux apparaissent positivement, et est dite \textit{négative} si tous les
+	littéraux apparaissent négativement. Elle est dite \textit{tautologique} si elle contient deux littéraux complémentaires, i.e. si $\phi \equiv \top$.
+	\end{déf}
+
+	\begin{rmq} Une clause $C$ est non-satisfaisable si et seulement si $C = \bot$.
+	\end{rmq}
+
+	\begin{déf}~
+	\begin{itemize}
+		\item Un ensemble de clauses $S$ est dit \textit{satisfaisable par une valuation $V \in \{0, 1\}^P$}, noté $V \models S$ lorsque~:
+		\[\forall C \in S : V \models C~;\]
+		\item un ensemble $S$ de clauses est dit \textit{satisfaisable} s'il existe $V \in \{0, 1\}^* \tq V \models S$~;
+		\item un ensemble $S$ de clauses est dit \textit{valide} si $\forall V \in \{0, 1\}^P : V \models S$~;
+		\item une clause $C$ est dite \textit{conséquence d'un ensemble de clauses $S$} lorsque~:
+		\[\forall V \in \{0, 1\}^P : \left(V \models S \Rightarrow V \models C\right),\]
+		que l'on note $S \models C$.
+	\end{itemize}
+	\end{déf}
+
+	\begin{prp} Soient $S$ un ensemble de clauses, et $C$ une clause tautologique. $S$ est satisfaisable (resp. valide) si et seulement si $S \cup \{C\}$
+	est satisfaisable (resp. valide).
+	\end{prp}
+
+	\begin{prp} Toute formule $\phi$ sur $P$ est équivalente à un nombre fini de clauses.
+	\end{prp}
+
+	\begin{proof} Il existe $\phi_C$ telle que $\phi \equiv \phi_D$. Or $\phi_C$ est une conjonction de clauses.
+	\end{proof}
+
+	\begin{déf} Soient $C_1, C_2$ deux clauses telles qu'il existe $p$, un littéral tel que~:
+	\[C_1 = \bigvee_{i=1}^{n_1}\ell_{1i} \lor p \qquad \text{ et } \qquad C_2 = \bigvee_{i=1}^{n_2} \ell_{2i} \lor (\lnot p).\]
+
+	La règle de coupure dit que la clause $C_3 = \bigvee_{i=1}^2\bigvee_{j=1}^{n_i}\ell_{ij}$ est conséquence de $C_1$ et $C_2$, que l'on note $C_1,C_2 \vdash_p^c C_3$.
+	\end{déf}
+
+	\begin{thm} Soient $C_1, C_2, C_3$, trois clauses telles qu'il existe $p$ tel que $C_1,C_2 \vdash_p^c C_3$. $C_3$ est conséquence logique de $C_1$ et $C_2$, i.e.~:
+	\[C_1 \land C_2 \models C_3.\]
+	\end{thm}
+
+	\begin{proof} Soit $V \in \{0, 1\}^P$ telle que $V \models C_1 \land C_2$. Si $V(p) = 0$, alors $V \models C_2$. Or $V \models C_1 \land C_2$, donc il existe
+	$i \in \intint 1{n_1}$ tel que $V(\ell_{1i}) = 1$. Donc $V \models C_3$.
+
+	Idem si $V(p) = 1$, on sait que $V \models C_1$, mais puisque $V \models C_1 \land C_2$, il doit exister $i \in \intint 1{n_2}$ tel que $V(\ell_{2i}) = 1$,
+	et donc $V \models C_3$.
+	\end{proof}
+
+	\begin{déf} Soit $C = \bigvee_{i=1}^n\ell_i$, une clause, pour $\{\ell_i\}_{i \in \intint 1n}$ des littéraux. S'il existe $j, j'$ tels que
+	$j \neq j'$ et $\ell_j \equiv \ell_{j'}$, alors la règle de retrait de redondance dit~:
+	\[C \vdash_r \bigvee_{\stackrel {i \in \intint 1n}{i \neq j}}\ell_i.\]
+	\end{déf}
+
+	\begin{déf} Soient $S$, un ensemble de clauses, et $C$ une clause. Une preuve de $C$ par coupures de $S$ est une suite finie de clauses $\{C_i\}_{i \in \intint 1n}$
+	où $C_n = C$, et $\forall i \in \intint 1n$~:
+	\begin{itemize}
+		\item soit $C_i \in S$~;
+		\item soit $\exists (k, \ell) \in \intint 1n^2 \tq k < \ell < i$ et $C_k,C_\ell \vdash^c C_i$~;
+		\item soit $\exists k \in \intint 1{i-1} \tq C_k \vdash_r C_i$.
+	\end{itemize}
+
+	On note $S \vdash^c C$ le fait que $C$ soit déductible par coupure de $S$.
+	\end{déf}
+
+	\begin{thm} Soient $S$ un ensemble de clauses et $C$ une clause. Si $S \vdash^c C$, alors $S \models C$.
+	\end{thm}
+
+	\begin{déf} Une réfutation d'un ensemble de clauses $S$ par coupure est une dérivation de la clause vide à partir de $S$.
+	\end{déf}
+
+	\begin{thm} S'il existe une réfutation de $S$, un ensemble de clauses, par coupure, alors $S$ est non-satisfaisable.
+	\end{thm}
+
+	Afin de prouver $\psi_1, \ldots, \psi_n \models \phi$ pour $\{\psi_i\}_{i \in \intint 1n}$ et $\phi$ des formules sur $R$, on construit $S$
+	l'ensemble de clauses équivalent à $\bigwedge_{i=1}^n\psi_i$, et $S'$ l'ensemble de clauses équivalent à $\lnot \phi$. Pour $D$ l'ensemble
+	des clauses dérivables depuis $S \cup S'$, si $\bot \in D$, alors $\bigwedge_{i=1}^n\psi_i \land \lnot \phi$ est non-satisfaisable, et donc~:
+	\[\psi_1, \ldots, \psi_n \models \phi.\]
+
+	\begin{thm} Si un ensemble de clauses $S$ est non-satisfaisable, alors il existe une réfutation finie de $S$ par coupure.
+	\end{thm}
+
+	Un SAT-solver est un programme qui décide le problème SAT. Si son entrée $S$ est satisfaisable, il retourne une valuation qui la satisfait.
+
+	Le problème SAT est $\NP$-complet, donc il est pensé qu'il n'existe pas d'algorithme de résolution en temps polynomial.
+
+\section{DPLL}
+	DPLL est un algorithme de résolution du problème SAT.
+
+	\begin{déf} Une valuation partielle est une assignation arbitraire d'un littéral $x$ à 0 ou 1, noté $x/1$ ou $x/0$.
+	\end{déf}
+
+	Pour $C$ une clause, $x$ un littéral de $C$ et $b \in \{0, 1\}$, une valuation partielle de la clause $C$, notée $C[x/b]$ est obtenue par~:
+	\begin{itemize}
+		\item si $C$ ne contient ni $x$ ni $\lnot x$, alors $C[x/b] = C$~;
+		\item si $C \in \{x, \lnot x\}$, alors $C[x/b] =
+			\begin{cases}\top &\text{ si } \left(C = x \text{ et } b = 1\right) \text{ ou } \left(C =\lnot x \text{ et } b = 0\right) \\ \bot &\text{ sinon}\end{cases}$~;
+		\item si $C$ contient $x$ et $b=1$ ou si $C$ contient $\lnot x$ et $b=0$, alors $C = \top$~;
+		\item sinon on retire les occurrences de $x$ ou $\lnot x$ de $C$.
+	\end{itemize}
+
+	Donc pour $\phi = \bigwedge_{i=1}^nC_i$, on définit~:
+	\[\phi[x/b] = \bigwedge_{i=1}^nC_i[x/b] = \bigwedge_{\stackrel {i \in \intint 1n}{C_i[x/b] \neq \top}}C_i[x/b].\]
+
+	On remarque donc que s'il existe $i \in \intint 1n$ tel que $C_i[x/b] = \bot$, alors $\phi[x/b] = \bot$, et si $\forall i \in \intint 1n : C_i[x/b] = \top$,
+	alors $\phi[x/b]=\top$.
+
+	De plus, $\phi[x/b]$ est une formule sur $P \setminus \{x\}$, donc on peut lui réappliquer une valuation partielle $y/b'$.
+
+	L'algorithme DPLL fonctionne par valuation partielles sur un littéral (appelé \textit{pivot}) et teste récursivement jusqu'à déterminer une valuation
+	qui satisfait la clause.
+
+	\begin{déf} Une clause $C$ est dite \textit{unitaire} si $C = x$ ou $C = \lnot x$.
+	\end{déf}
+
+	\begin{rmq} Une clause unitaire force le choix du pivot, et de sa valuation. De plus, après valuation partielle, une clause peut devenir une clause unitaire.
+	Les SAT-solvers font donc de la \textit{propagation de clauses unitaires}.
+	\end{rmq}
+
+	Également, si un littéral apparait toujours positivement (ou négativement) dans les clauses, alors il est possible de les éliminer du problème par valuation
+	partielle à 0 si négatif, et 1 si positif. Le procédé DPLL peut donc être exprimé comme suit~:
+	\begin{enumerate}
+		\item Si $\phi = \top$, retourner 1 et si $\phi = \bot$, retourner 0.
+		\item Si $\phi$ contient une clause unitaire $C_1$, retourner
+			$\begin{cases}DPLL(\phi[x/1]) &\text{ si } C_1 = x \\DPLL(\phi[x/0]) &\text{ si } C_1 = \lnot x\end{cases}$.
+		\item Si $\phi$ contient un littéral $x$ de polarité constante $\pi$, alors retourner
+			$\begin{cases}DPLL(\phi[x/1]) &\text{ si } \pi=+\\DPLL(\phi[x/0]) &\text{ si } \pi=-\end{cases}$.
+			\item Sinon, choisir un littéral $x$ au hasard, et renvoyer $DPLL(\phi[x/0]) \lor DPLL(\phi[x/1])$.
+	\end{enumerate}
+
+	\subsection{Transformation de Tseitin}
+		Lorsqu'une formule n'est pas simple à mettre sous FNC (e.g. si elle est sous FND), on peut lui appliquer la transformation de Tseitin.
+		Soit $\phi \equiv \bigwedge_{i=1}^nC_i$, une formule sous FND, avec les $C_i$, des conjonctions de littéraux. Sa transformation de Tseitin
+		donne~:
+		\[\psi \coloneqq \mathscr T(\phi) \equiv \left(\bigvee_{i=1}^nx_i\right) \land \left(\bigwedge_{i=1}^n\left(x_i \Leftrightarrow C_i\right)\right).\]
+
+		le but est donc d'ajouter de nouvelles variables $x_i$, en les forçant à être équivalentes aux clauses $C_i$.
+
+		Une fois la transformation appliquée, il est facile de la mettre sous FNC. Pour $C_i \equiv \bigwedge_{j=1}^{n_i}\ell_{ij}$~:
+		\begin{align*}
+			x_i \Leftrightarrow C_i &\equiv (x_i \Rightarrow C_i) \land (C_i \Rightarrow x_i) \\
+			&\equiv \left(\lnot x_i \lor \bigwedge_{j=1}^{n_i}\ell_{ij}\right) \land \left(\bigvee_{j=1}^{n_i}\lnot \ell_{ij} \lor x_i\right) \\
+			&\equiv \bigwedge_{j=1}^{n_i}(\lnot x_i \lor \ell_{ij}) \land \left(\bigvee_{j=1}^{n_i}\ell_{ij} \lor x_i\right).
+		\end{align*}
+
+	\subsection{Contrainte exactement une}
+		Afin d'encoder la contrainte \textit{exactement une parmi $n$}, la solution naïve est~:
+		\[\left(\bigvee_{i=1}^nx_i\right) \land \bigwedge_{i=1}^n\bigwedge_{j=i+1}^n(\lnot x_i \lor \lnot x_j).\]
+		Cela fait $1+n(n-1)/2$ contraintes. Si $n=2^k$, une solution plus intéressante est d'introduire les variables $\{b_i\}_{i \in \intint 1k}$, et d'introduire
+		la notation $\overline {\alpha_1\ldots\alpha_k} = \overline {i-1}$ pour la représentation binaire de $i-1$. On peut alors exprimer~:
+		\[\left(\bigvee_{i=1}^nx_i\right) \land \bigwedge_{i=1}^n(x_i \Rightarrow B_i),\]
+		avec $B_i$ défini pour $i \in \intint 1n$ comme étant~:
+		\[B_i = \bigwedge_{j=1}^k\ell_{ij},\]
+		pour $\ell_{ij} = \begin{cases}b_j &\text{ si }\alpha_j = 1 \\\lnot b_j&\text{ sinon}\end{cases}$. Puisque~:
+		\[\bigwedge_{i=1}^n(x_i \Rightarrow B_i) \equiv \bigwedge_{i=1}^n\bigwedge_{j=1}^k(\lnot x_i \lor \ell_{ij}),\]
+		cela fait descendre le nombre de contraintes à $1+nk = 1+n\log_2(n)$. L'idée est d'utiliser l'unicité de la représentation binaire d'un nombre pour garantir
+		qu'une seule des variables est assignée positivement.
+
+		Dès lors, si $V : \{0, 1\}^{\{x_i\}_{i \in \intint 1n} \cup \{b_i\}_{i \in \intint 1k}} \to \{0, 1\}$ est une solution, alors $\abs {V^{-1}(\{1\})} = 1$.
+
+		Un principe souvent valable pour les SAT-solvers est qu'il est préférable d'ajouter des variables afin de minimiser le nombre de clauses.
+
+\section{Complexité}
 \end{document}
