@@ -43,8 +43,6 @@
 
 \newcommand{\NP}{\mathcal {NP}}
 
-\newcommand{\automaton}{(Q, \Sigma, \delta, q_0, F)}
-
 \DeclareMathOperator{\ExpTime}{ExpTime}
 
 \begin{document}
@@ -172,7 +170,7 @@
 
 	\begin{itemize}
 		\item $\frac {\phi \quad \psi}{\phi \land \psi}\land_i$ se lit \textit{si $\phi$ et si $\psi$, alors $\phi$ et $\psi$}~;
-		\item $\frac {\phi \land \psi}{\psi}\land_{e_1}$ se lit \textit{si $\phi$ et $\psi$, alors en particulier $\psi$}.
+		\item $\frac {\phi \land \psi}{\phi}\land_{e_1}$ se lit \textit{si $\phi$ et $\psi$, alors en particulier $\phi$}.
 	\end{itemize}
 
 	De même pour $\land_{e_2}$, et $\lor_i$. La double négation fonctionne également par introduction et élimination.
@@ -197,7 +195,7 @@
 	De manière plus générale, si en faisant l'hypothèse $\phi$, on arrive à la conclusion $\psi$, pour $\phi, \psi$ deux formules sur $P$, alors~:
 	\[\frac {\begin{tabular}{l l}$\phi$ & \text{hyp.}\\\vdots & \\$\psi$ & \text{fin hyp.}\end{tabular}}{\phi \Rightarrow \psi}\Rightarrow_i\]
 
-	\begin{rmq} Les prémisses et les hypothèses sont fondamentalement différentes~! Une hypothèse peut être émise même sans hypothèse, e.g.~:
+	\begin{rmq} Les prémisses et les hypothèses sont fondamentalement différentes~! Une hypothèse peut être émise même sans prémisse, e.g.~:
 
 	\begin{tabular}{l l l}
 	1. & $p$ & hyp. \\
@@ -433,14 +431,7 @@
 	\begin{déf} Tout alphabet permet de former un mot commun appelé le \textit{mot vide}, noté $\epsilon$.
 	\end{déf}
 
-	\begin{déf} Soient $\Sigma$ un alphabet, $a \in \Sigma$ et $n \in \N$. On définit $a^n \coloneqq \underbrace {aa\ldots a}_{n}$, le mot composé de $n$ fois la
-	lettre $a$.
-	\end{déf}
-
-	\begin{déf} Un \textit{langage} sur un alphabet est un sous-ensemble $L \subseteq \Sigma^*$.
-	\end{déf}
-
-	\begin{déf} Le \textit{complément} d'un langage $L$ sur un alphabet $\Sigma$ est donné par $\overline L \coloneqq \Sigma^* \setminus L$.
+	\begin{déf} Un langage sur un alphabet est un sous-ensemble $L \subseteq \Sigma^*$.
 	\end{déf}
 
 	Un problème de décision est un langage $P$ sur un alphabet $\Sigma$. On peut alors définir~:
@@ -517,8 +508,7 @@
 	\begin{rmq} Notons que les prédicats ne fournissent pas de termes.
 	\end{rmq}
 
-	\begin{déf} l'ensemble des formules atomiques $\mathcal A$ d'un langage du premier ordre $\mathcal L$ est le plus petit ensemble (au sens de l'inclusion)
-	des formules sur $\mathcal L$ telles que~:
+	\begin{déf} l'ensemble des formules atomiques $\mathcal A$ d'un langage du premier ordre $\mathcal L$ est l'ensemble des formules sur $\mathcal L$ telles que~:
 	\begin{itemize}
 		\item pour tout prédicat $p$ d'arité $n$ du vocabulaire de $\mathcal L$~:
 		\[\forall (t_1, \ldots, t_n) \in \mathcal T^n : p(t_1, \ldots, t_n) \in \mathcal A~;\]
@@ -691,261 +681,4 @@
 		\[z = t_{u_{i_k}}(\ldots(t_{u_1}(a))) = t_{v_{i_k}}(\ldots(t_{v_1}(a))).\]
 		Dès lors, $u_{i_k}u_{i_{k-1}}\ldots u_{i_1} = v_{i_k}v_{i{k-1}}\ldots v_{i_1}.$
 		\end{proof}
-
-\section{Automates finis}
-	\begin{déf} Un automate fini déterministe (ou DFA pour \textit{deterministic finite automaton}) est défini par un 5-uple $(Q, \Sigma, \delta, q_0, F)$ où~:
-	\begin{itemize}
-		\item $Q$ est un ensemble fini d'\textit{états}~;
-		\item $\Sigma$ est un alphabet~;
-		\item $\delta : Q \times \Sigma \to Q$ est une \textit{fonction de transition}~;
-		\item $q_0 \in Q$ est l'\textit{état initial}~;
-		\item $F \subseteq Q$ est l'ensemble des \textit{états finaux}.
-	\end{itemize}
-	\end{déf}
-
-	\begin{rmq} La fonction $\delta$ n'est pas nécessairement complète, i.e. il peut exister un couple $(q, a) \in Q \times \Sigma$ tel que $\delta(q, a)$ n'est
-	pas défini. Dans ce cas, on complète la fonction $\delta$ en ajoutant $q_{-1}$ à $Q \setminus F$, un état dit \textit{mort} tel que~:
-	\begin{itemize}
-		\item $\forall a \in \Sigma : \delta(q_{-1}, a) = q_{-1}$~;
-		\item $\forall (q, a) \in Q \times \Sigma \tq \delta(q, a)$ n'est pas défini, on pose $\delta(q, a) \coloneqq q_{-1}$.
-	\end{itemize}
-
-	L'état $q_{-1}$ est donc un état non-final dont il est impossible de \textit{sortir}.
-	\end{rmq}
-
-	\begin{déf} Un automate $\mathcal A = \automaton$ est dit \textit{complet} si sa fonction de transition $\delta$ est complète.
-	\end{déf}
-
-	On étend la définition de la fonction $\delta$ en $\hat \delta : Q \times \Sigma^* \to Q$ tel que~:
-	\begin{itemize}
-		\item $\forall q \in Q : \hat \delta(q, \epsilon) = q$~;
-		\item $\forall (q, u, a) \in Q \times \Sigma^* \times \Sigma : \hat \delta(q, ua) = \hat \delta(\delta(q, u), a)$.
-	\end{itemize}
-
-	\begin{déf} Un mot $u \in \Sigma^*$ est dit \textit{admissible} (ou encore \textit{accepté} ou \textit{reconnu}) par un automate\\
-	$\mathcal A = \automaton$ lorsque~:
-	\[\hat \delta(q_0, u) \in F,\]
-	i.e. lorsque l'exécution de $\mathcal A$ sur le mot $u$ finit sur un état final.
-	\end{déf}
-
-	\begin{déf} Soit $\mathcal A = \automaton$ un DFA. On définit le \textit{langage accepté} (ou \textit{langage reconnu}) par $\mathcal A$ par~:
-	\[L(\mathcal A) \coloneqq \left\{u \in \Sigma^* \tq \hat \delta(q_0, u) \in F\right\}.\]
-	\end{déf}
-
-	\begin{déf} Soient $\Sigma$ un alphabet, et $L \subseteq \Sigma^*$, un langage sur $\Sigma$. $L$ est dit \textit{reconnaissable par un automate}
-	lorsqu'il existe $\mathcal A = \automaton$ tel que $L(\mathcal A) = L$.
-	\end{déf}
-
-	\begin{rmq} Les DFAs forment la plus petite classe de \textit{machines} avec lesquelles il est possible d'étudier la théorie de la calculabilité (décidabilité,
-	déterminisme, etc.)
-
-	De par leur simplicité, certains problèmes indécidables pour les machines de Turing deviennent décidables pour les DFAs, e.g. minimalité du nombre d'états
-	d'un DFA pour un langage reconnu donné, égalité des langages reconnus entre deux automates, etc.
-	\end{rmq}
-
-	\begin{lem}\label{lem:complétion} Soit un automate $\mathcal A = \automaton$ non-complet. La prolongation $\bar \delta$ de $\delta$ ci-dessus donne un automate
-	$\mathcal B = (Q \cup \{q_{-1}\}, \Sigma, \bar \delta, q_0, F)$ tel que $\mathcal B$ est complet, et $L(\mathcal A) = L(\mathcal B)$.
-	\end{lem}
-
-	\begin{déf} Soit $\mathcal A = \automaton$ un automate. Un état $q \in Q$ est dit \textit{atteignable} lorsqu'il existe $u \in \Sigma^*$ tel que
-	$\hat \delta(q_0, u) = q$.
-	\end{déf}
-
-	\begin{déf} On appelle \textit{transition} dans un automate $\mathcal A = \automaton$ une lettre $a \in \Sigma$ telle que $\exists q \in Q $ et $\delta(q, a)$
-	est défini.
-	\end{déf}
-
-	\begin{thm}\label{thm:langage vide} Soit $\mathcal A = \automaton$. On peut tester si $L(\mathcal A) = \emptyset$ en $O(n + m)$, avec $n = \abs Q$ et $m$
-	le nombre de transitions de $\mathcal A$.
-	\end{thm}
-
-	\begin{déf} On appelle \textit{pré-automate} un triplet $(Q, \Sigma, \delta, q_0)$, où $Q$ est un ensemble fini d'états, $\Sigma$ un alphabet, $\delta$
-	une fonction de transition, et $q_0 \in Q$, un état initial.
-	\end{déf}
-
-	\begin{rmq} Un automate est donc un pré-automate avec des états finaux.
-	\end{rmq}
-
-	\begin{déf} Soient $\mathcal A = (Q_A, \Sigma, \delta_A, q_{0,A}, F_A)$ et $\mathcal B = (Q_B, \Sigma, \delta_B, q_{0,B}, F_B)$ deux automates
-	sur un même alphabet. On définit leur produit par le pré-automate~:
-	\[\mathcal A \otimes \mathcal B = (Q_A \times Q_B, \Sigma, \delta_{AB}, (q_{0,A}, q_{0,B})),\]
-	avec $\delta_{AB} : (Q_A \times Q_B) \times \Sigma$ telle que $\forall (q_A, q_B, a) \in Q_A \times Q_B \times \Sigma$ tels que
-	$\delta_A(q_A, a)$ et $\delta_B(q_B, a)$ sont définis, $\delta_{AB}$ est définie par $\delta_{AB}((q_A, q_B), a) = (\delta_A(q_A, a), \delta_B(q_B, a))$.
-	\end{déf}
-
-	Une signification que l'on peut donner à un tel automate est qu'il exécute simultanément l'automate $\mathcal A$ et l'automate $\mathcal B$
-	sur leur automate produit. Remarquons que la notion d'exécution ne fait pas intervenir la notion d'état final, et qu'elle est donc définie sur les
-	pré-automates également.
-
-	\begin{thm}\label{thm:dérivation automates} Soient $\mathcal A_1, \mathcal A_2$ deux DFAs. Il existe $\overline {\mathcal A_1}, \mathcal A_U, \mathcal A_I$,
-	trois DFAs tels que~:
-	\begin{align*}
-		L(\overline {\mathcal A_1}) &= \overline {L(\mathcal A_1)}, \\
-		L(\mathcal A_U) &= L(\mathcal A_1) \cup L(\mathcal A_2), \\
-		L(\mathcal A_I) &= L(\mathcal A_1) \cap L(\mathcal A_2).
-	\end{align*}
-	\end{thm}
-
-	\begin{proof} Pour le complément, on prend $\mathcal A_1 = \automaton$, que l'on suppose complet sans perte de généralité (Lemme~\ref{lem:complétion}), et
-	on définit $\overline {\mathcal A_1} \coloneqq (Q, \Sigma, \delta, q_0, Q \setminus F)$. On en déduit qu'un mot $u \in \Sigma^*$ est admissible par $\mathcal A_1$
-	si et seulement il n'est pas admissible par $\overline {\mathcal A_1}$.
-
-	À nouveau, on suppose $\mathcal A_1$ et $\mathcal A_2$ complets. On pose ensuite le pré-automate $\mathcal A_P = \mathcal A_1 \otimes \mathcal A_2$. Pour
-	l'automate d'union, on définit que l'automate $\mathcal A_U$ correspond à $\mathcal A_P$ muni de l'ensemble d'états finaux
-	$F_U = (F_1 \times Q_2) \cup (Q_1 \times F_2) \subseteq Q_A \times Q_B$, et pour l'automate d'intersection, on définit que l'automate $\mathcal A_I$
-	correspond à $\mathcal A_P$ muni de l'ensemble d'états finaux $F_I = F_1 \times F_2 \subseteq Q_A \times Q_B$.
-	\end{proof}
-
-	\begin{déf} Deux automates $\mathcal A = (Q_A, \Sigma, \delta_A, q_0^A, F_A)$ et $\mathcal B = (Q_B, \Sigma, \delta_B, q_0^B, F_B)$ sont dits \textit{isomorphes}
-	s'il existe $\alpha : Q_A \to Q_B$ bijective telle que~:
-	\[\forall (q_A, a) \in Q_A \times \Sigma : \alpha(\delta_A(q_A, a)) = \delta_B(\alpha(q_A), a).\]
-	\end{déf}
-
-	\begin{déf} Deux automates $\mathcal A$ et $\mathcal B$ sont dits \textit{équivalents} lorsque $L(\mathcal A) = L(\mathcal B)$.
-	\end{déf}
-
-	\begin{thm} Pour deux automates $\mathcal A$ et $\mathcal B$, il est décidable en temps polynomial si $L(\mathcal A) \subseteq L(\mathcal B)$.
-	\end{thm}
-
-	\begin{proof} Remarquons que pour deux ensembles $E$ et $F$, on a $E \subseteq F \iff E \cap \overline F = \emptyset$. Dans le cas des automates, on veut
-	donc savoir si $L(\mathcal A) \cap L(\overline {\mathcal B}) = \emptyset$. Or on sait par le Théorème~\ref{thm:dérivation automates} qu'il est possible, en
-	temps polynomial, de déterminer un automate étant le complémentaire d'un autre, et de déterminer un automate dont le langage est l'intersection de deux autres.
-
-	Par le Théorème~\ref{thm:langage vide}, on peut déterminer en temps linéaire si un automate est de langage vide.
-
-	On peut donc décider en temps polynomial si deux automates ont le même langage reconnu.
-	\end{proof}
-
-	\begin{cor} Il est donc décidable en temps polynomial si deux automates sont équivalents.
-	\end{cor}
-
-	\begin{proof} Deux automates $\mathcal A$ et $\mathcal B$ sont équivalents si $L(\mathcal A) = L(\mathcal B)$. Ils le sont donc si et seulement si
-	$L(\mathcal A) \subseteq L(\mathcal B)$ et $L(\mathcal B) \subseteq L(\mathcal A)$.
-	\end{proof}
-
-	\begin{déf} Un automate $\mathcal A = \automaton$ est dit \textit{minimal} s'il n'existe pas d'automate $\mathcal B = (Q', \Sigma, \delta', q_0', F')$
-	tel que $L(\mathcal A) = L(\mathcal B)$ et $\abs {Q'} \lneqq \abs Q$.
-	\end{déf}
-
-	\begin{déf} Soient $\Sigma$ un alphabet, $L \subseteq \Sigma^*$ un langage, et $u, v \in \Sigma^*$. $u$ et $v$ sont dits \textit{équivalents pour $L$}
-	lorsque~:
-	\[\forall w \in \Sigma^* : uw \in L \iff vw \in L.\]
-
-	On note cela $u \equiv_L v$.
-	\end{déf}
-
-	\begin{prp} Soient $\Sigma$ un alphabet, $L \subseteq \Sigma^*$ un langage, et $u, v \in \Sigma^*$ deux mots équivalents sur $L$.
-	Alors pour tout automate minimal $\mathcal A = \automaton$ tel que $L(\mathcal A) = L$, $\hat \delta(q_0, u) = \hat \delta(q_0, v)$.
-	\end{prp}
-
-	\begin{prp} Pour $L \subseteq \Sigma^*$, un langage sur un alphabet $\Sigma$, la relation $\equiv_L$ est une relation d'équivalence.
-	\end{prp}
-
-	\begin{thm}[Myhill-Nerode] Soient $\Sigma$ un alphabet et $L \subseteq \Sigma^*$ un langage sur $\Sigma$. $L$ est reconnaissable par un automate si et
-	seuelement si $\abs {\Sigma^* / \equiv_L} \in \N$.
-	\end{thm}
-
-	\begin{lem}\label{lem:mots équivalents -> concaténations équivalentes} Soient $\Sigma$ un alphabet, $L \subseteq \Sigma^*$ un langage sur $\Sigma$. Alors~:
-	\[\forall (u, v, a) \in \Sigma^* \times \Sigma^* \times \Sigma : u \equiv_L v \Rightarrow ua \equiv_L va.\]
-	\end{lem}
-
-	\begin{proof} Par associativité de la concaténation, on a~:
-	\[\forall (u, a, w) \in \Sigma^* \times \Sigma \times \Sigma^* : uaw = (ua)w = u(aw).\]
-
-	Dès lors, soient $u, v$ équivalents pour $L$, et soient $(a, w) \in \Sigma \times \Sigma^*$. On a, pour $x \coloneqq aw$~:
-	\[uaw = ux = \in L \iff L \ni vx = vaw.\]
-
-	Donc $ua \equiv_L va$.
-	\end{proof}
-
-	\begin{déf} Soient $\Sigma$ un alphabet, et $L \subseteq \Sigma^*$ un langage reconnaissable par un automate. On définit l'automate quotient
-	$\mathcal A_L = (Q_L, \Sigma, \delta_L, q_0, F_L)$, où~:
-	\begin{itemize}
-		\item $Q_L = \Sigma^* / \equiv_L$~;
-		\item $\delta : Q_L \times \Sigma$ est définie par $\forall ([u], a) \in Q_L \times \Sigma : \delta([u], a) = [ua]$~;
-		\item $q_0 = [\epsilon] \in Q_L$~;
-		\item $F_L = \left\{[u] \tq u \in L\right\}$.
-	\end{itemize}
-	\end{déf}
-
-	\begin{rmq} l'automate est bien défini car $Q_L$ est bien fini par le théorème de Myhill-Nerode, et $\delta_F$ est bien définie par le
-	Lemme~\ref{lem:mots équivalents -> concaténations équivalentes}.
-	\end{rmq}
-
-	\begin{thm} Soient $\Sigma$ un alphabet et $L \subseteq \Sigma^*$ un langage sur $\Sigma$. L'automate quotient $\mathcal A_L$ est minimal et
-	est unique, à isomorphisme près.
-	\end{thm}
-
-	\begin{déf} Soit $\mathcal A = \automaton$, un DFA complet. Pour $q \in Q$, on note~:
-	\[L_q(\mathcal A) \coloneqq \{u \in \Sigma^* \tq \delta(q, u) \in F\}.\]
-
-	pour toute paire $(p, q) \in Q^2$, on note $p \equiv_{\mathcal A} q$ lorsque $L_p(\mathcal A) = L_q(\mathcal A)$.
-	\end{déf}
-
-	\begin{rmq} La relation $\equiv_A$ étant une relation d'égalité est une relation d'équivalence.
-	\end{rmq}
-
-	\begin{prp}\label{prp:états équivalents -> transitions équivalentes} Soient $\mathcal A = \automaton$, un DFA, et $p, q \in Q$. Alors~:
-	\[\forall a \in \Sigma : p \equiv_{\mathcal A} q \Rightarrow \delta(p, a) \equiv_{\mathcal A} \delta(q, a).\]
-	\end{prp}
-
-	\begin{proof} Si $p \equiv_{\mathcal A} q$, alors $L_p(\mathcal A) = L_q(\mathcal A)$. On pose $p' \coloneqq \delta(p, a)$ et $q' \coloneqq \delta(q, a)$.
-	Soit $w \in L_{p'}(\mathcal A)$. On en déduit que $aw \in L_p(\mathcal A)$, et donc $aw \in L_q(\mathcal A)$ et $w \in L_{q'}(\mathcal A)$. La réciproque
-	se fait de la même manière, et on a donc bien $p' \equiv_{\mathcal A} q'$.
-	\end{proof}
-
-	\begin{prp} Soit $\mathcal A = \automaton$ un automate complet. Alors~:
-	\[\forall u, v \in \Sigma^* : u \equiv_{L(\mathcal A)} v \iff \delta(q_0, u) \equiv_{\mathcal A} \delta(q_0, v).\]
-	\end{prp}
-
-	\begin{proof} Supposons que $u \equiv_{L(\mathcal A)} v$. Soient $p \coloneqq \delta(q_0, u)$ et $q \coloneqq \delta(q_0, v)$, et montrons que
-	$L_p(\mathcal A) = L_q(\mathcal A)$.
-
-	Soit $w \in L_p(\mathcal A)$. On a alors $F \ni \delta(p, w) = \delta(\delta(q_0, u), w) = \delta(q_0, uw)$, et donc $uw \in L(\mathcal A)$.
-	Par hypothèse, on déduit que $vw \in L(\mathcal A)$. Donc $F \ni \delta(q_0, vw) = \delta(q, w)$, d'où $w \in L_q(\mathcal A)$. On en déduit que
-	$L_p(\mathcal A) \subseteq L_q(\mathcal A)$. Le raisonnement pour montrer que $L_q(\mathcal A) \subseteq L_p(\mathcal A)$ est le même, et on en conclut que
-	$L_p(\mathcal A) = L_q(\mathcal A)$.
-
-	Supposons ensuite que $p = \delta(q_0, u) \equiv_{\mathcal A} \delta(q_0, v) = q$. Par définition, on déduit que $L_p(\mathcal A) = L_q(\mathcal A)$.
-	Montrons alors que $u \equiv_{L(\mathcal A)} v$. Soit $w \in \Sigma^*$ tel que $uw \in L(\mathcal A)$. On déduit de la même manière que précédemment que
-	$w \in L_p(\mathcal A) = L_q(\mathcal A)$, donc $w \in L_q(\mathcal A)$, et $vw \in L(\mathcal A)$. Finalement, on en déduit que~:
-	\[\forall w \in \Sigma^* : uw \in L(\mathcal A) \Rightarrow vw \in L(\mathcal A).\]
-
-	la réciproque se démontre de la même manière, et l'on déduit que $u \equiv_{L(\mathcal A)} v$.
-	\end{proof}
-
-	\begin{cor} Il existe une bijection $\phi : \Sigma^* / \equiv_{L(\mathcal A)} \to Q / \equiv_{\mathcal A} : [u] \mapsto [\delta(q_0, u)]$.
-	\end{cor}
-
-	L'automate minimal équivalent à $\mathcal A = \automaton$ est alors donné par~:
-	\[\mathcal B = (Q / \equiv_{\mathcal A}, \Sigma, \delta', [q_0], \{[q] \tq q \in F\}),\]
-	pour $\delta' : Q / \equiv_{\mathcal A} \times \Sigma \to Q / \equiv_{\mathcal A} : ([q], a) \mapsto [\delta(q, a)]$.
-
-	On remarque que la fonction $\delta'$ est bien définie car elle ne dépend pas du représentant de la classe d'équivalence ().
-
-	\begin{déf} Soit $\Sigma$ un alphabet. Une \textit{expression rationnelle} sur $\Sigma$ est une expression qui suit la grammaire~:
-	\[E ::= \epsilon \mid a \mid \emptyset \mid (E+E) \mid (E.E) \mid E*,\]
-	pour $a \in \Sigma$.
-	\end{déf}
-
-	\begin{déf} Soient $\Sigma$ un alphabet et $L_1, L_2$ deux langages sur $\Sigma$. On définit~:
-	\begin{align*}
-		L_1 \cdot L_2 &\coloneqq \left\{u_1u_2 \tq (u_1, u_2) \in L_1 \times L_2\right\}\\
-		L_1^* &\coloneqq \left\{u_1\ldots u_k \tq k \in \N \text{ et } \forall i \in \intint 1k : u_i \in L\right\}.
-	\end{align*}
-	\end{déf}
-
-	\begin{déf} La sémantique d'une expression rationnelle sur un alphabet $\Sigma$ est donnée par un langage $L(E)$ défini inductivement par~:
-	\begin{itemize}
-		\item $L(\epsilon) = \{\epsilon\}$~;
-		\item $\forall a \in \Sigma : L(a) = \{a\}$~;
-		\item $L(\emptyset) = \emptyset$~;
-		\item $L(E_1 + E_2) = L(E_1) \cup L(E_2)$~;
-		\item $L(E_1\cdot E_2) = L(E_1)\cdot L(E_2)$~;
-		\item $L(E^*) = L(E)^*$.
-	\end{itemize}
-	\end{déf}
-
-	\begin{thm} Tout langage $L$ sur un alphabet $\Sigma$ est reconnaissable par un automate si et seulement si il est définissable par une expression rationnelle.
-	\end{thm}
 \end{document}
