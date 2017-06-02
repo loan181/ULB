@@ -36,6 +36,10 @@ Les résumés disponibles sont les suivants :
 + [INFO-F-303 : Réseaux, information et communication](https://github.com/RobinPetit/ULB/blob/master/INFOF-303/r%C3%A9sum%C3%A9/Th%C3%A9orie%20de%20l'information/r%C3%A9sum%C3%A9.pdf) ;
 + [INFO-F-305 : Modélisation et simulation](https://github.com/RobinPetit/ULB/blob/master/INFOF-305/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**).
 
+### Q2
+
++ [INFO-F-302 : Informatique fondamentale](https://github.com/RobinPetit/ULB/blob/master/INFOF-302/r%C3%A9sum%C3%A9/r%C3%A9sum%C3%A9.pdf) (**complet**).
+
 ## Mathématique
 
 ### BA1 Mathématique
